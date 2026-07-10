@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draft Demo Data"
+  short_description: "Prepare draft demo source data"
+  default_prompt: "Use $prepare-draft-demo-data to prepare a draft-year demo dataset and run the local ETL/demo workflow."
