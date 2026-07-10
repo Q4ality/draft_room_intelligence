@@ -134,7 +134,8 @@ Before presenting the demo, confirm:
 As of July 10, 2026:
 
 - the repo has a working demo export pipeline
-- the repo does not appear to contain a real 2025 draft dataset yet
-- the strongest local raw data found nearby is still 2019
+- the repo has a generated 2025 demo dataset under `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/final`
+- the latest demo shell is available under `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats`
+- the dataset covers the full drafted class, but evidence depth is still thin for many players
 
-That means the next gating item for a 2025 business demo is source collection, not more feature engineering.
+That means the next gating item for a stronger 2025 business demo is broader source coverage, not more feature engineering.

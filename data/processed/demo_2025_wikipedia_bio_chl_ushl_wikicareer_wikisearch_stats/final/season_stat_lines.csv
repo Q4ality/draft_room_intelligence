@@ -252,3 +252,49 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-219-ryan-rucinski,2024-25,USHL,YNG,3,3,0,3,,pre_draft,false,ushl,10143,https://ushl.com/ht/#/player/10143/87/Ryan%20Rucinski
 2025-223-aidan-park,2024-25,USHL,GB,55,33,33,66,,pre_draft,true,ushl,10017,https://ushl.com/ht/#/player/10017/85/Aidan%20Park
 2025-223-aidan-park,2024-25,USHL,GB,2,2,1,3,,pre_draft,false,ushl,10017,https://ushl.com/ht/#/player/10017/87/Aidan%20Park
+2025-001-matthew-schaefer,2024-25,OHL,Erie Otters,17,7,15,22,,pre_draft,true,wikipedia-career,Matthew Schaefer,https://en.wikipedia.org/wiki/Matthew_Schaefer
+2025-002-michael-misa,2024-25,OHL,Saginaw Spirit,65,62,72,134,,pre_draft,true,wikipedia-career,Michael Misa,https://en.wikipedia.org/wiki/Michael_Misa
+2025-002-michael-misa,2024-25,OHL,Saginaw Spirit,4,2,1,3,,pre_draft,false,wikipedia-career,Michael Misa,https://en.wikipedia.org/wiki/Michael_Misa
+2025-003-anton-frondell,2024-25,Sweden Jrs.,Djurgårdens IF,10,5,2,7,,pre_draft,true,wikipedia-career,Anton Frondell,https://en.wikipedia.org/wiki/Anton_Frondell
+2025-004-caleb-desnoyers,2024-25,QMJHL,Moncton Wildcats,56,35,49,84,,pre_draft,true,wikipedia-career,Caleb Desnoyers,https://en.wikipedia.org/wiki/Caleb_Desnoyers
+2025-004-caleb-desnoyers,2024-25,QMJHL,Moncton Wildcats,19,9,21,30,,pre_draft,false,wikipedia-career,Caleb Desnoyers,https://en.wikipedia.org/wiki/Caleb_Desnoyers
+2025-005-brady-martin,2024-25,OHL,Sault Ste. Marie Greyhounds,57,33,39,72,,pre_draft,true,wikipedia-career,Brady Martin,https://en.wikipedia.org/wiki/Brady_Martin
+2025-005-brady-martin,2024-25,OHL,Sault Ste. Marie Greyhounds,5,2,2,4,,pre_draft,false,wikipedia-career,Brady Martin,https://en.wikipedia.org/wiki/Brady_Martin
+2025-006-porter-martone,2024-25,OHL,Brampton Steelheads,57,37,61,98,,pre_draft,true,wikipedia-career,Porter Martone,https://en.wikipedia.org/wiki/Porter_Martone
+2025-006-porter-martone,2024-25,OHL,Brampton Steelheads,6,4,5,9,,pre_draft,false,wikipedia-career,Porter Martone,https://en.wikipedia.org/wiki/Porter_Martone
+2025-009-radim-mrtka,2024-25,ELH,Oceláři Třinec,10,0,1,1,,pre_draft,true,wikipedia-career,Radim Mrtka,https://en.wikipedia.org/wiki/Radim_Mrtka
+2025-009-radim-mrtka,2024-25,WHL,Seattle Thunderbirds,43,3,32,35,,pre_draft,true,wikipedia-career,Radim Mrtka,https://en.wikipedia.org/wiki/Radim_Mrtka
+2025-009-radim-mrtka,2024-25,WHL,Seattle Thunderbirds,6,0,3,3,,pre_draft,false,wikipedia-career,Radim Mrtka,https://en.wikipedia.org/wiki/Radim_Mrtka
+2025-013-carter-bear,2024-25,WHL,Everett Silvertips,56,40,42,82,,pre_draft,true,wikipedia-career,Carter Bear,https://en.wikipedia.org/wiki/Carter_Bear
+2025-015-braeden-cootes,2024-25,WHL,Seattle Thunderbirds,60,26,37,63,,pre_draft,true,wikipedia-career,Braeden Cootes,https://en.wikipedia.org/wiki/Braeden_Cootes
+2025-015-braeden-cootes,2024-25,WHL,Seattle Thunderbirds,6,2,6,8,,pre_draft,false,wikipedia-career,Braeden Cootes,https://en.wikipedia.org/wiki/Braeden_Cootes
+2025-016-victor-eklund,2024-25,Sweden Jrs.,Djurgårdens IF,1,0,0,0,,pre_draft,true,wikipedia-career,Victor Eklund,https://en.wikipedia.org/wiki/Victor_Eklund
+2025-017-kashawn-aitcheson,2024-25,OHL,Barrie Colts,64,26,33,59,,pre_draft,true,wikipedia-career,Kashawn Aitcheson,https://en.wikipedia.org/wiki/Kashawn_Aitcheson
+2025-017-kashawn-aitcheson,2024-25,OHL,Barrie Colts,16,6,6,12,,pre_draft,false,wikipedia-career,Kashawn Aitcheson,https://en.wikipedia.org/wiki/Kashawn_Aitcheson
+2025-021-cameron-reid,2024-25,OHL,Kitchener Rangers,67,14,40,54,,pre_draft,true,wikipedia-career,Cameron Reid,https://en.wikipedia.org/wiki/Cameron_Reid
+2025-021-cameron-reid,2024-25,OHL,Kitchener Rangers,14,0,5,5,,pre_draft,false,wikipedia-career,Cameron Reid,https://en.wikipedia.org/wiki/Cameron_Reid
+2025-022-bill-zonnon,2024-25,QMJHL,Rouyn-Noranda Huskies,64,28,55,83,,pre_draft,true,wikipedia-career,Bill Zonnon,https://en.wikipedia.org/wiki/Bill_Zonnon
+2025-022-bill-zonnon,2024-25,QMJHL,Rouyn-Noranda Huskies,13,8,8,16,,pre_draft,false,wikipedia-career,Bill Zonnon,https://en.wikipedia.org/wiki/Bill_Zonnon
+2025-024-will-horcoff,2024-25,USHL,U.S. National Development Team,7,2,1,3,,pre_draft,true,wikipedia-career,Will Horcoff,https://en.wikipedia.org/wiki/Will_Horcoff
+2025-026-ryker-lee,2024-25,USHL,Madison Capitols,58,31,37,68,,pre_draft,true,wikipedia-career,Ryker Lee,https://en.wikipedia.org/wiki/Ryker_Lee
+2025-027-lynden-lakovic,2024-25,WHL,Moose Jaw Warriors,47,27,31,58,,pre_draft,true,wikipedia-career,Lynden Lakovic,https://en.wikipedia.org/wiki/Lynden_Lakovic
+2025-029-mason-west,2024-25,USHS,Edina High School,31,27,22,49,,pre_draft,true,wikipedia-career,Mason West,https://en.wikipedia.org/wiki/Mason_West
+2025-029-mason-west,2024-25,USHS,Edina High School,6,7,4,11,,pre_draft,false,wikipedia-career,Mason West,https://en.wikipedia.org/wiki/Mason_West
+2025-029-mason-west,2024-25,USHL,Fargo Force,10,1,8,9,,pre_draft,true,wikipedia-career,Mason West,https://en.wikipedia.org/wiki/Mason_West
+2025-029-mason-west,2024-25,USHL,Fargo Force,2,0,0,0,,pre_draft,false,wikipedia-career,Mason West,https://en.wikipedia.org/wiki/Mason_West
+2025-031-henry-brzustewicz,2024-25,OHL,London Knights,67,10,32,42,,pre_draft,true,wikipedia-career,Henry Brzustewicz,https://en.wikipedia.org/wiki/Henry_Brzustewicz
+2025-031-henry-brzustewicz,2024-25,OHL,London Knights,17,1,4,5,,pre_draft,false,wikipedia-career,Henry Brzustewicz,https://en.wikipedia.org/wiki/Henry_Brzustewicz
+2025-033-haoxi-wang,2024-25,OJHL,King Rebellion,38,4,18,22,,pre_draft,true,wikipedia-career,Haoxi Wang,https://en.wikipedia.org/wiki/Haoxi_Wang
+2025-033-haoxi-wang,2024-25,OHL,Oshawa Generals,32,0,2,2,,pre_draft,true,wikipedia-career,Haoxi Wang,https://en.wikipedia.org/wiki/Haoxi_Wang
+2025-033-haoxi-wang,2024-25,OHL,Oshawa Generals,21,0,3,3,,pre_draft,false,wikipedia-career,Haoxi Wang,https://en.wikipedia.org/wiki/Haoxi_Wang
+2025-034-alexander-zharovsky,2024-25,KHL,Salavat Yulaev Ufa,7,0,1,1,,pre_draft,false,wikipedia-career,Alexander Zharovsky,https://en.wikipedia.org/wiki/Alexander_Zharovsky
+2025-044-eddie-genborg,2024-25,Sweden Jrs.,Linköping HC,28,19,15,34,,pre_draft,true,wikipedia-career,Eddie Genborg,https://en.wikipedia.org/wiki/Eddie_Genborg
+2025-044-eddie-genborg,2024-25,Sweden Jrs.,Linköping HC,3,1,2,3,,pre_draft,false,wikipedia-career,Eddie Genborg,https://en.wikipedia.org/wiki/Eddie_Genborg
+2025-053-cole-mckinney,2024-25,USHL,U.S. National Development Team,23,15,11,26,,pre_draft,true,wikipedia-career,Cole McKinney,https://en.wikipedia.org/wiki/Cole_McKinney
+2025-060-lasse-boelius,2024-25,U20,Porin Ässät,34,4,14,18,,pre_draft,true,wikipedia-career,Lasse Boelius,https://en.wikipedia.org/wiki/Lasse_Boelius
+2025-060-lasse-boelius,2024-25,U20,Porin Ässät,2,0,1,1,,pre_draft,false,wikipedia-career,Lasse Boelius,https://en.wikipedia.org/wiki/Lasse_Boelius
+2025-064-tinus-luc-koblar,2024-25,J18,Leksands IF,5,2,5,7,,pre_draft,true,wikipedia-career,Tinus Luc Koblar,https://en.wikipedia.org/wiki/Tinus_Luc_Koblar
+2025-139-zeb-lindgren,2024-25,SHL,Skellefteå AIK,5,0,0,0,,pre_draft,true,wikipedia-career,Zeb Lindgren,https://en.wikipedia.org/wiki/Zeb_Lindgren
+2025-144-ethan-wyttenbach,2024-25,USHL,Sioux Falls Stampede,44,24,27,51,,pre_draft,true,wikipedia-career,Ethan Wyttenbach,https://en.wikipedia.org/wiki/Ethan_Wyttenbach
+2025-144-ethan-wyttenbach,2024-25,USHL,Sioux Falls Stampede,4,1,3,4,,pre_draft,false,wikipedia-career,Ethan Wyttenbach,https://en.wikipedia.org/wiki/Ethan_Wyttenbach
+2025-221-filip-ekberg,2024-25,OHL,Ottawa 67's,53,16,29,45,,pre_draft,true,wikipedia-career,Filip Ekberg,https://en.wikipedia.org/wiki/Filip_Ekberg

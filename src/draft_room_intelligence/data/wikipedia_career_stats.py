@@ -107,11 +107,14 @@ def enrich_wikipedia_career_stats(
     for line in source_lines:
         source_by_player.setdefault(line.player_id, []).append(line)
 
-    matched_keys: set[tuple[str, str, str]] = set()
+    matched_keys: set[tuple[str, str, str, bool]] = set()
     report_rows: list[dict[str, str]] = []
     output_stat_lines: list[dict[str, str]] = []
     for row in base_stat_lines:
         player_id = row.get("player_id", "")
+        existing_key = stat_row_source_key(row)
+        if existing_key is not None:
+            matched_keys.add(existing_key)
         if row.get("timing") != "pre_draft" or row.get("source") != "wikipedia":
             output_stat_lines.append(row)
             continue
@@ -124,12 +127,20 @@ def enrich_wikipedia_career_stats(
         if not candidates:
             output_stat_lines.append(row)
             continue
-        matched_keys.add((player_id, row.get("season", ""), normalize_league_name(row.get("league", ""))))
-        output_stat_lines.extend(build_normalized_stat_line(row, candidate) for candidate in candidates)
+        for candidate in candidates:
+            matched_keys.add(source_line_key(candidate))
+            output_stat_lines.append(build_normalized_stat_line(row, candidate))
+
+    for player_lines in source_by_player.values():
+        for line in player_lines:
+            key = source_line_key(line)
+            if key in matched_keys:
+                continue
+            matched_keys.add(key)
+            output_stat_lines.append(build_normalized_stat_line({}, line))
 
     for line in source_lines:
-        league_key = normalize_league_name(line.league)
-        key = (line.player_id, line.season, league_key)
+        key = source_line_key(line)
         matched = key in matched_keys
         report_rows.append(build_match_row(players_by_id.get(line.player_id, {}), line, matched=matched))
 
@@ -276,6 +287,26 @@ def is_skater_stat_group(values: list[str]) -> bool:
     return all(clean_wiki_cell(value).isdigit() for value in values[1:4])
 
 
+def source_line_key(line: WikipediaCareerStatLine) -> tuple[str, str, str, bool]:
+    return (
+        line.player_id,
+        line.season,
+        normalize_league_name(line.league),
+        line.regular_season,
+    )
+
+
+def stat_row_source_key(row: dict[str, str]) -> tuple[str, str, str, bool] | None:
+    if row.get("timing") != "pre_draft" or row.get("source") != "wikipedia-career":
+        return None
+    return (
+        row.get("player_id", ""),
+        row.get("season", ""),
+        normalize_league_name(row.get("league", "")),
+        row.get("regular_season", "true").lower() != "false",
+    )
+
+
 def build_normalized_stat_line(
     placeholder: dict[str, str],
     line: WikipediaCareerStatLine,
@@ -283,7 +314,7 @@ def build_normalized_stat_line(
     return {
         "player_id": line.player_id,
         "season": line.season,
-        "league": placeholder.get("league", line.league),
+        "league": placeholder.get("league") or normalize_league_name(line.league),
         "team": line.team,
         "games": line.games,
         "goals": line.goals,

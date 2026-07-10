@@ -44,6 +44,34 @@ class DemoClassPaths:
     def outputs_dir(self) -> Path:
         return self.project_root / "outputs" / f"demo_{self.draft_year}"
 
+    @property
+    def latest_processed_demo_dir(self) -> Path | None:
+        processed_root = self.project_root / "data" / "processed"
+        if not processed_root.exists():
+            return None
+        candidates = [
+            path
+            for path in processed_root.glob(f"demo_{self.draft_year}*")
+            if path.is_dir() and (path / "final").is_dir() and any((path / "final").glob("*.csv"))
+        ]
+        if not candidates:
+            return None
+        return max(candidates, key=lambda path: path.stat().st_mtime)
+
+    @property
+    def latest_outputs_dir(self) -> Path | None:
+        outputs_root = self.project_root / "outputs"
+        if not outputs_root.exists():
+            return None
+        candidates = [
+            path
+            for path in outputs_root.glob(f"demo_{self.draft_year}*")
+            if path.is_dir() and (path / "index.html").exists()
+        ]
+        if not candidates:
+            return None
+        return max(candidates, key=lambda path: path.stat().st_mtime)
+
 
 @dataclass(frozen=True)
 class DemoAuditItem:
@@ -69,12 +97,19 @@ class DemoAuditReport:
 
     @property
     def strong_for_demo(self) -> bool:
+        if self.demo_package_ready:
+            return True
         required = {
             "HockeyDB draft HTML",
             "HockeyDB player pages",
             "Elite Prospects export",
             "Featured players template",
         }
+        return all(item.status == "present" for item in self.items if item.label in required)
+
+    @property
+    def demo_package_ready(self) -> bool:
+        required = {"Latest processed demo dataset", "Latest demo outputs"}
         return all(item.status == "present" for item in self.items if item.label in required)
 
     @property
@@ -89,6 +124,8 @@ class DemoAuditReport:
 
     @property
     def next_step(self) -> str:
+        if self.demo_package_ready:
+            return "Review the current demo package, then close source gaps that keep evidence depth thin."
         if not self.ready_for_etl:
             return "Collect the required raw inputs, then re-run the audit."
         if not self.strong_for_demo:
@@ -136,6 +173,8 @@ def audit_demo_class(project_root: str | Path, draft_year: int) -> DemoAuditRepo
         _audit_file("Featured players template", paths.featured_players_csv),
         _audit_dir("Processed demo dataset", paths.processed_demo_dir, "*.csv", optional=True),
         _audit_dir("Demo outputs", paths.outputs_dir, "*", optional=True),
+        _audit_latest_processed_dataset(paths),
+        _audit_latest_outputs(paths),
     ]
     return DemoAuditReport(draft_year=draft_year, paths=paths, items=items)
 
@@ -144,6 +183,7 @@ def format_demo_audit_report(report: DemoAuditReport) -> str:
     lines = [
         f"# Demo Class Audit: {report.draft_year}",
         f"Ready for ETL: {'yes' if report.ready_for_etl else 'no'}",
+        f"Demo package ready: {'yes' if report.demo_package_ready else 'no'}",
         f"Strong for demo: {'yes' if report.strong_for_demo else 'no'}",
         f"Next step: {report.next_step}",
         "",
@@ -151,10 +191,11 @@ def format_demo_audit_report(report: DemoAuditReport) -> str:
     for item in report.items:
         lines.append(f"- {item.label}: {item.status} ({item.detail})")
     if report.missing_required_items:
+        heading = "Missing Raw Inputs For Manual ETL Path" if report.demo_package_ready else "Missing Required Inputs"
         lines.extend(
             [
                 "",
-                "## Missing Required Inputs",
+                f"## {heading}",
             ]
         )
         for item in report.missing_required_items:
@@ -168,6 +209,9 @@ def format_demo_audit_report(report: DemoAuditReport) -> str:
             _demo_site_command(report.paths),
         ]
     )
+    current_demo_command = _current_demo_site_command(report.paths)
+    if current_demo_command is not None:
+        lines.append(current_demo_command)
     return "\n".join(lines)
 
 
@@ -195,6 +239,44 @@ def _audit_dir(label: str, path: Path, pattern: str, optional: bool = False) -> 
     if optional:
         return DemoAuditItem(label=label, path=path, status="optional-missing", detail=str(path))
     return DemoAuditItem(label=label, path=path, status="missing", detail=str(path))
+
+
+def _audit_latest_processed_dataset(paths: DemoClassPaths) -> DemoAuditItem:
+    latest = paths.latest_processed_demo_dir
+    if latest is None:
+        processed_root = paths.project_root / "data" / "processed"
+        return DemoAuditItem(
+            label="Latest processed demo dataset",
+            path=processed_root,
+            status="optional-missing",
+            detail=f"{processed_root} (no demo_{paths.draft_year}*/final CSV snapshot)",
+        )
+    files = sorted((latest / "final").glob("*.csv"))
+    return DemoAuditItem(
+        label="Latest processed demo dataset",
+        path=latest,
+        status="present",
+        detail=f"{latest / 'final'} ({len(files)} CSV files)",
+    )
+
+
+def _audit_latest_outputs(paths: DemoClassPaths) -> DemoAuditItem:
+    latest = paths.latest_outputs_dir
+    if latest is None:
+        outputs_root = paths.project_root / "outputs"
+        return DemoAuditItem(
+            label="Latest demo outputs",
+            path=outputs_root,
+            status="optional-missing",
+            detail=f"{outputs_root} (no demo_{paths.draft_year}*/index.html)",
+        )
+    files = sorted(latest.glob("*"))
+    return DemoAuditItem(
+        label="Latest demo outputs",
+        path=latest,
+        status="present",
+        detail=f"{latest} ({len(files)} files)",
+    )
 
 
 def _write_csv_if_missing(path: Path, fieldnames: list[str], rows: list[dict[str, str]]) -> None:
@@ -226,4 +308,17 @@ def _demo_site_command(paths: DemoClassPaths) -> str:
         "Build demo site: "
         f"PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-site "
         f"data/processed/demo_{paths.draft_year}/final outputs/demo_{paths.draft_year}"
+    )
+
+
+def _current_demo_site_command(paths: DemoClassPaths) -> str | None:
+    latest_dataset = paths.latest_processed_demo_dir
+    latest_outputs = paths.latest_outputs_dir
+    if latest_dataset is None or latest_outputs is None:
+        return None
+    return (
+        "Rebuild current demo site: "
+        f"PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-site "
+        f"{latest_dataset.relative_to(paths.project_root) / 'final'} "
+        f"{latest_outputs.relative_to(paths.project_root)}"
     )

@@ -30,9 +30,11 @@ def test_audit_demo_class_reports_missing_and_present_inputs(tmp_path):
     text = format_demo_audit_report(report)
 
     assert report.ready_for_etl is True
+    assert report.demo_package_ready is False
     assert report.strong_for_demo is True
     assert "HockeyDB draft HTML: present" in text
     assert "Elite Prospects export: present" in text
+    assert "Demo package ready: no" in text
     assert "Next step: Run ETL and build the demo package/site." in text
     assert "Build demo site:" in text
 
@@ -42,7 +44,31 @@ def test_audit_demo_class_flags_missing_required_assets(tmp_path):
     text = format_demo_audit_report(report)
 
     assert report.ready_for_etl is False
+    assert report.demo_package_ready is False
     assert "Ready for ETL: no" in text
+    assert "Demo package ready: no" in text
     assert "HockeyDB draft HTML: missing" in text
     assert "## Missing Required Inputs" in text
     assert "Collect the required raw inputs, then re-run the audit." in text
+
+
+def test_audit_demo_class_detects_latest_generated_demo_package(tmp_path):
+    processed_final = tmp_path / "data" / "processed" / "demo_2025_open_sources" / "final"
+    processed_final.mkdir(parents=True)
+    (processed_final / "players.csv").write_text("player_id,name\n1,Example\n", encoding="utf-8")
+    outputs_dir = tmp_path / "outputs" / "demo_2025_open_sources"
+    outputs_dir.mkdir(parents=True)
+    (outputs_dir / "index.html").write_text("<html></html>", encoding="utf-8")
+
+    report = audit_demo_class(tmp_path, 2025)
+    text = format_demo_audit_report(report)
+
+    assert report.ready_for_etl is False
+    assert report.demo_package_ready is True
+    assert report.strong_for_demo is True
+    assert "Demo package ready: yes" in text
+    assert "Latest processed demo dataset: present" in text
+    assert "Latest demo outputs: present" in text
+    assert "Review the current demo package" in text
+    assert "## Missing Raw Inputs For Manual ETL Path" in text
+    assert "Rebuild current demo site:" in text
