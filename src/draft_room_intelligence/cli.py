@@ -41,6 +41,11 @@ from draft_room_intelligence.modeling.role_models import (
     evaluate_role_specific_models,
     write_model_summary,
 )
+from draft_room_intelligence.reports.demo_export import (
+    build_demo_export_bundle,
+    export_demo_package,
+)
+from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
 from draft_room_intelligence.reports.player_card import render_player_card
@@ -188,6 +193,26 @@ def main() -> None:
         default=25,
         help="Number of top-ranked players to use for precision@N.",
     )
+    demo_export_parser = subparsers.add_parser(
+        "export-demo-package",
+        help="Build board-ready demo exports for a single draft class.",
+    )
+    demo_export_parser.add_argument(
+        "data_path",
+        type=Path,
+        help="Path to a wide historical CSV or normalized dataset directory.",
+    )
+    demo_export_parser.add_argument("output_dir", type=Path, help="Directory for demo export artifacts.")
+    demo_site_parser = subparsers.add_parser(
+        "build-demo-site",
+        help="Build a self-contained HTML demo app for a single draft class.",
+    )
+    demo_site_parser.add_argument(
+        "data_path",
+        type=Path,
+        help="Path to a wide historical CSV or normalized dataset directory.",
+    )
+    demo_site_parser.add_argument("output_dir", type=Path, help="Directory for demo site artifacts.")
     etl_parser = subparsers.add_parser(
         "etl-draft-year",
         help="Run draft-year ETL with optional Elite Prospects enrichment.",
@@ -320,6 +345,10 @@ def main() -> None:
             model_output=args.model_output,
             precision_n=args.precision_n,
         )
+    elif args.command == "export-demo-package":
+        run_export_demo_package(args.data_path, args.output_dir)
+    elif args.command == "build-demo-site":
+        run_build_demo_site(args.data_path, args.output_dir)
     elif args.command == "etl-draft-year":
         run_etl_draft_year(
             args.base_dir,
@@ -557,6 +586,35 @@ def run_evaluate_role_models(
     print(format_evaluation_report(probability_report))
     print()
     print(format_board_order_report(board_report))
+
+
+def run_export_demo_package(data_path: Path, output_dir: Path) -> None:
+    prospects = load_historical_prospects(data_path)
+    bundle = build_demo_export_bundle(prospects)
+    outputs = export_demo_package(output_dir, bundle)
+    print(f"# Demo package export: {data_path}")
+    print(f"Prospects loaded: {len(prospects)}")
+    print(f"Board rows: {len(bundle.board_rows)}")
+    print(f"Board CSV: {outputs['board']}")
+    print(f"Compare CSV: {outputs['compare']}")
+    print(f"Players JSON: {outputs['players']}")
+    print(f"Manifest JSON: {outputs['manifest']}")
+    print(f"Dataset status: {bundle.manifest['dataset_status']}")
+
+
+def run_build_demo_site(data_path: Path, output_dir: Path) -> None:
+    prospects = load_historical_prospects(data_path)
+    bundle = build_demo_export_bundle(prospects)
+    outputs = export_demo_package(output_dir, bundle)
+    site_path = write_demo_site(output_dir, bundle)
+    print(f"# Demo site build: {data_path}")
+    print(f"Prospects loaded: {len(prospects)}")
+    print(f"Output directory: {output_dir}")
+    print(f"Board CSV: {outputs['board']}")
+    print(f"Players JSON: {outputs['players']}")
+    print(f"Manifest JSON: {outputs['manifest']}")
+    print(f"HTML site: {site_path}")
+    print(f"Dataset status: {bundle.manifest['dataset_status']}")
 
 
 def run_etl_draft_year(
