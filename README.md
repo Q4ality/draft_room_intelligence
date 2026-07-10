@@ -75,6 +75,8 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `draft-room-intel export-feature-table <data-path> <output.csv>` - build a reusable player-year feature table for every prospect row.
 - `draft-room-intel evaluate-role-models <data-path> [--feature-output <csv>] [--model-output <csv>]` - fit pure-Python role-specific models and print their evaluation report.
 - `draft-room-intel validate-eliteprospects <export.csv>` - inspect an Elite Prospects CSV export for required player/stat shape before import.
+- `draft-room-intel scaffold-demo-class --draft-year <year>` - create the local raw/reference/processed/output layout and starter CSV templates for a single-class demo.
+- `draft-room-intel audit-demo-class --draft-year <year>` - check whether a draft class has the minimum local source files for ETL and demo use.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --base-dir <base-dir> [--eliteprospects-csv <export.csv>]` - create a base ETL snapshot from an existing normalized dataset and optionally enrich it with Elite Prospects in one command.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> [--eliteprospects-csv <export.csv>]` - generate the base dataset from a local HockeyDB draft HTML file, then optionally enrich it with Elite Prospects.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> --hockeydb-player-pages-dir <dir> [--eliteprospects-csv <export.csv>]` - generate a richer base dataset from local HockeyDB draft and player-page HTML caches.

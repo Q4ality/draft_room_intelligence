@@ -6,6 +6,11 @@ import argparse
 import shutil
 from pathlib import Path
 
+from draft_room_intelligence.data.demo_data import (
+    audit_demo_class,
+    format_demo_audit_report,
+    scaffold_demo_class,
+)
 from draft_room_intelligence.data.eliteprospects_csv import (
     format_eliteprospects_validation_report,
     validate_eliteprospects_export,
@@ -57,6 +62,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="draft-room-intel")
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("demo", help="Run the sample projection + team-fit pipeline.")
+    scaffold_demo_parser = subparsers.add_parser(
+        "scaffold-demo-class",
+        help="Create the local folder and template structure for a demo draft class.",
+    )
+    scaffold_demo_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
+    audit_demo_parser = subparsers.add_parser(
+        "audit-demo-class",
+        help="Audit whether a demo draft class has the expected local source files.",
+    )
+    audit_demo_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
     import_ep_parser = subparsers.add_parser(
         "import-eliteprospects",
         help="Convert a local Elite Prospects CSV export into normalized project tables.",
@@ -291,6 +306,10 @@ def main() -> None:
     args = parser.parse_args()
     if args.command == "demo":
         run_demo()
+    elif args.command == "scaffold-demo-class":
+        run_scaffold_demo_class(args.draft_year)
+    elif args.command == "audit-demo-class":
+        run_audit_demo_class(args.draft_year)
     elif args.command == "import-eliteprospects":
         run_import_eliteprospects(
             args.export_path,
@@ -397,6 +416,25 @@ def run_demo() -> None:
             recommendation=top,
         )
     )
+
+
+def run_scaffold_demo_class(draft_year: int) -> None:
+    project_root = Path(__file__).resolve().parents[2]
+    paths = scaffold_demo_class(project_root, draft_year)
+    print(f"# Demo class scaffold: {draft_year}")
+    print(f"HockeyDB draft HTML target: {paths.hockeydb_draft_html}")
+    print(f"HockeyDB player pages dir: {paths.hockeydb_player_pages_dir}")
+    print(f"Elite Prospects CSV target: {paths.eliteprospects_csv}")
+    print(f"Match map template: {paths.match_map_csv}")
+    print(f"Featured players template: {paths.featured_players_csv}")
+    print(f"Processed demo dir: {paths.processed_demo_dir}")
+    print(f"Demo outputs dir: {paths.outputs_dir}")
+
+
+def run_audit_demo_class(draft_year: int) -> None:
+    project_root = Path(__file__).resolve().parents[2]
+    report = audit_demo_class(project_root, draft_year)
+    print(format_demo_audit_report(report))
 
 
 def run_import_eliteprospects(
