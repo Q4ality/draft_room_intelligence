@@ -116,3 +116,12 @@ def test_playoff_lines_and_aliases_raise_adjusted_score():
     assert features["boosted"].playoff_bonus > 0.0
     assert features["boosted"].league == "Rus-MHL"
     assert features["boosted"].adjusted_score > features["regular"].adjusted_score
+
+
+def test_zero_game_source_rows_do_not_receive_role_production_bonus():
+    features = build_adjusted_production_features(
+        [prospect("thin", "C", "SHL", 0, 0, 0)],
+        league_contexts=CONTEXTS,
+    )
+
+    assert features == {}

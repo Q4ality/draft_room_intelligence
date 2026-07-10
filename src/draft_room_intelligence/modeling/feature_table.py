@@ -140,20 +140,36 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
         college_games = 0
         pro_games = 0
         weighted_games = 0.0
+        exposure_units = total_games
+        adult_exposure_units = 0
+        junior_exposure_units = 0
+        college_exposure_units = 0
+        pro_exposure_units = 0
+        weighted_exposure_units = 0.0
 
         for line in stat_lines:
             context = lookup_context(normalize_league_name(line.league), league_contexts)
             weighted_games += line.games * context.league_weight
+            exposure_weight = line.games if total_games else 1
+            weighted_exposure_units += exposure_weight * context.league_weight
             if context.adult_league:
                 adult_games += line.games
+                adult_exposure_units += exposure_weight
             if context.competition_level == "junior":
                 junior_games += line.games
+                junior_exposure_units += exposure_weight
             elif context.competition_level == "junior_a":
                 junior_games += line.games
+                junior_exposure_units += exposure_weight
             elif context.league_family == "College":
                 college_games += line.games
+                college_exposure_units += exposure_weight
             if context.adult_league:
                 pro_games += line.games
+                pro_exposure_units += exposure_weight
+
+        if total_games == 0:
+            exposure_units = len(stat_lines)
 
         rows.append(
             FeatureRow(
@@ -177,11 +193,11 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
                     "pre_draft_points_per_game": f"{points_per_game:.6f}",
                     "pre_draft_regular_season_games": str(regular_season_games),
                     "pre_draft_playoff_games": str(playoff_games),
-                    "adult_game_share": f"{(adult_games / total_games if total_games else 0.0):.6f}",
-                    "junior_game_share": f"{(junior_games / total_games if total_games else 0.0):.6f}",
-                    "college_game_share": f"{(college_games / total_games if total_games else 0.0):.6f}",
-                    "pro_game_share": f"{(pro_games / total_games if total_games else 0.0):.6f}",
-                    "average_league_weight": f"{(weighted_games / total_games if total_games else 0.0):.6f}",
+                    "adult_game_share": f"{share(adult_games, total_games, adult_exposure_units, exposure_units):.6f}",
+                    "junior_game_share": f"{share(junior_games, total_games, junior_exposure_units, exposure_units):.6f}",
+                    "college_game_share": f"{share(college_games, total_games, college_exposure_units, exposure_units):.6f}",
+                    "pro_game_share": f"{share(pro_games, total_games, pro_exposure_units, exposure_units):.6f}",
+                    "average_league_weight": f"{league_average(weighted_games, total_games, weighted_exposure_units, exposure_units):.6f}",
                     "primary_league": normalize_league_name(primary_line.league),
                     "primary_league_family": primary_context.league_family,
                     "primary_competition_level": primary_context.competition_level,
@@ -248,6 +264,23 @@ def size_score(prospect: HistoricalProspect) -> float:
 
 def age_score(prospect: HistoricalProspect) -> float:
     return clamp((18.9 - prospect.age_at_draft) / 1.4)
+
+
+def share(game_value: int, total_games: int, exposure_value: int, exposure_units: int) -> float:
+    if total_games:
+        return game_value / total_games
+    return exposure_value / exposure_units if exposure_units else 0.0
+
+
+def league_average(
+    weighted_games: float,
+    total_games: int,
+    weighted_exposure_units: float,
+    exposure_units: int,
+) -> float:
+    if total_games:
+        return weighted_games / total_games
+    return weighted_exposure_units / exposure_units if exposure_units else 0.0
 
 
 def clamp(value: float, low: float = 0.0, high: float = 1.0) -> float:

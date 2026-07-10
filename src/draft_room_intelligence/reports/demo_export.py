@@ -11,7 +11,6 @@ from draft_room_intelligence.domain import HistoricalProspect
 from draft_room_intelligence.evaluation.baselines import (
     consensus_scores,
     role_specific_hybrid_scores,
-    weighted_hybrid_scores,
 )
 from draft_room_intelligence.modeling.feature_table import build_feature_rows
 
@@ -90,7 +89,14 @@ def build_demo_export_bundle(prospects: list[HistoricalProspect]) -> DemoExportB
     features_by_id = {row["player_id"]: row for row in feature_rows}
     consensus = consensus_scores(prospects)
     model_scores = role_specific_hybrid_scores(prospects)
-    board_scores = weighted_hybrid_scores([(model_scores, 0.75), (consensus, 0.25)])
+    board_scores = {
+        player_id: evidence_weighted_board_score(
+            model_scores[player_id],
+            consensus[player_id],
+            features_by_id[player_id],
+        )
+        for player_id in model_scores.keys() & consensus.keys() & features_by_id.keys()
+    }
     ordered_ids = [
         player_id
         for player_id, _ in sorted(board_scores.items(), key=lambda item: (item[1], item[0]), reverse=True)
@@ -181,6 +187,16 @@ def export_demo_package(output_dir: str | Path, bundle: DemoExportBundle) -> dic
         "players": players_path,
         "manifest": manifest_path,
     }
+
+
+def evidence_weighted_board_score(model_score: float, consensus_score: float, feature: dict[str, str]) -> float:
+    evidence_depth = classify_evidence_depth(feature)
+    model_weight = {
+        "high": 0.75,
+        "medium": 0.45,
+        "low": 0.18,
+    }[evidence_depth]
+    return (model_score * model_weight) + (consensus_score * (1.0 - model_weight))
 
 
 def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str]) -> dict[str, object]:

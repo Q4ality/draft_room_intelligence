@@ -5,6 +5,7 @@ from draft_room_intelligence.cli import run_build_demo_site
 from draft_room_intelligence.cli import run_export_demo_package
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
 from draft_room_intelligence.reports.demo_export import build_demo_export_bundle
+from draft_room_intelligence.reports.demo_export import evidence_weighted_board_score
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "historical_prospects.csv"
@@ -25,6 +26,18 @@ def test_build_demo_export_bundle_returns_board_and_player_payloads():
     assert first["risk_note"]
     assert bundle.manifest["player_count"] == 2
     assert "dataset_status" in bundle.manifest
+
+
+def test_evidence_weighted_board_score_keeps_low_evidence_near_consensus():
+    feature = {
+        "pre_draft_total_games": "0",
+        "pre_draft_row_count": "1",
+        "pre_draft_league_count": "1",
+    }
+
+    score = evidence_weighted_board_score(1.0, 0.5, feature)
+
+    assert abs(score - 0.59) < 0.000001
 
 
 def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):

@@ -1,0 +1,225 @@
+player_id,season,league,team,games,goals,assists,points,age,timing,regular_season,source,source_id,source_url
+2025-001-matthew-schaefer,2024-25,OHL,Erie Otters,0,0,0,0,,pre_draft,true,wikipedia,2025-001-matthew-schaefer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-002-michael-misa,2024-25,OHL,Saginaw Spirit,0,0,0,0,,pre_draft,true,wikipedia,2025-002-michael-misa,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-003-anton-frondell,2024-25,Swe-1,Djurgardens IF,0,0,0,0,,pre_draft,true,wikipedia,2025-003-anton-frondell,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-004-caleb-desnoyers,2024-25,QMJHL,Moncton Wildcats,0,0,0,0,,pre_draft,true,wikipedia,2025-004-caleb-desnoyers,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-005-brady-martin,2024-25,OHL,Sault Ste. Marie Greyhounds,0,0,0,0,,pre_draft,true,wikipedia,2025-005-brady-martin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-006-porter-martone,2024-25,OHL,Brampton Steelheads,0,0,0,0,,pre_draft,true,wikipedia,2025-006-porter-martone,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-007-james-hagens,2024-25,H-East,Boston College Eagles,0,0,0,0,,pre_draft,true,wikipedia,2025-007-james-hagens,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-008-jake-o-brien,2024-25,OHL,Brantford Bulldogs,0,0,0,0,,pre_draft,true,wikipedia,2025-008-jake-o-brien,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-009-radim-mrtka,2024-25,WHL,Seattle Thunderbirds,0,0,0,0,,pre_draft,true,wikipedia,2025-009-radim-mrtka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-010-roger-mcqueen,2024-25,WHL,Brandon Wheat Kings,0,0,0,0,,pre_draft,true,wikipedia,2025-010-roger-mcqueen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-011-ben-kindel,2024-25,WHL,Calgary Hitmen,0,0,0,0,,pre_draft,true,wikipedia,2025-011-ben-kindel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-012-jack-nesbitt,2024-25,OHL,Windsor Spitfires,0,0,0,0,,pre_draft,true,wikipedia,2025-012-jack-nesbitt,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-013-carter-bear,2024-25,WHL,Everett Silvertips,0,0,0,0,,pre_draft,true,wikipedia,2025-013-carter-bear,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-014-jackson-smith,2024-25,WHL,Tri-City Americans,0,0,0,0,,pre_draft,true,wikipedia,2025-014-jackson-smith,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-015-braeden-cootes,2024-25,WHL,Seattle Thunderbirds,0,0,0,0,,pre_draft,true,wikipedia,2025-015-braeden-cootes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-016-victor-eklund,2024-25,Swe-1,Djurgardens IF,0,0,0,0,,pre_draft,true,wikipedia,2025-016-victor-eklund,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-017-kashawn-aitcheson,2024-25,OHL,Barrie Colts,0,0,0,0,,pre_draft,true,wikipedia,2025-017-kashawn-aitcheson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-018-cole-reschny,2024-25,WHL,Victoria Royals,0,0,0,0,,pre_draft,true,wikipedia,2025-018-cole-reschny,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-019-justin-carbonneau,2024-25,QMJHL,Blainville-Boisbriand Armada,0,0,0,0,,pre_draft,true,wikipedia,2025-019-justin-carbonneau,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-020-pyotr-andreyanov,2024-25,Rus-MHL,Krasnaya Armiya,0,0,0,0,,pre_draft,true,wikipedia,2025-020-pyotr-andreyanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-021-cameron-reid,2024-25,OHL,Kitchener Rangers,0,0,0,0,,pre_draft,true,wikipedia,2025-021-cameron-reid,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-022-bill-zonnon,2024-25,QMJHL,Rouyn-Noranda Huskies,0,0,0,0,,pre_draft,true,wikipedia,2025-022-bill-zonnon,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-023-logan-hensler,2024-25,B1G,Wisconsin Badgers,0,0,0,0,,pre_draft,true,wikipedia,2025-023-logan-hensler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-024-will-horcoff,2024-25,B1G,Michigan Wolverines,0,0,0,0,,pre_draft,true,wikipedia,2025-024-will-horcoff,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-025-vaclav-nestrasil,2024-25,USHL,Muskegon Lumberjacks,0,0,0,0,,pre_draft,true,wikipedia,2025-025-vaclav-nestrasil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-026-ryker-lee,2024-25,USHL,Madison Capitols,0,0,0,0,,pre_draft,true,wikipedia,2025-026-ryker-lee,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-027-lynden-lakovic,2024-25,WHL,Moose Jaw Warriors,0,0,0,0,,pre_draft,true,wikipedia,2025-027-lynden-lakovic,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-028-sascha-boumedienne,2024-25,H-East,Boston University Terriers,0,0,0,0,,pre_draft,true,wikipedia,2025-028-sascha-boumedienne,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-029-mason-west,2024-25,USHS-MN,Edina Hornets,0,0,0,0,,pre_draft,true,wikipedia,2025-029-mason-west,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-030-joshua-ravensbergen,2024-25,WHL,Prince George Cougars,0,0,0,0,,pre_draft,true,wikipedia,2025-030-joshua-ravensbergen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-031-henry-brzustewicz,2024-25,OHL,London Knights,0,0,0,0,,pre_draft,true,wikipedia,2025-031-henry-brzustewicz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-032-cullen-potter,2024-25,NCHC,Arizona State Sun Devils,0,0,0,0,,pre_draft,true,wikipedia,2025-032-cullen-potter,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-033-haoxi-wang,2024-25,OHL,Oshawa Generals,0,0,0,0,,pre_draft,true,wikipedia,2025-033-haoxi-wang,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-034-alexander-zharovsky,2024-25,Rus-MHL,Tolpar Ufa,0,0,0,0,,pre_draft,true,wikipedia,2025-034-alexander-zharovsky,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-035-jacob-rombach,2024-25,USHL,Lincoln Stars,0,0,0,0,,pre_draft,true,wikipedia,2025-035-jacob-rombach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-036-blake-fiddler,2024-25,WHL,Edmonton Oil Kings,0,0,0,0,,pre_draft,true,wikipedia,2025-036-blake-fiddler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-037-milton-gastrin,2024-25,SweHL,Modo Hockey,0,0,0,0,,pre_draft,true,wikipedia,2025-037-milton-gastrin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-038-carter-amico,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-038-carter-amico,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-039-peyton-kettles,2024-25,WHL,Swift Current Broncos,0,0,0,0,,pre_draft,true,wikipedia,2025-039-peyton-kettles,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-040-jack-murtagh,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-040-jack-murtagh,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-041-semyon-frolov,2024-25,Rus-MHL,JHC Spartak,0,0,0,0,,pre_draft,true,wikipedia,2025-041-semyon-frolov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-042-daniil-prokhorov,2024-25,Rus-MHL,HC Dinamo Saint Petersburg,0,0,0,0,,pre_draft,true,wikipedia,2025-042-daniil-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-043-malcolm-spence,2024-25,OHL,Erie Otters,0,0,0,0,,pre_draft,true,wikipedia,2025-043-malcolm-spence,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-044-eddie-genborg,2024-25,SweHL,Linkoping HC,0,0,0,0,,pre_draft,true,wikipedia,2025-044-eddie-genborg,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-045-eric-nilson,2024-25,Swe-Jr,Djurgardens IF J20,0,0,0,0,,pre_draft,true,wikipedia,2025-045-eric-nilson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-046-max-psenicka,2024-25,WHL,Portland Winterhawks,0,0,0,0,,pre_draft,true,wikipedia,2025-046-max-psenicka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-047-alexei-medvedev,2024-25,OHL,London Knights,0,0,0,0,,pre_draft,true,wikipedia,2025-047-alexei-medvedev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-048-shane-vansaghi,2024-25,B1G,Michigan State Spartans,0,0,0,0,,pre_draft,true,wikipedia,2025-048-shane-vansaghi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-049-charlie-cerrato,2024-25,B1G,Penn State Nittany Lions,0,0,0,0,,pre_draft,true,wikipedia,2025-049-charlie-cerrato,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-050-conrad-fondrk,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-050-conrad-fondrk,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-051-william-moore,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-051-william-moore,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-052-theodor-hallquisth,2024-25,Swe-Jr,Orebro HK J20,0,0,0,0,,pre_draft,true,wikipedia,2025-052-theodor-hallquisth,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-053-cole-mckinney,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-053-cole-mckinney,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-054-theo-stockselius,2024-25,Swe-Jr,Djurgardens IF J20,0,0,0,0,,pre_draft,true,wikipedia,2025-054-theo-stockselius,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-055-jakob-ihs-wozniak,2024-25,Swe-Jr,Lulea HF J20,0,0,0,0,,pre_draft,true,wikipedia,2025-055-jakob-ihs-wozniak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-056-ethan-czata,2024-25,OHL,Niagara IceDogs,0,0,0,0,,pre_draft,true,wikipedia,2025-056-ethan-czata,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-057-matthew-gard,2024-25,WHL,Red Deer Rebels,0,0,0,0,,pre_draft,true,wikipedia,2025-057-matthew-gard,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-058-jack-ivankovic,2024-25,OHL,Brampton Steelheads,0,0,0,0,,pre_draft,true,wikipedia,2025-058-jack-ivankovic,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-059-vojtech-cihar,2024-25,Czech,HC Energie Karlovy Vary,0,0,0,0,,pre_draft,true,wikipedia,2025-059-vojtech-cihar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-060-lasse-boelius,2024-25,SM-liiga,HC Assat Pori,0,0,0,0,,pre_draft,true,wikipedia,2025-060-lasse-boelius,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-061-liam-pettersson,2024-25,Swe-Jr,Vaxjo Lakers HC J20,0,0,0,0,,pre_draft,true,wikipedia,2025-061-liam-pettersson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-062-ivan-ryabkin,2024-25,USHL,Muskegon Lumberjacks,0,0,0,0,,pre_draft,true,wikipedia,2025-062-ivan-ryabkin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-063-ben-kevan,2024-25,USHL,Des Moines Buccaneers,0,0,0,0,,pre_draft,true,wikipedia,2025-063-ben-kevan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-064-tinus-luc-koblar,2024-25,Swe-Jr,Leksands IF J20,0,0,0,0,,pre_draft,true,wikipedia,2025-064-tinus-luc-koblar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-065-kieren-dervin,2024-25,Ont. H.S.,St. Andrew's Saints,0,0,0,0,,pre_draft,true,wikipedia,2025-065-kieren-dervin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-066-nathan-behm,2024-25,WHL,Kamloops Blazers,0,0,0,0,,pre_draft,true,wikipedia,2025-066-nathan-behm,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-067-kurban-limatov,2024-25,Rus-MHL,MHC Dynamo Moscow,0,0,0,0,,pre_draft,true,wikipedia,2025-067-kurban-limatov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-068-will-reynolds,2024-25,QMJHL,Acadie–Bathurst Titan,0,0,0,0,,pre_draft,true,wikipedia,2025-068-will-reynolds,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-069-hayden-paupanekis,2024-25,WHL,Kelowna Rockets,0,0,0,0,,pre_draft,true,wikipedia,2025-069-hayden-paupanekis,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-070-sean-barnhill,2024-25,USHL,Dubuque Fighting Saints,0,0,0,0,,pre_draft,true,wikipedia,2025-070-sean-barnhill,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-071-david-bedkowski,2024-25,OHL,Owen Sound Attack,0,0,0,0,,pre_draft,true,wikipedia,2025-071-david-bedkowski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-072-noah-read,2024-25,OHL,London Knights,0,0,0,0,,pre_draft,true,wikipedia,2025-072-noah-read,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-073-charlie-trethewey,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-073-charlie-trethewey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-074-luca-romano,2024-25,OHL,Kitchener Rangers,0,0,0,0,,pre_draft,true,wikipedia,2025-074-luca-romano,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-075-michal-pradel,2024-25,USHL,Tri-City Storm,0,0,0,0,,pre_draft,true,wikipedia,2025-075-michal-pradel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-076-malte-vass,2024-25,Swe-Jr,Farjestad BK J20,0,0,0,0,,pre_draft,true,wikipedia,2025-076-malte-vass,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-077-francesco-dell-elce,2024-25,H-East,UMass Minutemen,0,0,0,0,,pre_draft,true,wikipedia,2025-077-francesco-dell-elce,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-078-stepan-hoch,2024-25,Czech,Motor Ceske Budejovice,0,0,0,0,,pre_draft,true,wikipedia,2025-078-stepan-hoch,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-079-cooper-simpson,2024-25,USHL,Tri-City Storm,0,0,0,0,,pre_draft,true,wikipedia,2025-079-cooper-simpson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-080-mace-o-phillips,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-080-mace-o-phillips,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-081-bryce-pickford,2024-25,WHL,Medicine Hat Tigers,0,0,0,0,,pre_draft,true,wikipedia,2025-081-bryce-pickford,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-082-arseni-radkov,2024-25,Rus-MHL,Tyumensky Legion,0,0,0,0,,pre_draft,true,wikipedia,2025-082-arseni-radkov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-083-tommy-lafreniere,2024-25,WHL,Kamloops Blazers,0,0,0,0,,pre_draft,true,wikipedia,2025-083-tommy-lafreniere,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-084-gabriel-d-aigle,2024-25,QMJHL,Victoriaville Tigres,0,0,0,0,,pre_draft,true,wikipedia,2025-084-gabriel-d-aigle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-085-mateo-nobert,2024-25,QMJHL,Blainville-Boisbriand Armada,0,0,0,0,,pre_draft,true,wikipedia,2025-085-mateo-nobert,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-086-tyler-hopkins,2024-25,OHL,Kingston Frontenacs,0,0,0,0,,pre_draft,true,wikipedia,2025-086-tyler-hopkins,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-087-roman-bausov,2024-25,Rus-MHL,HC Dinamo Saint Petersburg U20,0,0,0,0,,pre_draft,true,wikipedia,2025-087-roman-bausov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-088-kristian-epperson,2024-25,OHL,Saginaw Spirit,0,0,0,0,,pre_draft,true,wikipedia,2025-088-kristian-epperson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-089-artyom-gonchar,2024-25,Rus-MHL,Magnitogorsk Stalnye Lisy,0,0,0,0,,pre_draft,true,wikipedia,2025-089-artyom-gonchar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-090-mason-moe,2024-25,USHL,Madison Capitols,0,0,0,0,,pre_draft,true,wikipedia,2025-090-mason-moe,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-091-brady-peddle,2024-25,USHL,Waterloo Black Hawks,0,0,0,0,,pre_draft,true,wikipedia,2025-091-brady-peddle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-092-owen-martin,2024-25,WHL,Spokane Chiefs,0,0,0,0,,pre_draft,true,wikipedia,2025-092-owen-martin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-093-blake-vanek,2024-25,USHS-MN,Stillwater Ponies,0,0,0,0,,pre_draft,true,wikipedia,2025-093-blake-vanek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-094-cameron-schmidt,2024-25,WHL,Vancouver Giants,0,0,0,0,,pre_draft,true,wikipedia,2025-094-cameron-schmidt,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-095-teddy-mutryn,2024-25,USHL,Chicago Steel,0,0,0,0,,pre_draft,true,wikipedia,2025-095-teddy-mutryn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-096-maxim-schafer,2024-25,DEL,Eisbaren Berlin,0,0,0,0,,pre_draft,true,wikipedia,2025-096-maxim-schafer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-097-lucas-beckman,2024-25,QMJHL,Baie-Comeau Drakkar,0,0,0,0,,pre_draft,true,wikipedia,2025-097-lucas-beckman,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-098-julius-sumpf,2024-25,QMJHL,Moncton Wildcats,0,0,0,0,,pre_draft,true,wikipedia,2025-098-julius-sumpf,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-099-trenten-bennett,2024-25,CCHL,Kemptville 73's,0,0,0,0,,pre_draft,true,wikipedia,2025-099-trenten-bennett,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-100-vashek-blanar,2024-25,J18 Regional,IF Troja-Ljungby,0,0,0,0,,pre_draft,true,wikipedia,2025-100-vashek-blanar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-101-drew-schock,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-101-drew-schock,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-102-adam-benak,2024-25,USHL,Youngstown Phantoms,0,0,0,0,,pre_draft,true,wikipedia,2025-102-adam-benak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-103-matous-kucharcik,2024-25,Czech. Jr,HC Slavia Praha U20,0,0,0,0,,pre_draft,true,wikipedia,2025-103-matous-kucharcik,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-104-elijah-neuenschwander,2024-25,U20-Elit,HC Fribourg-Gotteron U20,0,0,0,0,,pre_draft,true,wikipedia,2025-104-elijah-neuenschwander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-105-travis-hayes,2024-25,OHL,Sault Ste. Marie Greyhounds,0,0,0,0,,pre_draft,true,wikipedia,2025-105-travis-hayes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-106-tomas-poletin,2024-25,SM-liiga,Lahti Pelicans,0,0,0,0,,pre_draft,true,wikipedia,2025-106-tomas-poletin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-107-parker-holmes,2024-25,OHL,Brantford Bulldogs,0,0,0,0,,pre_draft,true,wikipedia,2025-107-parker-holmes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-108-benjamin-rautiainen,2024-25,SM-liiga,Tappara,0,0,0,0,,pre_draft,true,wikipedia,2025-108-benjamin-rautiainen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-109-brent-solomon,2024-25,USHL,Sioux Falls Stampede,0,0,0,0,,pre_draft,true,wikipedia,2025-109-brent-solomon,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-110-yegor-borikov,2024-25,KHL,Dinamo Minsk,0,0,0,0,,pre_draft,true,wikipedia,2025-110-yegor-borikov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-111-mikkel-eriksen,2024-25,Swe-Jr,Farjestad BK J20,0,0,0,0,,pre_draft,true,wikipedia,2025-111-mikkel-eriksen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-112-mads-kongsbak-klyvo,2024-25,Swe-Jr,Frolunda HC J20,0,0,0,0,,pre_draft,true,wikipedia,2025-112-mads-kongsbak-klyvo,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-113-l-j-mooney,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-113-l-j-mooney,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-114-gustav-hillstrom,2024-25,SweHL,Brynas IF,0,0,0,0,,pre_draft,true,wikipedia,2025-114-gustav-hillstrom,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-115-ilyas-magomedsultanov,2024-25,KHL,Lokomotiv Yaroslavl,0,0,0,0,,pre_draft,true,wikipedia,2025-115-ilyas-magomedsultanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-116-samuel-meloche,2024-25,QMJHL,Rouyn-Noranda Huskies,0,0,0,0,,pre_draft,true,wikipedia,2025-116-samuel-meloche,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-117-david-lewandowski,2024-25,WHL,Saskatoon Blades,0,0,0,0,,pre_draft,true,wikipedia,2025-117-david-lewandowski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-118-linus-funck,2024-25,Swe-Jr,Lulea HF J20,0,0,0,0,,pre_draft,true,wikipedia,2025-118-linus-funck,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-119-michal-svrcek,2024-25,SweHL,Brynas IF,0,0,0,0,,pre_draft,true,wikipedia,2025-119-michal-svrcek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-120-caeden-herrington,2024-25,USHL,Lincoln Stars,0,0,0,0,,pre_draft,true,wikipedia,2025-120-caeden-herrington,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-121-lirim-amidovski,2024-25,OHL,North Bay Battalion,0,0,0,0,,pre_draft,true,wikipedia,2025-121-lirim-amidovski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-122-alex-huang,2024-25,QMJHL,Chicoutimi Sagueneens,0,0,0,0,,pre_draft,true,wikipedia,2025-122-alex-huang,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-123-carter-klippenstein,2024-25,WHL,Brandon Wheat Kings,0,0,0,0,,pre_draft,true,wikipedia,2025-123-carter-klippenstein,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-124-zack-sharp,2024-25,NCHC,Western Michigan Broncos,0,0,0,0,,pre_draft,true,wikipedia,2025-124-zack-sharp,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-125-jimmy-lombardi,2024-25,OHL,Flint Firebirds,0,0,0,0,,pre_draft,true,wikipedia,2025-125-jimmy-lombardi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-126-brandon-gorzynski,2024-25,WHL,Calgary Hitmen,0,0,0,0,,pre_draft,true,wikipedia,2025-126-brandon-gorzynski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-127-aiden-foster,2024-25,WHL,Prince George Cougars,0,0,0,0,,pre_draft,true,wikipedia,2025-127-aiden-foster,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-128-shea-busch,2024-25,WHL,Everett Silvertips,0,0,0,0,,pre_draft,true,wikipedia,2025-128-shea-busch,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-129-shamar-moses,2024-25,OHL,North Bay Battalion,0,0,0,0,,pre_draft,true,wikipedia,2025-129-shamar-moses,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-130-ryan-miller,2024-25,WHL,Portland Winterhawks,0,0,0,0,,pre_draft,true,wikipedia,2025-130-ryan-miller,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-131-asher-barnett,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-131-asher-barnett,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-132-max-westergard,2024-25,Swe-Jr,Frolunda HC J20,0,0,0,0,,pre_draft,true,wikipedia,2025-132-max-westergard,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-133-cole-chandler,2024-25,QMJHL,Shawinigan Cataractes,0,0,0,0,,pre_draft,true,wikipedia,2025-133-cole-chandler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-134-maxim-agafonov,2024-25,Rus-MHL,Ufa Tolpar,0,0,0,0,,pre_draft,true,wikipedia,2025-134-maxim-agafonov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-135-noah-laberge,2024-25,QMJHL,Acadie–Bathurst Titan,0,0,0,0,,pre_draft,true,wikipedia,2025-135-noah-laberge,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-136-alexis-mathieu,2024-25,QMJHL,Baie-Comeau Drakkar,0,0,0,0,,pre_draft,true,wikipedia,2025-136-alexis-mathieu,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-137-william-belle,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-137-william-belle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-138-sam-laurila,2024-25,USHL,Fargo Force,0,0,0,0,,pre_draft,true,wikipedia,2025-138-sam-laurila,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-139-zeb-lindgren,2024-25,Swe-Jr,Skelleftea AIK J20,0,0,0,0,,pre_draft,true,wikipedia,2025-139-zeb-lindgren,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-140-nikita-tyurin,2024-25,Rus-MHL,JHC Spartak,0,0,0,0,,pre_draft,true,wikipedia,2025-140-nikita-tyurin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-141-justin-kipkie,2024-25,WHL,Victoria Royals,0,0,0,0,,pre_draft,true,wikipedia,2025-141-justin-kipkie,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-142-ivan-tkach-tkachenko,2024-25,Rus-MHL,Ufa Tolpar,0,0,0,0,,pre_draft,true,wikipedia,2025-142-ivan-tkach-tkachenko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-143-wilson-bjorck,2024-25,Swe-1,Djurgardens IF,0,0,0,0,,pre_draft,true,wikipedia,2025-143-wilson-bjorck,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-144-ethan-wyttenbach,2024-25,USHL,Sioux Falls Stampede,0,0,0,0,,pre_draft,true,wikipedia,2025-144-ethan-wyttenbach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-145-alexis-cournoyer,2024-25,QMJHL,Cape Breton Eagles,0,0,0,0,,pre_draft,true,wikipedia,2025-145-alexis-cournoyer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-146-atte-joki,2024-25,Finland Jr.,Lukko U20,0,0,0,0,,pre_draft,true,wikipedia,2025-146-atte-joki,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-147-mikhail-fyodorov,2024-25,Rus-MHL,Stalnye Lisy,0,0,0,0,,pre_draft,true,wikipedia,2025-147-mikhail-fyodorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-148-quinn-beauchesne,2024-25,OHL,Guelph Storm,0,0,0,0,,pre_draft,true,wikipedia,2025-148-quinn-beauchesne,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-149-dmitri-isayev,2024-25,Rus-MHL,JHC Avto,0,0,0,0,,pre_draft,true,wikipedia,2025-149-dmitri-isayev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-150-max-heise,2024-25,BCHL,Penticton Vees,0,0,0,0,,pre_draft,true,wikipedia,2025-150-max-heise,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-151-everett-baldwin,2024-25,USHS-Prep,St. George's Dragons,0,0,0,0,,pre_draft,true,wikipedia,2025-151-everett-baldwin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-152-petteri-rimpinen,2024-25,SM-liiga,Kiekko-Espoo,0,0,0,0,,pre_draft,true,wikipedia,2025-152-petteri-rimpinen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-153-harry-nansi,2024-25,OHL,Owen Sound Attack,0,0,0,0,,pre_draft,true,wikipedia,2025-153-harry-nansi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-154-jordan-charron,2024-25,OHL,Sault Ste. Marie Greyhounds,0,0,0,0,,pre_draft,true,wikipedia,2025-154-jordan-charron,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-155-jackson-crowder,2024-25,USHL,Chicago Steel,0,0,0,0,,pre_draft,true,wikipedia,2025-155-jackson-crowder,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-156-viktor-klingsell,2024-25,Swe-Jr,Skelleftea AIK J20,0,0,0,0,,pre_draft,true,wikipedia,2025-156-viktor-klingsell,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-157-luke-vlooswyk,2024-25,WHL,Red Deer Rebels,0,0,0,0,,pre_draft,true,wikipedia,2025-157-luke-vlooswyk,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-158-mans-goos,2024-25,Swe-Jr,Farjestad BK J20,0,0,0,0,,pre_draft,true,wikipedia,2025-158-mans-goos,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-159-emile-guite,2024-25,QMJHL,Chicoutimi Sagueneens,0,0,0,0,,pre_draft,true,wikipedia,2025-159-emile-guite,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-160-owen-griffin,2024-25,OHL,Oshawa Generals,0,0,0,0,,pre_draft,true,wikipedia,2025-160-owen-griffin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-161-david-rozsival,2024-25,Czech. Jr,Bili Tygri Liberec U20,0,0,0,0,,pre_draft,true,wikipedia,2025-161-david-rozsival,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-162-ashton-cumby,2024-25,WHL,Seattle Thunderbirds,0,0,0,0,,pre_draft,true,wikipedia,2025-162-ashton-cumby,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-163-daniel-nieminen,2024-25,SM-liiga,Lahti Pelicans,0,0,0,0,,pre_draft,true,wikipedia,2025-163-daniel-nieminen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-164-nathan-quinn,2024-25,QMJHL,Quebec Remparts,0,0,0,0,,pre_draft,true,wikipedia,2025-164-nathan-quinn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-165-kirill-yemelyanov,2024-25,Rus-MHL,Loko Yaroslavl,0,0,0,0,,pre_draft,true,wikipedia,2025-165-kirill-yemelyanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-166-samuel-jung,2024-25,Finland Jr.,Karpat U20,0,0,0,0,,pre_draft,true,wikipedia,2025-166-samuel-jung,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-167-ashton-schultz,2024-25,USHL,Chicago Steel,0,0,0,0,,pre_draft,true,wikipedia,2025-167-ashton-schultz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-168-anthony-allain-samake,2024-25,USHL,Sioux City Musketeers,0,0,0,0,,pre_draft,true,wikipedia,2025-168-anthony-allain-samake,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-169-carter-sanderson,2024-25,USHL,Muskegon Lumberjacks,0,0,0,0,,pre_draft,true,wikipedia,2025-169-carter-sanderson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-170-burke-hood,2024-25,WHL,Vancouver Giants,0,0,0,0,,pre_draft,true,wikipedia,2025-170-burke-hood,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-171-evan-passmore,2024-25,OHL,Barrie Colts,0,0,0,0,,pre_draft,true,wikipedia,2025-171-evan-passmore,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-172-will-murphy,2024-25,QMJHL,Cape Breton Eagles,0,0,0,0,,pre_draft,true,wikipedia,2025-172-will-murphy,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-173-victor-hedin-raftheim,2024-25,Swe-Jr,Brynas J20,0,0,0,0,,pre_draft,true,wikipedia,2025-173-victor-hedin-raftheim,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-174-ludvig-johnson,2024-25,U20-Elit,Zug U20,0,0,0,0,,pre_draft,true,wikipedia,2025-174-ludvig-johnson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-175-gabriel-chiarot,2024-25,OHL,Brampton Steelheads,0,0,0,0,,pre_draft,true,wikipedia,2025-175-gabriel-chiarot,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-176-aidan-lane,2024-25,Ont. H.S.,St. Andrew's Saints,0,0,0,0,,pre_draft,true,wikipedia,2025-176-aidan-lane,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-177-carlos-handel,2024-25,QMJHL,Halifax Mooseheads,0,0,0,0,,pre_draft,true,wikipedia,2025-177-carlos-handel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-178-sigge-holmgren,2024-25,Swe-Jr,Brynas J20,0,0,0,0,,pre_draft,true,wikipedia,2025-178-sigge-holmgren,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-179-love-harenstam,2024-25,Swe-Jr,Skelleftea J20,0,0,0,0,,pre_draft,true,wikipedia,2025-179-love-harenstam,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-180-aron-dahlqvist,2024-25,Swe-Jr,Brynas J20,0,0,0,0,,pre_draft,true,wikipedia,2025-180-aron-dahlqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-181-bruno-idzan,2024-25,USHL,Lincoln Stars,0,0,0,0,,pre_draft,true,wikipedia,2025-181-bruno-idzan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-182-reko-alanko,2024-25,Finland Jr.,Jokerit U20,0,0,0,0,,pre_draft,true,wikipedia,2025-182-reko-alanko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-183-viggo-nordlund,2024-25,Swe-Jr,Skelleftea J20,0,0,0,0,,pre_draft,true,wikipedia,2025-183-viggo-nordlund,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-184-jan-chovan,2024-25,Finland Jr.,Tappara U20,0,0,0,0,,pre_draft,true,wikipedia,2025-184-jan-chovan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-185-rylan-fellinger,2024-25,OHL,Flint Firebirds,0,0,0,0,,pre_draft,true,wikipedia,2025-185-rylan-fellinger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-186-alexander-weiermair,2024-25,WHL,Portland Winterhawks,0,0,0,0,,pre_draft,true,wikipedia,2025-186-alexander-weiermair,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-187-gustav-sjoqvist,2024-25,Swe-1,AIK,0,0,0,0,,pre_draft,true,wikipedia,2025-187-gustav-sjoqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-188-edison-engle,2024-25,USHL,Dubuque Fighting Saints,0,0,0,0,,pre_draft,true,wikipedia,2025-188-edison-engle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-189-andrew-macniel,2024-25,OHL,Kitchener Rangers,0,0,0,0,,pre_draft,true,wikipedia,2025-189-andrew-macniel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-190-dawson-sharkey,2024-25,QMJHL,Acadie–Bathurst Titan,0,0,0,0,,pre_draft,true,wikipedia,2025-190-dawson-sharkey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-191-daniel-salonen,2024-25,Finland Jr.,Lukko U20,0,0,0,0,,pre_draft,true,wikipedia,2025-191-daniel-salonen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-192-arvid-drott,2024-25,Swe-Jr,Djurgardens IF J20,0,0,0,0,,pre_draft,true,wikipedia,2025-192-arvid-drott,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-193-caleb-heil,2024-25,USHL,Madison Capitols,0,0,0,0,,pre_draft,true,wikipedia,2025-193-caleb-heil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-194-ilya-kanarsky,2024-25,Rus-MHL,AKM Tula,0,0,0,0,,pre_draft,true,wikipedia,2025-194-ilya-kanarsky,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-195-melvin-novotny,2024-25,USHL,Muskegon Lumberjacks,0,0,0,0,,pre_draft,true,wikipedia,2025-195-melvin-novotny,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-196-brendan-mcmorrow,2024-25,USHL,Waterloo Black Hawks,0,0,0,0,,pre_draft,true,wikipedia,2025-196-brendan-mcmorrow,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-197-brendan-dunphy,2024-25,WHL,Wenatchee Wild,0,0,0,0,,pre_draft,true,wikipedia,2025-197-brendan-dunphy,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-198-jeremy-loranger,2024-25,BCHL,Sherwood Park Crusaders,0,0,0,0,,pre_draft,true,wikipedia,2025-198-jeremy-loranger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-199-yevgeni-prokhorov,2024-25,Rus-MHL,Dinamo-Shinnik Bobruysk,0,0,0,0,,pre_draft,true,wikipedia,2025-199-yevgeni-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-200-brady-turko,2024-25,WHL,Brandon Wheat Kings,0,0,0,0,,pre_draft,true,wikipedia,2025-200-brady-turko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-201-kale-dach,2024-25,BCHL,Sherwood Park Crusaders,0,0,0,0,,pre_draft,true,wikipedia,2025-201-kale-dach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-202-jacob-kvasnicka,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-202-jacob-kvasnicka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-203-felix-farhammar,2024-25,SweHL,Orebro HK,0,0,0,0,,pre_draft,true,wikipedia,2025-203-felix-farhammar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-204-grayden-robertson-palmer,2024-25,USHS-Prep,Phillips Andover Big Blue,0,0,0,0,,pre_draft,true,wikipedia,2025-204-grayden-robertson-palmer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-205-karl-annborn,2024-25,SweHL,HV71,0,0,0,0,,pre_draft,true,wikipedia,2025-205-karl-annborn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-206-roman-luttsev,2024-25,KHL,Loko Yaroslavl,0,0,0,0,,pre_draft,true,wikipedia,2025-206-roman-luttsev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-207-matthew-lansing,2024-25,USHL,Fargo Force,0,0,0,0,,pre_draft,true,wikipedia,2025-207-matthew-lansing,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-208-jakob-leander,2024-25,Swe-Jr,HV71 J20,0,0,0,0,,pre_draft,true,wikipedia,2025-208-jakob-leander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-209-maxon-vig,2024-25,USHL,Cedar Rapids RoughRiders,0,0,0,0,,pre_draft,true,wikipedia,2025-209-maxon-vig,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-210-richard-gallant,2024-25,USHL,U.S. NTDP,0,0,0,0,,pre_draft,true,wikipedia,2025-210-richard-gallant,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-211-yan-matveiko,2024-25,Rus-MHL,Krasnaya Armiya Moskva,0,0,0,0,,pre_draft,true,wikipedia,2025-211-yan-matveiko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-212-grant-spada,2024-25,OHL,Guelph Storm,0,0,0,0,,pre_draft,true,wikipedia,2025-212-grant-spada,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-213-andrei-trofimov,2024-25,Rus-MHL,Stalnye Lisy Magnitogorsk,0,0,0,0,,pre_draft,true,wikipedia,2025-213-andrei-trofimov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-214-nolan-roed,2024-25,OHL,Tri-City Storm,0,0,0,0,,pre_draft,true,wikipedia,2025-214-nolan-roed,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-215-marco-mignosa,2024-25,OHL,Soo Greyhounds,0,0,0,0,,pre_draft,true,wikipedia,2025-215-marco-mignosa,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-216-william-sharpe,2024-25,WHL,Kelowna Rockets,0,0,0,0,,pre_draft,true,wikipedia,2025-216-william-sharpe,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-217-matthew-hlacar,2024-25,OHL,Kitchener Rangers,0,0,0,0,,pre_draft,true,wikipedia,2025-217-matthew-hlacar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-218-loke-krantz,2024-25,Swe-Jr,Linkoping HC J20,0,0,0,0,,pre_draft,true,wikipedia,2025-218-loke-krantz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-219-ryan-rucinski,2024-25,USHL,Youngstown Phantoms,0,0,0,0,,pre_draft,true,wikipedia,2025-219-ryan-rucinski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-220-jacob-cloutier,2024-25,OHL,Saginaw Spirit,0,0,0,0,,pre_draft,true,wikipedia,2025-220-jacob-cloutier,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-221-filip-ekberg,2024-25,OHL,Ottawa 67's,0,0,0,0,,pre_draft,true,wikipedia,2025-221-filip-ekberg,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-222-charlie-paquette,2024-25,OHL,Guelph Storm,0,0,0,0,,pre_draft,true,wikipedia,2025-222-charlie-paquette,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-223-aidan-park,2024-25,USHL,Green Bay Gamblers,0,0,0,0,,pre_draft,true,wikipedia,2025-223-aidan-park,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-224-yegor-midlak,2024-25,Rus-MHL,JHC Spartak,0,0,0,0,,pre_draft,true,wikipedia,2025-224-yegor-midlak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft

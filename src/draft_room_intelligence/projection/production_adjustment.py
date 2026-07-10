@@ -73,6 +73,7 @@ def build_adjusted_production_features(
         for prospect in prospects
         if prospect.pre_draft_stat_lines and role_group(prospect.position) != "goalie"
     ]
+    preliminary = [feature for feature in preliminary if feature.games > 0]
 
     grouped: dict[tuple[str, str, str], list[AdjustedProduction]] = {}
     for feature in preliminary:
