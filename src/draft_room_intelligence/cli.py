@@ -6,6 +6,7 @@ import argparse
 import shutil
 from pathlib import Path
 
+from draft_room_intelligence.data.chl_stats import ChlStatSource, enrich_chl_stats
 from draft_room_intelligence.data.demo_data import (
     audit_demo_class,
     format_demo_audit_report,
@@ -207,6 +208,21 @@ def main() -> None:
         type=Path,
         help="Optional local cache directory for Wikipedia lookup results.",
     )
+    chl_stats_parser = subparsers.add_parser(
+        "enrich-chl-stats",
+        help="Overlay public CHL skater stat pages onto a normalized draft-year dataset.",
+    )
+    chl_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    chl_stats_parser.add_argument("output_dir", type=Path, help="Directory for CHL-enriched output.")
+    chl_stats_parser.add_argument(
+        "--source",
+        action="append",
+        required=True,
+        help=(
+            "CHL stat source as league,season,url[,local_html_path]. "
+            "Example: OHL,2024-25,https://chl.ca/ohl/stats/players/79/all/points/all"
+        ),
+    )
     feature_table_parser = subparsers.add_parser(
         "export-feature-table",
         help="Build and export a reusable player-year feature table from historical prospect data.",
@@ -399,6 +415,8 @@ def main() -> None:
             progress_every=args.progress_every,
             cache_dir=args.cache_dir,
         )
+    elif args.command == "enrich-chl-stats":
+        run_enrich_chl_stats(args.base_dir, args.output_dir, sources=args.source)
     elif args.command == "export-feature-table":
         run_export_feature_table(args.data_path, args.output_path)
     elif args.command == "evaluate-role-models":
@@ -662,6 +680,28 @@ def run_enrich_wikipedia_bio(
     print(f"Weights filled: {summary.weights}")
     print(f"Handedness filled: {summary.handedness}")
     print(f"Match report: {summary.match_report_path}")
+
+
+def run_enrich_chl_stats(base_dir: Path, output_dir: Path, *, sources: list[str]) -> None:
+    parsed_sources = [parse_chl_source(value) for value in sources]
+    summary = enrich_chl_stats(base_dir, output_dir, parsed_sources)
+    print("# CHL stats enrichment")
+    print(f"Base directory: {base_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Players scanned: {summary.players_scanned}")
+    print(f"Source stat rows: {summary.source_rows}")
+    print(f"Matched players: {summary.matched_players}")
+    print(f"Output stat lines: {summary.output_stat_lines}")
+    print(f"Match report: {summary.match_report_path}")
+
+
+def parse_chl_source(value: str) -> ChlStatSource:
+    parts = [part.strip() for part in value.split(",", 3)]
+    if len(parts) not in (3, 4):
+        raise ValueError("CHL source must be league,season,url[,local_html_path]")
+    league, season, url = parts[:3]
+    path = Path(parts[3]) if len(parts) == 4 and parts[3] else None
+    return ChlStatSource(league=league, season=season, source_url=url, source_path=path)
 
 
 def run_export_feature_table(data_path: Path, output_path: Path) -> None:
