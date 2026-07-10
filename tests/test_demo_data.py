@@ -33,6 +33,8 @@ def test_audit_demo_class_reports_missing_and_present_inputs(tmp_path):
     assert report.strong_for_demo is True
     assert "HockeyDB draft HTML: present" in text
     assert "Elite Prospects export: present" in text
+    assert "Next step: Run ETL and build the demo package/site." in text
+    assert "Build demo site:" in text
 
 
 def test_audit_demo_class_flags_missing_required_assets(tmp_path):
@@ -42,3 +44,5 @@ def test_audit_demo_class_flags_missing_required_assets(tmp_path):
     assert report.ready_for_etl is False
     assert "Ready for ETL: no" in text
     assert "HockeyDB draft HTML: missing" in text
+    assert "## Missing Required Inputs" in text
+    assert "Collect the required raw inputs, then re-run the audit." in text
