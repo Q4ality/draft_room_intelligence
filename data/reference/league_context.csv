@@ -1,0 +1,43 @@
+league,league_family,competition_level,adult_league,league_weight,playoff_weight
+NHL,North America Pro,elite,true,1.35,1.15
+KHL,Europe Pro,elite,true,1.25,1.15
+SHL,Europe Pro,elite,true,1.20,1.15
+Liiga,Europe Pro,elite,true,1.15,1.15
+AHL,North America Pro,high,true,1.10,1.12
+DEL,Europe Pro,high,true,1.05,1.12
+HockeyAllsvenskan,Europe Pro,high,true,1.00,1.10
+Mestis,Europe Pro,medium,true,0.92,1.08
+NCAA,College,high,false,1.05,1.08
+OHL,Canadian Junior,junior,false,1.00,1.08
+WHL,Canadian Junior,junior,false,0.98,1.08
+QMJHL,Canadian Junior,junior,false,0.95,1.08
+USHL,United States Junior,junior,false,0.92,1.06
+USDP,United States Junior,junior,false,0.94,1.06
+BCHL,Canadian Junior A,junior_a,false,0.78,1.05
+AJHL,Canadian Junior A,junior_a,false,0.74,1.05
+NAHL,United States Junior,junior_a,false,0.72,1.05
+MHL,Russia Junior,junior,false,0.82,1.06
+Rus-MHL,Russia Junior,junior,false,0.82,1.06
+VHL,Russia Pro,medium,true,0.90,1.08
+Rus-VHL,Russia Pro,medium,true,0.90,1.08
+Russia Jr.,Russia Junior,junior,false,0.78,1.05
+Russia Jrs.,Russia Junior,junior,false,0.78,1.05
+Finland Jrs.,Finland Junior,junior,false,0.78,1.05
+Sweden Jrs.,Sweden Junior,junior,false,0.80,1.05
+Swe-Jr,Sweden Junior,junior,false,0.80,1.05
+Czech,Czech Pro,medium,true,0.86,1.08
+Czech Jrs.,Czech Junior,junior,false,0.72,1.05
+Czechia Jrs.,Czech Junior,junior,false,0.72,1.05
+OJHL,Canadian Junior A,junior_a,false,0.70,1.05
+High School,High School,amateur,false,0.62,1.02
+U.S. H.S.,High School,amateur,false,0.62,1.02
+U.S. H.S,High School,amateur,false,0.62,1.02
+Minn. H.S.,High School,amateur,false,0.62,1.02
+Minn H.S.,High School,amateur,false,0.62,1.02
+Mass. H.S.,High School,amateur,false,0.62,1.02
+Conn. H.S.,High School,amateur,false,0.62,1.02
+N.J. H.S.,High School,amateur,false,0.62,1.02
+Ontario,Other Junior,junior,false,0.65,1.02
+Denmark Jrs.,Europe Junior,junior,false,0.65,1.02
+Exhibition,Exhibition,amateur,false,0.55,1.00
+Unknown,Unknown,unknown,false,0.70,1.00

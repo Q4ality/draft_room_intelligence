@@ -1,0 +1,2 @@
+"""Scouting intelligence package."""
+

@@ -1,0 +1,218 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2019-001-jack-hughes,2019,NJD,New Jersey,1,1,U.S. National Development Team,USHL,hockeydb,2019-001-jack-hughes,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-002-kaapo-kakko,2019,NYR,NY Rangers,1,2,TPS Turku,Liiga,hockeydb,2019-002-kaapo-kakko,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-003-kirby-dach,2019,CHI,Chicago,1,3,Saskatoon Blades,WHL,hockeydb,2019-003-kirby-dach,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-004-bowen-byram,2019,COL,Colorado,1,4,Vancouver Giants,WHL,hockeydb,2019-004-bowen-byram,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-005-alex-turcotte,2019,LAK,Los Angeles,1,5,U.S. National Development Team,USHL,hockeydb,2019-005-alex-turcotte,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-006-moritz-seider,2019,DET,Detroit,1,6,Mannheim Eagles,DEL,hockeydb,2019-006-moritz-seider,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-007-dylan-cozens,2019,BUF,Buffalo,1,7,Lethbridge Hurricanes,WHL,hockeydb,2019-007-dylan-cozens,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-008-philip-broberg,2019,EDM,Edmonton,1,8,AIK,HockeyAllsvenskan,hockeydb,2019-008-philip-broberg,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-009-trevor-zegras,2019,ANA,Anaheim,1,9,U.S. National Development Team,USHL,hockeydb,2019-009-trevor-zegras,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-010-vasili-podkolzin,2019,VAN,Vancouver,1,10,St. Petersburg,Russia Jr.,hockeydb,2019-010-vasili-podkolzin,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-011-victor-soderstrom,2019,ARI,Arizona,1,11,Brynas IF Gavle,SHL,hockeydb,2019-011-victor-soderstrom,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-012-matthew-boldy,2019,MIN,Minnesota,1,12,U.S. National Development Team,USHL,hockeydb,2019-012-matthew-boldy,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-013-spencer-knight,2019,FLA,Florida,1,13,U.S. National Development Team,USHL,hockeydb,2019-013-spencer-knight,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-014-cam-york,2019,PHI,Philadelphia,1,14,U.S. National Development Team,USHL,hockeydb,2019-014-cam-york,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-015-cole-caufield,2019,MTL,Montreal,1,15,U.S. National Development Team,USHL,hockeydb,2019-015-cole-caufield,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-016-alex-newhook,2019,COL,Colorado,1,16,Victoria Grizzlies,BCHL,hockeydb,2019-016-alex-newhook,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-017-peyton-krebs,2019,VGK,Vegas,1,17,Kootenay Ice,WHL,hockeydb,2019-017-peyton-krebs,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-018-thomas-harley,2019,DAL,Dallas,1,18,Mississauga Steelheads,OHL,hockeydb,2019-018-thomas-harley,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-019-lassi-thomson,2019,OTT,Ottawa,1,19,Kelowna Rockets,WHL,hockeydb,2019-019-lassi-thomson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-020-ville-heinola,2019,WPG,Winnipeg,1,20,Lukko Rauma,Liiga,hockeydb,2019-020-ville-heinola,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-021-samuel-poulin,2019,PIT,Pittsburgh,1,21,Sherbrooke Phoenix,QMJHL,hockeydb,2019-021-samuel-poulin,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-022-tobias-bjornfot,2019,LAK,Los Angeles,1,22,Djurgarden,Sweden Jrs.,hockeydb,2019-022-tobias-bjornfot,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-023-simon-holmstrom,2019,NYI,NY Islanders,1,23,HV71,Sweden Jrs.,hockeydb,2019-023-simon-holmstrom,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-024-philip-tomasino,2019,NSH,Nashville,1,24,Niagara IceDogs,OHL,hockeydb,2019-024-philip-tomasino,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-025-connor-mcmichael,2019,WSH,Washington,1,25,London Knights,OHL,hockeydb,2019-025-connor-mcmichael,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-026-jakob-pelletier,2019,CGY,Calgary,1,26,Moncton Wildcats,QMJHL,hockeydb,2019-026-jakob-pelletier,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-027-nolan-foote,2019,TBL,Tampa Bay,1,27,Kelowna Rockets,WHL,hockeydb,2019-027-nolan-foote,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-028-ryan-suzuki,2019,CAR,Carolina,1,28,Barrie Colts,OHL,hockeydb,2019-028-ryan-suzuki,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-029-brayden-tracey,2019,ANA,Anaheim,1,29,Moose Jaw Warriors,WHL,hockeydb,2019-029-brayden-tracey,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-030-john-beecher,2019,BOS,Boston,1,30,U.S. National Development Team,USHL,hockeydb,2019-030-john-beecher,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-031-ryan-johnson,2019,BUF,Buffalo,1,31,Sioux Falls Stampede,USHL,hockeydb,2019-031-ryan-johnson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-032-shane-pinto,2019,OTT,Ottawa,2,32,Tri-City Storm,USHL,hockeydb,2019-032-shane-pinto,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-033-arthur-kaliyev,2019,LAK,Los Angeles,2,33,Hamilton Bulldogs,OHL,hockeydb,2019-033-arthur-kaliyev,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-034-bobby-brink,2019,PHI,Philadelphia,2,34,Sioux City Musketeers,USHL,hockeydb,2019-034-bobby-brink,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-035-antti-tuomisto,2019,DET,Detroit,2,35,Assat,Finland Jrs.,hockeydb,2019-035-antti-tuomisto,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-036-pyotr-kochetkov,2019,CAR,Carolina,2,36,Stupino Kapitan,Russia Jrs.,hockeydb,2019-036-pyotr-kochetkov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-037-mads-sogaard,2019,OTT,Ottawa,2,37,Medicine Hat Tigers,WHL,hockeydb,2019-037-mads-sogaard,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-038-raphael-lavoie,2019,EDM,Edmonton,2,38,Halifax Mooseheads,QMJHL,hockeydb,2019-038-raphael-lavoie,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-039-jackson-lacombe,2019,ANA,Anaheim,2,39,Shattuck-St. Mary's,Minn. H.S.,hockeydb,2019-039-jackson-lacombe,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-040-nils-hoglander,2019,VAN,Vancouver,2,40,Rogle BK Angelholm,SHL,hockeydb,2019-040-nils-hoglander,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-041-kaedan-korczak,2019,VGK,Vegas,2,41,Kelowna Rockets,WHL,hockeydb,2019-041-kaedan-korczak,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-042-vladislav-firstov,2019,MIN,Minnesota,2,42,Waterloo Black Hawks,USHL,hockeydb,2019-042-vladislav-firstov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-043-alex-vlasic,2019,CHI,Chicago,2,43,U.S. National Development Team,USHL,hockeydb,2019-043-alex-vlasic,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-044-jamieson-rees,2019,CAR,Carolina,2,44,Sarnia Sting,OHL,hockeydb,2019-044-jamieson-rees,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-045-egor-afanasyev,2019,NSH,Nashville,2,45,Muskegon Lumberjacks,USHL,hockeydb,2019-045-egor-afanasyev,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-046-jayden-struble,2019,MTL,Montreal,2,46,St. Sebastiens,U.S. H.S.,hockeydb,2019-046-jayden-struble,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-047-drew-helleson,2019,COL,Colorado,2,47,U.S. National Development Team,USHL,hockeydb,2019-047-drew-helleson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-048-artemi-kniazev,2019,SJS,San Jose,2,48,Chicoutimi Sagueneens,QMJHL,hockeydb,2019-048-artemi-kniazev,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-049-matthew-robertson,2019,NYR,NY Rangers,2,49,Edmonton Oil Kings,WHL,hockeydb,2019-049-matthew-robertson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-050-samuel-fagemo,2019,LAK,Los Angeles,2,50,Frolunda HC,SHL,hockeydb,2019-050-samuel-fagemo,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-051-simon-lundmark,2019,WPG,Winnipeg,2,51,Linkopings HC,SHL,hockeydb,2019-051-simon-lundmark,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-052-vladislav-kolyachonok,2019,FLA,Florida,2,52,Flint Firebirds,OHL,hockeydb,2019-052-vladislav-kolyachonok,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-053-nicholas-robertson,2019,TOR,Toronto,2,53,Peterborough Petes,OHL,hockeydb,2019-053-nicholas-robertson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-054-robert-mastrosimone,2019,DET,Detroit,2,54,Chicago Steel,USHL,hockeydb,2019-054-robert-mastrosimone,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-055-dillon-hamaliuk,2019,SJS,San Jose,2,55,Seattle Thunderbirds,WHL,hockeydb,2019-055-dillon-hamaliuk,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-056-brett-leason,2019,WSH,Washington,2,56,Prince Albert Raiders,WHL,hockeydb,2019-056-brett-leason,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-057-samuel-bolduc,2019,NYI,NY Islanders,2,57,Blainville-Boisbriand Armada,QMJHL,hockeydb,2019-057-samuel-bolduc,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-058-karl-henriksson,2019,NYR,NY Rangers,2,58,Frolunda,Sweden Jrs.,hockeydb,2019-058-karl-henriksson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-059-hunter-jones,2019,MIN,Minnesota,2,59,Peterborough Petes,OHL,hockeydb,2019-059-hunter-jones,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-060-albert-johansson,2019,DET,Detroit,2,60,Farjestads,Sweden Jrs.,hockeydb,2019-060-albert-johansson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-061-nikita-okhotyuk,2019,NJD,New Jersey,2,61,Ottawa 67's,OHL,hockeydb,2019-061-nikita-okhotyuk,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-062-nikita-alexandrov,2019,STL,St. Louis,2,62,Charlottetown Islanders,QMJHL,hockeydb,2019-062-nikita-alexandrov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-063-matthew-stienburg,2019,COL,Colorado,3,63,St. Andrews College,Ontario,hockeydb,2019-063-matthew-stienburg,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-064-mattias-norlinder,2019,MTL,Montreal,3,64,MODO,Sweden Jrs.,hockeydb,2019-064-mattias-norlinder,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-065-alexander-campbell,2019,NSH,Nashville,3,65,Victoria Grizzlies,BCHL,hockeydb,2019-065-alexander-campbell,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-066-albin-grewe,2019,DET,Detroit,3,66,Djurgardens,Sweden Jrs.,hockeydb,2019-066-albin-grewe,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-067-erik-portillo,2019,BUF,Buffalo,3,67,Frolunda,Sweden Jrs.,hockeydb,2019-067-erik-portillo,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-068-zac-jones,2019,NYR,NY Rangers,3,68,Tri-City Storm,USHL,hockeydb,2019-068-zac-jones,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-069-john-ludvig,2019,FLA,Florida,3,69,Portland Winterhawks,WHL,hockeydb,2019-069-john-ludvig,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-070-daniil-misyul,2019,NJD,New Jersey,3,70,Yaroslavl,Russia Jrs.,hockeydb,2019-070-daniil-misyul,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-071-hugo-alnefelt,2019,TBL,Tampa Bay,3,71,HV71,Sweden Jrs.,hockeydb,2019-071-hugo-alnefelt,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-072-ronnie-attard,2019,PHI,Philadelphia,3,72,Tri-City Storm,USHL,hockeydb,2019-072-ronnie-attard,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-073-patrik-puistola,2019,CAR,Carolina,3,73,Tappara,Finland Jrs.,hockeydb,2019-073-patrik-puistola,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-074-nathan-legare,2019,PIT,Pittsburgh,3,74,Baie-Comeau Drakkar,QMJHL,hockeydb,2019-074-nathan-legare,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-075-adam-beckman,2019,MIN,Minnesota,3,75,Spokane Chiefs,WHL,hockeydb,2019-075-adam-beckman,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-076-john-farinacci,2019,ARI,Arizona,3,76,Dexter School,U.S. H.S.,hockeydb,2019-076-john-farinacci,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-077-gianni-fairbrother,2019,MTL,Montreal,3,77,Everett Silvertips,WHL,hockeydb,2019-077-gianni-fairbrother,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-078-alex-beaucage,2019,COL,Colorado,3,78,Rouyn-Noranda Huskies,QMJHL,hockeydb,2019-078-alex-beaucage,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-079-pavel-dorofeyev,2019,VGK,Vegas,3,79,Magnitogorsk Metallurg,KHL,hockeydb,2019-079-pavel-dorofeyev,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-080-graeme-clarke,2019,NJD,New Jersey,3,80,Ottawa 67's,OHL,hockeydb,2019-080-graeme-clarke,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-081-cole-schwindt,2019,FLA,Florida,3,81,Mississauga Steelheads,OHL,hockeydb,2019-081-cole-schwindt,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-082-michael-vukojevic,2019,NJD,New Jersey,3,82,Kitchener Rangers,OHL,hockeydb,2019-082-michael-vukojevic,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-083-anttoni-honka,2019,CAR,Carolina,3,83,Jukurit Mikkeli,Liiga,hockeydb,2019-083-anttoni-honka,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-084-mikko-kokkonen,2019,TOR,Toronto,3,84,Jukurit Mikkeli,Liiga,hockeydb,2019-084-mikko-kokkonen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-085-ilya-konovalov,2019,EDM,Edmonton,3,85,Yaroslavl Lokomotiv,KHL,hockeydb,2019-085-ilya-konovalov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-086-layton-ahac,2019,VGK,Vegas,3,86,Prince George Spruce Kings,BCHL,hockeydb,2019-086-layton-ahac,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-087-lukas-parik,2019,LAK,Los Angeles,3,87,Liberec,Czech Jrs.,hockeydb,2019-087-lukas-parik,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-088-ilya-nikolaev,2019,CGY,Calgary,3,88,Yaroslavl,Russia Jrs.,hockeydb,2019-088-ilya-nikolaev,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-089-maxim-cajkovic,2019,TBL,Tampa Bay,3,89,Saint John Sea Dogs,QMJHL,hockeydb,2019-089-maxim-cajkovic,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-090-domenick-fensore,2019,CAR,Carolina,3,90,U.S. National Development Team,USHL,hockeydb,2019-090-domenick-fensore,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-091-aliaksei-protas,2019,WSH,Washington,3,91,Prince Albert Raiders,WHL,hockeydb,2019-091-aliaksei-protas,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-092-quinn-olson,2019,BOS,Boston,3,92,Okotoks Oilers,AJHL,hockeydb,2019-092-quinn-olson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-093-colten-ellis,2019,STL,St. Louis,3,93,Rimouski Oceanic,QMJHL,hockeydb,2019-093-colten-ellis,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-094-viktor-lodin,2019,OTT,Ottawa,4,94,Orebro HK,SHL,hockeydb,2019-094-viktor-lodin,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-095-jordan-spence,2019,LAK,Los Angeles,4,95,Moncton Wildcats,QMJHL,hockeydb,2019-095-jordan-spence,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-096-tyce-thompson,2019,NJD,New Jersey,4,96,Providence College,NCAA,hockeydb,2019-096-tyce-thompson,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-097-ethan-phillips,2019,DET,Detroit,4,97,Sioux Falls Stampede,USHL,hockeydb,2019-097-ethan-phillips,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-098-matias-maccelli,2019,ARI,Arizona,4,98,Dubuque Fighting Saints,USHL,hockeydb,2019-098-matias-maccelli,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-099-cade-webber,2019,CAR,Carolina,4,99,Rivers Academy,U.S. H.S.,hockeydb,2019-099-cade-webber,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-100-matej-blumel,2019,EDM,Edmonton,4,100,Waterloo Black Hawks,USHL,hockeydb,2019-100-matej-blumel,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-101-henry-thrun,2019,ANA,Anaheim,4,101,U.S. National Development Team,USHL,hockeydb,2019-101-henry-thrun,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-102-aaron-huglen,2019,BUF,Buffalo,4,102,Fargo Force,USHL,hockeydb,2019-102-aaron-huglen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-103-mason-millman,2019,PHI,Philadelphia,4,103,Saginaw Spirit,OHL,hockeydb,2019-103-mason-millman,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-104-eric-hjorth,2019,CBJ,Columbus,4,104,Linkoping,Sweden Jrs.,hockeydb,2019-104-eric-hjorth,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-105-michal-teply,2019,CHI,Chicago,4,105,Benatky,Czechia Jrs.,hockeydb,2019-105-michal-teply,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-106-carter-berger,2019,FLA,Florida,4,106,Victoria Grizzlies,BCHL,hockeydb,2019-106-carter-berger,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-107-alexandr-daryin,2019,ARI,Arizona,4,107,Yaroslavl,Russia Jrs.,hockeydb,2019-107-alexandr-daryin,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-108-yegor-spiridonov,2019,SJS,San Jose,4,108,Magnitogorsk,Russia Jrs.,hockeydb,2019-108-yegor-spiridonov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-109-marc-del-gaizo,2019,NSH,Nashville,4,109,UMass-Amherst,NCAA,hockeydb,2019-109-marc-del-gaizo,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-110-ryder-donovan,2019,VGK,Vegas,4,110,Dubuque Fighting Saints,USHL,hockeydb,2019-110-ryder-donovan,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-111-samuel-sjolund,2019,DAL,Dallas,4,111,AIK,Sweden Jrs.,hockeydb,2019-111-samuel-sjolund,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-112-hunter-skinner,2019,NYR,NY Rangers,4,112,Lincoln Stars,USHL,hockeydb,2019-112-hunter-skinner,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-113-henri-nikkanen,2019,WPG,Winnipeg,4,113,Jukurit,Finland Jrs.,hockeydb,2019-113-henri-nikkanen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-114-dmitri-voronkov,2019,CBJ,Columbus,4,114,Kazan,Russia Jrs.,hockeydb,2019-114-dmitri-voronkov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-115-mikhail-abramov,2019,TOR,Toronto,4,115,Victoriaville Tigres,QMJHL,hockeydb,2019-115-mikhail-abramov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-116-lucas-feuk,2019,CGY,Calgary,4,116,Sodertalje,Sweden Jrs.,hockeydb,2019-116-lucas-feuk,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-117-semyon-chistyakov,2019,NSH,Nashville,4,117,Ufa,Russia Jrs.,hockeydb,2019-117-semyon-chistyakov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-118-case-mccarthy,2019,NJD,New Jersey,4,118,U.S. National Development Team,USHL,hockeydb,2019-118-case-mccarthy,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-119-kim-nousiainen,2019,LAK,Los Angeles,4,119,Kalpa,Finland Jrs.,hockeydb,2019-119-kim-nousiainen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-120-maxwell-crozier,2019,TBL,Tampa Bay,4,120,Sioux Falls Stampede,USHL,hockeydb,2019-120-maxwell-crozier,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-121-tuukka-tieksola,2019,CAR,Carolina,4,121,Karpat,Finland Jrs.,hockeydb,2019-121-tuukka-tieksola,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-122-ethan-keppen,2019,VAN,Vancouver,4,122,Flint Firebirds,OHL,hockeydb,2019-122-ethan-keppen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-123-antti-saarela,2019,CHI,Chicago,4,123,Lukko Rauma,Liiga,hockeydb,2019-123-antti-saarela,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-124-nick-abruzzese,2019,TOR,Toronto,4,124,Chicago Steel,USHL,hockeydb,2019-124-nick-abruzzese,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-125-mark-kastelic,2019,OTT,Ottawa,5,125,Calgary Hitmen,WHL,hockeydb,2019-125-mark-kastelic,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-126-jacob-leguerrier,2019,MTL,Montreal,5,126,Soo Greyhounds,OHL,hockeydb,2019-126-jacob-leguerrier,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-127-cole-brady,2019,NJD,New Jersey,5,127,Janesville Jets,NAHL,hockeydb,2019-127-cole-brady,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-128-cooper-moore,2019,DET,Detroit,5,128,Brunswick Prep,Conn. H.S.,hockeydb,2019-128-cooper-moore,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-129-arseny-gritsyuk,2019,NJD,New Jersey,5,129,Omsk,Russia Jrs.,hockeydb,2019-129-arseny-gritsyuk,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-130-leevi-aaltonen,2019,NYR,NY Rangers,5,130,Kalpa,Finland Jrs.,hockeydb,2019-130-leevi-aaltonen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-131-rhett-pitlick,2019,MTL,Montreal,5,131,Chaska,Minn H.S.,hockeydb,2019-131-rhett-pitlick,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-132-trevor-janicke,2019,ANA,Anaheim,5,132,Central Illinois Flying Aces,USHL,hockeydb,2019-132-trevor-janicke,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-133-carson-focht,2019,VAN,Vancouver,5,133,Calgary Hitmen,WHL,hockeydb,2019-133-carson-focht,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-134-harrison-blaisdell,2019,WPG,Winnipeg,5,134,Chilliwack Chiefs,BCHL,hockeydb,2019-134-harrison-blaisdell,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-135-isaiah-saville,2019,VGK,Vegas,5,135,Tri-City Storm,USHL,hockeydb,2019-135-isaiah-saville,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-136-henry-rybinski,2019,FLA,Florida,5,136,Seattle Thunderbirds,WHL,hockeydb,2019-136-henry-rybinski,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-137-owen-lindmark,2019,FLA,Florida,5,137,U.S. National Development Team,USHL,hockeydb,2019-137-owen-lindmark,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-138-frederik-dichow,2019,MTL,Montreal,5,138,Vojens,Denmark Jrs.,hockeydb,2019-138-frederik-dichow,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-139-marcus-kallionkieli,2019,VGK,Vegas,5,139,Sioux City Musketeers,USHL,hockeydb,2019-139-marcus-kallionkieli,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-140-sasha-mutala,2019,COL,Colorado,5,140,Tri-City Americans,WHL,hockeydb,2019-140-sasha-mutala,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-141-mason-primeau,2019,VGK,Vegas,5,141,North Bay Battalion,OHL,hockeydb,2019-141-mason-primeau,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-142-nicholas-porco,2019,DAL,Dallas,5,142,Saginaw Spirit,OHL,hockeydb,2019-142-nicholas-porco,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-143-filip-cederqvist,2019,BUF,Buffalo,5,143,Vaxjo HC,SHL,hockeydb,2019-143-filip-cederqvist,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-144-logan-neaton,2019,WPG,Winnipeg,5,144,Prince George Spruce Kings,BCHL,hockeydb,2019-144-logan-neaton,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-145-judd-caulfield,2019,PIT,Pittsburgh,5,145,U.S. National Development Team,USHL,hockeydb,2019-145-judd-caulfield,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-146-michael-koster,2019,TOR,Toronto,5,146,Chaska,Minn. H.S.,hockeydb,2019-146-michael-koster,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-147-reece-newkirk,2019,NYI,NY Islanders,5,147,Portland Winterhawks,WHL,hockeydb,2019-147-reece-newkirk,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-148-ethan-haider,2019,NSH,Nashville,5,148,Minnesota Magicians,NAHL,hockeydb,2019-148-ethan-haider,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-149-matvey-guskov,2019,MIN,Minnesota,5,149,London Knights,OHL,hockeydb,2019-149-matvey-guskov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-150-josh-nodler,2019,CGY,Calgary,5,150,Fargo Force,USHL,hockeydb,2019-150-josh-nodler,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-151-aku-raty,2019,ARI,Arizona,5,151,Karpat,Finland Jrs.,hockeydb,2019-151-aku-raty,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-152-kirill-slepets,2019,CAR,Carolina,5,152,Yaroslavl,Russia Jrs.,hockeydb,2019-152-kirill-slepets,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-153-martin-has,2019,WSH,Washington,5,153,Tappara,Finland Jrs.,hockeydb,2019-153-martin-has,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-154-roman-bychkov,2019,BOS,Boston,5,154,Yaroslavl,Russia Jrs.,hockeydb,2019-154-roman-bychkov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-155-keean-washkurak,2019,STL,St. Louis,5,155,Mississauga Steelheads,OHL,hockeydb,2019-155-keean-washkurak,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-156-arturs-silovs,2019,VAN,Vancouver,6,156,Riga,Russia Jrs.,hockeydb,2019-156-arturs-silovs,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-157-braden-doyle,2019,LAK,Los Angeles,6,157,Lawrence Academy,Mass. H.S.,hockeydb,2019-157-braden-doyle,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-158-patrick-moynihan,2019,NJD,New Jersey,6,158,U.S. National Development Team,USHL,hockeydb,2019-158-patrick-moynihan,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-159-elmer-soderblom,2019,DET,Detroit,6,159,Frolunda,Sweden Jrs.,hockeydb,2019-159-elmer-soderblom,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-160-lukas-rousek,2019,BUF,Buffalo,6,160,Sparta Praha,Czech,hockeydb,2019-160-lukas-rousek,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-161-adam-edstrom,2019,NYR,NY Rangers,6,161,Mora,Sweden Jrs.,hockeydb,2019-161-adam-edstrom,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-162-tomas-mazura,2019,EDM,Edmonton,6,162,Kimball Union,U.S. H.S,hockeydb,2019-162-tomas-mazura,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-163-will-francis,2019,ANA,Anaheim,6,163,Cedar Rapids RoughRiders,USHL,hockeydb,2019-163-will-francis,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-164-timur-ibragimov,2019,SJS,San Jose,6,164,St. Petersburg,Russia Jrs.,hockeydb,2019-164-timur-ibragimov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-165-egor-serdyuk,2019,PHI,Philadelphia,6,165,Victoriaville Tigres,QMJHL,hockeydb,2019-165-egor-serdyuk,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-166-marshall-warren,2019,MIN,Minnesota,6,166,U.S. National Development Team,USHL,hockeydb,2019-166-marshall-warren,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-167-dominic-basse,2019,CHI,Chicago,6,167,South Kent School,Conn. H.S.,hockeydb,2019-167-dominic-basse,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-168-greg-meireles,2019,FLA,Florida,6,168,Kitchener Rangers,OHL,hockeydb,2019-168-greg-meireles,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-169-roddy-ross,2019,PHI,Philadelphia,6,169,Seattle Thunderbirds,WHL,hockeydb,2019-169-roddy-ross,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-170-arsen-khisamutdinov,2019,MTL,Montreal,6,170,Nizhnekamsk,Russia Jrs.,hockeydb,2019-170-arsen-khisamutdinov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-171-luka-burzan,2019,COL,Colorado,6,171,Brandon Wheat Kings,WHL,hockeydb,2019-171-luka-burzan,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-172-nikita-nesterenko,2019,MIN,Minnesota,6,172,Lawrenceville,N.J. H.S.,hockeydb,2019-172-nikita-nesterenko,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-173-ben-brinkman,2019,DAL,Dallas,6,173,U. of Minnesota,NCAA,hockeydb,2019-173-ben-brinkman,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-174-danil-savunov,2019,ARI,Arizona,6,174,Penza,Russia Jrs.,hockeydb,2019-174-danil-savunov,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-175-karel-plasek,2019,VAN,Vancouver,6,175,Brno Kometa,Czech,hockeydb,2019-175-karel-plasek,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-176-anthony-romano,2019,ARI,Arizona,6,176,Sioux Falls Stampede,USHL,hockeydb,2019-176-anthony-romano,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-177-gustav-berglund,2019,DET,Detroit,6,177,Frolunda,Sweden Jrs.,hockeydb,2019-177-gustav-berglund,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-178-felix-bibeau,2019,NYI,NY Islanders,6,178,Rouyn-Noranda Huskies,QMJHL,hockeydb,2019-178-felix-bibeau,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-179-isak-walther,2019,NSH,Nashville,6,179,Sodertalje,Sweden Jrs.,hockeydb,2019-179-isak-walther,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-180-jack-malone,2019,VAN,Vancouver,6,180,Youngstown Phantoms,USHL,hockeydb,2019-180-jack-malone,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-181-kevin-wall,2019,CAR,Carolina,6,181,Chilliwack Chiefs,BCHL,hockeydb,2019-181-kevin-wall,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-182-quinn-schmiemann,2019,TBL,Tampa Bay,6,182,Kamloops Blazers,WHL,hockeydb,2019-182-quinn-schmiemann,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-183-blake-murray,2019,CAR,Carolina,6,183,Sudbury Wolves,OHL,hockeydb,2019-183-blake-murray,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-184-santeri-hatakka,2019,SJS,San Jose,6,184,Jokerit,Finland Jrs.,hockeydb,2019-184-santeri-hatakka,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-185-matias-mantykivi,2019,BOS,Boston,6,185,Saipa,Finland Jrs.,hockeydb,2019-185-matias-mantykivi,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-186-mathew-hill,2019,ANA,Anaheim,6,186,Barrie Colts,OHL,hockeydb,2019-186-mathew-hill,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-187-maxence-guenette,2019,OTT,Ottawa,7,187,Val d'Or Foreurs,QMJHL,hockeydb,2019-187-maxence-guenette,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-188-andre-lee,2019,LAK,Los Angeles,7,188,Sioux Falls Stampede,USHL,hockeydb,2019-188-andre-lee,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-189-nikola-pasic,2019,NJD,New Jersey,7,189,Linkoping,Sweden Jrs.,hockeydb,2019-189-nikola-pasic,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-190-kirill-tyutyayev,2019,DET,Detroit,7,190,Yekaterinburg,Russia Jrs.,hockeydb,2019-190-kirill-tyutyayev,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-191-carter-gylander,2019,DET,Detroit,7,191,Sherwood Park Crusaders,AJHL,hockeydb,2019-191-carter-gylander,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-192-jake-schmaltz,2019,BOS,Boston,7,192,Chicago Steel,USHL,hockeydb,2019-192-jake-schmaltz,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-193-maxim-denezhkin,2019,EDM,Edmonton,7,193,Yaroslavl,Russia Jrs.,hockeydb,2019-193-maxim-denezhkin,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-194-cole-moberg,2019,CHI,Chicago,7,194,Prince George Cougars,WHL,hockeydb,2019-194-cole-moberg,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-195-aidan-mcdonough,2019,VAN,Vancouver,7,195,Cedar Rapids RoughRiders,USHL,hockeydb,2019-195-aidan-mcdonough,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-196-bryce-brodzinski,2019,PHI,Philadelphia,7,196,Blaine,Minn. H.S.,hockeydb,2019-196-bryce-brodzinski,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-197-filip-lindberg,2019,MIN,Minnesota,7,197,UMass-Amherst,NCAA,hockeydb,2019-197-filip-lindberg,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-198-mikhail-shalagin,2019,TBL,Tampa Bay,7,198,Spartak,Russia Jrs.,hockeydb,2019-198-mikhail-shalagin,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-199-matthew-wedman,2019,FLA,Florida,7,199,Seattle Thunderbirds,WHL,hockeydb,2019-199-matthew-wedman,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-200-axel-bergkvist,2019,ARI,Arizona,7,200,Leksands IF,HockeyAllsvenskan,hockeydb,2019-200-axel-bergkvist,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-201-rafael-harvey-pinard,2019,MTL,Montreal,7,201,Rouyn-Noranda Huskies,QMJHL,hockeydb,2019-201-rafael-harvey-pinard,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-202-trent-miner,2019,COL,Colorado,7,202,Vancouver Giants,WHL,hockeydb,2019-202-trent-miner,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-203-valtteri-puustinen,2019,PIT,Pittsburgh,7,203,HPK Hameenlinna,Liiga,hockeydb,2019-203-valtteri-puustinen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-204-kalle-loponen,2019,TOR,Toronto,7,204,Karpat,Finland Jrs.,hockeydb,2019-204-kalle-loponen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-205-eric-ciccolini,2019,NYR,NY Rangers,7,205,Toronto Jr. Canadiens,OJHL,hockeydb,2019-205-eric-ciccolini,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-206-kieran-ruscheinski,2019,MTL,Montreal,7,206,Calgary Northstars Midget AAA,Unknown,hockeydb,2019-206-kieran-ruscheinski,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-207-valentin-nussbaumer,2019,ARI,Arizona,7,207,Shawinigan Cataractes,QMJHL,hockeydb,2019-207-valentin-nussbaumer,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-208-vadim-zherenko,2019,STL,St. Louis,7,208,Dynamo Moscow,Russia Jrs.,hockeydb,2019-208-vadim-zherenko,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-209-cole-coskey,2019,NYI,NY Islanders,7,209,Saginaw Spirit,OHL,hockeydb,2019-209-cole-coskey,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-210-juuso-parssinen,2019,NSH,Nashville,7,210,TPS Turku,Finland Jrs.,hockeydb,2019-210-juuso-parssinen,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-211-santeri-airola,2019,PIT,Pittsburgh,7,211,Saipa,Finland Jrs.,hockeydb,2019-211-santeri-airola,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-212-tyler-angle,2019,CBJ,Columbus,7,212,Windsor Spitfires,OHL,hockeydb,2019-212-tyler-angle,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-213-mckade-webster,2019,TBL,Tampa Bay,7,213,Green Bay Gamblers,USHL,hockeydb,2019-213-mckade-webster,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-214-dustin-wolf,2019,CGY,Calgary,7,214,Everett Silvertips,WHL,hockeydb,2019-214-dustin-wolf,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-215-arvid-costmar,2019,VAN,Vancouver,7,215,Linkoping,Sweden Jrs.,hockeydb,2019-215-arvid-costmar,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-216-massimo-rizzo,2019,CAR,Carolina,7,216,Penticton Vees,BCHL,hockeydb,2019-216-massimo-rizzo,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
+2019-217-jeremy-michel,2019,STL,St. Louis,7,217,Val d'Or Foreurs,QMJHL,hockeydb,2019-217-jeremy-michel,https://www.hockeydb.com/ihdb/draft/nhl2019e.html
