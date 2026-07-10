@@ -33,6 +33,7 @@ from draft_room_intelligence.data.normalized_merge import (
 )
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
 from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
+from draft_room_intelligence.data.ushl_stats import UShlStatSource, enrich_ushl_stats
 from draft_room_intelligence.evaluation.baselines import (
     adjusted_production_scores,
     consensus_scores,
@@ -221,6 +222,21 @@ def main() -> None:
         help=(
             "CHL stat source as league,season,url[,local_html_path]. "
             "Example: OHL,2024-25,https://chl.ca/ohl/stats/players/79/all/points/all"
+        ),
+    )
+    ushl_stats_parser = subparsers.add_parser(
+        "enrich-ushl-stats",
+        help="Overlay official USHL HockeyTech skater feeds onto a normalized draft-year dataset.",
+    )
+    ushl_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    ushl_stats_parser.add_argument("output_dir", type=Path, help="Directory for USHL-enriched output.")
+    ushl_stats_parser.add_argument(
+        "--source",
+        action="append",
+        required=True,
+        help=(
+            "USHL feed source as season,season_id,regular|playoffs[,local_json_path]. "
+            "Example: 2024-25,85,regular"
         ),
     )
     feature_table_parser = subparsers.add_parser(
@@ -417,6 +433,8 @@ def main() -> None:
         )
     elif args.command == "enrich-chl-stats":
         run_enrich_chl_stats(args.base_dir, args.output_dir, sources=args.source)
+    elif args.command == "enrich-ushl-stats":
+        run_enrich_ushl_stats(args.base_dir, args.output_dir, sources=args.source)
     elif args.command == "export-feature-table":
         run_export_feature_table(args.data_path, args.output_path)
     elif args.command == "evaluate-role-models":
@@ -702,6 +720,35 @@ def parse_chl_source(value: str) -> ChlStatSource:
     league, season, url = parts[:3]
     path = Path(parts[3]) if len(parts) == 4 and parts[3] else None
     return ChlStatSource(league=league, season=season, source_url=url, source_path=path)
+
+
+def run_enrich_ushl_stats(base_dir: Path, output_dir: Path, *, sources: list[str]) -> None:
+    parsed_sources = [parse_ushl_source(value) for value in sources]
+    summary = enrich_ushl_stats(base_dir, output_dir, parsed_sources)
+    print("# USHL stats enrichment")
+    print(f"Base directory: {base_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Players scanned: {summary.players_scanned}")
+    print(f"Source stat rows: {summary.source_rows}")
+    print(f"Matched players: {summary.matched_players}")
+    print(f"Output stat lines: {summary.output_stat_lines}")
+    print(f"Match report: {summary.match_report_path}")
+
+
+def parse_ushl_source(value: str) -> UShlStatSource:
+    parts = [part.strip() for part in value.split(",", 3)]
+    if len(parts) not in (3, 4):
+        raise ValueError("USHL source must be season,season_id,regular|playoffs[,local_json_path]")
+    season, season_id, season_type = parts[:3]
+    if season_type not in ("regular", "playoffs"):
+        raise ValueError("USHL season type must be 'regular' or 'playoffs'")
+    path = Path(parts[3]) if len(parts) == 4 and parts[3] else None
+    return UShlStatSource(
+        season=season,
+        season_id=season_id,
+        regular_season=season_type == "regular",
+        source_path=path,
+    )
 
 
 def run_export_feature_table(data_path: Path, output_path: Path) -> None:
