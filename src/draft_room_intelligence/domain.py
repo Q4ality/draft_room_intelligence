@@ -61,6 +61,19 @@ class PreDraftStatLine:
     assists: int
     points: int | None = None
     regular_season: bool = True
+    source: str = ""
+    source_id: str = ""
+    source_url: str = ""
+    goalie_minutes: float | None = None
+    shots_against: int | None = None
+    saves: int | None = None
+    goals_against: int | None = None
+    save_percentage: float | None = None
+    goals_against_average: float | None = None
+    wins: int | None = None
+    losses: int | None = None
+    ties: int | None = None
+    shutouts: int | None = None
 
     @property
     def total_points(self) -> int:
@@ -88,6 +101,19 @@ class DevelopmentStatLine:
     points: int | None = None
     age: float | None = None
     regular_season: bool = True
+    source: str = ""
+    source_id: str = ""
+    source_url: str = ""
+    goalie_minutes: float | None = None
+    shots_against: int | None = None
+    saves: int | None = None
+    goals_against: int | None = None
+    save_percentage: float | None = None
+    goals_against_average: float | None = None
+    wins: int | None = None
+    losses: int | None = None
+    ties: int | None = None
+    shutouts: int | None = None
 
     @property
     def total_points(self) -> int:

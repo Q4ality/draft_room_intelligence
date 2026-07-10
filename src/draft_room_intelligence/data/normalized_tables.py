@@ -118,6 +118,19 @@ def build_pre_draft_stat_line(row: dict[str, str]) -> PreDraftStatLine:
         assists=optional_int(row, "assists") or 0,
         points=optional_int(row, "points"),
         regular_season=optional_bool(row, "regular_season", default=True),
+        source=optional_text(row, "source"),
+        source_id=optional_text(row, "source_id"),
+        source_url=optional_text(row, "source_url"),
+        goalie_minutes=optional_minutes(row, "goalie_minutes"),
+        shots_against=optional_int(row, "shots_against"),
+        saves=optional_int(row, "saves"),
+        goals_against=optional_int(row, "goals_against"),
+        save_percentage=optional_float(row, "save_percentage"),
+        goals_against_average=optional_float(row, "goals_against_average"),
+        wins=optional_int(row, "wins"),
+        losses=optional_int(row, "losses"),
+        ties=optional_int(row, "ties"),
+        shutouts=optional_int(row, "shutouts"),
     )
 
 
@@ -144,6 +157,19 @@ def build_development_stat_line(row: dict[str, str]) -> DevelopmentStatLine:
         points=optional_int(row, "points"),
         age=optional_float(row, "age"),
         regular_season=optional_bool(row, "regular_season", default=True),
+        source=optional_text(row, "source"),
+        source_id=optional_text(row, "source_id"),
+        source_url=optional_text(row, "source_url"),
+        goalie_minutes=optional_minutes(row, "goalie_minutes"),
+        shots_against=optional_int(row, "shots_against"),
+        saves=optional_int(row, "saves"),
+        goals_against=optional_int(row, "goals_against"),
+        save_percentage=optional_float(row, "save_percentage"),
+        goals_against_average=optional_float(row, "goals_against_average"),
+        wins=optional_int(row, "wins"),
+        losses=optional_int(row, "losses"),
+        ties=optional_int(row, "ties"),
+        shutouts=optional_int(row, "shutouts"),
     )
 
 
@@ -253,6 +279,16 @@ def optional_float(row: dict[str, str], column: str) -> float | None:
     if not value:
         return None
     return float(value)
+
+
+def optional_minutes(row: dict[str, str], column: str) -> float | None:
+    value = optional_text(row, column)
+    if not value:
+        return None
+    if ":" not in value:
+        return float(value)
+    minutes, seconds = value.split(":", 1)
+    return float(minutes) + (float(seconds) / 60)
 
 
 def optional_bool(row: dict[str, str], column: str, *, default: bool) -> bool:

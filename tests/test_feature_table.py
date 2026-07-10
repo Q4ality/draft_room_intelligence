@@ -86,3 +86,49 @@ def test_build_feature_rows_uses_league_exposure_when_games_are_missing():
     assert row["pro_game_share"] == "1.000000"
     assert row["average_league_weight"] == "1.200000"
     assert row["adjusted_production_score"] == "0.000000"
+
+
+def test_build_feature_rows_includes_goalie_metrics():
+    goalie_line = PreDraftStatLine(
+        league="OHL",
+        team="Owen Sound",
+        season="2024-25",
+        games=47,
+        goals=0,
+        assists=0,
+        points=0,
+        goalie_minutes=2705.0,
+        shots_against=1665,
+        saves=1514,
+        goals_against=151,
+        save_percentage=0.909,
+        goals_against_average=3.35,
+        wins=17,
+        losses=22,
+        ties=3,
+        shutouts=0,
+    )
+    prospect = HistoricalProspect(
+        player_id="g1",
+        name="Example Goalie",
+        draft_year=2025,
+        position="G",
+        age_at_draft=18.3,
+        height_cm=190,
+        weight_kg=86,
+        consensus_rank=30,
+        stat_line=goalie_line,
+        handedness="L",
+        pre_draft_stat_lines=(goalie_line,),
+    )
+
+    row = build_feature_rows([prospect])[0].to_dict()
+
+    assert row["is_goalie"] == "1"
+    assert row["goalie_games"] == "47"
+    assert row["goalie_minutes"] == "2705.00"
+    assert row["goalie_shots_against"] == "1665"
+    assert row["goalie_saves"] == "1514"
+    assert row["goalie_save_percentage"] == "0.909309"
+    assert row["goalie_goals_against_average"] == "3.349353"
+    assert float(row["goalie_quality_score"]) > 0.0

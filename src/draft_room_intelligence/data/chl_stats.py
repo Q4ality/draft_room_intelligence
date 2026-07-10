@@ -58,6 +58,16 @@ class ChlSkaterStatLine:
     assists: str
     points: str
     regular_season: bool
+    goalie_minutes: str = ""
+    shots_against: str = ""
+    saves: str = ""
+    goals_against: str = ""
+    save_percentage: str = ""
+    goals_against_average: str = ""
+    wins: str = ""
+    losses: str = ""
+    ties: str = ""
+    shutouts: str = ""
 
 
 @dataclass(frozen=True)
@@ -196,6 +206,16 @@ def parse_chl_goalies_html(html: str, source: ChlStatSource) -> list[ChlSkaterSt
                 assists="",
                 points="",
                 regular_season=source.regular_season,
+                goalie_minutes=str(row[8]),
+                shots_against=str(row[9]),
+                saves=str(row[10]),
+                goals_against=str(row[11]),
+                shutouts=str(row[12]),
+                goals_against_average=str(row[13]),
+                save_percentage=str(row[14]),
+                wins=str(row[15]),
+                losses=str(row[16]),
+                ties=str(row[17]) if len(row) > 17 else "",
             )
         )
     return lines
@@ -257,6 +277,16 @@ def build_normalized_stat_line(player_id: str, line: ChlSkaterStatLine) -> dict[
         "source": "chl",
         "source_id": line.source_id,
         "source_url": line.source_url,
+        "goalie_minutes": line.goalie_minutes,
+        "shots_against": line.shots_against,
+        "saves": line.saves,
+        "goals_against": line.goals_against,
+        "save_percentage": line.save_percentage,
+        "goals_against_average": line.goals_against_average,
+        "wins": line.wins,
+        "losses": line.losses,
+        "ties": line.ties,
+        "shutouts": line.shutouts,
     }
 
 
@@ -284,15 +314,27 @@ def build_match_row(
 
 
 def deduplicate_chl_lines(lines: list[ChlSkaterStatLine]) -> list[ChlSkaterStatLine]:
-    seen: set[tuple[str, str, bool]] = set()
-    deduped: list[ChlSkaterStatLine] = []
+    by_key: dict[tuple[str, str, bool], ChlSkaterStatLine] = {}
     for line in lines:
         key = (normalize_league_name(line.league), normalize_person_key(line.team), line.regular_season)
-        if key in seen:
+        existing = by_key.get(key)
+        if existing is not None and (has_goalie_metrics(existing) or not has_goalie_metrics(line)):
             continue
-        seen.add(key)
-        deduped.append(line)
-    return deduped
+        by_key[key] = line
+    return list(by_key.values())
+
+
+def has_goalie_metrics(line: ChlSkaterStatLine) -> bool:
+    return any(
+        (
+            line.goalie_minutes,
+            line.shots_against,
+            line.saves,
+            line.goals_against,
+            line.save_percentage,
+            line.goals_against_average,
+        )
+    )
 
 
 def normalize_chl_player_name(value: str) -> str:

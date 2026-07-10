@@ -77,6 +77,16 @@ def test_parse_chl_goalies_html_extracts_exposure_without_skater_points():
     assert rows[0].assists == ""
     assert rows[0].points == ""
     assert rows[0].regular_season is True
+    assert rows[0].goalie_minutes == "2705"
+    assert rows[0].shots_against == "1665"
+    assert rows[0].saves == "1514"
+    assert rows[0].goals_against == "151"
+    assert rows[0].save_percentage == "0.909"
+    assert rows[0].goals_against_average == "3.35"
+    assert rows[0].wins == "17"
+    assert rows[0].losses == "22"
+    assert rows[0].ties == "3"
+    assert rows[0].shutouts == "0"
 
 
 def test_enrich_chl_stats_replaces_matching_placeholder_rows(tmp_path):

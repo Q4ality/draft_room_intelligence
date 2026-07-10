@@ -4,18 +4,18 @@
 
 Open the current demo shell from:
 
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/index.html`
+- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/index.html`
 
 Current normalized dataset:
 
-- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/final`
+- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/final`
 
 Current export files:
 
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/board.csv`
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/compare.csv`
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/players.json`
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats/manifest.json`
+- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/board.csv`
+- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/compare.csv`
+- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/players.json`
+- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/manifest.json`
 
 ## What We Have
 
@@ -23,18 +23,21 @@ Current export files:
 - Board, detail, compare, shortlist, and shortlist CSV export UX.
 - Public consensus slot proxy and model-vs-consensus disagreement buckets.
 - League-adjusted production, role group, age, size, handedness, adult exposure, playoff exposure, and evidence-depth fields in the demo export.
-- Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official data, and USHL official data.
+- Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, and USHL official data.
 - Transparent evidence flags so weakly covered players are visible instead of hidden.
 
 Latest manifest snapshot:
 
-- `dataset_status`: `thin`
-- evidence depth: 174 low, 28 medium, 22 high
-- disagreement buckets: 162 aligned, 30 consensus higher, 32 model higher
+- `dataset_status`: `usable`
+- evidence depth: 116 low, 86 medium, 22 high
+- disagreement buckets: 126 aligned, 48 consensus higher, 50 model higher
 - source coverage: 224 draft-slot proxies, 84 CHL players, 37 USHL players, 47 Wikipedia bio matches, 33 Wikipedia career-stat matches
 
 Recent enrichment improvement:
 
+- CHL true-playoff enrichment now adds regular and playoff rows separately instead of using playoff-team regular-season pages.
+- CHL goalie exposure is now loaded from official CHL goalie tables.
+- Examples: Ben Kindel, Cole Reschny, Justin Carbonneau, Joshua Ravensbergen, Jack Ivankovic, and Lucas Beckman now move from low evidence to medium evidence.
 - Wikipedia career-stat enrichment now appends additional same-season leagues instead of only replacing the drafted-from placeholder row.
 - Example: Alexander Zharovsky now carries both his 2024-25 MHL Tolpar Ufa row and his KHL Salavat Yulaev Ufa playoff row.
 - PuckPedia parsing support has been added for cached/browser-saved player pages. Direct server-side HTTP fetches currently receive `403 Forbidden`, so bulk PuckPedia collection needs a browser-backed collector or saved HTML cache.
@@ -85,10 +88,12 @@ The main missing pieces are data coverage, not the demo shell.
 
 Before adding more model complexity, make the demo stronger by improving source coverage for the top missing leagues:
 
-1. Sweden adapter for SHL/HockeyAllsvenskan/J20.
-2. Finland adapter for Liiga/U20.
-3. Russian-league fallback strategy using open pages that are not blocked by KHL challenge pages.
-4. NCAA/USNTDP source enrichment.
-5. A hand-checked featured-player CSV for the presentation route.
+1. NCAA/USHL/USNTDP source enrichment.
+2. Sweden adapter for SHL/HockeyAllsvenskan/J20.
+3. Finland adapter for Liiga/U20.
+4. Russian-league fallback strategy using open pages that are not blocked by KHL challenge pages.
+5. Goalie-specific stat schema and demo presentation.
 
 After that, rerun the demo export and use evidence-depth movement as the success metric.
+
+Detailed implementation stories are tracked in [data_enrichment_stories.md](data_enrichment_stories.md).

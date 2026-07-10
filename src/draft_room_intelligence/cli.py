@@ -32,6 +32,7 @@ from draft_room_intelligence.data.normalized_merge import (
     merge_normalized_source_tables,
 )
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
+from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.puckpedia_stats import enrich_puckpedia_stats
 from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
 from draft_room_intelligence.data.wikipedia_career_stats import enrich_wikipedia_career_stats
@@ -239,6 +240,21 @@ def main() -> None:
         help=(
             "USHL feed source as season,season_id,regular|playoffs[,local_json_path]. "
             "Example: 2024-25,85,regular"
+        ),
+    )
+    open_stats_parser = subparsers.add_parser(
+        "enrich-open-stats-csv",
+        help="Overlay flexible open-source stat CSVs onto a normalized draft-year dataset.",
+    )
+    open_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    open_stats_parser.add_argument("output_dir", type=Path, help="Directory for enriched output.")
+    open_stats_parser.add_argument(
+        "--source",
+        action="append",
+        required=True,
+        help=(
+            "Open stat CSV source as csv_path,source_label,season[,league][,regular|playoffs]. "
+            "Example: ncaa.csv,collegehockeyinc,2024-25,NCAA,regular"
         ),
     )
     wiki_career_stats_parser = subparsers.add_parser(
@@ -478,6 +494,8 @@ def main() -> None:
         run_enrich_chl_stats(args.base_dir, args.output_dir, sources=args.source)
     elif args.command == "enrich-ushl-stats":
         run_enrich_ushl_stats(args.base_dir, args.output_dir, sources=args.source)
+    elif args.command == "enrich-open-stats-csv":
+        run_enrich_open_stats_csv(args.base_dir, args.output_dir, sources=args.source)
     elif args.command == "enrich-wikipedia-career-stats":
         run_enrich_wikipedia_career_stats(
             args.base_dir,
@@ -816,6 +834,39 @@ def parse_ushl_source(value: str) -> UShlStatSource:
     )
 
 
+def run_enrich_open_stats_csv(base_dir: Path, output_dir: Path, *, sources: list[str]) -> None:
+    parsed_sources = [parse_open_stats_source(value) for value in sources]
+    summary = enrich_open_stats_csv(base_dir, output_dir, parsed_sources)
+    print("# Open stats CSV enrichment")
+    print(f"Base directory: {base_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Players scanned: {summary.players_scanned}")
+    print(f"Source stat rows: {summary.source_rows}")
+    print(f"Matched players: {summary.matched_players}")
+    print(f"Output stat lines: {summary.output_stat_lines}")
+    print(f"Match report: {summary.match_report_path}")
+
+
+def parse_open_stats_source(value: str) -> OpenStatsCsvSource:
+    parts = [part.strip() for part in value.split(",", 4)]
+    if len(parts) not in (3, 4, 5):
+        raise ValueError("open stats source must be csv_path,source_label,season[,league][,regular|playoffs]")
+    path_text, source, season = parts[:3]
+    league = parts[3] if len(parts) >= 4 else ""
+    regular_season = True
+    if len(parts) == 5 and parts[4]:
+        if parts[4] not in ("regular", "playoffs"):
+            raise ValueError("open stats season type must be 'regular' or 'playoffs'")
+        regular_season = parts[4] == "regular"
+    return OpenStatsCsvSource(
+        path=Path(path_text),
+        source=source,
+        season=season,
+        league=league,
+        regular_season=regular_season,
+    )
+
+
 def run_enrich_wikipedia_career_stats(
     base_dir: Path,
     output_dir: Path,
@@ -900,6 +951,9 @@ def run_evaluate_role_models(
 
     print(f"# Role-specific model evaluation: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
+    warning = outcome_validation_warning(prospects)
+    if warning:
+        print(warning)
     if feature_output is not None:
         print(f"Feature table: {feature_output}")
     if model_output is not None:
@@ -1001,6 +1055,9 @@ def run_evaluate(data_path: Path, *, baseline: str = "consensus", precision_n: i
 
     print(f"# {baseline.title()} baseline evaluation: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
+    warning = outcome_validation_warning(prospects)
+    if warning:
+        print(warning)
     print(f"Precision@N: {precision_n}\n")
     print(format_evaluation_report(report))
 
@@ -1035,6 +1092,20 @@ def score_historical_prospects(prospects: list, *, baseline: str) -> dict[str, f
             ]
         )
     raise ValueError(f"unsupported baseline: {baseline}")
+
+
+def outcome_validation_warning(prospects: list) -> str:
+    if not prospects:
+        return ""
+    outcomes = [prospect.outcome for prospect in prospects if prospect.outcome is not None]
+    if not outcomes:
+        return "Validation warning: no NHL outcome rows are available; use this as demo analysis only."
+    if all(outcome.nhl_games == 0 and outcome.nhl_points == 0 for outcome in outcomes):
+        return (
+            "Validation warning: all NHL outcomes are zero; recent-class metrics are not predictive validation. "
+            "Use evidence depth and source coverage for this dataset."
+        )
+    return ""
 
 
 def format_evaluation_report(report: dict[str, dict[str, float]]) -> str:

@@ -45,6 +45,9 @@ BOARD_COLUMNS = [
     "average_league_weight",
     "pre_draft_row_count",
     "pre_draft_league_count",
+    "goalie_save_percentage",
+    "goalie_goals_against_average",
+    "goalie_quality_score",
     "evidence_depth",
     "consensus_delta",
     "disagreement_bucket",
@@ -72,6 +75,9 @@ COMPARE_COLUMNS = [
     "height_cm",
     "weight_kg",
     "handedness",
+    "goalie_save_percentage",
+    "goalie_goals_against_average",
+    "goalie_quality_score",
     "evidence_depth",
 ]
 
@@ -150,6 +156,9 @@ def build_demo_export_bundle(prospects: list[HistoricalProspect]) -> DemoExportB
             "average_league_weight": feature["average_league_weight"],
             "pre_draft_row_count": feature["pre_draft_row_count"],
             "pre_draft_league_count": feature["pre_draft_league_count"],
+            "goalie_save_percentage": feature["goalie_save_percentage"],
+            "goalie_goals_against_average": feature["goalie_goals_against_average"],
+            "goalie_quality_score": feature["goalie_quality_score"],
             "evidence_depth": evidence_depth,
             "consensus_delta": str(consensus_delta),
             "disagreement_bucket": disagreement_bucket,
@@ -224,6 +233,9 @@ def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str])
             "average_league_weight": float(board_row["average_league_weight"]),
             "adult_game_share": float(board_row["adult_game_share"]),
             "playoff_game_share": float(board_row["playoff_game_share"]),
+            "goalie_save_percentage": float(board_row["goalie_save_percentage"]),
+            "goalie_goals_against_average": float(board_row["goalie_goals_against_average"]),
+            "goalie_quality_score": float(board_row["goalie_quality_score"]),
             "evidence_depth": board_row["evidence_depth"],
         },
         "why_high": build_why_high(board_row),
@@ -238,7 +250,19 @@ def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str])
                 "assists": line.assists,
                 "points": line.total_points,
                 "regular_season": line.regular_season,
-                "source": "mixed",
+                "source": line.source or "unknown",
+                "source_id": line.source_id,
+                "source_url": line.source_url,
+                "goalie_minutes": line.goalie_minutes,
+                "shots_against": line.shots_against,
+                "saves": line.saves,
+                "goals_against": line.goals_against,
+                "save_percentage": line.save_percentage,
+                "goals_against_average": line.goals_against_average,
+                "wins": line.wins,
+                "losses": line.losses,
+                "ties": line.ties,
+                "shutouts": line.shutouts,
             }
             for line in prospect.pre_draft_stat_lines
         ],
@@ -279,6 +303,8 @@ def build_badges(feature: dict[str, str], disagreement_bucket: str) -> list[str]
         badges.append("Consensus Higher")
     if float(feature["adult_game_share"]) > 0.15:
         badges.append("Adult-League")
+    if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) > 0:
+        badges.append("Goalie Metrics")
     if int(feature["pre_draft_league_count"]) > 1:
         badges.append("Multi-League")
     if classify_evidence_depth(feature) == "low":
@@ -294,6 +320,8 @@ def build_short_reason(feature: dict[str, str], disagreement_bucket: str) -> str
         reasons.append("Good competition context")
     if float(feature["adult_game_share"]) > 0.15:
         reasons.append("Meaningful adult exposure")
+    if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) > 0:
+        reasons.append("Goalie metrics available")
     if int(feature["pre_draft_league_count"]) > 1:
         reasons.append("Multi-league evidence")
     if disagreement_bucket == "model_higher":
@@ -309,6 +337,8 @@ def build_risk_note(feature: dict[str, str], consensus_delta: int) -> str:
         risks.append("No adult-league exposure yet")
     if float(feature["playoff_game_share"]) == 0.0:
         risks.append("Limited playoff signal")
+    if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) == 0.0:
+        risks.append("No goalie-specific stat signal")
     if abs(consensus_delta) >= 10:
         risks.append("Large disagreement versus consensus")
     return ", ".join(risks[:2]) or "Normal variance remains in the profile."
@@ -322,6 +352,8 @@ def build_why_high(board_row: dict[str, str]) -> list[str]:
         points.append("Primary competition context is stronger than average.")
     if float(board_row["adult_game_share"]) > 0.15:
         points.append("Meaningful adult-league exposure boosts confidence.")
+    if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) > 0:
+        points.append("Goalie-specific performance metrics are available.")
     if int(board_row["pre_draft_league_count"]) > 1:
         points.append("Multi-league history provides deeper evidence.")
     if not points:
@@ -337,6 +369,8 @@ def build_risk_flags(board_row: dict[str, str]) -> list[str]:
         flags.append("No adult-league exposure before draft.")
     if float(board_row["playoff_game_share"]) == 0.0:
         flags.append("Little or no playoff signal in the current sample.")
+    if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) == 0.0:
+        flags.append("No goalie-specific performance metrics in the current sample.")
     if abs(int(board_row["consensus_delta"])) >= 10:
         flags.append("Large disagreement between board rank and consensus rank.")
     if not flags:

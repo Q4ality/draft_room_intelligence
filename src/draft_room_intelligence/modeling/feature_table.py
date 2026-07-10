@@ -59,6 +59,14 @@ FEATURE_COLUMNS = [
     "handedness_score",
     "size_score",
     "age_score",
+    "goalie_games",
+    "goalie_minutes",
+    "goalie_shots_against",
+    "goalie_saves",
+    "goalie_save_percentage",
+    "goalie_goals_against_average",
+    "goalie_shutouts",
+    "goalie_quality_score",
     "is_goalie",
     "is_defense",
     "is_forward",
@@ -98,6 +106,14 @@ MODEL_FEATURE_COLUMNS = [
     "handedness_score",
     "size_score",
     "age_score",
+    "goalie_games",
+    "goalie_minutes",
+    "goalie_shots_against",
+    "goalie_saves",
+    "goalie_save_percentage",
+    "goalie_goals_against_average",
+    "goalie_shutouts",
+    "goalie_quality_score",
 ]
 
 
@@ -146,6 +162,7 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
         college_exposure_units = 0
         pro_exposure_units = 0
         weighted_exposure_units = 0.0
+        goalie_metrics = build_goalie_metrics(stat_lines)
 
         for line in stat_lines:
             context = lookup_context(normalize_league_name(line.league), league_contexts)
@@ -213,6 +230,14 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
                     "handedness_score": f"{handedness_score(prospect):.6f}",
                     "size_score": f"{size_score(prospect):.6f}",
                     "age_score": f"{age_score(prospect):.6f}",
+                    "goalie_games": str(goalie_metrics["games"]),
+                    "goalie_minutes": f"{goalie_metrics['minutes']:.2f}",
+                    "goalie_shots_against": str(goalie_metrics["shots_against"]),
+                    "goalie_saves": str(goalie_metrics["saves"]),
+                    "goalie_save_percentage": f"{goalie_metrics['save_percentage']:.6f}",
+                    "goalie_goals_against_average": f"{goalie_metrics['goals_against_average']:.6f}",
+                    "goalie_shutouts": str(goalie_metrics["shutouts"]),
+                    "goalie_quality_score": f"{goalie_metrics['quality_score']:.6f}",
                     "is_goalie": "1" if role == "goalie" else "0",
                     "is_defense": "1" if role == "defense" else "0",
                     "is_forward": "1" if role == "forward" else "0",
@@ -264,6 +289,62 @@ def size_score(prospect: HistoricalProspect) -> float:
 
 def age_score(prospect: HistoricalProspect) -> float:
     return clamp((18.9 - prospect.age_at_draft) / 1.4)
+
+
+def build_goalie_metrics(stat_lines) -> dict[str, float | int]:
+    goalie_lines = [
+        line
+        for line in stat_lines
+        if line.save_percentage is not None
+        or line.goals_against_average is not None
+        or line.saves is not None
+        or line.shots_against is not None
+    ]
+    games = sum(line.games for line in goalie_lines)
+    minutes = sum(line.goalie_minutes or 0.0 for line in goalie_lines)
+    shots_against = sum(line.shots_against or 0 for line in goalie_lines)
+    saves = sum(line.saves or 0 for line in goalie_lines)
+    goals_against = sum(line.goals_against or 0 for line in goalie_lines)
+    shutouts = sum(line.shutouts or 0 for line in goalie_lines)
+    save_percentage = saves / shots_against if shots_against else weighted_average(
+        [(line.save_percentage, line.games) for line in goalie_lines]
+    )
+    goals_against_average = (
+        goals_against * 60 / minutes
+        if minutes
+        else weighted_average([(line.goals_against_average, line.games) for line in goalie_lines])
+    )
+    quality_score = goalie_quality_score(save_percentage, goals_against_average, games)
+    return {
+        "games": games,
+        "minutes": minutes,
+        "shots_against": shots_against,
+        "saves": saves,
+        "save_percentage": save_percentage,
+        "goals_against_average": goals_against_average,
+        "shutouts": shutouts,
+        "quality_score": quality_score,
+    }
+
+
+def weighted_average(values: list[tuple[float | None, int]]) -> float:
+    numerator = 0.0
+    denominator = 0
+    for value, weight in values:
+        if value is None:
+            continue
+        numerator += value * max(weight, 1)
+        denominator += max(weight, 1)
+    return numerator / denominator if denominator else 0.0
+
+
+def goalie_quality_score(save_percentage: float, goals_against_average: float, games: int) -> float:
+    if not save_percentage and not goals_against_average:
+        return 0.0
+    save_component = clamp((save_percentage - 0.880) / 0.050) if save_percentage else 0.0
+    gaa_component = clamp((3.50 - goals_against_average) / 1.50) if goals_against_average else 0.0
+    sample_component = clamp(games / 35)
+    return (save_component * 0.55) + (gaa_component * 0.30) + (sample_component * 0.15)
 
 
 def share(game_value: int, total_games: int, exposure_value: int, exposure_units: int) -> float:

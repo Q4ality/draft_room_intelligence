@@ -44,8 +44,8 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-027-lynden-lakovic,Lynden Lakovic,true,WHL,Lynden Lakovic,29121,https://chl.ca/whl/players/29121,MJ,47,27,31,58,true
 2025-028-sascha-boumedienne,Sascha Boumedienne,false,,,,,,,,,,false
 2025-029-mason-west,Mason West,false,,,,,,,,,,false
-2025-030-joshua-ravensbergen,Joshua Ravensbergen,true,WHL,Joshua Ravensbergen,29467,https://chl.ca/whl/players/29467,PG,51,0,4,4,true
-2025-030-joshua-ravensbergen,Joshua Ravensbergen,true,WHL,Joshua Ravensbergen,29467,https://chl.ca/whl/players/29467,PG,7,0,0,0,false
+2025-030-joshua-ravensbergen,Joshua Ravensbergen,true,WHL,Joshua Ravensbergen,29467,https://chl.ca/whl/players/29467,PG,51,,,,true
+2025-030-joshua-ravensbergen,Joshua Ravensbergen,true,WHL,Joshua Ravensbergen,29467,https://chl.ca/whl/players/29467,PG,7,,,,false
 2025-031-henry-brzustewicz,Henry Brzustewicz,true,OHL,Henry Brzustewicz,9042,https://chl.ca/ohl/players/9042,LDN,67,10,32,42,true
 2025-031-henry-brzustewicz,Henry Brzustewicz,true,OHL,Henry Brzustewicz,9042,https://chl.ca/ohl/players/9042,LDN,17,1,4,5,false
 2025-032-cullen-potter,Cullen Potter,false,,,,,,,,,,false
@@ -79,7 +79,7 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-056-ethan-czata,Ethan Czata,true,OHL,Ethan Czata,8964,https://chl.ca/ohl/players/8964,NIAG,68,21,34,55,true
 2025-056-ethan-czata,Ethan Czata,true,OHL,Ethan Czata,8964,https://chl.ca/ohl/players/8964,NIAG,5,0,2,2,false
 2025-057-matthew-gard,Matthew Gard,true,WHL,Matthew Gard,29236,https://chl.ca/whl/players/29236,RD,66,19,17,36,true
-2025-058-jack-ivankovic,Jack Ivankovic,true,OHL,Jack Ivankovic,8949,https://chl.ca/ohl/players/8949,BRAM,43,0,1,1,true
+2025-058-jack-ivankovic,Jack Ivankovic,true,OHL,Jack Ivankovic,8949,https://chl.ca/ohl/players/8949,BRAM,43,,,,true
 2025-058-jack-ivankovic,Jack Ivankovic,true,OHL,Jack Ivankovic,8949,https://chl.ca/ohl/players/8949,BRAM,5,0,0,0,false
 2025-059-vojtech-cihar,Vojtech Cihar,false,,,,,,,,,,false
 2025-060-lasse-boelius,Lasse Boelius,false,,,,,,,,,,false
@@ -111,7 +111,7 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-081-bryce-pickford,Bryce Pickford,true,WHL,Bryce Pickford,29125,https://chl.ca/whl/players/29125,MH,18,13,11,24,false
 2025-082-arseni-radkov,Arseni Radkov,false,,,,,,,,,,false
 2025-083-tommy-lafreniere,Tommy Lafreniere,true,WHL,Tommy Lafreniere,29407,https://chl.ca/whl/players/29407,KAM,68,24,32,56,true
-2025-084-gabriel-d-aigle,Gabriel D'Aigle,true,QMJHL,Gabriel D'Aigle,19516,https://chl.ca/lhjmq/en/players/19516/,Vic,55,0,8,8,true
+2025-084-gabriel-d-aigle,Gabriel D'Aigle,true,QMJHL,Gabriel D'Aigle,19516,https://chl.ca/lhjmq/en/players/19516/,Vic,55,,,,true
 2025-085-mateo-nobert,Mateo Nobert,true,QMJHL,Mateo Nobert,20166,https://chl.ca/lhjmq/en/players/20166/,BLB,57,28,39,67,true
 2025-085-mateo-nobert,Mateo Nobert,true,QMJHL,Mateo Nobert,20166,https://chl.ca/lhjmq/en/players/20166/,BLB,4,2,3,5,false
 2025-086-tyler-hopkins,Tyler Hopkins,true,OHL,Tyler Hopkins,8972,https://chl.ca/ohl/players/8972,KGN,67,20,31,51,true
@@ -129,8 +129,8 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-094-cameron-schmidt,Cameron Schmidt,true,WHL,Cameron Schmidt,29235,https://chl.ca/whl/players/29235,VAN,5,4,5,9,false
 2025-095-teddy-mutryn,Teddy Mutryn,false,,,,,,,,,,false
 2025-096-maxim-schafer,Maxim Schafer,false,,,,,,,,,,false
-2025-097-lucas-beckman,Lucas Beckman,true,QMJHL,Lucas Beckman,20198,https://chl.ca/lhjmq/en/players/20198/,BaC,52,0,3,3,true
-2025-097-lucas-beckman,Lucas Beckman,true,QMJHL,Lucas Beckman,20198,https://chl.ca/lhjmq/en/players/20198/,BaC,11,0,4,4,false
+2025-097-lucas-beckman,Lucas Beckman,true,QMJHL,Lucas Beckman,20198,https://chl.ca/lhjmq/en/players/20198/,BaC,52,,,,true
+2025-097-lucas-beckman,Lucas Beckman,true,QMJHL,Lucas Beckman,20198,https://chl.ca/lhjmq/en/players/20198/,BaC,11,,,,false
 2025-098-julius-sumpf,Julius Sumpf,true,QMJHL,Julius Sumpf,20520,https://chl.ca/lhjmq/en/players/20520/,Mon,58,26,39,65,true
 2025-098-julius-sumpf,Julius Sumpf,true,QMJHL,Julius Sumpf,20520,https://chl.ca/lhjmq/en/players/20520/,Mon,19,10,6,16,false
 2025-099-trenten-bennett,Trenten Bennett,false,,,,,,,,,,false
@@ -151,8 +151,8 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-113-l-j-mooney,L.J. Mooney,false,,,,,,,,,,false
 2025-114-gustav-hillstrom,Gustav Hillstrom,false,,,,,,,,,,false
 2025-115-ilyas-magomedsultanov,Ilyas Magomedsultanov,false,,,,,,,,,,false
-2025-116-samuel-meloche,Samuel Meloche,true,QMJHL,Samuel Meloche,20199,https://chl.ca/lhjmq/en/players/20199/,Rou,51,0,0,0,true
-2025-116-samuel-meloche,Samuel Meloche,true,QMJHL,Samuel Meloche,20199,https://chl.ca/lhjmq/en/players/20199/,Rou,13,0,0,0,false
+2025-116-samuel-meloche,Samuel Meloche,true,QMJHL,Samuel Meloche,20199,https://chl.ca/lhjmq/en/players/20199/,Rou,51,,,,true
+2025-116-samuel-meloche,Samuel Meloche,true,QMJHL,Samuel Meloche,20199,https://chl.ca/lhjmq/en/players/20199/,Rou,13,,,,false
 2025-117-david-lewandowski,David Lewandowski,true,WHL,David Lewandowski,29786,https://chl.ca/whl/players/29786,SAS,52,15,24,39,true
 2025-117-david-lewandowski,David Lewandowski,true,WHL,David Lewandowski,29786,https://chl.ca/whl/players/29786,SAS,4,1,1,2,false
 2025-118-linus-funck,Linus Funck,false,,,,,,,,,,false
@@ -196,7 +196,7 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-143-wilson-bjorck,Wilson Bjorck,false,,,,,,,,,,false
 2025-144-ethan-wyttenbach,Ethan Wyttenbach,false,,,,,,,,,,false
 2025-145-alexis-cournoyer,Alexis Cournoyer,true,QMJHL,Alexis Cournoyer,19296,https://chl.ca/lhjmq/en/players/19296/,Cap,21,0,1,1,true
-2025-145-alexis-cournoyer,Alexis Cournoyer,true,QMJHL,Alexis Cournoyer,19296,https://chl.ca/lhjmq/en/players/19296/,Cap,2,0,0,0,false
+2025-145-alexis-cournoyer,Alexis Cournoyer,true,QMJHL,Alexis Cournoyer,19296,https://chl.ca/lhjmq/en/players/19296/,Cap,2,,,,false
 2025-146-atte-joki,Atte Joki,false,,,,,,,,,,false
 2025-147-mikhail-fyodorov,Mikhail Fyodorov,false,,,,,,,,,,false
 2025-148-quinn-beauchesne,Quinn Beauchesne,true,OHL,Quinn Beauchesne,8960,https://chl.ca/ohl/players/8960,GUE,49,6,18,24,true
@@ -226,8 +226,8 @@ player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,
 2025-167-ashton-schultz,Ashton Schultz,false,,,,,,,,,,false
 2025-168-anthony-allain-samake,Anthony Allain-Samake,false,,,,,,,,,,false
 2025-169-carter-sanderson,Carter Sanderson,false,,,,,,,,,,false
-2025-170-burke-hood,Burke Hood,true,WHL,Burke Hood,29290,https://chl.ca/whl/players/29290,VAN,42,0,2,2,true
-2025-170-burke-hood,Burke Hood,true,WHL,Burke Hood,29290,https://chl.ca/whl/players/29290,VAN,5,0,0,0,false
+2025-170-burke-hood,Burke Hood,true,WHL,Burke Hood,29290,https://chl.ca/whl/players/29290,VAN,42,,,,true
+2025-170-burke-hood,Burke Hood,true,WHL,Burke Hood,29290,https://chl.ca/whl/players/29290,VAN,5,,,,false
 2025-171-evan-passmore,Evan Passmore,true,OHL,Evan Passmore,9008,https://chl.ca/ohl/players/9008,BAR,62,3,8,11,true
 2025-171-evan-passmore,Evan Passmore,true,OHL,Evan Passmore,9008,https://chl.ca/ohl/players/9008,BAR,16,0,0,0,false
 2025-172-will-murphy,Will Murphy,true,QMJHL,Will Murphy,20204,https://chl.ca/lhjmq/en/players/20204/,Cap,54,2,2,4,true

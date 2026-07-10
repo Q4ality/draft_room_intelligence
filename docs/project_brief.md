@@ -21,3 +21,8 @@ Working brief for the draft intelligence prototype.
 1. Tighten repo hygiene and reproducibility.
 2. Continue feature engineering around league context, role, and exposure quality.
 3. Re-run EDA and model evaluation after each material data improvement.
+
+## Active Backlog
+
+Current data-enrichment implementation stories are maintained in [data_enrichment_stories.md](data_enrichment_stories.md).
+The generic fallback contract for cleaned public stat tables is documented in [open_stats_csv_bridge.md](open_stats_csv_bridge.md).

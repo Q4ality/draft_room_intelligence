@@ -42,6 +42,29 @@ SEASON_STAT_LINE_COLUMNS = [
     "source",
     "source_id",
     "source_url",
+    "goalie_minutes",
+    "shots_against",
+    "saves",
+    "goals_against",
+    "save_percentage",
+    "goals_against_average",
+    "wins",
+    "losses",
+    "ties",
+    "shutouts",
+]
+
+GOALIE_STAT_COLUMNS = [
+    "goalie_minutes",
+    "shots_against",
+    "saves",
+    "goals_against",
+    "save_percentage",
+    "goals_against_average",
+    "wins",
+    "losses",
+    "ties",
+    "shutouts",
 ]
 
 
@@ -201,6 +224,16 @@ def normalize_eliteprospects_export(
                     "source": "eliteprospects",
                     "source_id": source_id,
                     "source_url": first_text(row, "source_url", "URL", "Profile URL"),
+                    "goalie_minutes": first_text(row, "goalie_minutes", "MIN", "Minutes"),
+                    "shots_against": first_text(row, "shots_against", "SA", "Shots Against"),
+                    "saves": first_text(row, "saves", "SV", "Saves"),
+                    "goals_against": first_text(row, "goals_against", "GA", "Goals Against"),
+                    "save_percentage": first_text(row, "save_percentage", "SV%", "Save Percentage"),
+                    "goals_against_average": first_text(row, "goals_against_average", "GAA"),
+                    "wins": first_text(row, "wins", "W"),
+                    "losses": first_text(row, "losses", "L"),
+                    "ties": first_text(row, "ties", "T", "OTL"),
+                    "shutouts": first_text(row, "shutouts", "SO", "Shutouts"),
                 }
             )
 
@@ -241,7 +274,11 @@ def write_table(path: Path, columns: list[str], rows: list[dict[str, str]]) -> N
     with path.open("w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=columns)
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(project_row(row, columns) for row in rows)
+
+
+def project_row(row: dict[str, str], columns: list[str]) -> dict[str, str]:
+    return {column: row.get(column, "") for column in columns}
 
 
 def required_first_text(row: dict[str, str], *columns: str) -> str:
