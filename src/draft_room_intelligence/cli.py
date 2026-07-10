@@ -33,6 +33,7 @@ from draft_room_intelligence.data.normalized_merge import (
 )
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
 from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
+from draft_room_intelligence.data.wikipedia_career_stats import enrich_wikipedia_career_stats
 from draft_room_intelligence.data.ushl_stats import UShlStatSource, enrich_ushl_stats
 from draft_room_intelligence.evaluation.baselines import (
     adjusted_production_scores,
@@ -239,6 +240,24 @@ def main() -> None:
             "Example: 2024-25,85,regular"
         ),
     )
+    wiki_career_stats_parser = subparsers.add_parser(
+        "enrich-wikipedia-career-stats",
+        help="Overlay Wikipedia career-stat tables onto a normalized draft-year dataset.",
+    )
+    wiki_career_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    wiki_career_stats_parser.add_argument("output_dir", type=Path, help="Directory for enriched output.")
+    wiki_career_stats_parser.add_argument("--season", required=True, help="Season to extract, e.g. 2024-25.")
+    wiki_career_stats_parser.add_argument(
+        "--cache-dir",
+        type=Path,
+        help="Optional cache directory for fetched Wikipedia wikitext pages.",
+    )
+    wiki_career_stats_parser.add_argument(
+        "--request-delay-seconds",
+        type=float,
+        default=0.5,
+        help="Delay between Wikipedia page lookups to reduce rate-limit risk.",
+    )
     feature_table_parser = subparsers.add_parser(
         "export-feature-table",
         help="Build and export a reusable player-year feature table from historical prospect data.",
@@ -435,6 +454,14 @@ def main() -> None:
         run_enrich_chl_stats(args.base_dir, args.output_dir, sources=args.source)
     elif args.command == "enrich-ushl-stats":
         run_enrich_ushl_stats(args.base_dir, args.output_dir, sources=args.source)
+    elif args.command == "enrich-wikipedia-career-stats":
+        run_enrich_wikipedia_career_stats(
+            args.base_dir,
+            args.output_dir,
+            season=args.season,
+            cache_dir=args.cache_dir,
+            request_delay_seconds=args.request_delay_seconds,
+        )
     elif args.command == "export-feature-table":
         run_export_feature_table(args.data_path, args.output_path)
     elif args.command == "evaluate-role-models":
@@ -749,6 +776,33 @@ def parse_ushl_source(value: str) -> UShlStatSource:
         regular_season=season_type == "regular",
         source_path=path,
     )
+
+
+def run_enrich_wikipedia_career_stats(
+    base_dir: Path,
+    output_dir: Path,
+    *,
+    season: str,
+    cache_dir: Path | None,
+    request_delay_seconds: float,
+) -> None:
+    summary = enrich_wikipedia_career_stats(
+        base_dir,
+        output_dir,
+        season=season,
+        cache_dir=cache_dir,
+        request_delay_seconds=request_delay_seconds,
+    )
+    print("# Wikipedia career-stats enrichment")
+    print(f"Base directory: {base_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Season: {season}")
+    print(f"Players scanned: {summary.players_scanned}")
+    print(f"Pages fetched: {summary.pages_fetched}")
+    print(f"Source stat rows: {summary.source_rows}")
+    print(f"Matched players: {summary.matched_players}")
+    print(f"Output stat lines: {summary.output_stat_lines}")
+    print(f"Match report: {summary.match_report_path}")
 
 
 def run_export_feature_table(data_path: Path, output_path: Path) -> None:
