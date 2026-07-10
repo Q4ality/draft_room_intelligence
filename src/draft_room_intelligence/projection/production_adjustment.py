@@ -6,6 +6,7 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
+from draft_room_intelligence.data.league_standardization import normalize_league_name
 from draft_room_intelligence.domain import HistoricalProspect
 
 
@@ -196,18 +197,7 @@ def fallback_context(league: str) -> LeagueContext:
 
 
 def lookup_context(league: str, contexts: dict[str, LeagueContext]) -> LeagueContext:
-    aliases = {
-        "Rus-MHL": "MHL",
-        "Rus-VHL": "VHL",
-        "Swe-Jr": "Sweden Jrs.",
-        "Swe-Jr.": "Sweden Jrs.",
-        "Fin-Jr": "Finland Jrs.",
-        "USDP": "USHL",
-        "USNTDP": "USHL",
-        "Mestis": "Mestis",
-        "Exhibition": "Exhibition",
-    }
-    canonical = aliases.get(league, league)
+    canonical = normalize_league_name(league)
     return contexts.get(canonical, contexts.get("Unknown", fallback_context(canonical)))
 
 

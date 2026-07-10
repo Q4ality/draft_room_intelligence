@@ -306,6 +306,7 @@ def test_run_etl_draft_year_uses_cached_hockeydb_player_pages(capsys, tmp_path):
     assert "2001-05-14" in players_csv
     assert "178" in players_csv
     assert "2018-19,USHL,U.S. National U18 Team,50,20,55,75" in stat_lines_csv
+    assert "2018-19,USHL,U.S. National U18 Team,28,18,40,58" in stat_lines_csv
 
 
 def test_run_export_feature_table_writes_csv(capsys, tmp_path):

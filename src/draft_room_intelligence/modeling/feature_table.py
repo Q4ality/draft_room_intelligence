@@ -6,6 +6,7 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
+from draft_room_intelligence.data.league_standardization import normalize_league_name
 from draft_room_intelligence.domain import HistoricalProspect
 from draft_room_intelligence.evaluation.baselines import (
     consensus_probability,
@@ -13,6 +14,8 @@ from draft_room_intelligence.evaluation.baselines import (
 )
 from draft_room_intelligence.projection.production_adjustment import (
     build_adjusted_production_features,
+    load_league_context,
+    lookup_context,
 )
 
 
@@ -34,6 +37,16 @@ FEATURE_COLUMNS = [
     "pre_draft_total_games",
     "pre_draft_total_points",
     "pre_draft_points_per_game",
+    "pre_draft_regular_season_games",
+    "pre_draft_playoff_games",
+    "adult_game_share",
+    "junior_game_share",
+    "college_game_share",
+    "pro_game_share",
+    "average_league_weight",
+    "primary_league",
+    "primary_league_family",
+    "primary_competition_level",
     "playoff_row_count",
     "playoff_game_share",
     "adult_league_exposure",
@@ -67,6 +80,13 @@ MODEL_FEATURE_COLUMNS = [
     "pre_draft_total_games",
     "pre_draft_total_points",
     "pre_draft_points_per_game",
+    "pre_draft_regular_season_games",
+    "pre_draft_playoff_games",
+    "adult_game_share",
+    "junior_game_share",
+    "college_game_share",
+    "pro_game_share",
+    "average_league_weight",
     "playoff_row_count",
     "playoff_game_share",
     "adult_league_exposure",
@@ -91,6 +111,7 @@ class FeatureRow:
 
 def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
     adjusted_features = build_adjusted_production_features(prospects)
+    league_contexts = load_league_context()
     max_adjusted = max((feature.adjusted_score for feature in adjusted_features.values()), default=0.0)
     max_rank = max((prospect.consensus_rank for prospect in prospects), default=100)
 
@@ -102,6 +123,7 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
         league_count = len({line.league for line in stat_lines})
         playoff_row_count = sum(1 for line in stat_lines if not line.regular_season)
         playoff_games = sum(line.games for line in stat_lines if not line.regular_season)
+        regular_season_games = sum(line.games for line in stat_lines if line.regular_season)
         points_per_game = total_points / total_games if total_games else 0.0
         role = role_group(prospect)
         adjusted = adjusted_features.get(prospect.player_id)
@@ -111,6 +133,27 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
             else 0.0
         )
         adult_exposure = 1.0 if adjusted is not None and adjusted.adult_league else 0.0
+        primary_line = max(stat_lines, key=lambda line: line.games, default=prospect.stat_line)
+        primary_context = lookup_context(primary_line.league, league_contexts)
+        adult_games = 0
+        junior_games = 0
+        college_games = 0
+        pro_games = 0
+        weighted_games = 0.0
+
+        for line in stat_lines:
+            context = lookup_context(normalize_league_name(line.league), league_contexts)
+            weighted_games += line.games * context.league_weight
+            if context.adult_league:
+                adult_games += line.games
+            if context.competition_level == "junior":
+                junior_games += line.games
+            elif context.competition_level == "junior_a":
+                junior_games += line.games
+            elif context.league_family == "College":
+                college_games += line.games
+            if context.adult_league:
+                pro_games += line.games
 
         rows.append(
             FeatureRow(
@@ -132,6 +175,16 @@ def build_feature_rows(prospects: list[HistoricalProspect]) -> list[FeatureRow]:
                     "pre_draft_total_games": str(total_games),
                     "pre_draft_total_points": str(total_points),
                     "pre_draft_points_per_game": f"{points_per_game:.6f}",
+                    "pre_draft_regular_season_games": str(regular_season_games),
+                    "pre_draft_playoff_games": str(playoff_games),
+                    "adult_game_share": f"{(adult_games / total_games if total_games else 0.0):.6f}",
+                    "junior_game_share": f"{(junior_games / total_games if total_games else 0.0):.6f}",
+                    "college_game_share": f"{(college_games / total_games if total_games else 0.0):.6f}",
+                    "pro_game_share": f"{(pro_games / total_games if total_games else 0.0):.6f}",
+                    "average_league_weight": f"{(weighted_games / total_games if total_games else 0.0):.6f}",
+                    "primary_league": normalize_league_name(primary_line.league),
+                    "primary_league_family": primary_context.league_family,
+                    "primary_competition_level": primary_context.competition_level,
                     "playoff_row_count": str(playoff_row_count),
                     "playoff_game_share": f"{(playoff_games / total_games if total_games else 0.0):.6f}",
                     "adult_league_exposure": f"{adult_exposure:.6f}",

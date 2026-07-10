@@ -7,6 +7,10 @@ AHL,North America Pro,high,true,1.10,1.12
 DEL,Europe Pro,high,true,1.05,1.12
 HockeyAllsvenskan,Europe Pro,high,true,1.00,1.10
 Mestis,Europe Pro,medium,true,0.92,1.08
+National League,Europe Pro,high,true,1.08,1.12
+Swiss League,Europe Pro,medium,true,0.90,1.08
+Slovakia,Europe Pro,medium,true,0.84,1.08
+Czech Extraliga,Czech Pro,high,true,0.94,1.10
 NCAA,College,high,false,1.05,1.08
 OHL,Canadian Junior,junior,false,1.00,1.08
 WHL,Canadian Junior,junior,false,0.98,1.08
@@ -25,10 +29,21 @@ Russia Jrs.,Russia Junior,junior,false,0.78,1.05
 Finland Jrs.,Finland Junior,junior,false,0.78,1.05
 Sweden Jrs.,Sweden Junior,junior,false,0.80,1.05
 Swe-Jr,Sweden Junior,junior,false,0.80,1.05
+Slovakia Jrs.,Slovakia Junior,junior,false,0.72,1.05
+Switzerland Jrs.,Switzerland Junior,junior,false,0.74,1.05
+Germany Jrs.,Germany Junior,junior,false,0.70,1.05
+Austria Jrs.,Austria Junior,junior,false,0.66,1.04
+Belarus Jrs.,Belarus Junior,junior,false,0.68,1.04
 Czech,Czech Pro,medium,true,0.86,1.08
+Czechia,Czech Pro,medium,true,0.86,1.08
 Czech Jrs.,Czech Junior,junior,false,0.72,1.05
 Czechia Jrs.,Czech Junior,junior,false,0.72,1.05
 OJHL,Canadian Junior A,junior_a,false,0.70,1.05
+SJHL,Canadian Junior A,junior_a,false,0.72,1.05
+MJHL,Canadian Junior A,junior_a,false,0.71,1.05
+CCHL,Canadian Junior A,junior_a,false,0.72,1.05
+NCDC,United States Junior,junior_a,false,0.70,1.05
+Prep School,Prep School,amateur,false,0.60,1.02
 High School,High School,amateur,false,0.62,1.02
 U.S. H.S.,High School,amateur,false,0.62,1.02
 U.S. H.S,High School,amateur,false,0.62,1.02

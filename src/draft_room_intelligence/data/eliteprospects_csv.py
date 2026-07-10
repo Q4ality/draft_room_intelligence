@@ -6,6 +6,11 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
+from draft_room_intelligence.data.league_standardization import (
+    infer_regular_season,
+    normalize_league_name,
+)
+
 
 PLAYER_COLUMNS = [
     "player_id",
@@ -176,11 +181,12 @@ def normalize_eliteprospects_export(
         league = first_text(row, "league", "League")
         team = first_text(row, "team", "Team")
         if season or league or team:
+            stage = first_text(row, "season_type", "Stage", "Competition")
             stat_lines.append(
                 {
                     "player_id": player_id,
                     "season": season,
-                    "league": league,
+                    "league": normalize_league_name(league),
                     "team": team,
                     "games": first_text(row, "games", "GP", "Games"),
                     "goals": first_text(row, "goals", "G", "Goals"),
@@ -188,7 +194,10 @@ def normalize_eliteprospects_export(
                     "points": first_text(row, "points", "TP", "PTS", "Points"),
                     "age": first_text(row, "stat_age", "Season Age"),
                     "timing": first_text(row, "timing", "Timing") or default_timing,
-                    "regular_season": first_text(row, "regular_season", "Regular Season") or "true",
+                    "regular_season": (
+                        first_text(row, "regular_season", "Regular Season")
+                        or ("true" if infer_regular_season(stage, league, team) else "false")
+                    ),
                     "source": "eliteprospects",
                     "source_id": source_id,
                     "source_url": first_text(row, "source_url", "URL", "Profile URL"),

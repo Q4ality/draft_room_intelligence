@@ -64,3 +64,25 @@ def test_write_eliteprospects_normalized_tables(tmp_path):
     assert (tmp_path / "players.csv").exists()
     assert (tmp_path / "season_stat_lines.csv").exists()
     assert "eliteprospects" in (tmp_path / "players.csv").read_text(encoding="utf-8")
+
+
+def test_normalize_eliteprospects_export_canonicalizes_leagues_and_infers_playoffs(tmp_path):
+    fixture = tmp_path / "ep_aliases.csv"
+    fixture.write_text(
+        "\n".join(
+            [
+                "EP Player ID,Name,Position,Season,League,Team,GP,G,A,TP,Stage",
+                "999,Example Skater,D,2018-19,Swe-1,Modo,10,1,4,5,Regular Season",
+                "999,Example Skater,D,2018-19,Rus-MHL,Loko,6,1,5,6,Playoffs",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    normalized = normalize_eliteprospects_export(fixture, draft_year=2019)
+
+    assert len(normalized.season_stat_lines) == 2
+    assert normalized.season_stat_lines[0]["league"] == "MHL"
+    assert normalized.season_stat_lines[0]["regular_season"] == "false"
+    assert normalized.season_stat_lines[1]["league"] == "HockeyAllsvenskan"
+    assert normalized.season_stat_lines[1]["regular_season"] == "true"

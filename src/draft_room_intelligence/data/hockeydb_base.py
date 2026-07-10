@@ -10,6 +10,8 @@ from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
+from draft_room_intelligence.data.league_standardization import normalize_league_name
+
 
 TEAM_IDS = {
     "Anaheim": "ANA",
@@ -44,18 +46,6 @@ TEAM_IDS = {
     "Washington": "WSH",
     "Winnipeg": "WPG",
 }
-
-LEAGUE_MAP = {
-    "SM-liiga": "Liiga",
-    "Swe-1": "HockeyAllsvenskan",
-    "SweHL": "SHL",
-    "H-East": "NCAA",
-    "WCHA": "NCAA",
-    "Big-10": "NCAA",
-    "ECAC": "NCAA",
-    "NCHC": "NCAA",
-}
-
 
 @dataclass(frozen=True)
 class HockeyDbBaseETLConfig:
@@ -217,23 +207,7 @@ def generate_hockeydb_base_tables(config: HockeyDbBaseETLConfig) -> Path:
             "source_id",
             "source_url",
         ],
-        [
-            {
-                **source_fields,
-                "player_id": item["pick"]["player_id"],
-                "source_id": item["pick"]["player_id"],
-                "season": item["pre_draft_row"].get("season", season),
-                "league": item["pre_draft_row"].get("league", item["pick"]["drafted_from_league"]),
-                "team": item["pre_draft_row"].get("team", item["pick"]["drafted_from_team"]),
-                "games": int_text(item["pre_draft_row"].get("games")),
-                "goals": int_text(item["pre_draft_row"].get("goals")),
-                "assists": int_text(item["pre_draft_row"].get("assists")),
-                "points": int_text(item["pre_draft_row"].get("points")),
-                "timing": "pre_draft",
-                "regular_season": "true",
-            }
-            for item in enriched
-        ],
+        build_pre_draft_stat_rows(enriched, source_fields, season),
     )
     write_csv(
         root / "nhl_outcomes.csv",
@@ -305,7 +279,7 @@ def enrich_pick(
         "weight_kg": "",
         "age_at_draft": "",
     }
-    pre_draft_row: dict[str, object] = {}
+    pre_draft_rows: list[dict[str, object]] = []
     if player_pages_dir is not None:
         page_path = player_pages_dir / f"{pick['player_id']}.html"
         if page_path.exists():
@@ -318,8 +292,8 @@ def enrich_pick(
                 "weight_kg": parsed["weight_kg"],
                 "age_at_draft": parsed["age_at_draft"],
             }
-            pre_draft_row = choose_pre_draft_row(pick, parsed["stats_rows"], draft_year) or {}
-    return {"pick": pick, **details, "pre_draft_row": pre_draft_row}
+            pre_draft_rows = choose_pre_draft_rows(pick, parsed["stats_rows"], draft_year)
+    return {"pick": pick, **details, "pre_draft_rows": pre_draft_rows}
 
 
 def parse_player_page(html: str, draft_year: int) -> dict[str, object]:
@@ -379,7 +353,7 @@ def parse_stats_rows(html: str) -> list[dict[str, object]]:
             {
                 "season": row[0],
                 "team": row[1],
-                "league": LEAGUE_MAP.get(row[2], row[2]),
+                "league": normalize_league_name(row[2]),
                 "games": games,
                 "goals": parse_int(row[4]),
                 "assists": parse_int(row[5]),
@@ -389,24 +363,65 @@ def parse_stats_rows(html: str) -> list[dict[str, object]]:
     return rows
 
 
-def choose_pre_draft_row(
+def choose_pre_draft_rows(
     pick: dict[str, str],
     stats_rows: list[dict[str, object]],
     draft_year: int,
-) -> dict[str, object] | None:
+) -> list[dict[str, object]]:
     target_season = season_label(draft_year)
     season_rows = [row for row in stats_rows if row["season"] == target_season]
     if not season_rows:
-        return None
+        return []
     league_matches = [row for row in season_rows if row["league"] == pick["drafted_from_league"]]
     if league_matches:
-        return max(league_matches, key=lambda row: int(row["games"] or 0))
+        return sorted(league_matches, key=lambda row: int(row["games"] or 0), reverse=True)
     team_matches = [
         row for row in season_rows if normalize_name(str(row["team"])) == normalize_name(pick["drafted_from_team"])
     ]
     if team_matches:
-        return max(team_matches, key=lambda row: int(row["games"] or 0))
-    return max(season_rows, key=lambda row: int(row["games"] or 0))
+        return sorted(team_matches, key=lambda row: int(row["games"] or 0), reverse=True)
+    return sorted(season_rows, key=lambda row: int(row["games"] or 0), reverse=True)
+
+
+def build_pre_draft_stat_rows(
+    enriched: list[dict[str, object]],
+    source_fields: dict[str, str],
+    default_season: str,
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for item in enriched:
+        pick = item["pick"]
+        pre_draft_rows = item.get("pre_draft_rows") or []
+        if not pre_draft_rows:
+            pre_draft_rows = [
+                {
+                    "season": default_season,
+                    "league": pick["drafted_from_league"],
+                    "team": pick["drafted_from_team"],
+                    "games": None,
+                    "goals": None,
+                    "assists": None,
+                    "points": None,
+                }
+            ]
+        for stat_row in pre_draft_rows:
+            rows.append(
+                {
+                    **source_fields,
+                    "player_id": pick["player_id"],
+                    "source_id": pick["player_id"],
+                    "season": str(stat_row.get("season", default_season)),
+                    "league": str(stat_row.get("league", pick["drafted_from_league"])),
+                    "team": str(stat_row.get("team", pick["drafted_from_team"])),
+                    "games": int_text(stat_row.get("games")),
+                    "goals": int_text(stat_row.get("goals")),
+                    "assists": int_text(stat_row.get("assists")),
+                    "points": int_text(stat_row.get("points")),
+                    "timing": "pre_draft",
+                    "regular_season": "true",
+                }
+            )
+    return rows
 
 
 def parse_rows(html: str, draft_year: int) -> list[dict[str, str]]:
@@ -448,7 +463,7 @@ def split_team_league(value: str) -> tuple[str, str]:
         return value, "Unknown"
     team = clean(match.group(1))
     league = clean(match.group(2) or match.group(3) or "Unknown")
-    return team, LEAGUE_MAP.get(league, league)
+    return team, normalize_league_name(league)
 
 
 def season_label(draft_year: int) -> str:
