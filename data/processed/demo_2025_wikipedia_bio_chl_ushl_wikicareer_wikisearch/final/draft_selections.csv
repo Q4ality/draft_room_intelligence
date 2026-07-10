@@ -1,0 +1,225 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2025-001-matthew-schaefer,2025,NYI,New York Islanders,1,1,Erie Otters,OHL,wikipedia,2025-001-matthew-schaefer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-002-michael-misa,2025,SJS,San Jose Sharks,1,2,Saginaw Spirit,OHL,wikipedia,2025-002-michael-misa,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-003-anton-frondell,2025,CHI,Chicago Blackhawks,1,3,Djurgardens IF,Swe-1,wikipedia,2025-003-anton-frondell,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-004-caleb-desnoyers,2025,UTA,Utah Mammoth,1,4,Moncton Wildcats,QMJHL,wikipedia,2025-004-caleb-desnoyers,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-005-brady-martin,2025,NSH,Nashville Predators,1,5,Sault Ste. Marie Greyhounds,OHL,wikipedia,2025-005-brady-martin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-006-porter-martone,2025,PHI,Philadelphia Flyers,1,6,Brampton Steelheads,OHL,wikipedia,2025-006-porter-martone,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-007-james-hagens,2025,BOS,Boston Bruins,1,7,Boston College Eagles,H-East,wikipedia,2025-007-james-hagens,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-008-jake-o-brien,2025,SEA,Seattle Kraken,1,8,Brantford Bulldogs,OHL,wikipedia,2025-008-jake-o-brien,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-009-radim-mrtka,2025,BUF,Buffalo Sabres,1,9,Seattle Thunderbirds,WHL,wikipedia,2025-009-radim-mrtka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-010-roger-mcqueen,2025,ANA,Anaheim Ducks,1,10,Brandon Wheat Kings,WHL,wikipedia,2025-010-roger-mcqueen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-011-ben-kindel,2025,PIT,Pittsburgh Penguins,1,11,Calgary Hitmen,WHL,wikipedia,2025-011-ben-kindel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-012-jack-nesbitt,2025,PHILADELPHIAFLYERSFROMNYRANGERSVIAVANCOUVERANDPITTSBURGH1,Philadelphia Flyers (from NY Rangers via Vancouver and Pittsburgh)1,1,12,Windsor Spitfires,OHL,wikipedia,2025-012-jack-nesbitt,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-013-carter-bear,2025,DET,Detroit Red Wings,1,13,Everett Silvertips,WHL,wikipedia,2025-013-carter-bear,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-014-jackson-smith,2025,CBJ,Columbus Blue Jackets,1,14,Tri-City Americans,WHL,wikipedia,2025-014-jackson-smith,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-015-braeden-cootes,2025,VAN,Vancouver Canucks,1,15,Seattle Thunderbirds,WHL,wikipedia,2025-015-braeden-cootes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-016-victor-eklund,2025,NEWYORKISLANDERSFROMCALGARYVIAMONTREAL2,New York Islanders (from Calgary via Montreal)2,1,16,Djurgardens IF,Swe-1,wikipedia,2025-016-victor-eklund,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-017-kashawn-aitcheson,2025,NEWYORKISLANDERSFROMMONTREAL3,New York Islanders (from Montreal)3,1,17,Barrie Colts,OHL,wikipedia,2025-017-kashawn-aitcheson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-018-cole-reschny,2025,CALGARYFLAMESFROMNEWJERSEY4,Calgary Flames (from New Jersey)4,1,18,Victoria Royals,WHL,wikipedia,2025-018-cole-reschny,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-019-justin-carbonneau,2025,STL,St. Louis Blues,1,19,Blainville-Boisbriand Armada,QMJHL,wikipedia,2025-019-justin-carbonneau,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-020-pyotr-andreyanov,2025,COLUMBUSBLUEJACKETSFROMMINNESOTA5,Columbus Blue Jackets (from Minnesota)5,1,20,Krasnaya Armiya,Rus-MHL,wikipedia,2025-020-pyotr-andreyanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-021-cameron-reid,2025,NASHVILLEPREDATORSFROMOTTAWA6,Nashville Predators (from Ottawa)6,1,21,Kitchener Rangers,OHL,wikipedia,2025-021-cameron-reid,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-022-bill-zonnon,2025,PITTSBURGHPENGUINSFROMCOLORADOVIAPHILADELPHIA7,Pittsburgh Penguins (from Colorado via Philadelphia)7,1,22,Rouyn-Noranda Huskies,QMJHL,wikipedia,2025-022-bill-zonnon,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-023-logan-hensler,2025,OTTAWASENATORSFROMTAMPABAYVIANASHVILLE8,Ottawa Senators (from Tampa Bay via Nashville)8,1,23,Wisconsin Badgers,B1G,wikipedia,2025-023-logan-hensler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-024-will-horcoff,2025,PITTSBURGHPENGUINSFROMLOSANGELES9,Pittsburgh Penguins (from Los Angeles)9,1,24,Michigan Wolverines,B1G,wikipedia,2025-024-will-horcoff,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-025-vaclav-nestrasil,2025,CHICAGOBLACKHAWKSFROMTORONTO10,Chicago Blackhawks (from Toronto)10,1,25,Muskegon Lumberjacks,USHL,wikipedia,2025-025-vaclav-nestrasil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-026-ryker-lee,2025,NASHVILLEPREDATORSFROMVEGASVIASANJOSE11,Nashville Predators (from Vegas via San Jose)11,1,26,Madison Capitols,USHL,wikipedia,2025-026-ryker-lee,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-027-lynden-lakovic,2025,WSH,Washington Capitals,1,27,Moose Jaw Warriors,WHL,wikipedia,2025-027-lynden-lakovic,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-028-sascha-boumedienne,2025,WPG,Winnipeg Jets,1,28,Boston University Terriers,H-East,wikipedia,2025-028-sascha-boumedienne,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-029-mason-west,2025,CHICAGOBLACKHAWKSFROMCAROLINA12,Chicago Blackhawks (from Carolina)12,1,29,Edina Hornets,USHS-MN,wikipedia,2025-029-mason-west,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-030-joshua-ravensbergen,2025,SANJOSESHARKSFROMDALLAS13,San Jose Sharks (from Dallas)13,1,30,Prince George Cougars,WHL,wikipedia,2025-030-joshua-ravensbergen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-031-henry-brzustewicz,2025,LOSANGELESKINGSFROMEDMONTONVIAPHILADELPHIAANDPITTSBURGH14,Los Angeles Kings (from Edmonton via Philadelphia and Pittsburgh)14,1,31,London Knights,OHL,wikipedia,2025-031-henry-brzustewicz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-032-cullen-potter,2025,CALGARYFLAMESFROMFLORIDA15,Calgary Flames (from Florida)15,1,32,Arizona State Sun Devils,NCHC,wikipedia,2025-032-cullen-potter,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-033-haoxi-wang,2025,SJS,San Jose Sharks,2,33,Oshawa Generals,OHL,wikipedia,2025-033-haoxi-wang,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-034-alexander-zharovsky,2025,MONTREALCANADIENSFROMCHICAGOVIACAROLINA1,Montreal Canadiens (from Chicago via Carolina)1,2,34,Tolpar Ufa,Rus-MHL,wikipedia,2025-034-alexander-zharovsky,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-035-jacob-rombach,2025,NSH,Nashville Predators,2,35,Lincoln Stars,USHL,wikipedia,2025-035-jacob-rombach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-036-blake-fiddler,2025,SEATTLEKRAKENFROMPHILADELPHIA2,Seattle Kraken (from Philadelphia)2,2,36,Edmonton Oil Kings,WHL,wikipedia,2025-036-blake-fiddler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-037-milton-gastrin,2025,WASHINGTONCAPITALSFROMBOSTON3,Washington Capitals (from Boston)3,2,37,Modo Hockey,SweHL,wikipedia,2025-037-milton-gastrin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-038-carter-amico,2025,PHILADELPHIAFLYERSFROMSEATTLE4,Philadelphia Flyers (from Seattle)4,2,38,U.S. NTDP,USHL,wikipedia,2025-038-carter-amico,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-039-peyton-kettles,2025,PITTSBURGHPENGUINSFROMBUFFALO5,Pittsburgh Penguins (from Buffalo)5,2,39,Swift Current Broncos,WHL,wikipedia,2025-039-peyton-kettles,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-040-jack-murtagh,2025,PHILADELPHIAFLYERSFROMANAHEIM6,Philadelphia Flyers (from Anaheim)6,2,40,U.S. NTDP,USHL,wikipedia,2025-040-jack-murtagh,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-041-semyon-frolov,2025,CAROLINAHURRICANESFROMPITTSBURGHVIAMONTREAL7,Carolina Hurricanes (from Pittsburgh via Montreal)7,2,41,JHC Spartak,Rus-MHL,wikipedia,2025-041-semyon-frolov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-042-daniil-prokhorov,2025,NYI,New York Islanders,2,42,HC Dinamo Saint Petersburg,Rus-MHL,wikipedia,2025-042-daniil-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-043-malcolm-spence,2025,NEWYORKRANGERSFROMNYRANGERSVIAUTAHANDCOLORADO8,New York Rangers (from NY Rangers via Utah and Colorado)8,2,43,Erie Otters,OHL,wikipedia,2025-043-malcolm-spence,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-044-eddie-genborg,2025,DET,Detroit Red Wings,2,44,Linkoping HC,SweHL,wikipedia,2025-044-eddie-genborg,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-045-eric-nilson,2025,ANAHEIMDUCKSFROMCOLUMBUSVIAPHILADELPHIA9,Anaheim Ducks (from Columbus via Philadelphia)9,2,45,Djurgardens IF J20,Swe-Jr,wikipedia,2025-045-eric-nilson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-046-max-psenicka,2025,UTA,Utah Mammoth,2,46,Portland Winterhawks,WHL,wikipedia,2025-046-max-psenicka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-047-alexei-medvedev,2025,VAN,Vancouver Canucks,2,47,London Knights,OHL,wikipedia,2025-047-alexei-medvedev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-048-shane-vansaghi,2025,PHILADELPHIAFLYERSFROMCALGARY10,Philadelphia Flyers (from Calgary)10,2,48,Michigan State Spartans,B1G,wikipedia,2025-048-shane-vansaghi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-049-charlie-cerrato,2025,CAROLINAHURRICANESFROMMONTREAL11,Carolina Hurricanes (from Montreal)11,2,49,Penn State Nittany Lions,B1G,wikipedia,2025-049-charlie-cerrato,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-050-conrad-fondrk,2025,NJD,New Jersey Devils,2,50,U.S. NTDP,USHL,wikipedia,2025-050-conrad-fondrk,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-051-william-moore,2025,BOSTONBRUINSFROMSTLOUISVIAPITTSBURGHSTLOUISANDEDMONTON12,"Boston Bruins (from St. Louis via Pittsburgh, St. Louis and Edmonton)12",2,51,U.S. NTDP,USHL,wikipedia,2025-051-william-moore,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-052-theodor-hallquisth,2025,MIN,Minnesota Wild,2,52,Orebro HK J20,Swe-Jr,wikipedia,2025-052-theodor-hallquisth,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-053-cole-mckinney,2025,SANJOSESHARKSFROMOTTAWA13,San Jose Sharks (from Ottawa)13,2,53,U.S. NTDP,USHL,wikipedia,2025-053-cole-mckinney,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-054-theo-stockselius,2025,CALGARYFLAMESFROMCOLORADOVIAWASHINGTON14,Calgary Flames (from Colorado via Washington)14,2,54,Djurgardens IF J20,Swe-Jr,wikipedia,2025-054-theo-stockselius,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-055-jakob-ihs-wozniak,2025,VEGASGOLDENKNIGHTSFROMTAMPABAYANDNASHVILLE15,Vegas Golden Knights (from Tampa Bay and Nashville)15,2,55,Lulea HF J20,Swe-Jr,wikipedia,2025-055-jakob-ihs-wozniak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-056-ethan-czata,2025,TAMPABAYLIGHTNINGFROMLOSANGELES16,Tampa Bay Lightning (from Los Angeles)16,2,56,Niagara IceDogs,OHL,wikipedia,2025-056-ethan-czata,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-057-matthew-gard,2025,PHILADELPHIAFLYERSFROMTORONTOVIAUTAHTAMPABAYANDSEATTLE17,"Philadelphia Flyers (from Toronto via Utah, Tampa Bay and Seattle)17",2,57,Red Deer Rebels,WHL,wikipedia,2025-057-matthew-gard,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-058-jack-ivankovic,2025,NASHVILLEPREDATORSFROMVEGAS18,Nashville Predators (from Vegas)18,2,58,Brampton Steelheads,OHL,wikipedia,2025-058-jack-ivankovic,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-059-vojtech-cihar,2025,LOSANGELESKINGSFROMWASHINGTONVIAPITTSBURGH19,Los Angeles Kings (from Washington via Pittsburgh)19,2,59,HC Energie Karlovy Vary,Czech,wikipedia,2025-059-vojtech-cihar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-060-lasse-boelius,2025,ANAHEIMDUCKSFROMWINNIPEGVIANEWJERSEY20,Anaheim Ducks (from Winnipeg via New Jersey)20,2,60,HC Assat Pori,SM-liiga,wikipedia,2025-060-lasse-boelius,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-061-liam-pettersson,2025,BOSTONBRUINSFROMCAROLINAVIACOLORADO21,Boston Bruins (from Carolina via Colorado)21,2,61,Vaxjo Lakers HC J20,Swe-Jr,wikipedia,2025-061-liam-pettersson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-062-ivan-ryabkin,2025,CAROLINAHURRICANESFROMDALLASVIACHICAGO22,Carolina Hurricanes (from Dallas via Chicago)22,2,62,Muskegon Lumberjacks,USHL,wikipedia,2025-062-ivan-ryabkin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-063-ben-kevan,2025,NEWJERSEYDEVILSFROMEDMONTONVIAUTAH23,New Jersey Devils (from Edmonton via Utah)23,2,63,Des Moines Buccaneers,USHL,wikipedia,2025-063-ben-kevan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-064-tinus-luc-koblar,2025,TORONTOMAPLELEAFSFROMFLORIDA24,Toronto Maple Leafs (from Florida)24,2,64,Leksands IF J20,Swe-Jr,wikipedia,2025-064-tinus-luc-koblar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-065-kieren-dervin,2025,VANCOUVERCANUCKSFROMSANJOSEVIAVEGASANDNYRANGERS1,Vancouver Canucks (from San Jose via Vegas and NY Rangers)1,3,65,St. Andrew's Saints,Ont. H.S.,wikipedia,2025-065-kieren-dervin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-066-nathan-behm,2025,CHICAGOBLACKHAWKSFROMCHICAGOVIACAROLINA2,Chicago Blackhawks (from Chicago via Carolina)2,3,66,Kamloops Blazers,WHL,wikipedia,2025-066-nathan-behm,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-067-kurban-limatov,2025,CAROLINAHURRICANESFROMNASHVILLEVIAOTTAWAANDLOSANGELES3,Carolina Hurricanes (from Nashville via Ottawa and Los Angeles)3,3,67,MHC Dynamo Moscow,Rus-MHL,wikipedia,2025-067-kurban-limatov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-068-will-reynolds,2025,SEATTLEKRAKENFROMPHILADELPHIA4,Seattle Kraken (from Philadelphia)4,3,68,Acadie–Bathurst Titan,QMJHL,wikipedia,2025-068-will-reynolds,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-069-hayden-paupanekis,2025,MONTREALCANADIENSFROMBOSTON5,Montreal Canadiens (from Boston)5,3,69,Kelowna Rockets,WHL,wikipedia,2025-069-hayden-paupanekis,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-070-sean-barnhill,2025,NEWYORKRANGERSFROMSEATTLE6,New York Rangers (from Seattle)6,3,70,Dubuque Fighting Saints,USHL,wikipedia,2025-070-sean-barnhill,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-071-david-bedkowski,2025,BUF,Buffalo Sabres,3,71,Owen Sound Attack,OHL,wikipedia,2025-071-david-bedkowski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-072-noah-read,2025,ANA,Anaheim Ducks,3,72,London Knights,OHL,wikipedia,2025-072-noah-read,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-073-charlie-trethewey,2025,PIT,Pittsburgh Penguins,3,73,U.S. NTDP,USHL,wikipedia,2025-073-charlie-trethewey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-074-luca-romano,2025,NYI,New York Islanders,3,74,Kitchener Rangers,OHL,wikipedia,2025-074-luca-romano,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-075-michal-pradel,2025,DETROITREDWINGSFROMNYRANGERSVIAUTAH7,Detroit Red Wings (from NY Rangers via Utah)7,3,75,Tri-City Storm,USHL,wikipedia,2025-075-michal-pradel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-076-malte-vass,2025,COLUMBUSBLUEJACKETSFROMDETROIT8,Columbus Blue Jackets (from Detroit)8,3,76,Farjestad BK J20,Swe-Jr,wikipedia,2025-076-malte-vass,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-077-francesco-dell-elce,2025,COLORADOAVALANCHEFROMCOLUMBUS9,Colorado Avalanche (from Columbus)9,3,77,UMass Minutemen,H-East,wikipedia,2025-077-francesco-dell-elce,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-078-stepan-hoch,2025,UTA,Utah Mammoth,3,78,Motor Ceske Budejovice,Czech,wikipedia,2025-078-stepan-hoch,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-079-cooper-simpson,2025,BOSTONBRUINSFROMVANCOUVERVIAMONTREAL10,Boston Bruins (from Vancouver via Montreal)10,3,79,Tri-City Storm,USHL,wikipedia,2025-079-cooper-simpson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-080-mace-o-phillips,2025,CGY,Calgary Flames,3,80,U.S. NTDP,USHL,wikipedia,2025-080-mace-o-phillips,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-081-bryce-pickford,2025,MTL,Montreal Canadiens,3,81,Medicine Hat Tigers,WHL,wikipedia,2025-081-bryce-pickford,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-082-arseni-radkov,2025,MONTREALCANADIENSFROMNEWJERSEY11,Montreal Canadiens (from New Jersey)11,3,82,Tyumensky Legion,Rus-MHL,wikipedia,2025-082-arseni-radkov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-083-tommy-lafreniere,2025,EDMONTONOILERSFROMSTLOUIS12,Edmonton Oilers (from St. Louis)12,3,83,Kamloops Blazers,WHL,wikipedia,2025-083-tommy-lafreniere,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-084-gabriel-d-aigle,2025,PITTSBURGHPENGUINSFROMMINNESOTAVIAPHILADELPHIAANDNASHVILLE13,Pittsburgh Penguins (from Minnesota via Philadelphia and Nashville)13,3,84,Victoriaville Tigres,QMJHL,wikipedia,2025-084-gabriel-d-aigle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-085-mateo-nobert,2025,VEGASGOLDENKNIGHTSFROMOTTAWAVIASTLOUISANDPITTSBURGH14,Vegas Golden Knights (from Ottawa via St. Louis and Pittsburgh)14,3,85,Blainville-Boisbriand Armada,QMJHL,wikipedia,2025-085-mateo-nobert,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-086-tyler-hopkins,2025,TORONTOMAPLELEAFSFROMCOLORADOVIANASHVILLEANDSANJOSE15,Toronto Maple Leafs (from Colorado via Nashville and San Jose)15,3,86,Kingston Frontenacs,OHL,wikipedia,2025-086-tyler-hopkins,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-087-roman-bausov,2025,CAROLINAHURRICANESFROMTAMPABAY16,Carolina Hurricanes (from Tampa Bay)16,3,87,HC Dinamo Saint Petersburg U20,Rus-MHL,wikipedia,2025-087-roman-bausov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-088-kristian-epperson,2025,LAK,Los Angeles Kings,3,88,Saginaw Spirit,OHL,wikipedia,2025-088-kristian-epperson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-089-artyom-gonchar,2025,NEWYORKRANGERSFROMTORONTOVIAANAHEIM17,New York Rangers (from Toronto via Anaheim)17,3,89,Magnitogorsk Stalnye Lisy,Rus-MHL,wikipedia,2025-089-artyom-gonchar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-090-mason-moe,2025,NEWJERSEYDEVILSFROMVEGAS18,New Jersey Devils (from Vegas)18,3,90,Madison Capitols,USHL,wikipedia,2025-090-mason-moe,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-091-brady-peddle,2025,PITTSBURGHPENGUINSFROMWASHINGTONVIAVEGAS19,Pittsburgh Penguins (from Washington via Vegas)19,3,91,Waterloo Black Hawks,USHL,wikipedia,2025-091-brady-peddle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-092-owen-martin,2025,WPG,Winnipeg Jets,3,92,Spokane Chiefs,WHL,wikipedia,2025-092-owen-martin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-093-blake-vanek,2025,OTTAWASENATORSFROMCAROLINAVIAWASHINGTON20,Ottawa Senators (from Carolina via Washington)20,3,93,Stillwater Ponies,USHS-MN,wikipedia,2025-093-blake-vanek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-094-cameron-schmidt,2025,DAL,Dallas Stars,3,94,Vancouver Giants,WHL,wikipedia,2025-094-cameron-schmidt,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-095-teddy-mutryn,2025,SANJOSESHARKSFROMEDMONTON21,San Jose Sharks (from Edmonton)21,3,95,Chicago Steel,USHL,wikipedia,2025-095-teddy-mutryn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-096-maxim-schafer,2025,WASHINGTONCAPITALSFROMFLORIDAVIAOTTAWA22,Washington Capitals (from Florida via Ottawa)22,3,96,Eisbaren Berlin,DEL,wikipedia,2025-096-maxim-schafer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-097-lucas-beckman,2025,OTTAWASENATORSFROMSANJOSE1,Ottawa Senators (from San Jose)1,4,97,Baie-Comeau Drakkar,QMJHL,wikipedia,2025-097-lucas-beckman,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-098-julius-sumpf,2025,CHI,Chicago Blackhawks,4,98,Moncton Wildcats,QMJHL,wikipedia,2025-098-julius-sumpf,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-099-trenten-bennett,2025,NEWJERSEYDEVILSFROMNASHVILLE2,New Jersey Devils (from Nashville)2,4,99,Kemptville 73's,CCHL,wikipedia,2025-099-trenten-bennett,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-100-vashek-blanar,2025,BOSTONBRUINSFROMPHILADELPHIAVIATORONTO3,Boston Bruins (from Philadelphia via Toronto)3,4,100,IF Troja-Ljungby,J18 Regional,wikipedia,2025-100-vashek-blanar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-101-drew-schock,2025,ANAHEIMDUCKSFROMBOSTONVIADETROIT4,Anaheim Ducks (from Boston via Detroit)4,4,101,U.S. NTDP,USHL,wikipedia,2025-101-drew-schock,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-102-adam-benak,2025,MINNESOTAWILDFROMSEATTLE5,Minnesota Wild (from Seattle)5,4,102,Youngstown Phantoms,USHL,wikipedia,2025-102-adam-benak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-103-matous-kucharcik,2025,BUF,Buffalo Sabres,4,103,HC Slavia Praha U20,Czech. Jr,wikipedia,2025-103-matous-kucharcik,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-104-elijah-neuenschwander,2025,ANAHEIMDUCKSFROMANAHEIMVIANEWYORKRANGERS6,Anaheim Ducks (from Anaheim via New York Rangers)6,4,104,HC Fribourg-Gotteron U20,U20-Elit,wikipedia,2025-104-elijah-neuenschwander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-105-travis-hayes,2025,PIT,Pittsburgh Penguins,4,105,Sault Ste. Marie Greyhounds,OHL,wikipedia,2025-105-travis-hayes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-106-tomas-poletin,2025,NYI,New York Islanders,4,106,Lahti Pelicans,SM-liiga,wikipedia,2025-106-tomas-poletin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-107-parker-holmes,2025,CHICAGOBLACKHAWKSFROMNYRANGERS7,Chicago Blackhawks (from NY Rangers)7,4,107,Brantford Bulldogs,OHL,wikipedia,2025-107-parker-holmes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-108-benjamin-rautiainen,2025,TAMPABAYLIGHTNINGFROMDETROITVIAMONTREALANDBOSTON8,Tampa Bay Lightning (from Detroit via Montreal and Boston)8,4,108,Tappara,SM-liiga,wikipedia,2025-108-benjamin-rautiainen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-109-brent-solomon,2025,DETROITREDWINGSFROMCOLUMBUS9,Detroit Red Wings (from Columbus)9,4,109,Sioux Falls Stampede,USHL,wikipedia,2025-109-brent-solomon,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-110-yegor-borikov,2025,UTA,Utah Mammoth,4,110,Dinamo Minsk,KHL,wikipedia,2025-110-yegor-borikov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-111-mikkel-eriksen,2025,NEWYORKRANGERSFROMVANCOUVERVIACOLORADO10,New York Rangers (from Vancouver via Colorado)10,4,111,Farjestad BK J20,Swe-Jr,wikipedia,2025-111-mikkel-eriksen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-112-mads-kongsbak-klyvo,2025,FLORIDAPANTHERSFROMCALGARY11,Florida Panthers (from Calgary)11,4,112,Frolunda HC J20,Swe-Jr,wikipedia,2025-112-mads-kongsbak-klyvo,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-113-l-j-mooney,2025,MTL,Montreal Canadiens,4,113,U.S. NTDP,USHL,wikipedia,2025-113-l-j-mooney,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-114-gustav-hillstrom,2025,NJD,New Jersey Devils,4,114,Brynas IF,SweHL,wikipedia,2025-114-gustav-hillstrom,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-115-ilyas-magomedsultanov,2025,SANJOSESHARKSFROMSTLOUISVIACOLUMBUS12,San Jose Sharks (from St. Louis via Columbus)12,4,115,Lokomotiv Yaroslavl,KHL,wikipedia,2025-115-ilyas-magomedsultanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-116-samuel-meloche,2025,BUFFALOSABRESFROMMINNESOTAVIAANAHEIM13,Buffalo Sabres (from Minnesota via Anaheim)13,4,116,Rouyn-Noranda Huskies,QMJHL,wikipedia,2025-116-samuel-meloche,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-117-david-lewandowski,2025,EDMONTONOILERSFROMOTTAWAVIAEDMONTONANDVANCOUVER14,Edmonton Oilers (from Ottawa via Edmonton and Vancouver)14,4,117,Saskatoon Blades,WHL,wikipedia,2025-117-david-lewandowski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-118-linus-funck,2025,COL,Colorado Avalanche,4,118,Lulea HF J20,Swe-Jr,wikipedia,2025-118-linus-funck,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-119-michal-svrcek,2025,DETROITREDWINGSFROMTAMPABAY15,Detroit Red Wings (from Tampa Bay)15,4,119,Brynas IF,SweHL,wikipedia,2025-119-michal-svrcek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-120-caeden-herrington,2025,LAK,Los Angeles Kings,4,120,Lincoln Stars,USHL,wikipedia,2025-120-caeden-herrington,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-121-lirim-amidovski,2025,MINNESOTAWILDFROMTORONTO16,Minnesota Wild (from Toronto)16,4,121,North Bay Battalion,OHL,wikipedia,2025-121-lirim-amidovski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-122-alex-huang,2025,NASHVILLEPREDATORSFROMVEGAS17,Nashville Predators (from Vegas)17,4,122,Chicoutimi Sagueneens,QMJHL,wikipedia,2025-122-alex-huang,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-123-carter-klippenstein,2025,MINNESOTAWILDFROMWASHINGTON18,Minnesota Wild (from Washington)18,4,123,Brandon Wheat Kings,WHL,wikipedia,2025-123-carter-klippenstein,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-124-zack-sharp,2025,SANJOSESHARKSFROMWINNIPEGVIASANJOSEANDDALLAS19,San Jose Sharks (from Winnipeg via San Jose and Dallas)19,4,124,Western Michigan Broncos,NCHC,wikipedia,2025-124-zack-sharp,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-125-jimmy-lombardi,2025,LOSANGELESKINGSFROMCAROLINA20,Los Angeles Kings (from Carolina)20,4,125,Flint Firebirds,OHL,wikipedia,2025-125-jimmy-lombardi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-126-brandon-gorzynski,2025,DALLASSTARSFROMDALLASVIANYRANGERSANDSEATTLE21,Dallas Stars (from Dallas via NY Rangers and Seattle)21,4,126,Calgary Hitmen,WHL,wikipedia,2025-126-brandon-gorzynski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-127-aiden-foster,2025,TAMPABAYLIGHTNINGFROMEDMONTON22,Tampa Bay Lightning (from Edmonton)22,4,127,Prince George Cougars,WHL,wikipedia,2025-127-aiden-foster,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-128-shea-busch,2025,FLA,Florida Panthers,4,128,Everett Silvertips,WHL,wikipedia,2025-128-shea-busch,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-129-shamar-moses,2025,FLORIDAPANTHERSFROMSANJOSE1,Florida Panthers (from San Jose)1,5,129,North Bay Battalion,OHL,wikipedia,2025-129-shamar-moses,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-130-ryan-miller,2025,PITTSBURGHPENGUINSFROMCHICAGOVIATORONTOANDWASHINGTON2,Pittsburgh Penguins (from Chicago via Toronto and Washington)2,5,130,Portland Winterhawks,WHL,wikipedia,2025-130-ryan-miller,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-131-asher-barnett,2025,EDMONTONOILERSFROMNASHVILLE3,Edmonton Oilers (from Nashville)3,5,131,U.S. NTDP,USHL,wikipedia,2025-131-asher-barnett,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-132-max-westergard,2025,PHI,Philadelphia Flyers,5,132,Frolunda HC J20,Swe-Jr,wikipedia,2025-132-max-westergard,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-133-cole-chandler,2025,BOS,Boston Bruins,5,133,Shawinigan Cataractes,QMJHL,wikipedia,2025-133-cole-chandler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-134-maxim-agafonov,2025,SEA,Seattle Kraken,5,134,Ufa Tolpar,Rus-MHL,wikipedia,2025-134-maxim-agafonov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-135-noah-laberge,2025,BUF,Buffalo Sabres,5,135,Acadie–Bathurst Titan,QMJHL,wikipedia,2025-135-noah-laberge,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-136-alexis-mathieu,2025,ANA,Anaheim Ducks,5,136,Baie-Comeau Drakkar,QMJHL,wikipedia,2025-136-alexis-mathieu,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-137-william-belle,2025,TORONTOMAPLELEAFSFROMPITTSBURGH4,Toronto Maple Leafs (from Pittsburgh)4,5,137,U.S. NTDP,USHL,wikipedia,2025-137-william-belle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-138-sam-laurila,2025,NYI,New York Islanders,5,138,Fargo Force,USHL,wikipedia,2025-138-sam-laurila,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-139-zeb-lindgren,2025,NYR,New York Rangers,5,139,Skelleftea AIK J20,Swe-Jr,wikipedia,2025-139-zeb-lindgren,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-140-nikita-tyurin,2025,DET,Detroit Red Wings,5,140,JHC Spartak,Rus-MHL,wikipedia,2025-140-nikita-tyurin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-141-justin-kipkie,2025,MINNESOTAWILDFROMCOLUMBUS5,Minnesota Wild (from Columbus)5,5,141,Victoria Royals,WHL,wikipedia,2025-141-justin-kipkie,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-142-ivan-tkach-tkachenko,2025,UTA,Utah Mammoth,5,142,Ufa Tolpar,Rus-MHL,wikipedia,2025-142-ivan-tkach-tkachenko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-143-wilson-bjorck,2025,VAN,Vancouver Canucks,5,143,Djurgardens IF,Swe-1,wikipedia,2025-143-wilson-bjorck,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-144-ethan-wyttenbach,2025,CGY,Calgary Flames,5,144,Sioux Falls Stampede,USHL,wikipedia,2025-144-ethan-wyttenbach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-145-alexis-cournoyer,2025,MTL,Montreal Canadiens,5,145,Cape Breton Eagles,QMJHL,wikipedia,2025-145-alexis-cournoyer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-146-atte-joki,2025,DALLASSTARSFROMNEWJERSEY6,Dallas Stars (from New Jersey)6,5,146,Lukko U20,Finland Jr.,wikipedia,2025-146-atte-joki,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-147-mikhail-fyodorov,2025,STL,St. Louis Blues,5,147,Stalnye Lisy,Rus-MHL,wikipedia,2025-147-mikhail-fyodorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-148-quinn-beauchesne,2025,PITTSBURGHPENGUINSFROMMINNESOTAVIANYRANGERS7,Pittsburgh Penguins (from Minnesota via NY Rangers)7,5,148,Guelph Storm,OHL,wikipedia,2025-148-quinn-beauchesne,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-149-dmitri-isayev,2025,OTT,Ottawa Senators,5,149,JHC Avto,Rus-MHL,wikipedia,2025-149-dmitri-isayev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-150-max-heise,2025,SANJOSESHARKSFROMCOLORADO8,San Jose Sharks (from Colorado)8,5,150,Penticton Vees,BCHL,wikipedia,2025-150-max-heise,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-151-everett-baldwin,2025,TBL,Tampa Bay Lightning,5,151,St. George's Dragons,USHS-Prep,wikipedia,2025-151-everett-baldwin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-152-petteri-rimpinen,2025,LAK,Los Angeles Kings,5,152,Kiekko-Espoo,SM-liiga,wikipedia,2025-152-petteri-rimpinen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-153-harry-nansi,2025,TOR,Toronto Maple Leafs,5,153,Owen Sound Attack,OHL,wikipedia,2025-153-harry-nansi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-154-jordan-charron,2025,PITTSBURGHPENGUINSFROMVEGAS9,Pittsburgh Penguins (from Vegas)9,5,154,Sault Ste. Marie Greyhounds,OHL,wikipedia,2025-154-jordan-charron,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-155-jackson-crowder,2025,WSH,Washington Capitals,5,155,Chicago Steel,USHL,wikipedia,2025-155-jackson-crowder,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-156-viktor-klingsell,2025,WPG,Winnipeg Jets,5,156,Skelleftea AIK J20,Swe-Jr,wikipedia,2025-156-viktor-klingsell,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-157-luke-vlooswyk,2025,PHILADELPHIAFLYERSFROMCAROLINA10,Philadelphia Flyers (from Carolina)10,5,157,Red Deer Rebels,WHL,wikipedia,2025-157-luke-vlooswyk,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-158-mans-goos,2025,DAL,Dallas Stars,5,158,Farjestad BK J20,Swe-Jr,wikipedia,2025-158-mans-goos,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-159-emile-guite,2025,ANAHEIMDUCKSFROMEDMONTON11,Anaheim Ducks (from Edmonton)11,5,159,Chicoutimi Sagueneens,QMJHL,wikipedia,2025-159-emile-guite,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-160-owen-griffin,2025,COLUMBUSBLUEJACKETSFROMFLORIDA12,Columbus Blue Jackets (from Florida)12,5,160,Oshawa Generals,OHL,wikipedia,2025-160-owen-griffin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-161-david-rozsival,2025,NEWJERSEYDEVILSFROMSANJOSE1,New Jersey Devils (from San Jose)1,6,161,Bili Tygri Liberec U20,Czech. Jr,wikipedia,2025-161-david-rozsival,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-162-ashton-cumby,2025,CHI,Chicago Blackhawks,6,162,Seattle Thunderbirds,WHL,wikipedia,2025-162-ashton-cumby,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-163-daniel-nieminen,2025,NSH,Nashville Predators,6,163,Lahti Pelicans,SM-liiga,wikipedia,2025-163-daniel-nieminen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-164-nathan-quinn,2025,PHI,Philadelphia Flyers,6,164,Quebec Remparts,QMJHL,wikipedia,2025-164-nathan-quinn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-165-kirill-yemelyanov,2025,BOS,Boston Bruins,6,165,Loko Yaroslavl,Rus-MHL,wikipedia,2025-165-kirill-yemelyanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-166-samuel-jung,2025,NEWYORKRANGERSFROMSEATTLE2,New York Rangers (from Seattle)2,6,166,Karpat U20,Finland Jr.,wikipedia,2025-166-samuel-jung,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-167-ashton-schultz,2025,BUF,Buffalo Sabres,6,167,Chicago Steel,USHL,wikipedia,2025-167-ashton-schultz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-168-anthony-allain-samake,2025,ANA,Anaheim Ducks,6,168,Sioux City Musketeers,USHL,wikipedia,2025-168-anthony-allain-samake,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-169-carter-sanderson,2025,PIT,Pittsburgh Penguins,6,169,Muskegon Lumberjacks,USHL,wikipedia,2025-169-carter-sanderson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-170-burke-hood,2025,NYI,New York Islanders,6,170,Vancouver Giants,WHL,wikipedia,2025-170-burke-hood,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-171-evan-passmore,2025,NYR,New York Rangers,6,171,Barrie Colts,OHL,wikipedia,2025-171-evan-passmore,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-172-will-murphy,2025,DET,Detroit Red Wings,6,172,Cape Breton Eagles,QMJHL,wikipedia,2025-172-will-murphy,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-173-victor-hedin-raftheim,2025,CBJ,Columbus Blue Jackets,6,173,Brynas J20,Swe-Jr,wikipedia,2025-173-victor-hedin-raftheim,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-174-ludvig-johnson,2025,UTA,Utah Mammoth,6,174,Zug U20,U20-Elit,wikipedia,2025-174-ludvig-johnson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-175-gabriel-chiarot,2025,VAN,Vancouver Canucks,6,175,Brampton Steelheads,OHL,wikipedia,2025-175-gabriel-chiarot,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-176-aidan-lane,2025,CGY,Calgary Flames,6,176,St. Andrew's Saints,Ont. H.S.,wikipedia,2025-176-aidan-lane,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-177-carlos-handel,2025,MTL,Montreal Canadiens,6,177,Halifax Mooseheads,QMJHL,wikipedia,2025-177-carlos-handel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-178-sigge-holmgren,2025,NJD,New Jersey Devils,6,178,Brynas J20,Swe-Jr,wikipedia,2025-178-sigge-holmgren,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-179-love-harenstam,2025,STL,St. Louis Blues,6,179,Skelleftea J20,Swe-Jr,wikipedia,2025-179-love-harenstam,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-180-aron-dahlqvist,2025,WASHINGTONCAPITALSFROMMINNESOTA3,Washington Capitals (from Minnesota)3,6,180,Brynas J20,Swe-Jr,wikipedia,2025-180-aron-dahlqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-181-bruno-idzan,2025,OTT,Ottawa Senators,6,181,Lincoln Stars,USHL,wikipedia,2025-181-bruno-idzan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-182-reko-alanko,2025,UTAHMAMMOTHFROMCOLORADOVIANASHVILLE4,Utah Mammoth (from Colorado via Nashville)4,6,182,Jokerit U20,Finland Jr.,wikipedia,2025-182-reko-alanko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-183-viggo-nordlund,2025,CAROLINAHURRICANESFROMTAMPABAY5,Carolina Hurricanes (from Tampa Bay)5,6,183,Skelleftea J20,Swe-Jr,wikipedia,2025-183-viggo-nordlund,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-184-jan-chovan,2025,LAK,Los Angeles Kings,6,184,Tappara U20,Finland Jr.,wikipedia,2025-184-jan-chovan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-185-rylan-fellinger,2025,TOR,Toronto Maple Leafs,6,185,Flint Firebirds,OHL,wikipedia,2025-185-rylan-fellinger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-186-alexander-weiermair,2025,VGK,Vegas Golden Knights,6,186,Portland Winterhawks,WHL,wikipedia,2025-186-alexander-weiermair,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-187-gustav-sjoqvist,2025,VEGASGOLDENKNIGHTSFROMWASHINGTON6,Vegas Golden Knights (from Washington)6,6,187,AIK,Swe-1,wikipedia,2025-187-gustav-sjoqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-188-edison-engle,2025,WPG,Winnipeg Jets,6,188,Dubuque Fighting Saints,USHL,wikipedia,2025-188-edison-engle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-189-andrew-macniel,2025,MONTREALCANADIENSFROMCAROLINA7,Montreal Canadiens (from Carolina)7,6,189,Kitchener Rangers,OHL,wikipedia,2025-189-andrew-macniel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-190-dawson-sharkey,2025,DAL,Dallas Stars,6,190,Acadie–Bathurst Titan,QMJHL,wikipedia,2025-190-dawson-sharkey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-191-daniel-salonen,2025,EDM,Edmonton Oilers,6,191,Lukko U20,Finland Jr.,wikipedia,2025-191-daniel-salonen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-192-arvid-drott,2025,FLA,Florida Panthers,6,192,Djurgardens IF J20,Swe-Jr,wikipedia,2025-192-arvid-drott,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-193-caleb-heil,2025,TAMPABAYLIGHTNINGFROMSANJOSE1,Tampa Bay Lightning (from San Jose)1,7,193,Madison Capitols,USHL,wikipedia,2025-193-caleb-heil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-194-ilya-kanarsky,2025,CHI,Chicago Blackhawks,7,194,AKM Tula,Rus-MHL,wikipedia,2025-194-ilya-kanarsky,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-195-melvin-novotny,2025,BUFFALOSABRESFROMNASHVILLE2,Buffalo Sabres (from Nashville)2,7,195,Muskegon Lumberjacks,USHL,wikipedia,2025-195-melvin-novotny,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-196-brendan-mcmorrow,2025,LOSANGELESKINGSFROMPHILADELPHIA3,Los Angeles Kings (from Philadelphia)3,7,196,Waterloo Black Hawks,USHL,wikipedia,2025-196-brendan-mcmorrow,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-197-brendan-dunphy,2025,FLORIDAPANTHERSFROMBOSTONVIACHICAGO4,Florida Panthers (from Boston via Chicago)4,7,197,Wenatchee Wild,WHL,wikipedia,2025-197-brendan-dunphy,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-198-jeremy-loranger,2025,COLUMBUSBLUEJACKETSFROMSEATTLE5,Columbus Blue Jackets (from Seattle)5,7,198,Sherwood Park Crusaders,BCHL,wikipedia,2025-198-jeremy-loranger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-199-yevgeni-prokhorov,2025,BUF,Buffalo Sabres,7,199,Dinamo-Shinnik Bobruysk,Rus-MHL,wikipedia,2025-199-yevgeni-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-200-brady-turko,2025,ANA,Anaheim Ducks,7,200,Brandon Wheat Kings,WHL,wikipedia,2025-200-brady-turko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-201-kale-dach,2025,PIT,Pittsburgh Penguins,7,201,Sherwood Park Crusaders,BCHL,wikipedia,2025-201-kale-dach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-202-jacob-kvasnicka,2025,NYI,New York Islanders,7,202,U.S. NTDP,USHL,wikipedia,2025-202-jacob-kvasnicka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-203-felix-farhammar,2025,NYR,New York Rangers,7,203,Orebro HK,SweHL,wikipedia,2025-203-felix-farhammar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-204-grayden-robertson-palmer,2025,DET,Detroit Red Wings,7,204,Phillips Andover Big Blue,USHS-Prep,wikipedia,2025-204-grayden-robertson-palmer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-205-karl-annborn,2025,SEATTLEKRAKENFROMCOLUMBUS6,Seattle Kraken (from Columbus)6,7,205,HV71,SweHL,wikipedia,2025-205-karl-annborn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-206-roman-luttsev,2025,TAMPABAYLIGHTNINGFROMUTAH7,Tampa Bay Lightning (from Utah)7,7,206,Loko Yaroslavl,KHL,wikipedia,2025-206-roman-luttsev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-207-matthew-lansing,2025,VAN,Vancouver Canucks,7,207,Fargo Force,USHL,wikipedia,2025-207-matthew-lansing,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-208-jakob-leander,2025,CGY,Calgary Flames,7,208,HV71 J20,Swe-Jr,wikipedia,2025-208-jakob-leander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-209-maxon-vig,2025,MTL,Montreal Canadiens,7,209,Cedar Rapids RoughRiders,USHL,wikipedia,2025-209-maxon-vig,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-210-richard-gallant,2025,SANJOSESHARKSFROMNEWJERSEY8,San Jose Sharks (from New Jersey)8,7,210,U.S. NTDP,USHL,wikipedia,2025-210-richard-gallant,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-211-yan-matveiko,2025,CALGARYFLAMESFROMSTLOUISVIADETROIT9,Calgary Flames (from St. Louis via Detroit)9,7,211,Krasnaya Armiya Moskva,Rus-MHL,wikipedia,2025-211-yan-matveiko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-212-grant-spada,2025,TAMPABAYLIGHTNINGFROMMINNESOTA10,Tampa Bay Lightning (from Minnesota)10,7,212,Guelph Storm,OHL,wikipedia,2025-212-grant-spada,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-213-andrei-trofimov,2025,OTT,Ottawa Senators,7,213,Stalnye Lisy Magnitogorsk,Rus-MHL,wikipedia,2025-213-andrei-trofimov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-214-nolan-roed,2025,COL,Colorado Avalanche,7,214,Tri-City Storm,OHL,wikipedia,2025-214-nolan-roed,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-215-marco-mignosa,2025,TBL,Tampa Bay Lightning,7,215,Soo Greyhounds,OHL,wikipedia,2025-215-marco-mignosa,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-216-william-sharpe,2025,LAK,Los Angeles Kings,7,216,Kelowna Rockets,WHL,wikipedia,2025-216-william-sharpe,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-217-matthew-hlacar,2025,TOR,Toronto Maple Leafs,7,217,Kitchener Rangers,OHL,wikipedia,2025-217-matthew-hlacar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-218-loke-krantz,2025,SEATTLEKRAKENFROMVEGASVIACOLUMBUS11,Seattle Kraken (from Vegas via Columbus)11,7,218,Linkoping HC J20,Swe-Jr,wikipedia,2025-218-loke-krantz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-219-ryan-rucinski,2025,BUFFALOSABRESFROMWASHINGTONVIASANJOSE12,Buffalo Sabres (from Washington via San Jose)12,7,219,Youngstown Phantoms,USHL,wikipedia,2025-219-ryan-rucinski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-220-jacob-cloutier,2025,WPG,Winnipeg Jets,7,220,Saginaw Spirit,OHL,wikipedia,2025-220-jacob-cloutier,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-221-filip-ekberg,2025,CAR,Carolina Hurricanes,7,221,Ottawa 67's,OHL,wikipedia,2025-221-filip-ekberg,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-222-charlie-paquette,2025,DAL,Dallas Stars,7,222,Guelph Storm,OHL,wikipedia,2025-222-charlie-paquette,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-223-aidan-park,2025,EDM,Edmonton Oilers,7,223,Green Bay Gamblers,USHL,wikipedia,2025-223-aidan-park,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-224-yegor-midlak,2025,FLA,Florida Panthers,7,224,JHC Spartak,Rus-MHL,wikipedia,2025-224-yegor-midlak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
