@@ -2,6 +2,14 @@
 
 Use browser-assisted collection only when the session actually has browser/web capability. This skill is meant to reduce manual file choreography, but authenticated downloads can still require the user to click or sign in.
 
+Start with:
+
+```bash
+python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py browser-plan --draft-year 2025
+```
+
+That prints the target repo paths, the inferred HockeyDB draft-page URL pattern, and the follow-up staging commands.
+
 ## Suggested Collection Order
 
 1. Open the HockeyDB draft page for the target year.
@@ -10,6 +18,14 @@ Use browser-assisted collection only when the session actually has browser/web c
 4. Save player profile pages into the expected `player_pages/` directory.
 5. Open Elite Prospects, complete sign-in if needed, and export the draft-year CSV.
 6. Stage the export into the repo and validate it locally.
+
+If downloaded files land in a normal downloads folder, try:
+
+```bash
+python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py stage-downloads --draft-year 2025
+```
+
+This can auto-stage a likely draft HTML file and a likely Elite Prospects CSV from `~/Downloads`.
 
 ## Practical Boundaries
 

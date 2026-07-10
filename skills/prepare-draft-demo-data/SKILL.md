@@ -16,8 +16,14 @@ Use this skill to prepare a demo-ready draft class inside this repository. It tu
 python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py audit --draft-year 2025
 ```
 
-3. If raw files are outside the repo, use the staging commands in the helper script.
-4. Once the audit is green enough, run ETL and build the demo site.
+3. If browser-assisted collection is needed, print the plan:
+
+```bash
+python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py browser-plan --draft-year 2025
+```
+
+4. If raw files are outside the repo, use the staging commands in the helper script.
+5. Once the audit is green enough, run ETL and build the demo site.
 
 ## When To Use This Skill
 
@@ -75,6 +81,18 @@ Read [references/browser-collection.md](references/browser-collection.md) when:
 
 If the session is network-restricted, say so plainly and fall back to staging user-provided files.
 
+Start by printing the collection plan:
+
+```bash
+python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py browser-plan --draft-year 2025
+```
+
+If the browser downloads files into a standard downloads folder, try:
+
+```bash
+python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py stage-downloads --draft-year 2025
+```
+
 ### 4. Run ETL And Build The Demo
 
 Once the needed raw files are present:
@@ -99,7 +117,9 @@ Use `scripts/demo_data_workflow.py` for local deterministic actions:
 
 - scaffold year layout
 - audit current readiness
+- print a browser collection plan with exact target paths
 - stage raw files into expected repo paths
+- try auto-staging likely files from a downloads folder
 - run ETL
 - build demo site
 
