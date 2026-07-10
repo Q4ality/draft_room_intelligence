@@ -31,6 +31,7 @@ from draft_room_intelligence.data.normalized_merge import (
     merge_normalized_source_tables,
 )
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
+from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
 from draft_room_intelligence.evaluation.baselines import (
     adjusted_production_scores,
     consensus_scores,
@@ -172,6 +173,39 @@ def main() -> None:
         type=int,
         default=3,
         help="Number of closest base-player candidates to include in the template.",
+    )
+    wiki_bio_parser = subparsers.add_parser(
+        "enrich-wikipedia-bio",
+        help="Enrich normalized player bio fields from public Wikipedia player pages.",
+    )
+    wiki_bio_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    wiki_bio_parser.add_argument("output_dir", type=Path, help="Directory for enriched normalized output.")
+    wiki_bio_parser.add_argument(
+        "--limit",
+        type=int,
+        help="Optional number of players to scan, useful for web smoke tests.",
+    )
+    wiki_bio_parser.add_argument(
+        "--request-delay-seconds",
+        type=float,
+        default=0.2,
+        help="Delay between Wikipedia player lookups to avoid rate limiting.",
+    )
+    wiki_bio_parser.add_argument(
+        "--enable-search-fallback",
+        action="store_true",
+        help="Try Wikipedia search for names without exact-title pages. Slower and more API-heavy.",
+    )
+    wiki_bio_parser.add_argument(
+        "--progress-every",
+        type=int,
+        default=25,
+        help="Print progress after this many scanned players. Use 0 to disable.",
+    )
+    wiki_bio_parser.add_argument(
+        "--cache-dir",
+        type=Path,
+        help="Optional local cache directory for Wikipedia lookup results.",
     )
     feature_table_parser = subparsers.add_parser(
         "export-feature-table",
@@ -354,6 +388,16 @@ def main() -> None:
             match_map=args.match_map,
             match_template_output=args.match_template_output,
             candidate_count=args.candidate_count,
+        )
+    elif args.command == "enrich-wikipedia-bio":
+        run_enrich_wikipedia_bio(
+            args.base_dir,
+            args.output_dir,
+            limit=args.limit,
+            request_delay_seconds=args.request_delay_seconds,
+            enable_search_fallback=args.enable_search_fallback,
+            progress_every=args.progress_every,
+            cache_dir=args.cache_dir,
         )
     elif args.command == "export-feature-table":
         run_export_feature_table(args.data_path, args.output_path)
@@ -586,6 +630,38 @@ def run_process_eliteprospects(
     print(f"Template rows: {len(template_rows)}")
     print()
     print(format_merge_quality_report(report))
+
+
+def run_enrich_wikipedia_bio(
+    base_dir: Path,
+    output_dir: Path,
+    *,
+    limit: int | None,
+    request_delay_seconds: float,
+    enable_search_fallback: bool,
+    progress_every: int,
+    cache_dir: Path | None,
+) -> None:
+    summary = enrich_wikipedia_bios(
+        base_dir,
+        output_dir,
+        limit=limit,
+        request_delay_seconds=request_delay_seconds,
+        enable_search_fallback=enable_search_fallback,
+        progress_every=progress_every,
+        cache_dir=cache_dir,
+    )
+    print("# Wikipedia bio enrichment")
+    print(f"Base directory: {base_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Players scanned: {summary.players_scanned}")
+    print(f"Matched pages: {summary.matched_pages}")
+    print(f"Players updated: {summary.players_updated}")
+    print(f"Birth dates filled: {summary.birth_dates}")
+    print(f"Heights filled: {summary.heights}")
+    print(f"Weights filled: {summary.weights}")
+    print(f"Handedness filled: {summary.handedness}")
+    print(f"Match report: {summary.match_report_path}")
 
 
 def run_export_feature_table(data_path: Path, output_path: Path) -> None:
