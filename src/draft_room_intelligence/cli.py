@@ -222,8 +222,8 @@ def main() -> None:
         action="append",
         required=True,
         help=(
-            "CHL stat source as league,season,url[,local_html_path]. "
-            "Example: OHL,2024-25,https://chl.ca/ohl/stats/players/79/all/points/all"
+            "CHL stat source as league,season,url[,local_html_path][,regular|playoffs]. "
+            "Example: OHL,2024-25,https://chl.ca/ohl/stats/players/79/all/points/all,,regular"
         ),
     )
     ushl_stats_parser = subparsers.add_parser(
@@ -774,12 +774,17 @@ def run_enrich_chl_stats(base_dir: Path, output_dir: Path, *, sources: list[str]
 
 
 def parse_chl_source(value: str) -> ChlStatSource:
-    parts = [part.strip() for part in value.split(",", 3)]
-    if len(parts) not in (3, 4):
-        raise ValueError("CHL source must be league,season,url[,local_html_path]")
+    parts = [part.strip() for part in value.split(",", 4)]
+    if len(parts) not in (3, 4, 5):
+        raise ValueError("CHL source must be league,season,url[,local_html_path][,regular|playoffs]")
     league, season, url = parts[:3]
-    path = Path(parts[3]) if len(parts) == 4 and parts[3] else None
-    return ChlStatSource(league=league, season=season, source_url=url, source_path=path)
+    path = Path(parts[3]) if len(parts) >= 4 and parts[3] else None
+    regular_season = True
+    if len(parts) == 5 and parts[4]:
+        if parts[4] not in ("regular", "playoffs"):
+            raise ValueError("CHL source season type must be 'regular' or 'playoffs'")
+        regular_season = parts[4] == "regular"
+    return ChlStatSource(league=league, season=season, source_url=url, regular_season=regular_season, source_path=path)
 
 
 def run_enrich_ushl_stats(base_dir: Path, output_dir: Path, *, sources: list[str]) -> None:

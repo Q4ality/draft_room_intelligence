@@ -32,6 +32,7 @@ CHL_MATCH_COLUMNS = [
     "goals",
     "assists",
     "points",
+    "regular_season",
 ]
 
 
@@ -40,6 +41,7 @@ class ChlStatSource:
     league: str
     season: str
     source_url: str
+    regular_season: bool = True
     source_path: Path | None = None
 
 
@@ -55,6 +57,7 @@ class ChlSkaterStatLine:
     goals: str
     assists: str
     points: str
+    regular_season: bool
 
 
 @dataclass(frozen=True)
@@ -83,12 +86,11 @@ def enrich_chl_stats(
     players = read_table(source_root / "players.csv")
     base_stat_lines = read_table(source_root / "season_stat_lines.csv")
     source_lines = load_chl_source_lines(sources)
-    source_by_name_league = {
-        (normalize_person_key(line.name), normalize_league_name(line.league)): line
-        for line in source_lines
-    }
+    source_by_name_league: dict[tuple[str, str], list[ChlSkaterStatLine]] = {}
+    for line in source_lines:
+        source_by_name_league.setdefault((normalize_person_key(line.name), normalize_league_name(line.league)), []).append(line)
 
-    matched_by_player_id: dict[str, ChlSkaterStatLine] = {}
+    matched_by_player_id: dict[str, list[ChlSkaterStatLine]] = {}
     report_rows: list[dict[str, str]] = []
     for player in players:
         player_leagues = {
@@ -96,31 +98,34 @@ def enrich_chl_stats(
             for row in base_stat_lines
             if row.get("player_id") == player["player_id"]
         }
-        candidates = [
-            source_by_name_league[(normalize_person_key(player["name"]), league)]
-            for league in player_leagues
-            if (normalize_person_key(player["name"]), league) in source_by_name_league
-        ]
-        if len(candidates) == 1:
-            matched_by_player_id[player["player_id"]] = candidates[0]
-            report_rows.append(build_match_row(player, candidates[0], matched=True))
+        candidates: list[ChlSkaterStatLine] = []
+        for league in player_leagues:
+            candidates.extend(source_by_name_league.get((normalize_person_key(player["name"]), league), []))
+        candidates = deduplicate_chl_lines(candidates)
+        if candidates:
+            matched_by_player_id[player["player_id"]] = candidates
+            for candidate in candidates:
+                report_rows.append(build_match_row(player, candidate, matched=True))
         else:
             report_rows.append(build_match_row(player, None, matched=False))
 
+    matched_leagues_by_player = {
+        player_id: {normalize_league_name(line.league) for line in lines}
+        for player_id, lines in matched_by_player_id.items()
+    }
     output_stat_lines = [
         row
         for row in base_stat_lines
         if not (
             row.get("timing") == "pre_draft"
             and row.get("player_id") in matched_by_player_id
+            and row.get("source") in {"wikipedia", "chl"}
             and normalize_league_name(row.get("league", ""))
-            == normalize_league_name(matched_by_player_id[row["player_id"]].league)
+            in matched_leagues_by_player[row["player_id"]]
         )
     ]
-    output_stat_lines.extend(
-        build_normalized_stat_line(player_id, line)
-        for player_id, line in sorted(matched_by_player_id.items())
-    )
+    for player_id, lines in sorted(matched_by_player_id.items()):
+        output_stat_lines.extend(build_normalized_stat_line(player_id, line) for line in lines)
 
     write_table(target_root / "players.csv", PLAYER_COLUMNS, players)
     write_table(target_root / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, output_stat_lines)
@@ -140,6 +145,7 @@ def load_chl_source_lines(sources: list[ChlStatSource]) -> list[ChlSkaterStatLin
     for source in sources:
         html = source.source_path.read_text(encoding="utf-8") if source.source_path else fetch_text(source.source_url)
         lines.extend(parse_chl_skaters_html(html, source))
+        lines.extend(parse_chl_goalies_html(html, source))
     return lines
 
 
@@ -163,6 +169,33 @@ def parse_chl_skaters_html(html: str, source: ChlStatSource) -> list[ChlSkaterSt
                 goals=str(row[8]),
                 assists=str(row[9]),
                 points=str(row[10]),
+                regular_season=source.regular_season,
+            )
+        )
+    return lines
+
+
+def parse_chl_goalies_html(html: str, source: ChlStatSource) -> list[ChlSkaterStatLine]:
+    data = extract_datatable_data(html, "topgoalies")
+    lines: list[ChlSkaterStatLine] = []
+    for row in data:
+        if len(row) < 8 or not isinstance(row[5], list):
+            continue
+        player_url, raw_name = row[5]
+        teams = row[6] if isinstance(row[6], list) else []
+        lines.append(
+            ChlSkaterStatLine(
+                name=normalize_chl_player_name(str(raw_name)),
+                source_id=source_id_from_url(str(player_url)),
+                source_url=str(player_url),
+                league=normalize_league_name(source.league),
+                season=source.season,
+                team="/".join(str(team[-1]) for team in teams if isinstance(team, list) and team),
+                games=str(row[7]),
+                goals="",
+                assists="",
+                points="",
+                regular_season=source.regular_season,
             )
         )
     return lines
@@ -220,7 +253,7 @@ def build_normalized_stat_line(player_id: str, line: ChlSkaterStatLine) -> dict[
         "points": line.points,
         "age": "",
         "timing": "pre_draft",
-        "regular_season": "true",
+        "regular_season": "true" if line.regular_season else "false",
         "source": "chl",
         "source_id": line.source_id,
         "source_url": line.source_url,
@@ -246,7 +279,20 @@ def build_match_row(
         "goals": line.goals if line else "",
         "assists": line.assists if line else "",
         "points": line.points if line else "",
+        "regular_season": "true" if line and line.regular_season else "false",
     }
+
+
+def deduplicate_chl_lines(lines: list[ChlSkaterStatLine]) -> list[ChlSkaterStatLine]:
+    seen: set[tuple[str, str, bool]] = set()
+    deduped: list[ChlSkaterStatLine] = []
+    for line in lines:
+        key = (normalize_league_name(line.league), normalize_person_key(line.team), line.regular_season)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(line)
+    return deduped
 
 
 def normalize_chl_player_name(value: str) -> str:
