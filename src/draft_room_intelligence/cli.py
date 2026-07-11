@@ -57,6 +57,7 @@ from draft_room_intelligence.reports.demo_export import (
     export_demo_package,
 )
 from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
+from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
@@ -371,6 +372,18 @@ def main() -> None:
         default=30,
         help="Number of priority low-evidence players to write.",
     )
+    demo_modeling_parser = subparsers.add_parser(
+        "report-demo-modeling",
+        help="Compare a generated demo board against consensus ordering.",
+    )
+    demo_modeling_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv and manifest.json.")
+    demo_modeling_parser.add_argument("output_dir", type=Path, help="Directory for modeling sanity artifacts.")
+    demo_modeling_parser.add_argument(
+        "--top-n",
+        type=int,
+        default=30,
+        help="Number of largest board-vs-consensus movements to write.",
+    )
     etl_parser = subparsers.add_parser(
         "etl-draft-year",
         help="Run draft-year ETL with optional Elite Prospects enrichment.",
@@ -551,6 +564,8 @@ def main() -> None:
         run_build_demo_site(args.data_path, args.output_dir)
     elif args.command == "report-demo-gaps":
         run_report_demo_gaps(args.demo_output_dir, args.output_dir, top_n=args.top_n)
+    elif args.command == "report-demo-modeling":
+        run_report_demo_modeling(args.demo_output_dir, args.output_dir, top_n=args.top_n)
     elif args.command == "etl-draft-year":
         run_etl_draft_year(
             args.base_dir,
@@ -1033,6 +1048,17 @@ def run_report_demo_gaps(demo_output_dir: Path, output_dir: Path, *, top_n: int)
     print(f"Priority rows written: {len(report.priority_rows)}")
     print(f"Summary: {output_dir / 'summary.md'}")
     print(f"Priority CSV: {output_dir / 'priority_gaps.csv'}")
+
+
+def run_report_demo_modeling(demo_output_dir: Path, output_dir: Path, *, top_n: int) -> None:
+    report = write_demo_modeling_report(demo_output_dir, output_dir, top_n=top_n)
+    print(f"# Demo modeling sanity report: {demo_output_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Average absolute movement: {report.avg_abs_delta:.1f}")
+    print(f"Players moved 10+ slots: {report.moved_10_plus}")
+    print(f"10+ slot moves with high/medium evidence: {report.high_or_medium_moved_10_plus}")
+    print(f"Summary: {output_dir / 'summary.md'}")
+    print(f"Largest movements CSV: {output_dir / 'largest_movements.csv'}")
 
 
 def run_etl_draft_year(

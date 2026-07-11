@@ -109,3 +109,12 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
   outputs/demo_2025_openstats_russian_nordic_cleanup_gaps \
   --top-n 35
 ```
+
+The current board-vs-consensus sanity report is tracked in [demo_2025_modeling_sanity.md](demo_2025_modeling_sanity.md). Rebuild it with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-modeling \
+  outputs/demo_2025_openstats_russian_nordic_cleanup \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_modeling \
+  --top-n 40
+```
