@@ -257,6 +257,11 @@ def main() -> None:
             "Example: ncaa.csv,collegehockeyinc,2024-25,NCAA,regular"
         ),
     )
+    open_stats_parser.add_argument(
+        "--allow-new-leagues",
+        action="store_true",
+        help="Allow curated CSV rows to append by exact normalized player name even if the league is not already present.",
+    )
     wiki_career_stats_parser = subparsers.add_parser(
         "enrich-wikipedia-career-stats",
         help="Overlay Wikipedia career-stat tables onto a normalized draft-year dataset.",
@@ -495,7 +500,12 @@ def main() -> None:
     elif args.command == "enrich-ushl-stats":
         run_enrich_ushl_stats(args.base_dir, args.output_dir, sources=args.source)
     elif args.command == "enrich-open-stats-csv":
-        run_enrich_open_stats_csv(args.base_dir, args.output_dir, sources=args.source)
+        run_enrich_open_stats_csv(
+            args.base_dir,
+            args.output_dir,
+            sources=args.source,
+            allow_new_leagues=args.allow_new_leagues,
+        )
     elif args.command == "enrich-wikipedia-career-stats":
         run_enrich_wikipedia_career_stats(
             args.base_dir,
@@ -834,12 +844,19 @@ def parse_ushl_source(value: str) -> UShlStatSource:
     )
 
 
-def run_enrich_open_stats_csv(base_dir: Path, output_dir: Path, *, sources: list[str]) -> None:
+def run_enrich_open_stats_csv(
+    base_dir: Path,
+    output_dir: Path,
+    *,
+    sources: list[str],
+    allow_new_leagues: bool = False,
+) -> None:
     parsed_sources = [parse_open_stats_source(value) for value in sources]
-    summary = enrich_open_stats_csv(base_dir, output_dir, parsed_sources)
+    summary = enrich_open_stats_csv(base_dir, output_dir, parsed_sources, allow_new_leagues=allow_new_leagues)
     print("# Open stats CSV enrichment")
     print(f"Base directory: {base_dir}")
     print(f"Output directory: {output_dir}")
+    print(f"Allow new leagues: {'yes' if allow_new_leagues else 'no'}")
     print(f"Players scanned: {summary.players_scanned}")
     print(f"Source stat rows: {summary.source_rows}")
     print(f"Matched players: {summary.matched_players}")

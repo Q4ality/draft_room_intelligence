@@ -7,6 +7,7 @@ Backlog stories for making the 2025 demo data business-relevant and for moving t
 - Implemented: goalie-specific normalized stat columns, CHL goalie metric loading, goalie feature-table fields, demo export goalie fields, and row-level source provenance in player history.
 - Implemented: recent-class validation warning when outcome-evaluation commands are run against datasets with all-zero NHL outcomes.
 - Implemented: generic `enrich-open-stats-csv` bridge for cleaned open-source NCAA, USHL, Swedish, Finnish, Russian, or fallback web stat tables.
+- Implemented: first curated priority source pack at `data/reference/demo_2025_priority_open_stats.csv`, covering USHL/USNTDP history for James Hagens, Logan Hensler, Sascha Boumedienne, Cullen Potter, and William Moore.
 - Still needed: league-specific collectors/parsers that produce the cleaned open-stats CSVs automatically from each source family.
 
 ## Story 1: NCAA And Richer USHL Histories

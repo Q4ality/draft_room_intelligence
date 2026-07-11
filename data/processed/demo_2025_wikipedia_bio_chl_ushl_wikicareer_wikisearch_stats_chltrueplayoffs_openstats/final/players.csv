@@ -1,0 +1,225 @@
+player_id,name,birth_date,nationality,position,handedness,height_cm,weight_kg,age_at_draft,source,source_id,source_url
+2025-001-matthew-schaefer,Matthew Schaefer,2007-09-05,Canada,D,L,188,84,,wikipedia+wikipedia_bio,Q130416868,https://en.wikipedia.org/wiki/Matthew_Schaefer
+2025-002-michael-misa,Michael Misa,2007-02-16,Canada,C,L,185,84,,wikipedia+wikipedia_bio,Q120143115,https://en.wikipedia.org/wiki/Michael_Misa
+2025-003-anton-frondell,Anton Frondell,2007-05-07,Sweden,C,L,185,89,,wikipedia+wikipedia_bio,Q125964662,https://en.wikipedia.org/wiki/Anton_Frondell
+2025-004-caleb-desnoyers,Caleb Desnoyers,2007-04-11,Canada,C,L,188,78,,wikipedia+wikipedia_bio,Q131176054,https://en.wikipedia.org/wiki/Caleb_Desnoyers
+2025-005-brady-martin,Brady Martin,2007-03-16,Canada,C,R,183,79,,wikipedia+wikipedia_bio,Q134316484,https://en.wikipedia.org/wiki/Brady_Martin
+2025-006-porter-martone,Porter Martone,2006-10-26,Canada,R,R,190,97,,wikipedia+wikipedia_bio,Q130211542,https://en.wikipedia.org/wiki/Porter_Martone
+2025-007-james-hagens,James Hagens,2006-11-03,United States,C,L,180,80,,wikipedia+wikipedia_bio,Q124303296,https://en.wikipedia.org/wiki/James_Hagens
+2025-008-jake-o-brien,Jake O'Brien,,Canada,C,,,,,wikipedia,2025-008-jake-o-brien,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-009-radim-mrtka,Radim Mrtka,2007-06-09,Czech Republic,D,R,198,94,,wikipedia+wikipedia_bio,Q125697634,https://en.wikipedia.org/wiki/Radim_Mrtka
+2025-010-roger-mcqueen,Roger McQueen,2006-10-02,Canada,C,R,196,89,,wikipedia+wikipedia_bio,Q131175492,https://en.wikipedia.org/wiki/Roger_McQueen
+2025-011-ben-kindel,Ben Kindel,2007-04-19,Canada,C,R,180,83,,wikipedia+wikipedia_bio,Q135106803,https://en.wikipedia.org/wiki/Ben_Kindel
+2025-012-jack-nesbitt,Jack Nesbitt,2007-01-12,Canada,C,L,193,84,,wikipedia+wikipedia_bio,Q135110181,https://en.wikipedia.org/wiki/Jack_Nesbitt
+2025-013-carter-bear,Carter Bear,2006-11-04,Canada,L,L,183,82,,wikipedia+wikipedia_bio,Q133883536,https://en.wikipedia.org/wiki/Carter_Bear
+2025-014-jackson-smith,Jackson Smith,,Canada,D,,,,,wikipedia,2025-014-jackson-smith,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-015-braeden-cootes,Braeden Cootes,2007-02-09,Canada,C,R,183,83,,wikipedia+wikipedia_bio,Q135106901,https://en.wikipedia.org/wiki/Braeden_Cootes
+2025-016-victor-eklund,Victor Eklund,2006-10-03,Sweden,R,R,180,73,,wikipedia+wikipedia_bio,Q125502011,https://en.wikipedia.org/wiki/Victor_Eklund
+2025-017-kashawn-aitcheson,Kashawn Aitcheson,2006-09-21,Canada,D,L,188,89,,wikipedia+wikipedia_bio,Q133883708,https://en.wikipedia.org/wiki/Kashawn_Aitcheson
+2025-018-cole-reschny,Cole Reschny,2007-04-06,Canada,C,L,180,83,,wikipedia+wikipedia_bio,Q135224656,https://en.wikipedia.org/wiki/Cole_Reschny
+2025-019-justin-carbonneau,Justin Carbonneau,2006-11-25,Canada,R,R,185,87,,wikipedia+wikipedia_bio,Q135107222,https://en.wikipedia.org/wiki/Justin_Carbonneau
+2025-020-pyotr-andreyanov,Pyotr Andreyanov,2007-01-22,Russia,G,L,188,94,,wikipedia+wikipedia_bio,Q135107789,https://en.wikipedia.org/wiki/Pyotr_Andreyanov
+2025-021-cameron-reid,Cameron Reid,2007-04-08,Canada,D,L,183,83,,wikipedia+wikipedia_bio,Q135180858,https://en.wikipedia.org/wiki/Cameron_Reid
+2025-022-bill-zonnon,Bill Zonnon,2006-10-03,Canada,R,L,188,85,,wikipedia+wikipedia_bio,Q135107218,https://en.wikipedia.org/wiki/Bill_Zonnon
+2025-023-logan-hensler,Logan Hensler,2006-10-14,United States,D,R,188,89,,wikipedia+wikipedia_bio,Q130631523,https://en.wikipedia.org/wiki/Logan_Hensler
+2025-024-will-horcoff,Will Horcoff,2007-01-23,United States,C,L,196,91,,wikipedia+wikipedia_bio,Q131787050,https://en.wikipedia.org/wiki/Will_Horcoff
+2025-025-vaclav-nestrasil,Vaclav Nestrasil,,Czech Republic,R,,,,,wikipedia,2025-025-vaclav-nestrasil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-026-ryker-lee,Ryker Lee,2006-11-08,United States,R,R,185,87,,wikipedia+wikipedia_bio,Q135107649,https://en.wikipedia.org/wiki/Ryker_Lee
+2025-027-lynden-lakovic,Lynden Lakovic,2006-12-12,Canada,R,L,193,91,,wikipedia+wikipedia_bio,Q135107644,https://en.wikipedia.org/wiki/Lynden_Lakovic
+2025-028-sascha-boumedienne,Sascha Boumedienne,2007-01-17,Sweden,D,L,185,83,,wikipedia+wikipedia_bio,Q135155539,https://en.wikipedia.org/wiki/Sascha_Boumedienne
+2025-029-mason-west,Mason West,2007-08-03,United States,C,R,196,99,,wikipedia+wikipedia_bio,Q135107928,https://en.wikipedia.org/wiki/Mason_West
+2025-030-joshua-ravensbergen,Joshua Ravensbergen,2006-11-27,Canada,G,R,196,86,,wikipedia+wikipedia_bio,Q135107790,https://en.wikipedia.org/wiki/Joshua_Ravensbergen
+2025-031-henry-brzustewicz,Henry Brzustewicz,2007-02-09,United States,D,R,188,93,,wikipedia+wikipedia_bio,Q135108213,https://en.wikipedia.org/wiki/Henry_Brzustewicz
+2025-032-cullen-potter,Cullen Potter,2007-01-10,United States,C,L,178,78,,wikipedia+wikipedia_bio,Q135108210,https://en.wikipedia.org/wiki/Cullen_Potter
+2025-033-haoxi-wang,Haoxi Wang,2007-07-27,China,D,L,198,95,,wikipedia+wikipedia_bio,Q135106235,https://en.wikipedia.org/wiki/Haoxi_Wang
+2025-034-alexander-zharovsky,Alexander Zharovsky,2007-02-22,Russia,R,L,188,80,,wikipedia+wikipedia_bio,Q136817233,https://en.wikipedia.org/wiki/Alexander_Zharovsky
+2025-035-jacob-rombach,Jacob Rombach,,United States,D,,,,,wikipedia,2025-035-jacob-rombach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-036-blake-fiddler,Blake Fiddler,2007-07-09,United States,D,R,196,100,,wikipedia+wikipedia_bio,Q135112505,https://en.wikipedia.org/wiki/Blake_Fiddler
+2025-037-milton-gastrin,Milton Gastrin,,Sweden,C,,,,,wikipedia,2025-037-milton-gastrin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-038-carter-amico,Carter Amico,,United States,D,,,,,wikipedia,2025-038-carter-amico,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-039-peyton-kettles,Peyton Kettles,,Canada,D,,,,,wikipedia,2025-039-peyton-kettles,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-040-jack-murtagh,Jack Murtagh,,United States,L,,,,,wikipedia,2025-040-jack-murtagh,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-041-semyon-frolov,Semyon Frolov,,Russia,G,,,,,wikipedia,2025-041-semyon-frolov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-042-daniil-prokhorov,Daniil Prokhorov,,Russia,R,,,,,wikipedia,2025-042-daniil-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-043-malcolm-spence,Malcolm Spence,,Canada,L,,,,,wikipedia,2025-043-malcolm-spence,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-044-eddie-genborg,Eddie Genborg,,Sweden,R,L,188,93,,wikipedia+wikipedia_bio,Q134173820,https://en.wikipedia.org/wiki/Eddie_Genborg
+2025-045-eric-nilson,Eric Nilson,2007-05-11,Sweden,C,R,183,70,,wikipedia+wikipedia_bio,Q131784197,https://en.wikipedia.org/wiki/Eric_Nilson
+2025-046-max-psenicka,Max Psenicka,,Czech Republic,D,,,,,wikipedia,2025-046-max-psenicka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-047-alexei-medvedev,Alexei Medvedev,,Russia,G,,,,,wikipedia,2025-047-alexei-medvedev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-048-shane-vansaghi,Shane Vansaghi,,United States,R,,,,,wikipedia,2025-048-shane-vansaghi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-049-charlie-cerrato,Charlie Cerrato,,United States,C,,,,,wikipedia,2025-049-charlie-cerrato,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-050-conrad-fondrk,Conrad Fondrk,,United States,C,,,,,wikipedia,2025-050-conrad-fondrk,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-051-william-moore,William Moore,,United States,C,,,,,wikipedia,2025-051-william-moore,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-052-theodor-hallquisth,Theodor Hallquisth,,Sweden,D,,,,,wikipedia,2025-052-theodor-hallquisth,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-053-cole-mckinney,Cole McKinney,2007-03-16,United States,C,R,185,84,,wikipedia+wikipedia_bio,Q135107226,https://en.wikipedia.org/wiki/Cole_McKinney
+2025-054-theo-stockselius,Theo Stockselius,,Sweden,C,,,,,wikipedia,2025-054-theo-stockselius,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-055-jakob-ihs-wozniak,Jakob Ihs-Wozniak,2007-02-01,Sweden,C,R,190,84,,wikipedia+wikipedia_bio,Q131762923,https://en.wikipedia.org/wiki/Jakob_Ihs-Wozniak
+2025-056-ethan-czata,Ethan Czata,,Canada,C,,,,,wikipedia,2025-056-ethan-czata,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-057-matthew-gard,Matthew Gard,,Canada,C,,,,,wikipedia,2025-057-matthew-gard,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-058-jack-ivankovic,Jack Ivankovic,2007-05-22,Canada,G,L,183,81,,wikipedia+wikipedia_bio,Q131575575,https://en.wikipedia.org/wiki/Jack_Ivankovic
+2025-059-vojtech-cihar,Vojtech Cihar,,Czech Republic,L,,,,,wikipedia,2025-059-vojtech-cihar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-060-lasse-boelius,Lasse Boelius,2007-03-16,Finland,D,L,183,81,,wikipedia+wikipedia_bio,Q130573373,https://en.wikipedia.org/wiki/Lasse_Boelius
+2025-061-liam-pettersson,Liam Pettersson,,Sweden,D,,,,,wikipedia,2025-061-liam-pettersson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-062-ivan-ryabkin,Ivan Ryabkin,2007-04-25,Russia,C,L,180,93,,wikipedia+wikipedia_bio,Q126891004,https://en.wikipedia.org/wiki/Ivan_Ryabkin
+2025-063-ben-kevan,Ben Kevan,,United States,R,,,,,wikipedia,2025-063-ben-kevan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-064-tinus-luc-koblar,Tinus Luc Koblar,,Norway,C,L,188,80,,wikipedia+wikipedia_bio,Q135222778,https://en.wikipedia.org/wiki/Tinus_Luc_Koblar
+2025-065-kieren-dervin,Kieren Dervin,,Canada,C,,,,,wikipedia,2025-065-kieren-dervin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-066-nathan-behm,Nathan Behm,,Canada,R,,,,,wikipedia,2025-066-nathan-behm,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-067-kurban-limatov,Kurban Limatov,,Russia,D,,,,,wikipedia,2025-067-kurban-limatov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-068-will-reynolds,Will Reynolds,,Canada,D,,,,,wikipedia,2025-068-will-reynolds,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-069-hayden-paupanekis,Hayden Paupanekis,,Canada,C,,,,,wikipedia,2025-069-hayden-paupanekis,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-070-sean-barnhill,Sean Barnhill,,United States,D,,,,,wikipedia,2025-070-sean-barnhill,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-071-david-bedkowski,David Bedkowski,,Canada,D,,,,,wikipedia,2025-071-david-bedkowski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-072-noah-read,Noah Read,,Canada,C,,,,,wikipedia,2025-072-noah-read,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-073-charlie-trethewey,Charlie Trethewey,,United States,D,,,,,wikipedia,2025-073-charlie-trethewey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-074-luca-romano,Luca Romano,,Canada,C,,,,,wikipedia,2025-074-luca-romano,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-075-michal-pradel,Michal Pradel,,Slovakia,G,,,,,wikipedia,2025-075-michal-pradel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-076-malte-vass,Malte Vass,,Sweden,D,,,,,wikipedia,2025-076-malte-vass,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-077-francesco-dell-elce,Francesco Dell'Elce,,Canada,D,,,,,wikipedia,2025-077-francesco-dell-elce,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-078-stepan-hoch,Stepan Hoch,,Czech Republic,L,,,,,wikipedia,2025-078-stepan-hoch,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-079-cooper-simpson,Cooper Simpson,,United States,L,,,,,wikipedia,2025-079-cooper-simpson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-080-mace-o-phillips,Mace'o Phillips,,United States,D,,,,,wikipedia,2025-080-mace-o-phillips,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-081-bryce-pickford,Bryce Pickford,,Canada,D,,,,,wikipedia,2025-081-bryce-pickford,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-082-arseni-radkov,Arseni Radkov,,Belarus,G,,,,,wikipedia,2025-082-arseni-radkov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-083-tommy-lafreniere,Tommy Lafreniere,,Canada,R,,,,,wikipedia,2025-083-tommy-lafreniere,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-084-gabriel-d-aigle,Gabriel D'Aigle,,Canada,G,,,,,wikipedia,2025-084-gabriel-d-aigle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-085-mateo-nobert,Mateo Nobert,,Canada,C,,,,,wikipedia,2025-085-mateo-nobert,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-086-tyler-hopkins,Tyler Hopkins,,Canada,C,,,,,wikipedia,2025-086-tyler-hopkins,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-087-roman-bausov,Roman Bausov,,Russia,D,,,,,wikipedia,2025-087-roman-bausov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-088-kristian-epperson,Kristian Epperson,,United States,L,,,,,wikipedia,2025-088-kristian-epperson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-089-artyom-gonchar,Artyom Gonchar,,Russia,D,,,,,wikipedia,2025-089-artyom-gonchar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-090-mason-moe,Mason Moe,,United States,C,,,,,wikipedia,2025-090-mason-moe,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-091-brady-peddle,Brady Peddle,,Canada,D,,,,,wikipedia,2025-091-brady-peddle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-092-owen-martin,Owen Martin,,Canada,C,,,,,wikipedia,2025-092-owen-martin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-093-blake-vanek,Blake Vanek,,United States,R,,,,,wikipedia,2025-093-blake-vanek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-094-cameron-schmidt,Cameron Schmidt,,Canada,R,,,,,wikipedia,2025-094-cameron-schmidt,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-095-teddy-mutryn,Teddy Mutryn,,United States,C,,,,,wikipedia,2025-095-teddy-mutryn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-096-maxim-schafer,Maxim Schafer,,Germany,L,,,,,wikipedia,2025-096-maxim-schafer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-097-lucas-beckman,Lucas Beckman,,Canada,G,,,,,wikipedia,2025-097-lucas-beckman,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-098-julius-sumpf,Julius Sumpf,,Germany,C,,,,,wikipedia,2025-098-julius-sumpf,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-099-trenten-bennett,Trenten Bennett,,Canada,G,,,,,wikipedia,2025-099-trenten-bennett,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-100-vashek-blanar,Vashek Blanar,,Czech Republic,D,,,,,wikipedia,2025-100-vashek-blanar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-101-drew-schock,Drew Schock,,United States,D,,,,,wikipedia,2025-101-drew-schock,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-102-adam-benak,Adam Benak,,Czech Republic,C,,,,,wikipedia,2025-102-adam-benak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-103-matous-kucharcik,Matous Kucharcik,,Czech Republic,C,,,,,wikipedia,2025-103-matous-kucharcik,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-104-elijah-neuenschwander,Elijah Neuenschwander,,Switzerland,G,,,,,wikipedia,2025-104-elijah-neuenschwander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-105-travis-hayes,Travis Hayes,,United States,R,,,,,wikipedia,2025-105-travis-hayes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-106-tomas-poletin,Tomas Poletin,,Czech Republic,L,,,,,wikipedia,2025-106-tomas-poletin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-107-parker-holmes,Parker Holmes,,Canada,L,,,,,wikipedia,2025-107-parker-holmes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-108-benjamin-rautiainen,Benjamin Rautiainen,,Finland,C,L,183,83,,wikipedia+wikipedia_bio,Q123380426,https://en.wikipedia.org/wiki/Benjamin_Rautiainen
+2025-109-brent-solomon,Brent Solomon,,United States,R,,,,,wikipedia,2025-109-brent-solomon,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-110-yegor-borikov,Yegor Borikov,,Belarus,R,,,,,wikipedia,2025-110-yegor-borikov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-111-mikkel-eriksen,Mikkel Eriksen,,Norway,C,,,,,wikipedia,2025-111-mikkel-eriksen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-112-mads-kongsbak-klyvo,Mads Kongsbak Klyvo,,Denmark,L,,,,,wikipedia,2025-112-mads-kongsbak-klyvo,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-113-l-j-mooney,L.J. Mooney,,United States,C,,,,,wikipedia,2025-113-l-j-mooney,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-114-gustav-hillstrom,Gustav Hillstrom,,Sweden,C,,,,,wikipedia,2025-114-gustav-hillstrom,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-115-ilyas-magomedsultanov,Ilyas Magomedsultanov,,Russia,D,,,,,wikipedia,2025-115-ilyas-magomedsultanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-116-samuel-meloche,Samuel Meloche,,Canada,G,,,,,wikipedia,2025-116-samuel-meloche,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-117-david-lewandowski,David Lewandowski,,Germany,L,,,,,wikipedia,2025-117-david-lewandowski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-118-linus-funck,Linus Funck,,Sweden,D,,,,,wikipedia,2025-118-linus-funck,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-119-michal-svrcek,Michal Svrcek,,Slovakia,L,,,,,wikipedia,2025-119-michal-svrcek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-120-caeden-herrington,Caeden Herrington,,United States,D,,,,,wikipedia,2025-120-caeden-herrington,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-121-lirim-amidovski,Lirim Amidovski,,Canada,R,,,,,wikipedia,2025-121-lirim-amidovski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-122-alex-huang,Alex Huang,,Canada,D,,,,,wikipedia,2025-122-alex-huang,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-123-carter-klippenstein,Carter Klippenstein,,Canada,C,,,,,wikipedia,2025-123-carter-klippenstein,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-124-zack-sharp,Zack Sharp,,United States,D,,,,,wikipedia,2025-124-zack-sharp,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-125-jimmy-lombardi,Jimmy Lombardi,,Canada,C,,,,,wikipedia,2025-125-jimmy-lombardi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-126-brandon-gorzynski,Brandon Gorzynski,,United States,C,,,,,wikipedia,2025-126-brandon-gorzynski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-127-aiden-foster,Aiden Foster,,Canada,C,,,,,wikipedia,2025-127-aiden-foster,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-128-shea-busch,Shea Busch,,Canada,L,,,,,wikipedia,2025-128-shea-busch,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-129-shamar-moses,Shamar Moses,,Canada,R,,,,,wikipedia,2025-129-shamar-moses,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-130-ryan-miller,Ryan Miller,1980-07-17,Canada,C,L,188,77,,wikipedia+wikipedia_bio,Q250011,https://en.wikipedia.org/wiki/Ryan_Miller
+2025-131-asher-barnett,Asher Barnett,,United States,D,,,,,wikipedia,2025-131-asher-barnett,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-132-max-westergard,Max Westergard,,Finland,L,,,,,wikipedia,2025-132-max-westergard,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-133-cole-chandler,Cole Chandler,,Canada,C,,,,,wikipedia,2025-133-cole-chandler,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-134-maxim-agafonov,Maxim Agafonov,,Russia,D,,,,,wikipedia,2025-134-maxim-agafonov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-135-noah-laberge,Noah Laberge,,Canada,D,,,,,wikipedia,2025-135-noah-laberge,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-136-alexis-mathieu,Alexis Mathieu,,Canada,D,,,,,wikipedia,2025-136-alexis-mathieu,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-137-william-belle,William Belle,,United States,R,,,,,wikipedia,2025-137-william-belle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-138-sam-laurila,Sam Laurila,,United States,D,,,,,wikipedia,2025-138-sam-laurila,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-139-zeb-lindgren,Zeb Lindgren,2007-04-14,Sweden,D,L,185,89,,wikipedia+wikipedia_bio,Q139860779,https://en.wikipedia.org/wiki/Zeb_Lindgren
+2025-140-nikita-tyurin,Nikita Tyurin,,Russia,D,,,,,wikipedia,2025-140-nikita-tyurin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-141-justin-kipkie,Justin Kipkie,,Canada,D,,,,,wikipedia,2025-141-justin-kipkie,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-142-ivan-tkach-tkachenko,Ivan Tkach-Tkachenko,,Russia,G,,,,,wikipedia,2025-142-ivan-tkach-tkachenko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-143-wilson-bjorck,Wilson Bjorck,,Sweden,C,,,,,wikipedia,2025-143-wilson-bjorck,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-144-ethan-wyttenbach,Ethan Wyttenbach,2007-02-10,United States,L,R,180,84,,wikipedia+wikipedia_bio,Q138518603,https://en.wikipedia.org/wiki/Ethan_Wyttenbach
+2025-145-alexis-cournoyer,Alexis Cournoyer,,Canada,G,,,,,wikipedia,2025-145-alexis-cournoyer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-146-atte-joki,Atte Joki,,Finland,C,,,,,wikipedia,2025-146-atte-joki,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-147-mikhail-fyodorov,Mikhail Fyodorov,,Russia,R,,,,,wikipedia,2025-147-mikhail-fyodorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-148-quinn-beauchesne,Quinn Beauchesne,,Canada,D,,,,,wikipedia,2025-148-quinn-beauchesne,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-149-dmitri-isayev,Dmitri Isayev,,Russia,L,,,,,wikipedia,2025-149-dmitri-isayev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-150-max-heise,Max Heise,,Canada,C,,,,,wikipedia,2025-150-max-heise,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-151-everett-baldwin,Everett Baldwin,,United States,D,,,,,wikipedia,2025-151-everett-baldwin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-152-petteri-rimpinen,Petteri Rimpinen,2006-04-25,Finland,G,L,182,80,,wikipedia+wikipedia_bio,Q125706756,https://en.wikipedia.org/wiki/Petteri_Rimpinen
+2025-153-harry-nansi,Harry Nansi,,Canada,R,,,,,wikipedia,2025-153-harry-nansi,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-154-jordan-charron,Jordan Charron,,Canada,R,,,,,wikipedia,2025-154-jordan-charron,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-155-jackson-crowder,Jackson Crowder,,United States,C,,,,,wikipedia,2025-155-jackson-crowder,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-156-viktor-klingsell,Viktor Klingsell,,Sweden,R,,,,,wikipedia,2025-156-viktor-klingsell,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-157-luke-vlooswyk,Luke Vlooswyk,,Canada,D,,,,,wikipedia,2025-157-luke-vlooswyk,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-158-mans-goos,Mans Goos,,Sweden,G,,,,,wikipedia,2025-158-mans-goos,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-159-emile-guite,Emile Guite,,Canada,L,,,,,wikipedia,2025-159-emile-guite,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-160-owen-griffin,Owen Griffin,,Canada,C,,,,,wikipedia,2025-160-owen-griffin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-161-david-rozsival,David Rozsival,,Czech Republic,R,,,,,wikipedia,2025-161-david-rozsival,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-162-ashton-cumby,Ashton Cumby,,Canada,D,,,,,wikipedia,2025-162-ashton-cumby,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-163-daniel-nieminen,Daniel Nieminen,,Finland,D,,,,,wikipedia,2025-163-daniel-nieminen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-164-nathan-quinn,Nathan Quinn,,Canada,C,,,,,wikipedia,2025-164-nathan-quinn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-165-kirill-yemelyanov,Kirill Yemelyanov,,Russia,C,,,,,wikipedia,2025-165-kirill-yemelyanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-166-samuel-jung,Samuel Jung,,Czech Republic,R,,,,,wikipedia,2025-166-samuel-jung,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-167-ashton-schultz,Ashton Schultz,,United States,C,,,,,wikipedia,2025-167-ashton-schultz,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-168-anthony-allain-samake,Anthony Allain-Samake,,Canada,D,,,,,wikipedia,2025-168-anthony-allain-samake,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-169-carter-sanderson,Carter Sanderson,,United States,L,,,,,wikipedia,2025-169-carter-sanderson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-170-burke-hood,Burke Hood,,Canada,G,,,,,wikipedia,2025-170-burke-hood,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-171-evan-passmore,Evan Passmore,,Canada,D,,,,,wikipedia,2025-171-evan-passmore,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-172-will-murphy,Will Murphy,,Canada,D,,,,,wikipedia,2025-172-will-murphy,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-173-victor-hedin-raftheim,Victor Hedin Raftheim,,Sweden,D,,,,,wikipedia,2025-173-victor-hedin-raftheim,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-174-ludvig-johnson,Ludvig Johnson,,Switzerland,D,,,,,wikipedia,2025-174-ludvig-johnson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-175-gabriel-chiarot,Gabriel Chiarot,,Canada,R,,,,,wikipedia,2025-175-gabriel-chiarot,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-176-aidan-lane,Aidan Lane,,Canada,R,,,,,wikipedia,2025-176-aidan-lane,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-177-carlos-handel,Carlos Handel,,Germany,D,,,,,wikipedia,2025-177-carlos-handel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-178-sigge-holmgren,Sigge Holmgren,,Sweden,D,,,,,wikipedia,2025-178-sigge-holmgren,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-179-love-harenstam,Love Harenstam,,Sweden,G,,,,,wikipedia,2025-179-love-harenstam,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-180-aron-dahlqvist,Aron Dahlqvist,,Sweden,D,,,,,wikipedia,2025-180-aron-dahlqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-181-bruno-idzan,Bruno Idzan,,Croatia,L,,,,,wikipedia,2025-181-bruno-idzan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-182-reko-alanko,Reko Alanko,,Finland,D,,,,,wikipedia,2025-182-reko-alanko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-183-viggo-nordlund,Viggo Nordlund,,Sweden,L,,,,,wikipedia,2025-183-viggo-nordlund,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-184-jan-chovan,Jan Chovan,,Slovakia,C,,,,,wikipedia,2025-184-jan-chovan,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-185-rylan-fellinger,Rylan Fellinger,,Canada,D,,,,,wikipedia,2025-185-rylan-fellinger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-186-alexander-weiermair,Alexander Weiermair,,United States,C,,,,,wikipedia,2025-186-alexander-weiermair,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-187-gustav-sjoqvist,Gustav Sjoqvist,,Sweden,D,,,,,wikipedia,2025-187-gustav-sjoqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-188-edison-engle,Edison Engle,,United States,D,,,,,wikipedia,2025-188-edison-engle,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-189-andrew-macniel,Andrew MacNiel,,Canada,D,,,,,wikipedia,2025-189-andrew-macniel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-190-dawson-sharkey,Dawson Sharkey,,Canada,R,,,,,wikipedia,2025-190-dawson-sharkey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-191-daniel-salonen,Daniel Salonen,,Finland,G,,,,,wikipedia,2025-191-daniel-salonen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-192-arvid-drott,Arvid Drott,,Sweden,R,,,,,wikipedia,2025-192-arvid-drott,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-193-caleb-heil,Caleb Heil,,United States,G,,,,,wikipedia,2025-193-caleb-heil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-194-ilya-kanarsky,Ilya Kanarsky,,Russia,G,,,,,wikipedia,2025-194-ilya-kanarsky,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-195-melvin-novotny,Melvin Novotny,,Sweden,L,,,,,wikipedia,2025-195-melvin-novotny,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-196-brendan-mcmorrow,Brendan McMorrow,,United States,C,,,,,wikipedia,2025-196-brendan-mcmorrow,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-197-brendan-dunphy,Brendan Dunphy,,United States,D,,,,,wikipedia,2025-197-brendan-dunphy,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-198-jeremy-loranger,Jeremy Loranger,,Canada,C,,,,,wikipedia,2025-198-jeremy-loranger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-199-yevgeni-prokhorov,Yevgeni Prokhorov,,Belarus,G,,,,,wikipedia,2025-199-yevgeni-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-200-brady-turko,Brady Turko,,Canada,R,,,,,wikipedia,2025-200-brady-turko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-201-kale-dach,Kale Dach,,Canada,C,,,,,wikipedia,2025-201-kale-dach,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-202-jacob-kvasnicka,Jacob Kvasnicka,,United States,R,,,,,wikipedia,2025-202-jacob-kvasnicka,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-203-felix-farhammar,Felix Farhammar,,Sweden,D,,,,,wikipedia,2025-203-felix-farhammar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-204-grayden-robertson-palmer,Grayden Robertson-Palmer,,Canada,C,,,,,wikipedia,2025-204-grayden-robertson-palmer,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-205-karl-annborn,Karl Annborn,,Sweden,D,,,,,wikipedia,2025-205-karl-annborn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-206-roman-luttsev,Roman Luttsev,,Russia,C,,,,,wikipedia,2025-206-roman-luttsev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-207-matthew-lansing,Matthew Lansing,,United States,C,,,,,wikipedia,2025-207-matthew-lansing,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-208-jakob-leander,Jakob Leander,,Sweden,D,,,,,wikipedia,2025-208-jakob-leander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-209-maxon-vig,Maxon Vig,,United States,D,,,,,wikipedia,2025-209-maxon-vig,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-210-richard-gallant,Richard Gallant,,United States,L,,,,,wikipedia,2025-210-richard-gallant,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-211-yan-matveiko,Yan Matveiko,,Russia,L,,,,,wikipedia,2025-211-yan-matveiko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-212-grant-spada,Grant Spada,,Canada,D,,,,,wikipedia,2025-212-grant-spada,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-213-andrei-trofimov,Andrei Trofimov,,Russia,G,,,,,wikipedia,2025-213-andrei-trofimov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-214-nolan-roed,Nolan Roed,,United States,C,,,,,wikipedia,2025-214-nolan-roed,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-215-marco-mignosa,Marco Mignosa,,Canada,R,,,,,wikipedia,2025-215-marco-mignosa,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-216-william-sharpe,William Sharpe,,Canada,D,,,,,wikipedia,2025-216-william-sharpe,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-217-matthew-hlacar,Matthew Hlacar,,Canada,L,,,,,wikipedia,2025-217-matthew-hlacar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-218-loke-krantz,Loke Krantz,2007-05-12,Sweden,R,R,185,88,,wikipedia+wikipedia_bio,Q136948881,https://en.wikipedia.org/wiki/Loke_Krantz
+2025-219-ryan-rucinski,Ryan Rucinski,,United States,C,,,,,wikipedia,2025-219-ryan-rucinski,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-220-jacob-cloutier,Jacob Cloutier,,Canada,R,,,,,wikipedia,2025-220-jacob-cloutier,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-221-filip-ekberg,Filip Ekberg,2007-04-14,Sweden,R,L,178,76,,wikipedia+wikipedia_bio,Q134220576,https://en.wikipedia.org/wiki/Filip_Ekberg
+2025-222-charlie-paquette,Charlie Paquette,,Canada,R,,,,,wikipedia,2025-222-charlie-paquette,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-223-aidan-park,Aidan Park,,United States,C,,,,,wikipedia,2025-223-aidan-park,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-224-yegor-midlak,Yegor Midlak,,Russia,G,,,,,wikipedia,2025-224-yegor-midlak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft

@@ -8,7 +8,8 @@ Use `enrich-open-stats-csv` when a league-specific site is blocked, unstable, or
 PYTHONPATH=src python3 -m draft_room_intelligence.cli enrich-open-stats-csv \
   <base-final-dir> \
   <output-final-dir> \
-  --source <csv_path>,<source_label>,<season>[,<league>][,regular|playoffs]
+  --source <csv_path>,<source_label>,<season>[,<league>][,regular|playoffs] \
+  [--allow-new-leagues]
 ```
 
 Example:
@@ -17,8 +18,11 @@ Example:
 PYTHONPATH=src python3 -m draft_room_intelligence.cli enrich-open-stats-csv \
   data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/final \
   data/processed/demo_2025_open_stats/final \
-  --source data/raw/open_stats/ncaa_2024_25.csv,collegehockeyinc,2024-25,NCAA,regular
+  --source data/reference/demo_2025_priority_open_stats.csv,curated-open-stats,2023-24,,regular \
+  --allow-new-leagues
 ```
+
+Use `--allow-new-leagues` only for curated rows that have been checked against player names. It allows rows such as a prior USHL/USNTDP season to be appended even when the current base row only lists NCAA.
 
 ## Expected Columns
 

@@ -84,6 +84,8 @@ def enrich_open_stats_csv(
     base_dir: str | Path,
     output_dir: str | Path,
     sources: list[OpenStatsCsvSource],
+    *,
+    allow_new_leagues: bool = False,
 ) -> OpenStatsCsvEnrichmentSummary:
     source_root = Path(base_dir)
     target_root = Path(output_dir)
@@ -110,8 +112,13 @@ def enrich_open_stats_csv(
             if row.get("player_id") == player["player_id"]
         }
         candidates: list[OpenStatsLine] = []
+        player_key = normalize_person_key(player["name"])
         for league in player_leagues:
-            candidates.extend(source_by_name_league.get((normalize_person_key(player["name"]), league), []))
+            candidates.extend(source_by_name_league.get((player_key, league), []))
+        if allow_new_leagues:
+            for (source_name_key, _), source_candidates in source_by_name_league.items():
+                if source_name_key == player_key:
+                    candidates.extend(source_candidates)
         candidates = deduplicate_open_stats_lines(candidates)
         if candidates:
             matched_by_player_id[player["player_id"]] = candidates
@@ -215,10 +222,11 @@ def normalize_save_percentage(value: str) -> str:
 
 
 def deduplicate_open_stats_lines(lines: list[OpenStatsLine]) -> list[OpenStatsLine]:
-    seen: set[tuple[str, str, bool, str]] = set()
+    seen: set[tuple[str, str, str, bool, str]] = set()
     deduped: list[OpenStatsLine] = []
     for line in lines:
         key = (
+            line.season,
             normalize_league_name(line.league),
             normalize_person_key(line.team),
             line.regular_season,
