@@ -68,6 +68,7 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `make install-dev` - install the project in editable mode with development tools.
 - `make demo` - run the sample projection, scouting, team-fit, and player-card flow.
 - `make demo-2025-readiness` - rebuild the current 2025 demo site, data-gap report, and modeling sanity report from the tracked cleanup dataset.
+- `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make evaluate-consensus` - evaluate the consensus baseline against the fixture CSV.
 - `make evaluate-projection` - evaluate the heuristic projection baseline against the fixture CSV.
 - `make evaluate-adjusted-production` - evaluate the adjusted-production baseline against the fixture CSV.
@@ -77,6 +78,7 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `make evaluate-pilot-hybrid` - evaluate the weighted consensus/projection/adjusted-production hybrid baseline against the normalized 2019 pilot tables.
 - `draft-room-intel export-feature-table <data-path> <output.csv>` - build a reusable player-year feature table for every prospect row.
 - `draft-room-intel evaluate-role-models <data-path> [--feature-output <csv>] [--model-output <csv>]` - fit pure-Python role-specific models and print their evaluation report.
+- `draft-room-intel report-historical-validation <data-path> <output-dir>` - write a side-by-side historical outcome-validation report for draft-board scoring approaches.
 - `draft-room-intel validate-eliteprospects <export.csv>` - inspect an Elite Prospects CSV export for required player/stat shape before import.
 - `draft-room-intel scaffold-demo-class --draft-year <year>` - create the local raw/reference/processed/output layout and starter CSV templates for a single-class demo.
 - `draft-room-intel audit-demo-class --draft-year <year>` - check whether a draft class has the minimum local source files for ETL and demo use.
@@ -88,6 +90,8 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> [--eliteprospects-csv <export.csv>]` - generate the base dataset from a local HockeyDB draft HTML file, then optionally enrich it with Elite Prospects.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> --hockeydb-player-pages-dir <dir> [--eliteprospects-csv <export.csv>]` - generate a richer base dataset from local HockeyDB draft and player-page HTML caches.
 - `draft-room-intel process-eliteprospects <export.csv> <base-dir> <source-output-dir> <merged-output-dir> --draft-year <year>` - run the full Elite Prospects import, merge, quality report, and match-template workflow.
+
+The current historical validation note is tracked in [`docs/historical_validation.md`](docs/historical_validation.md).
 - `draft-room-intel import-eliteprospects <export.csv> <output-dir> --draft-year <year>` - convert a local Elite Prospects CSV export into normalized `players.csv` and `season_stat_lines.csv`.
 - `draft-room-intel merge-eliteprospects <base-dir> <eliteprospects-dir> <output-dir>` - overlay normalized Elite Prospects player and stat rows onto a base draft-year dataset while preserving draft selections, rankings, and outcomes. Use `--match-map <csv>` for reviewed manual matches with `source_player_id,base_player_id,note`.
 - `draft-room-intel generate-match-map-template <base-dir> <unmatched_source_players.csv> <output.csv>` - create a review CSV with closest base-player candidates for unmatched source rows.

@@ -59,6 +59,7 @@ from draft_room_intelligence.reports.demo_export import (
 from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
+from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
 from draft_room_intelligence.reports.player_card import render_player_card
@@ -340,6 +341,28 @@ def main() -> None:
         default=25,
         help="Number of top-ranked players to use for precision@N.",
     )
+    validation_parser = subparsers.add_parser(
+        "report-historical-validation",
+        help="Compare draft-board scoring approaches against historical NHL outcomes.",
+    )
+    validation_parser.add_argument(
+        "data_path",
+        type=Path,
+        help="Path to a wide historical CSV or normalized dataset directory.",
+    )
+    validation_parser.add_argument("output_dir", type=Path, help="Directory for validation report artifacts.")
+    validation_parser.add_argument(
+        "--precision-n",
+        type=int,
+        default=25,
+        help="Number of top-ranked players to use for precision@N.",
+    )
+    validation_parser.add_argument(
+        "--top-n",
+        type=int,
+        default=25,
+        help="Number of top-ranked players to use for board lift metrics.",
+    )
     demo_export_parser = subparsers.add_parser(
         "export-demo-package",
         help="Build board-ready demo exports for a single draft class.",
@@ -579,6 +602,13 @@ def main() -> None:
             feature_output=args.feature_output,
             model_output=args.model_output,
             precision_n=args.precision_n,
+        )
+    elif args.command == "report-historical-validation":
+        run_report_historical_validation(
+            args.data_path,
+            args.output_dir,
+            precision_n=args.precision_n,
+            top_n=args.top_n,
         )
     elif args.command == "export-demo-package":
         run_export_demo_package(args.data_path, args.output_dir)
@@ -1189,6 +1219,30 @@ def run_evaluate(data_path: Path, *, baseline: str = "consensus", precision_n: i
         print(warning)
     print(f"Precision@N: {precision_n}\n")
     print(format_evaluation_report(report))
+
+
+def run_report_historical_validation(
+    data_path: Path,
+    output_dir: Path,
+    *,
+    precision_n: int = 25,
+    top_n: int = 25,
+) -> None:
+    prospects = load_historical_prospects(data_path)
+    report = write_historical_validation_report(
+        output_dir,
+        prospects,
+        data_path,
+        precision_n=precision_n,
+        top_n=top_n,
+    )
+    print(f"# Historical validation report: {data_path}")
+    print(f"Prospects loaded: {report.prospect_count}")
+    warning = outcome_validation_warning(prospects)
+    if warning:
+        print(warning)
+    print(f"Summary CSV: {output_dir / 'summary.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 
 def load_historical_prospects(data_path: Path):
