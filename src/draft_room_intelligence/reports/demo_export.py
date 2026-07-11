@@ -315,66 +315,68 @@ def build_badges(feature: dict[str, str], disagreement_bucket: str) -> list[str]
 def build_short_reason(feature: dict[str, str], disagreement_bucket: str) -> str:
     reasons: list[str] = []
     if float(feature["role_percentile"]) >= 0.9:
-        reasons.append("Strong same-role production")
+        reasons.append("Production stands out within role")
     if float(feature["average_league_weight"]) >= 1.0:
-        reasons.append("Good competition context")
+        reasons.append("Stronger competition context")
     if float(feature["adult_game_share"]) > 0.15:
-        reasons.append("Meaningful adult exposure")
+        reasons.append("Adult-league minutes in profile")
     if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) > 0:
-        reasons.append("Goalie metrics available")
+        reasons.append("Goalie stat signal available")
     if int(feature["pre_draft_league_count"]) > 1:
-        reasons.append("Multi-league evidence")
+        reasons.append("Multiple league contexts")
     if disagreement_bucket == "model_higher":
-        reasons.append("Model sees more upside than consensus")
-    return ", ".join(reasons[:2]) or "Balanced profile with usable evidence."
+        reasons.append("Review candidate above consensus")
+    if disagreement_bucket == "consensus_higher":
+        reasons.append("Consensus is more aggressive")
+    return ", ".join(reasons[:2]) or "Comparable profile; use detail view for context."
 
 
 def build_risk_note(feature: dict[str, str], consensus_delta: int) -> str:
     risks: list[str] = []
     if int(feature["pre_draft_row_count"]) == 1:
-        risks.append("Thin evidence base")
+        risks.append("Needs more pre-draft rows")
     if float(feature["adult_game_share"]) == 0.0:
-        risks.append("No adult-league exposure yet")
+        risks.append("No adult-league sample")
     if float(feature["playoff_game_share"]) == 0.0:
-        risks.append("Limited playoff signal")
+        risks.append("No playoff row captured")
     if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) == 0.0:
-        risks.append("No goalie-specific stat signal")
+        risks.append("Goalie metrics not yet captured")
     if abs(consensus_delta) >= 10:
-        risks.append("Large disagreement versus consensus")
-    return ", ".join(risks[:2]) or "Normal variance remains in the profile."
+        risks.append("Board-consensus gap needs review")
+    return ", ".join(risks[:2]) or "No major coverage flags in current sample."
 
 
 def build_why_high(board_row: dict[str, str]) -> list[str]:
     points: list[str] = []
     if float(board_row["role_percentile"]) >= 0.9:
-        points.append("Strong role-adjusted production relative to peers.")
+        points.append("Production ranks well against comparable players in the same role.")
     if float(board_row["average_league_weight"]) >= 1.0:
-        points.append("Primary competition context is stronger than average.")
+        points.append("Primary league context is stronger than the average draft-year sample.")
     if float(board_row["adult_game_share"]) > 0.15:
-        points.append("Meaningful adult-league exposure boosts confidence.")
+        points.append("Adult-league games add useful context beyond junior scoring.")
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) > 0:
-        points.append("Goalie-specific performance metrics are available.")
+        points.append("Goalie evaluation uses save percentage, goals-against context, and workload fields.")
     if int(board_row["pre_draft_league_count"]) > 1:
-        points.append("Multi-league history provides deeper evidence.")
+        points.append("Multi-league history helps separate one-team context from broader performance.")
     if not points:
-        points.append("Profile remains competitive across core board signals.")
+        points.append("Profile remains in range across consensus, role, and league-context signals.")
     return points[:3]
 
 
 def build_risk_flags(board_row: dict[str, str]) -> list[str]:
     flags: list[str] = []
     if int(board_row["pre_draft_row_count"]) == 1:
-        flags.append("Limited pre-draft evidence depth.")
+        flags.append("Only one pre-draft stat row is currently captured; treat the grade as review-ready, not final.")
     if float(board_row["adult_game_share"]) == 0.0:
-        flags.append("No adult-league exposure before draft.")
+        flags.append("No adult-league sample is present, so junior translation remains a question.")
     if float(board_row["playoff_game_share"]) == 0.0:
-        flags.append("Little or no playoff signal in the current sample.")
+        flags.append("No playoff row is captured yet; pressure-sample context may be incomplete.")
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) == 0.0:
-        flags.append("No goalie-specific performance metrics in the current sample.")
+        flags.append("Goalie-specific performance fields are not yet populated for this player.")
     if abs(int(board_row["consensus_delta"])) >= 10:
-        flags.append("Large disagreement between board rank and consensus rank.")
+        flags.append("Board rank and public consensus differ enough to warrant a scouting-room review.")
     if not flags:
-        flags.append("No outsized structural risk flags from the current data.")
+        flags.append("No major coverage or translation flags in the current dataset.")
     return flags[:3]
 
 

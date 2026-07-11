@@ -381,7 +381,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     <aside class="sidebar">
       <div class="eyebrow">Draft Room Intelligence</div>
       <div class="title">Single-Class Demo</div>
-      <div class="subtitle">Explainable board-building workflow for one draft class with disagreement review, player evidence, and shortlist export.</div>
+      <div class="subtitle">Draft-meeting workflow for one class: normalize the evidence, find disagreement, inspect the source trail, and export a review list.</div>
       <div class="stats">
         <div class="stat">
           <div class="stat-label">Draft Year</div>
@@ -441,7 +441,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div>
           <div class="eyebrow">Board</div>
           <div class="title">2025 Demo Workspace</div>
-          <div class="subtitle">Use this board to focus draft-room debate where normalized evidence and public consensus disagree.</div>
+          <div class="subtitle">Use this board to focus the meeting on players where normalized evidence, role context, and public consensus tell different stories.</div>
         </div>
         <div class="toolbar-right">
           <div id="status-badge" class="badge"></div>
@@ -478,7 +478,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       </div>
     </main>
     <aside class="detail">
-      <div id="detail-empty" class="empty">Select a player to inspect the evidence behind the ranking.</div>
+      <div id="detail-empty" class="empty">Select a player to inspect the evidence, translation context, and review flags behind the ranking.</div>
       <div id="detail-content" style="display:none;">
         <div class="eyebrow">Player Detail</div>
         <div class="title" id="detail-name"></div>
@@ -490,11 +490,11 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div class="taglist" id="detail-badges" style="margin-bottom:12px;"></div>
         <div class="detail-grid" id="detail-grid"></div>
         <div class="section">
-          <h3>Why High</h3>
+          <h3>Why Review</h3>
           <ul class="detail-list" id="detail-why-high"></ul>
         </div>
         <div class="section">
-          <h3>Risk Flags</h3>
+          <h3>Review Flags</h3>
           <ul class="detail-list" id="detail-risk-flags"></ul>
         </div>
         <div class="section">
@@ -583,6 +583,13 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       return "tag";
     }}
 
+    function evidenceLabel(value) {{
+      if (value === "high") return "High coverage";
+      if (value === "medium") return "Usable coverage";
+      if (value === "low") return "Needs coverage";
+      return value || "Unknown";
+    }}
+
     function renderBoard() {{
       const body = document.getElementById("board-body");
       body.innerHTML = "";
@@ -662,7 +669,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         ["Adjusted PPG", Number(detail.summary.adjusted_ppg).toFixed(3)],
         ["Adult Share", `${{Math.round(detail.summary.adult_game_share * 100)}}%`],
         ["Playoff Share", `${{Math.round(detail.summary.playoff_game_share * 100)}}%`],
-        ["Evidence", detail.summary.evidence_depth],
+        ["Evidence", evidenceLabel(detail.summary.evidence_depth)],
       ];
       document.getElementById("detail-grid").innerHTML = metrics.map(([label, value]) => `
         <div class="detail-card">

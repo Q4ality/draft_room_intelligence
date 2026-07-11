@@ -72,8 +72,8 @@ One board row per player.
   "consensus_delta": -3,
   "disagreement_bucket": "model_higher",
   "badges": ["Multi-League"],
-  "short_reason": "Strong same-role production with good league context.",
-  "risk_note": "Mostly junior profile with limited pro exposure."
+  "short_reason": "Production stands out within role, Multiple league contexts",
+  "risk_note": "No adult-league sample"
 }
 ```
 
