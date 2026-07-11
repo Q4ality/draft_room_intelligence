@@ -1,0 +1,248 @@
+player_id,name,matched,source_name,source_id,source_url,team,games,goals,assists,points,regular_season
+2025-001-matthew-schaefer,Matthew Schaefer,false,,,,,,,,,
+2025-002-michael-misa,Michael Misa,false,,,,,,,,,
+2025-003-anton-frondell,Anton Frondell,false,,,,,,,,,
+2025-004-caleb-desnoyers,Caleb Desnoyers,false,,,,,,,,,
+2025-005-brady-martin,Brady Martin,false,,,,,,,,,
+2025-006-porter-martone,Porter Martone,false,,,,,,,,,
+2025-007-james-hagens,James Hagens,false,,,,,,,,,
+2025-008-jake-o-brien,Jake O'Brien,false,,,,,,,,,
+2025-009-radim-mrtka,Radim Mrtka,false,,,,,,,,,
+2025-010-roger-mcqueen,Roger McQueen,false,,,,,,,,,
+2025-011-ben-kindel,Ben Kindel,false,,,,,,,,,
+2025-012-jack-nesbitt,Jack Nesbitt,false,,,,,,,,,
+2025-013-carter-bear,Carter Bear,false,,,,,,,,,
+2025-014-jackson-smith,Jackson Smith,false,,,,,,,,,
+2025-015-braeden-cootes,Braeden Cootes,false,,,,,,,,,
+2025-016-victor-eklund,Victor Eklund,false,,,,,,,,,
+2025-017-kashawn-aitcheson,Kashawn Aitcheson,false,,,,,,,,,
+2025-018-cole-reschny,Cole Reschny,false,,,,,,,,,
+2025-019-justin-carbonneau,Justin Carbonneau,false,,,,,,,,,
+2025-020-pyotr-andreyanov,Pyotr Andreyanov,false,,,,,,,,,
+2025-021-cameron-reid,Cameron Reid,false,,,,,,,,,
+2025-022-bill-zonnon,Bill Zonnon,false,,,,,,,,,
+2025-023-logan-hensler,Logan Hensler,false,,,,,,,,,
+2025-024-will-horcoff,Will Horcoff,false,,,,,,,,,
+2025-025-vaclav-nestrasil,Vaclav Nestrasil,true,Vaclav Nestrasil,10343,https://ushl.com/ht/#/player/10343/85/Vaclav%20Nestrasil,MUS,61,19,23,42,true
+2025-025-vaclav-nestrasil,Vaclav Nestrasil,true,Vaclav Nestrasil,10343,https://ushl.com/ht/#/player/10343/87/Vaclav%20Nestrasil,MUS,14,7,6,13,false
+2025-026-ryker-lee,Ryker Lee,true,Ryker Lee,10389,https://ushl.com/ht/#/player/10389/85/Ryker%20Lee,MAD,58,31,37,68,true
+2025-026-ryker-lee,Ryker Lee,true,Ryker Lee,10389,https://ushl.com/ht/#/player/10389/87/Ryker%20Lee,MAD,6,3,3,6,false
+2025-027-lynden-lakovic,Lynden Lakovic,false,,,,,,,,,
+2025-028-sascha-boumedienne,Sascha Boumedienne,false,,,,,,,,,
+2025-029-mason-west,Mason West,false,,,,,,,,,
+2025-030-joshua-ravensbergen,Joshua Ravensbergen,false,,,,,,,,,
+2025-031-henry-brzustewicz,Henry Brzustewicz,false,,,,,,,,,
+2025-032-cullen-potter,Cullen Potter,false,,,,,,,,,
+2025-033-haoxi-wang,Haoxi Wang,false,,,,,,,,,
+2025-034-alexander-zharovsky,Alexander Zharovsky,false,,,,,,,,,
+2025-035-jacob-rombach,Jacob Rombach,true,Jacob Rombach,10119,https://ushl.com/ht/#/player/10119/85/Jacob%20Rombach,LIN,57,3,15,18,true
+2025-035-jacob-rombach,Jacob Rombach,true,Jacob Rombach,10119,https://ushl.com/ht/#/player/10119/87/Jacob%20Rombach,LIN,7,0,0,0,false
+2025-036-blake-fiddler,Blake Fiddler,false,,,,,,,,,
+2025-037-milton-gastrin,Milton Gastrin,false,,,,,,,,,
+2025-038-carter-amico,Carter Amico,true,Carter Amico,10258,https://ushl.com/ht/#/player/10258/85/Carter%20Amico,NTDP,4,0,2,2,true
+2025-039-peyton-kettles,Peyton Kettles,false,,,,,,,,,
+2025-040-jack-murtagh,Jack Murtagh,true,Jack Murtagh,10242,https://ushl.com/ht/#/player/10242/85/Jack%20Murtagh,NTDP,24,7,11,18,true
+2025-041-semyon-frolov,Semyon Frolov,false,,,,,,,,,
+2025-042-daniil-prokhorov,Daniil Prokhorov,false,,,,,,,,,
+2025-043-malcolm-spence,Malcolm Spence,false,,,,,,,,,
+2025-044-eddie-genborg,Eddie Genborg,false,,,,,,,,,
+2025-045-eric-nilson,Eric Nilson,false,,,,,,,,,
+2025-046-max-psenicka,Max Psenicka,false,,,,,,,,,
+2025-047-alexei-medvedev,Alexei Medvedev,false,,,,,,,,,
+2025-048-shane-vansaghi,Shane Vansaghi,false,,,,,,,,,
+2025-049-charlie-cerrato,Charlie Cerrato,false,,,,,,,,,
+2025-050-conrad-fondrk,Conrad Fondrk,true,Conrad Fondrk,10239,https://ushl.com/ht/#/player/10239/85/Conrad%20Fondrk,NTDP,15,6,6,12,true
+2025-051-william-moore,William Moore,false,,,,,,,,,
+2025-052-theodor-hallquisth,Theodor Hallquisth,false,,,,,,,,,
+2025-053-cole-mckinney,Cole McKinney,true,Cole McKinney,10249,https://ushl.com/ht/#/player/10249/85/Cole%20McKinney,NTDP,23,15,11,26,true
+2025-054-theo-stockselius,Theo Stockselius,false,,,,,,,,,
+2025-055-jakob-ihs-wozniak,Jakob Ihs-Wozniak,false,,,,,,,,,
+2025-056-ethan-czata,Ethan Czata,false,,,,,,,,,
+2025-057-matthew-gard,Matthew Gard,false,,,,,,,,,
+2025-058-jack-ivankovic,Jack Ivankovic,false,,,,,,,,,
+2025-059-vojtech-cihar,Vojtech Cihar,false,,,,,,,,,
+2025-060-lasse-boelius,Lasse Boelius,false,,,,,,,,,
+2025-061-liam-pettersson,Liam Pettersson,false,,,,,,,,,
+2025-062-ivan-ryabkin,Ivan Ryabkin,true,Ivan Ryabkin,10644,https://ushl.com/ht/#/player/10644/85/Ivan%20Ryabkin,MUS,27,19,11,30,true
+2025-062-ivan-ryabkin,Ivan Ryabkin,true,Ivan Ryabkin,10644,https://ushl.com/ht/#/player/10644/87/Ivan%20Ryabkin,MUS,14,7,9,16,false
+2025-063-ben-kevan,Ben Kevan,true,Ben Kevan,10065,https://ushl.com/ht/#/player/10065/85/Ben%20Kevan,DM,51,13,30,43,true
+2025-064-tinus-luc-koblar,Tinus Luc Koblar,false,,,,,,,,,
+2025-065-kieren-dervin,Kieren Dervin,false,,,,,,,,,
+2025-066-nathan-behm,Nathan Behm,false,,,,,,,,,
+2025-067-kurban-limatov,Kurban Limatov,false,,,,,,,,,
+2025-068-will-reynolds,Will Reynolds,false,,,,,,,,,
+2025-069-hayden-paupanekis,Hayden Paupanekis,false,,,,,,,,,
+2025-070-sean-barnhill,Sean Barnhill,true,Sean Barnhill,10362,https://ushl.com/ht/#/player/10362/85/Sean%20Barnhill,DBQ,54,4,8,12,true
+2025-070-sean-barnhill,Sean Barnhill,true,Sean Barnhill,10362,https://ushl.com/ht/#/player/10362/87/Sean%20Barnhill,DBQ,7,0,1,1,false
+2025-071-david-bedkowski,David Bedkowski,false,,,,,,,,,
+2025-072-noah-read,Noah Read,false,,,,,,,,,
+2025-073-charlie-trethewey,Charlie Trethewey,true,Charlie Trethewey,10259,https://ushl.com/ht/#/player/10259/85/Charlie%20Trethewey,NTDP,24,2,7,9,true
+2025-074-luca-romano,Luca Romano,false,,,,,,,,,
+2025-075-michal-pradel,Michal Pradel,true,Michal Pradel,10715,https://ushl.com/ht/#/player/10715/85/Michal%20Pradel,TC,14,0,0,0,true
+2025-075-michal-pradel,Michal Pradel,true,Michal Pradel,10715,https://ushl.com/ht/#/player/10715/87/Michal%20Pradel,TC,1,0,0,0,false
+2025-076-malte-vass,Malte Vass,false,,,,,,,,,
+2025-077-francesco-dell-elce,Francesco Dell'Elce,false,,,,,,,,,
+2025-078-stepan-hoch,Stepan Hoch,false,,,,,,,,,
+2025-079-cooper-simpson,Cooper Simpson,true,Cooper Simpson,10091,https://ushl.com/ht/#/player/10091/85/Cooper%20Simpson,TC,9,7,1,8,true
+2025-079-cooper-simpson,Cooper Simpson,true,Cooper Simpson,10091,https://ushl.com/ht/#/player/10091/87/Cooper%20Simpson,TC,2,0,0,0,false
+2025-080-mace-o-phillips,Mace'o Phillips,true,Maceo Phillips,10256,https://ushl.com/ht/#/player/10256/85/Maceo%20Phillips,NTDP,25,2,1,3,true
+2025-081-bryce-pickford,Bryce Pickford,false,,,,,,,,,
+2025-082-arseni-radkov,Arseni Radkov,false,,,,,,,,,
+2025-083-tommy-lafreniere,Tommy Lafreniere,false,,,,,,,,,
+2025-084-gabriel-d-aigle,Gabriel D'Aigle,false,,,,,,,,,
+2025-085-mateo-nobert,Mateo Nobert,false,,,,,,,,,
+2025-086-tyler-hopkins,Tyler Hopkins,false,,,,,,,,,
+2025-087-roman-bausov,Roman Bausov,false,,,,,,,,,
+2025-088-kristian-epperson,Kristian Epperson,false,,,,,,,,,
+2025-089-artyom-gonchar,Artyom Gonchar,false,,,,,,,,,
+2025-090-mason-moe,Mason Moe,true,Mason Moe,10219,https://ushl.com/ht/#/player/10219/85/Mason%20Moe,MAD,51,17,26,43,true
+2025-090-mason-moe,Mason Moe,true,Mason Moe,10219,https://ushl.com/ht/#/player/10219/87/Mason%20Moe,MAD,6,5,1,6,false
+2025-091-brady-peddle,Brady Peddle,true,Brady Peddle,10569,https://ushl.com/ht/#/player/10569/85/Brady%20Peddle,WAT,62,3,7,10,true
+2025-091-brady-peddle,Brady Peddle,true,Brady Peddle,10569,https://ushl.com/ht/#/player/10569/87/Brady%20Peddle,WAT,15,1,9,10,false
+2025-092-owen-martin,Owen Martin,false,,,,,,,,,
+2025-093-blake-vanek,Blake Vanek,false,,,,,,,,,
+2025-094-cameron-schmidt,Cameron Schmidt,false,,,,,,,,,
+2025-095-teddy-mutryn,Teddy Mutryn,true,Teddy Mutryn,10270,https://ushl.com/ht/#/player/10270/85/Teddy%20Mutryn,NTDP,51,18,14,32,true
+2025-096-maxim-schafer,Maxim Schafer,false,,,,,,,,,
+2025-097-lucas-beckman,Lucas Beckman,false,,,,,,,,,
+2025-098-julius-sumpf,Julius Sumpf,false,,,,,,,,,
+2025-099-trenten-bennett,Trenten Bennett,false,,,,,,,,,
+2025-100-vashek-blanar,Vashek Blanar,false,,,,,,,,,
+2025-101-drew-schock,Drew Schock,false,,,,,,,,,
+2025-102-adam-benak,Adam Benak,false,,,,,,,,,
+2025-103-matous-kucharcik,Matous Kucharcik,false,,,,,,,,,
+2025-104-elijah-neuenschwander,Elijah Neuenschwander,false,,,,,,,,,
+2025-105-travis-hayes,Travis Hayes,false,,,,,,,,,
+2025-106-tomas-poletin,Tomas Poletin,false,,,,,,,,,
+2025-107-parker-holmes,Parker Holmes,false,,,,,,,,,
+2025-108-benjamin-rautiainen,Benjamin Rautiainen,false,,,,,,,,,
+2025-109-brent-solomon,Brent Solomon,true,Brent Solomon,10754,https://ushl.com/ht/#/player/10754/85/Brent%20Solomon,SF,8,4,2,6,true
+2025-109-brent-solomon,Brent Solomon,true,Brent Solomon,10754,https://ushl.com/ht/#/player/10754/87/Brent%20Solomon,SF,2,0,0,0,false
+2025-110-yegor-borikov,Yegor Borikov,false,,,,,,,,,
+2025-111-mikkel-eriksen,Mikkel Eriksen,false,,,,,,,,,
+2025-112-mads-kongsbak-klyvo,Mads Kongsbak Klyvo,false,,,,,,,,,
+2025-113-l-j-mooney,L.J. Mooney,true,LJ Mooney,10241,https://ushl.com/ht/#/player/10241/85/LJ%20Mooney,NTDP,26,5,23,28,true
+2025-114-gustav-hillstrom,Gustav Hillstrom,false,,,,,,,,,
+2025-115-ilyas-magomedsultanov,Ilyas Magomedsultanov,false,,,,,,,,,
+2025-116-samuel-meloche,Samuel Meloche,false,,,,,,,,,
+2025-117-david-lewandowski,David Lewandowski,false,,,,,,,,,
+2025-118-linus-funck,Linus Funck,false,,,,,,,,,
+2025-119-michal-svrcek,Michal Svrcek,false,,,,,,,,,
+2025-120-caeden-herrington,Caeden Herrington,true,Caeden Herrington,10322,https://ushl.com/ht/#/player/10322/85/Caeden%20Herrington,LIN,56,16,18,34,true
+2025-120-caeden-herrington,Caeden Herrington,true,Caeden Herrington,10322,https://ushl.com/ht/#/player/10322/87/Caeden%20Herrington,LIN,7,0,2,2,false
+2025-121-lirim-amidovski,Lirim Amidovski,false,,,,,,,,,
+2025-122-alex-huang,Alex Huang,false,,,,,,,,,
+2025-123-carter-klippenstein,Carter Klippenstein,false,,,,,,,,,
+2025-124-zack-sharp,Zack Sharp,false,,,,,,,,,
+2025-125-jimmy-lombardi,Jimmy Lombardi,false,,,,,,,,,
+2025-126-brandon-gorzynski,Brandon Gorzynski,false,,,,,,,,,
+2025-127-aiden-foster,Aiden Foster,false,,,,,,,,,
+2025-128-shea-busch,Shea Busch,false,,,,,,,,,
+2025-129-shamar-moses,Shamar Moses,false,,,,,,,,,
+2025-130-ryan-miller,Ryan Miller,false,,,,,,,,,
+2025-131-asher-barnett,Asher Barnett,true,Asher Barnett,10237,https://ushl.com/ht/#/player/10237/85/Asher%20Barnett,NTDP,21,3,3,6,true
+2025-132-max-westergard,Max Westergard,false,,,,,,,,,
+2025-133-cole-chandler,Cole Chandler,false,,,,,,,,,
+2025-134-maxim-agafonov,Maxim Agafonov,false,,,,,,,,,
+2025-135-noah-laberge,Noah Laberge,false,,,,,,,,,
+2025-136-alexis-mathieu,Alexis Mathieu,false,,,,,,,,,
+2025-137-william-belle,William Belle,false,,,,,,,,,
+2025-138-sam-laurila,Sam Laurila,true,Sam Laurila,9892,https://ushl.com/ht/#/player/9892/85/Sam%20Laurila,FGO,57,8,33,41,true
+2025-138-sam-laurila,Sam Laurila,true,Sam Laurila,9892,https://ushl.com/ht/#/player/9892/87/Sam%20Laurila,FGO,2,0,1,1,false
+2025-139-zeb-lindgren,Zeb Lindgren,false,,,,,,,,,
+2025-140-nikita-tyurin,Nikita Tyurin,false,,,,,,,,,
+2025-141-justin-kipkie,Justin Kipkie,false,,,,,,,,,
+2025-142-ivan-tkach-tkachenko,Ivan Tkach-Tkachenko,false,,,,,,,,,
+2025-143-wilson-bjorck,Wilson Bjorck,false,,,,,,,,,
+2025-144-ethan-wyttenbach,Ethan Wyttenbach,true,Ethan Wyttenbach,10539,https://ushl.com/ht/#/player/10539/85/Ethan%20Wyttenbach,SF,44,24,27,51,true
+2025-144-ethan-wyttenbach,Ethan Wyttenbach,true,Ethan Wyttenbach,10539,https://ushl.com/ht/#/player/10539/87/Ethan%20Wyttenbach,SF,4,1,3,4,false
+2025-145-alexis-cournoyer,Alexis Cournoyer,false,,,,,,,,,
+2025-146-atte-joki,Atte Joki,false,,,,,,,,,
+2025-147-mikhail-fyodorov,Mikhail Fyodorov,false,,,,,,,,,
+2025-148-quinn-beauchesne,Quinn Beauchesne,false,,,,,,,,,
+2025-149-dmitri-isayev,Dmitri Isayev,false,,,,,,,,,
+2025-150-max-heise,Max Heise,false,,,,,,,,,
+2025-151-everett-baldwin,Everett Baldwin,false,,,,,,,,,
+2025-152-petteri-rimpinen,Petteri Rimpinen,false,,,,,,,,,
+2025-153-harry-nansi,Harry Nansi,false,,,,,,,,,
+2025-154-jordan-charron,Jordan Charron,false,,,,,,,,,
+2025-155-jackson-crowder,Jackson Crowder,true,Jackson Crowder,10281,https://ushl.com/ht/#/player/10281/85/Jackson%20Crowder,CHI,56,11,13,24,true
+2025-156-viktor-klingsell,Viktor Klingsell,false,,,,,,,,,
+2025-157-luke-vlooswyk,Luke Vlooswyk,false,,,,,,,,,
+2025-158-mans-goos,Mans Goos,false,,,,,,,,,
+2025-159-emile-guite,Emile Guite,false,,,,,,,,,
+2025-160-owen-griffin,Owen Griffin,false,,,,,,,,,
+2025-161-david-rozsival,David Rozsival,false,,,,,,,,,
+2025-162-ashton-cumby,Ashton Cumby,false,,,,,,,,,
+2025-163-daniel-nieminen,Daniel Nieminen,false,,,,,,,,,
+2025-164-nathan-quinn,Nathan Quinn,false,,,,,,,,,
+2025-165-kirill-yemelyanov,Kirill Yemelyanov,false,,,,,,,,,
+2025-166-samuel-jung,Samuel Jung,false,,,,,,,,,
+2025-167-ashton-schultz,Ashton Schultz,true,Ashton Schultz,10357,https://ushl.com/ht/#/player/10357/85/Ashton%20Schultz,CHI,58,14,25,39,true
+2025-168-anthony-allain-samake,Anthony Allain-Samake,true,Anthony Allain-Samake,10448,https://ushl.com/ht/#/player/10448/85/Anthony%20Allain-Samake,SC,61,0,14,14,true
+2025-168-anthony-allain-samake,Anthony Allain-Samake,true,Anthony Allain-Samake,10448,https://ushl.com/ht/#/player/10448/87/Anthony%20Allain-Samake,SC,5,0,1,1,false
+2025-169-carter-sanderson,Carter Sanderson,true,Carter Sanderson,10587,https://ushl.com/ht/#/player/10587/85/Carter%20Sanderson,MUS,48,5,6,11,true
+2025-169-carter-sanderson,Carter Sanderson,true,Carter Sanderson,10587,https://ushl.com/ht/#/player/10587/87/Carter%20Sanderson,MUS,13,0,1,1,false
+2025-170-burke-hood,Burke Hood,false,,,,,,,,,
+2025-171-evan-passmore,Evan Passmore,false,,,,,,,,,
+2025-172-will-murphy,Will Murphy,false,,,,,,,,,
+2025-173-victor-hedin-raftheim,Victor Hedin Raftheim,false,,,,,,,,,
+2025-174-ludvig-johnson,Ludvig Johnson,false,,,,,,,,,
+2025-175-gabriel-chiarot,Gabriel Chiarot,false,,,,,,,,,
+2025-176-aidan-lane,Aidan Lane,false,,,,,,,,,
+2025-177-carlos-handel,Carlos Handel,false,,,,,,,,,
+2025-178-sigge-holmgren,Sigge Holmgren,false,,,,,,,,,
+2025-179-love-harenstam,Love Harenstam,false,,,,,,,,,
+2025-180-aron-dahlqvist,Aron Dahlqvist,false,,,,,,,,,
+2025-181-bruno-idzan,Bruno Idzan,true,Bruno Idzan,10695,https://ushl.com/ht/#/player/10695/85/Bruno%20Idzan,LIN,36,22,22,44,true
+2025-181-bruno-idzan,Bruno Idzan,true,Bruno Idzan,10695,https://ushl.com/ht/#/player/10695/87/Bruno%20Idzan,LIN,6,3,0,3,false
+2025-182-reko-alanko,Reko Alanko,false,,,,,,,,,
+2025-183-viggo-nordlund,Viggo Nordlund,false,,,,,,,,,
+2025-184-jan-chovan,Jan Chovan,false,,,,,,,,,
+2025-185-rylan-fellinger,Rylan Fellinger,false,,,,,,,,,
+2025-186-alexander-weiermair,Alexander Weiermair,false,,,,,,,,,
+2025-187-gustav-sjoqvist,Gustav Sjoqvist,false,,,,,,,,,
+2025-188-edison-engle,Edison Engle,true,Edison Engle,10334,https://ushl.com/ht/#/player/10334/85/Edison%20Engle,DBQ,54,2,15,17,true
+2025-188-edison-engle,Edison Engle,true,Edison Engle,10334,https://ushl.com/ht/#/player/10334/87/Edison%20Engle,DBQ,7,0,4,4,false
+2025-189-andrew-macniel,Andrew MacNiel,false,,,,,,,,,
+2025-190-dawson-sharkey,Dawson Sharkey,false,,,,,,,,,
+2025-191-daniel-salonen,Daniel Salonen,false,,,,,,,,,
+2025-192-arvid-drott,Arvid Drott,false,,,,,,,,,
+2025-193-caleb-heil,Caleb Heil,true,Caleb Heil,9900,https://ushl.com/ht/#/player/9900/85/Caleb%20Heil,MAD,39,0,4,4,true
+2025-193-caleb-heil,Caleb Heil,true,Caleb Heil,9900,https://ushl.com/ht/#/player/9900/87/Caleb%20Heil,MAD,6,0,0,0,false
+2025-194-ilya-kanarsky,Ilya Kanarsky,false,,,,,,,,,
+2025-195-melvin-novotny,Melvin Novotny,false,,,,,,,,,
+2025-196-brendan-mcmorrow,Brendan McMorrow,true,Brendan McMorrow,9882,https://ushl.com/ht/#/player/9882/85/Brendan%20McMorrow,WAT,58,24,18,42,true
+2025-196-brendan-mcmorrow,Brendan McMorrow,true,Brendan McMorrow,9882,https://ushl.com/ht/#/player/9882/87/Brendan%20McMorrow,WAT,15,7,7,14,false
+2025-197-brendan-dunphy,Brendan Dunphy,false,,,,,,,,,
+2025-198-jeremy-loranger,Jeremy Loranger,false,,,,,,,,,
+2025-199-yevgeni-prokhorov,Yevgeni Prokhorov,false,,,,,,,,,
+2025-200-brady-turko,Brady Turko,false,,,,,,,,,
+2025-201-kale-dach,Kale Dach,false,,,,,,,,,
+2025-202-jacob-kvasnicka,Jacob Kvasnicka,true,Jacob Kvasnicka,10252,https://ushl.com/ht/#/player/10252/85/Jacob%20Kvasnicka,NTDP,27,5,9,14,true
+2025-203-felix-farhammar,Felix Farhammar,false,,,,,,,,,
+2025-204-grayden-robertson-palmer,Grayden Robertson-Palmer,false,,,,,,,,,
+2025-205-karl-annborn,Karl Annborn,false,,,,,,,,,
+2025-206-roman-luttsev,Roman Luttsev,false,,,,,,,,,
+2025-207-matthew-lansing,Matthew Lansing,true,Matthew Lansing,10299,https://ushl.com/ht/#/player/10299/85/Matthew%20Lansing,FGO,54,12,15,27,true
+2025-207-matthew-lansing,Matthew Lansing,true,Matthew Lansing,10299,https://ushl.com/ht/#/player/10299/87/Matthew%20Lansing,FGO,2,1,0,1,false
+2025-208-jakob-leander,Jakob Leander,false,,,,,,,,,
+2025-209-maxon-vig,Maxon Vig,true,Maxon Vig,10500,https://ushl.com/ht/#/player/10500/85/Maxon%20Vig,CR,62,10,22,32,true
+2025-209-maxon-vig,Maxon Vig,true,Maxon Vig,10500,https://ushl.com/ht/#/player/10500/87/Maxon%20Vig,CR,3,0,0,0,false
+2025-210-richard-gallant,Richard Gallant,true,Richard Gallant,10246,https://ushl.com/ht/#/player/10246/85/Richard%20Gallant,NTDP,27,11,11,22,true
+2025-211-yan-matveiko,Yan Matveiko,false,,,,,,,,,
+2025-212-grant-spada,Grant Spada,false,,,,,,,,,
+2025-213-andrei-trofimov,Andrei Trofimov,false,,,,,,,,,
+2025-214-nolan-roed,Nolan Roed,false,,,,,,,,,
+2025-215-marco-mignosa,Marco Mignosa,false,,,,,,,,,
+2025-216-william-sharpe,William Sharpe,false,,,,,,,,,
+2025-217-matthew-hlacar,Matthew Hlacar,false,,,,,,,,,
+2025-218-loke-krantz,Loke Krantz,false,,,,,,,,,
+2025-219-ryan-rucinski,Ryan Rucinski,true,Ryan Rucinski,10143,https://ushl.com/ht/#/player/10143/85/Ryan%20Rucinski,YNG,49,19,23,42,true
+2025-219-ryan-rucinski,Ryan Rucinski,true,Ryan Rucinski,10143,https://ushl.com/ht/#/player/10143/87/Ryan%20Rucinski,YNG,3,3,0,3,false
+2025-220-jacob-cloutier,Jacob Cloutier,false,,,,,,,,,
+2025-221-filip-ekberg,Filip Ekberg,false,,,,,,,,,
+2025-222-charlie-paquette,Charlie Paquette,false,,,,,,,,,
+2025-223-aidan-park,Aidan Park,true,Aidan Park,10017,https://ushl.com/ht/#/player/10017/85/Aidan%20Park,GB,55,33,33,66,true
+2025-223-aidan-park,Aidan Park,true,Aidan Park,10017,https://ushl.com/ht/#/player/10017/87/Aidan%20Park,GB,2,2,1,3,false
+2025-224-yegor-midlak,Yegor Midlak,false,,,,,,,,,

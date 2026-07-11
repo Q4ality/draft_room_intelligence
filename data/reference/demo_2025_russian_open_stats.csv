@@ -1,0 +1,31 @@
+name,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Pyotr Andreyanov,2023-24,MHL,Krasnaya Armiya,20,0,0,0,true,wikipedia-career-goalie,Pyotr Andreyanov,https://en.wikipedia.org/wiki/Pyotr_Andreyanov,1126,57,.916,3.04,9,8,0,1
+Pyotr Andreyanov,2024-25,MHL,Krasnaya Armiya,37,0,0,0,true,wikipedia-career-goalie,Pyotr Andreyanov,https://en.wikipedia.org/wiki/Pyotr_Andreyanov,2194,64,.942,1.75,23,6,6,3
+Yegor Borikov,2022-23,MHL,Dinamo-Shinnik Bobruysk,49,11,12,23,true,wikipedia-career-ru,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,
+Yegor Borikov,2023-24,KHL,Dinamo Minsk,41,5,3,8,true,wikipedia-career-ru,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,
+Yegor Borikov,2024-25,KHL,Dinamo Minsk,67,12,13,25,true,wikipedia-career-ru,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,
+Yegor Borikov,2024-25,KHL,Dinamo Minsk,11,7,1,8,false,wikipedia-career-ru,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,
+Semyon Frolov,2023-24,MHL,Tolyatti Ladia,16,0,0,0,true,hockeydb,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,813,34,.907,2.51,7,4,2,1
+Semyon Frolov,2024-25,MHL,Tolyatti Ladia,9,0,0,0,true,hockeydb,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,491,15,.937,1.83,5,3,0,0
+Semyon Frolov,2024-25,MHL,Moscow Spartak Jr.,13,0,0,0,true,hockeydb,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,762,26,.915,2.05,9,2,2,2
+Semyon Frolov,2024-25,MHL,Krylya Sovetov Jr.,5,0,0,0,true,hockeydb,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,305,14,.910,2.75,2,2,1,0
+Daniil Prokhorov,2023-24,MHL,St. Petersburg Dynamo Jr.,36,7,9,16,true,hockeydb,Daniil Prokhorov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281619,,,,,,,
+Daniil Prokhorov,2024-25,MHL,St. Petersburg Dynamo Jr.,43,20,7,27,true,hockeydb,Daniil Prokhorov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281619,,,,,,,
+Kurban Limatov,2023-24,MHL,Moscow Dynamo Jr.,30,1,5,6,true,hockeydb,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,
+Kurban Limatov,2024-25,MHL,Moscow Dynamo Jr.,46,8,15,23,true,hockeydb,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,
+Kurban Limatov,2024-25,KHL,Moscow Dynamo,1,0,0,0,true,hockeydb,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,
+Roman Bausov,2023-24,MHL,St. Petersburg Dynamo Jr.,32,1,2,3,true,hockeydb,Roman Bausov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281327,,,,,,,
+Roman Bausov,2024-25,MHL,St. Petersburg Dynamo Jr.,41,2,9,11,true,hockeydb,Roman Bausov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281327,,,,,,,
+Artyom Gonchar,2023-24,MHL,Magnitogorsk Stalnye Lisy,28,1,4,5,true,hockeydb,Artyom Gonchar,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281396,,,,,,,
+Artyom Gonchar,2024-25,MHL,Magnitogorsk Stalnye Lisy,50,7,18,25,true,hockeydb,Artyom Gonchar,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281396,,,,,,,
+Ilyas Magomedsultanov,2023-24,MHL,Yaroslavl Loko Jr.,49,2,2,4,true,hockeydb,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,
+Ilyas Magomedsultanov,2023-24,MHL,Yaroslavl Loko-76,6,0,1,1,true,hockeydb,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,
+Ilyas Magomedsultanov,2024-25,MHL,Yaroslavl Loko Jr.,40,1,6,7,true,hockeydb,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,
+Ilyas Magomedsultanov,2024-25,MHL,Yaroslavl Loko-76,3,0,2,2,true,hockeydb,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,
+Roman Luttsev,2022-23,MHL,Yaroslavl Loko Jr.,32,3,7,10,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
+Roman Luttsev,2022-23,MHL,Yaroslavl Loko-76,19,4,7,11,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
+Roman Luttsev,2023-24,MHL,Yaroslavl Loko Jr.,36,9,18,27,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
+Roman Luttsev,2023-24,MHL,Yaroslavl Loko-76,7,4,5,9,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
+Roman Luttsev,2024-25,MHL,Yaroslavl Loko Jr.,50,30,33,63,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
+Roman Luttsev,2024-25,KHL,Yaroslavl Lokomotiv,3,0,0,0,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
+Roman Luttsev,2024-25,MHL,Yaroslavl Loko-76,1,0,3,3,true,hockeydb,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,
