@@ -337,6 +337,33 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     .featured-item button {{
       flex: 0 0 auto;
     }}
+    .story-role {{
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }}
+    .story-hook {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      margin-top: 3px;
+    }}
+    .demo-actions {{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }}
+    .source-link {{
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }}
+    .source-link:hover {{
+      text-decoration: underline;
+    }}
     .row-actions {{
       display: flex;
       gap: 6px;
@@ -432,7 +459,14 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div id="source-coverage" class="taglist"></div>
       </div>
       <div class="section">
-        <h3>Featured Disagreements</h3>
+        <h3>Demo Mode</h3>
+        <div class="demo-actions">
+          <button id="load-demo-stories" class="primary">Load Story Shortlist</button>
+          <button id="load-demo-compare">Compare First Three Stories</button>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Guided Stories</h3>
         <div id="featured-players" class="featured-list"></div>
       </div>
     </aside>
@@ -508,6 +542,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
                 <th>GP</th>
                 <th>PTS</th>
                 <th>Stage</th>
+                <th>Source</th>
               </tr>
             </thead>
             <tbody id="detail-history"></tbody>
@@ -524,6 +559,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     const payload = {data_json};
     const boardRows = payload.boardRows;
     const playerDetails = Object.fromEntries(payload.playerDetails.map((item) => [item.player_id, item]));
+    const demoStories = payload.manifest.demo_story_players || [];
     const shortlist = new Set();
     const compare = [];
     let selectedPlayerId = boardRows[0]?.player_id ?? null;
@@ -588,6 +624,20 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       if (value === "medium") return "Usable coverage";
       if (value === "low") return "Needs coverage";
       return value || "Unknown";
+    }}
+
+    function storyRows() {{
+      const storyIds = demoStories.map((story) => story.player_id);
+      return storyIds.map((id) => boardRows.find((row) => row.player_id === id)).filter(Boolean);
+    }}
+
+    function sourceLabel(row) {{
+      const source = row.source || "unknown";
+      const id = row.source_id ? ` · ${{row.source_id}}` : "";
+      if (row.source_url) {{
+        return `<a class="source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{source}}</a>${{id}}`;
+      }}
+      return `${{source}}${{id}}`;
     }}
 
     function renderBoard() {{
@@ -687,9 +737,21 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <td>${{row.games}}</td>
           <td>${{row.points}}</td>
           <td>${{row.regular_season ? "Regular" : "Playoff"}}</td>
+          <td>${{sourceLabel(row)}}</td>
         </tr>
       `).join("");
-      document.getElementById("detail-sources").innerHTML = detail.sources.map((source) => `<span class="tag">${{source.source}}</span>`).join("");
+      const sourceTags = detail.sources.map((source) => {{
+        if (source.source_url) {{
+          return `<a class="tag source-link" href="${{source.source_url}}" target="_blank" rel="noopener noreferrer">${{source.source}}</a>`;
+        }}
+        return `<span class="tag">${{source.source}}</span>`;
+      }});
+      const rowSources = detail.pre_draft_history
+        .filter((row) => row.source)
+        .map((row) => row.source_url
+          ? `<a class="tag source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{row.source}}</a>`
+          : `<span class="tag">${{row.source}}</span>`);
+      document.getElementById("detail-sources").innerHTML = [...sourceTags, ...rowSources].join("");
     }}
 
     function toggleShortlist(playerId) {{
@@ -785,21 +847,26 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       document.getElementById("stat-draft-year").textContent = payload.manifest.draft_year ?? "—";
       document.getElementById("stat-player-count").textContent = payload.manifest.player_count ?? 0;
       document.getElementById("stat-dataset-status").textContent = payload.manifest.dataset_status;
-      document.getElementById("stat-featured-count").textContent = shortlist.size || payload.manifest.featured_player_ids.length;
+      document.getElementById("stat-featured-count").textContent = shortlist.size || demoStories.length || payload.manifest.featured_player_ids.length;
       const status = document.getElementById("status-badge");
       status.textContent = `Dataset: ${{payload.manifest.dataset_status}} · Shortlist: ${{shortlist.size}}`;
       status.className = `badge ${{payload.manifest.dataset_status === "strong" ? "badge-strong" : payload.manifest.dataset_status === "thin" ? "badge-thin" : ""}}`;
       const sources = document.getElementById("source-coverage");
       sources.innerHTML = Object.entries(payload.manifest.source_counts).map(([key, value]) => `<span class="tag">${{key}} · ${{value}}</span>`).join("");
       const featured = document.getElementById("featured-players");
-      featured.innerHTML = payload.manifest.featured_player_ids.map((playerId) => {{
+      const storyById = Object.fromEntries(demoStories.map((story) => [story.player_id, story]));
+      const featuredIds = demoStories.length ? demoStories.map((story) => story.player_id) : payload.manifest.featured_player_ids;
+      featured.innerHTML = featuredIds.map((playerId) => {{
         const row = boardRows.find((item) => item.player_id === playerId);
         if (!row) return "";
+        const story = storyById[playerId];
         return `
           <div class="featured-item">
             <div>
+              ${{story ? `<div class="story-role">${{story.story_role}}</div>` : ""}}
               <div style="font-size:13px; font-weight:600;">${{row.name}}</div>
-              <div style="font-size:12px; color:var(--muted);">Consensus delta ${{row.consensus_delta}}</div>
+              <div style="font-size:12px; color:var(--muted);">Board ${{row.board_rank}} · Consensus ${{row.consensus_rank}} · ${{evidenceLabel(row.evidence_depth)}}</div>
+              ${{story ? `<div class="story-hook">${{story.story_hook}}</div>` : `<div class="story-hook">Consensus delta ${{row.consensus_delta}}</div>`}}
             </div>
             <button class="small featured-open" data-player-id="${{row.player_id}}">Open</button>
           </div>
@@ -814,11 +881,42 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       }});
     }}
 
+    function loadDemoStories() {{
+      const rows = storyRows();
+      if (!rows.length) {{
+        alert("No curated demo stories are present in this package.");
+        return;
+      }}
+      shortlist.clear();
+      for (const row of rows) {{
+        shortlist.add(row.player_id);
+      }}
+      selectedPlayerId = rows[0].player_id;
+      renderManifest();
+      renderBoard();
+      renderDetail();
+    }}
+
+    function loadDemoCompare() {{
+      const rows = storyRows().slice(0, 3);
+      if (!rows.length) {{
+        alert("No curated demo stories are present in this package.");
+        return;
+      }}
+      compare.splice(0, compare.length, ...rows.map((row) => row.player_id));
+      selectedPlayerId = rows[0].player_id;
+      renderCompare();
+      renderBoard();
+      renderDetail();
+    }}
+
     function bindEvents() {{
       for (const id of ["filter-position", "filter-league-family", "filter-competition", "filter-disagreement", "filter-evidence", "filter-search"]) {{
         document.getElementById(id).addEventListener("input", renderBoard);
       }}
       document.getElementById("export-shortlist").addEventListener("click", exportShortlist);
+      document.getElementById("load-demo-stories").addEventListener("click", loadDemoStories);
+      document.getElementById("load-demo-compare").addEventListener("click", loadDemoCompare);
       document.getElementById("clear-shortlist").addEventListener("click", () => {{
         shortlist.clear();
         compare.splice(0, compare.length);

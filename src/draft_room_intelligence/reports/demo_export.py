@@ -82,6 +82,60 @@ COMPARE_COLUMNS = [
 ]
 
 
+DEMO_STORY_PLAYERS = [
+    {
+        "name": "Michael Misa",
+        "story_role": "Trust anchor",
+        "story_hook": "Familiar top-of-board OHL scorer with high evidence.",
+    },
+    {
+        "name": "Cole Reschny",
+        "story_role": "Model-favored CHL forward",
+        "story_hook": "Useful model-higher case with playoff context.",
+    },
+    {
+        "name": "Alexei Medvedev",
+        "story_role": "Goalie signal",
+        "story_hook": "Goalie metrics plus multi-league history.",
+    },
+    {
+        "name": "Charlie Cerrato",
+        "story_role": "Multi-row US path",
+        "story_hook": "USHL, USNTDP, and NCAA history in one profile.",
+    },
+    {
+        "name": "Anton Frondell",
+        "story_role": "Adult-league caution",
+        "story_hook": "Consensus-higher case with adult exposure.",
+    },
+    {
+        "name": "Max Psenicka",
+        "story_role": "Consensus-higher defense",
+        "story_hook": "High-evidence defense profile where the board is cautious.",
+    },
+    {
+        "name": "Alexander Zharovsky",
+        "story_role": "Russian credibility",
+        "story_hook": "MHL production with KHL playoff exposure.",
+    },
+    {
+        "name": "Eric Nilson",
+        "story_role": "Nordic coverage",
+        "story_hook": "Swedish junior, adult, and playoff context.",
+    },
+    {
+        "name": "Roman Luttsev",
+        "story_role": "Late-round model favorite",
+        "story_hook": "Shortlist story where model evidence beats consensus.",
+    },
+    {
+        "name": "Vojtech Cihar",
+        "story_role": "Adult Czech exposure",
+        "story_hook": "Cross-league translation example with adult games.",
+    },
+]
+
+
 @dataclass(frozen=True)
 class DemoExportBundle:
     board_rows: list[dict[str, str]]
@@ -397,6 +451,7 @@ def build_manifest(prospects: list[HistoricalProspect], board_rows: list[dict[st
             "disagreement_counts": {},
             "source_counts": {},
             "featured_player_ids": [],
+            "demo_story_players": [],
         }
 
     evidence_depth_counts: dict[str, int] = {}
@@ -409,11 +464,15 @@ def build_manifest(prospects: list[HistoricalProspect], board_rows: list[dict[st
         for source in prospect.sources:
             source_counts[source.source] = source_counts.get(source.source, 0) + 1
 
+    story_players = build_demo_story_players(board_rows)
     featured = sorted(
         board_rows,
         key=lambda row: (abs(int(row["consensus_delta"])), -int(row["board_rank"])),
         reverse=True,
     )[:10]
+    featured_ids = [row["player_id"] for row in featured]
+    if story_players:
+        featured_ids = [story["player_id"] for story in story_players]
     return {
         "draft_year": prospects[0].draft_year,
         "player_count": len(prospects),
@@ -421,8 +480,31 @@ def build_manifest(prospects: list[HistoricalProspect], board_rows: list[dict[st
         "evidence_depth_counts": evidence_depth_counts,
         "disagreement_counts": disagreement_counts,
         "source_counts": source_counts,
-        "featured_player_ids": [row["player_id"] for row in featured],
+        "featured_player_ids": featured_ids,
+        "demo_story_players": story_players,
     }
+
+
+def build_demo_story_players(board_rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    rows_by_name = {row["name"].casefold(): row for row in board_rows}
+    stories: list[dict[str, str]] = []
+    for story in DEMO_STORY_PLAYERS:
+        row = rows_by_name.get(story["name"].casefold())
+        if not row:
+            continue
+        stories.append(
+            {
+                "player_id": row["player_id"],
+                "name": row["name"],
+                "story_role": story["story_role"],
+                "story_hook": story["story_hook"],
+                "board_rank": row["board_rank"],
+                "consensus_rank": row["consensus_rank"],
+                "evidence_depth": row["evidence_depth"],
+                "disagreement_bucket": row["disagreement_bucket"],
+            }
+        )
+    return stories
 
 
 def classify_dataset_status(board_rows: list[dict[str, str]]) -> str:

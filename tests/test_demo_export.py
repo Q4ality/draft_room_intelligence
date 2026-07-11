@@ -65,6 +65,7 @@ def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):
     assert len(players) == 2
     assert "why_high" in players[0]
     assert manifest["player_count"] == 2
+    assert "demo_story_players" in manifest
 
 
 def test_run_build_demo_site_writes_html(capsys, tmp_path):
@@ -78,3 +79,7 @@ def test_run_build_demo_site_writes_html(capsys, tmp_path):
     html = html_path.read_text(encoding="utf-8")
     assert "Draft Room Intelligence Demo" in html
     assert "Single-Class Demo" in html
+    assert "Load Story Shortlist" in html
+    assert "Guided Stories" in html
+    assert "Source Trace" in html
+    assert "source-link" in html
