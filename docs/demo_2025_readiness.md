@@ -119,6 +119,8 @@ After that, rerun the demo export and use evidence-depth movement as the success
 
 Detailed implementation stories are tracked in [data_enrichment_stories.md](data_enrichment_stories.md). The current presentation flow is tracked in [demo_2025_presenter_script.md](demo_2025_presenter_script.md).
 
+The latest business-demo review is tracked in [demo_2025_business_review.md](demo_2025_business_review.md).
+
 The current prioritized data-gap report is tracked in [demo_2025_gap_report.md](demo_2025_gap_report.md). It is rebuilt by `build-demo-readiness`, or independently with:
 
 ```bash
