@@ -8,6 +8,8 @@ Backlog stories for making the 2025 demo data business-relevant and for moving t
 - Implemented: recent-class validation warning when outcome-evaluation commands are run against datasets with all-zero NHL outcomes.
 - Implemented: generic `enrich-open-stats-csv` bridge for cleaned open-source NCAA, USHL, Swedish, Finnish, Russian, or fallback web stat tables.
 - Implemented: first curated priority source pack at `data/reference/demo_2025_priority_open_stats.csv`, covering USHL/USNTDP history for James Hagens, Logan Hensler, Sascha Boumedienne, Cullen Potter, and William Moore.
+- Implemented: curated Russian, Nordic, and cleanup open-stat source packs for the 2025 demo, with the current strong package reaching 457 stat lines and 50 high-evidence players.
+- Implemented: first presenter-ready demo storyline in `docs/demo_2025_presenter_script.md`.
 - Still needed: league-specific collectors/parsers that produce the cleaned open-stats CSVs automatically from each source family.
 
 ## Story 1: NCAA And Richer USHL Histories

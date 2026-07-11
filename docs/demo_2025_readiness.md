@@ -4,18 +4,18 @@
 
 Open the current demo shell from:
 
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/index.html`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/index.html`
 
 Current normalized dataset:
 
-- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/final`
+- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final`
 
 Current export files:
 
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/board.csv`
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/compare.csv`
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/players.json`
-- `outputs/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs/manifest.json`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/board.csv`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/compare.csv`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/players.json`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/manifest.json`
 
 ## What We Have
 
@@ -23,18 +23,21 @@ Current export files:
 - Board, detail, compare, shortlist, and shortlist CSV export UX.
 - Public consensus slot proxy and model-vs-consensus disagreement buckets.
 - League-adjusted production, role group, age, size, handedness, adult exposure, playoff exposure, and evidence-depth fields in the demo export.
-- Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, and USHL official data.
+- Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, USHL official data, and curated open-stat packs for Russian, Nordic, NCAA/USHL, Czech, and selected cleanup targets.
 - Transparent evidence flags so weakly covered players are visible instead of hidden.
 
 Latest manifest snapshot:
 
-- `dataset_status`: `usable`
-- evidence depth: 116 low, 86 medium, 22 high
-- disagreement buckets: 126 aligned, 48 consensus higher, 50 model higher
-- source coverage: 224 draft-slot proxies, 84 CHL players, 37 USHL players, 47 Wikipedia bio matches, 33 Wikipedia career-stat matches
+- `dataset_status`: `strong`
+- evidence depth: 77 low, 97 medium, 50 high
+- disagreement buckets: 95 aligned, 69 consensus higher, 60 model higher
+- source coverage: 224 draft-slot proxies, 84 CHL players, 37 USHL players, 47 Wikipedia bio matches, 33 Wikipedia career-stat matches, and 41 players with open-stats source rows
 
 Recent enrichment improvement:
 
+- Russian, Nordic, and cleanup open-stat packs now lift the demo from 384 to 457 stat lines, with open-stats rows moving from 17 to 114.
+- High-evidence players moved from 27 in the first open-stats baseline to 50 in the current cleanup package.
+- Examples: Alexei Medvedev, Max Psenicka, Shane Vansaghi, Charlie Cerrato, Matthew Gard, Nathan Behm, Vojtech Cihar, Hayden Paupanekis, Tommy Lafreniere, Eric Nilson, Milton Gastrin, Roman Luttsev, and Alexander Zharovsky now carry richer histories.
 - CHL true-playoff enrichment now adds regular and playoff rows separately instead of using playoff-team regular-season pages.
 - CHL goalie exposure is now loaded from official CHL goalie tables.
 - Examples: Ben Kindel, Cole Reschny, Justin Carbonneau, Joshua Ravensbergen, Jack Ivankovic, and Lucas Beckman now move from low evidence to medium evidence.
@@ -77,8 +80,8 @@ The main missing pieces are data coverage, not the demo shell.
    - The player-detail history still needs cleaner row-level source labels instead of broad mixed-source display.
 
 4. Hand-checked showcase set
-   - Pick 8-12 players for the actual presentation.
-   - Manually verify positions, league rows, ranking explanation, and risk flags for those players.
+   - A first presenter set is now documented in [demo_2025_presenter_script.md](demo_2025_presenter_script.md).
+   - Still verify the final UI rendering and presenter notes before an external meeting.
 
 5. Demo framing polish
    - Replace scary interpretation of `thin` with clear "coverage in progress" language in the presenter talk track.
@@ -96,4 +99,13 @@ Before adding more model complexity, make the demo stronger by improving source 
 
 After that, rerun the demo export and use evidence-depth movement as the success metric.
 
-Detailed implementation stories are tracked in [data_enrichment_stories.md](data_enrichment_stories.md).
+Detailed implementation stories are tracked in [data_enrichment_stories.md](data_enrichment_stories.md). The current presentation flow is tracked in [demo_2025_presenter_script.md](demo_2025_presenter_script.md).
+
+The current prioritized data-gap report is tracked in [demo_2025_gap_report.md](demo_2025_gap_report.md). Rebuild it with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
+  outputs/demo_2025_openstats_russian_nordic_cleanup \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_gaps \
+  --top-n 35
+```
