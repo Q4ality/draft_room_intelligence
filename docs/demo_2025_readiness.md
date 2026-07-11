@@ -38,7 +38,7 @@ make demo-2025-readiness
 ## What We Have
 
 - Full 2025 drafted-player board: 224 players.
-- Board, detail, compare, shortlist, and shortlist CSV export UX.
+- Board, detail, compare, shortlist, shortlist CSV export, and one-page shortlist summary HTML export UX.
 - Public consensus slot proxy and model-vs-consensus disagreement buckets.
 - League-adjusted production, role group, age, size, handedness, adult exposure, playoff exposure, and evidence-depth fields in the demo export.
 - Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, USHL official data, and curated open-stat packs for Russian, Nordic, NCAA/USHL, Czech, and selected cleanup targets.

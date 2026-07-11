@@ -480,6 +480,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div class="toolbar-right">
           <div id="status-badge" class="badge"></div>
           <button id="export-shortlist">Export Shortlist CSV</button>
+          <button id="export-summary">Export Summary HTML</button>
           <button id="clear-shortlist">Clear Shortlist</button>
         </div>
       </div>
@@ -638,6 +639,34 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         return `<a class="source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{source}}</a>${{id}}`;
       }}
       return `${{source}}${{id}}`;
+    }}
+
+    function escapeHtml(value) {{
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }}
+
+    function selectedExportRows() {{
+      const selected = boardRows.filter((row) => shortlist.has(row.player_id));
+      return selected.length ? selected : boardRows.filter((row) => compare.includes(row.player_id));
+    }}
+
+    function storyForPlayer(playerId) {{
+      return demoStories.find((story) => story.player_id === playerId);
+    }}
+
+    function downloadText(filename, content, mimeType) {{
+      const blob = new Blob([content], {{ type: mimeType }});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(url);
     }}
 
     function renderBoard() {{
@@ -823,8 +852,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     }}
 
     function exportShortlist() {{
-      const selected = boardRows.filter((row) => shortlist.has(row.player_id));
-      const rows = selected.length ? selected : boardRows.filter((row) => compare.includes(row.player_id));
+      const rows = selectedExportRows();
       if (!rows.length) {{
         alert("Add players to the shortlist or compare set first.");
         return;
@@ -834,13 +862,107 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         columns.join(","),
         ...rows.map((row) => columns.map((column) => `"${{String(row[column] ?? "").replaceAll('"', '""')}}"`).join(",")),
       ].join("\\n");
-      const blob = new Blob([csv], {{ type: "text/csv;charset=utf-8" }});
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `draft-room-shortlist-${{payload.manifest.draft_year || "demo"}}.csv`;
-      link.click();
-      URL.revokeObjectURL(url);
+      downloadText(`draft-room-shortlist-${{payload.manifest.draft_year || "demo"}}.csv`, csv, "text/csv;charset=utf-8");
+    }}
+
+    function exportSummary() {{
+      const rows = selectedExportRows();
+      if (!rows.length) {{
+        alert("Add players to the shortlist or compare set first.");
+        return;
+      }}
+      const selectedLabel = shortlist.size ? "Shortlist" : "Compare Set";
+      const date = new Date().toLocaleDateString(undefined, {{ year: "numeric", month: "short", day: "numeric" }});
+      const highEvidenceCount = rows.filter((row) => row.evidence_depth === "high").length;
+      const modelHigherCount = rows.filter((row) => row.disagreement_bucket === "model_higher").length;
+      const consensusHigherCount = rows.filter((row) => row.disagreement_bucket === "consensus_higher").length;
+      const playerCards = rows.map((row) => {{
+        const detail = playerDetails[row.player_id];
+        const story = storyForPlayer(row.player_id);
+        const why = detail?.why_high || [];
+        const risks = detail?.risk_flags || [];
+        const sources = new Set((detail?.pre_draft_history || []).map((item) => item.source).filter(Boolean));
+        const sourceText = [...sources].slice(0, 4).join(", ") || "source coverage pending";
+        return `
+          <section class="player">
+            <div class="player-head">
+              <div>
+                <h2>${{escapeHtml(row.name)}}</h2>
+                <p>${{escapeHtml(row.position)}} · ${{escapeHtml(row.primary_league)}} · ${{escapeHtml(row.primary_league_family)}}</p>
+              </div>
+              <div class="rank">Board ${{escapeHtml(row.board_rank)}}<span>Consensus ${{escapeHtml(row.consensus_rank)}}</span></div>
+            </div>
+            ${{story ? `<p class="story"><strong>${{escapeHtml(story.story_role)}}:</strong> ${{escapeHtml(story.story_hook)}}</p>` : ""}}
+            <div class="metrics">
+              <div><span>Evidence</span><strong>${{escapeHtml(evidenceLabel(row.evidence_depth))}}</strong></div>
+              <div><span>Adjusted</span><strong>${{Number(row.adjusted_production_score).toFixed(3)}}</strong></div>
+              <div><span>Adult</span><strong>${{Math.round(Number(row.adult_game_share) * 100)}}%</strong></div>
+              <div><span>Playoff</span><strong>${{Math.round(Number(row.playoff_game_share) * 100)}}%</strong></div>
+            </div>
+            <div class="columns">
+              <div>
+                <h3>Why Review</h3>
+                <ul>${{why.map((item) => `<li>${{escapeHtml(item)}}</li>`).join("")}}</ul>
+              </div>
+              <div>
+                <h3>Review Flags</h3>
+                <ul>${{risks.map((item) => `<li>${{escapeHtml(item)}}</li>`).join("")}}</ul>
+              </div>
+            </div>
+            <p class="sources">Sources: ${{escapeHtml(sourceText)}}</p>
+          </section>
+        `;
+      }}).join("");
+      const html = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Draft Room Summary ${{escapeHtml(payload.manifest.draft_year || "demo")}}</title>
+  <style>
+    body {{ margin: 0; padding: 32px; color: #0f172a; font-family: Inter, Arial, sans-serif; background: #f8fafc; }}
+    .page {{ max-width: 980px; margin: 0 auto; }}
+    header {{ border-bottom: 2px solid #0f172a; padding-bottom: 18px; margin-bottom: 20px; }}
+    .eyebrow {{ color: #0f766e; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }}
+    h1 {{ margin: 6px 0 8px; font-size: 28px; }}
+    p {{ margin: 0; color: #475569; line-height: 1.45; }}
+    .summary {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 18px 0 24px; }}
+    .summary div, .player {{ background: #fff; border: 1px solid #dbe2ea; border-radius: 8px; }}
+    .summary div {{ padding: 12px; }}
+    .summary span, .metrics span {{ display: block; color: #64748b; font-size: 12px; margin-bottom: 4px; }}
+    .summary strong, .metrics strong {{ font-size: 18px; }}
+    .player {{ padding: 18px; margin-bottom: 14px; break-inside: avoid; }}
+    .player-head {{ display: flex; justify-content: space-between; gap: 18px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 12px; }}
+    h2 {{ margin: 0 0 4px; font-size: 20px; }}
+    h3 {{ margin: 0 0 8px; font-size: 13px; text-transform: uppercase; color: #475569; }}
+    .rank {{ text-align: right; font-weight: 800; font-size: 18px; }}
+    .rank span {{ display: block; color: #64748b; font-size: 12px; font-weight: 600; margin-top: 4px; }}
+    .story {{ background: #ccfbf1; color: #0f766e; padding: 10px 12px; border-radius: 8px; margin: 10px 0 12px; }}
+    .metrics {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 12px 0; }}
+    .metrics div {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; }}
+    .columns {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }}
+    ul {{ margin: 0; padding-left: 18px; color: #0f172a; line-height: 1.45; }}
+    .sources {{ margin-top: 12px; font-size: 12px; }}
+    @media print {{ body {{ background: #fff; padding: 0; }} .player {{ page-break-inside: avoid; }} }}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">Draft Room Intelligence</div>
+      <h1>${{escapeHtml(payload.manifest.draft_year || "Demo")}} ${{escapeHtml(selectedLabel)}} Summary</h1>
+      <p>Generated ${{escapeHtml(date)}} from a ${{escapeHtml(payload.manifest.dataset_status)}} demo package. This summary is a meeting artifact for review, not a final scouting grade.</p>
+    </header>
+    <section class="summary">
+      <div><span>Players</span><strong>${{rows.length}}</strong></div>
+      <div><span>High Evidence</span><strong>${{highEvidenceCount}}</strong></div>
+      <div><span>Model Higher</span><strong>${{modelHigherCount}}</strong></div>
+      <div><span>Consensus Higher</span><strong>${{consensusHigherCount}}</strong></div>
+    </section>
+    ${{playerCards}}
+  </main>
+</body>
+</html>`;
+      downloadText(`draft-room-summary-${{payload.manifest.draft_year || "demo"}}.html`, html, "text/html;charset=utf-8");
     }}
 
     function renderManifest() {{
@@ -915,6 +1037,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         document.getElementById(id).addEventListener("input", renderBoard);
       }}
       document.getElementById("export-shortlist").addEventListener("click", exportShortlist);
+      document.getElementById("export-summary").addEventListener("click", exportSummary);
       document.getElementById("load-demo-stories").addEventListener("click", loadDemoStories);
       document.getElementById("load-demo-compare").addEventListener("click", loadDemoCompare);
       document.getElementById("clear-shortlist").addEventListener("click", () => {{
