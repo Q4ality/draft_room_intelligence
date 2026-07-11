@@ -360,6 +360,28 @@ def main() -> None:
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
     demo_site_parser.add_argument("output_dir", type=Path, help="Directory for demo site artifacts.")
+    demo_readiness_parser = subparsers.add_parser(
+        "build-demo-readiness",
+        help="Build the demo site plus data-gap and modeling sanity reports.",
+    )
+    demo_readiness_parser.add_argument(
+        "data_path",
+        type=Path,
+        help="Path to a wide historical CSV or normalized dataset directory.",
+    )
+    demo_readiness_parser.add_argument("output_dir", type=Path, help="Directory for demo and report artifacts.")
+    demo_readiness_parser.add_argument(
+        "--gap-top-n",
+        type=int,
+        default=35,
+        help="Number of priority low-evidence players to include in the data-gap report.",
+    )
+    demo_readiness_parser.add_argument(
+        "--movement-top-n",
+        type=int,
+        default=40,
+        help="Number of largest board-vs-consensus movements to include in the modeling report.",
+    )
     demo_gaps_parser = subparsers.add_parser(
         "report-demo-gaps",
         help="Prioritize low-evidence players from a generated demo package.",
@@ -562,6 +584,13 @@ def main() -> None:
         run_export_demo_package(args.data_path, args.output_dir)
     elif args.command == "build-demo-site":
         run_build_demo_site(args.data_path, args.output_dir)
+    elif args.command == "build-demo-readiness":
+        run_build_demo_readiness(
+            args.data_path,
+            args.output_dir,
+            gap_top_n=args.gap_top_n,
+            movement_top_n=args.movement_top_n,
+        )
     elif args.command == "report-demo-gaps":
         run_report_demo_gaps(args.demo_output_dir, args.output_dir, top_n=args.top_n)
     elif args.command == "report-demo-modeling":
@@ -1038,6 +1067,38 @@ def run_build_demo_site(data_path: Path, output_dir: Path) -> None:
     print(f"Manifest JSON: {outputs['manifest']}")
     print(f"HTML site: {site_path}")
     print(f"Dataset status: {bundle.manifest['dataset_status']}")
+
+
+def run_build_demo_readiness(
+    data_path: Path,
+    output_dir: Path,
+    *,
+    gap_top_n: int,
+    movement_top_n: int,
+) -> None:
+    prospects = load_historical_prospects(data_path)
+    bundle = build_demo_export_bundle(prospects)
+    outputs = export_demo_package(output_dir, bundle)
+    site_path = write_demo_site(output_dir, bundle)
+    reports_dir = output_dir / "reports"
+    gap_report_dir = reports_dir / "data_gaps"
+    modeling_report_dir = reports_dir / "modeling_sanity"
+    gap_report = write_demo_gap_report(output_dir, gap_report_dir, top_n=gap_top_n)
+    modeling_report = write_demo_modeling_report(output_dir, modeling_report_dir, top_n=movement_top_n)
+
+    print(f"# Demo readiness build: {data_path}")
+    print(f"Prospects loaded: {len(prospects)}")
+    print(f"Output directory: {output_dir}")
+    print(f"Board CSV: {outputs['board']}")
+    print(f"Players JSON: {outputs['players']}")
+    print(f"Manifest JSON: {outputs['manifest']}")
+    print(f"HTML site: {site_path}")
+    print(f"Dataset status: {bundle.manifest['dataset_status']}")
+    print(f"Low-evidence players: {len(gap_report.low_evidence_rows)}")
+    print(f"Data-gap summary: {gap_report_dir / 'summary.md'}")
+    print(f"Average board-vs-consensus movement: {modeling_report.avg_abs_delta:.1f}")
+    print(f"Players moved 10+ slots: {modeling_report.moved_10_plus}")
+    print(f"Modeling summary: {modeling_report_dir / 'summary.md'}")
 
 
 def run_report_demo_gaps(demo_output_dir: Path, output_dir: Path, *, top_n: int) -> None:

@@ -15,7 +15,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from draft_room_intelligence.cli import run_audit_demo_class
-from draft_room_intelligence.cli import run_build_demo_site
+from draft_room_intelligence.cli import run_build_demo_readiness
 from draft_room_intelligence.cli import run_etl_draft_year
 from draft_room_intelligence.cli import run_scaffold_demo_class
 from draft_room_intelligence.data.demo_data import demo_class_paths
@@ -112,7 +112,18 @@ def main() -> None:
         )
     elif args.command == "build-demo":
         paths = demo_class_paths(REPO_ROOT, args.draft_year)
-        run_build_demo_site(paths.processed_demo_dir / "final", paths.outputs_dir)
+        dataset_dir = paths.processed_demo_dir / "final"
+        output_dir = paths.outputs_dir
+        if not dataset_dir.exists() and paths.latest_processed_demo_dir is not None:
+            dataset_dir = paths.latest_processed_demo_dir / "final"
+            if paths.latest_outputs_dir is not None:
+                output_dir = paths.latest_outputs_dir
+        run_build_demo_readiness(
+            dataset_dir,
+            output_dir,
+            gap_top_n=35,
+            movement_top_n=40,
+        )
 
 
 def stage_file(source: Path, destination: Path) -> None:

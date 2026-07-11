@@ -16,6 +16,24 @@ Current export files:
 - `outputs/demo_2025_openstats_russian_nordic_cleanup/compare.csv`
 - `outputs/demo_2025_openstats_russian_nordic_cleanup/players.json`
 - `outputs/demo_2025_openstats_russian_nordic_cleanup/manifest.json`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/reports/data_gaps/summary.md`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup/reports/modeling_sanity/summary.md`
+
+Rebuild the full local package with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
+  data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final \
+  outputs/demo_2025_openstats_russian_nordic_cleanup \
+  --gap-top-n 35 \
+  --movement-top-n 40
+```
+
+Equivalent Make target:
+
+```bash
+make demo-2025-readiness
+```
 
 ## What We Have
 
@@ -101,7 +119,7 @@ After that, rerun the demo export and use evidence-depth movement as the success
 
 Detailed implementation stories are tracked in [data_enrichment_stories.md](data_enrichment_stories.md). The current presentation flow is tracked in [demo_2025_presenter_script.md](demo_2025_presenter_script.md).
 
-The current prioritized data-gap report is tracked in [demo_2025_gap_report.md](demo_2025_gap_report.md). Rebuild it with:
+The current prioritized data-gap report is tracked in [demo_2025_gap_report.md](demo_2025_gap_report.md). It is rebuilt by `build-demo-readiness`, or independently with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
@@ -110,7 +128,7 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
   --top-n 35
 ```
 
-The current board-vs-consensus sanity report is tracked in [demo_2025_modeling_sanity.md](demo_2025_modeling_sanity.md). Rebuild it with:
+The current board-vs-consensus sanity report is tracked in [demo_2025_modeling_sanity.md](demo_2025_modeling_sanity.md). It is rebuilt by `build-demo-readiness`, or independently with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-modeling \

@@ -1,11 +1,11 @@
 ---
 name: prepare-draft-demo-data
-description: Use this skill when preparing a single draft-year demo dataset for draft-room-intelligence, especially when you need to scaffold expected paths, audit missing raw inputs, stage HockeyDB HTML or Elite Prospects CSV files into the repo, run draft-year ETL, or build the demo site for a showcase class such as 2025.
+description: Use this skill when preparing a single draft-year demo dataset for draft-room-intelligence, especially when you need to scaffold expected paths, audit missing raw inputs, stage HockeyDB HTML or Elite Prospects CSV files into the repo, run draft-year ETL, or build the demo site and readiness reports for a showcase class such as 2025.
 ---
 
 # Prepare Draft Demo Data
 
-Use this skill to prepare a demo-ready draft class inside this repository. It turns a loose collection problem into a repeatable workflow: scaffold the year, audit what is missing, stage files into the right paths, run ETL, and build the demo output.
+Use this skill to prepare a demo-ready draft class inside this repository. It turns a loose collection problem into a repeatable workflow: scaffold the year, audit what is missing, stage files into the right paths, run ETL, and build the demo output with data-gap and modeling sanity reports.
 
 ## Quick Start
 
@@ -31,7 +31,7 @@ Use this skill when the user asks to:
 
 - prepare data for a recent draft-class demo
 - load or validate HockeyDB / Elite Prospects source files
-- run the single-class ETL and demo export flow
+- run the single-class ETL, demo export, and readiness-report flow
 - reduce manual file-placement work around raw inputs
 
 Do not use this skill for model tuning, board evaluation, or frontend polish after the data package is already built.
@@ -93,7 +93,7 @@ If the browser downloads files into a standard downloads folder, try:
 python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py stage-downloads --draft-year 2025
 ```
 
-### 4. Run ETL And Build The Demo
+### 4. Run ETL And Build The Demo Readiness Package
 
 Once the needed raw files are present:
 
@@ -102,13 +102,20 @@ python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py run-etl --d
 python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py build-demo --draft-year 2025
 ```
 
+`build-demo` now calls the project `build-demo-readiness` command. It writes:
+
+- `index.html`
+- `board.csv`, `compare.csv`, `players.json`, `manifest.json`
+- `reports/data_gaps/summary.md`
+- `reports/modeling_sanity/summary.md`
+
 ### 5. Report Readiness Clearly
 
 After ETL/demo build:
 
 - summarize what was collected
 - call out any missing player-page or EP coverage
-- point to the built output directory
+- point to the built output directory and report summaries
 - mention whether the class is merely ETL-ready or actually demo-strong
 
 ## Helper Script
@@ -121,7 +128,7 @@ Use `scripts/demo_data_workflow.py` for local deterministic actions:
 - stage raw files into expected repo paths
 - try auto-staging likely files from a downloads folder
 - run ETL
-- build demo site
+- build demo site and readiness reports
 
 Prefer the script over retyping long commands when it covers the task.
 
