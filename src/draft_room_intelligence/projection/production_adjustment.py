@@ -36,11 +36,18 @@ class AdjustedProduction:
     points_per_game: float
     league_weight: float
     adult_league: bool
+    adult_games: int
+    playoff_games: int
     adjusted_ppg: float
     role_rank: int
     role_count: int
     role_percentile: float
     is_top_5_role: bool
+    adult_sample_tier: str
+    adult_evidence_weight: float
+    playoff_evidence_weight: float
+    meaningful_adult_sample: bool
+    meaningful_playoff_sample: bool
     adult_league_bonus: float
     playoff_bonus: float
     role_bonus: float
@@ -103,11 +110,18 @@ def build_adjusted_production_features(
                 points_per_game=feature.points_per_game,
                 league_weight=feature.league_weight,
                 adult_league=feature.adult_league,
+                adult_games=feature.adult_games,
+                playoff_games=feature.playoff_games,
                 adjusted_ppg=round(feature.adjusted_ppg, 3),
                 role_rank=index,
                 role_count=total,
                 role_percentile=round(percentile, 3),
                 is_top_5_role=is_top_5,
+                adult_sample_tier=feature.adult_sample_tier,
+                adult_evidence_weight=feature.adult_evidence_weight,
+                playoff_evidence_weight=feature.playoff_evidence_weight,
+                meaningful_adult_sample=feature.meaningful_adult_sample,
+                meaningful_playoff_sample=feature.meaningful_playoff_sample,
                 adult_league_bonus=feature.adult_league_bonus,
                 playoff_bonus=feature.playoff_bonus,
                 role_bonus=role_bonus,
@@ -137,8 +151,11 @@ def build_preliminary_feature(
             playoff_games += stat_line.games
 
     adjusted_ppg = weighted_ppg / total_games if total_games else 0.0
-    adult_bonus = 0.06 if adult_games >= 15 else 0.03 if adult_games >= 5 else 0.0
-    playoff_bonus = min(playoff_games, 20) * 0.004
+    adult_tier = adult_sample_tier(adult_games)
+    adult_weight = adult_evidence_weight(adult_games)
+    playoff_weight = playoff_evidence_weight(playoff_games)
+    adult_bonus = adult_weight * 0.07
+    playoff_bonus = playoff_weight * 0.08
 
     return AdjustedProduction(
         player_id=prospect.player_id,
@@ -166,11 +183,18 @@ def build_preliminary_feature(
         if total_games
         else 0.0,
         adult_league=adult_games > 0,
+        adult_games=adult_games,
+        playoff_games=playoff_games,
         adjusted_ppg=adjusted_ppg,
         role_rank=0,
         role_count=0,
         role_percentile=0.0,
         is_top_5_role=False,
+        adult_sample_tier=adult_tier,
+        adult_evidence_weight=adult_weight,
+        playoff_evidence_weight=playoff_weight,
+        meaningful_adult_sample=adult_weight >= 0.50,
+        meaningful_playoff_sample=playoff_weight >= 0.50,
         adult_league_bonus=adult_bonus,
         playoff_bonus=playoff_bonus,
         role_bonus=0.0,
@@ -184,6 +208,42 @@ def role_group(position: str) -> str:
     if position == "D" or position.endswith("HD"):
         return "defense"
     return "forward"
+
+
+def adult_sample_tier(games: int) -> str:
+    if games <= 0:
+        return "none"
+    if games < 5:
+        return "exposure"
+    if games < 10:
+        return "small"
+    if games < 16:
+        return "meaningful"
+    return "strong"
+
+
+def adult_evidence_weight(games: int) -> float:
+    if games <= 0:
+        return 0.0
+    if games < 5:
+        return 0.12
+    if games < 10:
+        return 0.32
+    if games < 16:
+        return 0.62
+    return min(1.0, 0.78 + min(games - 16, 24) / 110)
+
+
+def playoff_evidence_weight(games: int) -> float:
+    if games <= 0:
+        return 0.0
+    if games < 3:
+        return 0.18
+    if games < 6:
+        return 0.42
+    if games < 10:
+        return 0.68
+    return min(1.0, 0.82 + min(games - 10, 15) / 85)
 
 
 def fallback_context(league: str) -> LeagueContext:

@@ -50,8 +50,13 @@ def test_build_feature_rows_includes_pre_draft_context_shares():
     assert row["pre_draft_regular_season_games"] == "30"
     assert row["pre_draft_playoff_games"] == "4"
     assert row["college_game_share"] == "0.705882"
+    assert row["adult_games"] == "10"
+    assert row["adult_sample_tier"] == "meaningful"
+    assert row["adult_evidence_weight"] == "0.620000"
+    assert row["meaningful_adult_sample"] == "1"
     assert row["adult_game_share"] == "0.294118"
     assert row["pro_game_share"] == "0.294118"
+    assert row["meaningful_playoff_sample"] == "0"
 
 
 def test_build_feature_rows_uses_league_exposure_when_games_are_missing():
@@ -83,6 +88,9 @@ def test_build_feature_rows_uses_league_exposure_when_games_are_missing():
     assert row["primary_league_family"] == "Europe Pro"
     assert row["primary_competition_level"] == "elite"
     assert row["adult_game_share"] == "1.000000"
+    assert row["adult_sample_tier"] == "none"
+    assert row["adult_evidence_weight"] == "0.000000"
+    assert row["meaningful_adult_sample"] == "0"
     assert row["pro_game_share"] == "1.000000"
     assert row["average_league_weight"] == "1.200000"
     assert row["adjusted_production_score"] == "0.000000"

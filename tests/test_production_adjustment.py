@@ -78,8 +78,45 @@ def test_adult_league_weight_and_bonus_raise_adjusted_score():
     features = build_adjusted_production_features(prospects, league_contexts=CONTEXTS)
 
     assert features["adult"].adult_league
-    assert features["adult"].adult_league_bonus == 0.06
+    assert features["adult"].adult_sample_tier == "strong"
+    assert features["adult"].adult_evidence_weight > 0.80
+    assert features["adult"].meaningful_adult_sample
     assert features["adult"].adjusted_score > features["junior"].adjusted_score
+
+
+def test_tiny_adult_sample_is_exposure_not_meaningful_bonus():
+    adult_line = PreDraftStatLine(
+        league="SHL",
+        team="Example",
+        season="2018-19",
+        games=3,
+        goals=0,
+        assists=1,
+    )
+    junior_line = PreDraftStatLine(
+        league="WHL",
+        team="Example",
+        season="2018-19",
+        games=40,
+        goals=12,
+        assists=18,
+    )
+    thin = prospect(
+        "thin-adult",
+        "C",
+        "WHL",
+        40,
+        12,
+        18,
+        pre_draft_stat_lines=(junior_line, adult_line),
+    )
+
+    features = build_adjusted_production_features([thin], league_contexts=CONTEXTS)
+
+    assert features["thin-adult"].adult_sample_tier == "exposure"
+    assert features["thin-adult"].adult_evidence_weight == 0.12
+    assert not features["thin-adult"].meaningful_adult_sample
+    assert 0.0 < features["thin-adult"].adult_league_bonus < 0.02
 
 
 def test_playoff_lines_and_aliases_raise_adjusted_score():
@@ -114,6 +151,7 @@ def test_playoff_lines_and_aliases_raise_adjusted_score():
     features = build_adjusted_production_features([comparison, boosted], league_contexts=CONTEXTS)
 
     assert features["boosted"].playoff_bonus > 0.0
+    assert features["boosted"].meaningful_playoff_sample
     assert features["boosted"].league == "Rus-MHL"
     assert features["boosted"].adjusted_score > features["regular"].adjusted_score
 

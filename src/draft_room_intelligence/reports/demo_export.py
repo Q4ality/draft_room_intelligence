@@ -42,6 +42,12 @@ BOARD_COLUMNS = [
     "college_game_share",
     "pro_game_share",
     "playoff_game_share",
+    "adult_games",
+    "adult_sample_tier",
+    "adult_evidence_weight",
+    "playoff_evidence_weight",
+    "meaningful_adult_sample",
+    "meaningful_playoff_sample",
     "average_league_weight",
     "pre_draft_row_count",
     "pre_draft_league_count",
@@ -207,6 +213,12 @@ def build_demo_export_bundle(prospects: list[HistoricalProspect]) -> DemoExportB
             "college_game_share": feature["college_game_share"],
             "pro_game_share": feature["pro_game_share"],
             "playoff_game_share": feature["playoff_game_share"],
+            "adult_games": feature["adult_games"],
+            "adult_sample_tier": feature["adult_sample_tier"],
+            "adult_evidence_weight": feature["adult_evidence_weight"],
+            "playoff_evidence_weight": feature["playoff_evidence_weight"],
+            "meaningful_adult_sample": feature["meaningful_adult_sample"],
+            "meaningful_playoff_sample": feature["meaningful_playoff_sample"],
             "average_league_weight": feature["average_league_weight"],
             "pre_draft_row_count": feature["pre_draft_row_count"],
             "pre_draft_league_count": feature["pre_draft_league_count"],
@@ -355,8 +367,12 @@ def build_badges(feature: dict[str, str], disagreement_bucket: str) -> list[str]
         badges.append("Model Higher")
     elif disagreement_bucket == "consensus_higher":
         badges.append("Consensus Higher")
-    if float(feature["adult_game_share"]) > 0.15:
-        badges.append("Adult-League")
+    if feature.get("meaningful_adult_sample") == "1":
+        badges.append("Adult Sample")
+    elif float(feature["adult_game_share"]) > 0:
+        badges.append("Adult Exposure")
+    if feature.get("meaningful_playoff_sample") == "1":
+        badges.append("Playoff Sample")
     if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) > 0:
         badges.append("Goalie Metrics")
     if int(feature["pre_draft_league_count"]) > 1:
@@ -372,8 +388,12 @@ def build_short_reason(feature: dict[str, str], disagreement_bucket: str) -> str
         reasons.append("Production stands out within role")
     if float(feature["average_league_weight"]) >= 1.0:
         reasons.append("Stronger competition context")
-    if float(feature["adult_game_share"]) > 0.15:
-        reasons.append("Adult-league minutes in profile")
+    if feature.get("meaningful_adult_sample") == "1":
+        reasons.append("Meaningful adult-league sample")
+    elif float(feature["adult_game_share"]) > 0:
+        reasons.append("Adult-league exposure, small sample")
+    if feature.get("meaningful_playoff_sample") == "1":
+        reasons.append("Playoff sample adds pressure context")
     if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) > 0:
         reasons.append("Goalie stat signal available")
     if int(feature["pre_draft_league_count"]) > 1:
@@ -391,8 +411,12 @@ def build_risk_note(feature: dict[str, str], consensus_delta: int) -> str:
         risks.append("Needs more pre-draft rows")
     if float(feature["adult_game_share"]) == 0.0:
         risks.append("No adult-league sample")
+    elif feature.get("meaningful_adult_sample") != "1":
+        risks.append("Adult sample is thin")
     if float(feature["playoff_game_share"]) == 0.0:
         risks.append("No playoff row captured")
+    elif feature.get("meaningful_playoff_sample") != "1":
+        risks.append("Playoff sample is thin")
     if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) == 0.0:
         risks.append("Goalie metrics not yet captured")
     if abs(consensus_delta) >= 10:
@@ -406,8 +430,12 @@ def build_why_high(board_row: dict[str, str]) -> list[str]:
         points.append("Production ranks well against comparable players in the same role.")
     if float(board_row["average_league_weight"]) >= 1.0:
         points.append("Primary league context is stronger than the average draft-year sample.")
-    if float(board_row["adult_game_share"]) > 0.15:
-        points.append("Adult-league games add useful context beyond junior scoring.")
+    if board_row.get("meaningful_adult_sample") == "1":
+        points.append("Adult-league sample is large enough to carry translation value.")
+    elif float(board_row["adult_game_share"]) > 0:
+        points.append("Adult-league exposure is present, but the sample remains small.")
+    if board_row.get("meaningful_playoff_sample") == "1":
+        points.append("Playoff games add pressure-sample context.")
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) > 0:
         points.append("Goalie evaluation uses save percentage, goals-against context, and workload fields.")
     if int(board_row["pre_draft_league_count"]) > 1:
@@ -423,8 +451,12 @@ def build_risk_flags(board_row: dict[str, str]) -> list[str]:
         flags.append("Only one pre-draft stat row is currently captured; treat the grade as review-ready, not final.")
     if float(board_row["adult_game_share"]) == 0.0:
         flags.append("No adult-league sample is present, so junior translation remains a question.")
+    elif board_row.get("meaningful_adult_sample") != "1":
+        flags.append("Adult-league exposure is present, but the game sample is too small to carry much weight.")
     if float(board_row["playoff_game_share"]) == 0.0:
         flags.append("No playoff row is captured yet; pressure-sample context may be incomplete.")
+    elif board_row.get("meaningful_playoff_sample") != "1":
+        flags.append("Playoff exposure is present, but the game sample is still thin.")
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) == 0.0:
         flags.append("Goalie-specific performance fields are not yet populated for this player.")
     if abs(int(board_row["consensus_delta"])) >= 10:

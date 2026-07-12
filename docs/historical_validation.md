@@ -31,11 +31,11 @@ Current headline:
 | --- | ---: | ---: | ---: | ---: |
 | consensus | 0.840 | 0.720 | 0.602 | 4.379 |
 | projection | 0.760 | 0.680 | 0.432 | 3.952 |
-| adjusted-production | 0.480 | 0.440 | 0.216 | 2.566 |
-| contextual | 0.680 | 0.640 | 0.505 | 3.625 |
-| role-aware | 0.680 | 0.600 | 0.514 | 3.475 |
+| adjusted-production | 0.480 | 0.440 | 0.218 | 2.566 |
+| contextual | 0.680 | 0.640 | 0.506 | 3.625 |
+| role-aware | 0.680 | 0.600 | 0.515 | 3.475 |
 | role-specific-hybrid | 0.720 | 0.640 | 0.559 | 3.715 |
-| hybrid | 0.760 | 0.720 | 0.582 | 3.992 |
+| hybrid | 0.760 | 0.720 | 0.583 | 3.992 |
 
 ## Interpretation
 

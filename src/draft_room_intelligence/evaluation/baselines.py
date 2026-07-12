@@ -295,8 +295,8 @@ def sample_component(
     feature = adjusted_features.get(prospect.player_id)
     total_games = feature.games if feature is not None else prospect.stat_line.games
     games_score = clamp(total_games / 55)
-    adult_bonus = 0.12 if feature and feature.adult_league else 0.0
-    playoff_bonus = min(feature.playoff_bonus, 0.08) if feature else 0.0
+    adult_bonus = (feature.adult_evidence_weight * 0.12) if feature else 0.0
+    playoff_bonus = (feature.playoff_evidence_weight * 0.08) if feature else 0.0
     return clamp(games_score * 0.8 + adult_bonus + playoff_bonus)
 
 

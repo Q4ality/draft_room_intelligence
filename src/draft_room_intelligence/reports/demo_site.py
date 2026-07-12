@@ -616,7 +616,8 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     function tagClass(label) {{
       if (label === "Model Higher") return "tag model";
       if (label === "Consensus Higher" || label === "Low Evidence") return "tag warn";
-      if (label === "Adult-League") return "tag model";
+      if (label === "Adult Sample" || label === "Playoff Sample") return "tag model";
+      if (label === "Adult Exposure") return "tag warn";
       return "tag";
     }}
 
@@ -625,6 +626,16 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       if (value === "medium") return "Usable coverage";
       if (value === "low") return "Needs coverage";
       return value || "Unknown";
+    }}
+
+    function percent(value) {{
+      return `${{Math.round(Number(value || 0) * 100)}}%`;
+    }}
+
+    function adultSampleLabel(row) {{
+      const tier = row.adult_sample_tier || "none";
+      if (tier === "none") return "none";
+      return `${{tier}} · ${{percent(row.adult_game_share)}}`;
     }}
 
     function storyRows() {{
@@ -688,8 +699,8 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <td>${{row.consensus_rank}}</td>
           <td>${{Number(row.board_score).toFixed(3)}}</td>
           <td>${{Number(row.adjusted_production_score).toFixed(3)}}</td>
-          <td>${{Math.round(Number(row.adult_game_share) * 100)}}%</td>
-          <td>${{Math.round(Number(row.playoff_game_share) * 100)}}%</td>
+          <td>${{adultSampleLabel(row)}}</td>
+          <td>${{percent(row.playoff_game_share)}}</td>
           <td>
             <div class="row-actions">
               <button class="small action-shortlist" data-player-id="${{row.player_id}}">${{shortlist.has(row.player_id) ? "Shortlisted" : "Shortlist"}}</button>
@@ -746,8 +757,10 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         ["Board Score", Number(detail.summary.board_score).toFixed(3)],
         ["Model Score", Number(detail.summary.model_score).toFixed(3)],
         ["Adjusted PPG", Number(detail.summary.adjusted_ppg).toFixed(3)],
-        ["Adult Share", `${{Math.round(detail.summary.adult_game_share * 100)}}%`],
-        ["Playoff Share", `${{Math.round(detail.summary.playoff_game_share * 100)}}%`],
+        ["Adult Share", percent(detail.summary.adult_game_share)],
+        ["Playoff Share", percent(detail.summary.playoff_game_share)],
+        ["Adult Evidence", percent(board.adult_evidence_weight)],
+        ["Playoff Evidence", percent(board.playoff_evidence_weight)],
         ["Evidence", evidenceLabel(detail.summary.evidence_depth)],
       ];
       document.getElementById("detail-grid").innerHTML = metrics.map(([label, value]) => `
@@ -841,7 +854,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
             value = Number(value).toFixed(3);
           }}
           if (row && ["adult_game_share", "playoff_game_share"].includes(key)) {{
-            value = `${{Math.round(Number(value) * 100)}}%`;
+            value = percent(value);
           }}
           html += `<div>${{value || "—"}}</div>`;
         }}
@@ -896,8 +909,8 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
             <div class="metrics">
               <div><span>Evidence</span><strong>${{escapeHtml(evidenceLabel(row.evidence_depth))}}</strong></div>
               <div><span>Adjusted</span><strong>${{Number(row.adjusted_production_score).toFixed(3)}}</strong></div>
-              <div><span>Adult</span><strong>${{Math.round(Number(row.adult_game_share) * 100)}}%</strong></div>
-              <div><span>Playoff</span><strong>${{Math.round(Number(row.playoff_game_share) * 100)}}%</strong></div>
+              <div><span>Adult</span><strong>${{escapeHtml(adultSampleLabel(row))}}</strong></div>
+              <div><span>Playoff</span><strong>${{percent(row.playoff_game_share)}}</strong></div>
             </div>
             <div class="columns">
               <div>
