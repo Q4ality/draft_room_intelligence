@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 from pathlib import Path
 
@@ -17,6 +18,8 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     validate_eliteprospects_export,
     write_eliteprospects_normalized_tables,
 )
+from draft_room_intelligence.data.eliteprospects_pdf import DEFAULT_VISION_MODEL
+from draft_room_intelligence.data.eliteprospects_pdf import write_eliteprospects_pdf_tables
 from draft_room_intelligence.data.etl_config import DraftYearETLConfig
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
 from draft_room_intelligence.data.hockeydb_base import (
@@ -75,6 +78,7 @@ from draft_room_intelligence.scouting.extraction import extract_scouting_feature
 
 
 def main() -> None:
+    load_env_file(Path(".env"))
     parser = argparse.ArgumentParser(prog="draft-room-intel")
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("demo", help="Run the sample projection + team-fit pipeline.")
@@ -100,6 +104,56 @@ def main() -> None:
         default="pre_draft",
         choices=("pre_draft", "post_draft"),
         help="Default timing for stat rows without a timing column.",
+    )
+    import_ep_pdf_parser = subparsers.add_parser(
+        "import-eliteprospects-pdf",
+        help="Convert a local Elite Prospects draft-guide PDF into normalized project tables.",
+    )
+    import_ep_pdf_parser.add_argument("pdf_path", type=Path, help="Path to the source PDF guide.")
+    import_ep_pdf_parser.add_argument("output_dir", type=Path, help="Directory for normalized CSV output.")
+    import_ep_pdf_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
+    import_ep_pdf_parser.add_argument(
+        "--page-start",
+        type=int,
+        default=1,
+        help="First 1-based PDF page to scan.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--page-end",
+        type=int,
+        help="Last 1-based PDF page to scan. Defaults to the full document.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--profile-limit",
+        type=int,
+        help="Optional number of parsed player profiles to stop after.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--vision-missing-tool-grades",
+        action="store_true",
+        help="Use OpenAI vision to fill missing PDF tool-grade values from rendered profile pages.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--vision-model",
+        default=None,
+        help="OpenAI vision model for missing tool-grade extraction.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--pdftoppm-path",
+        default=os.environ.get("PDFTOPPM_PATH", "pdftoppm"),
+        help="Path to Poppler pdftoppm used for rendering vision pages.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--vision-render-dpi",
+        type=int,
+        default=160,
+        help="DPI for rendered PDF page images sent to the vision model.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--env-file",
+        type=Path,
+        default=Path(".env"),
+        help="Optional env file with OPENAI_API_KEY and related settings.",
     )
     validate_ep_parser = subparsers.add_parser(
         "validate-eliteprospects",
@@ -562,6 +616,20 @@ def main() -> None:
             draft_year=args.draft_year,
             timing=args.timing,
         )
+    elif args.command == "import-eliteprospects-pdf":
+        run_import_eliteprospects_pdf(
+            args.pdf_path,
+            args.output_dir,
+            draft_year=args.draft_year,
+            page_start=args.page_start,
+            page_end=args.page_end,
+            profile_limit=args.profile_limit,
+            vision_missing_tool_grades=args.vision_missing_tool_grades,
+            vision_model=args.vision_model,
+            pdftoppm_path=args.pdftoppm_path,
+            vision_render_dpi=args.vision_render_dpi,
+            env_file=args.env_file,
+        )
     elif args.command == "validate-eliteprospects":
         run_validate_eliteprospects(args.export_path)
     elif args.command == "merge-eliteprospects":
@@ -730,6 +798,30 @@ def run_demo() -> None:
     )
 
 
+def load_env_file(path: Path) -> None:
+    if not path.exists():
+        return
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export "):
+            line = line.removeprefix("export ").strip()
+        if "=" not in line:
+            continue
+        key, value = line.split("=", maxsplit=1)
+        key = key.strip()
+        value = strip_env_value(value.strip())
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+def strip_env_value(value: str) -> str:
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        return value[1:-1]
+    return value
+
+
 def run_scaffold_demo_class(draft_year: int) -> None:
     project_root = Path(__file__).resolve().parents[2]
     paths = scaffold_demo_class(project_root, draft_year)
@@ -766,6 +858,48 @@ def run_import_eliteprospects(
     print(f"Output directory: {output_dir}")
     print(f"Players written: {len(normalized.players)}")
     print(f"Season stat lines written: {len(normalized.season_stat_lines)}")
+
+
+def run_import_eliteprospects_pdf(
+    pdf_path: Path,
+    output_dir: Path,
+    *,
+    draft_year: int,
+    page_start: int,
+    page_end: int | None,
+    profile_limit: int | None,
+    vision_missing_tool_grades: bool,
+    vision_model: str | None,
+    pdftoppm_path: str,
+    vision_render_dpi: int,
+    env_file: Path,
+) -> None:
+    load_env_file(env_file)
+    resolved_vision_model = vision_model or os.environ.get("OPENAI_VISION_MODEL", DEFAULT_VISION_MODEL)
+    resolved_pdftoppm_path = os.environ.get("PDFTOPPM_PATH", pdftoppm_path)
+    normalized = write_eliteprospects_pdf_tables(
+        pdf_path,
+        output_dir,
+        draft_year=draft_year,
+        page_start=page_start,
+        page_end=page_end,
+        profile_limit=profile_limit,
+        vision_missing_tool_grades=vision_missing_tool_grades,
+        vision_model=resolved_vision_model,
+        pdftoppm_path=resolved_pdftoppm_path,
+        vision_render_dpi=vision_render_dpi,
+    )
+    print(f"# Elite Prospects PDF import: {pdf_path}")
+    print(f"Output directory: {output_dir}")
+    print(f"Profiles parsed: {len(normalized.profiles)}")
+    print(f"Players written: {len(normalized.players)}")
+    print(f"Season stat lines written: {len(normalized.season_stat_lines)}")
+    print(f"Rankings written: {len(normalized.rankings)}")
+    print(f"Tool grades written: {len(normalized.tool_grade_rows)}")
+    if vision_missing_tool_grades:
+        print(f"Vision model: {resolved_vision_model}")
+    print(f"Profile sidecar: {output_dir / 'ep_pdf_profiles.csv'}")
+    print(f"Extraction report: {output_dir / 'extraction_report.md'}")
 
 
 def run_validate_eliteprospects(export_path: Path) -> None:

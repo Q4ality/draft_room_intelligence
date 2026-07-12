@@ -34,6 +34,7 @@ make evaluate-pilot-adjusted-production
 make evaluate-pilot-hybrid
 make team-depth-sample
 make nhl-roster-sample
+make ep-pdf-sample
 make test
 ```
 
@@ -51,6 +52,8 @@ python -m draft_room_intelligence.cli export-feature-table data/processed/pilot_
 python -m draft_room_intelligence.cli evaluate-role-models data/processed/pilot_2019 --feature-output outputs/features_2019.csv --model-output outputs/role_models_2019.csv --precision-n 25
 python -m draft_room_intelligence.cli import-nhl-rosters outputs/nhl_rosters_sample.csv --teams NYI --roster-json-dir tests/fixtures/nhl_api --stats-json-dir tests/fixtures/nhl_api
 python -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
+python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft25.pdf outputs/ep_pdf_2025_sample --draft-year 2025 --page-start 29 --page-end 80 --profile-limit 10
+OPENAI_API_KEY=... python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft26.pdf outputs/ep_pdf_2026_vision --draft-year 2026 --page-start 36 --page-end 64 --profile-limit 10 --vision-missing-tool-grades --pdftoppm-path /path/to/pdftoppm
 python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final outputs/demo_2025_openstats_russian_nordic_cleanup
 python -m draft_room_intelligence.cli validate-eliteprospects data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --base-dir data/processed/pilot_2019 --eliteprospects-csv data/raw/eliteprospects_2019.csv
@@ -67,6 +70,19 @@ python -m pytest
 
 The package exposes the same CLI as `draft-room-intel` after editable install.
 
+## Local Environment
+
+Copy `.env.example` to `.env` and put private local credentials there. `.env` is ignored by git.
+
+```bash
+OPENAI_API_KEY=sk-...
+OPENAI_VISION_MODEL=gpt-5.6
+PDFTOPPM_PATH=/Users/Sergei_Smirnov1/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/pdftoppm
+```
+
+The CLI reads `.env` by default. For another file, pass `--env-file path/to/file` to
+`import-eliteprospects-pdf`.
+
 ## Development Workflow
 
 - `make install-dev` - install the project in editable mode with development tools.
@@ -75,6 +91,7 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
 - `make nhl-roster-sample` - import cached NHL roster/stat JSON into roster rows, then build a team-depth report.
+- `make ep-pdf-sample` - parse a limited local Elite Prospects draft-guide PDF window into normalized player/stat/profile artifacts.
 - `make evaluate-consensus` - evaluate the consensus baseline against the fixture CSV.
 - `make evaluate-projection` - evaluate the heuristic projection baseline against the fixture CSV.
 - `make evaluate-adjusted-production` - evaluate the adjusted-production baseline against the fixture CSV.
@@ -87,6 +104,8 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `draft-room-intel report-historical-validation <data-path> <output-dir>` - write a side-by-side historical outcome-validation report for draft-board scoring approaches.
 - `draft-room-intel import-nhl-rosters <output.csv> [--teams NYI ...] [--season 20252026]` - import current NHL rosters and optional club stats into normalized roster rows.
 - `draft-room-intel report-team-depth <roster.csv> <output-dir>` - build NHL/AHL role-depth and scarcity artifacts from normalized roster rows.
+- `draft-room-intel import-eliteprospects-pdf <guide.pdf> <output-dir> --draft-year <year>` - extract local Elite Prospects draft-guide profile pages into normalized players, stat lines, rankings, and PDF sidecar tables.
+- `draft-room-intel import-eliteprospects-pdf ... --vision-missing-tool-grades` - optionally render pages and use OpenAI vision to fill missing tool-grade values; requires `OPENAI_API_KEY` and Poppler `pdftoppm`.
 - `draft-room-intel validate-eliteprospects <export.csv>` - inspect an Elite Prospects CSV export for required player/stat shape before import.
 - `draft-room-intel scaffold-demo-class --draft-year <year>` - create the local raw/reference/processed/output layout and starter CSV templates for a single-class demo.
 - `draft-room-intel audit-demo-class --draft-year <year>` - check whether a draft class has the minimum local source files for ETL and demo use.

@@ -1,4 +1,7 @@
 .DS_Store
+.env
+.env.*
+!.env.example
 .venv/
 .pytest_cache/
 .ruff_cache/
@@ -10,4 +13,5 @@ htmlcov/
 build/
 dist/
 outputs/
+tmp/
 data/raw/

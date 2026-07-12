@@ -11,7 +11,9 @@ requires-python = ">=3.11"
 authors = [
   { name = "Sergei Smirnov" },
 ]
-dependencies = []
+dependencies = [
+  "pypdf>=4.0",
+]
 
 [project.optional-dependencies]
 dev = [
