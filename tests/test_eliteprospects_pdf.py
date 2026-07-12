@@ -1,7 +1,10 @@
 from draft_room_intelligence.data.eliteprospects_pdf import normalize_eliteprospects_pdf_pages
+from draft_room_intelligence.data.eliteprospects_pdf import parse_player_index_rows
 from draft_room_intelligence.data.eliteprospects_pdf import parse_tool_grade_json
 from draft_room_intelligence.data.eliteprospects_pdf import parse_profile_page
 from draft_room_intelligence.data.eliteprospects_pdf import enrich_missing_tool_grades_with_vision
+from draft_room_intelligence.data.eliteprospects_pdf import apply_index_rows
+from draft_room_intelligence.data.eliteprospects_pdf import tool_grade_prompt
 
 
 DRAFT25_PROFILE = """NHL DRAFT GUIDE 2025
@@ -62,6 +65,33 @@ RANK RANGE
 """
 
 
+DRAFT26_GOALIE_PROFILE = """Tobias Trejbal SHADES OF... A more athletic Dan Vladar34
+TOOL GRADES (1-TO-9)
+2025-26 STATISTICS
+Youngstown Phantoms (USHL) 41 2.15 .915 3
+TEAM (LEAGUE) GP GAA SV% SO
+Precise
+B
+BADGES
+GRADE
+HEIGHT
+6'3.75" 188 lbs
+WEIGHT
+Right 2007-11-09
+CATCHES DATE OF BIRTH
+G
+POSITION(S)
+SKATING
+ATHLETICISM
+TRANSITIONS
+POSITIONING
+PLAY READING
+TECHNIQUE
+RANK RANGE
+30 - 45
+"""
+
+
 def test_parse_2025_profile_extracts_bio_stats_ranking_and_tools():
     profile = parse_profile_page(
         DRAFT25_PROFILE,
@@ -117,6 +147,24 @@ def test_parse_2026_profile_extracts_layout_variant_without_tool_grades():
     assert "missing_tool_grades" in profile.extraction_warnings
 
 
+def test_parse_2026_goalie_profile_extracts_goalie_stats():
+    profile = parse_profile_page(
+        DRAFT26_GOALIE_PROFILE,
+        draft_year=2026,
+        page_number=122,
+        source_name="Draft26.pdf",
+    )
+
+    assert profile is not None
+    assert profile.position == "G"
+    assert profile.stat_lines[0]["league"] == "USHL"
+    assert profile.stat_lines[0]["goals"] == ""
+    assert profile.stat_lines[0]["goals_against_average"] == "2.15"
+    assert profile.stat_lines[0]["save_percentage"] == "0.915"
+    assert profile.stat_lines[0]["shutouts"] == "3"
+    assert "missing_stat_lines" not in profile.extraction_warnings
+
+
 def test_normalize_pdf_pages_writes_normalized_export_shape():
     export = normalize_eliteprospects_pdf_pages(
         [(29, DRAFT25_PROFILE), (36, DRAFT26_PROFILE)],
@@ -144,8 +192,89 @@ def test_parse_tool_grade_json_normalizes_model_output():
     }
 
 
+def test_parse_goalie_tool_grade_json_uses_goalie_labels():
+    grades = parse_tool_grade_json(
+        '{"skating": "6.5", "athleticism": "6.5", "transitions": "6.5", '
+        '"positioning": 6, "play_reading": "4.5", "technique": "6.5", '
+        '"shooting": "9.0"}',
+        allowed_tools=[
+            "skating",
+            "athleticism",
+            "transitions",
+            "positioning",
+            "play_reading",
+            "technique",
+        ],
+    )
+
+    assert grades == {
+        "skating": "6.5",
+        "athleticism": "6.5",
+        "transitions": "6.5",
+        "positioning": "6.0",
+        "play_reading": "4.5",
+        "technique": "6.5",
+    }
+
+
+def test_player_index_rows_backfill_missing_profile_rank():
+    profile_text = DRAFT25_PROFILE.replace("\n1\nShades of", "\nShades of")
+    export = normalize_eliteprospects_pdf_pages(
+        [(29, profile_text)],
+        draft_year=2025,
+        source_name="Draft25.pdf",
+    )
+    index_rows = parse_player_index_rows(
+        [
+            (
+                5,
+                "NHL DRAFT GUIDE 2025\n"
+                "1 Matthew Schaefer, D Erie Otters (OHL) A Grade 29\n"
+                "Player Index: Ranked Prospects",
+            )
+        ],
+        draft_year=2025,
+        source_name="Draft25.pdf",
+    )
+
+    enriched = apply_index_rows(export, index_rows)
+
+    assert index_rows[0]["league"] == "OHL"
+    assert enriched.profiles[0].rank == "1"
+    assert enriched.rankings[0]["rank"] == "1"
+    assert enriched.index_rows[0]["profile_page"] == "29"
+
+
+def test_player_index_rows_supply_missing_profile_identity():
+    index_rows = parse_player_index_rows(
+        [
+            (
+                6,
+                "46 Mason West, C/RW Edina High (USHS-MN) B Grade 568",
+            )
+        ],
+        draft_year=2025,
+        source_name="Draft25.pdf",
+    )
+    text_without_sidebar_name = DRAFT25_PROFILE.replace("D|Matthew Schaefer", "Mason West")
+
+    export = normalize_eliteprospects_pdf_pages(
+        [(568, text_without_sidebar_name)],
+        draft_year=2025,
+        source_name="Draft25.pdf",
+        index_rows=index_rows,
+    )
+
+    assert export.profiles[0].name == "Mason West"
+    assert export.profiles[0].rank == "46"
+    assert export.profiles[0].position == "CRW"
+
+
 def test_vision_enrichment_fills_missing_tool_grades_with_mock_client(tmp_path):
     class FakeVisionClient:
+        model = "fake-vision"
+        last_usage = {"input_tokens": "100", "output_tokens": "20", "total_tokens": "120"}
+
         def extract_tool_grades(self, image_path, profile):
             assert image_path.exists()
             assert profile.name == "Gavin McKenna"
@@ -183,5 +312,22 @@ def test_vision_enrichment_fills_missing_tool_grades_with_mock_client(tmp_path):
     assert len(enriched.tool_grade_rows) == 6
     assert enriched.tool_grade_rows[0]["source"] == "eliteprospects_pdf_vision"
     assert enriched.tool_grade_rows[-1]["grade"] == "4.0"
+    assert enriched.vision_usage_rows[0]["model"] == "fake-vision"
+    assert enriched.vision_usage_rows[0]["total_tokens"] == "120"
     assert "tool_grades_from_vision" in enriched.profiles[0].extraction_warnings
     assert "missing_tool_grades" not in enriched.profiles[0].extraction_warnings
+
+
+def test_goalie_vision_prompt_uses_goalie_tool_labels():
+    profile = parse_profile_page(
+        DRAFT26_PROFILE.replace("LW\nPOSITION(S)", "G\nPOSITION(S)"),
+        draft_year=2026,
+        page_number=122,
+        source_name="Draft26.pdf",
+    )
+
+    assert profile is not None
+    prompt = tool_grade_prompt(profile)
+    assert "goalie profile" in prompt
+    assert "athleticism" in prompt
+    assert "play_reading" in prompt

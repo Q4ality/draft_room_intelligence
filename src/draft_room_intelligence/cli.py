@@ -129,6 +129,16 @@ def main() -> None:
         help="Optional number of parsed player profiles to stop after.",
     )
     import_ep_pdf_parser.add_argument(
+        "--index-page-start",
+        type=int,
+        help="First 1-based PDF page to scan for the player index. Defaults to 5 when profile scan starts later.",
+    )
+    import_ep_pdf_parser.add_argument(
+        "--index-page-end",
+        type=int,
+        help="Last 1-based PDF page to scan for the player index. Defaults to the page before --page-start.",
+    )
+    import_ep_pdf_parser.add_argument(
         "--vision-missing-tool-grades",
         action="store_true",
         help="Use OpenAI vision to fill missing PDF tool-grade values from rendered profile pages.",
@@ -624,6 +634,8 @@ def main() -> None:
             page_start=args.page_start,
             page_end=args.page_end,
             profile_limit=args.profile_limit,
+            index_page_start=args.index_page_start,
+            index_page_end=args.index_page_end,
             vision_missing_tool_grades=args.vision_missing_tool_grades,
             vision_model=args.vision_model,
             pdftoppm_path=args.pdftoppm_path,
@@ -868,6 +880,8 @@ def run_import_eliteprospects_pdf(
     page_start: int,
     page_end: int | None,
     profile_limit: int | None,
+    index_page_start: int | None,
+    index_page_end: int | None,
     vision_missing_tool_grades: bool,
     vision_model: str | None,
     pdftoppm_path: str,
@@ -884,6 +898,8 @@ def run_import_eliteprospects_pdf(
         page_start=page_start,
         page_end=page_end,
         profile_limit=profile_limit,
+        index_page_start=index_page_start,
+        index_page_end=index_page_end,
         vision_missing_tool_grades=vision_missing_tool_grades,
         vision_model=resolved_vision_model,
         pdftoppm_path=resolved_pdftoppm_path,
@@ -896,6 +912,8 @@ def run_import_eliteprospects_pdf(
     print(f"Season stat lines written: {len(normalized.season_stat_lines)}")
     print(f"Rankings written: {len(normalized.rankings)}")
     print(f"Tool grades written: {len(normalized.tool_grade_rows)}")
+    print(f"Player index rows written: {len(normalized.index_rows)}")
+    print(f"Vision usage rows written: {len(normalized.vision_usage_rows)}")
     if vision_missing_tool_grades:
         print(f"Vision model: {resolved_vision_model}")
     print(f"Profile sidecar: {output_dir / 'ep_pdf_profiles.csv'}")

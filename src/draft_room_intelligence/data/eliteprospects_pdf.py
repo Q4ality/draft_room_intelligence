@@ -57,6 +57,34 @@ EP_PDF_TOOL_GRADE_COLUMNS = [
     "source_url",
 ]
 
+EP_PDF_INDEX_COLUMNS = [
+    "player_id",
+    "draft_year",
+    "rank",
+    "name",
+    "position",
+    "team",
+    "league",
+    "grade",
+    "profile_page",
+    "source",
+    "source_id",
+    "source_url",
+]
+
+EP_PDF_VISION_USAGE_COLUMNS = [
+    "player_id",
+    "name",
+    "page",
+    "model",
+    "input_tokens",
+    "output_tokens",
+    "total_tokens",
+    "source",
+    "source_id",
+    "source_url",
+]
+
 RANKING_COLUMNS = [
     "player_id",
     "draft_year",
@@ -68,7 +96,16 @@ RANKING_COLUMNS = [
     "source_url",
 ]
 
-TOOL_LABELS = ["skating", "shooting", "passing", "handling", "sense", "physical"]
+SKATER_TOOL_LABELS = ["skating", "shooting", "passing", "handling", "sense", "physical"]
+GOALIE_TOOL_LABELS = [
+    "skating",
+    "athleticism",
+    "transitions",
+    "positioning",
+    "play_reading",
+    "technique",
+]
+TOOL_LABELS = SKATER_TOOL_LABELS
 OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses"
 DEFAULT_VISION_MODEL = "gpt-5.6"
 
@@ -116,6 +153,8 @@ class EliteProspectsPdfExport:
     profiles: list[EliteProspectsPdfProfile]
     profile_rows: list[dict[str, str]]
     tool_grade_rows: list[dict[str, str]]
+    index_rows: list[dict[str, str]]
+    vision_usage_rows: list[dict[str, str]]
 
 
 def write_eliteprospects_pdf_tables(
@@ -126,6 +165,8 @@ def write_eliteprospects_pdf_tables(
     page_start: int = 1,
     page_end: int | None = None,
     profile_limit: int | None = None,
+    index_page_start: int | None = None,
+    index_page_end: int | None = None,
     vision_missing_tool_grades: bool = False,
     vision_model: str = DEFAULT_VISION_MODEL,
     vision_api_key: str | None = None,
@@ -133,12 +174,31 @@ def write_eliteprospects_pdf_tables(
     vision_render_dpi: int = 160,
     vision_client: ToolGradeVisionClient | None = None,
 ) -> EliteProspectsPdfExport:
+    pdf_path = Path(pdf_path)
+    source_name = pdf_path.name
+    if index_page_start is None and page_start > 5:
+        index_page_start = 5
+    if index_page_end is None and index_page_start is not None:
+        index_page_end = page_start - 1
+    index_rows: list[dict[str, str]] = []
+    if index_page_start is not None and index_page_end is not None and index_page_end >= index_page_start:
+        index_page_texts = extract_pdf_page_texts(
+            pdf_path,
+            page_start=index_page_start,
+            page_end=index_page_end,
+        )
+        index_rows = parse_player_index_rows(
+            index_page_texts,
+            draft_year=draft_year,
+            source_name=source_name,
+        )
     page_texts = extract_pdf_page_texts(pdf_path, page_start=page_start, page_end=page_end)
     export = normalize_eliteprospects_pdf_pages(
         page_texts,
         draft_year=draft_year,
-        source_name=Path(pdf_path).name,
+        source_name=source_name,
         profile_limit=profile_limit,
+        index_rows=index_rows,
     )
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
@@ -158,6 +218,8 @@ def write_eliteprospects_pdf_tables(
     write_table(root / "rankings.csv", RANKING_COLUMNS, export.rankings)
     write_table(root / "ep_pdf_profiles.csv", EP_PDF_PROFILE_COLUMNS, export.profile_rows)
     write_table(root / "ep_pdf_tool_grades.csv", EP_PDF_TOOL_GRADE_COLUMNS, export.tool_grade_rows)
+    write_table(root / "ep_pdf_player_index.csv", EP_PDF_INDEX_COLUMNS, export.index_rows)
+    write_table(root / "ep_pdf_vision_usage.csv", EP_PDF_VISION_USAGE_COLUMNS, export.vision_usage_rows)
     report = format_pdf_extraction_report(export)
     (root / "extraction_report.md").write_text(report, encoding="utf-8")
     return export
@@ -179,6 +241,7 @@ def enrich_missing_tool_grades_with_vision(
         api_key=api_key or os.environ.get("OPENAI_API_KEY", ""),
     )
     profiles: list[EliteProspectsPdfProfile] = []
+    vision_usage_rows = list(export.vision_usage_rows)
     for profile in export.profiles:
         if profile.tool_grades or "missing_tool_grades" not in profile.extraction_warnings:
             profiles.append(profile)
@@ -190,7 +253,20 @@ def enrich_missing_tool_grades_with_vision(
             pdftoppm_path=pdftoppm_path,
             dpi=render_dpi,
         )
-        grades = normalize_tool_grade_map(client.extract_tool_grades(image_path, profile))
+        tool_labels = tool_labels_for_profile(profile)
+        grades = normalize_tool_grade_map(
+            client.extract_tool_grades(image_path, profile),
+            allowed_tools=tool_labels,
+        )
+        usage = getattr(client, "last_usage", None)
+        if isinstance(usage, dict):
+            vision_usage_rows.append(
+                vision_usage_row(
+                    profile,
+                    model=getattr(client, "model", model),
+                    usage=usage,
+                )
+            )
         if grades:
             source_id = f"{profile.draft_year}-ep-pdf-page-{profile.page_start}"
             tool_grades = tuple(
@@ -202,7 +278,7 @@ def enrich_missing_tool_grades_with_vision(
                     "source_id": source_id,
                     "source_url": profile.source_url,
                 }
-                for tool in TOOL_LABELS
+                for tool in tool_labels
                 if tool in grades
             )
             warnings = tuple(
@@ -219,7 +295,11 @@ def enrich_missing_tool_grades_with_vision(
             )
         else:
             profiles.append(profile)
-    return build_export_from_profiles(profiles)
+    return build_export_from_profiles(
+        profiles,
+        index_rows=export.index_rows,
+        vision_usage_rows=vision_usage_rows,
+    )
 
 
 class OpenAiVisionToolGradeClient:
@@ -235,6 +315,7 @@ class OpenAiVisionToolGradeClient:
         self.model = model
         self.api_key = api_key
         self.endpoint = endpoint
+        self.last_usage: dict[str, str] = {}
 
     def extract_tool_grades(
         self,
@@ -272,22 +353,44 @@ class OpenAiVisionToolGradeClient:
         )
         with urlopen(request, timeout=120) as response:
             response_payload = json.loads(response.read().decode("utf-8"))
-        return parse_tool_grade_json(extract_response_text(response_payload))
+        self.last_usage = normalize_vision_usage(response_payload.get("usage"))
+        return parse_tool_grade_json(
+            extract_response_text(response_payload),
+            allowed_tools=tool_labels_for_profile(profile),
+        )
 
 
 def tool_grade_prompt(profile: EliteProspectsPdfProfile) -> str:
+    labels = tool_labels_for_profile(profile)
+    if is_goalie_profile(profile):
+        role_lines = [
+            "This is a goalie profile. Extract goalie tool grades only.",
+            "The visible goalie labels should be: SKATING, ATHLETICISM, TRANSITIONS, "
+            "POSITIONING, PLAY READING, TECHNIQUE.",
+            "Map PLAY READING to the JSON key play_reading.",
+        ]
+    else:
+        role_lines = ["This is a skater profile. Extract skater tool grades only."]
     return "\n".join(
         [
-            "Extract only the six Elite Prospects tool grade numbers visible "
-            "on this player profile.",
+            "Extract only the six Elite Prospects tool grade numbers visible on this player profile.",
+            *role_lines,
             f"Player: {profile.name}",
             "Return strict JSON with exactly these lowercase keys when visible:",
-            "skating, shooting, passing, handling, sense, physical.",
+            ", ".join(labels) + ".",
             "Values must be strings like \"6.5\" or \"8.0\".",
             "Do not infer hidden values. If a value is not visible, omit that key.",
             "Return JSON only.",
         ]
     )
+
+
+def tool_labels_for_profile(profile: EliteProspectsPdfProfile) -> list[str]:
+    return GOALIE_TOOL_LABELS if is_goalie_profile(profile) else SKATER_TOOL_LABELS
+
+
+def is_goalie_profile(profile: EliteProspectsPdfProfile) -> bool:
+    return profile.position == "G"
 
 
 def render_pdf_page(
@@ -335,7 +438,11 @@ def extract_response_text(payload: dict) -> str:
     return "\n".join(parts)
 
 
-def parse_tool_grade_json(text: str) -> dict[str, str]:
+def parse_tool_grade_json(
+    text: str,
+    *,
+    allowed_tools: list[str] | None = None,
+) -> dict[str, str]:
     cleaned = text.strip()
     if cleaned.startswith("```"):
         cleaned = re.sub(r"^```(?:json)?", "", cleaned).strip()
@@ -346,19 +453,55 @@ def parse_tool_grade_json(text: str) -> dict[str, str]:
         raise ValueError(f"OpenAI vision response was not valid JSON: {text[:200]}") from exc
     if not isinstance(payload, dict):
         raise ValueError("OpenAI vision response must be a JSON object")
-    return normalize_tool_grade_map(payload)
+    return normalize_tool_grade_map(payload, allowed_tools=allowed_tools)
 
 
-def normalize_tool_grade_map(values: dict) -> dict[str, str]:
+def normalize_tool_grade_map(
+    values: dict,
+    *,
+    allowed_tools: list[str] | None = None,
+) -> dict[str, str]:
     grades: dict[str, str] = {}
+    allowed = set(allowed_tools or SKATER_TOOL_LABELS)
     for raw_tool, raw_grade in values.items():
         tool = str(raw_tool).strip().lower().replace(" ", "_")
-        if tool not in TOOL_LABELS or raw_grade in ("", None):
+        if tool not in allowed or raw_grade in ("", None):
             continue
         grade = normalize_tool_grade_value(str(raw_grade))
         if grade:
             grades[tool] = grade
     return grades
+
+
+def normalize_vision_usage(usage: object) -> dict[str, str]:
+    if not isinstance(usage, dict):
+        return {}
+    return {
+        "input_tokens": str(usage.get("input_tokens", "") or ""),
+        "output_tokens": str(usage.get("output_tokens", "") or ""),
+        "total_tokens": str(usage.get("total_tokens", "") or ""),
+    }
+
+
+def vision_usage_row(
+    profile: EliteProspectsPdfProfile,
+    *,
+    model: str,
+    usage: dict[str, str],
+) -> dict[str, str]:
+    source_id = f"{profile.draft_year}-ep-pdf-page-{profile.page_start}"
+    return {
+        "player_id": profile.player_id,
+        "name": profile.name,
+        "page": str(profile.page_start),
+        "model": model,
+        "input_tokens": usage.get("input_tokens", ""),
+        "output_tokens": usage.get("output_tokens", ""),
+        "total_tokens": usage.get("total_tokens", ""),
+        "source": "eliteprospects_pdf_vision",
+        "source_id": source_id,
+        "source_url": profile.source_url,
+    }
 
 
 def normalize_tool_grade_value(value: str) -> str:
@@ -400,14 +543,17 @@ def normalize_eliteprospects_pdf_pages(
     draft_year: int,
     source_name: str = "eliteprospects_pdf",
     profile_limit: int | None = None,
+    index_rows: list[dict[str, str]] | None = None,
 ) -> EliteProspectsPdfExport:
     profiles: list[EliteProspectsPdfProfile] = []
+    index_rows_by_page = {row["profile_page"]: row for row in index_rows or []}
     for page_number, text in page_texts:
         profile = parse_profile_page(
             text,
             draft_year=draft_year,
             page_number=page_number,
             source_name=source_name,
+            index_row=index_rows_by_page.get(str(page_number)),
         )
         if profile is None:
             continue
@@ -415,10 +561,15 @@ def normalize_eliteprospects_pdf_pages(
         if profile_limit is not None and len(profiles) >= profile_limit:
             break
 
-    return build_export_from_profiles(profiles)
+    return build_export_from_profiles(profiles, index_rows=index_rows or [])
 
 
-def build_export_from_profiles(profiles: list[EliteProspectsPdfProfile]) -> EliteProspectsPdfExport:
+def build_export_from_profiles(
+    profiles: list[EliteProspectsPdfProfile],
+    *,
+    index_rows: list[dict[str, str]] | None = None,
+    vision_usage_rows: list[dict[str, str]] | None = None,
+) -> EliteProspectsPdfExport:
     players = [profile_to_player_row(profile) for profile in profiles]
     stat_lines = [line for profile in profiles for line in profile.stat_lines]
     rankings = [profile_to_ranking_row(profile) for profile in profiles if profile.rank]
@@ -431,6 +582,88 @@ def build_export_from_profiles(profiles: list[EliteProspectsPdfProfile]) -> Elit
         profiles=profiles,
         profile_rows=profile_rows,
         tool_grade_rows=tool_grade_rows,
+        index_rows=index_rows or [],
+        vision_usage_rows=vision_usage_rows or [],
+    )
+
+
+def parse_player_index_rows(
+    page_texts: list[tuple[int, str]],
+    *,
+    draft_year: int,
+    source_name: str,
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    seen_pages: set[str] = set()
+    pattern = re.compile(
+        r"^(?P<rank>\d{1,3})\s+"
+        r"(?P<name>.+?),\s+"
+        r"(?P<position>[A-Z]{1,3}(?:/[A-Z]{1,3})?)\s+"
+        r"(?P<team>.+?)\s+"
+        r"(?P<grade>[ABCDF])\s+Grade\s+"
+        r"(?P<profile_page>\d{1,4})$"
+    )
+    for index_page, text in page_texts:
+        for raw_line in text.splitlines():
+            line = clean_text(raw_line)
+            match = pattern.match(line)
+            if not match:
+                continue
+            profile_page = match.group("profile_page")
+            if profile_page in seen_pages:
+                continue
+            name = clean_text(match.group("name"))
+            team, league = split_team_league(match.group("team"))
+            source_id = f"{draft_year}-ep-pdf-index-page-{index_page}"
+            rows.append(
+                {
+                    "player_id": build_player_id(draft_year, "", name),
+                    "draft_year": str(draft_year),
+                    "rank": match.group("rank"),
+                    "name": name,
+                    "position": normalize_pdf_position(match.group("position")),
+                    "team": team or clean_text(match.group("team")),
+                    "league": normalize_league_name(league) if league else "",
+                    "grade": match.group("grade"),
+                    "profile_page": profile_page,
+                    "source": "eliteprospects_pdf_index",
+                    "source_id": source_id,
+                    "source_url": f"{source_name}#page={index_page}",
+                }
+            )
+            seen_pages.add(profile_page)
+    return rows
+
+
+def apply_index_rows(
+    export: EliteProspectsPdfExport,
+    index_rows: list[dict[str, str]],
+) -> EliteProspectsPdfExport:
+    if not index_rows:
+        return build_export_from_profiles(
+            export.profiles,
+            index_rows=[],
+            vision_usage_rows=export.vision_usage_rows,
+        )
+    rows_by_page = {row["profile_page"]: row for row in index_rows}
+    profiles: list[EliteProspectsPdfProfile] = []
+    for profile in export.profiles:
+        index_row = rows_by_page.get(str(profile.page_start))
+        if not index_row:
+            profiles.append(profile)
+            continue
+        profiles.append(
+            replace(
+                profile,
+                rank=profile.rank or index_row["rank"],
+                grade=profile.grade or index_row["grade"],
+                position=profile.position or index_row["position"],
+            )
+        )
+    return build_export_from_profiles(
+        profiles,
+        index_rows=index_rows,
+        vision_usage_rows=export.vision_usage_rows,
     )
 
 
@@ -440,12 +673,16 @@ def parse_profile_page(
     draft_year: int,
     page_number: int,
     source_name: str,
+    index_row: dict[str, str] | None = None,
 ) -> EliteProspectsPdfProfile | None:
     if not looks_like_profile_page(text):
         return None
 
     warnings: list[str] = []
     name, position_hint = extract_name_and_position(text)
+    if not name and index_row:
+        name = index_row["name"]
+        position_hint = index_row["position"]
     if not name:
         return None
     source_id = f"{draft_year}-ep-pdf-page-{page_number}"
@@ -453,13 +690,16 @@ def parse_profile_page(
     source_url = f"{source_name}#page={page_number}"
 
     bio = extract_bio(text, position_hint=position_hint)
-    for key in ("position", "birth_date", "height_cm", "weight_kg"):
+    position = bio.get("position", "") or (index_row["position"] if index_row else "")
+    for key in ("birth_date", "height_cm", "weight_kg"):
         if not bio.get(key):
             warnings.append(f"missing_{key}")
+    if not position:
+        warnings.append("missing_position")
 
     rank_range = extract_rank_range(text)
-    rank = extract_rank(text, rank_range=rank_range)
-    grade = extract_grade(text)
+    rank = (index_row["rank"] if index_row else "") or extract_rank(text, rank_range=rank_range)
+    grade = (index_row["grade"] if index_row else "") or extract_grade(text)
     stat_lines = tuple(
         build_stat_line(
             player_id,
@@ -495,7 +735,7 @@ def parse_profile_page(
         rank=rank,
         rank_range=rank_range,
         grade=grade,
-        position=bio.get("position", ""),
+        position=position,
         handedness=bio.get("handedness", ""),
         height_text=bio.get("height_text", ""),
         height_cm=bio.get("height_cm", ""),
@@ -579,6 +819,30 @@ def extract_stat_rows(text: str, *, draft_year: int) -> list[dict[str, str]]:
     season = extract_statistics_season(text) or f"{draft_year - 1}-{str(draft_year)[-2:]}"
     rows: list[dict[str, str]] = []
     for line in text.splitlines():
+        goalie_match = re.match(
+            r"^(?P<label>.+?)\s+(?P<games>\d+)\s+(?P<gaa>[0-9.]+)\s+"
+            r"(?P<save_percentage>\.?\d{3})\s+(?P<shutouts>\d+)$",
+            line.strip(),
+        )
+        if goalie_match:
+            label = goalie_match.group("label").strip()
+            team, league = split_team_league(label)
+            if team and league:
+                rows.append(
+                    {
+                        "season": season,
+                        "league": league,
+                        "team": team,
+                        "games": goalie_match.group("games"),
+                        "goals_against_average": goalie_match.group("gaa"),
+                        "save_percentage": normalize_save_percentage(
+                            goalie_match.group("save_percentage")
+                        ),
+                        "shutouts": goalie_match.group("shutouts"),
+                    }
+                )
+            continue
+
         stat_match = re.match(
             r"^(?P<label>.+?)\s+(?P<games>\d+)\s+(?P<goals>\d+)\s+(?P<assists>\d+)\s+"
             r"(?P<points>\d+)\s+(?P<gpg>[0-9.]+)\s+(?P<apg>[0-9.]+)\s+(?P<ppg>[0-9.]+)$",
@@ -611,6 +875,33 @@ def build_stat_line(
     source_id: str,
     source_url: str,
 ) -> dict[str, str]:
+    if row.get("save_percentage") or row.get("goals_against_average"):
+        return {
+            "player_id": player_id,
+            "season": row["season"],
+            "league": normalize_league_name(row["league"]),
+            "team": row["team"],
+            "games": row["games"],
+            "goals": "",
+            "assists": "",
+            "points": "",
+            "age": "",
+            "timing": "pre_draft",
+            "regular_season": "true",
+            "source": "eliteprospects_pdf",
+            "source_id": source_id,
+            "source_url": source_url,
+            "goalie_minutes": "",
+            "shots_against": "",
+            "saves": "",
+            "goals_against": "",
+            "save_percentage": row.get("save_percentage", ""),
+            "goals_against_average": row.get("goals_against_average", ""),
+            "wins": "",
+            "losses": "",
+            "ties": "",
+            "shutouts": row.get("shutouts", ""),
+        }
     return {
         "player_id": player_id,
         "season": row["season"],
@@ -637,6 +928,11 @@ def build_stat_line(
         "ties": "",
         "shutouts": "",
     }
+
+
+def normalize_save_percentage(value: str) -> str:
+    normalized = value.strip()
+    return f"0{normalized}" if normalized.startswith(".") else normalized
 
 
 def split_team_league(label: str) -> tuple[str, str]:
@@ -837,6 +1133,9 @@ def profile_to_profile_row(profile: EliteProspectsPdfProfile) -> dict[str, str]:
 def format_pdf_extraction_report(export: EliteProspectsPdfExport) -> str:
     profiles_with_stats = sum(1 for profile in export.profiles if profile.stat_lines)
     profiles_with_tools = sum(1 for profile in export.profiles if profile.tool_grades)
+    vision_input_tokens = sum_ints(row.get("input_tokens", "") for row in export.vision_usage_rows)
+    vision_output_tokens = sum_ints(row.get("output_tokens", "") for row in export.vision_usage_rows)
+    vision_total_tokens = sum_ints(row.get("total_tokens", "") for row in export.vision_usage_rows)
     warning_counts: dict[str, int] = {}
     for profile in export.profiles:
         for warning in profile.extraction_warnings:
@@ -850,6 +1149,11 @@ def format_pdf_extraction_report(export: EliteProspectsPdfExport) -> str:
         f"- stat_lines: {len(export.season_stat_lines)}",
         f"- profiles_with_stats: {profiles_with_stats}",
         f"- profiles_with_tool_grades: {profiles_with_tools}",
+        f"- player_index_rows: {len(export.index_rows)}",
+        f"- vision_calls: {len(export.vision_usage_rows)}",
+        f"- vision_input_tokens: {vision_input_tokens}",
+        f"- vision_output_tokens: {vision_output_tokens}",
+        f"- vision_total_tokens: {vision_total_tokens}",
         "",
         "## Warnings",
     ]
@@ -858,6 +1162,16 @@ def format_pdf_extraction_report(export: EliteProspectsPdfExport) -> str:
     else:
         lines.append("- none")
     return "\n".join(lines) + "\n"
+
+
+def sum_ints(values: object) -> int:
+    total = 0
+    for value in values:
+        try:
+            total += int(value)
+        except (TypeError, ValueError):
+            continue
+    return total
 
 
 def clean_text(value: str) -> str:
