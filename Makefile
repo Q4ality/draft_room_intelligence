@@ -1,4 +1,4 @@
-.PHONY: install-dev demo demo-2025-readiness validate-pilot-2019 team-depth-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
+.PHONY: install-dev demo demo-2025-readiness validate-pilot-2019 team-depth-sample nhl-roster-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
 
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
@@ -16,6 +16,10 @@ validate-pilot-2019:
 
 team-depth-sample:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
+
+nhl-roster-sample:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli import-nhl-rosters outputs/nhl_rosters_sample.csv --teams NYI --roster-json-dir tests/fixtures/nhl_api --stats-json-dir tests/fixtures/nhl_api
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-team-depth outputs/nhl_rosters_sample.csv outputs/nhl_team_depth_sample
 
 evaluate-consensus:
 	$(PYTHON) -m draft_room_intelligence.cli evaluate tests/fixtures/historical_prospects.csv --baseline consensus --precision-n 1

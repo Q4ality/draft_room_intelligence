@@ -1,0 +1,41 @@
+{
+  "skaters": [
+    {
+      "playerId": 8478445,
+      "gamesPlayed": 82,
+      "goals": 25,
+      "assists": 55,
+      "points": 80,
+      "plusMinus": 4,
+      "timeOnIcePerGame": "20:30"
+    },
+    {
+      "playerId": 8480001,
+      "gamesPlayed": 80,
+      "goals": 28,
+      "assists": 28,
+      "points": 56,
+      "plusMinus": 3,
+      "avgTimeOnIcePerGame": 1032
+    },
+    {
+      "playerId": 8480002,
+      "gamesPlayed": 66,
+      "goals": 2,
+      "assists": 8,
+      "points": 10,
+      "plusMinus": -8,
+      "timeOnIcePerGame": "16:06"
+    }
+  ],
+  "goalies": [
+    {
+      "playerId": 8480003,
+      "gamesPlayed": 52,
+      "goals": 0,
+      "assists": 1,
+      "points": 1,
+      "timeOnIcePerGame": "58:00"
+    }
+  ]
+}

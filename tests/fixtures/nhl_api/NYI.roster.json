@@ -1,0 +1,49 @@
+{
+  "teamName": {"default": "New York Islanders"},
+  "forwards": [
+    {
+      "id": 8478445,
+      "firstName": {"default": "Mathew"},
+      "lastName": {"default": "Barzal"},
+      "positionCode": "C",
+      "shootsCatches": "R",
+      "heightInInches": 72,
+      "weightInPounds": 187,
+      "birthDate": "1997-05-26"
+    },
+    {
+      "id": 8480001,
+      "firstName": {"default": "Scoring"},
+      "lastName": {"default": "Wing"},
+      "positionCode": "RW",
+      "shootsCatches": "L",
+      "heightInInches": 73,
+      "weightInPounds": 194,
+      "birthDate": "1999-02-15"
+    }
+  ],
+  "defensemen": [
+    {
+      "id": 8480002,
+      "firstName": {"default": "Depth"},
+      "lastName": {"default": "Defender"},
+      "positionCode": "D",
+      "shootsCatches": "R",
+      "heightInInches": 74,
+      "weightInPounds": 205,
+      "birthDate": "1995-11-20"
+    }
+  ],
+  "goalies": [
+    {
+      "id": 8480003,
+      "firstName": {"default": "Starter"},
+      "lastName": {"default": "Goalie"},
+      "positionCode": "G",
+      "shootsCatches": "L",
+      "heightInInches": 75,
+      "weightInPounds": 210,
+      "birthDate": "1994-04-01"
+    }
+  ]
+}

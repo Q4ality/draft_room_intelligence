@@ -32,6 +32,7 @@ from draft_room_intelligence.data.normalized_merge import (
     merge_normalized_source_tables,
 )
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
+from draft_room_intelligence.data.nhl_api import import_nhl_rosters
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.puckpedia_stats import enrich_puckpedia_stats
 from draft_room_intelligence.data.team_rosters import (
@@ -375,6 +376,37 @@ def main() -> None:
     )
     team_depth_parser.add_argument("roster_csv", type=Path, help="Normalized roster CSV path.")
     team_depth_parser.add_argument("output_dir", type=Path, help="Directory for depth report artifacts.")
+    nhl_rosters_parser = subparsers.add_parser(
+        "import-nhl-rosters",
+        help="Import current NHL rosters and optional club stats into normalized roster CSV.",
+    )
+    nhl_rosters_parser.add_argument("output_csv", type=Path, help="Path for normalized roster CSV output.")
+    nhl_rosters_parser.add_argument(
+        "--teams",
+        nargs="+",
+        help="NHL team abbreviations to import. Defaults to all known NHL teams.",
+    )
+    nhl_rosters_parser.add_argument(
+        "--season",
+        default="",
+        help="Optional NHL season id for club stats, for example 20252026. Without it, roster rows are imported without season stats.",
+    )
+    nhl_rosters_parser.add_argument(
+        "--game-type",
+        type=int,
+        default=2,
+        help="NHL game type for club stats. 2 is regular season, 3 is playoffs.",
+    )
+    nhl_rosters_parser.add_argument(
+        "--roster-json-dir",
+        type=Path,
+        help="Optional cached roster JSON directory with files like NYI.roster.json.",
+    )
+    nhl_rosters_parser.add_argument(
+        "--stats-json-dir",
+        type=Path,
+        help="Optional cached club-stats JSON directory with files like NYI.stats.json.",
+    )
     demo_export_parser = subparsers.add_parser(
         "export-demo-package",
         help="Build board-ready demo exports for a single draft class.",
@@ -624,6 +656,15 @@ def main() -> None:
         )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
+    elif args.command == "import-nhl-rosters":
+        run_import_nhl_rosters(
+            args.output_csv,
+            team_codes=args.teams,
+            season=args.season,
+            game_type=args.game_type,
+            roster_json_dir=args.roster_json_dir,
+            stats_json_dir=args.stats_json_dir,
+        )
     elif args.command == "export-demo-package":
         run_export_demo_package(args.data_path, args.output_dir)
     elif args.command == "build-demo-site":
@@ -1273,6 +1314,31 @@ def run_report_team_depth(roster_csv: Path, output_dir: Path) -> None:
     print(f"Depth rows: {len(depth_rows)}")
     print(f"Depth CSV: {output_dir / 'depth.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_import_nhl_rosters(
+    output_csv: Path,
+    *,
+    team_codes: list[str] | None,
+    season: str,
+    game_type: int,
+    roster_json_dir: Path | None,
+    stats_json_dir: Path | None,
+) -> None:
+    summary = import_nhl_rosters(
+        output_csv,
+        team_codes=team_codes,
+        season=season,
+        game_type=game_type,
+        roster_json_dir=roster_json_dir,
+        stats_json_dir=stats_json_dir,
+    )
+    print("# NHL roster import")
+    print(f"Teams requested: {summary.teams_requested}")
+    print(f"Teams loaded: {summary.teams_loaded}")
+    print(f"Roster players: {summary.roster_players}")
+    print(f"Teams with stats: {summary.stats_teams_loaded}")
+    print(f"Roster CSV: {summary.output_csv}")
 
 
 def load_historical_prospects(data_path: Path):

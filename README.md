@@ -33,6 +33,7 @@ make evaluate-pilot-consensus
 make evaluate-pilot-adjusted-production
 make evaluate-pilot-hybrid
 make team-depth-sample
+make nhl-roster-sample
 make test
 ```
 
@@ -48,6 +49,7 @@ python -m draft_room_intelligence.cli evaluate data/processed/pilot_2019 --basel
 python -m draft_room_intelligence.cli evaluate data/processed/pilot_2019 --baseline hybrid --precision-n 25
 python -m draft_room_intelligence.cli export-feature-table data/processed/pilot_2019 outputs/features_2019.csv
 python -m draft_room_intelligence.cli evaluate-role-models data/processed/pilot_2019 --feature-output outputs/features_2019.csv --model-output outputs/role_models_2019.csv --precision-n 25
+python -m draft_room_intelligence.cli import-nhl-rosters outputs/nhl_rosters_sample.csv --teams NYI --roster-json-dir tests/fixtures/nhl_api --stats-json-dir tests/fixtures/nhl_api
 python -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
 python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final outputs/demo_2025_openstats_russian_nordic_cleanup
 python -m draft_room_intelligence.cli validate-eliteprospects data/raw/eliteprospects_2019.csv
@@ -72,6 +74,7 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `make demo-2025-readiness` - rebuild the current 2025 demo site, data-gap report, and modeling sanity report from the tracked cleanup dataset.
 - `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
+- `make nhl-roster-sample` - import cached NHL roster/stat JSON into roster rows, then build a team-depth report.
 - `make evaluate-consensus` - evaluate the consensus baseline against the fixture CSV.
 - `make evaluate-projection` - evaluate the heuristic projection baseline against the fixture CSV.
 - `make evaluate-adjusted-production` - evaluate the adjusted-production baseline against the fixture CSV.
@@ -82,6 +85,7 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 - `draft-room-intel export-feature-table <data-path> <output.csv>` - build a reusable player-year feature table for every prospect row.
 - `draft-room-intel evaluate-role-models <data-path> [--feature-output <csv>] [--model-output <csv>]` - fit pure-Python role-specific models and print their evaluation report.
 - `draft-room-intel report-historical-validation <data-path> <output-dir>` - write a side-by-side historical outcome-validation report for draft-board scoring approaches.
+- `draft-room-intel import-nhl-rosters <output.csv> [--teams NYI ...] [--season 20252026]` - import current NHL rosters and optional club stats into normalized roster rows.
 - `draft-room-intel report-team-depth <roster.csv> <output-dir>` - build NHL/AHL role-depth and scarcity artifacts from normalized roster rows.
 - `draft-room-intel validate-eliteprospects <export.csv>` - inspect an Elite Prospects CSV export for required player/stat shape before import.
 - `draft-room-intel scaffold-demo-class --draft-year <year>` - create the local raw/reference/processed/output layout and starter CSV templates for a single-class demo.
