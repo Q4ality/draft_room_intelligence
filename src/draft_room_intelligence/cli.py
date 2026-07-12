@@ -34,6 +34,12 @@ from draft_room_intelligence.data.normalized_merge import (
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.puckpedia_stats import enrich_puckpedia_stats
+from draft_room_intelligence.data.team_rosters import (
+    build_depth_rows,
+    format_depth_markdown,
+    load_roster_csv,
+    write_depth_csv,
+)
 from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
 from draft_room_intelligence.data.wikipedia_career_stats import enrich_wikipedia_career_stats
 from draft_room_intelligence.data.ushl_stats import UShlStatSource, enrich_ushl_stats
@@ -363,6 +369,12 @@ def main() -> None:
         default=25,
         help="Number of top-ranked players to use for board lift metrics.",
     )
+    team_depth_parser = subparsers.add_parser(
+        "report-team-depth",
+        help="Build NHL/AHL organizational role-depth report from normalized roster CSV.",
+    )
+    team_depth_parser.add_argument("roster_csv", type=Path, help="Normalized roster CSV path.")
+    team_depth_parser.add_argument("output_dir", type=Path, help="Directory for depth report artifacts.")
     demo_export_parser = subparsers.add_parser(
         "export-demo-package",
         help="Build board-ready demo exports for a single draft class.",
@@ -610,6 +622,8 @@ def main() -> None:
             precision_n=args.precision_n,
             top_n=args.top_n,
         )
+    elif args.command == "report-team-depth":
+        run_report_team_depth(args.roster_csv, args.output_dir)
     elif args.command == "export-demo-package":
         run_export_demo_package(args.data_path, args.output_dir)
     elif args.command == "build-demo-site":
@@ -1242,6 +1256,22 @@ def run_report_historical_validation(
     if warning:
         print(warning)
     print(f"Summary CSV: {output_dir / 'summary.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_team_depth(roster_csv: Path, output_dir: Path) -> None:
+    players = load_roster_csv(roster_csv)
+    depth_rows = build_depth_rows(players)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    write_depth_csv(output_dir / "depth.csv", depth_rows)
+    (output_dir / "summary.md").write_text(format_depth_markdown(depth_rows), encoding="utf-8")
+
+    teams = sorted({player.team_id for player in players})
+    print(f"# Team depth report: {roster_csv}")
+    print(f"Roster players loaded: {len(players)}")
+    print(f"Teams: {len(teams)}")
+    print(f"Depth rows: {len(depth_rows)}")
+    print(f"Depth CSV: {output_dir / 'depth.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 

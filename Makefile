@@ -1,4 +1,4 @@
-.PHONY: install-dev demo demo-2025-readiness validate-pilot-2019 evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
+.PHONY: install-dev demo demo-2025-readiness validate-pilot-2019 team-depth-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
 
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
@@ -13,6 +13,9 @@ demo-2025-readiness:
 
 validate-pilot-2019:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-historical-validation data/processed/pilot_2019 outputs/validation_2019 --precision-n 25 --top-n 25
+
+team-depth-sample:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
 
 evaluate-consensus:
 	$(PYTHON) -m draft_room_intelligence.cli evaluate tests/fixtures/historical_prospects.csv --baseline consensus --precision-n 1

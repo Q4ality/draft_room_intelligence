@@ -1,0 +1,12 @@
+team_id,team_name,league_level,affiliate_of,player_id,player_name,position,handedness,age,height_cm,weight_kg,games,goals,assists,points,plus_minus,time_on_ice_per_game,source,source_id,source_url
+NYI,New York Islanders,NHL,,nyi-barzal,Mathew Barzal,C,R,29,183,85,82,25,55,80,4,20.5,fixture,nyi-barzal,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-horvat,Bo Horvat,C,L,31,183,97,82,32,34,66,-2,19.8,fixture,nyi-horvat,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-wing-1,Scoring Wing One,LW,L,27,185,88,82,35,30,65,1,18.1,fixture,nyi-wing-1,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-wing-2,Scoring Wing Two,RW,R,25,180,82,80,28,28,56,3,17.2,fixture,nyi-wing-2,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-wing-3,Depth Wing,LW,L,30,188,91,74,8,14,22,-9,12.4,fixture,nyi-wing-3,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-defense-1,Top Pair Defender,D,L,32,188,94,82,8,28,36,-4,22.2,fixture,nyi-defense-1,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-defense-2,Depth Defender,D,R,29,186,90,66,2,8,10,-8,16.1,fixture,nyi-defense-2,https://example.test/nyi
+NYI,New York Islanders,NHL,,nyi-goalie-1,Starter Goalie,G,L,30,190,92,52,0,1,1,,58.0,fixture,nyi-goalie-1,https://example.test/nyi
+BRI,Bridgeport Islanders,AHL,NYI,bri-wing-1,AHL Scoring Wing,RW,R,23,182,84,68,22,28,50,2,17.0,fixture,bri-wing-1,https://example.test/bri
+BRI,Bridgeport Islanders,AHL,NYI,bri-defense-1,AHL Defense Prospect,D,L,22,187,88,64,4,12,16,-5,19.0,fixture,bri-defense-1,https://example.test/bri
+BRI,Bridgeport Islanders,AHL,NYI,bri-goalie-1,AHL Goalie,G,L,24,191,90,28,0,0,0,,55.0,fixture,bri-goalie-1,https://example.test/bri
