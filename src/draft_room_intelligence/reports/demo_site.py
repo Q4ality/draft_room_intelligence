@@ -278,6 +278,35 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       overflow: hidden;
       margin-top: 10px;
     }}
+    .scouting-panel {{
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+    }}
+    .tool-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }}
+    .tool-grade {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px;
+    }}
+    .tool-grade .tool {{
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: capitalize;
+      margin-bottom: 2px;
+    }}
+    .tool-grade .grade {{
+      font-weight: 700;
+      font-size: 18px;
+    }}
     .history td, .history th {{
       font-size: 12px;
       padding: 8px 10px;
@@ -532,6 +561,14 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <h3>Review Flags</h3>
           <ul class="detail-list" id="detail-risk-flags"></ul>
         </div>
+        <div class="section" id="detail-scouting-section" style="display:none;">
+          <h3>Elite Prospects Guide</h3>
+          <div class="scouting-panel">
+            <div id="detail-scouting-summary" style="font-size:14px; line-height:1.45;"></div>
+            <div class="taglist" id="detail-scouting-tags" style="margin-top:10px;"></div>
+            <div class="tool-grid" id="detail-tool-grades"></div>
+          </div>
+        </div>
         <div class="section">
           <h3>Pre-Draft History</h3>
           <table class="history">
@@ -771,6 +808,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       `).join("");
       document.getElementById("detail-why-high").innerHTML = detail.why_high.map((item) => `<li>${{item}}</li>`).join("");
       document.getElementById("detail-risk-flags").innerHTML = detail.risk_flags.map((item) => `<li>${{item}}</li>`).join("");
+      renderScouting(detail);
       document.getElementById("detail-history").innerHTML = detail.pre_draft_history.map((row) => `
         <tr>
           <td>${{row.season}}</td>
@@ -794,6 +832,27 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           ? `<a class="tag source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{row.source}}</a>`
           : `<span class="tag">${{row.source}}</span>`);
       document.getElementById("detail-sources").innerHTML = [...sourceTags, ...rowSources].join("");
+    }}
+
+    function renderScouting(detail) {{
+      const scouting = detail.scouting || {{}};
+      const tools = scouting.tool_grades || [];
+      const hasScouting = Boolean(scouting.summary || scouting.shades_of || (scouting.badges || []).length || tools.length);
+      const section = document.getElementById("detail-scouting-section");
+      section.style.display = hasScouting ? "block" : "none";
+      if (!hasScouting) return;
+      document.getElementById("detail-scouting-summary").textContent = scouting.summary || "Guide metadata captured; summary text unavailable.";
+      const tags = [];
+      if (scouting.shades_of) tags.push(`Shades of: ${{escapeHtml(scouting.shades_of)}}`);
+      for (const badge of scouting.badges || []) tags.push(escapeHtml(badge));
+      document.getElementById("detail-scouting-tags").innerHTML =
+        tags.map((label) => `<span class="tag">${{label}}</span>`).join("");
+      document.getElementById("detail-tool-grades").innerHTML = tools.map((item) => `
+        <div class="tool-grade">
+          <div class="tool">${{escapeHtml(String(item.tool || "").replaceAll("_", " "))}}</div>
+          <div class="grade">${{Number(item.grade || 0).toFixed(1)}}</div>
+        </div>
+      `).join("");
     }}
 
     function toggleShortlist(playerId) {{

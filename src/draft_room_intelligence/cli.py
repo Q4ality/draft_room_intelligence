@@ -13,6 +13,10 @@ from draft_room_intelligence.data.demo_data import (
     format_demo_audit_report,
     scaffold_demo_class,
 )
+from draft_room_intelligence.data.ep_pdf_overlay import (
+    overlay_ep_pdf_demo_dataset,
+    write_overlay_report,
+)
 from draft_room_intelligence.data.eliteprospects_csv import (
     format_eliteprospects_validation_report,
     validate_eliteprospects_export,
@@ -164,6 +168,19 @@ def main() -> None:
         type=Path,
         default=Path(".env"),
         help="Optional env file with OPENAI_API_KEY and related settings.",
+    )
+    overlay_ep_pdf_parser = subparsers.add_parser(
+        "overlay-eliteprospects-pdf-demo",
+        help="Overlay normalized Elite Prospects PDF guide tables onto a demo final dataset.",
+    )
+    overlay_ep_pdf_parser.add_argument("base_dir", type=Path, help="Existing demo final dataset directory.")
+    overlay_ep_pdf_parser.add_argument("ep_pdf_dir", type=Path, help="Directory created by import-eliteprospects-pdf.")
+    overlay_ep_pdf_parser.add_argument("output_dir", type=Path, help="Output directory for the enriched final dataset.")
+    overlay_ep_pdf_parser.add_argument(
+        "--fuzzy-threshold",
+        type=float,
+        default=0.9,
+        help="Minimum normalized-name similarity for fuzzy EP PDF matches.",
     )
     validate_ep_parser = subparsers.add_parser(
         "validate-eliteprospects",
@@ -642,6 +659,13 @@ def main() -> None:
             vision_render_dpi=args.vision_render_dpi,
             env_file=args.env_file,
         )
+    elif args.command == "overlay-eliteprospects-pdf-demo":
+        run_overlay_eliteprospects_pdf_demo(
+            args.base_dir,
+            args.ep_pdf_dir,
+            args.output_dir,
+            fuzzy_threshold=args.fuzzy_threshold,
+        )
     elif args.command == "validate-eliteprospects":
         run_validate_eliteprospects(args.export_path)
     elif args.command == "merge-eliteprospects":
@@ -918,6 +942,37 @@ def run_import_eliteprospects_pdf(
         print(f"Vision model: {resolved_vision_model}")
     print(f"Profile sidecar: {output_dir / 'ep_pdf_profiles.csv'}")
     print(f"Extraction report: {output_dir / 'extraction_report.md'}")
+
+
+def run_overlay_eliteprospects_pdf_demo(
+    base_dir: Path,
+    ep_pdf_dir: Path,
+    output_dir: Path,
+    *,
+    fuzzy_threshold: float,
+) -> None:
+    summary = overlay_ep_pdf_demo_dataset(
+        base_dir,
+        ep_pdf_dir,
+        output_dir,
+        fuzzy_threshold=fuzzy_threshold,
+    )
+    report_path = output_dir / "ep_pdf_overlay_report.md"
+    write_overlay_report(report_path, summary)
+    print(f"# Elite Prospects PDF demo overlay: {base_dir}")
+    print(f"EP PDF source: {ep_pdf_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Matched players: {summary.matched_players}/{summary.source_players}")
+    print(f"Exact matches: {summary.exact_matches}")
+    print(f"Alias matches: {summary.alias_matches}")
+    print(f"Fuzzy matches: {summary.fuzzy_matches}")
+    print(f"Added stat lines: {summary.added_stat_lines}")
+    print(f"Augmented stat lines: {summary.augmented_stat_lines}")
+    print(f"Output stat lines: {summary.output_stat_lines}")
+    print(f"EP profile rows: {summary.profile_rows}")
+    print(f"EP tool-grade rows: {summary.tool_grade_rows}")
+    print(f"Match audit: {output_dir / 'ep_pdf_match_audit.csv'}")
+    print(f"Overlay report: {report_path}")
 
 
 def run_validate_eliteprospects(export_path: Path) -> None:

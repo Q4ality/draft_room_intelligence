@@ -50,6 +50,15 @@ class SourceRecord:
 
 
 @dataclass(frozen=True)
+class ToolGrade:
+    tool: str
+    grade: float
+    source: str = ""
+    source_id: str = ""
+    source_url: str = ""
+
+
+@dataclass(frozen=True)
 class PreDraftStatLine:
     """Stats that would have been available before a draft."""
 
@@ -182,6 +191,9 @@ class HistoricalProspect:
     development_path: tuple[DevelopmentStatLine, ...] = field(default_factory=tuple)
     sources: tuple[SourceRecord, ...] = field(default_factory=tuple)
     scouting_text: str = ""
+    scouting_badges: tuple[str, ...] = field(default_factory=tuple)
+    shades_of: str = ""
+    tool_grades: tuple[ToolGrade, ...] = field(default_factory=tuple)
 
     @property
     def was_drafted(self) -> bool:

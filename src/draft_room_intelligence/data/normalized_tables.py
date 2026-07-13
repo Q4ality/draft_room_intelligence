@@ -14,6 +14,7 @@ from draft_room_intelligence.domain import (
     HistoricalProspect,
     PreDraftStatLine,
     SourceRecord,
+    ToolGrade,
 )
 
 
@@ -24,6 +25,8 @@ def load_normalized_historical_prospects(directory: str | Path) -> list[Historic
     outcomes = index_by_player_id(read_table(root / "nhl_outcomes.csv"))
     rankings = group_by_player_id(read_optional_table(root / "rankings.csv"))
     stat_lines = group_by_player_id(read_optional_table(root / "season_stat_lines.csv"))
+    ep_pdf_profiles = index_optional_by_player_id(read_optional_table(root / "ep_pdf_profiles.csv"))
+    ep_pdf_tool_grades = group_by_player_id(read_optional_table(root / "ep_pdf_tool_grades.csv"))
 
     prospects: list[HistoricalProspect] = []
     for player_id, player in players.items():
@@ -38,6 +41,8 @@ def load_normalized_historical_prospects(directory: str | Path) -> list[Historic
                 outcome_row=outcomes.get(player_id),
                 ranking_rows=rankings[player_id],
                 stat_line_rows=stat_lines[player_id],
+                ep_pdf_profile=ep_pdf_profiles.get(player_id),
+                ep_pdf_tool_grade_rows=ep_pdf_tool_grades[player_id],
             )
         )
 
@@ -51,6 +56,8 @@ def build_historical_prospect(
     outcome_row: dict[str, str] | None,
     ranking_rows: list[dict[str, str]],
     stat_line_rows: list[dict[str, str]],
+    ep_pdf_profile: dict[str, str] | None = None,
+    ep_pdf_tool_grade_rows: list[dict[str, str]] | None = None,
 ) -> HistoricalProspect:
     player_id = required_text(player, "player_id")
     draft_year = required_int(selection_row, "draft_year")
@@ -86,6 +93,20 @@ def build_historical_prospect(
         outcome=build_outcome(outcome_row, player_id),
         development_path=development_path,
         sources=build_sources(player, selection_row, outcome_row, ranking_rows, stat_line_rows),
+        scouting_text=optional_text(ep_pdf_profile or {}, "profile_summary"),
+        scouting_badges=split_semicolon(optional_text(ep_pdf_profile or {}, "badges")),
+        shades_of=optional_text(ep_pdf_profile or {}, "shades_of"),
+        tool_grades=tuple(build_tool_grade(row) for row in ep_pdf_tool_grade_rows or []),
+    )
+
+
+def build_tool_grade(row: dict[str, str]) -> ToolGrade:
+    return ToolGrade(
+        tool=optional_text(row, "tool"),
+        grade=optional_float(row, "grade") or 0.0,
+        source=optional_text(row, "source"),
+        source_id=optional_text(row, "source_id"),
+        source_url=optional_text(row, "source_url"),
     )
 
 
@@ -242,6 +263,16 @@ def index_by_player_id(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
     return indexed
 
 
+def index_optional_by_player_id(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
+    indexed: dict[str, dict[str, str]] = {}
+    for row in rows:
+        player_id = optional_text(row, "player_id")
+        if not player_id or player_id in indexed:
+            continue
+        indexed[player_id] = row
+    return indexed
+
+
 def group_by_player_id(rows: list[dict[str, str]]) -> defaultdict[str, list[dict[str, str]]]:
     grouped: defaultdict[str, list[dict[str, str]]] = defaultdict(list)
     for row in rows:
@@ -258,6 +289,10 @@ def required_text(row: dict[str, str], column: str) -> str:
 
 def optional_text(row: dict[str, str], column: str) -> str:
     return row.get(column, "").strip()
+
+
+def split_semicolon(value: str) -> tuple[str, ...]:
+    return tuple(item.strip() for item in value.split(";") if item.strip())
 
 
 def required_int(row: dict[str, str], column: str) -> int:

@@ -306,6 +306,21 @@ def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str])
         },
         "why_high": build_why_high(board_row),
         "risk_flags": build_risk_flags(board_row),
+        "scouting": {
+            "summary": prospect.scouting_text,
+            "shades_of": prospect.shades_of,
+            "badges": list(prospect.scouting_badges),
+            "tool_grades": [
+                {
+                    "tool": grade.tool,
+                    "grade": grade.grade,
+                    "source": grade.source,
+                    "source_id": grade.source_id,
+                    "source_url": grade.source_url,
+                }
+                for grade in prospect.tool_grades
+            ],
+        },
         "pre_draft_history": [
             {
                 "season": line.season,
