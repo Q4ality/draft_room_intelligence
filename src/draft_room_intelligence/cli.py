@@ -969,9 +969,12 @@ def run_overlay_eliteprospects_pdf_demo(
     print(f"Added stat lines: {summary.added_stat_lines}")
     print(f"Augmented stat lines: {summary.augmented_stat_lines}")
     print(f"Output stat lines: {summary.output_stat_lines}")
+    print(f"Reconciled duplicate stat groups: {summary.reconciled_duplicate_groups}")
+    print(f"Stat conflict groups: {summary.reconciliation_conflict_groups}")
     print(f"EP profile rows: {summary.profile_rows}")
     print(f"EP tool-grade rows: {summary.tool_grade_rows}")
     print(f"Match audit: {output_dir / 'ep_pdf_match_audit.csv'}")
+    print(f"Stat reconciliation audit: {output_dir / 'stat_line_reconciliation_audit.csv'}")
     print(f"Overlay report: {report_path}")
 
 

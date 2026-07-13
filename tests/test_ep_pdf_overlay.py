@@ -253,6 +253,9 @@ def test_overlay_ep_pdf_demo_dataset_remaps_sidecars_and_dedupes_stats(tmp_path)
     stats = list(csv.DictReader((output / "season_stat_lines.csv").open()))
     assert stats[0]["player_id"] == "base-joshua"
     assert stats[0]["save_percentage"] == ".901"
+    audit_rows = list(csv.DictReader((output / "stat_line_reconciliation_audit.csv").open()))
+    assert audit_rows[0]["action"] == "merged"
+    assert audit_rows[0]["row_count"] == "2"
     profiles = list(csv.DictReader((output / "ep_pdf_profiles.csv").open()))
     grades = list(csv.DictReader((output / "ep_pdf_tool_grades.csv").open()))
     assert profiles[0]["player_id"] == "base-joshua"

@@ -17,6 +17,9 @@ from draft_room_intelligence.data.eliteprospects_pdf import EP_PDF_TOOL_GRADE_CO
 from draft_room_intelligence.data.eliteprospects_pdf import RANKING_COLUMNS
 from draft_room_intelligence.data.normalized_merge import read_optional_table
 from draft_room_intelligence.data.normalized_merge import read_table
+from draft_room_intelligence.data.stat_reconciliation import RECONCILIATION_AUDIT_COLUMNS
+from draft_room_intelligence.data.stat_reconciliation import StatReconciliationResult
+from draft_room_intelligence.data.stat_reconciliation import reconcile_stat_lines
 
 
 AUDIT_COLUMNS = [
@@ -42,6 +45,8 @@ class EpPdfOverlaySummary:
     added_stat_lines: int
     augmented_stat_lines: int
     output_stat_lines: int
+    reconciled_duplicate_groups: int
+    reconciliation_conflict_groups: int
     profile_rows: int
     tool_grade_rows: int
 
@@ -68,13 +73,22 @@ def overlay_ep_pdf_demo_dataset(
 
     matches, audit_rows = match_source_players(source_players, base_players, fuzzy_threshold=fuzzy_threshold)
     merged_players = merge_players(base_players, source_players, matches)
-    merged_stats, added_stat_lines, augmented_stat_lines = merge_stat_lines(base_stats, source_stats, matches)
+    merged_stats, added_stat_lines, augmented_stat_lines, reconciliation = merge_stat_lines(
+        base_stats,
+        source_stats,
+        matches,
+    )
     remapped_rankings = remap_rows(source_rankings, matches)
     remapped_profiles = remap_rows(source_profiles, matches)
     remapped_tool_grades = remap_rows(source_tool_grades, matches)
 
     write_table(output_root / "players.csv", PLAYER_COLUMNS, merged_players)
     write_table(output_root / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, merged_stats)
+    write_table(
+        output_root / "stat_line_reconciliation_audit.csv",
+        RECONCILIATION_AUDIT_COLUMNS,
+        reconciliation.audit_rows,
+    )
     write_table(
         output_root / "rankings.csv",
         RANKING_COLUMNS,
@@ -105,6 +119,8 @@ def overlay_ep_pdf_demo_dataset(
         added_stat_lines=added_stat_lines,
         augmented_stat_lines=augmented_stat_lines,
         output_stat_lines=len(merged_stats),
+        reconciled_duplicate_groups=reconciliation.duplicate_groups,
+        reconciliation_conflict_groups=reconciliation.conflict_groups,
         profile_rows=len(remapped_profiles),
         tool_grade_rows=len(remapped_tool_grades),
     )
@@ -207,51 +223,21 @@ def merge_stat_lines(
     base_stats: list[dict[str, str]],
     source_stats: list[dict[str, str]],
     matches: dict[str, str],
-) -> tuple[list[dict[str, str]], int, int]:
-    merged = [dict(row) for row in base_stats]
-    row_index = {stat_key(row): row for row in merged}
-    added = 0
-    augmented = 0
+) -> tuple[list[dict[str, str]], int, int, StatReconciliationResult]:
+    candidate_rows = [dict(row) for row in base_stats]
+    candidate_count = 0
     for source_row in source_stats:
         base_id = matches.get(source_row["player_id"])
         if not base_id:
             continue
         row = normalize_columns(dict(source_row), SEASON_STAT_LINE_COLUMNS)
         row["player_id"] = base_id
-        key = stat_key(row)
-        existing = row_index.get(key)
-        if existing is None:
-            merged.append(row)
-            row_index[key] = row
-            added += 1
-            continue
-        if augment_goalie_fields(existing, row):
-            augmented += 1
-    return merged, added, augmented
-
-
-def augment_goalie_fields(existing: dict[str, str], source_row: dict[str, str]) -> bool:
-    changed = False
-    for column in (
-        "goalie_minutes",
-        "shots_against",
-        "saves",
-        "goals_against",
-        "save_percentage",
-        "goals_against_average",
-        "wins",
-        "losses",
-        "ties",
-        "shutouts",
-    ):
-        if source_row.get(column) and not existing.get(column):
-            existing[column] = source_row[column]
-            changed = True
-    if changed:
-        existing["source"] = append_source_label(existing.get("source", ""), "eliteprospects_pdf")
-        existing["source_id"] = source_row.get("source_id", existing.get("source_id", ""))
-        existing["source_url"] = source_row.get("source_url", existing.get("source_url", ""))
-    return changed
+        candidate_rows.append(row)
+        candidate_count += 1
+    reconciliation = reconcile_stat_lines(candidate_rows)
+    added = max(0, len(reconciliation.rows) - len(base_stats))
+    augmented = max(0, candidate_count - added)
+    return reconciliation.rows, added, augmented, reconciliation
 
 
 def remap_rows(rows: list[dict[str, str]], matches: dict[str, str]) -> list[dict[str, str]]:
@@ -292,16 +278,6 @@ def normalized_words(value: str) -> list[str]:
     return ["".join(character.lower() for character in part if character.isalnum()) for part in ascii_value.split()]
 
 
-def stat_key(row: dict[str, str]) -> tuple[str, str, str, str, str]:
-    return (
-        row.get("player_id", ""),
-        row.get("season", ""),
-        row.get("league", ""),
-        row.get("team", ""),
-        row.get("regular_season", ""),
-    )
-
-
 def append_source_label(existing: str, label: str) -> str:
     labels = [item.strip() for item in existing.split(";") if item.strip()]
     if label not in labels:
@@ -333,6 +309,8 @@ def write_overlay_report(path: str | Path, summary: EpPdfOverlaySummary) -> None
         f"- added_stat_lines: {summary.added_stat_lines}",
         f"- augmented_stat_lines: {summary.augmented_stat_lines}",
         f"- output_stat_lines: {summary.output_stat_lines}",
+        f"- reconciled_duplicate_groups: {summary.reconciled_duplicate_groups}",
+        f"- reconciliation_conflict_groups: {summary.reconciliation_conflict_groups}",
         f"- profile_rows: {summary.profile_rows}",
         f"- tool_grade_rows: {summary.tool_grade_rows}",
         "",
