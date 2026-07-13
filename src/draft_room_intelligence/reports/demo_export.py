@@ -155,6 +155,51 @@ DEMO_STORY_PLAYERS = [
 ]
 
 
+TEAM_STATUS_BY_ID = {
+    "ANA": "rebuild_middle",
+    "BOS": "playoff_bubble",
+    "BUF": "rebuild_late",
+    "CAR": "contender",
+    "CBJ": "rebuild_middle",
+    "CGY": "playoff_bubble",
+    "CHI": "rebuild_middle",
+    "COL": "contender",
+    "DAL": "contender",
+    "DET": "playoff_bubble",
+    "EDM": "contender",
+    "FLA": "contender",
+    "LAK": "playoff_team",
+    "MIN": "playoff_team",
+    "MTL": "rebuild_late",
+    "NJD": "playoff_team",
+    "NSH": "rebuild_start",
+    "NYI": "rebuild_start",
+    "NYR": "playoff_bubble",
+    "OTT": "playoff_bubble",
+    "PHI": "rebuild_middle",
+    "PIT": "rebuild_start",
+    "SEA": "playoff_bubble",
+    "SJS": "rebuild_middle",
+    "STL": "playoff_bubble",
+    "TBL": "contender",
+    "TOR": "contender",
+    "UTA": "rebuild_middle",
+    "VAN": "playoff_team",
+    "VGK": "contender",
+    "WSH": "playoff_team",
+    "WPG": "contender",
+}
+
+TEAM_STATUS_LABELS = {
+    "rebuild_start": "Rebuild start",
+    "rebuild_middle": "Rebuild middle",
+    "rebuild_late": "Rebuild late",
+    "playoff_bubble": "Playoff bubble",
+    "playoff_team": "Playoff team",
+    "contender": "Contender",
+}
+
+
 @dataclass(frozen=True)
 class DemoExportBundle:
     board_rows: list[dict[str, str]]
@@ -459,23 +504,40 @@ def build_team_fit(
             "reason": f"{context.team_name} depth data is present, but this prospect role is not mapped yet.",
         }
 
-    best_row = max(matching_rows, key=lambda row: team_need_score(row, tool_score))
-    score = team_need_score(best_row, tool_score)
+    best_row = max(matching_rows, key=lambda row: team_fit_components(row, prospect, tool_score)["overall_score"])
+    components = team_fit_components(best_row, prospect, tool_score)
+    score = components["overall_score"]
     role_type = best_row.get("role_type", "")
     scarcity = safe_float(best_row.get("scarcity_score", "0"))
     avg_age = safe_float(best_row.get("avg_age", "0"))
     under_25 = safe_int(best_row.get("under_25", "0"))
+    players = safe_int(best_row.get("players", "0"))
+    target = safe_float(best_row.get("scarcity_target", "0"))
     level = best_row.get("league_level", "")
     examples = best_row.get("example_players", "")
+    status = team_status(context.team_id)
+    ahl_rows = [row for row in context.depth_rows if row.get("league_level") == "AHL"]
+    coverage_note = "AHL depth available" if ahl_rows else "AHL depth not loaded"
     return {
         "score": score,
         "team_id": context.team_id,
         "team_name": context.team_name,
         "role_type": role_type,
         "need_label": classify_team_need(score),
+        "team_status": status,
+        "team_status_label": TEAM_STATUS_LABELS.get(status, status.replace("_", " ").title()),
+        "roster_need_score": components["roster_need_score"],
+        "pipeline_need_score": components["pipeline_need_score"],
+        "timeline_fit_score": components["timeline_fit_score"],
+        "risk_appetite_score": components["risk_appetite_score"],
+        "u25_same_role_count": under_25,
+        "role_player_count": players,
+        "scarcity_target": target,
+        "ahl_coverage": "available" if ahl_rows else "missing",
         "reason": (
             f"{context.team_name} {level} {role_type.replace('_', ' ')} depth shows "
             f"scarcity {scarcity:.2f}, U25 count {under_25}, avg age {avg_age:.1f}. "
+            f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
             f"Examples: {examples or 'not available'}."
         ),
     }
@@ -514,21 +576,123 @@ def candidate_role_types(prospect: HistoricalProspect, tool_score: float) -> lis
     return ["two_way_wing", "wing_depth", "scoring_wing"]
 
 
-def team_need_score(row: dict[str, str], tool_score: float) -> float:
+def team_fit_components(row: dict[str, str], prospect: HistoricalProspect, tool_score: float) -> dict[str, float]:
+    roster_need = roster_need_score(row, tool_score)
+    pipeline_need = pipeline_need_score(row, prospect, tool_score)
+    timeline_fit = timeline_fit_score(row, prospect)
+    risk_fit = risk_appetite_score(prospect, row)
+    overall = (
+        (roster_need * 0.36)
+        + (pipeline_need * 0.34)
+        + (timeline_fit * 0.18)
+        + (risk_fit * 0.12)
+    )
+    return {
+        "overall_score": min(1.0, max(0.0, overall)),
+        "roster_need_score": roster_need,
+        "pipeline_need_score": pipeline_need,
+        "timeline_fit_score": timeline_fit,
+        "risk_appetite_score": risk_fit,
+    }
+
+
+def roster_need_score(row: dict[str, str], tool_score: float) -> float:
     scarcity = safe_float(row.get("scarcity_score", "0"))
-    target = safe_float(row.get("scarcity_target", "0"))
-    under_25 = safe_int(row.get("under_25", "0"))
     avg_age = safe_float(row.get("avg_age", "0"))
-    youth_gap = 0.0
-    if target and under_25 < max(1.0, target / 2.0):
-        youth_gap += 0.45
+    age_pressure = 0.0
     if avg_age >= 30.0:
-        youth_gap += 0.35
+        age_pressure += 0.35
     elif avg_age >= 28.0:
-        youth_gap += 0.20
+        age_pressure += 0.20
     level_bonus = 0.10 if row.get("league_level") == "NHL" else 0.06
-    score = (scarcity * 0.55) + (min(1.0, youth_gap) * 0.25) + level_bonus + (tool_score * 0.10)
+    score = (scarcity * 0.62) + (min(1.0, age_pressure) * 0.20) + level_bonus + (tool_score * 0.08)
     return min(1.0, max(0.0, score))
+
+
+def pipeline_need_score(row: dict[str, str], prospect: HistoricalProspect, tool_score: float) -> float:
+    target = safe_float(row.get("scarcity_target", "0")) or 1.0
+    under_25 = safe_int(row.get("under_25", "0"))
+    players = safe_int(row.get("players", "0"))
+    role_type = row.get("role_type", "")
+    premium_role = role_type in {"puck_moving_defense", "two_way_defense", "scoring_center", "scoring_wing", "starter_goalie"}
+    u25_pressure = min(1.0, under_25 / max(1.0, target))
+    roster_saturation = min(1.0, players / max(1.0, target + 1.0))
+    score = 1.0 - ((u25_pressure * 0.62) + (roster_saturation * 0.25))
+    if premium_role and under_25 >= 2:
+        score -= 0.18
+    if candidate_role_bucket(prospect.position) == "defense" and under_25 >= 4:
+        score -= 0.25
+    if candidate_role_bucket(prospect.position) == "goalie" and under_25 >= 2:
+        score -= 0.15
+    if tool_score >= 0.75 and under_25 == 0:
+        score += 0.08
+    return min(1.0, max(0.0, score))
+
+
+def timeline_fit_score(row: dict[str, str], prospect: HistoricalProspect) -> float:
+    status = team_status(row.get("team_id", ""))
+    adult_share = adult_game_share(prospect)
+    playoff_share = playoff_game_share(prospect)
+    near_ready = min(1.0, (adult_share * 0.75) + (playoff_share * 0.25))
+    long_run_upside = 1.0 if prospect.age_at_draft <= 18.4 else 0.72
+    if status in {"rebuild_start", "rebuild_middle"}:
+        return min(1.0, (long_run_upside * 0.75) + (near_ready * 0.25))
+    if status in {"rebuild_late", "playoff_bubble"}:
+        return min(1.0, 0.45 + (near_ready * 0.35) + (long_run_upside * 0.20))
+    return min(1.0, 0.35 + (near_ready * 0.50) + (long_run_upside * 0.15))
+
+
+def risk_appetite_score(prospect: HistoricalProspect, row: dict[str, str]) -> float:
+    status = team_status(row.get("team_id", ""))
+    evidence = min(1.0, len(prospect.pre_draft_stat_lines) / 4.0)
+    adult = adult_game_share(prospect)
+    if status in {"rebuild_start", "rebuild_middle"}:
+        return min(1.0, 0.50 + (evidence * 0.25) + ((1.0 - adult) * 0.15))
+    if status in {"rebuild_late", "playoff_bubble"}:
+        return min(1.0, 0.42 + (evidence * 0.32) + (adult * 0.18))
+    return min(1.0, 0.30 + (evidence * 0.30) + (adult * 0.30))
+
+
+def team_status(team_id: str) -> str:
+    return TEAM_STATUS_BY_ID.get(team_id.upper(), "playoff_bubble")
+
+
+def adult_game_share(prospect: HistoricalProspect) -> float:
+    lines = prospect.pre_draft_stat_lines or (prospect.stat_line,)
+    games = sum(line.games for line in lines)
+    adult_games = sum(line.games for line in lines if is_adult_league(line.league))
+    return adult_games / games if games else 0.0
+
+
+def playoff_game_share(prospect: HistoricalProspect) -> float:
+    lines = prospect.pre_draft_stat_lines or (prospect.stat_line,)
+    games = sum(line.games for line in lines)
+    playoff_games = sum(line.games for line in lines if not line.regular_season)
+    return playoff_games / games if games else 0.0
+
+
+def is_adult_league(league: str) -> bool:
+    normalized = league.strip().upper()
+    junior_markers = ("JRS", "JR.", "J20", "U20", "U18", "OHL", "WHL", "QMJHL", "USHL", "NTDP", "NCAA")
+    if any(marker in normalized for marker in junior_markers):
+        return False
+    adult_markers = (
+        "NHL",
+        "AHL",
+        "KHL",
+        "VHL",
+        "SHL",
+        "LIIGA",
+        "MESTIS",
+        "HOCKEYALLSVENSKAN",
+        "CZECH",
+        "SLOVAKIA",
+        "SWISS",
+        "DEL",
+        "SWE-1",
+        "FINLAND",
+    )
+    return any(marker in normalized for marker in adult_markers)
 
 
 def classify_team_need(score: float) -> str:

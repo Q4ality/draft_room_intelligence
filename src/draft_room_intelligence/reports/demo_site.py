@@ -567,6 +567,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <div class="scouting-panel">
             <select id="detail-team-select" style="width:100%; margin-bottom:10px;"></select>
             <div class="taglist" id="detail-team-fit-tags" style="margin-bottom:10px;"></div>
+            <div class="tool-grid" id="detail-team-fit-components" style="margin-bottom:10px;"></div>
             <div id="detail-team-fit-reason" style="font-size:14px; line-height:1.45;"></div>
           </div>
         </div>
@@ -901,11 +902,25 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       document.getElementById("detail-team-fit-tags").innerHTML = [
         teamFit.team_id,
         teamFit.need,
+        teamFit.team_status_label,
+        teamFit.ahl_coverage === "available" ? "AHL loaded" : "AHL missing",
         teamFit.role ? teamFit.role.replaceAll("_", " ") : "",
         `Fit ${{percent(teamFit.score || 0)}}`,
         `What-if ${{Number(teamFit.team_adjusted_score || fallbackTeamFit.team_adjusted_score || 0).toFixed(3)}}`,
         teamFit.is_drafted_team ? "Drafted team" : "What-if team",
       ].filter(Boolean).map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");
+      const components = [
+        ["Roster", teamFit.roster_need_score],
+        ["Pipeline", teamFit.pipeline_need_score],
+        ["Timeline", teamFit.timeline_fit_score],
+        ["Risk", teamFit.risk_appetite_score],
+      ];
+      document.getElementById("detail-team-fit-components").innerHTML = components.map(([label, value]) => `
+        <div class="tool-grade">
+          <div class="tool">${{escapeHtml(label)}}</div>
+          <div class="grade">${{percent(value || 0)}}</div>
+        </div>
+      `).join("");
       document.getElementById("detail-team-fit-reason").textContent = teamFit.reason || "";
     }}
 
