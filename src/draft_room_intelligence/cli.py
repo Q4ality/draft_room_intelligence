@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import os
 import shutil
 from pathlib import Path
@@ -47,6 +48,7 @@ from draft_room_intelligence.data.team_rosters import (
     format_depth_markdown,
     load_roster_csv,
     write_depth_csv,
+    write_roster_csv,
 )
 from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
 from draft_room_intelligence.data.wikipedia_career_stats import enrich_wikipedia_career_stats
@@ -457,6 +459,18 @@ def main() -> None:
     )
     team_depth_parser.add_argument("roster_csv", type=Path, help="Normalized roster CSV path.")
     team_depth_parser.add_argument("output_dir", type=Path, help="Directory for depth report artifacts.")
+    proxy_roster_parser = subparsers.add_parser(
+        "create-preseason-roster-proxy",
+        help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
+    )
+    proxy_roster_parser.add_argument("roster_csv", type=Path, help="Current normalized roster CSV path.")
+    proxy_roster_parser.add_argument("data_path", type=Path, help="Normalized draft-class dataset directory.")
+    proxy_roster_parser.add_argument("output_csv", type=Path, help="Filtered proxy roster CSV output path.")
+    proxy_roster_parser.add_argument(
+        "--audit-csv",
+        type=Path,
+        help="Optional audit CSV for removed roster rows.",
+    )
     nhl_rosters_parser = subparsers.add_parser(
         "import-nhl-rosters",
         help="Import current NHL rosters and optional club stats into normalized roster CSV.",
@@ -766,6 +780,13 @@ def main() -> None:
         )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
+    elif args.command == "create-preseason-roster-proxy":
+        run_create_preseason_roster_proxy(
+            args.roster_csv,
+            args.data_path,
+            args.output_csv,
+            audit_csv=args.audit_csv,
+        )
     elif args.command == "import-nhl-rosters":
         run_import_nhl_rosters(
             args.output_csv,
@@ -1546,6 +1567,72 @@ def run_report_team_depth(roster_csv: Path, output_dir: Path) -> None:
     print(f"Depth rows: {len(depth_rows)}")
     print(f"Depth CSV: {output_dir / 'depth.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_create_preseason_roster_proxy(
+    roster_csv: Path,
+    data_path: Path,
+    output_csv: Path,
+    *,
+    audit_csv: Path | None = None,
+) -> None:
+    players = load_roster_csv(roster_csv)
+    prospects = load_historical_prospects(data_path)
+    draft_names = {compact_name(prospect.name) for prospect in prospects}
+    kept = []
+    removed = []
+    for player in players:
+        if compact_name(player.player_name) in draft_names:
+            removed.append(player)
+        else:
+            kept.append(player)
+
+    write_roster_csv(output_csv, kept)
+    if audit_csv is not None:
+        write_preseason_proxy_audit(audit_csv, removed)
+
+    print(f"# Preseason roster proxy: {roster_csv}")
+    print(f"Draft-class players matched for removal: {len(removed)}")
+    print(f"Roster players kept: {len(kept)}")
+    print(f"Proxy roster CSV: {output_csv}")
+    if audit_csv is not None:
+        print(f"Removal audit CSV: {audit_csv}")
+
+
+def write_preseason_proxy_audit(path: Path, players) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    columns = [
+        "team_id",
+        "team_name",
+        "league_level",
+        "player_id",
+        "player_name",
+        "position",
+        "age",
+        "source",
+        "source_id",
+    ]
+    with path.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=columns)
+        writer.writeheader()
+        for player in players:
+            writer.writerow(
+                {
+                    "team_id": player.team_id,
+                    "team_name": player.team_name,
+                    "league_level": player.league_level,
+                    "player_id": player.player_id,
+                    "player_name": player.player_name,
+                    "position": player.position,
+                    "age": f"{player.age:.1f}" if player.age else "",
+                    "source": player.source,
+                    "source_id": player.source_id,
+                }
+            )
+
+
+def compact_name(value: str) -> str:
+    return "".join(character for character in value.casefold() if character.isalnum())
 
 
 def run_import_nhl_rosters(

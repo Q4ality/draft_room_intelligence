@@ -213,6 +213,8 @@ class TeamFitContext:
     team_id: str
     team_name: str
     depth_rows: list[dict[str, str]]
+    snapshot_label: str = "Current NHL API roster"
+    snapshot_warning: str = "Not a pre-2025/26-season or draft-night roster snapshot."
 
 
 def build_demo_export_bundle(
@@ -413,6 +415,7 @@ def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamF
     path = Path(team_depth_csv)
     if not path.exists():
         return {}
+    snapshot_label, snapshot_warning = team_depth_snapshot_labels(path)
     grouped: dict[str, list[dict[str, str]]] = {}
     with path.open(newline="", encoding="utf-8") as file:
         for row in csv.DictReader(file):
@@ -424,9 +427,24 @@ def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamF
             team_id=team_id,
             team_name=rows[0].get("team_name", team_id),
             depth_rows=rows,
+            snapshot_label=snapshot_label,
+            snapshot_warning=snapshot_warning,
         )
         for team_id, rows in grouped.items()
     }
+
+
+def team_depth_snapshot_labels(path: Path) -> tuple[str, str]:
+    normalized = path.as_posix().lower()
+    if "pre_2025_26_proxy" in normalized or "pre-2025-26-proxy" in normalized:
+        return (
+            "Pre-2025/26 proxy roster",
+            "Current NHL API roster with 2025 draft-class players removed; not a verified historical preseason roster.",
+        )
+    return (
+        "Current NHL API roster",
+        "Not a pre-2025/26-season or draft-night roster snapshot.",
+    )
 
 
 def default_team_fit(
@@ -526,8 +544,8 @@ def build_team_fit(
         "need_label": classify_team_need(score),
         "team_status": status,
         "team_status_label": TEAM_STATUS_LABELS.get(status, status.replace("_", " ").title()),
-        "roster_snapshot_label": "Current NHL API roster",
-        "roster_snapshot_warning": "Not a pre-2025/26-season or draft-night roster snapshot.",
+        "roster_snapshot_label": context.snapshot_label,
+        "roster_snapshot_warning": context.snapshot_warning,
         "roster_need_score": components["roster_need_score"],
         "pipeline_need_score": components["pipeline_need_score"],
         "timeline_fit_score": components["timeline_fit_score"],
@@ -540,7 +558,7 @@ def build_team_fit(
             f"{context.team_name} {level} {role_type.replace('_', ' ')} depth shows "
             f"scarcity {scarcity:.2f}, U25 count {under_25}, avg age {avg_age:.1f}. "
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
-            "Roster basis: current NHL API, not a pre-season snapshot. "
+            f"Roster basis: {context.snapshot_label}. "
             f"Examples: {examples or 'not available'}."
         ),
     }
