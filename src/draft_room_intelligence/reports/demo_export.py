@@ -351,7 +351,7 @@ def build_demo_export_bundle(
         board_rows=board_rows,
         compare_rows=compare_rows,
         player_details=player_details,
-        manifest=build_manifest(prospects, board_rows, team_contexts, team_id),
+        manifest=build_manifest(prospects, board_rows, team_contexts, team_id, player_details),
     )
 
 
@@ -1008,6 +1008,7 @@ def build_manifest(
     board_rows: list[dict[str, str]],
     team_contexts: dict[str, TeamFitContext] | None = None,
     team_id: str = "",
+    player_details: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     if not prospects:
         return {
@@ -1021,6 +1022,7 @@ def build_manifest(
             "demo_story_players": [],
             "team_context": {},
             "team_contexts": [],
+            "team_views": [],
         }
 
     evidence_depth_counts: dict[str, int] = {}
@@ -1053,6 +1055,7 @@ def build_manifest(
         "demo_story_players": story_players,
         "team_context": build_manifest_team_contexts(team_contexts or {}, team_id),
         "team_contexts": build_manifest_team_list(team_contexts or {}),
+        "team_views": build_manifest_team_views(team_contexts or {}, player_details or []),
     }
 
 
@@ -1076,6 +1079,93 @@ def build_manifest_team_list(contexts: dict[str, TeamFitContext]) -> list[dict[s
         }
         for context in sorted(contexts.values(), key=lambda item: (item.team_name, item.team_id))
     ]
+
+
+def build_manifest_team_views(
+    contexts: dict[str, TeamFitContext],
+    player_details: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    views: list[dict[str, object]] = []
+    for context in sorted(contexts.values(), key=lambda item: (item.team_name, item.team_id)):
+        team_options = team_fit_options_for_team(player_details, context.team_id)
+        views.append(
+            {
+                "team_id": context.team_id,
+                "team_name": context.team_name,
+                "team_status": team_status(context.team_id),
+                "team_status_label": TEAM_STATUS_LABELS.get(team_status(context.team_id), team_status(context.team_id)),
+                "snapshot_label": context.snapshot_label,
+                "snapshot_warning": context.snapshot_warning,
+                "ahl_coverage": "available"
+                if any(row.get("league_level") == "AHL" for row in context.depth_rows)
+                else "missing",
+                "role_gaps": build_team_role_gaps(context),
+                "top_matches": team_options[:8],
+                "strong_match_count": sum(1 for option in team_options if float(option["score"]) >= 0.65),
+                "useful_match_count": sum(1 for option in team_options if float(option["score"]) >= 0.40),
+            }
+        )
+    return views
+
+
+def team_fit_options_for_team(player_details: list[dict[str, object]], team_id: str) -> list[dict[str, object]]:
+    matches: list[dict[str, object]] = []
+    for detail in player_details:
+        header = detail.get("header", {})
+        for option in detail.get("team_fit_options", []):
+            if option.get("team_id") != team_id:
+                continue
+            matches.append(
+                {
+                    "player_id": detail.get("player_id", ""),
+                    "name": header.get("name", ""),
+                    "position": header.get("position", ""),
+                    "board_rank": header.get("board_rank", 0),
+                    "consensus_rank": header.get("consensus_rank", 0),
+                    "role": option.get("role_type", ""),
+                    "need": option.get("need_label", ""),
+                    "score": option.get("score", 0.0),
+                    "team_adjusted_score": option.get("team_adjusted_score", 0.0),
+                    "pipeline_need_score": option.get("pipeline_need_score", 0.0),
+                    "timeline_fit_score": option.get("timeline_fit_score", 0.0),
+                    "risk_appetite_score": option.get("risk_appetite_score", 0.0),
+                }
+            )
+    return sorted(
+        matches,
+        key=lambda item: (float(item["score"]), float(item["team_adjusted_score"]), -int(item["board_rank"] or 999)),
+        reverse=True,
+    )
+
+
+def build_team_role_gaps(context: TeamFitContext) -> list[dict[str, object]]:
+    gaps: list[dict[str, object]] = []
+    for row in context.depth_rows:
+        scarcity = safe_float(row.get("scarcity_score", "0"))
+        under_25 = safe_int(row.get("under_25", "0"))
+        players = safe_int(row.get("players", "0"))
+        target = safe_float(row.get("scarcity_target", "0"))
+        avg_age = safe_float(row.get("avg_age", "0"))
+        role_priority = scarcity + (0.18 if under_25 == 0 else 0.0) + (0.08 if avg_age >= 30 else 0.0)
+        gaps.append(
+            {
+                "role_bucket": row.get("role_bucket", ""),
+                "role_type": row.get("role_type", ""),
+                "league_level": row.get("league_level", ""),
+                "players": players,
+                "under_25": under_25,
+                "scarcity_target": target,
+                "scarcity_score": scarcity,
+                "avg_age": avg_age,
+                "priority_score": min(1.0, role_priority),
+                "example_players": row.get("example_players", ""),
+            }
+        )
+    return sorted(
+        gaps,
+        key=lambda item: (float(item["priority_score"]), float(item["scarcity_score"]), -int(item["under_25"])),
+        reverse=True,
+    )[:8]
 
 
 def build_demo_story_players(board_rows: list[dict[str, str]]) -> list[dict[str, str]]:

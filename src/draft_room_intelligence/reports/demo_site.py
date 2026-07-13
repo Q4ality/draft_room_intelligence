@@ -495,6 +495,13 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         </div>
       </div>
       <div class="section">
+        <h3>Team View</h3>
+        <select id="team-view-select" style="width:100%; margin-bottom:10px;"></select>
+        <div id="team-view-summary" style="font-size:13px; line-height:1.45; margin-bottom:10px;"></div>
+        <div id="team-view-gaps" class="featured-list" style="margin-bottom:10px;"></div>
+        <div id="team-view-matches" class="featured-list"></div>
+      </div>
+      <div class="section">
         <h3>Guided Stories</h3>
         <div id="featured-players" class="featured-list"></div>
       </div>
@@ -612,6 +619,8 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     const shortlist = new Set();
     const compare = [];
     const selectedTeamByPlayer = new Map();
+    const teamViews = payload.manifest.team_views || [];
+    let selectedTeamViewId = teamViews[0]?.team_id || "";
     let selectedPlayerId = boardRows[0]?.player_id ?? null;
 
     function uniqueValues(key) {{
@@ -1153,6 +1162,72 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           renderDetail();
         }});
       }});
+      renderTeamView();
+    }}
+
+    function initializeTeamView() {{
+      const select = document.getElementById("team-view-select");
+      select.innerHTML = "";
+      for (const team of teamViews) {{
+        const option = document.createElement("option");
+        option.value = team.team_id;
+        option.textContent = `${{team.team_name}} (${{team.team_id}})`;
+        select.appendChild(option);
+      }}
+      if (teamViews.length) select.value = selectedTeamViewId;
+      select.addEventListener("change", () => {{
+        selectedTeamViewId = select.value;
+        renderTeamView();
+      }});
+    }}
+
+    function renderTeamView() {{
+      const summary = document.getElementById("team-view-summary");
+      const gaps = document.getElementById("team-view-gaps");
+      const matches = document.getElementById("team-view-matches");
+      const select = document.getElementById("team-view-select");
+      const team = teamViews.find((item) => item.team_id === selectedTeamViewId) || teamViews[0];
+      if (!team) {{
+        summary.textContent = "Team context is not available in this demo package.";
+        gaps.innerHTML = "";
+        matches.innerHTML = "";
+        select.style.display = "none";
+        return;
+      }}
+      select.style.display = "block";
+      select.value = team.team_id;
+      summary.innerHTML = `
+        <div><strong>${{escapeHtml(team.team_name)}}</strong> · ${{escapeHtml(team.team_status_label || "")}}</div>
+        <div>${{escapeHtml(team.snapshot_label || "")}} · ${{escapeHtml(team.ahl_coverage === "available" ? "AHL loaded" : "AHL missing")}}</div>
+        <div>Strong matches ${{team.strong_match_count || 0}} · Useful matches ${{team.useful_match_count || 0}}</div>
+      `;
+      gaps.innerHTML = (team.role_gaps || []).slice(0, 4).map((gap) => `
+        <div class="featured-item">
+          <div>
+            <div class="story-role">${{escapeHtml(String(gap.role_type || "").replaceAll("_", " "))}}</div>
+            <div style="font-size:12px; color:var(--muted);">${{escapeHtml(gap.league_level)}} · players ${{gap.players}} / target ${{gap.scarcity_target}} · U25 ${{gap.under_25}}</div>
+            <div class="story-hook">Scarcity ${{percent(gap.scarcity_score || 0)}} · priority ${{percent(gap.priority_score || 0)}}</div>
+          </div>
+        </div>
+      `).join("");
+      matches.innerHTML = (team.top_matches || []).slice(0, 5).map((match) => `
+        <div class="featured-item">
+          <div>
+            <div style="font-size:13px; font-weight:600;">${{escapeHtml(match.name)}}</div>
+            <div style="font-size:12px; color:var(--muted);">${{escapeHtml(match.position)}} · Board ${{match.board_rank}} · ${{escapeHtml(String(match.role || "").replaceAll("_", " "))}}</div>
+            <div class="story-hook">${{escapeHtml(match.need)}} · fit ${{percent(match.score || 0)}} · pipeline ${{percent(match.pipeline_need_score || 0)}}</div>
+          </div>
+          <button class="small team-match-open" data-player-id="${{match.player_id}}">Open</button>
+        </div>
+      `).join("");
+      matches.querySelectorAll(".team-match-open").forEach((button) => {{
+        button.addEventListener("click", () => {{
+          selectedPlayerId = button.dataset.playerId;
+          selectedTeamByPlayer.set(selectedPlayerId, team.team_id);
+          renderBoard();
+          renderDetail();
+        }});
+      }});
     }}
 
     function loadDemoStories() {{
@@ -1209,6 +1284,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     }}
 
     initializeFilters();
+    initializeTeamView();
     renderManifest();
     bindEvents();
     renderBoard();
