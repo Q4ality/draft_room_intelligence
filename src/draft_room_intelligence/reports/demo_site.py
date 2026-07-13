@@ -565,6 +565,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div class="section" id="detail-team-fit-section" style="display:none;">
           <h3>Team Fit</h3>
           <div class="scouting-panel">
+            <select id="detail-team-select" style="width:100%; margin-bottom:10px;"></select>
             <div class="taglist" id="detail-team-fit-tags" style="margin-bottom:10px;"></div>
             <div id="detail-team-fit-reason" style="font-size:14px; line-height:1.45;"></div>
           </div>
@@ -608,6 +609,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     const demoStories = payload.manifest.demo_story_players || [];
     const shortlist = new Set();
     const compare = [];
+    const selectedTeamByPlayer = new Map();
     let selectedPlayerId = boardRows[0]?.player_id ?? null;
 
     function uniqueValues(key) {{
@@ -871,16 +873,38 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     }}
 
     function renderTeamFit(detail) {{
-      const teamFit = detail.team_fit || {{}};
+      const options = detail.team_fit_options || [];
+      const fallbackTeamFit = detail.team_fit || {{}};
       const section = document.getElementById("detail-team-fit-section");
-      const hasTeamFit = Boolean(teamFit.team_id);
+      const hasTeamFit = Boolean(fallbackTeamFit.team_id || options.length);
       section.style.display = hasTeamFit ? "block" : "none";
       if (!hasTeamFit) return;
+      const select = document.getElementById("detail-team-select");
+      const defaultTeamId = selectedTeamByPlayer.get(detail.player_id) || fallbackTeamFit.team_id || detail.header.drafted_team_id || options[0]?.team_id || "";
+      select.innerHTML = "";
+      for (const optionFit of options) {{
+        const option = document.createElement("option");
+        option.value = optionFit.team_id;
+        const draftedSuffix = optionFit.is_drafted_team ? " · drafted team" : "";
+        option.textContent = `${{optionFit.team_name || optionFit.team_id}} (${{optionFit.team_id}})${{draftedSuffix}}`;
+        select.appendChild(option);
+      }}
+      if (options.length) {{
+        select.value = options.some((item) => item.team_id === defaultTeamId) ? defaultTeamId : options[0].team_id;
+      }}
+      select.onchange = () => {{
+        selectedTeamByPlayer.set(detail.player_id, select.value);
+        renderTeamFit(detail);
+      }};
+      select.style.display = options.length ? "block" : "none";
+      const teamFit = options.find((item) => item.team_id === select.value) || fallbackTeamFit;
       document.getElementById("detail-team-fit-tags").innerHTML = [
         teamFit.team_id,
         teamFit.need,
         teamFit.role ? teamFit.role.replaceAll("_", " ") : "",
         `Fit ${{percent(teamFit.score || 0)}}`,
+        `What-if ${{Number(teamFit.team_adjusted_score || fallbackTeamFit.team_adjusted_score || 0).toFixed(3)}}`,
+        teamFit.is_drafted_team ? "Drafted team" : "What-if team",
       ].filter(Boolean).map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");
       document.getElementById("detail-team-fit-reason").textContent = teamFit.reason || "";
     }}

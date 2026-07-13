@@ -202,9 +202,14 @@ def build_demo_export_bundle(
         )
         for player_id in base_board_scores
     }
-    team_context = load_team_fit_context(team_depth_csv, team_id)
+    team_contexts = load_team_fit_contexts(team_depth_csv)
     team_fits = {
-        player_id: build_team_fit(prospects_by_id[player_id], team_context, ep_scores.get(player_id, 0.0))
+        player_id: default_team_fit(
+            prospects_by_id[player_id],
+            team_contexts,
+            ep_scores.get(player_id, 0.0),
+            team_id,
+        )
         for player_id in board_scores
     }
     team_adjusted_scores = {
@@ -225,6 +230,8 @@ def build_demo_export_bundle(
         prospect = prospects_by_id[player_id]
         feature = features_by_id[player_id]
         team_fit = team_fits[player_id]
+        team_fit_options = build_team_fit_options(prospect, team_contexts, ep_scores[player_id], board_scores[player_id])
+        resolved_drafted_team_id = drafted_team_id(prospect, team_contexts)
         board_rank = board_ranks[player_id]
         consensus_rank = int(feature["consensus_rank"])
         consensus_delta = board_rank - consensus_rank
@@ -291,13 +298,13 @@ def build_demo_export_bundle(
         }
         board_rows.append(board_row)
         compare_rows.append({column: board_row[column] for column in COMPARE_COLUMNS})
-        player_details.append(build_player_detail(prospect, board_row))
+        player_details.append(build_player_detail(prospect, board_row, team_fit_options, resolved_drafted_team_id))
 
     return DemoExportBundle(
         board_rows=board_rows,
         compare_rows=compare_rows,
         player_details=player_details,
-        manifest=build_manifest(prospects, board_rows, team_context),
+        manifest=build_manifest(prospects, board_rows, team_contexts, team_id),
     )
 
 
@@ -355,22 +362,70 @@ def scouting_adjusted_board_score(base_board_score: float, consensus_score: floa
     return min(1.0, base_board_score + lift)
 
 
-def load_team_fit_context(team_depth_csv: str | Path | None, team_id: str) -> TeamFitContext | None:
-    if not team_depth_csv or not team_id:
-        return None
+def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamFitContext]:
+    if not team_depth_csv:
+        return {}
     path = Path(team_depth_csv)
     if not path.exists():
-        return None
-    normalized_team_id = team_id.upper()
+        return {}
+    grouped: dict[str, list[dict[str, str]]] = {}
     with path.open(newline="", encoding="utf-8") as file:
-        rows = [row for row in csv.DictReader(file) if row.get("team_id", "").upper() == normalized_team_id]
-    if not rows:
-        return None
-    return TeamFitContext(
-        team_id=normalized_team_id,
-        team_name=rows[0].get("team_name", normalized_team_id),
-        depth_rows=rows,
-    )
+        for row in csv.DictReader(file):
+            normalized_team_id = row.get("team_id", "").upper()
+            if normalized_team_id:
+                grouped.setdefault(normalized_team_id, []).append(row)
+    return {
+        team_id: TeamFitContext(
+            team_id=team_id,
+            team_name=rows[0].get("team_name", team_id),
+            depth_rows=rows,
+        )
+        for team_id, rows in grouped.items()
+    }
+
+
+def default_team_fit(
+    prospect: HistoricalProspect,
+    contexts: dict[str, TeamFitContext],
+    tool_score: float,
+    override_team_id: str = "",
+) -> dict[str, object]:
+    selected_team_id = (override_team_id.upper() if override_team_id else drafted_team_id(prospect, contexts))
+    return build_team_fit(prospect, contexts.get(selected_team_id), tool_score)
+
+
+def drafted_team_id(prospect: HistoricalProspect, contexts: dict[str, TeamFitContext] | None = None) -> str:
+    if prospect.selection is None:
+        return ""
+    raw_team_id = prospect.selection.team_id.upper()
+    if contexts is None or raw_team_id in contexts:
+        return raw_team_id
+    compact_raw = compact_team_text(raw_team_id)
+    for context in contexts.values():
+        compact_name = compact_team_text(context.team_name)
+        if compact_name and compact_raw.startswith(compact_name):
+            return context.team_id
+    return raw_team_id
+
+
+def compact_team_text(value: str) -> str:
+    return "".join(character for character in value.upper() if character.isalnum())
+
+
+def build_team_fit_options(
+    prospect: HistoricalProspect,
+    contexts: dict[str, TeamFitContext],
+    tool_score: float,
+    board_score: float,
+) -> list[dict[str, object]]:
+    options: list[dict[str, object]] = []
+    resolved_drafted_team_id = drafted_team_id(prospect, contexts)
+    for context in sorted(contexts.values(), key=lambda item: (item.team_name, item.team_id)):
+        fit = dict(build_team_fit(prospect, context, tool_score))
+        fit["team_adjusted_score"] = team_adjusted_score(board_score, fit)
+        fit["is_drafted_team"] = fit["team_id"] == resolved_drafted_team_id
+        options.append(fit)
+    return options
 
 
 def build_team_fit(
@@ -486,7 +541,12 @@ def classify_team_need(score: float) -> str:
     return "No team context"
 
 
-def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str]) -> dict[str, object]:
+def build_player_detail(
+    prospect: HistoricalProspect,
+    board_row: dict[str, str],
+    team_fit_options: list[dict[str, object]] | None = None,
+    resolved_drafted_team_id: str = "",
+) -> dict[str, object]:
     return {
         "player_id": prospect.player_id,
         "header": {
@@ -500,6 +560,7 @@ def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str])
             "handedness": prospect.handedness,
             "consensus_rank": int(board_row["consensus_rank"]),
             "board_rank": int(board_row["board_rank"]),
+            "drafted_team_id": resolved_drafted_team_id or drafted_team_id(prospect),
         },
         "summary": {
             "board_score": float(board_row["board_score"]),
@@ -527,8 +588,10 @@ def build_player_detail(prospect: HistoricalProspect, board_row: dict[str, str])
             "role": board_row["team_fit_role"],
             "need": board_row["team_fit_need"],
             "score": float(board_row["team_fit_score"]),
+            "team_adjusted_score": float(board_row["team_adjusted_score"]),
             "reason": board_row["team_fit_reason"],
         },
+        "team_fit_options": team_fit_options or [],
         "scouting": {
             "summary": prospect.scouting_text,
             "shades_of": prospect.shades_of,
@@ -758,7 +821,8 @@ def write_csv(path: Path, columns: list[str], rows: list[dict[str, str]]) -> Non
 def build_manifest(
     prospects: list[HistoricalProspect],
     board_rows: list[dict[str, str]],
-    team_context: TeamFitContext | None = None,
+    team_contexts: dict[str, TeamFitContext] | None = None,
+    team_id: str = "",
 ) -> dict[str, object]:
     if not prospects:
         return {
@@ -771,6 +835,7 @@ def build_manifest(
             "featured_player_ids": [],
             "demo_story_players": [],
             "team_context": {},
+            "team_contexts": [],
         }
 
     evidence_depth_counts: dict[str, int] = {}
@@ -801,18 +866,31 @@ def build_manifest(
         "source_counts": source_counts,
         "featured_player_ids": featured_ids,
         "demo_story_players": story_players,
-        "team_context": build_manifest_team_context(team_context),
+        "team_context": build_manifest_team_contexts(team_contexts or {}, team_id),
+        "team_contexts": build_manifest_team_list(team_contexts or {}),
     }
 
 
-def build_manifest_team_context(team_context: TeamFitContext | None) -> dict[str, object]:
-    if team_context is None:
+def build_manifest_team_contexts(contexts: dict[str, TeamFitContext], team_id: str = "") -> dict[str, object]:
+    if not contexts:
         return {}
     return {
-        "team_id": team_context.team_id,
-        "team_name": team_context.team_name,
-        "depth_row_count": len(team_context.depth_rows),
+        "mode": "override" if team_id else "drafted_team_default",
+        "default_team_id": team_id.upper(),
+        "team_count": len(contexts),
+        "depth_row_count": sum(len(context.depth_rows) for context in contexts.values()),
     }
+
+
+def build_manifest_team_list(contexts: dict[str, TeamFitContext]) -> list[dict[str, object]]:
+    return [
+        {
+            "team_id": context.team_id,
+            "team_name": context.team_name,
+            "depth_row_count": len(context.depth_rows),
+        }
+        for context in sorted(contexts.values(), key=lambda item: (item.team_name, item.team_id))
+    ]
 
 
 def build_demo_story_players(board_rows: list[dict[str, str]]) -> list[dict[str, str]]:
