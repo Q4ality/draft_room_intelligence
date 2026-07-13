@@ -498,6 +498,8 @@ def main() -> None:
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
     demo_export_parser.add_argument("output_dir", type=Path, help="Directory for demo export artifacts.")
+    demo_export_parser.add_argument("--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis.")
+    demo_export_parser.add_argument("--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis.")
     demo_site_parser = subparsers.add_parser(
         "build-demo-site",
         help="Build a self-contained HTML demo app for a single draft class.",
@@ -508,6 +510,8 @@ def main() -> None:
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
     demo_site_parser.add_argument("output_dir", type=Path, help="Directory for demo site artifacts.")
+    demo_site_parser.add_argument("--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis.")
+    demo_site_parser.add_argument("--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis.")
     demo_readiness_parser = subparsers.add_parser(
         "build-demo-readiness",
         help="Build the demo site plus data-gap and modeling sanity reports.",
@@ -518,6 +522,8 @@ def main() -> None:
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
     demo_readiness_parser.add_argument("output_dir", type=Path, help="Directory for demo and report artifacts.")
+    demo_readiness_parser.add_argument("--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis.")
+    demo_readiness_parser.add_argument("--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis.")
     demo_readiness_parser.add_argument(
         "--gap-top-n",
         type=int,
@@ -770,15 +776,17 @@ def main() -> None:
             stats_json_dir=args.stats_json_dir,
         )
     elif args.command == "export-demo-package":
-        run_export_demo_package(args.data_path, args.output_dir)
+        run_export_demo_package(args.data_path, args.output_dir, team_depth_csv=args.team_depth_csv, team_id=args.team_id)
     elif args.command == "build-demo-site":
-        run_build_demo_site(args.data_path, args.output_dir)
+        run_build_demo_site(args.data_path, args.output_dir, team_depth_csv=args.team_depth_csv, team_id=args.team_id)
     elif args.command == "build-demo-readiness":
         run_build_demo_readiness(
             args.data_path,
             args.output_dir,
             gap_top_n=args.gap_top_n,
             movement_top_n=args.movement_top_n,
+            team_depth_csv=args.team_depth_csv,
+            team_id=args.team_id,
         )
     elif args.command == "report-demo-gaps":
         run_report_demo_gaps(args.demo_output_dir, args.output_dir, top_n=args.top_n)
@@ -1335,9 +1343,15 @@ def run_evaluate_role_models(
     print(format_board_order_report(board_report))
 
 
-def run_export_demo_package(data_path: Path, output_dir: Path) -> None:
+def run_export_demo_package(
+    data_path: Path,
+    output_dir: Path,
+    *,
+    team_depth_csv: Path | None = None,
+    team_id: str = "",
+) -> None:
     prospects = load_historical_prospects(data_path)
-    bundle = build_demo_export_bundle(prospects)
+    bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
     outputs = export_demo_package(output_dir, bundle)
     print(f"# Demo package export: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
@@ -1349,9 +1363,15 @@ def run_export_demo_package(data_path: Path, output_dir: Path) -> None:
     print(f"Dataset status: {bundle.manifest['dataset_status']}")
 
 
-def run_build_demo_site(data_path: Path, output_dir: Path) -> None:
+def run_build_demo_site(
+    data_path: Path,
+    output_dir: Path,
+    *,
+    team_depth_csv: Path | None = None,
+    team_id: str = "",
+) -> None:
     prospects = load_historical_prospects(data_path)
-    bundle = build_demo_export_bundle(prospects)
+    bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
     print(f"# Demo site build: {data_path}")
@@ -1370,9 +1390,11 @@ def run_build_demo_readiness(
     *,
     gap_top_n: int,
     movement_top_n: int,
+    team_depth_csv: Path | None = None,
+    team_id: str = "",
 ) -> None:
     prospects = load_historical_prospects(data_path)
-    bundle = build_demo_export_bundle(prospects)
+    bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
     reports_dir = output_dir / "reports"

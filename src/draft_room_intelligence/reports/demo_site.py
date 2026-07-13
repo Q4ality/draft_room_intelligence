@@ -523,6 +523,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
               <th style="width: 120px;">League</th>
               <th style="width: 88px;">Consensus</th>
               <th style="width: 88px;">Board</th>
+              <th style="width: 96px;">Team</th>
               <th style="width: 110px;">Adjusted</th>
               <th style="width: 110px;">Adult</th>
               <th style="width: 110px;">Playoff</th>
@@ -560,6 +561,13 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div class="section">
           <h3>Review Flags</h3>
           <ul class="detail-list" id="detail-risk-flags"></ul>
+        </div>
+        <div class="section" id="detail-team-fit-section" style="display:none;">
+          <h3>Team Fit</h3>
+          <div class="scouting-panel">
+            <div class="taglist" id="detail-team-fit-tags" style="margin-bottom:10px;"></div>
+            <div id="detail-team-fit-reason" style="font-size:14px; line-height:1.45;"></div>
+          </div>
         </div>
         <div class="section" id="detail-scouting-section" style="display:none;">
           <h3>Elite Prospects Guide</h3>
@@ -653,7 +661,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     function tagClass(label) {{
       if (label === "Model Higher") return "tag model";
       if (label === "Consensus Higher" || label === "Low Evidence") return "tag warn";
-      if (label === "Adult Sample" || label === "Playoff Sample") return "tag model";
+      if (label === "Adult Sample" || label === "Playoff Sample" || label === "EP Elite Tools" || label === "Strong Team Fit") return "tag model";
       if (label === "Adult Exposure") return "tag warn";
       return "tag";
     }}
@@ -735,6 +743,10 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <td>${{row.primary_league}}</td>
           <td>${{row.consensus_rank}}</td>
           <td>${{Number(row.board_score).toFixed(3)}}</td>
+          <td>
+            <div>${{Number(row.team_adjusted_score || row.board_score).toFixed(3)}}</div>
+            <div style="color:var(--muted); font-size:11px;">${{row.team_fit_need || ""}}</div>
+          </td>
           <td>${{Number(row.adjusted_production_score).toFixed(3)}}</td>
           <td>${{adultSampleLabel(row)}}</td>
           <td>${{percent(row.playoff_game_share)}}</td>
@@ -792,7 +804,9 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
 
       const metrics = [
         ["Board Score", Number(detail.summary.board_score).toFixed(3)],
+        ["Team Score", Number(detail.summary.team_adjusted_score || detail.summary.board_score).toFixed(3)],
         ["Model Score", Number(detail.summary.model_score).toFixed(3)],
+        ["EP Tools", percent(detail.summary.ep_tool_score || 0)],
         ["Adjusted PPG", Number(detail.summary.adjusted_ppg).toFixed(3)],
         ["Adult Share", percent(detail.summary.adult_game_share)],
         ["Playoff Share", percent(detail.summary.playoff_game_share)],
@@ -808,6 +822,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       `).join("");
       document.getElementById("detail-why-high").innerHTML = detail.why_high.map((item) => `<li>${{item}}</li>`).join("");
       document.getElementById("detail-risk-flags").innerHTML = detail.risk_flags.map((item) => `<li>${{item}}</li>`).join("");
+      renderTeamFit(detail);
       renderScouting(detail);
       document.getElementById("detail-history").innerHTML = detail.pre_draft_history.map((row) => `
         <tr>
@@ -855,6 +870,21 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       `).join("");
     }}
 
+    function renderTeamFit(detail) {{
+      const teamFit = detail.team_fit || {{}};
+      const section = document.getElementById("detail-team-fit-section");
+      const hasTeamFit = Boolean(teamFit.team_id);
+      section.style.display = hasTeamFit ? "block" : "none";
+      if (!hasTeamFit) return;
+      document.getElementById("detail-team-fit-tags").innerHTML = [
+        teamFit.team_id,
+        teamFit.need,
+        teamFit.role ? teamFit.role.replaceAll("_", " ") : "",
+        `Fit ${{percent(teamFit.score || 0)}}`,
+      ].filter(Boolean).map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");
+      document.getElementById("detail-team-fit-reason").textContent = teamFit.reason || "";
+    }}
+
     function toggleShortlist(playerId) {{
       if (shortlist.has(playerId)) {{
         shortlist.delete(playerId);
@@ -895,6 +925,9 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         ["Consensus Rank", "consensus_rank"],
         ["Board Rank", "board_rank"],
         ["Board Score", "board_score"],
+        ["Team Score", "team_adjusted_score"],
+        ["Team Fit", "team_fit_score"],
+        ["EP Tools", "ep_tool_score"],
         ["Adjusted Score", "adjusted_production_score"],
         ["Role Percentile", "role_percentile"],
         ["Primary League", "primary_league"],
@@ -909,7 +942,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         for (let i = 0; i < 3; i += 1) {{
           const row = rows[i];
           let value = row ? row[key] : "";
-          if (row && ["board_score", "adjusted_production_score", "role_percentile", "average_league_weight"].includes(key)) {{
+          if (row && ["board_score", "team_adjusted_score", "team_fit_score", "ep_tool_score", "adjusted_production_score", "role_percentile", "average_league_weight"].includes(key)) {{
             value = Number(value).toFixed(3);
           }}
           if (row && ["adult_game_share", "playoff_game_share"].includes(key)) {{
@@ -929,7 +962,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         alert("Add players to the shortlist or compare set first.");
         return;
       }}
-      const columns = ["player_id", "name", "board_rank", "consensus_rank", "board_score", "short_reason", "risk_note"];
+      const columns = ["player_id", "name", "board_rank", "consensus_rank", "board_score", "team_adjusted_score", "team_fit_need", "ep_tool_score", "short_reason", "risk_note"];
       const csv = [
         columns.join(","),
         ...rows.map((row) => columns.map((column) => `"${{String(row[column] ?? "").replaceAll('"', '""')}}"`).join(",")),
@@ -967,10 +1000,11 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
             ${{story ? `<p class="story"><strong>${{escapeHtml(story.story_role)}}:</strong> ${{escapeHtml(story.story_hook)}}</p>` : ""}}
             <div class="metrics">
               <div><span>Evidence</span><strong>${{escapeHtml(evidenceLabel(row.evidence_depth))}}</strong></div>
+              <div><span>Team</span><strong>${{Number(row.team_adjusted_score || row.board_score).toFixed(3)}}</strong></div>
+              <div><span>EP Tools</span><strong>${{percent(row.ep_tool_score || 0)}}</strong></div>
               <div><span>Adjusted</span><strong>${{Number(row.adjusted_production_score).toFixed(3)}}</strong></div>
-              <div><span>Adult</span><strong>${{escapeHtml(adultSampleLabel(row))}}</strong></div>
-              <div><span>Playoff</span><strong>${{percent(row.playoff_game_share)}}</strong></div>
             </div>
+            ${{row.team_fit_reason ? `<p class="story"><strong>${{escapeHtml(row.team_fit_need || "Team fit")}}:</strong> ${{escapeHtml(row.team_fit_reason)}}</p>` : ""}}
             <div class="columns">
               <div>
                 <h3>Why Review</h3>
