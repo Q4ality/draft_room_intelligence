@@ -567,6 +567,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <div class="scouting-panel">
             <select id="detail-team-select" style="width:100%; margin-bottom:10px;"></select>
             <div class="taglist" id="detail-team-fit-tags" style="margin-bottom:10px;"></div>
+            <div id="detail-team-info" style="font-size:13px; line-height:1.45; margin-bottom:10px;"></div>
             <div class="tool-grid" id="detail-team-fit-components" style="margin-bottom:10px;"></div>
             <div id="detail-team-fit-reason" style="font-size:14px; line-height:1.45;"></div>
           </div>
@@ -901,6 +902,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       const teamFit = options.find((item) => item.team_id === select.value) || fallbackTeamFit;
       document.getElementById("detail-team-fit-tags").innerHTML = [
         teamFit.team_id,
+        teamFit.team_name,
         teamFit.need,
         teamFit.team_status_label,
         teamFit.ahl_coverage === "available" ? "AHL loaded" : "AHL missing",
@@ -909,6 +911,11 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         `What-if ${{Number(teamFit.team_adjusted_score || fallbackTeamFit.team_adjusted_score || 0).toFixed(3)}}`,
         teamFit.is_drafted_team ? "Drafted team" : "What-if team",
       ].filter(Boolean).map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");
+      document.getElementById("detail-team-info").innerHTML = `
+        <div><strong>${{escapeHtml(teamFit.team_name || teamFit.team_id || "Team")}}</strong> · ${{escapeHtml(teamFit.team_status_label || "Status pending")}}</div>
+        <div>Role depth: ${{escapeHtml(teamFit.role || "").replaceAll("_", " ")}} · players ${{escapeHtml(teamFit.role_player_count ?? "—")}} / target ${{escapeHtml(teamFit.scarcity_target ?? "—")}} · U25 ${{escapeHtml(teamFit.u25_same_role_count ?? "—")}}</div>
+        <div>${{escapeHtml(teamFit.roster_snapshot_label || "Roster snapshot pending")}} · ${{escapeHtml(teamFit.roster_snapshot_warning || "")}}</div>
+      `;
       const components = [
         ["Roster", teamFit.roster_need_score],
         ["Pipeline", teamFit.pipeline_need_score],

@@ -526,6 +526,8 @@ def build_team_fit(
         "need_label": classify_team_need(score),
         "team_status": status,
         "team_status_label": TEAM_STATUS_LABELS.get(status, status.replace("_", " ").title()),
+        "roster_snapshot_label": "Current NHL API roster",
+        "roster_snapshot_warning": "Not a pre-2025/26-season or draft-night roster snapshot.",
         "roster_need_score": components["roster_need_score"],
         "pipeline_need_score": components["pipeline_need_score"],
         "timeline_fit_score": components["timeline_fit_score"],
@@ -538,6 +540,7 @@ def build_team_fit(
             f"{context.team_name} {level} {role_type.replace('_', ' ')} depth shows "
             f"scarcity {scarcity:.2f}, U25 count {under_25}, avg age {avg_age:.1f}. "
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
+            "Roster basis: current NHL API, not a pre-season snapshot. "
             f"Examples: {examples or 'not available'}."
         ),
     }
