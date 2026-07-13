@@ -42,6 +42,71 @@ MERGE_COLUMNS = [
     *GOALIE_STAT_COLUMNS,
 ]
 
+TEAM_ALIASES_BY_LEAGUE = {
+    "ohl": {
+        "BAR": "Barrie Colts",
+        "BFD": "Brantford Bulldogs",
+        "BRAM": "Brampton Steelheads",
+        "ER": "Erie Otters",
+        "FLNT": "Flint Firebirds",
+        "GUE": "Guelph Storm",
+        "KGN": "Kingston Frontenacs",
+        "KIT": "Kitchener Rangers",
+        "LDN": "London Knights",
+        "NB": "North Bay Battalion",
+        "NIAG": "Niagara IceDogs",
+        "OSH": "Oshawa Generals",
+        "OTT": "Ottawa 67's",
+        "OS": "Owen Sound Attack",
+        "PBO": "Peterborough Petes",
+        "SAR": "Sarnia Sting",
+        "SAG": "Saginaw Spirit",
+        "SOO": "Soo Greyhounds",
+        "SBY": "Sudbury Wolves",
+        "WSR": "Windsor Spitfires",
+    },
+    "qmjhl": {
+        "BAC": "Acadie-Bathurst Titan",
+        "BB": "Blainville-Boisbriand Armada",
+        "CHA": "Charlottetown Islanders",
+        "CHI": "Chicoutimi Saguenéens",
+        "DRU": "Drummondville Voltigeurs",
+        "GAT": "Gatineau Olympiques",
+        "HAL": "Halifax Mooseheads",
+        "MON": "Moncton Wildcats",
+        "QUE": "Québec Remparts",
+        "RIM": "Rimouski Océanic",
+        "ROU": "Rouyn-Noranda Huskies",
+        "SHA": "Shawinigan Cataractes",
+        "SHE": "Sherbrooke Phoenix",
+        "SNB": "Saint John Sea Dogs",
+        "VDO": "Val-d'Or Foreurs",
+        "VIC": "Victoriaville Tigres",
+    },
+    "whl": {
+        "BDN": "Brandon Wheat Kings",
+        "CGY": "Calgary Hitmen",
+        "EDM": "Edmonton Oil Kings",
+        "EVT": "Everett Silvertips",
+        "KAM": "Kamloops Blazers",
+        "KEL": "Kelowna Rockets",
+        "LET": "Lethbridge Hurricanes",
+        "MJ": "Moose Jaw Warriors",
+        "PG": "Prince George Cougars",
+        "POR": "Portland Winterhawks",
+        "RD": "Red Deer Rebels",
+        "REG": "Regina Pats",
+        "SAS": "Saskatoon Blades",
+        "SEA": "Seattle Thunderbirds",
+        "SPO": "Spokane Chiefs",
+        "SC": "Swift Current Broncos",
+        "TC": "Tri-City Americans",
+        "VAN": "Vancouver Giants",
+        "VIC": "Victoria Royals",
+        "WEN": "Wenatchee Wild",
+    },
+}
+
 
 @dataclass(frozen=True)
 class StatReconciliationResult:
@@ -133,9 +198,15 @@ def reconciliation_key(row: dict[str, str]) -> tuple[str, str, str, str, str]:
         row.get("player_id", ""),
         row.get("season", ""),
         normalize_key_value(row.get("league", "")),
-        normalize_key_value(row.get("team", "")),
+        normalize_team_key(row.get("league", ""), row.get("team", "")),
         normalize_regular_season(row.get("regular_season", "")),
     )
+
+
+def normalize_team_key(league: str, team: str) -> str:
+    league_key = normalize_key_value(league)
+    alias = TEAM_ALIASES_BY_LEAGUE.get(league_key, {}).get(team.strip().upper())
+    return normalize_key_value(alias or team)
 
 
 def normalize_key_value(value: str) -> str:

@@ -9,10 +9,10 @@
 - fuzzy_matches: 3
 - unmatched_source_players: 177
 - base_stat_lines: 457
-- added_stat_lines: 350
-- augmented_stat_lines: 32
-- output_stat_lines: 807
-- reconciled_duplicate_groups: 32
-- reconciliation_conflict_groups: 9
+- added_stat_lines: 280
+- augmented_stat_lines: 102
+- output_stat_lines: 737
+- reconciled_duplicate_groups: 85
+- reconciliation_conflict_groups: 10
 - profile_rows: 189
 - tool_grade_rows: 1134
