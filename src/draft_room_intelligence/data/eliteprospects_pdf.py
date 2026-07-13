@@ -105,6 +105,15 @@ GOALIE_TOOL_LABELS = [
     "play_reading",
     "technique",
 ]
+GOALIE_TOOL_LABELS_2025 = [
+    "skating",
+    "transitions",
+    "hands",
+    "tracking",
+    "post",
+    "depth",
+]
+GOALIE_TOOL_LABELS_2026 = GOALIE_TOOL_LABELS
 TOOL_LABELS = SKATER_TOOL_LABELS
 OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses"
 DEFAULT_VISION_MODEL = "gpt-5.6"
@@ -363,10 +372,14 @@ class OpenAiVisionToolGradeClient:
 def tool_grade_prompt(profile: EliteProspectsPdfProfile) -> str:
     labels = tool_labels_for_profile(profile)
     if is_goalie_profile(profile):
+        visible_labels = (
+            "SKATING, TRANSITIONS, HANDS, TRACKING, POST, DEPTH"
+            if profile.draft_year == 2025
+            else "SKATING, ATHLETICISM, TRANSITIONS, POSITIONING, PLAY READING, TECHNIQUE"
+        )
         role_lines = [
             "This is a goalie profile. Extract goalie tool grades only.",
-            "The visible goalie labels should be: SKATING, ATHLETICISM, TRANSITIONS, "
-            "POSITIONING, PLAY READING, TECHNIQUE.",
+            f"The visible goalie labels should be: {visible_labels}.",
             "Map PLAY READING to the JSON key play_reading.",
         ]
     else:
@@ -386,7 +399,11 @@ def tool_grade_prompt(profile: EliteProspectsPdfProfile) -> str:
 
 
 def tool_labels_for_profile(profile: EliteProspectsPdfProfile) -> list[str]:
-    return GOALIE_TOOL_LABELS if is_goalie_profile(profile) else SKATER_TOOL_LABELS
+    if not is_goalie_profile(profile):
+        return SKATER_TOOL_LABELS
+    if profile.draft_year == 2025:
+        return GOALIE_TOOL_LABELS_2025
+    return GOALIE_TOOL_LABELS_2026
 
 
 def is_goalie_profile(profile: EliteProspectsPdfProfile) -> bool:

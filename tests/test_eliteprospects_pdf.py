@@ -331,3 +331,24 @@ def test_goalie_vision_prompt_uses_goalie_tool_labels():
     assert "goalie profile" in prompt
     assert "athleticism" in prompt
     assert "play_reading" in prompt
+
+
+def test_2025_goalie_vision_prompt_uses_2025_goalie_tool_labels():
+    profile = parse_profile_page(
+        DRAFT25_PROFILE.replace("D|Matthew Schaefer", "G|Joshua Ravensbergen"),
+        draft_year=2025,
+        page_number=364,
+        source_name="Draft25.pdf",
+    )
+
+    assert profile is not None
+    prompt = tool_grade_prompt(profile)
+    assert "HANDS" in prompt
+    assert "TRACKING" in prompt
+    assert "DEPTH" in prompt
+    grades = parse_tool_grade_json(
+        '{"skating": "6.0", "transitions": "6.0", "hands": "5.0", '
+        '"tracking": "6.0", "post": "5.0", "depth": "7.0"}',
+        allowed_tools=["skating", "transitions", "hands", "tracking", "post", "depth"],
+    )
+    assert grades["depth"] == "7.0"
