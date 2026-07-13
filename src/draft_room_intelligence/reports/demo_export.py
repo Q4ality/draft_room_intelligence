@@ -436,6 +436,11 @@ def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamF
 
 def team_depth_snapshot_labels(path: Path) -> tuple[str, str]:
     normalized = path.as_posix().lower()
+    if "with_ahl" in normalized or "ahl" in normalized:
+        return (
+            "Pre-2025/26 proxy roster + 2024-25 AHL roster",
+            "NHL proxy roster with 2025 draft-class players removed, plus official 2024-25 AHL stats and roster-detail feeds; not a verified historical opening-night roster.",
+        )
     if "pre_2025_26_proxy" in normalized or "pre-2025-26-proxy" in normalized:
         return (
             "Pre-2025/26 proxy roster",

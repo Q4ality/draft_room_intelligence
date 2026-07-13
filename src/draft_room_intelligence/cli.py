@@ -14,6 +14,11 @@ from draft_room_intelligence.data.demo_data import (
     format_demo_audit_report,
     scaffold_demo_class,
 )
+from draft_room_intelligence.data.ahl_api import (
+    DEFAULT_AHL_SEASON_ID,
+    DEFAULT_AHL_SEASON_LABEL,
+    import_ahl_rosters,
+)
 from draft_room_intelligence.data.ep_pdf_overlay import (
     overlay_ep_pdf_demo_dataset,
     write_overlay_report,
@@ -471,6 +476,33 @@ def main() -> None:
         type=Path,
         help="Optional audit CSV for removed roster rows.",
     )
+    merge_rosters_parser = subparsers.add_parser(
+        "merge-roster-csvs",
+        help="Merge normalized roster CSV files into one roster-depth input.",
+    )
+    merge_rosters_parser.add_argument("output_csv", type=Path, help="Merged normalized roster CSV output path.")
+    merge_rosters_parser.add_argument("input_csvs", nargs="+", type=Path, help="Input normalized roster CSV paths.")
+    ahl_rosters_parser = subparsers.add_parser(
+        "import-ahl-rosters",
+        help="Import official AHL historical stats and roster details into normalized roster CSV.",
+    )
+    ahl_rosters_parser.add_argument("output_csv", type=Path, help="Path for normalized AHL roster CSV output.")
+    ahl_rosters_parser.add_argument(
+        "--season-id",
+        default=DEFAULT_AHL_SEASON_ID,
+        help="AHL HockeyTech season id. Defaults to 86, the 2024-25 regular season.",
+    )
+    ahl_rosters_parser.add_argument(
+        "--season-label",
+        default=DEFAULT_AHL_SEASON_LABEL,
+        help="Human-readable source season label for logs.",
+    )
+    ahl_rosters_parser.add_argument(
+        "--minimum-games",
+        type=int,
+        default=1,
+        help="Minimum AHL games played required for inclusion.",
+    )
     nhl_rosters_parser = subparsers.add_parser(
         "import-nhl-rosters",
         help="Import current NHL rosters and optional club stats into normalized roster CSV.",
@@ -786,6 +818,15 @@ def main() -> None:
             args.data_path,
             args.output_csv,
             audit_csv=args.audit_csv,
+        )
+    elif args.command == "merge-roster-csvs":
+        run_merge_roster_csvs(args.output_csv, args.input_csvs)
+    elif args.command == "import-ahl-rosters":
+        run_import_ahl_rosters(
+            args.output_csv,
+            season_id=args.season_id,
+            season_label=args.season_label,
+            minimum_games=args.minimum_games,
         )
     elif args.command == "import-nhl-rosters":
         run_import_nhl_rosters(
@@ -1633,6 +1674,40 @@ def write_preseason_proxy_audit(path: Path, players) -> None:
 
 def compact_name(value: str) -> str:
     return "".join(character for character in value.casefold() if character.isalnum())
+
+
+def run_merge_roster_csvs(output_csv: Path, input_csvs: list[Path]) -> None:
+    players = []
+    for input_csv in input_csvs:
+        players.extend(load_roster_csv(input_csv))
+    write_roster_csv(output_csv, players)
+    print("# Merged roster CSV")
+    print(f"Input files: {len(input_csvs)}")
+    print(f"Roster players: {len(players)}")
+    print(f"Output CSV: {output_csv}")
+
+
+def run_import_ahl_rosters(
+    output_csv: Path,
+    *,
+    season_id: str,
+    season_label: str,
+    minimum_games: int,
+) -> None:
+    summary = import_ahl_rosters(
+        output_csv,
+        season_id=season_id,
+        season_label=season_label,
+        minimum_games=minimum_games,
+    )
+    print("# AHL roster import")
+    print(f"Season: {summary.season_label} ({summary.season_id})")
+    print(f"AHL teams loaded: {summary.teams_loaded}")
+    print(f"Skater stat rows: {summary.skaters_loaded}")
+    print(f"Goalie stat rows: {summary.goalies_loaded}")
+    print(f"Roster detail rows: {summary.roster_detail_players}")
+    print(f"Normalized roster players: {summary.normalized_players}")
+    print(f"Roster CSV: {summary.output_csv}")
 
 
 def run_import_nhl_rosters(
