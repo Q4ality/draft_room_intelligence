@@ -129,6 +129,9 @@ def parse_nhl_roster_payload(
             goals = int_value(first_value(stats, "goals", "g"))
             assists = int_value(first_value(stats, "assists", "a"))
             points = int_value(first_value(stats, "points", "p"))
+            shots_against = int_value(first_value(stats, "shotsAgainst", "shots_against", "sa"))
+            saves = int_value(first_value(stats, "saves", "sv"))
+            goals_against = int_value(first_value(stats, "goalsAgainst", "goals_against", "ga"))
             players.append(
                 RosterPlayer(
                     team_id=team_id,
@@ -156,6 +159,22 @@ def parse_nhl_roster_payload(
                             "toiPerGame",
                         )
                     ),
+                    goalie_minutes=goalie_minutes(stats),
+                    goalie_wins=int_value(first_value(stats, "wins", "w")),
+                    goalie_saves=saves,
+                    goalie_shots_against=shots_against,
+                    goalie_goals_against=goals_against,
+                    goalie_save_percentage=goalie_save_percentage(stats, saves=saves, shots_against=shots_against),
+                    goalie_goals_against_average=optional_float_value(
+                        first_value(
+                            stats,
+                            "goalsAgainstAverage",
+                            "goalAgainstAverage",
+                            "goalieGoalsAgainstAverage",
+                            "gaa",
+                        )
+                    ),
+                    goalie_shutouts=int_value(first_value(stats, "shutouts", "so")),
                     source="nhl_api",
                     source_id=player_id,
                     source_url=f"{NHL_API_BASE_URL}/player/{player_id}/landing",
@@ -264,6 +283,12 @@ def optional_int_value(value) -> int | None:
     return int(float(value))
 
 
+def optional_float_value(value) -> float | None:
+    if value in ("", None):
+        return None
+    return float(value)
+
+
 def inches_to_cm(inches: int) -> int:
     return round(inches * 2.54) if inches else 0
 
@@ -280,3 +305,30 @@ def time_on_ice_minutes(value) -> float | None:
         return int(minutes) + int(seconds) / 60
     numeric_value = float(value)
     return numeric_value / 60 if numeric_value > 120 else numeric_value
+
+
+def goalie_minutes(stats: dict) -> float | None:
+    value = first_value(stats, "minutes", "minutesPlayed", "goalieMinutes")
+    if value not in ("", None):
+        return time_on_ice_minutes(value)
+    games = int_value(first_value(stats, "gamesPlayed", "games", "gp"))
+    time_on_ice = time_on_ice_minutes(
+        first_value(stats, "timeOnIcePerGame", "avgTimeOnIcePerGame", "avgTimeOnIce", "toiPerGame")
+    )
+    return round(games * time_on_ice, 2) if games and time_on_ice is not None else None
+
+
+def goalie_save_percentage(stats: dict, *, saves: int, shots_against: int) -> float | None:
+    value = optional_float_value(
+        first_value(
+            stats,
+            "savePctg",
+            "savePercentage",
+            "savePct",
+            "save_percentage",
+            "svPct",
+        )
+    )
+    if value is not None:
+        return value / 100 if value > 1.0 else value
+    return saves / shots_against if saves and shots_against else None

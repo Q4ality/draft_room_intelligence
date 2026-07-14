@@ -25,6 +25,14 @@ ROSTER_COLUMNS = [
     "points",
     "plus_minus",
     "time_on_ice_per_game",
+    "goalie_minutes",
+    "goalie_wins",
+    "goalie_saves",
+    "goalie_shots_against",
+    "goalie_goals_against",
+    "goalie_save_percentage",
+    "goalie_goals_against_average",
+    "goalie_shutouts",
     "source",
     "source_id",
     "source_url",
@@ -45,6 +53,10 @@ DEPTH_COLUMNS = [
     "left_shots",
     "avg_age",
     "avg_points_per_game",
+    "avg_goalie_save_percentage",
+    "avg_goalie_goals_against_average",
+    "goalie_wins",
+    "goalie_shutouts",
     "scarcity_target",
     "scarcity_score",
     "example_players",
@@ -70,6 +82,14 @@ class RosterPlayer:
     points: int = 0
     plus_minus: int | None = None
     time_on_ice_per_game: float | None = None
+    goalie_minutes: float | None = None
+    goalie_wins: int = 0
+    goalie_saves: int = 0
+    goalie_shots_against: int = 0
+    goalie_goals_against: int = 0
+    goalie_save_percentage: float | None = None
+    goalie_goals_against_average: float | None = None
+    goalie_shutouts: int = 0
     source: str = ""
     source_id: str = ""
     source_url: str = ""
@@ -139,6 +159,16 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
         count = len(group)
         avg_age = average([player.age for player in group if player.age])
         avg_ppg = average([player.points_per_game for player in group if player.games])
+        avg_goalie_save_percentage = weighted_average(
+            [(player.goalie_save_percentage, player.games) for player in group if player.goalie_save_percentage]
+        )
+        avg_goalie_goals_against_average = weighted_average(
+            [
+                (player.goalie_goals_against_average, player.games)
+                for player in group
+                if player.goalie_goals_against_average
+            ]
+        )
         scarcity = max(0.0, (target - count) / target) if target else 0.0
         rows.append(
             DepthRow(
@@ -157,9 +187,17 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
                     "left_shots": str(sum(1 for player in group if player.handedness == "L")),
                     "avg_age": f"{avg_age:.2f}",
                     "avg_points_per_game": f"{avg_ppg:.3f}",
+                    "avg_goalie_save_percentage": f"{avg_goalie_save_percentage:.3f}"
+                    if avg_goalie_save_percentage
+                    else "",
+                    "avg_goalie_goals_against_average": f"{avg_goalie_goals_against_average:.2f}"
+                    if avg_goalie_goals_against_average
+                    else "",
+                    "goalie_wins": str(sum(player.goalie_wins for player in group) or ""),
+                    "goalie_shutouts": str(sum(player.goalie_shutouts for player in group) or ""),
                     "scarcity_target": f"{target:.1f}",
                     "scarcity_score": f"{scarcity:.3f}",
-                    "example_players": "; ".join(player.player_name for player in group[:5]),
+                    "example_players": "; ".join(format_example_player(player) for player in group[:5]),
                 }
             )
         )
@@ -211,6 +249,14 @@ def row_to_roster_player(row: dict[str, str]) -> RosterPlayer:
         points=optional_int(row, "points"),
         plus_minus=optional_int_or_none(row, "plus_minus"),
         time_on_ice_per_game=optional_float_or_none(row, "time_on_ice_per_game"),
+        goalie_minutes=optional_float_or_none(row, "goalie_minutes"),
+        goalie_wins=optional_int(row, "goalie_wins"),
+        goalie_saves=optional_int(row, "goalie_saves"),
+        goalie_shots_against=optional_int(row, "goalie_shots_against"),
+        goalie_goals_against=optional_int(row, "goalie_goals_against"),
+        goalie_save_percentage=optional_float_or_none(row, "goalie_save_percentage"),
+        goalie_goals_against_average=optional_float_or_none(row, "goalie_goals_against_average"),
+        goalie_shutouts=optional_int(row, "goalie_shutouts"),
         source=optional_text(row, "source"),
         source_id=optional_text(row, "source_id"),
         source_url=optional_text(row, "source_url"),
@@ -238,6 +284,18 @@ def roster_player_to_row(player: RosterPlayer) -> dict[str, str]:
         "time_on_ice_per_game": ""
         if player.time_on_ice_per_game is None
         else f"{player.time_on_ice_per_game:.2f}",
+        "goalie_minutes": "" if player.goalie_minutes is None else f"{player.goalie_minutes:.2f}",
+        "goalie_wins": str(player.goalie_wins or ""),
+        "goalie_saves": str(player.goalie_saves or ""),
+        "goalie_shots_against": str(player.goalie_shots_against or ""),
+        "goalie_goals_against": str(player.goalie_goals_against or ""),
+        "goalie_save_percentage": ""
+        if player.goalie_save_percentage is None
+        else f"{player.goalie_save_percentage:.3f}",
+        "goalie_goals_against_average": ""
+        if player.goalie_goals_against_average is None
+        else f"{player.goalie_goals_against_average:.2f}",
+        "goalie_shutouts": str(player.goalie_shutouts or ""),
         "source": player.source,
         "source_id": player.source_id,
         "source_url": player.source_url,
@@ -314,6 +372,29 @@ def normalize_position(value: str) -> str:
 
 def average(values: list[float]) -> float:
     return sum(values) / len(values) if values else 0.0
+
+
+def weighted_average(values: list[tuple[float | None, int]]) -> float:
+    weighted_values = [(float(value), weight) for value, weight in values if value is not None and weight > 0]
+    weight_sum = sum(weight for _, weight in weighted_values)
+    if not weight_sum:
+        return average([float(value) for value, _ in weighted_values])
+    return sum(value * weight for value, weight in weighted_values) / weight_sum
+
+
+def format_example_player(player: RosterPlayer) -> str:
+    if player.role_bucket != "goalie":
+        return player.player_name
+    parts = []
+    if player.goalie_wins:
+        parts.append(f"{player.goalie_wins}W")
+    if player.goalie_save_percentage is not None:
+        parts.append(f"{player.goalie_save_percentage:.3f} SV%")
+    if player.goalie_goals_against_average is not None:
+        parts.append(f"{player.goalie_goals_against_average:.2f} GAA")
+    if player.goalie_shutouts:
+        parts.append(f"{player.goalie_shutouts} SO")
+    return f"{player.player_name} ({', '.join(parts)})" if parts else player.player_name
 
 
 def required_text(row: dict[str, str], key: str) -> str:

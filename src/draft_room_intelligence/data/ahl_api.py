@@ -264,6 +264,14 @@ def normalize_ahl_players(
                 assists=to_int(row.get("assists", "")),
                 points=to_int(row.get("points", "")) or to_int(row.get("goals", "")) + to_int(row.get("assists", "")),
                 plus_minus=to_optional_int(row.get("plus_minus", "")),
+                goalie_minutes=minutes_to_float(row.get("minutes_played", "")),
+                goalie_wins=to_int(row.get("wins", "")),
+                goalie_saves=to_int(row.get("saves", "")),
+                goalie_shots_against=to_int(row.get("shots", "")),
+                goalie_goals_against=to_int(row.get("goals_against", "")),
+                goalie_save_percentage=to_optional_float(row.get("save_percentage", "")),
+                goalie_goals_against_average=to_optional_float(row.get("goals_against_average", "")),
+                goalie_shutouts=to_int(row.get("shutouts", "")),
                 source="ahl_hockeytech",
                 source_id=f"{season_id}:{ahl_code}:{player_id}",
                 source_url=player_stats_source_url(season_id),
@@ -342,6 +350,21 @@ def to_int(value: str) -> int:
 def to_optional_int(value: str) -> int | None:
     value = clean_text(value)
     return int(float(value)) if value else None
+
+
+def to_optional_float(value: str) -> float | None:
+    value = clean_text(value)
+    return float(value) if value else None
+
+
+def minutes_to_float(value: str) -> float | None:
+    value = clean_text(value)
+    if not value:
+        return None
+    if ":" in value:
+        minutes, seconds = value.split(":", maxsplit=1)
+        return int(minutes) + int(seconds) / 60
+    return float(value)
 
 
 def clean_text(value: object) -> str:

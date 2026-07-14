@@ -35,6 +35,13 @@
       "goals": 0,
       "assists": 1,
       "points": 1,
+      "wins": 31,
+      "saves": 1420,
+      "shotsAgainst": 1560,
+      "goalsAgainst": 140,
+      "savePctg": 0.910,
+      "goalsAgainstAverage": 2.69,
+      "shutouts": 4,
       "timeOnIcePerGame": "58:00"
     }
   ]

@@ -97,6 +97,14 @@ def build_goalie_rows(
             "ahl_goalies": "; ".join(format_player(player) for player in sort_goalies(ahl_goalies)[:8]),
             "u25_goalies": str(len(young_goalies)),
             "u25_goalie_names": "; ".join(format_player(player) for player in sort_goalies(young_goalies)[:8]),
+            "avg_save_percentage": f"{average_goalie_metric(goalies, 'goalie_save_percentage'):.3f}"
+            if average_goalie_metric(goalies, "goalie_save_percentage")
+            else "",
+            "avg_goals_against_average": f"{average_goalie_metric(goalies, 'goalie_goals_against_average'):.2f}"
+            if average_goalie_metric(goalies, "goalie_goals_against_average")
+            else "",
+            "total_goalie_wins": str(sum(player.goalie_wins for player in goalies) or ""),
+            "total_goalie_shutouts": str(sum(player.goalie_shutouts for player in goalies) or ""),
             "low_nhl_game_young_goalies": "; ".join(
                 format_player(player)
                 for player in sort_goalies([player for player in nhl_goalies if player.age < 24.5 and player.games <= 10])
@@ -269,7 +277,28 @@ def format_player(player: RosterPlayer) -> str:
     level = player.league_level
     games = f"{player.games} GP" if player.games else "GP n/a"
     age = f"{player.age:.1f}" if player.age else "age n/a"
-    return f"{player.player_name} ({level}, {age}, {games})"
+    if player.role_bucket != "goalie":
+        return f"{player.player_name} ({level}, {age}, {games})"
+    goalie_parts = [level, age, games]
+    if player.goalie_wins:
+        goalie_parts.append(f"{player.goalie_wins}W")
+    if player.goalie_save_percentage is not None:
+        goalie_parts.append(f"{player.goalie_save_percentage:.3f} SV%")
+    if player.goalie_goals_against_average is not None:
+        goalie_parts.append(f"{player.goalie_goals_against_average:.2f} GAA")
+    if player.goalie_shutouts:
+        goalie_parts.append(f"{player.goalie_shutouts} SO")
+    return f"{player.player_name} ({', '.join(goalie_parts)})"
+
+
+def average_goalie_metric(players: list[RosterPlayer], field: str) -> float:
+    values = [(getattr(player, field), player.games) for player in players if getattr(player, field) is not None]
+    weight_sum = sum(weight for _, weight in values if weight > 0)
+    if not values:
+        return 0.0
+    if not weight_sum:
+        return sum(float(value) for value, _ in values) / len(values)
+    return sum(float(value) * weight for value, weight in values if weight > 0) / weight_sum
 
 
 def format_option(option: dict[str, object]) -> str:

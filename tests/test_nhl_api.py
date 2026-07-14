@@ -36,6 +36,13 @@ def test_parse_nhl_roster_payload_maps_bio_stats_and_roles():
     assert by_name["Scoring Wing"].time_on_ice_per_game == 17.2
     assert by_name["Depth Defender"].role_type == "defense_depth"
     assert by_name["Starter Goalie"].role_type == "starter_goalie"
+    assert by_name["Starter Goalie"].goalie_wins == 31
+    assert by_name["Starter Goalie"].goalie_saves == 1420
+    assert by_name["Starter Goalie"].goalie_shots_against == 1560
+    assert by_name["Starter Goalie"].goalie_goals_against == 140
+    assert by_name["Starter Goalie"].goalie_save_percentage == 0.910
+    assert by_name["Starter Goalie"].goalie_goals_against_average == 2.69
+    assert by_name["Starter Goalie"].goalie_shutouts == 4
 
 
 def test_import_nhl_rosters_writes_normalized_csv(tmp_path):
