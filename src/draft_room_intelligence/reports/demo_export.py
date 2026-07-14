@@ -527,8 +527,11 @@ def build_team_fit(
             "reason": f"{context.team_name} depth data is present, but this prospect role is not mapped yet.",
         }
 
-    best_row = max(matching_rows, key=lambda row: team_fit_components(row, prospect, tool_score)["overall_score"])
-    components = team_fit_components(best_row, prospect, tool_score)
+    best_row = max(
+        matching_rows,
+        key=lambda row: team_fit_components(row, prospect, tool_score, context.depth_rows)["overall_score"],
+    )
+    components = team_fit_components(best_row, prospect, tool_score, context.depth_rows)
     score = components["overall_score"]
     role_type = best_row.get("role_type", "")
     scarcity = safe_float(best_row.get("scarcity_score", "0"))
@@ -555,6 +558,8 @@ def build_team_fit(
         "pipeline_need_score": components["pipeline_need_score"],
         "timeline_fit_score": components["timeline_fit_score"],
         "risk_appetite_score": components["risk_appetite_score"],
+        "bucket_u25_count": components["bucket_u25_count"],
+        "bucket_player_count": components["bucket_player_count"],
         "u25_same_role_count": under_25,
         "role_player_count": players,
         "scarcity_target": target,
@@ -562,6 +567,8 @@ def build_team_fit(
         "reason": (
             f"{context.team_name} {level} {role_type.replace('_', ' ')} depth shows "
             f"scarcity {scarcity:.2f}, U25 count {under_25}, avg age {avg_age:.1f}. "
+            f"Same-position pipeline: {components['bucket_u25_count']} U25 across "
+            f"{components['bucket_player_count']} {candidate_role_bucket(prospect.position)} rows. "
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
             f"Roster basis: {context.snapshot_label}. "
             f"Examples: {examples or 'not available'}."
@@ -602,9 +609,15 @@ def candidate_role_types(prospect: HistoricalProspect, tool_score: float) -> lis
     return ["two_way_wing", "wing_depth", "scoring_wing"]
 
 
-def team_fit_components(row: dict[str, str], prospect: HistoricalProspect, tool_score: float) -> dict[str, float]:
+def team_fit_components(
+    row: dict[str, str],
+    prospect: HistoricalProspect,
+    tool_score: float,
+    context_rows: list[dict[str, str]] | None = None,
+) -> dict[str, float]:
     roster_need = roster_need_score(row, tool_score)
-    pipeline_need = pipeline_need_score(row, prospect, tool_score)
+    bucket_u25, bucket_players = bucket_pipeline_counts(row, context_rows)
+    pipeline_need = pipeline_need_score(row, prospect, tool_score, bucket_u25, bucket_players)
     timeline_fit = timeline_fit_score(row, prospect)
     risk_fit = risk_appetite_score(prospect, row)
     overall = (
@@ -619,6 +632,8 @@ def team_fit_components(row: dict[str, str], prospect: HistoricalProspect, tool_
         "pipeline_need_score": pipeline_need,
         "timeline_fit_score": timeline_fit,
         "risk_appetite_score": risk_fit,
+        "bucket_u25_count": bucket_u25,
+        "bucket_player_count": bucket_players,
     }
 
 
@@ -635,24 +650,73 @@ def roster_need_score(row: dict[str, str], tool_score: float) -> float:
     return min(1.0, max(0.0, score))
 
 
-def pipeline_need_score(row: dict[str, str], prospect: HistoricalProspect, tool_score: float) -> float:
+def bucket_pipeline_counts(row: dict[str, str], context_rows: list[dict[str, str]] | None) -> tuple[int, int]:
+    rows = context_rows or [row]
+    bucket = row.get("role_bucket", "")
+    same_bucket_rows = [item for item in rows if item.get("role_bucket") == bucket]
+    return (
+        sum(safe_int(item.get("under_25", "0")) for item in same_bucket_rows),
+        sum(safe_int(item.get("players", "0")) for item in same_bucket_rows),
+    )
+
+
+def pipeline_need_score(
+    row: dict[str, str],
+    prospect: HistoricalProspect,
+    tool_score: float,
+    bucket_under_25: int = 0,
+    bucket_players: int = 0,
+) -> float:
     target = safe_float(row.get("scarcity_target", "0")) or 1.0
     under_25 = safe_int(row.get("under_25", "0"))
     players = safe_int(row.get("players", "0"))
     role_type = row.get("role_type", "")
+    bucket = candidate_role_bucket(prospect.position)
     premium_role = role_type in {"puck_moving_defense", "two_way_defense", "scoring_center", "scoring_wing", "starter_goalie"}
     u25_pressure = min(1.0, under_25 / max(1.0, target))
     roster_saturation = min(1.0, players / max(1.0, target + 1.0))
     score = 1.0 - ((u25_pressure * 0.62) + (roster_saturation * 0.25))
+    bucket_pressure = bucket_pipeline_pressure(bucket, bucket_under_25, bucket_players)
+    score -= bucket_pressure
     if premium_role and under_25 >= 2:
         score -= 0.18
-    if candidate_role_bucket(prospect.position) == "defense" and under_25 >= 4:
+    if bucket == "defense" and under_25 >= 4:
         score -= 0.25
-    if candidate_role_bucket(prospect.position) == "goalie" and under_25 >= 2:
+    if bucket == "goalie" and under_25 >= 2:
         score -= 0.15
     if tool_score >= 0.75 and under_25 == 0:
         score += 0.08
     return min(1.0, max(0.0, score))
+
+
+def bucket_pipeline_pressure(bucket: str, under_25: int, players: int) -> float:
+    if bucket == "goalie":
+        if under_25 >= 3:
+            return 0.30
+        if under_25 >= 2:
+            return 0.22
+        if under_25 >= 1 and players >= 4:
+            return 0.12
+        return 0.0
+    if bucket == "center":
+        if under_25 >= 4:
+            return 0.28
+        if under_25 >= 2:
+            return 0.20
+        return 0.0
+    if bucket == "wing":
+        if under_25 >= 6:
+            return 0.26
+        if under_25 >= 4:
+            return 0.18
+        return 0.0
+    if bucket == "defense":
+        if under_25 >= 5:
+            return 0.28
+        if under_25 >= 3:
+            return 0.18
+        return 0.0
+    return 0.0
 
 
 def timeline_fit_score(row: dict[str, str], prospect: HistoricalProspect) -> float:

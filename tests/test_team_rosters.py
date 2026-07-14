@@ -1,10 +1,13 @@
 import csv
 from pathlib import Path
 
+from draft_room_intelligence.cli import dedupe_roster_assignments
 from draft_room_intelligence.cli import run_report_team_depth
 from draft_room_intelligence.data.team_rosters import build_depth_rows
 from draft_room_intelligence.data.team_rosters import load_roster_csv
 from draft_room_intelligence.data.team_rosters import role_bucket
+from draft_room_intelligence.data.team_rosters import RosterPlayer
+from draft_room_intelligence.reports.demo_export import bucket_pipeline_pressure
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "team_rosters_sample.csv"
@@ -54,3 +57,65 @@ def test_run_report_team_depth_writes_artifacts(capsys, tmp_path):
     rows = list(csv.DictReader(depth_csv.open(newline="", encoding="utf-8")))
     assert any(row["team_id"] == "NYI" for row in rows)
     assert "Organizational Depth Report" in summary_md.read_text(encoding="utf-8")
+
+
+def test_dedupe_roster_assignments_keeps_young_low_game_goalie_as_pipeline_candidate():
+    players = [
+        RosterPlayer(
+            team_id="PIT",
+            team_name="Pittsburgh Penguins",
+            league_level="NHL",
+            affiliate_of="",
+            player_id="nhl-young-goalie",
+            player_name="Young Goalie",
+            position="G",
+            age=22.2,
+            games=5,
+        ),
+        RosterPlayer(
+            team_id="PIT",
+            team_name="Pittsburgh Penguins",
+            league_level="AHL",
+            affiliate_of="Wilkes-Barre/Scranton Penguins",
+            player_id="ahl-young-goalie",
+            player_name="Young Goalie",
+            position="G",
+            age=21.5,
+            games=18,
+        ),
+        RosterPlayer(
+            team_id="SJS",
+            team_name="San Jose Sharks",
+            league_level="NHL",
+            affiliate_of="",
+            player_id="nhl-starter",
+            player_name="Established Starter",
+            position="G",
+            age=24.1,
+            games=47,
+        ),
+        RosterPlayer(
+            team_id="SJS",
+            team_name="San Jose Sharks",
+            league_level="AHL",
+            affiliate_of="San Jose Barracuda",
+            player_id="ahl-starter",
+            player_name="Established Starter",
+            position="G",
+            age=23.2,
+            games=22,
+        ),
+    ]
+
+    selected = {(player.team_id, player.player_name): player for player in dedupe_roster_assignments(players)}
+
+    assert selected[("PIT", "Young Goalie")].league_level == "AHL"
+    assert selected[("SJS", "Established Starter")].league_level == "NHL"
+
+
+def test_bucket_pipeline_pressure_penalizes_saturated_position_groups():
+    assert bucket_pipeline_pressure("center", under_25=3, players=9) > 0.0
+    assert bucket_pipeline_pressure("wing", under_25=6, players=24) > bucket_pipeline_pressure(
+        "wing", under_25=2, players=24
+    )
+    assert bucket_pipeline_pressure("goalie", under_25=3, players=8) >= 0.30

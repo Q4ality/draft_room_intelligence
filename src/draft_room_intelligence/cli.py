@@ -482,6 +482,11 @@ def main() -> None:
     )
     merge_rosters_parser.add_argument("output_csv", type=Path, help="Merged normalized roster CSV output path.")
     merge_rosters_parser.add_argument("input_csvs", nargs="+", type=Path, help="Input normalized roster CSV paths.")
+    merge_rosters_parser.add_argument(
+        "--keep-duplicates",
+        action="store_true",
+        help="Keep same-organization same-player NHL/AHL duplicate rows instead of selecting the best assignment proxy.",
+    )
     ahl_rosters_parser = subparsers.add_parser(
         "import-ahl-rosters",
         help="Import official AHL historical stats and roster details into normalized roster CSV.",
@@ -820,7 +825,7 @@ def main() -> None:
             audit_csv=args.audit_csv,
         )
     elif args.command == "merge-roster-csvs":
-        run_merge_roster_csvs(args.output_csv, args.input_csvs)
+        run_merge_roster_csvs(args.output_csv, args.input_csvs, keep_duplicates=args.keep_duplicates)
     elif args.command == "import-ahl-rosters":
         run_import_ahl_rosters(
             args.output_csv,
@@ -1676,15 +1681,52 @@ def compact_name(value: str) -> str:
     return "".join(character for character in value.casefold() if character.isalnum())
 
 
-def run_merge_roster_csvs(output_csv: Path, input_csvs: list[Path]) -> None:
+def run_merge_roster_csvs(output_csv: Path, input_csvs: list[Path], *, keep_duplicates: bool = False) -> None:
     players = []
     for input_csv in input_csvs:
         players.extend(load_roster_csv(input_csv))
+    input_count = len(players)
+    if not keep_duplicates:
+        players = dedupe_roster_assignments(players)
     write_roster_csv(output_csv, players)
     print("# Merged roster CSV")
     print(f"Input files: {len(input_csvs)}")
+    print(f"Input roster players: {input_count}")
     print(f"Roster players: {len(players)}")
+    print(f"Duplicate assignment rows removed: {input_count - len(players)}")
     print(f"Output CSV: {output_csv}")
+
+
+def dedupe_roster_assignments(players):
+    grouped = {}
+    for player in players:
+        key = (player.team_id.upper(), compact_name(player.player_name), player.position.upper())
+        grouped.setdefault(key, []).append(player)
+    selected = [choose_roster_assignment(group) for group in grouped.values()]
+    return sorted(selected, key=lambda player: (player.team_id, player.league_level, player.position, player.player_name))
+
+
+def choose_roster_assignment(players):
+    if len(players) == 1:
+        return players[0]
+    nhl_players = [player for player in players if player.league_level == "NHL"]
+    ahl_players = [player for player in players if player.league_level == "AHL"]
+    if nhl_players and ahl_players:
+        best_nhl = max(nhl_players, key=roster_assignment_strength)
+        best_ahl = max(ahl_players, key=roster_assignment_strength)
+        if best_nhl.position == "G" and best_nhl.age < 24.5 and best_nhl.games <= 10 and best_ahl.games >= best_nhl.games:
+            return best_ahl
+        if best_nhl.position != "G" and best_nhl.age < 23.5 and best_nhl.games <= 10 and best_ahl.games >= best_nhl.games:
+            return best_ahl
+        if best_nhl.games >= 20 or best_nhl.league_level == "NHL":
+            return best_nhl
+        return best_ahl
+    return max(players, key=roster_assignment_strength)
+
+
+def roster_assignment_strength(player) -> tuple[float, int, int]:
+    level_weight = 2 if player.league_level == "NHL" else 1
+    return (level_weight, player.games, player.points)
 
 
 def run_import_ahl_rosters(
