@@ -81,6 +81,7 @@ from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
+from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
 from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
 from draft_room_intelligence.reports.player_card import render_player_card
@@ -464,6 +465,13 @@ def main() -> None:
     )
     team_depth_parser.add_argument("roster_csv", type=Path, help="Normalized roster CSV path.")
     team_depth_parser.add_argument("output_dir", type=Path, help="Directory for depth report artifacts.")
+    team_system_audit_parser = subparsers.add_parser(
+        "audit-team-systems",
+        help="Audit all NHL organizations for roster-fit and pipeline interpretation artifacts.",
+    )
+    team_system_audit_parser.add_argument("roster_csv", type=Path, help="Merged normalized NHL/AHL roster CSV path.")
+    team_system_audit_parser.add_argument("demo_output_dir", type=Path, help="Demo output directory with players.json.")
+    team_system_audit_parser.add_argument("output_dir", type=Path, help="Directory for audit report artifacts.")
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
         help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
@@ -817,6 +825,8 @@ def main() -> None:
         )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
+    elif args.command == "audit-team-systems":
+        run_audit_team_systems(args.roster_csv, args.demo_output_dir, args.output_dir)
     elif args.command == "create-preseason-roster-proxy":
         run_create_preseason_roster_proxy(
             args.roster_csv,
@@ -1612,6 +1622,18 @@ def run_report_team_depth(roster_csv: Path, output_dir: Path) -> None:
     print(f"Teams: {len(teams)}")
     print(f"Depth rows: {len(depth_rows)}")
     print(f"Depth CSV: {output_dir / 'depth.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_audit_team_systems(roster_csv: Path, demo_output_dir: Path, output_dir: Path) -> None:
+    audit = write_team_system_audit(roster_csv, demo_output_dir, output_dir)
+    print(f"# Team system audit: {roster_csv}")
+    print(f"Team-bucket rows: {len(audit.team_rows)}")
+    print(f"Goalie rows: {len(audit.goalie_rows)}")
+    print(f"Review flags: {len(audit.flag_rows)}")
+    print(f"Team bucket CSV: {output_dir / 'team_bucket_audit.csv'}")
+    print(f"Goalie CSV: {output_dir / 'goalie_audit.csv'}")
+    print(f"Review flags CSV: {output_dir / 'review_flags.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 
