@@ -569,6 +569,13 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <h3>Review Flags</h3>
           <ul class="detail-list" id="detail-risk-flags"></ul>
         </div>
+        <div class="section" id="detail-stat-evidence-section">
+          <h3>Prospect Stats Evidence</h3>
+          <div class="scouting-panel">
+            <div class="tool-grid" id="detail-stat-evidence"></div>
+            <div class="taglist" id="detail-stat-evidence-tags" style="margin-top:10px;"></div>
+          </div>
+        </div>
         <div class="section" id="detail-team-fit-section" style="display:none;">
           <h3>Team Fit</h3>
           <div class="scouting-panel">
@@ -596,7 +603,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
                 <th>League</th>
                 <th>Team</th>
                 <th>GP</th>
-                <th>PTS</th>
+                <th>Production</th>
                 <th>Stage</th>
                 <th>Source</th>
               </tr>
@@ -688,6 +695,19 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
 
     function percent(value) {{
       return `${{Math.round(Number(value || 0) * 100)}}%`;
+    }}
+
+    function decimalStat(value, digits) {{
+      const numeric = Number(value || 0);
+      if (!numeric) return "n/a";
+      return numeric.toFixed(digits);
+    }}
+
+    function historyProductionLabel(row) {{
+      if (row.save_percentage || row.goals_against_average) {{
+        return `${{decimalStat(row.save_percentage, 3)}} / ${{decimalStat(row.goals_against_average, 2)}}`;
+      }}
+      return row.points ?? "";
     }}
 
     function adultSampleLabel(row) {{
@@ -835,6 +855,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       `).join("");
       document.getElementById("detail-why-high").innerHTML = detail.why_high.map((item) => `<li>${{item}}</li>`).join("");
       document.getElementById("detail-risk-flags").innerHTML = detail.risk_flags.map((item) => `<li>${{item}}</li>`).join("");
+      renderStatEvidence(detail);
       renderTeamFit(detail);
       renderScouting(detail);
       document.getElementById("detail-history").innerHTML = detail.pre_draft_history.map((row) => `
@@ -843,7 +864,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <td>${{row.league}}</td>
           <td>${{row.team}}</td>
           <td>${{row.games}}</td>
-          <td>${{row.points}}</td>
+          <td>${{historyProductionLabel(row)}}</td>
           <td>${{row.regular_season ? "Regular" : "Playoff"}}</td>
           <td>${{sourceLabel(row)}}</td>
         </tr>
@@ -860,6 +881,42 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           ? `<a class="tag source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{row.source}}</a>`
           : `<span class="tag">${{row.source}}</span>`);
       document.getElementById("detail-sources").innerHTML = [...sourceTags, ...rowSources].join("");
+    }}
+
+    function renderStatEvidence(detail) {{
+      const stats = detail.stat_evidence || {{}};
+      const isGoalie = stats.role_group === "goalie";
+      const section = document.getElementById("detail-stat-evidence-section");
+      section.style.display = stats.stat_lines ? "block" : "none";
+      if (!stats.stat_lines) return;
+      const metrics = isGoalie ? [
+        ["Goalie GP", stats.goalie_games || 0],
+        ["SV%", decimalStat(stats.goalie_save_percentage, 3)],
+        ["GAA", decimalStat(stats.goalie_goals_against_average, 2)],
+        ["Record", `${{stats.goalie_wins || 0}}-${{stats.goalie_losses || 0}}`],
+        ["SO", stats.goalie_shutouts || 0],
+        ["Quality", decimalStat(stats.goalie_quality_score, 3)],
+      ] : [
+        ["GP", stats.games || 0],
+        ["G-A-P", `${{stats.goals || 0}}-${{stats.assists || 0}}-${{stats.points || 0}}`],
+        ["PPG", decimalStat(stats.points_per_game, 3)],
+        ["Adult GP", stats.adult_games || 0],
+        ["Playoff GP", stats.playoff_games || 0],
+        ["Sources", stats.source_count || 0],
+      ];
+      document.getElementById("detail-stat-evidence").innerHTML = metrics.map(([label, value]) => `
+        <div class="tool-grade">
+          <div class="tool">${{label}}</div>
+          <div class="grade">${{value}}</div>
+        </div>
+      `).join("");
+      const tags = [
+        `${{stats.stat_lines || 0}} stat rows`,
+        `${{stats.league_count || 0}} leagues`,
+        ...(stats.leagues || []).slice(0, 6),
+      ];
+      document.getElementById("detail-stat-evidence-tags").innerHTML =
+        tags.map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");
     }}
 
     function renderScouting(detail) {{

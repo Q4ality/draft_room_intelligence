@@ -9,7 +9,7 @@ demo:
 	$(PYTHON) -m draft_room_intelligence.cli demo
 
 demo-2025-readiness:
-	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final outputs/demo_2025_openstats_russian_nordic_cleanup --gap-top-n 35 --movement-top-n 40
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv --gap-top-n 35 --movement-top-n 40
 
 validate-pilot-2019:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-historical-validation data/processed/pilot_2019 outputs/validation_2019 --precision-n 25 --top-n 25

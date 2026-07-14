@@ -54,7 +54,7 @@ python -m draft_room_intelligence.cli import-nhl-rosters outputs/nhl_rosters_sam
 python -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
 python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft25.pdf outputs/ep_pdf_2025_sample --draft-year 2025 --page-start 29 --page-end 80 --profile-limit 10
 OPENAI_API_KEY=... python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft26.pdf outputs/ep_pdf_2026_vision --draft-year 2026 --page-start 36 --page-end 64 --profile-limit 10 --vision-missing-tool-grades --pdftoppm-path /path/to/pdftoppm
-python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final outputs/demo_2025_openstats_russian_nordic_cleanup
+python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv
 python -m draft_room_intelligence.cli validate-eliteprospects data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --base-dir data/processed/pilot_2019 --eliteprospects-csv data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --hockeydb-draft-html data/raw/hockeydb/2019/nhl2019e.html --eliteprospects-csv data/raw/eliteprospects_2019.csv
@@ -87,7 +87,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 
 - `make install-dev` - install the project in editable mode with development tools.
 - `make demo` - run the sample projection, scouting, team-fit, and player-card flow.
-- `make demo-2025-readiness` - rebuild the current 2025 demo site, data-gap report, and modeling sanity report from the tracked cleanup dataset.
+- `make demo-2025-readiness` - rebuild the current EP-PDF-enriched 2025 demo site, data-gap report, modeling sanity report, and demo sanity report.
 - `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
 - `make nhl-roster-sample` - import cached NHL roster/stat JSON into roster rows, then build a team-depth report.
@@ -110,9 +110,10 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel scaffold-demo-class --draft-year <year>` - create the local raw/reference/processed/output layout and starter CSV templates for a single-class demo.
 - `draft-room-intel audit-demo-class --draft-year <year>` - check whether a draft class has the minimum local source files for ETL and demo use.
 - `python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py audit --draft-year <year>` - use the repo-local skill helper to scaffold, audit, stage raw inputs, run ETL, and build the demo for one class.
-- `draft-room-intel build-demo-readiness <final-dataset-dir> <output-dir>` - build a self-contained demo site plus `reports/data_gaps` and `reports/modeling_sanity` artifacts in one command.
+- `draft-room-intel build-demo-readiness <final-dataset-dir> <output-dir>` - build a self-contained demo site plus `reports/data_gaps`, `reports/modeling_sanity`, and `reports/demo_sanity` artifacts in one command.
 - `draft-room-intel report-demo-gaps <demo-output-dir> <report-output-dir>` - prioritize remaining low-evidence players after a demo build.
 - `draft-room-intel report-demo-modeling <demo-output-dir> <report-output-dir>` - compare the demo board against consensus ordering and list largest movements.
+- `draft-room-intel report-demo-sanity <demo-output-dir> <report-output-dir>` - write top-board, top-role, biggest-disagreement, and story-player checks for demo validation.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --base-dir <base-dir> [--eliteprospects-csv <export.csv>]` - create a base ETL snapshot from an existing normalized dataset and optionally enrich it with Elite Prospects in one command.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> [--eliteprospects-csv <export.csv>]` - generate the base dataset from a local HockeyDB draft HTML file, then optionally enrich it with Elite Prospects.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> --hockeydb-player-pages-dir <dir> [--eliteprospects-csv <export.csv>]` - generate a richer base dataset from local HockeyDB draft and player-page HTML caches.

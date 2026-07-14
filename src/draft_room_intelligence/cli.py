@@ -79,8 +79,10 @@ from draft_room_intelligence.reports.demo_export import (
 )
 from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
+from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
+from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
 from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
@@ -472,6 +474,18 @@ def main() -> None:
     team_system_audit_parser.add_argument("roster_csv", type=Path, help="Merged normalized NHL/AHL roster CSV path.")
     team_system_audit_parser.add_argument("demo_output_dir", type=Path, help="Demo output directory with players.json.")
     team_system_audit_parser.add_argument("output_dir", type=Path, help="Directory for audit report artifacts.")
+    prospect_stat_audit_parser = subparsers.add_parser(
+        "audit-prospect-stats",
+        help="Build draft prospect skater/goalie stat summaries from normalized dataset directories.",
+    )
+    prospect_stat_audit_parser.add_argument("output_dir", type=Path, help="Directory for prospect stat audit artifacts.")
+    prospect_stat_audit_parser.add_argument(
+        "dataset_dirs",
+        nargs="+",
+        type=Path,
+        help="One or more normalized source directories with players/rankings/season_stat_lines CSVs.",
+    )
+    prospect_stat_audit_parser.add_argument("--draft-year", type=int, help="Draft year label for source rows without one.")
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
         help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
@@ -619,6 +633,12 @@ def main() -> None:
         default=30,
         help="Number of largest board-vs-consensus movements to write.",
     )
+    demo_sanity_parser = subparsers.add_parser(
+        "report-demo-sanity",
+        help="Build a focused top-board, role, and story-player sanity report.",
+    )
+    demo_sanity_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv and players.json.")
+    demo_sanity_parser.add_argument("output_dir", type=Path, help="Directory for demo sanity artifacts.")
     etl_parser = subparsers.add_parser(
         "etl-draft-year",
         help="Run draft-year ETL with optional Elite Prospects enrichment.",
@@ -827,6 +847,8 @@ def main() -> None:
         run_report_team_depth(args.roster_csv, args.output_dir)
     elif args.command == "audit-team-systems":
         run_audit_team_systems(args.roster_csv, args.demo_output_dir, args.output_dir)
+    elif args.command == "audit-prospect-stats":
+        run_audit_prospect_stats(args.output_dir, args.dataset_dirs, draft_year=args.draft_year)
     elif args.command == "create-preseason-roster-proxy":
         run_create_preseason_roster_proxy(
             args.roster_csv,
@@ -869,6 +891,8 @@ def main() -> None:
         run_report_demo_gaps(args.demo_output_dir, args.output_dir, top_n=args.top_n)
     elif args.command == "report-demo-modeling":
         run_report_demo_modeling(args.demo_output_dir, args.output_dir, top_n=args.top_n)
+    elif args.command == "report-demo-sanity":
+        run_report_demo_sanity(args.demo_output_dir, args.output_dir)
     elif args.command == "etl-draft-year":
         run_etl_draft_year(
             args.base_dir,
@@ -960,6 +984,16 @@ def run_audit_demo_class(draft_year: int) -> None:
     project_root = Path(__file__).resolve().parents[2]
     report = audit_demo_class(project_root, draft_year)
     print(format_demo_audit_report(report))
+
+
+def run_audit_prospect_stats(output_dir: Path, dataset_dirs: list[Path], *, draft_year: int | None) -> None:
+    summary = write_prospect_stat_audit(output_dir, dataset_dirs, draft_year=draft_year)
+    print(f"# Prospect stat audit: {draft_year or 'unknown draft year'}")
+    print(f"Output directory: {output_dir}")
+    print(f"Players: {summary['players']}")
+    print(f"Stat lines: {summary['stat_lines']}")
+    print(f"Goalies: {summary['goalies']}")
+    print(f"Review flags: {summary['flags']}")
 
 
 def run_import_eliteprospects(
@@ -1477,8 +1511,10 @@ def run_build_demo_readiness(
     reports_dir = output_dir / "reports"
     gap_report_dir = reports_dir / "data_gaps"
     modeling_report_dir = reports_dir / "modeling_sanity"
+    sanity_report_dir = reports_dir / "demo_sanity"
     gap_report = write_demo_gap_report(output_dir, gap_report_dir, top_n=gap_top_n)
     modeling_report = write_demo_modeling_report(output_dir, modeling_report_dir, top_n=movement_top_n)
+    write_demo_sanity_report(output_dir, sanity_report_dir)
 
     print(f"# Demo readiness build: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
@@ -1493,6 +1529,7 @@ def run_build_demo_readiness(
     print(f"Average board-vs-consensus movement: {modeling_report.avg_abs_delta:.1f}")
     print(f"Players moved 10+ slots: {modeling_report.moved_10_plus}")
     print(f"Modeling summary: {modeling_report_dir / 'summary.md'}")
+    print(f"Demo sanity summary: {sanity_report_dir / 'summary.md'}")
 
 
 def run_report_demo_gaps(demo_output_dir: Path, output_dir: Path, *, top_n: int) -> None:
@@ -1511,9 +1548,19 @@ def run_report_demo_modeling(demo_output_dir: Path, output_dir: Path, *, top_n: 
     print(f"Output directory: {output_dir}")
     print(f"Average absolute movement: {report.avg_abs_delta:.1f}")
     print(f"Players moved 10+ slots: {report.moved_10_plus}")
-    print(f"10+ slot moves with high/medium evidence: {report.high_or_medium_moved_10_plus}")
+
+
+def run_report_demo_sanity(demo_output_dir: Path, output_dir: Path) -> None:
+    report = write_demo_sanity_report(demo_output_dir, output_dir)
+    print(f"# Demo sanity report: {demo_output_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Top overall rows: {len(report.top_overall)}")
+    print(f"Top defense rows: {len(report.top_defense)}")
+    print(f"Top goalie rows: {len(report.top_goalies)}")
+    print(f"Story checks: {len(report.story_rows)}")
     print(f"Summary: {output_dir / 'summary.md'}")
-    print(f"Largest movements CSV: {output_dir / 'largest_movements.csv'}")
+    print(f"Story checks CSV: {output_dir / 'story_player_checks.csv'}")
+    print(f"Biggest disagreements CSV: {output_dir / 'biggest_disagreements.csv'}")
 
 
 def run_etl_draft_year(

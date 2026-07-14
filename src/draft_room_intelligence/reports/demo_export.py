@@ -382,6 +382,16 @@ def evidence_weighted_board_score(model_score: float, consensus_score: float, fe
         "medium": 0.45,
         "low": 0.18,
     }[evidence_depth]
+    if feature["role_group"] == "defense":
+        model_weight *= 0.68
+    elif feature["role_group"] == "goalie":
+        model_weight *= 0.55
+    if consensus_score >= 0.92:
+        model_weight *= 0.58
+    elif consensus_score >= 0.84:
+        model_weight *= 0.74
+    if safe_int(feature.get("pre_draft_total_games")) < 25 and consensus_score >= 0.80:
+        model_weight *= 0.70
     return (model_score * model_weight) + (consensus_score * (1.0 - model_weight))
 
 
@@ -846,6 +856,7 @@ def build_player_detail(
             "reason": board_row["team_fit_reason"],
         },
         "team_fit_options": team_fit_options or [],
+        "stat_evidence": build_stat_evidence(prospect, board_row),
         "scouting": {
             "summary": prospect.scouting_text,
             "shades_of": prospect.shades_of,
@@ -896,6 +907,80 @@ def build_player_detail(
             for source in prospect.sources
         ],
     }
+
+
+def build_stat_evidence(prospect: HistoricalProspect, board_row: dict[str, str]) -> dict[str, object]:
+    lines = prospect.pre_draft_stat_lines or []
+    games = sum(line.games for line in lines)
+    goals = sum(line.goals for line in lines)
+    assists = sum(line.assists for line in lines)
+    points = sum(line.total_points for line in lines)
+    regular_games = sum(line.games for line in lines if line.regular_season)
+    playoff_games = max(0, games - regular_games)
+    adult_games = sum(line.games for line in lines if is_adult_league(line.league))
+    leagues = sorted({line.league for line in lines if line.league})
+    sources = sorted({line.source or "unknown" for line in lines})
+    goalie_lines = [
+        line
+        for line in lines
+        if line.save_percentage is not None
+        or line.goals_against_average is not None
+        or line.saves is not None
+        or line.shots_against is not None
+    ]
+    goalie_games = sum(line.games for line in goalie_lines)
+    goalie_minutes = sum(line.goalie_minutes or 0.0 for line in goalie_lines)
+    shots_against = sum(line.shots_against or 0 for line in goalie_lines)
+    saves = sum(line.saves or 0 for line in goalie_lines)
+    goals_against = sum(line.goals_against or 0 for line in goalie_lines)
+    save_percentage = saves / shots_against if shots_against else weighted_average(
+        [(line.save_percentage, line.games) for line in goalie_lines]
+    )
+    goals_against_average = (
+        goals_against * 60 / goalie_minutes
+        if goalie_minutes
+        else weighted_average([(line.goals_against_average, line.games) for line in goalie_lines])
+    )
+    return {
+        "role_group": board_row["role_group"],
+        "stat_lines": len(lines),
+        "source_count": len(sources),
+        "sources": sources,
+        "league_count": len(leagues),
+        "leagues": leagues,
+        "games": games,
+        "goals": goals,
+        "assists": assists,
+        "points": points,
+        "points_per_game": points / games if games else 0.0,
+        "regular_games": regular_games,
+        "playoff_games": playoff_games,
+        "playoff_game_share": playoff_games / games if games else 0.0,
+        "adult_games": adult_games,
+        "adult_game_share": adult_games / games if games else 0.0,
+        "goalie_games": goalie_games,
+        "goalie_minutes": round(goalie_minutes, 1),
+        "goalie_shots_against": shots_against,
+        "goalie_saves": saves,
+        "goalie_goals_against": goals_against,
+        "goalie_save_percentage": save_percentage,
+        "goalie_goals_against_average": goals_against_average,
+        "goalie_wins": sum(line.wins or 0 for line in goalie_lines),
+        "goalie_losses": sum(line.losses or 0 for line in goalie_lines),
+        "goalie_shutouts": sum(line.shutouts or 0 for line in goalie_lines),
+        "goalie_quality_score": float(board_row["goalie_quality_score"]),
+    }
+
+
+def weighted_average(values: list[tuple[float | None, int]]) -> float:
+    numerator = 0.0
+    denominator = 0
+    for value, weight in values:
+        if value is None:
+            continue
+        numerator += value * max(weight, 1)
+        denominator += max(weight, 1)
+    return numerator / denominator if denominator else 0.0
 
 
 def classify_disagreement(consensus_delta: int) -> str:

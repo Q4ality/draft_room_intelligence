@@ -30,6 +30,7 @@ def test_build_demo_export_bundle_returns_board_and_player_payloads():
 
 def test_evidence_weighted_board_score_keeps_low_evidence_near_consensus():
     feature = {
+        "role_group": "forward",
         "pre_draft_total_games": "0",
         "pre_draft_row_count": "1",
         "pre_draft_league_count": "1",
@@ -38,6 +39,19 @@ def test_evidence_weighted_board_score_keeps_low_evidence_near_consensus():
     score = evidence_weighted_board_score(1.0, 0.5, feature)
 
     assert abs(score - 0.59) < 0.000001
+
+
+def test_evidence_weighted_board_score_protects_elite_defense_short_sample():
+    feature = {
+        "role_group": "defense",
+        "pre_draft_total_games": "19",
+        "pre_draft_row_count": "2",
+        "pre_draft_league_count": "2",
+    }
+
+    score = evidence_weighted_board_score(0.72, 1.0, feature)
+
+    assert score > 0.92
 
 
 def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):
@@ -64,6 +78,7 @@ def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):
     assert "disagreement_bucket" in board_csv
     assert len(players) == 2
     assert "why_high" in players[0]
+    assert "stat_evidence" in players[0]
     assert manifest["player_count"] == 2
     assert "demo_story_players" in manifest
 
