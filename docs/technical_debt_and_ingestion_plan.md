@@ -34,6 +34,14 @@ Use a four-stage ingestion contract for every source family:
 3. **Merge** source tables into the draft-year base dataset through reviewed identity matching and reconciliation reports.
 4. **Audit** coverage, duplicates, conflict fields, evidence-depth movement, and story-player sanity before rebuilding the demo.
 
+The tracked source-family manifest is `data/reference/ingestion_source_families.csv`. Rebuild the audit with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-ingestion-plan \
+  data/reference/ingestion_source_families.csv \
+  outputs/ingestion_plan
+```
+
 Every new adapter should include:
 
 - cached fixture input,
@@ -76,6 +84,7 @@ Every new adapter should include:
    - high/medium evidence count,
    - top-50 sanity,
    - story-player checks,
+   - demo acceptance checks,
    - duplicate/conflict reports.
 
 ## Success Metrics
@@ -84,4 +93,5 @@ Every new adapter should include:
 - Every new source adapter can be rerun from cached files without network access.
 - Every high-impact player detail has traceable stat rows and role-appropriate production display.
 - The top board remains explainable through `model_score`, `board_score`, and `team_adjusted_score`.
+- `report-demo-acceptance` passes after each ingestion or calibration change.
 - Historical validation becomes the basis for model-quality claims; recent-class demos remain framed as workflow and evidence-readiness showcases.

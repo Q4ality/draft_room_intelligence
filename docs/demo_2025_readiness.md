@@ -19,6 +19,7 @@ Current export files:
 - `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/data_gaps/summary.md`
 - `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/modeling_sanity/summary.md`
 - `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity/summary.md`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance/summary.md`
 
 Rebuild the full local package with:
 
@@ -53,6 +54,7 @@ Latest manifest snapshot:
 - evidence depth: 27 low, 59 medium, 138 high
 - disagreement buckets: 80 aligned, 129 consensus higher, 15 model higher
 - current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
+- demo acceptance: 11 of 11 checks passing, including full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral `Production` history labeling.
 
 Recent enrichment improvement:
 
@@ -148,4 +150,12 @@ The focused demo sanity report is rebuilt by `build-demo-readiness`, or independ
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-sanity \
   outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
   outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity
+```
+
+The business-demo acceptance gate is rebuilt by `build-demo-readiness`, or independently with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-acceptance \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance
 ```

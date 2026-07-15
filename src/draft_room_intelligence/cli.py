@@ -77,11 +77,13 @@ from draft_room_intelligence.reports.demo_export import (
     build_demo_export_bundle,
     export_demo_package,
 )
+from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
 from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
+from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
 from draft_room_intelligence.optimization.board import rank_board
@@ -486,6 +488,22 @@ def main() -> None:
         help="One or more normalized source directories with players/rankings/season_stat_lines CSVs.",
     )
     prospect_stat_audit_parser.add_argument("--draft-year", type=int, help="Draft year label for source rows without one.")
+    ingestion_plan_parser = subparsers.add_parser(
+        "report-ingestion-plan",
+        help="Audit systematic source-family ingestion readiness from a manifest CSV.",
+    )
+    ingestion_plan_parser.add_argument(
+        "manifest_csv",
+        type=Path,
+        help="Source-family manifest CSV, usually data/reference/ingestion_source_families.csv.",
+    )
+    ingestion_plan_parser.add_argument("output_dir", type=Path, help="Directory for ingestion audit artifacts.")
+    ingestion_plan_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Project root used to resolve manifest paths.",
+    )
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
         help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
@@ -639,6 +657,12 @@ def main() -> None:
     )
     demo_sanity_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv and players.json.")
     demo_sanity_parser.add_argument("output_dir", type=Path, help="Directory for demo sanity artifacts.")
+    demo_acceptance_parser = subparsers.add_parser(
+        "report-demo-acceptance",
+        help="Run pass/fail business-demo acceptance checks against generated artifacts.",
+    )
+    demo_acceptance_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv, players.json, and index.html.")
+    demo_acceptance_parser.add_argument("output_dir", type=Path, help="Directory for demo acceptance artifacts.")
     etl_parser = subparsers.add_parser(
         "etl-draft-year",
         help="Run draft-year ETL with optional Elite Prospects enrichment.",
@@ -849,6 +873,8 @@ def main() -> None:
         run_audit_team_systems(args.roster_csv, args.demo_output_dir, args.output_dir)
     elif args.command == "audit-prospect-stats":
         run_audit_prospect_stats(args.output_dir, args.dataset_dirs, draft_year=args.draft_year)
+    elif args.command == "report-ingestion-plan":
+        run_report_ingestion_plan(args.manifest_csv, args.output_dir, project_root=args.project_root)
     elif args.command == "create-preseason-roster-proxy":
         run_create_preseason_roster_proxy(
             args.roster_csv,
@@ -893,6 +919,8 @@ def main() -> None:
         run_report_demo_modeling(args.demo_output_dir, args.output_dir, top_n=args.top_n)
     elif args.command == "report-demo-sanity":
         run_report_demo_sanity(args.demo_output_dir, args.output_dir)
+    elif args.command == "report-demo-acceptance":
+        run_report_demo_acceptance(args.demo_output_dir, args.output_dir)
     elif args.command == "etl-draft-year":
         run_etl_draft_year(
             args.base_dir,
@@ -994,6 +1022,17 @@ def run_audit_prospect_stats(output_dir: Path, dataset_dirs: list[Path], *, draf
     print(f"Stat lines: {summary['stat_lines']}")
     print(f"Goalies: {summary['goalies']}")
     print(f"Review flags: {summary['flags']}")
+
+
+def run_report_ingestion_plan(manifest_csv: Path, output_dir: Path, *, project_root: Path) -> None:
+    report = write_ingestion_plan_report(manifest_csv, output_dir, project_root=project_root)
+    print(f"# Ingestion plan audit: {manifest_csv}")
+    print(f"Output directory: {output_dir}")
+    print(f"Source families: {len(report.audits)}")
+    print(f"Ready: {report.ready_count}")
+    print(f"Blocked: {report.blocked_count}")
+    print(f"Summary: {output_dir / 'summary.md'}")
+    print(f"Audit CSV: {output_dir / 'source_family_audit.csv'}")
 
 
 def run_import_eliteprospects(
@@ -1512,9 +1551,11 @@ def run_build_demo_readiness(
     gap_report_dir = reports_dir / "data_gaps"
     modeling_report_dir = reports_dir / "modeling_sanity"
     sanity_report_dir = reports_dir / "demo_sanity"
+    acceptance_report_dir = reports_dir / "demo_acceptance"
     gap_report = write_demo_gap_report(output_dir, gap_report_dir, top_n=gap_top_n)
     modeling_report = write_demo_modeling_report(output_dir, modeling_report_dir, top_n=movement_top_n)
     write_demo_sanity_report(output_dir, sanity_report_dir)
+    acceptance_report = write_demo_acceptance_report(output_dir, acceptance_report_dir)
 
     print(f"# Demo readiness build: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
@@ -1530,6 +1571,8 @@ def run_build_demo_readiness(
     print(f"Players moved 10+ slots: {modeling_report.moved_10_plus}")
     print(f"Modeling summary: {modeling_report_dir / 'summary.md'}")
     print(f"Demo sanity summary: {sanity_report_dir / 'summary.md'}")
+    print(f"Demo acceptance: {'pass' if acceptance_report.passed else 'fail'}")
+    print(f"Demo acceptance summary: {acceptance_report_dir / 'summary.md'}")
 
 
 def run_report_demo_gaps(demo_output_dir: Path, output_dir: Path, *, top_n: int) -> None:
@@ -1561,6 +1604,17 @@ def run_report_demo_sanity(demo_output_dir: Path, output_dir: Path) -> None:
     print(f"Summary: {output_dir / 'summary.md'}")
     print(f"Story checks CSV: {output_dir / 'story_player_checks.csv'}")
     print(f"Biggest disagreements CSV: {output_dir / 'biggest_disagreements.csv'}")
+
+
+def run_report_demo_acceptance(demo_output_dir: Path, output_dir: Path) -> None:
+    report = write_demo_acceptance_report(demo_output_dir, output_dir)
+    print(f"# Demo acceptance report: {demo_output_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Status: {'pass' if report.passed else 'fail'}")
+    print(f"Checks: {len(report.checks)}")
+    print(f"Failed: {report.failed_count}")
+    print(f"Summary: {output_dir / 'summary.md'}")
+    print(f"Checks CSV: {output_dir / 'acceptance_checks.csv'}")
 
 
 def run_etl_draft_year(
