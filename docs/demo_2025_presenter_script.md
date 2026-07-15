@@ -4,16 +4,17 @@
 
 Use the current strong demo build:
 
-- Site: `outputs/demo_2025_openstats_russian_nordic_cleanup/index.html`
-- Dataset: `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final`
+- Site: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
+- Dataset: `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final`
 
 Current manifest snapshot:
 
 - Players: 224
 - Dataset status: `strong`
-- Evidence depth: 50 high, 97 medium, 77 low
-- Disagreement buckets: 95 aligned, 60 model higher, 69 consensus higher
+- Evidence depth: 138 high, 59 medium, 27 low
+- Disagreement buckets: 80 aligned, 15 model higher, 129 consensus higher
 - Source coverage: Wikipedia draft rows, draft-slot proxy, CHL, USHL, Wikipedia career rows, and curated open-stats packs
+- Score posture: `model_score` remains production-sensitive, `board_score` blends model plus consensus and EP evidence, and `team_adjusted_score` adds organization fit.
 
 ## Business Narrative
 
@@ -39,12 +40,13 @@ Demo line:
 
 | Player | Why show him | Presenter note |
 | --- | --- | --- |
-| Michael Misa | Trust anchor at top of board | High-evidence OHL scorer with multiple source rows. Use this first so the room sees familiar names ranked sensibly. |
-| Cole Reschny | Model-higher CHL forward | Consensus rank 18, board rank 6. Shows league-adjusted production and playoff signal moving a player into the discussion. |
-| Alexei Medvedev | Model-higher goalie | Consensus rank 47, board rank 33, high evidence after cleanup. Shows goalie-specific metrics and multi-row pre-draft history. |
+| Michael Misa | Trust anchor at top of board | Board rank 2, consensus rank 2, high-evidence OHL scorer with multiple source rows. |
+| Matthew Schaefer | Elite-defense calibration story | Board rank 3, consensus rank 1. Use him to explain why `model_score` can be lower for a 19-game sample while `board_score` stays top-tier. |
+| Cole Reschny | CHL forward production story | Consensus rank 18, board rank 16. Shows league-adjusted production and playoff signal without overselling model independence. |
+| Alexei Medvedev | Goalie evidence story | Consensus rank 47, board rank 49. Shows goalie-specific metrics and multi-row pre-draft history. |
 | Charlie Cerrato | Model-higher NCAA/USHL path | Six history rows across USHL, USNTDP, and NCAA. Good example of why multi-row pre-draft histories matter. |
-| Anton Frondell | Consensus-higher adult-league case | Consensus rank 3, board rank 19. Use as a cautious case: strong adult exposure, but the board does not simply copy consensus. |
-| Max Psenicka | Consensus-higher defense case | Consensus rank 46, board rank 82. Shows how playoff/adult exposure can be visible while the board still flags disagreement. |
+| Anton Frondell | Consensus-higher adult-league case | Consensus rank 3, board rank 15. Use as a cautious case: strong adult exposure, but the board does not simply copy consensus. |
+| Max Psenicka | Consensus-higher defense case | Consensus rank 31, board rank 33. Shows how playoff/adult exposure can be visible while the board still flags disagreement. |
 | Alexander Zharovsky | Russian multi-league credibility case | Carries MHL production plus KHL playoff exposure. This directly addresses the earlier demo credibility gap. |
 | Eric Nilson | Nordic multi-row coverage case | High evidence, Swedish junior and playoff rows. Shows the new Nordic enrichment pass. |
 | Roman Luttsev | Late-round model-favorite case | Consensus rank 206, board rank 159. Useful for the shortlist workflow and "late-round target" tag. |
@@ -75,6 +77,7 @@ Point out:
 
 - why-high bullets
 - risk flags
+- Prospect Stats Evidence
 - pre-draft history rows
 - row-level source URLs
 - goalie metrics when applicable
@@ -112,7 +115,7 @@ Use these proactively:
 - The 2025 class is a recent-class showcase, not an outcome-validated predictive result.
 - Evidence labels are part of the product: low evidence means "needs more source coverage", not "bad player".
 - The strongest current coverage is CHL, USHL/NCAA samples, curated Russian/Nordic open stats, and selected Wikipedia career rows.
-- Remaining data work should prioritize the 77 low-evidence players by demo importance and source availability.
+- Remaining data work should prioritize the 27 low-evidence players by demo importance and source availability.
 
 ## Demo Success Criteria
 

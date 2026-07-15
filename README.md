@@ -7,6 +7,7 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 ## Repository Layout
 
 - `docs/project_brief.md` - source project/development draft.
+- `docs/technical_debt_and_ingestion_plan.md` - current technical debt register and systematic ingestion roadmap.
 - `src/draft_room_intelligence/data/` - ETL, import, merge, and normalized table loading.
 - `src/draft_room_intelligence/evaluation/` - baseline scoring and reporting utilities.
 - `src/draft_room_intelligence/modeling/` - reusable feature table generation and role-specific models.

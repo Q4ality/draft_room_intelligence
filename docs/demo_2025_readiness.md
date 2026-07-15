@@ -4,27 +4,29 @@
 
 Open the current demo shell from:
 
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/index.html`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
 
 Current normalized dataset:
 
-- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final`
+- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final`
 
 Current export files:
 
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/board.csv`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/compare.csv`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/players.json`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/manifest.json`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/reports/data_gaps/summary.md`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup/reports/modeling_sanity/summary.md`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/board.csv`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/compare.csv`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/players.json`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/manifest.json`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/data_gaps/summary.md`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/modeling_sanity/summary.md`
+- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity/summary.md`
 
 Rebuild the full local package with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
-  data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup/final \
-  outputs/demo_2025_openstats_russian_nordic_cleanup \
+  data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
+  --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv \
   --gap-top-n 35 \
   --movement-top-n 40
 ```
@@ -39,6 +41,7 @@ make demo-2025-readiness
 
 - Full 2025 drafted-player board: 224 players.
 - Board, detail, compare, shortlist, shortlist CSV export, and one-page shortlist summary HTML export UX.
+- Prospect Stats Evidence in player detail, including goalie-specific SV%/GAA/SO display.
 - Public consensus slot proxy and model-vs-consensus disagreement buckets.
 - League-adjusted production, role group, age, size, handedness, adult/playoff exposure, sample-size-weighted adult/playoff evidence, and evidence-depth fields in the demo export.
 - Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, USHL official data, and curated open-stat packs for Russian, Nordic, NCAA/USHL, Czech, and selected cleanup targets.
@@ -47,14 +50,14 @@ make demo-2025-readiness
 Latest manifest snapshot:
 
 - `dataset_status`: `strong`
-- evidence depth: 77 low, 97 medium, 50 high
-- disagreement buckets: 95 aligned, 69 consensus higher, 60 model higher
-- source coverage: 224 draft-slot proxies, 84 CHL players, 37 USHL players, 47 Wikipedia bio matches, 33 Wikipedia career-stat matches, and 41 players with open-stats source rows
+- evidence depth: 27 low, 59 medium, 138 high
+- disagreement buckets: 80 aligned, 129 consensus higher, 15 model higher
+- current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
 
 Recent enrichment improvement:
 
-- Russian, Nordic, and cleanup open-stat packs now lift the demo from 384 to 457 stat lines, with open-stats rows moving from 17 to 114.
-- High-evidence players moved from 27 in the first open-stats baseline to 50 in the current cleanup package.
+- Russian, Nordic, cleanup open-stat packs, and EP-PDF overlay now lift the current package to 737 stat lines.
+- High-evidence players moved to 138 in the current EP-PDF package.
 - Examples: Alexei Medvedev, Max Psenicka, Shane Vansaghi, Charlie Cerrato, Matthew Gard, Nathan Behm, Vojtech Cihar, Hayden Paupanekis, Tommy Lafreniere, Eric Nilson, Milton Gastrin, Roman Luttsev, and Alexander Zharovsky now carry richer histories.
 - CHL true-playoff enrichment now adds regular and playoff rows separately instead of using playoff-team regular-season pages.
 - CHL goalie exposure is now loaded from official CHL goalie tables.
@@ -109,11 +112,11 @@ The main missing pieces are data coverage, not the demo shell.
 
 Before adding more model complexity, make the demo stronger by improving source coverage for the top missing leagues:
 
-1. NCAA/USHL/USNTDP source enrichment.
-2. Sweden adapter for SHL/HockeyAllsvenskan/J20.
-3. Finland adapter for Liiga/U20.
-4. Russian-league fallback strategy using open pages that are not blocked by KHL challenge pages.
-5. Goalie-specific stat schema and demo presentation.
+1. Keep the current 2025 demo frozen for the review unless a blocking UI/data issue appears.
+2. Build systematic source adapters using the collect-parse-merge-audit loop in [technical_debt_and_ingestion_plan.md](technical_debt_and_ingestion_plan.md).
+3. Start with CHL cleanup if top-board credibility is the review concern; start with full 2026 EP guide extraction if scalability is the review concern.
+4. Follow with NCAA/USHL/USNTDP, Swedish/Finnish, and Russian KHL/MHL/VHL passes.
+5. Continue using evidence-depth movement and demo sanity reports as acceptance checks.
 
 After that, rerun the demo export and use evidence-depth movement as the success metric.
 
@@ -125,8 +128,8 @@ The current prioritized data-gap report is tracked in [demo_2025_gap_report.md](
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
-  outputs/demo_2025_openstats_russian_nordic_cleanup \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_gaps \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/data_gaps \
   --top-n 35
 ```
 
@@ -134,7 +137,15 @@ The current board-vs-consensus sanity report is tracked in [demo_2025_modeling_s
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-modeling \
-  outputs/demo_2025_openstats_russian_nordic_cleanup \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_modeling \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/modeling_sanity \
   --top-n 40
+```
+
+The focused demo sanity report is rebuilt by `build-demo-readiness`, or independently with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-sanity \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
+  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity
 ```
