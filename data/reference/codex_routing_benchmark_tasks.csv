@@ -1,0 +1,6 @@
+task_id,task_name,baseline_prompt,routed_prompt,expected_route,notes
+demo-status,Explain current demo status,What is our current demo status?,Use project-context to summarize current demo status from readiness and acceptance reports.,project-context,Frequent management/status task.
+player-evidence,Diagnose a low-evidence player,Why does a player have low evidence?,Use debug-ingestion to diagnose why a selected player has weak evidence and name the earliest failing ingestion stage.,debug-ingestion,Use a fixed player name per benchmark run.
+ingestion-plan,Plan CHL cleanup ingestion,How should we close CHL data gaps?,Use project-context and debug-ingestion to plan CHL cleanup from source-family status and gap reports.,project-context+debug-ingestion,Good proxy for source-coverage work.
+validate-demo,Validate a demo export change,Validate this demo export change.,Use validate-change to choose and run focused checks for a demo export change.,validate-change,Measures check selection efficiency.
+review-ranking,Review ranking calibration risk,Review this ranking calibration change.,Use reviewer custom agent guidance to review ranking calibration risk and missing validation.,reviewer,High-assurance path should cost more but improve risk coverage.

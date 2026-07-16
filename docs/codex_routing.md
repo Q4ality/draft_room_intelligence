@@ -53,6 +53,7 @@ Repo skills are authored under `skills/` for readability and historical continui
 - Prefer `validate-change` before commit or sync.
 - Prefer `debug-ingestion` for source coverage, parser, merge, duplicate-row, goalie-stat, and evidence-display issues.
 - Escalate to `reviewer` only for meaningful risk; small docs or typo changes do not need it.
+- Measure routing impact with the benchmark loop in `docs/codex_usage_measurement.md`.
 
 ## Sources
 

@@ -26,6 +26,7 @@
 - Build the 2025 demo package: `make demo-2025-readiness`
 - Audit ingestion plan: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-ingestion-plan data/reference/ingestion_source_families.csv outputs/ingestion_plan`
 - Run demo acceptance gate: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-acceptance outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance`
+- Build Codex usage dashboard: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-usage outputs/codex_usage/run_log.csv outputs/codex_usage_report`
 
 ## Working Rules
 
@@ -47,6 +48,7 @@
 - Systematic ingestion plan: `docs/technical_debt_and_ingestion_plan.md`
 - Historical validation: `docs/historical_validation.md`
 - Codex routing: `docs/codex_routing.md`
+- Codex usage measurement: `docs/codex_usage_measurement.md`
 
 ## Validation Policy
 

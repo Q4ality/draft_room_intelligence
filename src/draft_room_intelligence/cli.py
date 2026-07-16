@@ -82,6 +82,7 @@ from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
+from draft_room_intelligence.reports.codex_usage import write_codex_usage_report
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
@@ -504,6 +505,12 @@ def main() -> None:
         default=Path("."),
         help="Project root used to resolve manifest paths.",
     )
+    codex_usage_parser = subparsers.add_parser(
+        "report-codex-usage",
+        help="Build routing usage benchmark summary and dashboard from a run-log CSV.",
+    )
+    codex_usage_parser.add_argument("run_log_csv", type=Path, help="CSV with baseline/routed benchmark run rows.")
+    codex_usage_parser.add_argument("output_dir", type=Path, help="Directory for usage report artifacts.")
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
         help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
@@ -875,6 +882,8 @@ def main() -> None:
         run_audit_prospect_stats(args.output_dir, args.dataset_dirs, draft_year=args.draft_year)
     elif args.command == "report-ingestion-plan":
         run_report_ingestion_plan(args.manifest_csv, args.output_dir, project_root=args.project_root)
+    elif args.command == "report-codex-usage":
+        run_report_codex_usage(args.run_log_csv, args.output_dir)
     elif args.command == "create-preseason-roster-proxy":
         run_create_preseason_roster_proxy(
             args.roster_csv,
@@ -1033,6 +1042,17 @@ def run_report_ingestion_plan(manifest_csv: Path, output_dir: Path, *, project_r
     print(f"Blocked: {report.blocked_count}")
     print(f"Summary: {output_dir / 'summary.md'}")
     print(f"Audit CSV: {output_dir / 'source_family_audit.csv'}")
+
+
+def run_report_codex_usage(run_log_csv: Path, output_dir: Path) -> None:
+    report = write_codex_usage_report(run_log_csv, output_dir)
+    print(f"# Codex usage report: {run_log_csv}")
+    print(f"Output directory: {output_dir}")
+    print(f"Runs: {report.run_count}")
+    print(f"Compared tasks: {report.compared_task_count}")
+    print(f"Total routed delta: {report.total_unit_delta_pct * 100:.1f}%")
+    print(f"Summary: {output_dir / 'summary.md'}")
+    print(f"Dashboard: {output_dir / 'index.html'}")
 
 
 def run_import_eliteprospects(
