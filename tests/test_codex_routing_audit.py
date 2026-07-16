@@ -12,6 +12,8 @@ def create_routing_project(root):
     write_text(root / "AGENTS.md", "# Guide\n")
     write_text(root / "docs/codex_routing.md", "# Routing\n")
     write_text(root / "docs/codex_usage_measurement.md", "# Usage\n")
+    write_text(root / "data/reference/codex_context_routes.csv", "route_id\ncodex-routing\n")
+    write_text(root / "data/reference/codex_task_routing.csv", "task_id\nsmall-edit\n")
     write_text(
         root / ".codex/config.toml",
         """

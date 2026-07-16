@@ -58,6 +58,24 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-context-route
   outputs/codex_context_routes
 ```
 
+## Task Routing
+
+`data/reference/codex_task_routing.csv` maps common task classes to the context route, agent path, reasoning effort, risk level, validation command, and benchmark task id. This is the current decision table for model/agent routing:
+
+- keep low-risk deterministic edits in the main flow,
+- use `kb_explorer` for read-only unfamiliar-area discovery when the context route is insufficient,
+- use `reviewer` after high-risk ingestion, ranking, or team-fit changes,
+- record the matching `measurement_task_id` when benchmarking routed-vs-baseline usage.
+
+Audit the task routing table with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-task-routing \
+  data/reference/codex_task_routing.csv \
+  data/reference/codex_context_routes.csv \
+  outputs/codex_task_routing
+```
+
 ## Operating Rules
 
 - Do not use multiple write agents in parallel.

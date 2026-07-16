@@ -29,6 +29,7 @@
 - Build Codex usage dashboard: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-usage outputs/codex_usage/run_log.csv outputs/codex_usage_report`
 - Audit Codex routing setup: `PYTHONPATH=src python3 -m draft_room_intelligence.cli audit-codex-routing outputs/codex_routing_audit`
 - Audit context routes: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-context-routes data/reference/codex_context_routes.csv outputs/codex_context_routes`
+- Audit task routing: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-task-routing data/reference/codex_task_routing.csv data/reference/codex_context_routes.csv outputs/codex_task_routing`
 
 ## Working Rules
 
@@ -41,6 +42,7 @@
 - Do not add one-off enrichment packs unless `data/reference/ingestion_source_families.csv` and the ingestion audit explain the source-family path.
 - Use `debug-ingestion` for source coverage, parser, merge, duplicate-row, goalie-stat, or player-evidence problems.
 - Use `data/reference/codex_context_routes.csv` before broad repo exploration.
+- Use `data/reference/codex_task_routing.csv` to decide whether work should stay in main flow, use `kb_explorer`, or get `reviewer` validation.
 
 ## Relevant Docs
 
@@ -61,6 +63,7 @@
 - Use `validate-change` when the right check set is not obvious.
 - For routing/config/skill changes, run `audit-codex-routing`.
 - For context-route changes, run `report-codex-context-routes`.
+- For task-routing changes, run `report-codex-task-routing`.
 - Always run `git diff --check` before committing.
 - If `pytest` is unavailable in the active Python, state that explicitly instead of treating it as a code failure.
 
