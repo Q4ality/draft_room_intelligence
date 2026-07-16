@@ -569,6 +569,9 @@ def build_team_fit(
         "timeline_fit_score": components["timeline_fit_score"],
         "risk_appetite_score": components["risk_appetite_score"],
         "bucket_u25_count": components["bucket_u25_count"],
+        "bucket_nhl_u25_count": components["bucket_nhl_u25_count"],
+        "bucket_ahl_u25_count": components["bucket_ahl_u25_count"],
+        "bucket_non_nhl_u25_count": components["bucket_non_nhl_u25_count"],
         "bucket_player_count": components["bucket_player_count"],
         "u25_same_role_count": under_25,
         "role_player_count": players,
@@ -579,6 +582,8 @@ def build_team_fit(
             f"scarcity {scarcity:.2f}, U25 count {under_25}, avg age {avg_age:.1f}. "
             f"Same-position pipeline: {components['bucket_u25_count']} U25 across "
             f"{components['bucket_player_count']} {candidate_role_bucket(prospect.position)} rows. "
+            f"NHL-ready U25: {int(components['bucket_nhl_u25_count'])}; "
+            f"AHL/prospect U25: {int(components['bucket_non_nhl_u25_count'])}. "
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
             f"Roster basis: {context.snapshot_label}. "
             f"Examples: {examples or 'not available'}."
@@ -626,8 +631,10 @@ def team_fit_components(
     context_rows: list[dict[str, str]] | None = None,
 ) -> dict[str, float]:
     roster_need = roster_need_score(row, tool_score)
-    bucket_u25, bucket_players = bucket_pipeline_counts(row, context_rows)
-    pipeline_need = pipeline_need_score(row, prospect, tool_score, bucket_u25, bucket_players)
+    pipeline_profile = bucket_pipeline_profile(row, context_rows)
+    bucket_u25 = int(pipeline_profile["bucket_u25_count"])
+    bucket_players = int(pipeline_profile["bucket_player_count"])
+    pipeline_need = pipeline_need_score(row, prospect, tool_score, pipeline_profile)
     timeline_fit = timeline_fit_score(row, prospect)
     risk_fit = risk_appetite_score(prospect, row)
     overall = (
@@ -643,6 +650,9 @@ def team_fit_components(
         "timeline_fit_score": timeline_fit,
         "risk_appetite_score": risk_fit,
         "bucket_u25_count": bucket_u25,
+        "bucket_nhl_u25_count": pipeline_profile["bucket_nhl_u25_count"],
+        "bucket_ahl_u25_count": pipeline_profile["bucket_ahl_u25_count"],
+        "bucket_non_nhl_u25_count": pipeline_profile["bucket_non_nhl_u25_count"],
         "bucket_player_count": bucket_players,
     }
 
@@ -661,22 +671,41 @@ def roster_need_score(row: dict[str, str], tool_score: float) -> float:
 
 
 def bucket_pipeline_counts(row: dict[str, str], context_rows: list[dict[str, str]] | None) -> tuple[int, int]:
+    profile = bucket_pipeline_profile(row, context_rows)
+    return int(profile["bucket_u25_count"]), int(profile["bucket_player_count"])
+
+
+def bucket_pipeline_profile(row: dict[str, str], context_rows: list[dict[str, str]] | None) -> dict[str, float]:
     rows = context_rows or [row]
     bucket = row.get("role_bucket", "")
     same_bucket_rows = [item for item in rows if item.get("role_bucket") == bucket]
-    return (
-        sum(safe_int(item.get("under_25", "0")) for item in same_bucket_rows),
-        sum(safe_int(item.get("players", "0")) for item in same_bucket_rows),
+    nhl_u25 = sum(
+        safe_int(item.get("under_25", "0")) for item in same_bucket_rows if item.get("league_level") == "NHL"
     )
+    ahl_u25 = sum(
+        safe_int(item.get("under_25", "0")) for item in same_bucket_rows if item.get("league_level") == "AHL"
+    )
+    total_u25 = sum(safe_int(item.get("under_25", "0")) for item in same_bucket_rows)
+    return {
+        "bucket_u25_count": float(total_u25),
+        "bucket_nhl_u25_count": float(nhl_u25),
+        "bucket_ahl_u25_count": float(ahl_u25),
+        "bucket_non_nhl_u25_count": float(max(0, total_u25 - nhl_u25)),
+        "bucket_player_count": float(sum(safe_int(item.get("players", "0")) for item in same_bucket_rows)),
+    }
 
 
 def pipeline_need_score(
     row: dict[str, str],
     prospect: HistoricalProspect,
     tool_score: float,
-    bucket_under_25: int = 0,
-    bucket_players: int = 0,
+    pipeline_profile: dict[str, float] | None = None,
 ) -> float:
+    profile = pipeline_profile or bucket_pipeline_profile(row, [row])
+    bucket_under_25 = int(profile["bucket_u25_count"])
+    bucket_players = int(profile["bucket_player_count"])
+    bucket_nhl_u25 = int(profile["bucket_nhl_u25_count"])
+    bucket_non_nhl_u25 = int(profile["bucket_non_nhl_u25_count"])
     target = safe_float(row.get("scarcity_target", "0")) or 1.0
     under_25 = safe_int(row.get("under_25", "0"))
     players = safe_int(row.get("players", "0"))
@@ -688,6 +717,7 @@ def pipeline_need_score(
     score = 1.0 - ((u25_pressure * 0.62) + (roster_saturation * 0.25))
     bucket_pressure = bucket_pipeline_pressure(bucket, bucket_under_25, bucket_players)
     score -= bucket_pressure
+    score -= readiness_pipeline_pressure(bucket, bucket_nhl_u25, bucket_non_nhl_u25)
     if premium_role and under_25 >= 2:
         score -= 0.18
     if bucket == "defense" and under_25 >= 4:
@@ -697,6 +727,18 @@ def pipeline_need_score(
     if tool_score >= 0.75 and under_25 == 0:
         score += 0.08
     return min(1.0, max(0.0, score))
+
+
+def readiness_pipeline_pressure(bucket: str, nhl_u25: int, non_nhl_u25: int) -> float:
+    if bucket == "goalie":
+        return min(0.28, (nhl_u25 * 0.10) + (non_nhl_u25 * 0.08))
+    if bucket == "defense":
+        return min(0.32, (nhl_u25 * 0.13) + (non_nhl_u25 * 0.06))
+    if bucket == "center":
+        return min(0.34, (nhl_u25 * 0.14) + (non_nhl_u25 * 0.06))
+    if bucket == "wing":
+        return min(0.28, (nhl_u25 * 0.09) + (non_nhl_u25 * 0.04))
+    return 0.0
 
 
 def bucket_pipeline_pressure(bucket: str, under_25: int, players: int) -> float:
@@ -1283,6 +1325,10 @@ def team_fit_options_for_team(player_details: list[dict[str, object]], team_id: 
                     "pipeline_need_score": option.get("pipeline_need_score", 0.0),
                     "timeline_fit_score": option.get("timeline_fit_score", 0.0),
                     "risk_appetite_score": option.get("risk_appetite_score", 0.0),
+                    "bucket_u25_count": option.get("bucket_u25_count", 0),
+                    "bucket_nhl_u25_count": option.get("bucket_nhl_u25_count", 0),
+                    "bucket_ahl_u25_count": option.get("bucket_ahl_u25_count", 0),
+                    "bucket_non_nhl_u25_count": option.get("bucket_non_nhl_u25_count", 0),
                 }
             )
     return sorted(
@@ -1300,7 +1346,16 @@ def build_team_role_gaps(context: TeamFitContext) -> list[dict[str, object]]:
         players = safe_int(row.get("players", "0"))
         target = safe_float(row.get("scarcity_target", "0"))
         avg_age = safe_float(row.get("avg_age", "0"))
-        role_priority = scarcity + (0.18 if under_25 == 0 else 0.0) + (0.08 if avg_age >= 30 else 0.0)
+        same_bucket = bucket_pipeline_profile(row, context.depth_rows)
+        nhl_u25 = int(same_bucket["bucket_nhl_u25_count"])
+        non_nhl_u25 = int(same_bucket["bucket_non_nhl_u25_count"])
+        readiness_penalty = readiness_pipeline_pressure(row.get("role_bucket", ""), nhl_u25, non_nhl_u25)
+        role_priority = (
+            scarcity
+            + (0.18 if under_25 == 0 else 0.0)
+            + (0.08 if avg_age >= 30 else 0.0)
+            - min(0.30, readiness_penalty * 0.55)
+        )
         gaps.append(
             {
                 "role_bucket": row.get("role_bucket", ""),
@@ -1308,10 +1363,13 @@ def build_team_role_gaps(context: TeamFitContext) -> list[dict[str, object]]:
                 "league_level": row.get("league_level", ""),
                 "players": players,
                 "under_25": under_25,
+                "bucket_nhl_u25_count": nhl_u25,
+                "bucket_non_nhl_u25_count": non_nhl_u25,
+                "readiness_pipeline_pressure": readiness_penalty,
                 "scarcity_target": target,
                 "scarcity_score": scarcity,
                 "avg_age": avg_age,
-                "priority_score": min(1.0, role_priority),
+                "priority_score": min(1.0, max(0.0, role_priority)),
                 "example_players": row.get("example_players", ""),
             }
         )

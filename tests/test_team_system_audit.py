@@ -60,10 +60,18 @@ def test_write_team_system_audit_flags_saturated_pipeline_and_goalie_assignment(
         for row in audit.flag_rows
     )
     assert any(
+        row["team_id"] == "SJS" and row["issue_type"] == "high_fit_despite_nhl_ready_u25_pipeline"
+        for row in audit.flag_rows
+    )
+    assert any(
         row["team_id"] == "PIT" and row["issue_type"] == "goalie_fit_high_despite_multiple_u25_goalies"
         for row in audit.flag_rows
     )
     rows = list(csv.DictReader((output_dir / "team_bucket_audit.csv").open(newline="", encoding="utf-8")))
     sjs_center = [row for row in rows if row["team_id"] == "SJS" and row["role_bucket"] == "center"][0]
     assert sjs_center["u25_players"] == "3"
+    assert sjs_center["nhl_ready_u25"] == "2"
+    assert sjs_center["ahl_pipeline_u25"] == "1"
     assert "Macklin Celebrini" in sjs_center["young_core"]
+    assert "Macklin Celebrini" in sjs_center["nhl_ready_young_core"]
+    assert "Zack Ostapchuk" in sjs_center["ahl_pipeline_young_core"]

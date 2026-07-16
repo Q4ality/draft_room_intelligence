@@ -45,6 +45,7 @@ make demo-2025-readiness
 - Prospect Stats Evidence in player detail, including goalie-specific SV%/GAA/SO display.
 - Public consensus slot proxy and model-vs-consensus disagreement buckets.
 - League-adjusted production, role group, age, size, handedness, adult/playoff exposure, sample-size-weighted adult/playoff evidence, and evidence-depth fields in the demo export.
+- Team-fit analytics now separate raw U25 depth into NHL-ready U25 and AHL/prospect U25 pipeline signals, so franchise-fit explanations are less likely to overstate need when a system already has young players in the same role.
 - Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, USHL official data, and curated open-stat packs for Russian, Nordic, NCAA/USHL, Czech, and selected cleanup targets.
 - Transparent evidence flags so weakly covered players are visible instead of hidden.
 
@@ -55,6 +56,7 @@ Latest manifest snapshot:
 - disagreement buckets: 80 aligned, 129 consensus higher, 15 model higher
 - current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
 - demo acceptance: 11 of 11 checks passing, including full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral `Production` history labeling.
+- team-fit payloads now include same-position NHL-ready U25, AHL U25, and non-NHL U25 pipeline counts in team options and team-view role gaps.
 
 Recent enrichment improvement:
 

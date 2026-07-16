@@ -8,6 +8,7 @@ from draft_room_intelligence.data.team_rosters import load_roster_csv
 from draft_room_intelligence.data.team_rosters import role_bucket
 from draft_room_intelligence.data.team_rosters import RosterPlayer
 from draft_room_intelligence.reports.demo_export import bucket_pipeline_pressure
+from draft_room_intelligence.reports.demo_export import readiness_pipeline_pressure
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "team_rosters_sample.csv"
@@ -119,3 +120,10 @@ def test_bucket_pipeline_pressure_penalizes_saturated_position_groups():
         "wing", under_25=2, players=24
     )
     assert bucket_pipeline_pressure("goalie", under_25=3, players=8) >= 0.30
+
+
+def test_readiness_pipeline_pressure_weights_nhl_ready_players_more():
+    assert readiness_pipeline_pressure("center", nhl_u25=2, non_nhl_u25=0) > readiness_pipeline_pressure(
+        "center", nhl_u25=0, non_nhl_u25=2
+    )
+    assert readiness_pipeline_pressure("goalie", nhl_u25=0, non_nhl_u25=2) > 0

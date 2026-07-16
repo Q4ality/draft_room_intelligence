@@ -49,6 +49,7 @@ Browser smoke check:
 - `model_score` remains production/stat-sensitive. It can be lower for shortened samples, goalies, or defense profiles whose value is not fully captured by point production.
 - `board_score` blends model output with consensus rank, Elite Prospects guide evidence, and role-aware calibration. This is the primary demo board order.
 - `team_adjusted_score` adds roster-fit context for the drafted or selected NHL organization.
+- Team-fit context now separates NHL-ready U25 players from AHL/prospect U25 pipeline depth before scoring and explaining organizational fit.
 - The current demo intentionally protects elite-consensus defense and goalie profiles from being buried behind scoring forwards. Matthew Schaefer is the clearest example: his pure model score is lower because the captured sample is only 19 games, but his board rank remains top-tier because consensus, EP evidence, role rank, and NYI team fit all support that.
 
 ## Strong Demo Stories
@@ -124,6 +125,6 @@ The board is now more consensus-anchored at the top while still surfacing eviden
 
 1. Systematize ranking calibration with tests instead of demo-only weights.
 2. Run one targeted data pass against full 2026 coverage and the highest-priority European/NCAA gaps.
-3. Improve team-fit analytics with U23 pipeline depth, NHL/AHL readiness separation, and contender/rebuild risk tolerance.
+3. Improve team-fit analytics further with better historical preseason roster snapshots and a more explicit U23 pipeline/readiness UI.
 4. Add a compact "demo mode" preset that preloads the recommended story players.
 5. Add a one-page export/PDF summary for the shortlist.
