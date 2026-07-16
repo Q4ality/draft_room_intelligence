@@ -1,0 +1,4 @@
+interface:
+  display_name: "Validate Change"
+  short_description: "Choose focused checks for repo changes"
+  default_prompt: "Use $validate-change to choose and run the focused checks for this draft-room-intelligence change."

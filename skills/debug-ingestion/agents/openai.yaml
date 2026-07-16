@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debug Ingestion"
+  short_description: "Debug cache-first source ingestion"
+  default_prompt: "Use $debug-ingestion to diagnose source coverage, parser, merge, or demo evidence issues in draft-room-intelligence."

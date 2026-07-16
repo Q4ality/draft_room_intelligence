@@ -10,6 +10,8 @@
 - `docs/` - project brief, demo readiness, ingestion plan, data contracts, and validation notes.
 - `skills/prepare-draft-demo-data/` - workflow skill for single draft-class data staging, ETL, and demo builds.
 - `skills/project-context/` - bounded discovery skill for locating relevant docs, code, reports, tests, and commands.
+- `skills/validate-change/` - focused validation skill for choosing checks before commit or sync.
+- `skills/debug-ingestion/` - troubleshooting skill for source-family ingestion and evidence gaps.
 - `data/reference/ingestion_source_families.csv` - source-family manifest for cache-first ingestion planning.
 
 ## Key Commands
@@ -31,6 +33,7 @@
 - Use `apply_patch` for manual edits.
 - Keep new data ingestion cache-first: collect raw files, parse to normalized source tables, merge with audit, then rebuild demo reports.
 - Do not add one-off enrichment packs unless `data/reference/ingestion_source_families.csv` and the ingestion audit explain the source-family path.
+- Use `debug-ingestion` for source coverage, parser, merge, duplicate-row, goalie-stat, or player-evidence problems.
 
 ## Relevant Docs
 
@@ -46,6 +49,7 @@
 - For code changes, run `python3 -m compileall src/draft_room_intelligence` and targeted tests when available.
 - For demo/data changes, rebuild or rerun the relevant report plus `report-demo-acceptance`.
 - For ingestion changes, rerun `report-ingestion-plan` and document any source-family status movement.
+- Use `validate-change` when the right check set is not obvious.
 - Always run `git diff --check` before committing.
 - If `pytest` is unavailable in the active Python, state that explicitly instead of treating it as a code failure.
 
