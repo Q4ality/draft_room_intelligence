@@ -4,8 +4,14 @@ from pathlib import Path
 from draft_room_intelligence.cli import run_build_demo_site
 from draft_room_intelligence.cli import run_export_demo_package
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
+from draft_room_intelligence.domain import HistoricalProspect
+from draft_room_intelligence.domain import PreDraftStatLine
 from draft_room_intelligence.reports.demo_export import build_demo_export_bundle
+from draft_room_intelligence.reports.demo_export import build_stat_evidence
+from draft_room_intelligence.reports.demo_export import build_team_fit
 from draft_room_intelligence.reports.demo_export import evidence_weighted_board_score
+from draft_room_intelligence.reports.demo_export import scouting_qualitative_flags
+from draft_room_intelligence.reports.demo_export import TeamFitContext
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "historical_prospects.csv"
@@ -52,6 +58,78 @@ def test_evidence_weighted_board_score_protects_elite_defense_short_sample():
     score = evidence_weighted_board_score(0.72, 1.0, feature)
 
     assert score > 0.92
+
+
+def test_team_fit_reason_surfaces_u25_peer_pipeline_examples():
+    prospect = HistoricalProspect(
+        player_id="p1",
+        name="Center Prospect",
+        draft_year=2025,
+        position="C",
+        age_at_draft=18.0,
+        height_cm=183,
+        weight_kg=82,
+        consensus_rank=10,
+        stat_line=PreDraftStatLine(league="OHL", team="T", season="2024-25", games=50, goals=20, assists=30),
+    )
+    context = TeamFitContext(
+        team_id="DET",
+        team_name="Detroit Red Wings",
+        depth_rows=[
+            {
+                "league_level": "NHL",
+                "role_bucket": "center",
+                "role_type": "scoring_center",
+                "players": "1",
+                "under_25": "0",
+                "avg_age": "30.0",
+                "scarcity_score": "0.500",
+                "scarcity_target": "2.0",
+                "example_players": "Dylan Larkin",
+            },
+            {
+                "league_level": "NHL",
+                "role_bucket": "center",
+                "role_type": "center_depth",
+                "players": "4",
+                "under_25": "2",
+                "avg_age": "25.2",
+                "scarcity_score": "0.000",
+                "scarcity_target": "4.0",
+                "example_players": "Marco Kasper; Emmitt Finnie",
+            },
+        ],
+    )
+
+    fit = build_team_fit(prospect, context, tool_score=0.8)
+
+    assert "Current role examples: Dylan Larkin" in str(fit["reason"])
+    assert "U25 peer pipeline examples: Marco Kasper" in str(fit["reason"])
+
+
+def test_scouting_qualitative_flags_capture_championship_role_context():
+    prospect = HistoricalProspect(
+        player_id="p2",
+        name="Nikita Tyurin",
+        draft_year=2025,
+        position="D",
+        age_at_draft=18.0,
+        height_cm=183,
+        weight_kg=79,
+        consensus_rank=140,
+        stat_line=PreDraftStatLine(league="MHL", team="MHK Spartak Moskva", season="2024-25", games=1, goals=0, assists=0),
+        scouting_text="A puck-moving defender who earned an important role on a championship contender.",
+    )
+    board_row = {
+        "role_group": "defense",
+        "goalie_quality_score": "0.000000",
+    }
+
+    flags = scouting_qualitative_flags(prospect)
+    evidence = build_stat_evidence(prospect, board_row, flags)
+
+    assert "EP role flag: championship-team context" in flags
+    assert "EP role flag: important team role" in evidence["qualitative_flags"]
 
 
 def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):

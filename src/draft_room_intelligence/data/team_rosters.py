@@ -197,7 +197,7 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
                     "goalie_shutouts": str(sum(player.goalie_shutouts for player in group) or ""),
                     "scarcity_target": f"{target:.1f}",
                     "scarcity_score": f"{scarcity:.3f}",
-                    "example_players": "; ".join(format_example_player(player) for player in group[:5]),
+                    "example_players": "; ".join(format_example_player(player) for player in sort_example_players(group)[:5]),
                 }
             )
         )
@@ -380,6 +380,18 @@ def weighted_average(values: list[tuple[float | None, int]]) -> float:
     if not weight_sum:
         return average([float(value) for value, _ in weighted_values])
     return sum(value * weight for value, weight in weighted_values) / weight_sum
+
+
+def sort_example_players(players: list[RosterPlayer]) -> list[RosterPlayer]:
+    return sorted(players, key=example_player_sort_key)
+
+
+def example_player_sort_key(player: RosterPlayer) -> tuple[int, int, float, float, str]:
+    u25_order = 0 if 0 < player.age < 25 else 1
+    nhl_order = 0 if player.league_level == "NHL" else 1
+    games_order = -float(player.games or 0)
+    production_order = -float(player.points_per_game or 0.0)
+    return (u25_order, nhl_order, games_order, production_order, player.player_name)
 
 
 def format_example_player(player: RosterPlayer) -> str:

@@ -982,6 +982,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         `${{stats.stat_lines || 0}} stat rows`,
         `${{stats.league_count || 0}} leagues`,
         ...(stats.leagues || []).slice(0, 6),
+        ...(stats.qualitative_flags || []),
       ];
       document.getElementById("detail-stat-evidence-tags").innerHTML =
         tags.map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");

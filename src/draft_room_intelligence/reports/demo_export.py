@@ -559,6 +559,7 @@ def build_team_fit(
     target = safe_float(best_row.get("scarcity_target", "0"))
     level = best_row.get("league_level", "")
     examples = best_row.get("example_players", "")
+    peer_examples = peer_pipeline_examples(best_row, context.depth_rows)
     status = team_status(context.team_id)
     ahl_rows = [row for row in context.depth_rows if row.get("league_level") == "AHL"]
     coverage_note = "AHL depth available" if ahl_rows else "AHL depth not loaded"
@@ -594,7 +595,8 @@ def build_team_fit(
             f"AHL/prospect U25: {int(components['bucket_non_nhl_u25_count'])}. "
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
             f"Roster basis: {context.snapshot_label}. "
-            f"Examples: {examples or 'not available'}."
+            f"Current role examples: {examples or 'not available'}. "
+            f"U25 peer pipeline examples: {peer_examples or 'not available'}."
         ),
     }
 
@@ -701,6 +703,36 @@ def bucket_pipeline_profile(row: dict[str, str], context_rows: list[dict[str, st
         "bucket_non_nhl_u25_count": float(max(0, total_u25 - nhl_u25)),
         "bucket_player_count": float(sum(safe_int(item.get("players", "0")) for item in same_bucket_rows)),
     }
+
+
+def peer_pipeline_examples(row: dict[str, str], context_rows: list[dict[str, str]], limit: int = 5) -> str:
+    bucket = row.get("role_bucket", "")
+    rows = [
+        item
+        for item in context_rows
+        if item.get("role_bucket") == bucket
+        and safe_int(item.get("under_25", "0")) > 0
+        and item.get("example_players", "").strip()
+    ]
+    rows.sort(key=peer_example_sort_key)
+    examples: list[str] = []
+    for item in rows:
+        for name in split_example_players(item.get("example_players", "")):
+            if name and name not in examples:
+                examples.append(name)
+            if len(examples) >= limit:
+                return "; ".join(examples)
+    return "; ".join(examples)
+
+
+def peer_example_sort_key(row: dict[str, str]) -> tuple[int, int, float]:
+    level_order = 0 if row.get("league_level") == "NHL" else 1
+    role_order = 0 if row.get("role_type", "").startswith(("two_way", "puck_moving", "starter")) else 1
+    return (level_order, role_order, -safe_int(row.get("under_25", "0")))
+
+
+def split_example_players(value: str) -> list[str]:
+    return [item.strip() for item in value.split(";") if item.strip()]
 
 
 def pipeline_need_score(
@@ -861,6 +893,7 @@ def build_player_detail(
     team_fit_options: list[dict[str, object]] | None = None,
     resolved_drafted_team_id: str = "",
 ) -> dict[str, object]:
+    qualitative_flags = scouting_qualitative_flags(prospect)
     return {
         "player_id": prospect.player_id,
         "header": {
@@ -895,8 +928,8 @@ def build_player_detail(
             "team_fit_score": float(board_row["team_fit_score"]),
             "evidence_depth": board_row["evidence_depth"],
         },
-        "why_high": build_why_high(board_row),
-        "risk_flags": build_risk_flags(board_row),
+        "why_high": build_why_high(board_row, qualitative_flags),
+        "risk_flags": build_risk_flags(board_row, qualitative_flags),
         "team_fit": {
             "team_id": board_row["team_fit_team"],
             "role": board_row["team_fit_role"],
@@ -906,7 +939,7 @@ def build_player_detail(
             "reason": board_row["team_fit_reason"],
         },
         "team_fit_options": team_fit_options or [],
-        "stat_evidence": build_stat_evidence(prospect, board_row),
+        "stat_evidence": build_stat_evidence(prospect, board_row, qualitative_flags),
         "scouting": {
             "summary": prospect.scouting_text,
             "shades_of": prospect.shades_of,
@@ -959,7 +992,11 @@ def build_player_detail(
     }
 
 
-def build_stat_evidence(prospect: HistoricalProspect, board_row: dict[str, str]) -> dict[str, object]:
+def build_stat_evidence(
+    prospect: HistoricalProspect,
+    board_row: dict[str, str],
+    qualitative_flags: list[str] | None = None,
+) -> dict[str, object]:
     lines = prospect.pre_draft_stat_lines or []
     games = sum(line.games for line in lines)
     goals = sum(line.goals for line in lines)
@@ -1019,7 +1056,20 @@ def build_stat_evidence(prospect: HistoricalProspect, board_row: dict[str, str])
         "goalie_losses": sum(line.losses or 0 for line in goalie_lines),
         "goalie_shutouts": sum(line.shutouts or 0 for line in goalie_lines),
         "goalie_quality_score": float(board_row["goalie_quality_score"]),
+        "qualitative_flags": qualitative_flags or scouting_qualitative_flags(prospect),
     }
+
+
+def scouting_qualitative_flags(prospect: HistoricalProspect) -> list[str]:
+    text = prospect.scouting_text.lower()
+    flags: list[str] = []
+    if "championship contender" in text or "championship" in text or "won cup" in text:
+        flags.append("EP role flag: championship-team context")
+    if "important role" in text or "key role" in text or "critical role" in text:
+        flags.append("EP role flag: important team role")
+    if "playoff" in text:
+        flags.append("EP role flag: playoff context")
+    return flags
 
 
 def weighted_average(values: list[tuple[float | None, int]]) -> float:
@@ -1138,7 +1188,7 @@ def build_risk_note(feature: dict[str, str], consensus_delta: int) -> str:
     return ", ".join(risks[:2]) or "No major coverage flags in current sample."
 
 
-def build_why_high(board_row: dict[str, str]) -> list[str]:
+def build_why_high(board_row: dict[str, str], qualitative_flags: list[str] | None = None) -> list[str]:
     points: list[str] = []
     if float(board_row.get("ep_tool_score", "0") or 0) >= 0.75:
         points.append("Elite Prospects guide grades push this player above the pure stat-only view.")
@@ -1158,6 +1208,8 @@ def build_why_high(board_row: dict[str, str]) -> list[str]:
         points.append("Playoff games add pressure-sample context.")
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) > 0:
         points.append("Goalie evaluation uses save percentage, goals-against context, and workload fields.")
+    if qualitative_flags:
+        points.append("Scouting text adds role/context evidence not fully captured in the current stat rows.")
     if int(board_row["pre_draft_league_count"]) > 1:
         points.append("Multi-league history helps separate one-team context from broader performance.")
     if not points:
@@ -1179,7 +1231,7 @@ def safe_int(value: str | None) -> int:
         return 0
 
 
-def build_risk_flags(board_row: dict[str, str]) -> list[str]:
+def build_risk_flags(board_row: dict[str, str], qualitative_flags: list[str] | None = None) -> list[str]:
     flags: list[str] = []
     if int(board_row["pre_draft_row_count"]) == 1:
         flags.append("Only one pre-draft stat row is currently captured; treat the grade as review-ready, not final.")
@@ -1187,7 +1239,9 @@ def build_risk_flags(board_row: dict[str, str]) -> list[str]:
         flags.append("No adult-league sample is present, so junior translation remains a question.")
     elif board_row.get("meaningful_adult_sample") != "1":
         flags.append("Adult-league exposure is present, but the game sample is too small to carry much weight.")
-    if float(board_row["playoff_game_share"]) == 0.0:
+    if float(board_row["playoff_game_share"]) == 0.0 and qualitative_flags:
+        flags.append("Scouting text indicates playoff/championship role context, but playoff stat rows are not captured yet.")
+    elif float(board_row["playoff_game_share"]) == 0.0:
         flags.append("No playoff row is captured yet; pressure-sample context may be incomplete.")
     elif board_row.get("meaningful_playoff_sample") != "1":
         flags.append("Playoff exposure is present, but the game sample is still thin.")
