@@ -46,6 +46,18 @@ Repo skills are authored under `skills/` for readability and historical continui
 - `validate-change`
 - `debug-ingestion`
 
+## Context Routes
+
+`data/reference/codex_context_routes.csv` defines bounded context packs for common task types. Each route lists the minimum docs, source paths, and validation command to inspect before implementation.
+
+Audit the route map with:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-context-routes \
+  data/reference/codex_context_routes.csv \
+  outputs/codex_context_routes
+```
+
 ## Operating Rules
 
 - Do not use multiple write agents in parallel.

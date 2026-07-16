@@ -19,6 +19,7 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `data/reference/ingestion_source_families.csv` - source-family ingestion manifest for cache-first adapter planning.
 - `data/reference/codex_routing_benchmark_tasks.csv` - repeatable benchmark tasks for measuring routing impact.
 - `data/reference/codex_usage_run_log_template.csv` - local run-log template for routing usage measurements.
+- `data/reference/codex_context_routes.csv` - bounded context route map for common Codex task types.
 - `data/processed/` - tracked sample/pilot normalized datasets.
 - `data/raw/` - local raw inputs such as HockeyDB HTML and Elite Prospects exports. Ignored by git.
 - `outputs/` - local exports from feature tables, model runs, and ad hoc analysis. Ignored by git.
@@ -124,6 +125,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel report-ingestion-plan data/reference/ingestion_source_families.csv <output-dir>` - audit cache, normalized output, docs, and tests for each planned ingestion source family.
 - `draft-room-intel report-codex-usage <run-log.csv> <output-dir>` - build a Markdown/CSV/HTML dashboard comparing baseline vs routed Codex task runs.
 - `draft-room-intel audit-codex-routing <output-dir>` - verify project Codex config, custom agents, and repo skill discovery links.
+- `draft-room-intel report-codex-context-routes data/reference/codex_context_routes.csv <output-dir>` - audit bounded context routes used to reduce broad repo reads.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --base-dir <base-dir> [--eliteprospects-csv <export.csv>]` - create a base ETL snapshot from an existing normalized dataset and optionally enrich it with Elite Prospects in one command.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> [--eliteprospects-csv <export.csv>]` - generate the base dataset from a local HockeyDB draft HTML file, then optionally enrich it with Elite Prospects.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> --hockeydb-player-pages-dir <dir> [--eliteprospects-csv <export.csv>]` - generate a richer base dataset from local HockeyDB draft and player-page HTML caches.

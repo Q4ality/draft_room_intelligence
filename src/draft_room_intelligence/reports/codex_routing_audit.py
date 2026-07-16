@@ -68,6 +68,7 @@ def build_codex_routing_audit(project_root: str | Path) -> RoutingAuditReport:
         file_exists_check(root, "AGENTS.md", "repo guidance exists"),
         file_exists_check(root, "docs/codex_routing.md", "routing documentation exists"),
         file_exists_check(root, "docs/codex_usage_measurement.md", "usage measurement documentation exists"),
+        file_exists_check(root, "data/reference/codex_context_routes.csv", "bounded context route manifest exists"),
         config_check(root),
     ]
     checks.extend(agent_config_checks(root))

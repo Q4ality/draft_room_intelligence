@@ -1,6 +1,6 @@
 # Context Map
 
-Use this map to choose the smallest useful context for common draft-room-intelligence tasks.
+Use this map to choose the smallest useful context for common draft-room-intelligence tasks. For repeatable routed tasks, prefer the machine-readable routes in `data/reference/codex_context_routes.csv`.
 
 ## Demo UX, Export, And Readiness
 

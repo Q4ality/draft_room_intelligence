@@ -17,8 +17,9 @@ Use this skill to gather a compact, task-specific context pack before changing u
    - docs/process/repo workflow,
    - tests/validation.
 2. Read only the relevant section of `references/context-map.md`.
-3. Use `rg` or `rg --files` to find exact files, symbols, tests, and reports.
-4. Return a bounded context summary before implementation when the path is not obvious.
+3. Prefer the matching route in `data/reference/codex_context_routes.csv` when it covers the task.
+4. Use `rg` or `rg --files` to find exact files, symbols, tests, and reports.
+5. Return a bounded context summary before implementation when the path is not obvious.
 
 ## Output Contract
 
@@ -57,3 +58,4 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-acceptance \
 ## References
 
 - Read `references/context-map.md` for task-area routing and canonical files.
+- Use `data/reference/codex_context_routes.csv` as the machine-readable route list for repeatable benchmarkable context packs.

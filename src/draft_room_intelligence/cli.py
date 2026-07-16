@@ -82,6 +82,7 @@ from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
+from draft_room_intelligence.reports.codex_context_routes import write_codex_context_routes_report
 from draft_room_intelligence.reports.codex_routing_audit import write_codex_routing_audit
 from draft_room_intelligence.reports.codex_usage import write_codex_usage_report
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
@@ -523,6 +524,22 @@ def main() -> None:
         default=Path("."),
         help="Project root containing AGENTS.md, .codex, .agents, and skills.",
     )
+    codex_context_parser = subparsers.add_parser(
+        "report-codex-context-routes",
+        help="Audit bounded context routes used to reduce repeated broad repo exploration.",
+    )
+    codex_context_parser.add_argument(
+        "manifest_csv",
+        type=Path,
+        help="Context route manifest CSV, usually data/reference/codex_context_routes.csv.",
+    )
+    codex_context_parser.add_argument("output_dir", type=Path, help="Directory for context route artifacts.")
+    codex_context_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Project root used to resolve route paths.",
+    )
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
         help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
@@ -898,6 +915,8 @@ def main() -> None:
         run_report_codex_usage(args.run_log_csv, args.output_dir)
     elif args.command == "audit-codex-routing":
         run_audit_codex_routing(args.output_dir, project_root=args.project_root)
+    elif args.command == "report-codex-context-routes":
+        run_report_codex_context_routes(args.manifest_csv, args.output_dir, project_root=args.project_root)
     elif args.command == "create-preseason-roster-proxy":
         run_create_preseason_roster_proxy(
             args.roster_csv,
@@ -1078,6 +1097,17 @@ def run_audit_codex_routing(output_dir: Path, *, project_root: Path) -> None:
     print(f"Failed: {report.failed_count}")
     print(f"Summary: {output_dir / 'summary.md'}")
     print(f"Checks CSV: {output_dir / 'checks.csv'}")
+
+
+def run_report_codex_context_routes(manifest_csv: Path, output_dir: Path, *, project_root: Path) -> None:
+    report = write_codex_context_routes_report(manifest_csv, output_dir, project_root=project_root)
+    print(f"# Codex context routes: {manifest_csv}")
+    print(f"Output directory: {output_dir}")
+    print(f"Status: {'pass' if report.passed else 'fail'}")
+    print(f"Routes: {len(report.audits)}")
+    print(f"Failed: {report.failed_count}")
+    print(f"Summary: {output_dir / 'summary.md'}")
+    print(f"Routes CSV: {output_dir / 'context_routes.csv'}")
 
 
 def run_import_eliteprospects(

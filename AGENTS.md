@@ -28,6 +28,7 @@
 - Run demo acceptance gate: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-acceptance outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance`
 - Build Codex usage dashboard: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-usage outputs/codex_usage/run_log.csv outputs/codex_usage_report`
 - Audit Codex routing setup: `PYTHONPATH=src python3 -m draft_room_intelligence.cli audit-codex-routing outputs/codex_routing_audit`
+- Audit context routes: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-context-routes data/reference/codex_context_routes.csv outputs/codex_context_routes`
 
 ## Working Rules
 
@@ -39,6 +40,7 @@
 - Keep new data ingestion cache-first: collect raw files, parse to normalized source tables, merge with audit, then rebuild demo reports.
 - Do not add one-off enrichment packs unless `data/reference/ingestion_source_families.csv` and the ingestion audit explain the source-family path.
 - Use `debug-ingestion` for source coverage, parser, merge, duplicate-row, goalie-stat, or player-evidence problems.
+- Use `data/reference/codex_context_routes.csv` before broad repo exploration.
 
 ## Relevant Docs
 
@@ -58,6 +60,7 @@
 - For ingestion changes, rerun `report-ingestion-plan` and document any source-family status movement.
 - Use `validate-change` when the right check set is not obvious.
 - For routing/config/skill changes, run `audit-codex-routing`.
+- For context-route changes, run `report-codex-context-routes`.
 - Always run `git diff --check` before committing.
 - If `pytest` is unavailable in the active Python, state that explicitly instead of treating it as a code failure.
 
