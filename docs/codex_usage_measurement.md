@@ -32,6 +32,41 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-usage \
 
 5. Open `outputs/codex_usage_report/index.html`.
 
+## Phase 4: Run Discipline
+
+Use `data/reference/codex_task_routing.csv` before each measured task:
+
+1. Pick the closest task rule and record its `measurement_task_id`.
+2. Read the matching context route from `data/reference/codex_context_routes.csv`.
+3. Run the task with the recommended path: `main`, `kb_explorer`, or `reviewer`.
+4. Log one row in `outputs/codex_usage/run_log.csv` immediately after the task.
+5. Keep the final answer short enough for the user, but record enough proxy metrics to make the run comparable.
+
+Treat a routed run as valid only when:
+
+- it used the intended route,
+- it completed the requested work,
+- it records a subjective `quality_score`,
+- it records either exact token fields or proxy character counts,
+- it records `file_reads` and `full_file_reads`.
+
+## Phase 5: Optimization Loop
+
+`report-codex-usage` writes:
+
+- `normalized_runs.csv` - cleaned run rows,
+- `task_comparison.csv` - latest baseline vs routed comparison per task,
+- `route_summary.csv` - aggregate route performance and tuning recommendation,
+- `summary.md` and `index.html` - human-readable dashboard.
+
+Use `route_summary.csv` to tune routing rules:
+
+- `promote_route`: keep the route as default for that task class.
+- `collect_more_runs`: do not tune yet; gather at least two comparable tasks for the route.
+- `simplify_or_disable_route`: reduce subagent/reviewer usage or shrink the context pack.
+- `review_quality_before_promoting`: route may be cheaper, but quality fell too much.
+- `keep_measuring`: no strong signal yet.
+
 ## Metrics
 
 Record exact token fields when available:
@@ -74,3 +109,5 @@ Good routing should usually:
 - reserve reviewer/high-effort paths for high-risk work.
 
 Some routed runs may cost more. That is acceptable when they improve review quality for ranking, ingestion, data-contract, or demo credibility risks.
+
+For high-assurance routes, do not optimize only for lower token units. Reviewer paths are allowed to cost more when they prevent ranking, ingestion, security, or data-contract regressions.

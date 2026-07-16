@@ -42,10 +42,27 @@ COMPARISON_COLUMNS = [
     "unit_delta_pct",
     "tool_call_delta",
     "file_read_delta",
+    "full_file_read_delta",
+    "tool_output_char_delta",
+    "response_char_delta",
     "elapsed_delta_seconds",
     "quality_delta",
+    "recommendation",
     "baseline_route",
     "routed_route",
+]
+
+ROUTE_SUMMARY_COLUMNS = [
+    "route",
+    "compared_tasks",
+    "average_unit_delta_pct",
+    "average_quality_delta",
+    "average_file_read_delta",
+    "average_full_file_read_delta",
+    "keep_count",
+    "review_count",
+    "simplify_count",
+    "recommendation",
 ]
 
 
@@ -150,12 +167,36 @@ class UsageComparison:
         return self.routed.file_reads - self.baseline.file_reads
 
     @property
+    def full_file_read_delta(self) -> int:
+        return self.routed.full_file_reads - self.baseline.full_file_reads
+
+    @property
+    def tool_output_char_delta(self) -> int:
+        return self.routed.tool_output_chars - self.baseline.tool_output_chars
+
+    @property
+    def response_char_delta(self) -> int:
+        return self.routed.response_chars - self.baseline.response_chars
+
+    @property
     def elapsed_delta_seconds(self) -> int:
         return self.routed.elapsed_seconds - self.baseline.elapsed_seconds
 
     @property
     def quality_delta(self) -> float:
         return self.routed.quality_score - self.baseline.quality_score
+
+    @property
+    def recommendation(self) -> str:
+        if self.quality_delta < -0.25:
+            return "review_quality_regression"
+        if self.unit_delta_pct <= -0.15 and self.full_file_read_delta <= 0:
+            return "keep_route"
+        if self.unit_delta_pct <= 0 and self.quality_delta >= 0:
+            return "keep_or_simplify"
+        if self.unit_delta_pct > 0.15 and self.quality_delta <= 0:
+            return "simplify_route"
+        return "review_more_runs"
 
     def to_row(self) -> dict[str, str]:
         return {
@@ -169,10 +210,78 @@ class UsageComparison:
             "unit_delta_pct": format_percent(self.unit_delta_pct),
             "tool_call_delta": str(self.tool_call_delta),
             "file_read_delta": str(self.file_read_delta),
+            "full_file_read_delta": str(self.full_file_read_delta),
+            "tool_output_char_delta": str(self.tool_output_char_delta),
+            "response_char_delta": str(self.response_char_delta),
             "elapsed_delta_seconds": str(self.elapsed_delta_seconds),
             "quality_delta": format_float(self.quality_delta),
+            "recommendation": self.recommendation,
             "baseline_route": self.baseline.route,
             "routed_route": self.routed.route,
+        }
+
+
+@dataclass(frozen=True)
+class RouteUsageSummary:
+    route: str
+    comparisons: list[UsageComparison]
+
+    @property
+    def compared_tasks(self) -> int:
+        return len(self.comparisons)
+
+    @property
+    def average_unit_delta_pct(self) -> float:
+        return average([comparison.unit_delta_pct for comparison in self.comparisons])
+
+    @property
+    def average_quality_delta(self) -> float:
+        return average([comparison.quality_delta for comparison in self.comparisons])
+
+    @property
+    def average_file_read_delta(self) -> float:
+        return average([comparison.file_read_delta for comparison in self.comparisons])
+
+    @property
+    def average_full_file_read_delta(self) -> float:
+        return average([comparison.full_file_read_delta for comparison in self.comparisons])
+
+    @property
+    def keep_count(self) -> int:
+        return sum(1 for comparison in self.comparisons if comparison.recommendation in {"keep_route", "keep_or_simplify"})
+
+    @property
+    def review_count(self) -> int:
+        return sum(1 for comparison in self.comparisons if comparison.recommendation in {"review_quality_regression", "review_more_runs"})
+
+    @property
+    def simplify_count(self) -> int:
+        return sum(1 for comparison in self.comparisons if comparison.recommendation == "simplify_route")
+
+    @property
+    def recommendation(self) -> str:
+        if self.compared_tasks < 2:
+            return "collect_more_runs"
+        if self.simplify_count > self.keep_count:
+            return "simplify_or_disable_route"
+        if self.average_unit_delta_pct <= -0.15 and self.average_quality_delta >= 0:
+            return "promote_route"
+        if self.average_quality_delta < -0.25:
+            return "review_quality_before_promoting"
+        return "keep_measuring"
+
+    def to_row(self) -> dict[str, str]:
+        return {
+            "route": self.route,
+            "compared_tasks": str(self.compared_tasks),
+            "average_unit_delta_pct": format_percent(self.average_unit_delta_pct),
+            "average_quality_delta": format_float(self.average_quality_delta),
+            "average_file_read_delta": format_float(self.average_file_read_delta),
+            "average_full_file_read_delta": format_float(self.average_full_file_read_delta),
+            "keep_count": str(self.keep_count),
+            "review_count": str(self.review_count),
+            "simplify_count": str(self.simplify_count),
+            "recommendation": self.recommendation,
         }
 
 
@@ -209,6 +318,16 @@ class UsageReport:
             return 0.0
         return (self.total_routed_units - self.total_baseline_units) / self.total_baseline_units
 
+    @property
+    def route_summaries(self) -> list[RouteUsageSummary]:
+        by_route: dict[str, list[UsageComparison]] = {}
+        for comparison in self.comparisons:
+            by_route.setdefault(comparison.routed.route, []).append(comparison)
+        return [
+            RouteUsageSummary(route=route, comparisons=comparisons)
+            for route, comparisons in sorted(by_route.items())
+        ]
+
 
 def write_codex_usage_report(run_log_csv: str | Path, output_dir: str | Path) -> UsageReport:
     runs = read_usage_runs(Path(run_log_csv))
@@ -217,6 +336,7 @@ def write_codex_usage_report(run_log_csv: str | Path, output_dir: str | Path) ->
     root.mkdir(parents=True, exist_ok=True)
     write_csv(root / "normalized_runs.csv", RUN_COLUMNS, [run.to_row() for run in report.runs])
     write_csv(root / "task_comparison.csv", COMPARISON_COLUMNS, [item.to_row() for item in report.comparisons])
+    write_csv(root / "route_summary.csv", ROUTE_SUMMARY_COLUMNS, [item.to_row() for item in report.route_summaries])
     (root / "summary.md").write_text(format_usage_summary(report), encoding="utf-8")
     (root / "index.html").write_text(format_usage_dashboard(report), encoding="utf-8")
     return report
@@ -294,19 +414,42 @@ def format_usage_summary(report: UsageReport) -> str:
         "",
         "## Comparison",
         "",
-        "| Task | Baseline | Routed | Delta | Tool Calls | File Reads | Quality |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Task | Baseline | Routed | Delta | Tool Calls | File Reads | Full Reads | Quality | Recommendation |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for comparison in report.comparisons:
         lines.append(
-            "| {task} | {baseline} | {routed} | {delta} | {tool_calls} | {file_reads} | {quality} |".format(
+            "| {task} | {baseline} | {routed} | {delta} | {tool_calls} | {file_reads} | {full_reads} | {quality} | {recommendation} |".format(
                 task=comparison.task_name,
                 baseline=format_float(comparison.baseline.consumption_units),
                 routed=format_float(comparison.routed.consumption_units),
                 delta=format_percent(comparison.unit_delta_pct),
                 tool_calls=comparison.tool_call_delta,
                 file_reads=comparison.file_read_delta,
+                full_reads=comparison.full_file_read_delta,
                 quality=format_float(comparison.quality_delta),
+                recommendation=comparison.recommendation,
+            )
+        )
+    lines.extend(
+        [
+            "",
+            "## Route Summary",
+            "",
+            "| Route | Tasks | Avg Delta | Avg Quality | Avg Reads | Avg Full Reads | Recommendation |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for route in report.route_summaries:
+        lines.append(
+            "| {route} | {tasks} | {delta} | {quality} | {reads} | {full_reads} | {recommendation} |".format(
+                route=route.route,
+                tasks=route.compared_tasks,
+                delta=format_percent(route.average_unit_delta_pct),
+                quality=format_float(route.average_quality_delta),
+                reads=format_float(route.average_file_read_delta),
+                full_reads=format_float(route.average_full_file_read_delta),
+                recommendation=route.recommendation,
             )
         )
     lines.extend(
@@ -322,6 +465,7 @@ def format_usage_summary(report: UsageReport) -> str:
 
 def format_usage_dashboard(report: UsageReport) -> str:
     comparison_rows = "\n".join(format_comparison_html_row(item) for item in report.comparisons)
+    route_rows = "\n".join(format_route_summary_html_row(item) for item in report.route_summaries)
     run_rows = "\n".join(format_run_html_row(run) for run in sorted(report.runs, key=lambda item: (item.run_date, item.task_id, item.variant)))
     return f"""<!doctype html>
 <html lang="en">
@@ -363,8 +507,15 @@ def format_usage_dashboard(report: UsageReport) -> str:
     <section>
       <h2>Task Comparison</h2>
       <table>
-        <thead><tr><th>Task</th><th>Baseline Route</th><th>Routed Route</th><th class="num">Baseline Units</th><th class="num">Routed Units</th><th class="num">Delta</th><th class="num">Tool Calls</th><th class="num">File Reads</th><th class="num">Quality</th></tr></thead>
+        <thead><tr><th>Task</th><th>Baseline Route</th><th>Routed Route</th><th class="num">Baseline Units</th><th class="num">Routed Units</th><th class="num">Delta</th><th class="num">Tool Calls</th><th class="num">File Reads</th><th class="num">Full Reads</th><th class="num">Quality</th><th>Recommendation</th></tr></thead>
         <tbody>{comparison_rows}</tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Route Summary</h2>
+      <table>
+        <thead><tr><th>Route</th><th class="num">Tasks</th><th class="num">Avg Delta</th><th class="num">Avg Quality</th><th class="num">Avg Reads</th><th class="num">Avg Full Reads</th><th>Recommendation</th></tr></thead>
+        <tbody>{route_rows}</tbody>
       </table>
     </section>
     <section>
@@ -391,7 +542,23 @@ def format_comparison_html_row(comparison: UsageComparison) -> str:
         f"<td class=\"num {delta_class(comparison.unit_delta_pct)}\">{format_percent(comparison.unit_delta_pct)}</td>"
         f"<td class=\"num\">{comparison.tool_call_delta}</td>"
         f"<td class=\"num\">{comparison.file_read_delta}</td>"
+        f"<td class=\"num\">{comparison.full_file_read_delta}</td>"
         f"<td class=\"num\">{format_float(comparison.quality_delta)}</td>"
+        f"<td>{escape(comparison.recommendation)}</td>"
+        "</tr>"
+    )
+
+
+def format_route_summary_html_row(summary: RouteUsageSummary) -> str:
+    return (
+        "<tr>"
+        f"<td>{escape(summary.route)}</td>"
+        f"<td class=\"num\">{summary.compared_tasks}</td>"
+        f"<td class=\"num {delta_class(summary.average_unit_delta_pct)}\">{format_percent(summary.average_unit_delta_pct)}</td>"
+        f"<td class=\"num\">{format_float(summary.average_quality_delta)}</td>"
+        f"<td class=\"num\">{format_float(summary.average_file_read_delta)}</td>"
+        f"<td class=\"num\">{format_float(summary.average_full_file_read_delta)}</td>"
+        f"<td>{escape(summary.recommendation)}</td>"
         "</tr>"
     )
 
@@ -438,6 +605,12 @@ def format_float(value: float) -> str:
     if abs(value - round(value)) < 0.005:
         return str(int(round(value)))
     return f"{value:.2f}"
+
+
+def average(values: list[float | int]) -> float:
+    if not values:
+        return 0.0
+    return sum(values) / len(values)
 
 
 def format_percent(value: float) -> str:

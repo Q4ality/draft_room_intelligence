@@ -23,6 +23,7 @@ Needs cleanup before productization:
 - Demo calibration weights should move from hard-coded board rules into a tested calibration layer.
 - League-specific ingestion should move from curated CSV packs to cache-first source adapters with fixtures.
 - Name matching and duplicate stat-row reconciliation need stronger audits for non-English names, transliteration, and multi-source conflicts.
+- Elite Prospects PDF extraction needs a cost-aware model-routing layer. The current latest-model vision path is useful for hard pages, but too expensive as the default for full-guide extraction.
 - Historical validation needs older draft classes with NHL outcome labels before predictive claims are made.
 
 ## Systematic Ingestion Architecture
@@ -57,6 +58,7 @@ Every new adapter should include:
 1. **Full 2026 EP guide extraction**
    - Goal: create a complete 2026 normalized source package rather than sample/smoke outputs.
    - Acceptance: prospect-stat audit covers the full guide, with top skaters and goalies visible in `outputs/prospect_stats_2026`.
+   - Technical debt: optimize extraction cost by routing pages through deterministic PDF text parsing first, cheaper extraction/classification models second, and latest vision models only for unresolved pages or fields.
 
 2. **CHL cleanup pass**
    - Goal: close the highest-ranked remaining low-evidence CHL players: Carter Bear, Lynden Lakovic, Quinn Beauchesne, Parker Holmes, Luke Vlooswyk, Alexander Weiermair, and Charlie Paquette.

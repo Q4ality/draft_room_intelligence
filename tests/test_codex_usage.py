@@ -68,6 +68,10 @@ def test_write_codex_usage_report_compares_latest_baseline_and_routed(tmp_path):
     assert comparison.unit_delta_pct < 0
     rows = list(csv.DictReader((tmp_path / "report" / "task_comparison.csv").open()))
     assert rows[0]["routed_route"] == "project-context"
+    assert rows[0]["recommendation"] == "keep_route"
+    route_rows = list(csv.DictReader((tmp_path / "report" / "route_summary.csv").open()))
+    assert route_rows[0]["route"] == "project-context"
+    assert route_rows[0]["recommendation"] == "collect_more_runs"
     assert (tmp_path / "report" / "summary.md").exists()
     assert (tmp_path / "report" / "index.html").exists()
 
@@ -104,3 +108,31 @@ def test_write_codex_usage_report_uses_exact_token_fields_when_present(tmp_path)
     assert comparison.baseline.consumption_units == 1620
     assert comparison.routed.consumption_units == 1010
     assert comparison.unit_delta < 0
+
+
+def test_write_codex_usage_report_recommends_simplifying_expensive_route(tmp_path):
+    run_log = tmp_path / "run_log.csv"
+    write_rows(
+        run_log,
+        [
+            base_row(run_id="baseline", tool_output_chars="4000", response_chars="500", quality_score="4"),
+            base_row(
+                run_id="routed",
+                variant="routed",
+                route="reviewer",
+                tool_calls="10",
+                file_reads="9",
+                full_file_reads="4",
+                tool_output_chars="20000",
+                response_chars="2000",
+                quality_score="4",
+            ),
+        ],
+    )
+
+    report = write_codex_usage_report(run_log, tmp_path / "report")
+
+    comparison = report.comparisons[0]
+    assert comparison.recommendation == "simplify_route"
+    rows = list(csv.DictReader((tmp_path / "report" / "task_comparison.csv").open()))
+    assert rows[0]["full_file_read_delta"] == "2"
