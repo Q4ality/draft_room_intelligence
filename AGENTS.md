@@ -12,6 +12,9 @@
 - `skills/project-context/` - bounded discovery skill for locating relevant docs, code, reports, tests, and commands.
 - `skills/validate-change/` - focused validation skill for choosing checks before commit or sync.
 - `skills/debug-ingestion/` - troubleshooting skill for source-family ingestion and evidence gaps.
+- `.agents/skills/` - symlink discovery layer for repo skills authored under `skills/`.
+- `.codex/config.toml` - project-scoped Codex defaults and custom-agent routing.
+- `.codex/agents/` - project custom agents for bounded discovery and high-assurance review.
 - `data/reference/ingestion_source_families.csv` - source-family manifest for cache-first ingestion planning.
 
 ## Key Commands
@@ -43,6 +46,7 @@
 - Data contract: `docs/demo_2025_data_contract.md`
 - Systematic ingestion plan: `docs/technical_debt_and_ingestion_plan.md`
 - Historical validation: `docs/historical_validation.md`
+- Codex routing: `docs/codex_routing.md`
 
 ## Validation Policy
 
@@ -57,6 +61,8 @@
 
 - Small deterministic edits affecting one or two files: use the main implementation flow only.
 - Unfamiliar code, docs, or data contracts: first use `project-context` to gather bounded context before editing.
+- For read-only unfamiliar-area discovery, use the `kb_explorer` custom agent when subagent delegation is useful.
+- For high-risk ingestion, ranking, team-fit, security, or data-contract changes, use the `reviewer` custom agent after implementation.
 - Repetitive extraction, classification, and simple report generation are good candidates for cheaper/read-only exploration.
 - Architecture, ranking calibration, data contracts, security, or changes across many files deserve a higher-assurance review before completion.
 - Avoid parallel write agents. Use subagents only for read-heavy exploration or independent validation, and keep their summaries short.

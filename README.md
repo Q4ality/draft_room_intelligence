@@ -20,7 +20,9 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `data/processed/` - tracked sample/pilot normalized datasets.
 - `data/raw/` - local raw inputs such as HockeyDB HTML and Elite Prospects exports. Ignored by git.
 - `outputs/` - local exports from feature tables, model runs, and ad hoc analysis. Ignored by git.
-- `skills/prepare-draft-demo-data/` - repo-local Codex skill for staging demo data, auditing readiness, and running the single-class ETL/demo flow.
+- `skills/` - authored repo-local Codex skills for project context, validation, ingestion debugging, and demo-data preparation.
+- `.agents/skills/` - symlink discovery layer so Codex can load repo skills from the standard location.
+- `.codex/` - project-scoped Codex config and custom agents for bounded exploration and high-assurance review.
 
 ## Quick Start
 

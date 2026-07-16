@@ -1,0 +1,22 @@
+# Project-scoped Codex defaults for draft-room-intelligence.
+# Keep provider/auth settings in user config, not project config.
+
+model = "gpt-5.6"
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_verbosity = "low"
+tool_output_token_limit = 6000
+
+[agents]
+max_threads = 3
+max_depth = 1
+
+[agents.kb_explorer]
+description = "Read-only explorer for bounded repo context, docs, reports, tests, and source-family status."
+config_file = "./agents/kb-explorer.toml"
+nickname_candidates = ["Scout", "Mapper", "Index"]
+
+[agents.reviewer]
+description = "High-assurance reviewer for correctness, data contracts, ranking calibration, and missing validation."
+config_file = "./agents/reviewer.toml"
+nickname_candidates = ["Verifier", "Auditor", "Checker"]
