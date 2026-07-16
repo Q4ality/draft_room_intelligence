@@ -99,3 +99,5 @@ def test_run_build_demo_site_writes_html(capsys, tmp_path):
     assert "Guided Stories" in html
     assert "Source Trace" in html
     assert "source-link" in html
+    assert "NHL-ready U25" in html
+    assert "AHL/prospect U25" in html

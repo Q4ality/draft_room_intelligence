@@ -243,6 +243,27 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     .tag.warn {{ background: var(--warn-soft); color: var(--warn); }}
     .tag.risk {{ background: var(--danger-soft); color: var(--danger); }}
     .tag.shortlist {{ background: #e0f2fe; color: #0c4a6e; }}
+    .readiness-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 8px 0 10px;
+    }}
+    .readiness-item {{
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px;
+    }}
+    .readiness-label {{
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }}
+    .readiness-value {{
+      font-size: 16px;
+      font-weight: 700;
+    }}
     .detail-grid {{
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -697,6 +718,25 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       return `${{Math.round(Number(value || 0) * 100)}}%`;
     }}
 
+    function countValue(value) {{
+      const numeric = Number(value ?? 0);
+      if (!Number.isFinite(numeric)) return "0";
+      return String(Math.round(numeric));
+    }}
+
+    function readinessGrid(items) {{
+      return `
+        <div class="readiness-grid">
+          ${{items.map(([label, value]) => `
+            <div class="readiness-item">
+              <div class="readiness-label">${{escapeHtml(label)}}</div>
+              <div class="readiness-value">${{countValue(value)}}</div>
+            </div>
+          `).join("")}}
+        </div>
+      `;
+    }}
+
     function decimalStat(value, digits) {{
       const numeric = Number(value || 0);
       if (!numeric) return "n/a";
@@ -979,7 +1019,12 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       ].filter(Boolean).map((label) => `<span class="tag">${{escapeHtml(String(label))}}</span>`).join("");
       document.getElementById("detail-team-info").innerHTML = `
         <div><strong>${{escapeHtml(teamFit.team_name || teamFit.team_id || "Team")}}</strong> · ${{escapeHtml(teamFit.team_status_label || "Status pending")}}</div>
-        <div>Role depth: ${{escapeHtml(teamFit.role || "").replaceAll("_", " ")}} · players ${{escapeHtml(teamFit.role_player_count ?? "—")}} / target ${{escapeHtml(teamFit.scarcity_target ?? "—")}} · U25 ${{escapeHtml(teamFit.u25_same_role_count ?? "—")}}</div>
+        <div>Role depth: ${{escapeHtml(teamFit.role || "").replaceAll("_", " ")}} · players ${{escapeHtml(teamFit.role_player_count ?? "—")}} / target ${{escapeHtml(teamFit.scarcity_target ?? "—")}} · same-role U25 ${{escapeHtml(teamFit.u25_same_role_count ?? "—")}}</div>
+        ${{readinessGrid([
+          ["NHL-ready U25", teamFit.bucket_nhl_u25_count],
+          ["AHL U25", teamFit.bucket_ahl_u25_count],
+          ["Prospect U25", teamFit.bucket_non_nhl_u25_count],
+        ])}}
         <div>${{escapeHtml(teamFit.roster_snapshot_label || "Roster snapshot pending")}} · ${{escapeHtml(teamFit.roster_snapshot_warning || "")}}</div>
       `;
       const components = [
@@ -1263,7 +1308,12 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <div>
             <div class="story-role">${{escapeHtml(String(gap.role_type || "").replaceAll("_", " "))}}</div>
             <div style="font-size:12px; color:var(--muted);">${{escapeHtml(gap.league_level)}} · players ${{gap.players}} / target ${{gap.scarcity_target}} · U25 ${{gap.under_25}}</div>
-            <div class="story-hook">Scarcity ${{percent(gap.scarcity_score || 0)}} · priority ${{percent(gap.priority_score || 0)}}</div>
+            ${{readinessGrid([
+              ["NHL-ready U25", gap.bucket_nhl_u25_count],
+              ["AHL/prospect U25", gap.bucket_non_nhl_u25_count],
+              ["Role U25", gap.under_25],
+            ])}}
+            <div class="story-hook">Scarcity ${{percent(gap.scarcity_score || 0)}} · readiness pressure ${{percent(gap.readiness_pipeline_pressure || 0)}} · priority ${{percent(gap.priority_score || 0)}}</div>
           </div>
         </div>
       `).join("");
