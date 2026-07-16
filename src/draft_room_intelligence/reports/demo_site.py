@@ -500,6 +500,10 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <select id="filter-evidence"></select>
         </div>
         <div class="field">
+          <label for="filter-drafted-team">Drafted Team</label>
+          <select id="filter-drafted-team"></select>
+        </div>
+        <div class="field">
           <label for="filter-search">Search</label>
           <input id="filter-search" type="text" placeholder="Player or league">
         </div>
@@ -670,12 +674,34 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       }}
     }}
 
+    function populateDraftedTeamSelect() {{
+      const select = document.getElementById("filter-drafted-team");
+      select.innerHTML = "";
+      const all = document.createElement("option");
+      all.value = "";
+      all.textContent = "All";
+      select.appendChild(all);
+      const teams = new Map();
+      for (const row of boardRows) {{
+        const teamId = row.drafted_team_id || row.team_fit_team || "";
+        if (!teamId) continue;
+        teams.set(teamId, row.drafted_team_name || teamId);
+      }}
+      for (const [teamId, teamName] of [...teams.entries()].sort((a, b) => a[1].localeCompare(b[1]))) {{
+        const option = document.createElement("option");
+        option.value = teamId;
+        option.textContent = `${{teamName}} (${{teamId}})`;
+        select.appendChild(option);
+      }}
+    }}
+
     function initializeFilters() {{
       populateSelect("filter-position", uniqueValues("position"));
       populateSelect("filter-league-family", uniqueValues("primary_league_family"));
       populateSelect("filter-competition", uniqueValues("primary_competition_level"));
       populateSelect("filter-disagreement", uniqueValues("disagreement_bucket"));
       populateSelect("filter-evidence", uniqueValues("evidence_depth"));
+      populateDraftedTeamSelect();
     }}
 
     function applyFilters(rows) {{
@@ -684,6 +710,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       const level = document.getElementById("filter-competition").value;
       const disagreement = document.getElementById("filter-disagreement").value;
       const evidence = document.getElementById("filter-evidence").value;
+      const draftedTeam = document.getElementById("filter-drafted-team").value;
       const search = document.getElementById("filter-search").value.trim().toLowerCase();
       return rows.filter((row) => {{
         if (position && row.position !== position) return false;
@@ -691,6 +718,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         if (level && row.primary_competition_level !== level) return false;
         if (disagreement && row.disagreement_bucket !== disagreement) return false;
         if (evidence && row.evidence_depth !== evidence) return false;
+        if (draftedTeam && (row.drafted_team_id || row.team_fit_team) !== draftedTeam) return false;
         if (search) {{
           const haystack = `${{row.name}} ${{row.primary_league}} ${{row.primary_league_family}}`.toLowerCase();
           if (!haystack.includes(search)) return false;
@@ -1367,7 +1395,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     }}
 
     function bindEvents() {{
-      for (const id of ["filter-position", "filter-league-family", "filter-competition", "filter-disagreement", "filter-evidence", "filter-search"]) {{
+      for (const id of ["filter-position", "filter-league-family", "filter-competition", "filter-disagreement", "filter-evidence", "filter-drafted-team", "filter-search"]) {{
         document.getElementById(id).addEventListener("input", renderBoard);
       }}
       document.getElementById("export-shortlist").addEventListener("click", exportShortlist);

@@ -58,6 +58,8 @@ BOARD_COLUMNS = [
     "goalie_quality_score",
     "ep_tool_score",
     "ep_tool_grade_count",
+    "drafted_team_id",
+    "drafted_team_name",
     "team_fit_score",
     "team_fit_team",
     "team_fit_role",
@@ -95,6 +97,8 @@ COMPARE_COLUMNS = [
     "goalie_goals_against_average",
     "goalie_quality_score",
     "ep_tool_score",
+    "drafted_team_id",
+    "drafted_team_name",
     "team_fit_score",
     "team_fit_need",
     "evidence_depth",
@@ -279,6 +283,8 @@ def build_demo_export_bundle(
         team_fit = team_fits[player_id]
         team_fit_options = build_team_fit_options(prospect, team_contexts, ep_scores[player_id], board_scores[player_id])
         resolved_drafted_team_id = drafted_team_id(prospect, team_contexts)
+        drafted_context = team_contexts.get(resolved_drafted_team_id)
+        resolved_drafted_team_name = drafted_context.team_name if drafted_context else resolved_drafted_team_id
         board_rank = board_ranks[player_id]
         consensus_rank = int(feature["consensus_rank"])
         consensus_delta = board_rank - consensus_rank
@@ -331,6 +337,8 @@ def build_demo_export_bundle(
             "goalie_quality_score": feature["goalie_quality_score"],
             "ep_tool_score": f"{ep_scores[player_id]:.6f}",
             "ep_tool_grade_count": str(len(prospect.tool_grades)),
+            "drafted_team_id": resolved_drafted_team_id,
+            "drafted_team_name": resolved_drafted_team_name,
             "team_fit_score": f"{team_fit['score']:.6f}",
             "team_fit_team": team_fit["team_id"],
             "team_fit_role": team_fit["role_type"],

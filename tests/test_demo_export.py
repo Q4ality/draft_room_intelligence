@@ -76,6 +76,8 @@ def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):
 
     assert "board_rank" in board_csv
     assert "disagreement_bucket" in board_csv
+    assert "drafted_team_id" in board_csv
+    assert "drafted_team_name" in board_csv
     assert len(players) == 2
     assert "why_high" in players[0]
     assert "stat_evidence" in players[0]
@@ -99,5 +101,7 @@ def test_run_build_demo_site_writes_html(capsys, tmp_path):
     assert "Guided Stories" in html
     assert "Source Trace" in html
     assert "source-link" in html
+    assert "filter-drafted-team" in html
+    assert "Drafted Team" in html
     assert "NHL-ready U25" in html
     assert "AHL/prospect U25" in html
