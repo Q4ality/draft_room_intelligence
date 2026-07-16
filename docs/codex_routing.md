@@ -55,6 +55,15 @@ Repo skills are authored under `skills/` for readability and historical continui
 - Escalate to `reviewer` only for meaningful risk; small docs or typo changes do not need it.
 - Measure routing impact with the benchmark loop in `docs/codex_usage_measurement.md`.
 
+## Health Check
+
+Run this after changing `.codex/`, `.agents/skills/`, repo skills, or routing docs:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli audit-codex-routing \
+  outputs/codex_routing_audit
+```
+
 ## Sources
 
 This configuration follows the Codex manual guidance fetched on 2026-07-16:

@@ -27,6 +27,7 @@
 - Audit ingestion plan: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-ingestion-plan data/reference/ingestion_source_families.csv outputs/ingestion_plan`
 - Run demo acceptance gate: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-acceptance outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance`
 - Build Codex usage dashboard: `PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-usage outputs/codex_usage/run_log.csv outputs/codex_usage_report`
+- Audit Codex routing setup: `PYTHONPATH=src python3 -m draft_room_intelligence.cli audit-codex-routing outputs/codex_routing_audit`
 
 ## Working Rules
 
@@ -56,6 +57,7 @@
 - For demo/data changes, rebuild or rerun the relevant report plus `report-demo-acceptance`.
 - For ingestion changes, rerun `report-ingestion-plan` and document any source-family status movement.
 - Use `validate-change` when the right check set is not obvious.
+- For routing/config/skill changes, run `audit-codex-routing`.
 - Always run `git diff --check` before committing.
 - If `pytest` is unavailable in the active Python, state that explicitly instead of treating it as a code failure.
 
