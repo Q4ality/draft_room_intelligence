@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Context"
+  short_description: "Bounded repo context before edits"
+  default_prompt: "Use $project-context to identify the smallest relevant files, docs, reports, tests, and commands before implementation."
+
+policy:
+  allow_implicit_invocation: true
