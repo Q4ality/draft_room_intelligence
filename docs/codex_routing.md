@@ -11,7 +11,7 @@ This project keeps persistent Codex behavior split across three surfaces:
 
 `.codex/config.toml` sets:
 
-- main model: `gpt-5.6`
+- main model: `gpt-5.6-sol`
 - default reasoning: `medium`
 - plan-mode reasoning: `high`
 - response verbosity: `low`
@@ -60,12 +60,27 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-context-route
 
 ## Task Routing
 
-`data/reference/codex_task_routing.csv` maps common task classes to the context route, agent path, reasoning effort, risk level, validation command, and benchmark task id. This is the current decision table for model/agent routing:
+`data/reference/codex_task_routing.csv` maps common task classes to the context route, agent path, GPT-5.6 model, reasoning effort, risk level, validation command, and benchmark task id. This is the current decision table for model/agent routing:
 
+- use `gpt-5.6-luna` for clear, repeatable, low-risk edits and usage reports,
+- use `gpt-5.6-terra` for read-heavy exploration and everyday demo updates,
+- use `gpt-5.6-sol` for high-risk ingestion, ranking, team-fit, and reviewer paths,
 - keep low-risk deterministic edits in the main flow,
 - use `kb_explorer` for read-only unfamiliar-area discovery when the context route is insufficient,
 - use `reviewer` after high-risk ingestion, ranking, or team-fit changes,
 - record the matching `measurement_task_id` when benchmarking routed-vs-baseline usage.
+
+## GPT-5.6 Model Mapping
+
+The precise Codex model mapping is:
+
+| Tier | Model slug | Use in this repo |
+| --- | --- | --- |
+| Sol | `gpt-5.6-sol` | Default project model, reviewer agent, high-risk reasoning, ranking calibration, ingestion, and team-fit changes. |
+| Terra | `gpt-5.6-terra` | Read-heavy exploration, bounded context discovery, and normal demo updates. |
+| Luna | `gpt-5.6-luna` | Small deterministic edits, structured reporting, usage measurement, and other clear repeatable tasks. |
+
+Codex manual source checked on 2026-07-17: Sol is the complex/open-ended model, Terra is the pragmatic all-rounder, and Luna is for clear repeatable tasks.
 
 Audit the task routing table with:
 

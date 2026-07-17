@@ -18,7 +18,7 @@ def base_row(**overrides):
         "task_name": "Explain current demo status",
         "variant": "baseline",
         "route": "main",
-        "model": "gpt-5.6",
+        "model": "gpt-5.6-sol",
         "exact_input_tokens": "",
         "exact_cached_input_tokens": "",
         "exact_output_tokens": "",

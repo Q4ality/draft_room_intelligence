@@ -17,7 +17,7 @@ def create_routing_project(root):
     write_text(
         root / ".codex/config.toml",
         """
-model = "gpt-5.6"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 model_verbosity = "low"

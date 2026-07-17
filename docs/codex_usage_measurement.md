@@ -38,9 +38,15 @@ Use `data/reference/codex_task_routing.csv` before each measured task:
 
 1. Pick the closest task rule and record its `measurement_task_id`.
 2. Read the matching context route from `data/reference/codex_context_routes.csv`.
-3. Run the task with the recommended path: `main`, `kb_explorer`, or `reviewer`.
+3. Run the task with the recommended model and path: `main`, `kb_explorer`, or `reviewer`.
 4. Log one row in `outputs/codex_usage/run_log.csv` immediately after the task.
 5. Keep the final answer short enough for the user, but record enough proxy metrics to make the run comparable.
+
+Model routing should use the explicit GPT-5.6 slugs from the task table:
+
+- `gpt-5.6-sol` for complex or high-risk work,
+- `gpt-5.6-terra` for everyday exploration and demo updates,
+- `gpt-5.6-luna` for clear repeatable edits and reporting.
 
 Treat a routed run as valid only when:
 

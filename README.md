@@ -20,7 +20,7 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `data/reference/codex_routing_benchmark_tasks.csv` - repeatable benchmark tasks for measuring routing impact.
 - `data/reference/codex_usage_run_log_template.csv` - local run-log template for routing usage measurements.
 - `data/reference/codex_context_routes.csv` - bounded context route map for common Codex task types.
-- `data/reference/codex_task_routing.csv` - task-level routing rules for context route, agent, reasoning, and validation selection.
+- `data/reference/codex_task_routing.csv` - task-level routing rules for context route, GPT-5.6 model, agent, reasoning, and validation selection.
 - `data/processed/` - tracked sample/pilot normalized datasets.
 - `data/raw/` - local raw inputs such as HockeyDB HTML and Elite Prospects exports. Ignored by git.
 - `outputs/` - local exports from feature tables, model runs, and ad hoc analysis. Ignored by git.

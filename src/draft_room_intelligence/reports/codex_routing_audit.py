@@ -88,7 +88,7 @@ def config_check(root: Path) -> RoutingCheck:
         return RoutingCheck("codex_config", "fail", f"invalid TOML: {exc}", path)
     agents = config.get("agents", {})
     required = [
-        ("model", "gpt-5.6"),
+        ("model", "gpt-5.6-sol"),
         ("model_reasoning_effort", "medium"),
         ("plan_mode_reasoning_effort", "high"),
         ("model_verbosity", "low"),

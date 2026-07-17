@@ -15,6 +15,7 @@ ROUTING_COLUMNS = [
     "trigger",
     "recommended_context_route",
     "recommended_agent",
+    "recommended_model",
     "reasoning_effort",
     "risk_level",
     "validation_command",
@@ -30,6 +31,7 @@ AUDIT_COLUMNS = [
 ]
 
 ALLOWED_AGENTS = {"main", "kb_explorer", "reviewer"}
+ALLOWED_MODELS = {"gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna"}
 ALLOWED_REASONING = {"low", "medium", "high"}
 ALLOWED_RISK = {"low", "medium", "high"}
 
@@ -41,6 +43,7 @@ class TaskRoutingRule:
     trigger: str
     recommended_context_route: str
     recommended_agent: str
+    recommended_model: str
     reasoning_effort: str
     risk_level: str
     validation_command: str
@@ -74,6 +77,7 @@ class TaskRoutingAudit:
             "trigger": self.rule.trigger,
             "recommended_context_route": self.rule.recommended_context_route,
             "recommended_agent": self.rule.recommended_agent,
+            "recommended_model": self.rule.recommended_model,
             "reasoning_effort": self.rule.reasoning_effort,
             "risk_level": self.rule.risk_level,
             "validation_command": self.rule.validation_command,
@@ -136,6 +140,7 @@ def load_task_routing_rules(path: Path) -> list[TaskRoutingRule]:
             trigger=row.get("trigger", ""),
             recommended_context_route=row.get("recommended_context_route", ""),
             recommended_agent=row.get("recommended_agent", ""),
+            recommended_model=row.get("recommended_model", ""),
             reasoning_effort=row.get("reasoning_effort", ""),
             risk_level=row.get("risk_level", ""),
             validation_command=row.get("validation_command", ""),
@@ -153,6 +158,8 @@ def audit_task_routing_rule(rule: TaskRoutingRule, route_ids: set[str]) -> TaskR
         issues.append(f"unknown context route: {rule.recommended_context_route}")
     if rule.recommended_agent not in ALLOWED_AGENTS:
         issues.append(f"unknown agent: {rule.recommended_agent}")
+    if rule.recommended_model not in ALLOWED_MODELS:
+        issues.append(f"unknown model: {rule.recommended_model}")
     if rule.reasoning_effort not in ALLOWED_REASONING:
         issues.append(f"unknown reasoning effort: {rule.reasoning_effort}")
     if rule.risk_level not in ALLOWED_RISK:
@@ -163,8 +170,12 @@ def audit_task_routing_rule(rule: TaskRoutingRule, route_ids: set[str]) -> TaskR
         issues.append("missing measurement task id")
     if rule.risk_level == "high" and rule.recommended_agent != "reviewer":
         issues.append("high-risk task should use reviewer")
+    if rule.risk_level == "high" and rule.recommended_model != "gpt-5.6-sol":
+        issues.append("high-risk task should use gpt-5.6-sol")
     if rule.recommended_agent == "reviewer" and rule.reasoning_effort != "high":
         issues.append("reviewer task should use high reasoning")
+    if rule.recommended_agent == "reviewer" and rule.recommended_model != "gpt-5.6-sol":
+        issues.append("reviewer task should use gpt-5.6-sol")
     return TaskRoutingAudit(rule=rule, issues=issues)
 
 
@@ -178,15 +189,16 @@ def format_task_routing_report(report: TaskRoutingReport) -> str:
         f"- Status: {'pass' if report.passed else 'fail'}",
         f"- Failed: {report.failed_count}",
         "",
-        "| Task | Route | Agent | Reasoning | Risk | Status | Next action |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| Task | Route | Agent | Model | Reasoning | Risk | Status | Next action |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for audit in report.audits:
         lines.append(
-            "| {task} | {route} | {agent} | {reasoning} | {risk} | {status} | {next_action} |".format(
+            "| {task} | {route} | {agent} | {model} | {reasoning} | {risk} | {status} | {next_action} |".format(
                 task=audit.rule.task_name,
                 route=audit.rule.recommended_context_route,
                 agent=audit.rule.recommended_agent,
+                model=audit.rule.recommended_model,
                 reasoning=audit.rule.reasoning_effort,
                 risk=audit.rule.risk_level,
                 status=audit.status,
@@ -198,7 +210,7 @@ def format_task_routing_report(report: TaskRoutingReport) -> str:
             "",
             "## Dispatch Rule",
             "",
-            "Choose the closest task rule, read its context route, and use the recommended agent only when the risk and discovery need justify the extra context.",
+            "Choose the closest task rule, read its context route, use the recommended model, and use the recommended agent only when the risk and discovery need justify the extra context.",
         ]
     )
     return "\n".join(lines) + "\n"

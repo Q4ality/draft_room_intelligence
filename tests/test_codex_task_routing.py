@@ -31,7 +31,8 @@ def task_rule_row(**overrides):
         "trigger": "small change",
         "recommended_context_route": "codex-routing",
         "recommended_agent": "main",
-        "reasoning_effort": "medium",
+        "recommended_model": "gpt-5.6-luna",
+        "reasoning_effort": "low",
         "risk_level": "low",
         "validation_command": "git diff --check",
         "measurement_task_id": "route-small-edit",
@@ -80,3 +81,17 @@ def test_write_codex_task_routing_report_requires_reviewer_for_high_risk(tmp_pat
     assert not report.passed
     row = list(csv.DictReader((tmp_path / "report" / "task_routing.csv").open()))[0]
     assert "high-risk task should use reviewer" in row["issues"]
+    assert "high-risk task should use gpt-5.6-sol" in row["issues"]
+
+
+def test_write_codex_task_routing_report_fails_unknown_model(tmp_path):
+    context_routes = tmp_path / "context_routes.csv"
+    task_routes = tmp_path / "task_routes.csv"
+    write_rows(context_routes, [context_route_row()])
+    write_rows(task_routes, [task_rule_row(recommended_model="gpt-unknown")])
+
+    report = write_codex_task_routing_report(task_routes, context_routes, tmp_path / "report")
+
+    assert not report.passed
+    row = list(csv.DictReader((tmp_path / "report" / "task_routing.csv").open()))[0]
+    assert "unknown model" in row["issues"]
