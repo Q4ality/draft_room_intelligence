@@ -7,8 +7,11 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from draft_room_intelligence.data.team_rosters import RosterPlayer, load_roster_csv, role_bucket
-
+from draft_room_intelligence.data.team_rosters import (
+    RosterPlayer,
+    has_trade_protection,
+    load_roster_csv,
+)
 
 BUCKETS = ["center", "wing", "defense", "goalie"]
 
@@ -18,6 +21,7 @@ class TeamSystemAudit:
     team_rows: list[dict[str, str]]
     goalie_rows: list[dict[str, str]]
     flag_rows: list[dict[str, str]]
+    reliability_rows: list[dict[str, str]]
 
 
 def write_team_system_audit(roster_csv: str | Path, demo_output_dir: str | Path, output_dir: str | Path) -> TeamSystemAudit:
@@ -32,13 +36,73 @@ def write_team_system_audit(roster_csv: str | Path, demo_output_dir: str | Path,
     team_rows = build_team_bucket_rows(players, player_details, team_names)
     goalie_rows = build_goalie_rows(players, player_details, team_names)
     flag_rows = build_flag_rows(team_rows, goalie_rows)
+    reliability_rows = build_reliability_rows(players, team_names)
 
     write_csv(output_path / "team_bucket_audit.csv", team_rows)
     write_csv(output_path / "goalie_audit.csv", goalie_rows)
     write_csv(output_path / "review_flags.csv", flag_rows)
-    (output_path / "summary.md").write_text(format_summary(team_rows, goalie_rows, flag_rows), encoding="utf-8")
+    write_csv(output_path / "roster_reliability.csv", reliability_rows)
+    (output_path / "summary.md").write_text(
+        format_summary(team_rows, goalie_rows, flag_rows, reliability_rows), encoding="utf-8"
+    )
 
-    return TeamSystemAudit(team_rows=team_rows, goalie_rows=goalie_rows, flag_rows=flag_rows)
+    return TeamSystemAudit(
+        team_rows=team_rows,
+        goalie_rows=goalie_rows,
+        flag_rows=flag_rows,
+        reliability_rows=reliability_rows,
+    )
+
+
+def build_reliability_rows(players: list[RosterPlayer], team_names: dict[str, str]) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for team_id in sorted(team_names):
+        team_players = [player for player in players if player.team_id == team_id]
+        contract_players = [player for player in team_players if player.cap_hit or player.contract_end_year]
+        snapshot_types = sorted({player.snapshot_type for player in team_players if player.snapshot_type})
+        missing_snapshot = sum(1 for player in team_players if not player.snapshot_date or not player.snapshot_type)
+        current_rows = sum(1 for player in team_players if player.snapshot_type == "current_roster")
+        low_confidence = sum(1 for player in team_players if player.assignment_confidence.lower() == "low")
+        medium_confidence = sum(1 for player in team_players if player.assignment_confidence.lower() == "medium")
+        high_confidence = sum(1 for player in team_players if player.assignment_confidence.lower() == "high")
+        coverage = len(contract_players) / len(team_players) if team_players else 0.0
+        issues = []
+        if missing_snapshot:
+            issues.append("missing_snapshot_provenance")
+        if current_rows:
+            issues.append("current_roster_assignment_in_historical_analysis")
+        if len(snapshot_types) > 2:
+            issues.append("mixed_snapshot_types_need_review")
+        if low_confidence:
+            issues.append("low_confidence_assignments")
+        if medium_confidence:
+            issues.append("season_participation_not_point_in_time")
+        if coverage < 0.50:
+            issues.append("contract_coverage_below_50_percent")
+        rows.append(
+            {
+                "team_id": team_id,
+                "team_name": team_names[team_id],
+                "players": str(len(team_players)),
+                "snapshot_dates": "; ".join(
+                    sorted({player.snapshot_date for player in team_players if player.snapshot_date})
+                ),
+                "snapshot_types": "; ".join(snapshot_types),
+                "missing_snapshot_rows": str(missing_snapshot),
+                "current_roster_rows": str(current_rows),
+                "low_confidence_rows": str(low_confidence),
+                "medium_confidence_rows": str(medium_confidence),
+                "high_confidence_rows": str(high_confidence),
+                "contract_players": str(len(contract_players)),
+                "contract_coverage": f"{coverage:.3f}",
+                "total_cap_hit": str(sum(player.cap_hit for player in contract_players) or ""),
+                "trade_protected_players": str(
+                    sum(1 for player in contract_players if has_trade_protection(player.trade_protection))
+                ),
+                "review_flags": "; ".join(issues),
+            }
+        )
+    return rows
 
 
 def build_team_bucket_rows(
@@ -206,6 +270,7 @@ def format_summary(
     team_rows: list[dict[str, str]],
     goalie_rows: list[dict[str, str]],
     flag_rows: list[dict[str, str]],
+    reliability_rows: list[dict[str, str]],
 ) -> str:
     lines = [
         "# NHL System Audit",
@@ -214,6 +279,9 @@ def format_summary(
         f"- Team-bucket rows: {len(team_rows)}",
         f"- Goalie rows: {len(goalie_rows)}",
         f"- Review flags: {len(flag_rows)}",
+        f"- Teams with complete snapshot provenance: {sum(1 for row in reliability_rows if row['missing_snapshot_rows'] == '0')}",
+        f"- Teams with only high-confidence assignments: {sum(1 for row in reliability_rows if row['high_confidence_rows'] == row['players'])}",
+        f"- Teams with >=50% contract coverage: {sum(1 for row in reliability_rows if float(row['contract_coverage']) >= 0.50)}",
         "",
         "## Highest Priority Flags",
         "",
@@ -241,6 +309,13 @@ def format_summary(
             f"{row['max_demo_goalie_fit_score']}; flags {row['review_flags']}; "
             f"{row['u25_goalie_names']}"
         )
+    lines.extend(["", "## Roster Reliability", ""])
+    for row in reliability_rows:
+        if row["review_flags"]:
+            lines.append(
+                f"- {row['team_id']}: snapshots {row['snapshot_types'] or 'missing'}; "
+                f"contract coverage {float(row['contract_coverage']):.0%}; {row['review_flags']}"
+            )
     return "\n".join(lines) + "\n"
 
 

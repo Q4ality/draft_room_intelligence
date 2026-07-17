@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass, replace
 from datetime import date, datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 from draft_room_intelligence.data.team_rosters import RosterPlayer, write_roster_csv
-
 
 NHL_API_BASE_URL = "https://api-web.nhle.com/v1"
 
@@ -66,6 +66,7 @@ def import_nhl_rosters(
     game_type: int = 2,
     roster_json_dir: str | Path | None = None,
     stats_json_dir: str | Path | None = None,
+    cache_json_dir: str | Path | None = None,
     as_of: date | None = None,
 ) -> NhlRosterImportSummary:
     """Load NHL roster rows from cached JSON or the public NHL API."""
@@ -75,24 +76,58 @@ def import_nhl_rosters(
     teams_loaded = 0
     stats_loaded = 0
     for team_code in teams:
-        roster_payload = load_roster_payload(team_code, roster_json_dir=roster_json_dir)
+        roster_payload = load_roster_payload(
+            team_code,
+            season=season,
+            roster_json_dir=roster_json_dir,
+            cache_json_dir=cache_json_dir,
+        )
         stats_payload = load_stats_payload(
             team_code,
             season=season,
             game_type=game_type,
             stats_json_dir=stats_json_dir,
+            cache_json_dir=cache_json_dir,
         )
+        if season and not stats_payload:
+            raise ValueError(f"historical NHL import requires club stats for {team_code} {season}")
         if stats_payload:
             stats_loaded += 1
-        team_players = parse_nhl_roster_payload(
-            team_code,
-            roster_payload,
-            stats_payload=stats_payload,
-            as_of=as_of,
-        )
+        reference_date = as_of or season_reference_date(season)
+        if season and stats_payload:
+            landing_payloads = load_missing_player_landings(
+                roster_payload,
+                stats_payload,
+                cache_json_dir=cache_json_dir,
+                allow_fetch=roster_json_dir is None,
+            )
+            team_players = parse_nhl_season_stats_payload(
+                team_code,
+                stats_payload,
+                roster_payload=roster_payload,
+                landing_payloads=landing_payloads,
+                as_of=reference_date,
+            )
+        else:
+            team_players = parse_nhl_roster_payload(
+                team_code,
+                roster_payload,
+                stats_payload=stats_payload,
+                as_of=reference_date,
+                snapshot_type="current_roster",
+            )
         if team_players:
             teams_loaded += 1
         players.extend(team_players)
+
+    if season:
+        players = resolve_season_assignments(
+            players,
+            season=season,
+            game_type=game_type,
+            cache_json_dir=cache_json_dir,
+            allow_fetch=roster_json_dir is None,
+        )
 
     output_path = Path(output_csv)
     write_roster_csv(output_path, players)
@@ -111,6 +146,7 @@ def parse_nhl_roster_payload(
     *,
     stats_payload: dict | None = None,
     as_of: date | None = None,
+    snapshot_type: str = "current_roster",
 ) -> list[RosterPlayer]:
     team_id = team_code.upper()
     team_name = team_name_from_payload(team_id, roster_payload)
@@ -175,7 +211,11 @@ def parse_nhl_roster_payload(
                         )
                     ),
                     goalie_shutouts=int_value(first_value(stats, "shutouts", "so")),
-                    source="nhl_api",
+                    snapshot_date=(as_of or date.today()).isoformat(),
+                    snapshot_type=snapshot_type,
+                    roster_status="season_roster" if snapshot_type == "season_roster" else "active_roster",
+                    assignment_confidence="medium" if snapshot_type == "season_roster" else "high",
+                    source="nhl_api_season_roster" if snapshot_type == "season_roster" else "nhl_api",
                     source_id=player_id,
                     source_url=f"{NHL_API_BASE_URL}/player/{player_id}/landing",
                 )
@@ -183,10 +223,205 @@ def parse_nhl_roster_payload(
     return players
 
 
-def load_roster_payload(team_code: str, *, roster_json_dir: str | Path | None) -> dict:
+def parse_nhl_season_stats_payload(
+    team_code: str,
+    stats_payload: dict,
+    *,
+    roster_payload: dict | None = None,
+    landing_payloads: dict[str, dict] | None = None,
+    as_of: date | None = None,
+) -> list[RosterPlayer]:
+    team_id = team_code.upper()
+    team_name = NHL_TEAM_NAMES.get(team_id, team_id)
+    roster_by_id = roster_players_by_id(roster_payload or {})
+    landing_by_id = landing_payloads or {}
+    players: list[RosterPlayer] = []
+    for collection_key, default_position in (("skaters", ""), ("goalies", "G")):
+        for stats in stats_payload.get(collection_key, []) or []:
+            player_id = str(first_value(stats, "playerId", "id") or "")
+            if not player_id:
+                continue
+            bio = roster_by_id.get(player_id, {}) or landing_by_id.get(player_id, {})
+            position = str(
+                first_value(stats, "positionCode", "position")
+                or first_value(bio, "positionCode", "position")
+                or default_position
+            )
+            games = int_value(first_value(stats, "gamesPlayed", "games", "gp"))
+            shots_against = int_value(first_value(stats, "shotsAgainst", "shots_against", "sa"))
+            saves = int_value(first_value(stats, "saves", "sv"))
+            goals_against = int_value(first_value(stats, "goalsAgainst", "goals_against", "ga"))
+            players.append(
+                RosterPlayer(
+                    team_id=team_id,
+                    team_name=team_name,
+                    league_level="NHL",
+                    affiliate_of="",
+                    player_id=f"nhl-{player_id}",
+                    player_name=player_name(bio, stats),
+                    position=position,
+                    handedness=str(first_value(bio, "shootsCatches", "shoots") or "").upper(),
+                    age=age_from_birth_date(str(first_value(bio, "birthDate") or ""), as_of=as_of),
+                    height_cm=inches_to_cm(int_value(first_value(bio, "heightInInches"))),
+                    weight_kg=pounds_to_kg(int_value(first_value(bio, "weightInPounds"))),
+                    games=games,
+                    goals=int_value(first_value(stats, "goals", "g")),
+                    assists=int_value(first_value(stats, "assists", "a")),
+                    points=int_value(first_value(stats, "points", "p")),
+                    plus_minus=optional_int_value(first_value(stats, "plusMinus", "plusminus")),
+                    time_on_ice_per_game=time_on_ice_minutes(
+                        first_value(stats, "timeOnIcePerGame", "avgTimeOnIcePerGame", "avgTimeOnIce", "toiPerGame")
+                    ),
+                    goalie_minutes=goalie_minutes(stats),
+                    goalie_wins=int_value(first_value(stats, "wins", "w")),
+                    goalie_saves=saves,
+                    goalie_shots_against=shots_against,
+                    goalie_goals_against=goals_against,
+                    goalie_save_percentage=goalie_save_percentage(stats, saves=saves, shots_against=shots_against),
+                    goalie_goals_against_average=optional_float_value(
+                        first_value(stats, "goalsAgainstAverage", "goalAgainstAverage", "goalieGoalsAgainstAverage", "gaa")
+                    ),
+                    goalie_shutouts=int_value(first_value(stats, "shutouts", "so")),
+                    snapshot_date=(as_of or date.today()).isoformat(),
+                    snapshot_type="season_participation",
+                    roster_status="season_participant",
+                    assignment_confidence="medium",
+                    source="nhl_api_club_stats",
+                    source_id=player_id,
+                    source_url=f"{NHL_API_BASE_URL}/player/{player_id}/landing",
+                )
+            )
+    return players
+
+
+def roster_players_by_id(payload: dict) -> dict[str, dict]:
+    return {
+        str(first_value(player, "id", "playerId")): player
+        for group in ("forwards", "defensemen", "goalies")
+        for player in payload.get(group, []) or []
+        if first_value(player, "id", "playerId") is not None
+    }
+
+
+def load_missing_player_landings(
+    roster_payload: dict,
+    stats_payload: dict,
+    *,
+    cache_json_dir: str | Path | None,
+    allow_fetch: bool,
+) -> dict[str, dict]:
+    roster_ids = set(roster_players_by_id(roster_payload))
+    stat_ids = {
+        str(first_value(row, "playerId", "id"))
+        for key in ("skaters", "goalies")
+        for row in stats_payload.get(key, []) or []
+        if first_value(row, "playerId", "id") is not None
+    }
+    missing_ids = sorted(stat_ids - roster_ids)
+    if not missing_ids:
+        return {}
+
+    def load(player_id: str) -> tuple[str, dict]:
+        cache_path = Path(cache_json_dir) / "players" / f"{player_id}.landing.json" if cache_json_dir else None
+        if cache_path is not None and cache_path.exists():
+            return player_id, read_json_payload(cache_path)
+        if not allow_fetch:
+            return player_id, {}
+        try:
+            payload = fetch_json(f"{NHL_API_BASE_URL}/player/{player_id}/landing")
+        except (OSError, ValueError):
+            return player_id, {}
+        if cache_path is not None:
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+        return player_id, payload
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        return dict(executor.map(load, missing_ids))
+
+
+def resolve_season_assignments(
+    players: list[RosterPlayer],
+    *,
+    season: str,
+    game_type: int,
+    cache_json_dir: str | Path | None,
+    allow_fetch: bool,
+) -> list[RosterPlayer]:
+    grouped: dict[str, list[RosterPlayer]] = {}
+    for player in players:
+        grouped.setdefault(player.source_id, []).append(player)
+    duplicate_ids = sorted(player_id for player_id, group in grouped.items() if player_id and len(group) > 1)
+
+    def load_last_team(player_id: str) -> tuple[str, str]:
+        cache_path = (
+            Path(cache_json_dir) / "players" / f"{player_id}.{season}.{game_type}.game-log.json"
+            if cache_json_dir
+            else None
+        )
+        if cache_path is not None and cache_path.exists():
+            payload = read_json_payload(cache_path)
+        elif allow_fetch:
+            try:
+                payload = fetch_json(f"{NHL_API_BASE_URL}/player/{player_id}/game-log/{season}/{game_type}")
+            except (OSError, ValueError):
+                payload = {}
+            if cache_path is not None:
+                cache_path.parent.mkdir(parents=True, exist_ok=True)
+                cache_path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+        else:
+            payload = {}
+        game_log = payload.get("gameLog", []) or []
+        latest = max(game_log, key=lambda row: (str(row.get("gameDate", "")), int(row.get("gameId", 0)))) if game_log else {}
+        return player_id, str(latest.get("teamAbbrev", "")).upper()
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        last_teams = dict(executor.map(load_last_team, duplicate_ids))
+
+    resolved: list[RosterPlayer] = []
+    for player_id, group in grouped.items():
+        if len(group) == 1:
+            resolved.extend(group)
+            continue
+        last_team = last_teams.get(player_id, "")
+        matching = [player for player in group if player.team_id == last_team]
+        if matching:
+            resolved.append(max(matching, key=lambda player: player.games))
+        else:
+            fallback = max(group, key=lambda player: player.games)
+            resolved.append(
+                replace(
+                    fallback,
+                    assignment_confidence="low",
+                    roster_status="season_participant_unresolved_assignment",
+                )
+            )
+    return sorted(resolved, key=lambda player: (player.team_id, player.position, player.player_name))
+
+
+def load_roster_payload(
+    team_code: str,
+    *,
+    season: str,
+    roster_json_dir: str | Path | None,
+    cache_json_dir: str | Path | None = None,
+) -> dict:
     if roster_json_dir is not None:
-        return read_json_payload(Path(roster_json_dir) / f"{team_code.upper()}.roster.json")
-    return fetch_json(f"{NHL_API_BASE_URL}/roster/{team_code.upper()}/current")
+        base_dir = Path(roster_json_dir)
+        candidates = [base_dir / f"{team_code.upper()}.{season}.roster.json"] if season else []
+        if not season:
+            candidates.append(base_dir / f"{team_code.upper()}.roster.json")
+        for path in candidates:
+            if path.exists():
+                return read_json_payload(path)
+        raise FileNotFoundError(candidates[0])
+    roster_period = season or "current"
+    cached_path = Path(cache_json_dir) / f"{team_code.upper()}.{roster_period}.roster.json" if cache_json_dir else None
+    if cached_path is not None and cached_path.exists():
+        return read_json_payload(cached_path)
+    payload = fetch_json(f"{NHL_API_BASE_URL}/roster/{team_code.upper()}/{roster_period}")
+    cache_payload(cache_json_dir, f"{team_code.upper()}.{roster_period}.roster.json", payload)
+    return payload
 
 
 def load_stats_payload(
@@ -195,13 +430,39 @@ def load_stats_payload(
     season: str,
     game_type: int,
     stats_json_dir: str | Path | None,
+    cache_json_dir: str | Path | None = None,
 ) -> dict:
     if stats_json_dir is not None:
-        path = Path(stats_json_dir) / f"{team_code.upper()}.stats.json"
-        return read_json_payload(path) if path.exists() else {}
+        base_dir = Path(stats_json_dir)
+        candidates = [base_dir / f"{team_code.upper()}.{season}.{game_type}.stats.json"] if season else []
+        if not season:
+            candidates.append(base_dir / f"{team_code.upper()}.stats.json")
+        for path in candidates:
+            if path.exists():
+                return read_json_payload(path)
+        return {}
     if not season:
         return {}
-    return fetch_json(f"{NHL_API_BASE_URL}/club-stats/{team_code.upper()}/{season}/{game_type}")
+    cached_path = Path(cache_json_dir) / f"{team_code.upper()}.{season}.{game_type}.stats.json" if cache_json_dir else None
+    if cached_path is not None and cached_path.exists():
+        return read_json_payload(cached_path)
+    payload = fetch_json(f"{NHL_API_BASE_URL}/club-stats/{team_code.upper()}/{season}/{game_type}")
+    cache_payload(cache_json_dir, f"{team_code.upper()}.{season}.{game_type}.stats.json", payload)
+    return payload
+
+
+def cache_payload(cache_json_dir: str | Path | None, filename: str, payload: dict) -> None:
+    if cache_json_dir is None:
+        return
+    output_dir = Path(cache_json_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / filename).write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
+
+def season_reference_date(season: str) -> date | None:
+    if len(season) != 8 or not season.isdigit():
+        return None
+    return date(int(season[4:]), 6, 1)
 
 
 def build_stats_by_player_id(payload: dict) -> dict[str, dict]:

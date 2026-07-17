@@ -19,7 +19,7 @@ Current EP-PDF demo rebuilt with:
 PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
   data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final \
   outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv \
+  --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv \
   --gap-top-n 35 \
   --movement-top-n 40
 ```
@@ -125,6 +125,6 @@ The board is now more consensus-anchored at the top while still surfacing eviden
 
 1. Systematize ranking calibration with tests instead of demo-only weights.
 2. Run one targeted data pass against full 2026 coverage and the highest-priority European/NCAA gaps.
-3. Improve team-fit analytics further with better historical preseason roster snapshots and a more explicit U23 pipeline/readiness UI.
+3. Advance the official 2024-25 season-participation view to a point-in-time draft-night rights snapshot and stage audited contract/cap coverage.
 4. Add a compact "demo mode" preset that preloads the recommended story players.
 5. Add a one-page export/PDF summary for the shortlist.

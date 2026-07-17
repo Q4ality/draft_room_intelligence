@@ -20,7 +20,7 @@ AHL_SITE_ID = "3"
 AHL_FEED_URL = "https://lscluster.hockeytech.com/feed/index.php"
 DEFAULT_AHL_SEASON_ID = "86"
 DEFAULT_AHL_SEASON_LABEL = "2024-25 Regular Season"
-DEFAULT_PRESEASON_REFERENCE_DATE = date(2025, 9, 15)
+DEFAULT_PRESEASON_REFERENCE_DATE = date(2025, 6, 1)
 
 
 NHL_TEAM_NAMES = {
@@ -272,6 +272,10 @@ def normalize_ahl_players(
                 goalie_save_percentage=to_optional_float(row.get("save_percentage", "")),
                 goalie_goals_against_average=to_optional_float(row.get("goals_against_average", "")),
                 goalie_shutouts=to_int(row.get("shutouts", "")),
+                snapshot_date=reference_date.isoformat(),
+                snapshot_type="season_stats",
+                roster_status="ahl_pipeline",
+                assignment_confidence="medium",
                 source="ahl_hockeytech",
                 source_id=f"{season_id}:{ahl_code}:{player_id}",
                 source_url=player_stats_source_url(season_id),

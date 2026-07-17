@@ -1,15 +1,17 @@
 import csv
 from pathlib import Path
 
-from draft_room_intelligence.cli import dedupe_roster_assignments
-from draft_room_intelligence.cli import run_report_team_depth
-from draft_room_intelligence.data.team_rosters import build_depth_rows
-from draft_room_intelligence.data.team_rosters import load_roster_csv
-from draft_room_intelligence.data.team_rosters import role_bucket
-from draft_room_intelligence.data.team_rosters import RosterPlayer
-from draft_room_intelligence.reports.demo_export import bucket_pipeline_pressure
-from draft_room_intelligence.reports.demo_export import readiness_pipeline_pressure
-
+from draft_room_intelligence.cli import dedupe_roster_assignments, run_report_team_depth
+from draft_room_intelligence.data.team_rosters import (
+    RosterPlayer,
+    build_depth_rows,
+    load_roster_csv,
+    role_bucket,
+)
+from draft_room_intelligence.reports.demo_export import (
+    bucket_pipeline_pressure,
+    readiness_pipeline_pressure,
+)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "team_rosters_sample.csv"
 
@@ -112,6 +114,131 @@ def test_dedupe_roster_assignments_keeps_young_low_game_goalie_as_pipeline_candi
 
     assert selected[("PIT", "Young Goalie")].league_level == "AHL"
     assert selected[("SJS", "Established Starter")].league_level == "NHL"
+
+
+def test_dedupe_roster_assignments_handles_accent_and_position_differences():
+    players = [
+        RosterPlayer("CHI", "Chicago Blackhawks", "NHL", "", "nhl-1", "Frank Nazar", "C", games=53),
+        RosterPlayer("CHI", "Chicago Blackhawks", "AHL", "Rockford IceHogs", "ahl-1", "Fránk Nazar", "RW", games=21),
+    ]
+
+    selected = dedupe_roster_assignments(players)
+
+    assert len(selected) == 1
+    assert selected[0].league_level == "NHL"
+
+
+def test_dedupe_roster_assignments_removes_stale_cross_organization_ahl_row():
+    players = [
+        RosterPlayer(
+            "NJD",
+            "New Jersey Devils",
+            "NHL",
+            "",
+            "nhl-1",
+            "Trade Player",
+            "LW",
+            age=23.4,
+            games=7,
+            last_game_date="2025-03-15",
+        ),
+        RosterPlayer(
+            "TOR",
+            "Toronto Maple Leafs",
+            "AHL",
+            "Toronto Marlies",
+            "ahl-1",
+            "Trade Player",
+            "RW",
+            age=23.6,
+            games=40,
+            last_game_date="2025-02-20",
+        ),
+    ]
+
+    selected = dedupe_roster_assignments(players)
+
+    assert len(selected) == 1
+    assert selected[0].team_id == "NJD"
+    assert selected[0].assignment_confidence == "high"
+
+
+def test_dedupe_roster_assignments_uses_later_ahl_assignment_after_trade():
+    players = [
+        RosterPlayer(
+            "TOR",
+            "Toronto Maple Leafs",
+            "NHL",
+            "",
+            "nhl-1",
+            "Trade Player",
+            "LW",
+            age=23.4,
+            games=7,
+            last_game_date="2025-02-10",
+        ),
+        RosterPlayer(
+            "PHI",
+            "Philadelphia Flyers",
+            "AHL",
+            "Lehigh Valley Phantoms",
+            "ahl-1",
+            "Trade Player",
+            "RW",
+            age=23.6,
+            games=11,
+            last_game_date="2025-04-19",
+        ),
+    ]
+
+    selected = dedupe_roster_assignments(players)
+
+    assert len(selected) == 1
+    assert selected[0].team_id == "PHI"
+
+
+def test_dedupe_roster_assignments_marks_undated_cross_org_rows_unresolved():
+    players = [
+        RosterPlayer("TOR", "Toronto Maple Leafs", "NHL", "", "nhl-1", "Trade Player", "LW", age=23.4),
+        RosterPlayer("PHI", "Philadelphia Flyers", "AHL", "Lehigh Valley", "ahl-1", "Trade Player", "RW", age=23.6),
+    ]
+
+    selected = dedupe_roster_assignments(players)
+
+    assert len(selected) == 2
+    assert {player.assignment_confidence for player in selected} == {"low"}
+    assert {player.roster_status for player in selected} == {"cross_org_assignment_unresolved"}
+
+
+def test_dedupe_roster_assignments_requires_dates_for_every_cross_org_row():
+    players = [
+        RosterPlayer(
+            "TOR",
+            "Toronto Maple Leafs",
+            "NHL",
+            "",
+            "nhl-1",
+            "Trade Player",
+            "LW",
+            age=23.4,
+            last_game_date="2025-02-10",
+        ),
+        RosterPlayer("PHI", "Philadelphia Flyers", "AHL", "Lehigh Valley", "ahl-1", "Trade Player", "RW", age=23.6),
+    ]
+
+    selected = dedupe_roster_assignments(players)
+
+    assert len(selected) == 2
+    assert {player.assignment_confidence for player in selected} == {"low"}
+
+
+def test_dedupe_roster_assignments_preserves_same_name_different_age():
+    players = [
+        RosterPlayer("NJD", "New Jersey Devils", "NHL", "", "nhl-1", "Same Name", "D", age=31.0, games=40),
+        RosterPlayer("TOR", "Toronto Maple Leafs", "AHL", "Toronto Marlies", "ahl-1", "Same Name", "D", age=21.0, games=40),
+    ]
+
+    assert len(dedupe_roster_assignments(players)) == 2
 
 
 def test_bucket_pipeline_pressure_penalizes_saturated_position_groups():

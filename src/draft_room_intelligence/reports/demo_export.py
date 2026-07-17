@@ -14,7 +14,6 @@ from draft_room_intelligence.evaluation.baselines import (
 )
 from draft_room_intelligence.modeling.feature_table import build_feature_rows
 
-
 BOARD_COLUMNS = [
     "player_id",
     "draft_year",
@@ -454,6 +453,11 @@ def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamF
 
 def team_depth_snapshot_labels(path: Path) -> tuple[str, str]:
     normalized = path.as_posix().lower()
+    if "2024_25" in normalized and "ahl" in normalized:
+        return (
+            "2024-25 NHL season roster + 2024-25 AHL roster",
+            "Historical season-participation rosters; more reliable than current-roster proxies, but not a point-in-time draft-night rights snapshot.",
+        )
     if "with_ahl" in normalized or "ahl" in normalized:
         return (
             "Pre-2025/26 proxy roster + 2024-25 AHL roster",
@@ -563,6 +567,13 @@ def build_team_fit(
     status = team_status(context.team_id)
     ahl_rows = [row for row in context.depth_rows if row.get("league_level") == "AHL"]
     coverage_note = "AHL depth available" if ahl_rows else "AHL depth not loaded"
+    contract_note = (
+        f"Contract coverage: {components['contract_coverage']:.0%}; "
+        f"role commitment: {components['contract_commitment_score']:.0%}; "
+        f"roster flexibility: {components['roster_flexibility_score']:.0%}. "
+        if components["contract_coverage"] >= 0.50
+        else "Contract/cap coverage not loaded. "
+    )
     return {
         "score": score,
         "team_id": context.team_id,
@@ -577,6 +588,10 @@ def build_team_fit(
         "pipeline_need_score": components["pipeline_need_score"],
         "timeline_fit_score": components["timeline_fit_score"],
         "risk_appetite_score": components["risk_appetite_score"],
+        "contract_opportunity_score": components["contract_opportunity_score"],
+        "contract_coverage": components["contract_coverage"],
+        "contract_commitment_score": components["contract_commitment_score"],
+        "roster_flexibility_score": components["roster_flexibility_score"],
         "bucket_u25_count": components["bucket_u25_count"],
         "bucket_nhl_u25_count": components["bucket_nhl_u25_count"],
         "bucket_ahl_u25_count": components["bucket_ahl_u25_count"],
@@ -593,6 +608,7 @@ def build_team_fit(
             f"{components['bucket_player_count']} {candidate_role_bucket(prospect.position)} rows. "
             f"NHL-ready U25: {int(components['bucket_nhl_u25_count'])}; "
             f"AHL/prospect U25: {int(components['bucket_non_nhl_u25_count'])}. "
+            f"{contract_note}"
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
             f"Roster basis: {context.snapshot_label}. "
             f"Current role examples: {examples or 'not available'}. "
@@ -647,18 +663,33 @@ def team_fit_components(
     pipeline_need = pipeline_need_score(row, prospect, tool_score, pipeline_profile)
     timeline_fit = timeline_fit_score(row, prospect)
     risk_fit = risk_appetite_score(prospect, row)
-    overall = (
-        (roster_need * 0.36)
-        + (pipeline_need * 0.34)
-        + (timeline_fit * 0.18)
-        + (risk_fit * 0.12)
-    )
+    contract_opportunity = contract_opportunity_score(row)
+    contract_coverage = safe_float(row.get("contract_coverage", "0"))
+    if contract_coverage >= 0.50:
+        overall = (
+            (roster_need * 0.32)
+            + (pipeline_need * 0.30)
+            + (timeline_fit * 0.16)
+            + (risk_fit * 0.12)
+            + (contract_opportunity * 0.10)
+        )
+    else:
+        overall = (
+            (roster_need * 0.36)
+            + (pipeline_need * 0.34)
+            + (timeline_fit * 0.18)
+            + (risk_fit * 0.12)
+        )
     return {
         "overall_score": min(1.0, max(0.0, overall)),
         "roster_need_score": roster_need,
         "pipeline_need_score": pipeline_need,
         "timeline_fit_score": timeline_fit,
         "risk_appetite_score": risk_fit,
+        "contract_opportunity_score": contract_opportunity,
+        "contract_coverage": contract_coverage,
+        "contract_commitment_score": safe_float(row.get("contract_commitment_score", "0")),
+        "roster_flexibility_score": safe_float(row.get("roster_flexibility_score", "0.5")),
         "bucket_u25_count": bucket_u25,
         "bucket_nhl_u25_count": pipeline_profile["bucket_nhl_u25_count"],
         "bucket_ahl_u25_count": pipeline_profile["bucket_ahl_u25_count"],
@@ -678,6 +709,16 @@ def roster_need_score(row: dict[str, str], tool_score: float) -> float:
     level_bonus = 0.10 if row.get("league_level") == "NHL" else 0.06
     score = (scarcity * 0.62) + (min(1.0, age_pressure) * 0.20) + level_bonus + (tool_score * 0.08)
     return min(1.0, max(0.0, score))
+
+
+def contract_opportunity_score(row: dict[str, str]) -> float:
+    coverage = safe_float(row.get("contract_coverage", "0"))
+    if coverage < 0.50:
+        return 0.50
+    commitment = safe_float(row.get("contract_commitment_score", "0"))
+    players = max(1, safe_int(row.get("players", "0")))
+    expiring_share = safe_int(row.get("expiring_contracts", "0")) / players
+    return min(1.0, max(0.0, 1.0 - commitment + (expiring_share * 0.20)))
 
 
 def bucket_pipeline_counts(row: dict[str, str], context_rows: list[dict[str, str]] | None) -> tuple[int, int]:
@@ -1387,6 +1428,8 @@ def team_fit_options_for_team(player_details: list[dict[str, object]], team_id: 
                     "pipeline_need_score": option.get("pipeline_need_score", 0.0),
                     "timeline_fit_score": option.get("timeline_fit_score", 0.0),
                     "risk_appetite_score": option.get("risk_appetite_score", 0.0),
+                    "contract_opportunity_score": option.get("contract_opportunity_score", 0.5),
+                    "contract_coverage": option.get("contract_coverage", 0.0),
                     "bucket_u25_count": option.get("bucket_u25_count", 0),
                     "bucket_nhl_u25_count": option.get("bucket_nhl_u25_count", 0),
                     "bucket_ahl_u25_count": option.get("bucket_ahl_u25_count", 0),

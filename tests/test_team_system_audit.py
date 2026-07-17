@@ -1,8 +1,7 @@
 import csv
 import json
 
-from draft_room_intelligence.data.team_rosters import write_roster_csv
-from draft_room_intelligence.data.team_rosters import RosterPlayer
+from draft_room_intelligence.data.team_rosters import RosterPlayer, write_roster_csv
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
 
 
@@ -75,3 +74,39 @@ def test_write_team_system_audit_flags_saturated_pipeline_and_goalie_assignment(
     assert "Macklin Celebrini" in sjs_center["young_core"]
     assert "Macklin Celebrini" in sjs_center["nhl_ready_young_core"]
     assert "Zack Ostapchuk" in sjs_center["ahl_pipeline_young_core"]
+
+
+def test_team_system_audit_distinguishes_provenance_from_point_in_time_confidence(tmp_path):
+    roster_csv = tmp_path / "roster.csv"
+    demo_dir = tmp_path / "demo"
+    output_dir = tmp_path / "audit"
+    demo_dir.mkdir()
+    write_roster_csv(
+        roster_csv,
+        [
+            RosterPlayer(
+                "NYI",
+                "New York Islanders",
+                "NHL",
+                "",
+                "p1",
+                "Season Player",
+                "D",
+                snapshot_date="2025-06-01",
+                snapshot_type="season_participation",
+                assignment_confidence="medium",
+            )
+        ],
+    )
+    (demo_dir / "manifest.json").write_text(
+        json.dumps({"team_contexts": [{"team_id": "NYI", "team_name": "New York Islanders"}]}),
+        encoding="utf-8",
+    )
+    (demo_dir / "players.json").write_text("[]", encoding="utf-8")
+
+    audit = write_team_system_audit(roster_csv, demo_dir, output_dir)
+    reliability = audit.reliability_rows[0]
+
+    assert reliability["missing_snapshot_rows"] == "0"
+    assert reliability["medium_confidence_rows"] == "1"
+    assert "season_participation_not_point_in_time" in reliability["review_flags"]

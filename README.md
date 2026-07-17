@@ -59,10 +59,13 @@ python -m draft_room_intelligence.cli evaluate data/processed/pilot_2019 --basel
 python -m draft_room_intelligence.cli export-feature-table data/processed/pilot_2019 outputs/features_2019.csv
 python -m draft_room_intelligence.cli evaluate-role-models data/processed/pilot_2019 --feature-output outputs/features_2019.csv --model-output outputs/role_models_2019.csv --precision-n 25
 python -m draft_room_intelligence.cli import-nhl-rosters outputs/nhl_rosters_sample.csv --teams NYI --roster-json-dir tests/fixtures/nhl_api --stats-json-dir tests/fixtures/nhl_api
+python -m draft_room_intelligence.cli import-nhl-rosters outputs/nhl_rosters_20242025.csv --season 20242025 --cache-json-dir data/raw/rosters/nhl/20242025
+python -m draft_room_intelligence.cli merge-roster-csvs outputs/org_rosters_2024_25_with_ahl.csv outputs/nhl_rosters_20242025.csv outputs/ahl_rosters_2024_25.csv --resolve-cross-org-assignments --nhl-season 20242025 --assignment-cache-dir data/raw/rosters/assignment_logs/20242025
+python -m draft_room_intelligence.cli enrich-roster-contracts outputs/org_rosters_2024_25_with_ahl.csv data/raw/contracts/nhl_contracts_2025.csv outputs/org_rosters_2024_25_with_ahl_contracts.csv --audit-csv outputs/nhl_contract_match_audit.csv
 python -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
 python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft25.pdf outputs/ep_pdf_2025_sample --draft-year 2025 --page-start 29 --page-end 80 --profile-limit 10
 OPENAI_API_KEY=... python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft26.pdf outputs/ep_pdf_2026_vision --draft-year 2026 --page-start 36 --page-end 64 --profile-limit 10 --vision-missing-tool-grades --pdftoppm-path /path/to/pdftoppm
-python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv
+python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv
 python -m draft_room_intelligence.cli validate-eliteprospects data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --base-dir data/processed/pilot_2019 --eliteprospects-csv data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --hockeydb-draft-html data/raw/hockeydb/2019/nhl2019e.html --eliteprospects-csv data/raw/eliteprospects_2019.csv
@@ -110,7 +113,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel export-feature-table <data-path> <output.csv>` - build a reusable player-year feature table for every prospect row.
 - `draft-room-intel evaluate-role-models <data-path> [--feature-output <csv>] [--model-output <csv>]` - fit pure-Python role-specific models and print their evaluation report.
 - `draft-room-intel report-historical-validation <data-path> <output-dir>` - write a side-by-side historical outcome-validation report for draft-board scoring approaches.
-- `draft-room-intel import-nhl-rosters <output.csv> [--teams NYI ...] [--season 20252026]` - import current NHL rosters and optional club stats into normalized roster rows.
+- `draft-room-intel import-nhl-rosters <output.csv> [--teams NYI ...] [--season 20242025] [--cache-json-dir <dir>]` - import current rosters or historical season participants, resolve traded players to their final team from official game logs, and cache NHL payloads.
+- `draft-room-intel enrich-roster-contracts <roster.csv> <contracts.csv> <output.csv>` - overlay cap hit, term, contract type, and trade protection from a cached contract export with match auditing.
 - `draft-room-intel report-team-depth <roster.csv> <output-dir>` - build NHL/AHL role-depth and scarcity artifacts from normalized roster rows.
 - `draft-room-intel import-eliteprospects-pdf <guide.pdf> <output-dir> --draft-year <year>` - extract local Elite Prospects draft-guide profile pages into normalized players, stat lines, rankings, and PDF sidecar tables.
 - `draft-room-intel import-eliteprospects-pdf ... --vision-missing-tool-grades` - optionally render pages and use OpenAI vision to fill missing tool-grade values; requires `OPENAI_API_KEY` and Poppler `pdftoppm`.

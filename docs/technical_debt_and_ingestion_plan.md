@@ -15,7 +15,7 @@ Needs cleanup before an external paid-customer demo:
 
 - Several readiness and presenter docs can drift from generated outputs unless they are rebuilt from report artifacts.
 - Source trace is available, but row-level provenance still needs a cleaner UI treatment.
-- The current team-fit snapshot is a pre-2025/26 proxy plus 2024-25 AHL data, not a verified historical opening-night roster.
+- The team-fit snapshot now uses official 2024-25 NHL club-stat participants and resolves cross-organization NHL/AHL rows by the latest official game date. It is still a season-participation view rather than a point-in-time draft-night reserve-list snapshot.
 - `pytest` is not installed in the active shell used during this session, so tests were limited to `compileall`, CLI smoke checks, and artifact assertions.
 
 Needs cleanup before productization:
@@ -24,6 +24,7 @@ Needs cleanup before productization:
 - League-specific ingestion should move from curated CSV packs to cache-first source adapters with fixtures.
 - Name matching and duplicate stat-row reconciliation need stronger audits for non-English names, transliteration, and multi-source conflicts.
 - Elite Prospects PDF extraction needs a cost-aware model-routing layer. The current latest-model vision path is useful for hard pages, but too expensive as the default for full-guide extraction.
+- Contract/cap enrichment has a normalized adapter and neutral missing-data behavior, but still needs a licensed or cached source export. PuckPedia historical cap/API access and CapWages API access are paid; do not scrape around those access controls.
 - Historical validation needs older draft classes with NHL outcome labels before predictive claims are made.
 
 ## Systematic Ingestion Architecture
@@ -75,6 +76,12 @@ Every new adapter should include:
 5. **Russian KHL/MHL/VHL and goalie pass**
    - Goal: improve Russian skater and goalie rows without depending on blocked official pages as the only source.
    - Acceptance: MHL/KHL/VHL rows preserve source provenance, playoff/adult exposure, and goalie SV%/GAA/SO where available.
+
+6. **NHL organization contracts and cap context**
+   - Goal: distinguish roster presence from organizational commitment and mobility.
+   - Inputs: cap hit, contract end year, years remaining, contract type, and NTC/NMC or modified trade protection.
+   - Scoring rule: contract evidence is a small team-fit component; missing coverage is neutral, and trade protection affects roster flexibility rather than player quality.
+   - Acceptance: at least 80% NHL contract coverage, audited identity matches, snapshot dates, and no current-season contract rows presented as historical draft-night facts.
 
 ## Near-Term Execution Order
 

@@ -1055,6 +1055,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           ["Prospect U25", teamFit.bucket_non_nhl_u25_count],
         ])}}
         <div>${{escapeHtml(teamFit.roster_snapshot_label || "Roster snapshot pending")}} · ${{escapeHtml(teamFit.roster_snapshot_warning || "")}}</div>
+        <div>Contract/cap coverage: ${{Number(teamFit.contract_coverage || 0) >= 0.5 ? `${{percent(teamFit.contract_coverage)}} · role commitment ${{percent(teamFit.contract_commitment_score)}} · roster flexibility ${{percent(teamFit.roster_flexibility_score)}}` : "not loaded"}}</div>
       `;
       const components = [
         ["Roster", teamFit.roster_need_score],
@@ -1062,6 +1063,9 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         ["Timeline", teamFit.timeline_fit_score],
         ["Risk", teamFit.risk_appetite_score],
       ];
+      if (Number(teamFit.contract_coverage || 0) >= 0.5) {{
+        components.push(["Contract", teamFit.contract_opportunity_score]);
+      }}
       document.getElementById("detail-team-fit-components").innerHTML = components.map(([label, value]) => `
         <div class="tool-grade">
           <div class="tool">${{escapeHtml(label)}}</div>

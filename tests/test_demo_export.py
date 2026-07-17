@@ -1,18 +1,18 @@
 import json
 from pathlib import Path
 
-from draft_room_intelligence.cli import run_build_demo_site
-from draft_room_intelligence.cli import run_export_demo_package
+from draft_room_intelligence.cli import run_build_demo_site, run_export_demo_package
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
-from draft_room_intelligence.domain import HistoricalProspect
-from draft_room_intelligence.domain import PreDraftStatLine
-from draft_room_intelligence.reports.demo_export import build_demo_export_bundle
-from draft_room_intelligence.reports.demo_export import build_stat_evidence
-from draft_room_intelligence.reports.demo_export import build_team_fit
-from draft_room_intelligence.reports.demo_export import evidence_weighted_board_score
-from draft_room_intelligence.reports.demo_export import scouting_qualitative_flags
-from draft_room_intelligence.reports.demo_export import TeamFitContext
-
+from draft_room_intelligence.domain import HistoricalProspect, PreDraftStatLine
+from draft_room_intelligence.reports.demo_export import (
+    TeamFitContext,
+    build_demo_export_bundle,
+    build_stat_evidence,
+    build_team_fit,
+    evidence_weighted_board_score,
+    scouting_qualitative_flags,
+    team_fit_components,
+)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "historical_prospects.csv"
 
@@ -105,6 +105,41 @@ def test_team_fit_reason_surfaces_u25_peer_pipeline_examples():
 
     assert "Current role examples: Dylan Larkin" in str(fit["reason"])
     assert "U25 peer pipeline examples: Marco Kasper" in str(fit["reason"])
+
+
+def test_missing_contract_coverage_preserves_original_team_fit_formula():
+    prospect = HistoricalProspect(
+        player_id="p-contract-neutral",
+        name="Neutral Prospect",
+        draft_year=2025,
+        position="D",
+        age_at_draft=18.0,
+        height_cm=188,
+        weight_kg=85,
+        consensus_rank=10,
+        stat_line=PreDraftStatLine(league="OHL", team="T", season="2024-25", games=50, goals=8, assists=30),
+    )
+    row = {
+        "league_level": "NHL",
+        "role_bucket": "defense",
+        "role_type": "two_way_defense",
+        "players": "2",
+        "under_25": "1",
+        "avg_age": "27.0",
+        "scarcity_score": "0.3",
+        "scarcity_target": "2.0",
+        "contract_coverage": "0",
+    }
+
+    components = team_fit_components(row, prospect, tool_score=0.7, context_rows=[row])
+    expected = (
+        components["roster_need_score"] * 0.36
+        + components["pipeline_need_score"] * 0.34
+        + components["timeline_fit_score"] * 0.18
+        + components["risk_appetite_score"] * 0.12
+    )
+
+    assert abs(components["overall_score"] - expected) < 0.000001
 
 
 def test_scouting_qualitative_flags_capture_championship_role_context():

@@ -6,30 +6,35 @@ import argparse
 import csv
 import os
 import shutil
+import unicodedata
+from dataclasses import replace
+from datetime import date
 from pathlib import Path
 
+from draft_room_intelligence.data.ahl_api import (
+    DEFAULT_AHL_SEASON_ID,
+    DEFAULT_AHL_SEASON_LABEL,
+    import_ahl_rosters,
+)
 from draft_room_intelligence.data.chl_stats import ChlStatSource, enrich_chl_stats
 from draft_room_intelligence.data.demo_data import (
     audit_demo_class,
     format_demo_audit_report,
     scaffold_demo_class,
 )
-from draft_room_intelligence.data.ahl_api import (
-    DEFAULT_AHL_SEASON_ID,
-    DEFAULT_AHL_SEASON_LABEL,
-    import_ahl_rosters,
-)
-from draft_room_intelligence.data.ep_pdf_overlay import (
-    overlay_ep_pdf_demo_dataset,
-    write_overlay_report,
-)
 from draft_room_intelligence.data.eliteprospects_csv import (
     format_eliteprospects_validation_report,
     validate_eliteprospects_export,
     write_eliteprospects_normalized_tables,
 )
-from draft_room_intelligence.data.eliteprospects_pdf import DEFAULT_VISION_MODEL
-from draft_room_intelligence.data.eliteprospects_pdf import write_eliteprospects_pdf_tables
+from draft_room_intelligence.data.eliteprospects_pdf import (
+    DEFAULT_VISION_MODEL,
+    write_eliteprospects_pdf_tables,
+)
+from draft_room_intelligence.data.ep_pdf_overlay import (
+    overlay_ep_pdf_demo_dataset,
+    write_overlay_report,
+)
 from draft_room_intelligence.data.etl_config import DraftYearETLConfig
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
 from draft_room_intelligence.data.hockeydb_base import (
@@ -40,14 +45,16 @@ from draft_room_intelligence.data.merge_quality import (
     build_merge_quality_report,
     format_merge_quality_report,
 )
+from draft_room_intelligence.data.nhl_api import import_nhl_rosters
+from draft_room_intelligence.data.nhl_contracts import enrich_roster_contracts
 from draft_room_intelligence.data.normalized_merge import (
     generate_match_map_template,
     merge_normalized_source_tables,
 )
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
-from draft_room_intelligence.data.nhl_api import import_nhl_rosters
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.puckpedia_stats import enrich_puckpedia_stats
+from draft_room_intelligence.data.roster_assignments import enrich_cross_organization_assignment_dates
 from draft_room_intelligence.data.team_rosters import (
     build_depth_rows,
     format_depth_markdown,
@@ -55,9 +62,9 @@ from draft_room_intelligence.data.team_rosters import (
     write_depth_csv,
     write_roster_csv,
 )
+from draft_room_intelligence.data.ushl_stats import UShlStatSource, enrich_ushl_stats
 from draft_room_intelligence.data.wikipedia_bio import enrich_wikipedia_bios
 from draft_room_intelligence.data.wikipedia_career_stats import enrich_wikipedia_career_stats
-from draft_room_intelligence.data.ushl_stats import UShlStatSource, enrich_ushl_stats
 from draft_room_intelligence.evaluation.baselines import (
     adjusted_production_scores,
     consensus_scores,
@@ -73,26 +80,26 @@ from draft_room_intelligence.modeling.role_models import (
     evaluate_role_specific_models,
     write_model_summary,
 )
-from draft_room_intelligence.reports.demo_export import (
-    build_demo_export_bundle,
-    export_demo_package,
-)
-from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
-from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
-from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
-from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
-from draft_room_intelligence.reports.demo_site import write_demo_site
+from draft_room_intelligence.optimization.board import rank_board
+from draft_room_intelligence.projection.baseline import project_board
 from draft_room_intelligence.reports.codex_context_routes import write_codex_context_routes_report
 from draft_room_intelligence.reports.codex_routing_audit import write_codex_routing_audit
 from draft_room_intelligence.reports.codex_task_routing import write_codex_task_routing_report
 from draft_room_intelligence.reports.codex_usage import write_codex_usage_report
+from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
+from draft_room_intelligence.reports.demo_export import (
+    build_demo_export_bundle,
+    export_demo_package,
+)
+from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
+from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
+from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
+from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
+from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
-from draft_room_intelligence.optimization.board import rank_board
-from draft_room_intelligence.projection.baseline import project_board
-from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.sample_data import sample_prospects, sample_team_context
 from draft_room_intelligence.scouting.extraction import extract_scouting_features
 
@@ -579,6 +586,21 @@ def main() -> None:
         action="store_true",
         help="Keep same-organization same-player NHL/AHL duplicate rows instead of selecting the best assignment proxy.",
     )
+    merge_rosters_parser.add_argument(
+        "--resolve-cross-org-assignments",
+        action="store_true",
+        help="Resolve traded NHL/AHL players by their latest official game date.",
+    )
+    merge_rosters_parser.add_argument(
+        "--nhl-season",
+        default="20242025",
+        help="NHL season used for cross-organization game-log resolution.",
+    )
+    merge_rosters_parser.add_argument(
+        "--assignment-cache-dir",
+        type=Path,
+        help="Optional cache directory for NHL and AHL assignment game logs.",
+    )
     ahl_rosters_parser = subparsers.add_parser(
         "import-ahl-rosters",
         help="Import official AHL historical stats and roster details into normalized roster CSV.",
@@ -600,9 +622,15 @@ def main() -> None:
         default=1,
         help="Minimum AHL games played required for inclusion.",
     )
+    ahl_rosters_parser.add_argument(
+        "--reference-date",
+        type=date.fromisoformat,
+        default=date(2025, 6, 1),
+        help="Date used for player age and snapshot provenance, in YYYY-MM-DD format.",
+    )
     nhl_rosters_parser = subparsers.add_parser(
         "import-nhl-rosters",
-        help="Import current NHL rosters and optional club stats into normalized roster CSV.",
+        help="Import current or historical-season NHL rosters and club stats into normalized roster CSV.",
     )
     nhl_rosters_parser.add_argument("output_csv", type=Path, help="Path for normalized roster CSV output.")
     nhl_rosters_parser.add_argument(
@@ -613,7 +641,10 @@ def main() -> None:
     nhl_rosters_parser.add_argument(
         "--season",
         default="",
-        help="Optional NHL season id for club stats, for example 20252026. Without it, roster rows are imported without season stats.",
+        help=(
+            "Optional NHL season id for both roster and club stats, for example 20242025. "
+            "Without it, the current roster endpoint is used."
+        ),
     )
     nhl_rosters_parser.add_argument(
         "--game-type",
@@ -631,6 +662,19 @@ def main() -> None:
         type=Path,
         help="Optional cached club-stats JSON directory with files like NYI.stats.json.",
     )
+    nhl_rosters_parser.add_argument(
+        "--cache-json-dir",
+        type=Path,
+        help="Optional directory where fetched roster and club-stat JSON payloads are cached.",
+    )
+    contract_parser = subparsers.add_parser(
+        "enrich-roster-contracts",
+        help="Overlay cached NHL contract and cap evidence onto a normalized roster CSV.",
+    )
+    contract_parser.add_argument("roster_csv", type=Path, help="Normalized NHL/AHL roster CSV.")
+    contract_parser.add_argument("contracts_csv", type=Path, help="Cached normalized contract CSV.")
+    contract_parser.add_argument("output_csv", type=Path, help="Contract-enriched roster CSV output.")
+    contract_parser.add_argument("--audit-csv", type=Path, help="Optional contract matching audit CSV.")
     demo_export_parser = subparsers.add_parser(
         "export-demo-package",
         help="Build board-ready demo exports for a single draft class.",
@@ -943,13 +987,21 @@ def main() -> None:
             audit_csv=args.audit_csv,
         )
     elif args.command == "merge-roster-csvs":
-        run_merge_roster_csvs(args.output_csv, args.input_csvs, keep_duplicates=args.keep_duplicates)
+        run_merge_roster_csvs(
+            args.output_csv,
+            args.input_csvs,
+            keep_duplicates=args.keep_duplicates,
+            resolve_cross_org_assignments=args.resolve_cross_org_assignments,
+            nhl_season=args.nhl_season,
+            assignment_cache_dir=args.assignment_cache_dir,
+        )
     elif args.command == "import-ahl-rosters":
         run_import_ahl_rosters(
             args.output_csv,
             season_id=args.season_id,
             season_label=args.season_label,
             minimum_games=args.minimum_games,
+            reference_date=args.reference_date,
         )
     elif args.command == "import-nhl-rosters":
         run_import_nhl_rosters(
@@ -959,6 +1011,14 @@ def main() -> None:
             game_type=args.game_type,
             roster_json_dir=args.roster_json_dir,
             stats_json_dir=args.stats_json_dir,
+            cache_json_dir=args.cache_json_dir,
+        )
+    elif args.command == "enrich-roster-contracts":
+        run_enrich_roster_contracts(
+            args.roster_csv,
+            args.contracts_csv,
+            args.output_csv,
+            audit_csv=args.audit_csv,
         )
     elif args.command == "export-demo-package":
         run_export_demo_package(args.data_path, args.output_dir, team_depth_csv=args.team_depth_csv, team_id=args.team_id)
@@ -1839,6 +1899,7 @@ def run_audit_team_systems(roster_csv: Path, demo_output_dir: Path, output_dir: 
     print(f"Team bucket CSV: {output_dir / 'team_bucket_audit.csv'}")
     print(f"Goalie CSV: {output_dir / 'goalie_audit.csv'}")
     print(f"Review flags CSV: {output_dir / 'review_flags.csv'}")
+    print(f"Roster reliability CSV: {output_dir / 'roster_reliability.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 
@@ -1905,14 +1966,29 @@ def write_preseason_proxy_audit(path: Path, players) -> None:
 
 
 def compact_name(value: str) -> str:
-    return "".join(character for character in value.casefold() if character.isalnum())
+    decomposed = unicodedata.normalize("NFKD", value.casefold())
+    return "".join(character for character in decomposed if character.isascii() and character.isalnum())
 
 
-def run_merge_roster_csvs(output_csv: Path, input_csvs: list[Path], *, keep_duplicates: bool = False) -> None:
+def run_merge_roster_csvs(
+    output_csv: Path,
+    input_csvs: list[Path],
+    *,
+    keep_duplicates: bool = False,
+    resolve_cross_org_assignments: bool = False,
+    nhl_season: str = "20242025",
+    assignment_cache_dir: Path | None = None,
+) -> None:
     players = []
     for input_csv in input_csvs:
         players.extend(load_roster_csv(input_csv))
     input_count = len(players)
+    if resolve_cross_org_assignments:
+        players = enrich_cross_organization_assignment_dates(
+            players,
+            nhl_season=nhl_season,
+            cache_json_dir=assignment_cache_dir,
+        )
     if not keep_duplicates:
         players = dedupe_roster_assignments(players)
     write_roster_csv(output_csv, players)
@@ -1927,10 +2003,56 @@ def run_merge_roster_csvs(output_csv: Path, input_csvs: list[Path], *, keep_dupl
 def dedupe_roster_assignments(players):
     grouped = {}
     for player in players:
-        key = (player.team_id.upper(), compact_name(player.player_name), player.position.upper())
+        key = (player.team_id.upper(), compact_name(player.player_name))
         grouped.setdefault(key, []).append(player)
     selected = [choose_roster_assignment(group) for group in grouped.values()]
+    selected = remove_cross_organization_pipeline_duplicates(selected)
     return sorted(selected, key=lambda player: (player.team_id, player.league_level, player.position, player.player_name))
+
+
+def remove_cross_organization_pipeline_duplicates(players):
+    grouped = {}
+    for player in players:
+        grouped.setdefault(compact_name(player.player_name), []).append(player)
+    kept = []
+    for group in grouped.values():
+        identity_group = [player for player in group if any(same_roster_identity(player, other) for other in group if other is not player)]
+        if len({player.team_id for player in identity_group}) <= 1:
+            kept.extend(group)
+            continue
+        dated = [player for player in identity_group if player.last_game_date]
+        latest_date = max((player.last_game_date for player in dated), default="")
+        latest = [player for player in dated if player.last_game_date == latest_date]
+        authoritative_team_ids = {player.team_id for player in latest}
+        if len(dated) != len(identity_group) or not latest_date or len(authoritative_team_ids) != 1:
+            kept.extend(
+                replace(
+                    player,
+                    assignment_confidence="low",
+                    roster_status="cross_org_assignment_unresolved",
+                )
+                if player in identity_group
+                else player
+                for player in group
+            )
+            continue
+        authoritative_team_id = next(iter(authoritative_team_ids))
+        for player in group:
+            if player not in identity_group or player.team_id == authoritative_team_id:
+                kept.append(
+                    replace(player, assignment_confidence="high", roster_status="latest_season_assignment")
+                    if player in identity_group
+                    else player
+                )
+    return kept
+
+
+def same_roster_identity(left, right) -> bool:
+    if compact_name(left.player_name) != compact_name(right.player_name):
+        return False
+    if not left.age or not right.age:
+        return False
+    return abs(left.age - right.age) <= 1.0
 
 
 def choose_roster_assignment(players):
@@ -1962,12 +2084,14 @@ def run_import_ahl_rosters(
     season_id: str,
     season_label: str,
     minimum_games: int,
+    reference_date: date,
 ) -> None:
     summary = import_ahl_rosters(
         output_csv,
         season_id=season_id,
         season_label=season_label,
         minimum_games=minimum_games,
+        reference_date=reference_date,
     )
     print("# AHL roster import")
     print(f"Season: {summary.season_label} ({summary.season_id})")
@@ -1987,6 +2111,7 @@ def run_import_nhl_rosters(
     game_type: int,
     roster_json_dir: Path | None,
     stats_json_dir: Path | None,
+    cache_json_dir: Path | None,
 ) -> None:
     summary = import_nhl_rosters(
         output_csv,
@@ -1995,6 +2120,7 @@ def run_import_nhl_rosters(
         game_type=game_type,
         roster_json_dir=roster_json_dir,
         stats_json_dir=stats_json_dir,
+        cache_json_dir=cache_json_dir,
     )
     print("# NHL roster import")
     print(f"Teams requested: {summary.teams_requested}")
@@ -2002,6 +2128,25 @@ def run_import_nhl_rosters(
     print(f"Roster players: {summary.roster_players}")
     print(f"Teams with stats: {summary.stats_teams_loaded}")
     print(f"Roster CSV: {summary.output_csv}")
+
+
+def run_enrich_roster_contracts(
+    roster_csv: Path,
+    contracts_csv: Path,
+    output_csv: Path,
+    *,
+    audit_csv: Path | None,
+) -> None:
+    summary = enrich_roster_contracts(roster_csv, contracts_csv, output_csv, audit_csv=audit_csv)
+    print("# NHL contract overlay")
+    print(f"Roster players: {summary.roster_players}")
+    print(f"Contract rows: {summary.contract_rows}")
+    print(f"Matched roster players: {summary.matched_players}")
+    print(f"Unmatched contract rows: {summary.unmatched_contracts}")
+    print(f"Ambiguous contract rows: {summary.ambiguous_contracts}")
+    print(f"Roster CSV: {output_csv}")
+    if audit_csv is not None:
+        print(f"Contract match audit: {audit_csv}")
 
 
 def load_historical_prospects(data_path: Path):

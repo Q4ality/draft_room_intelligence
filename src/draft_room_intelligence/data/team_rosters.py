@@ -6,7 +6,6 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
-
 ROSTER_COLUMNS = [
     "team_id",
     "team_name",
@@ -33,6 +32,20 @@ ROSTER_COLUMNS = [
     "goalie_save_percentage",
     "goalie_goals_against_average",
     "goalie_shutouts",
+    "snapshot_date",
+    "snapshot_type",
+    "roster_status",
+    "assignment_confidence",
+    "last_game_date",
+    "cap_hit",
+    "contract_end_year",
+    "contract_years_remaining",
+    "contract_type",
+    "trade_protection",
+    "trade_protection_type",
+    "trade_restriction_share",
+    "contract_source",
+    "contract_source_url",
     "source",
     "source_id",
     "source_url",
@@ -57,6 +70,19 @@ DEPTH_COLUMNS = [
     "avg_goalie_goals_against_average",
     "goalie_wins",
     "goalie_shutouts",
+    "snapshot_dates",
+    "snapshot_types",
+    "high_confidence_assignments",
+    "contract_players",
+    "contract_coverage",
+    "total_cap_hit",
+    "avg_cap_hit",
+    "long_term_committed",
+    "expiring_contracts",
+    "trade_protected",
+    "avg_trade_restriction_share",
+    "roster_flexibility_score",
+    "contract_commitment_score",
     "scarcity_target",
     "scarcity_score",
     "example_players",
@@ -90,6 +116,20 @@ class RosterPlayer:
     goalie_save_percentage: float | None = None
     goalie_goals_against_average: float | None = None
     goalie_shutouts: int = 0
+    snapshot_date: str = ""
+    snapshot_type: str = ""
+    roster_status: str = ""
+    assignment_confidence: str = ""
+    last_game_date: str = ""
+    cap_hit: int = 0
+    contract_end_year: int = 0
+    contract_years_remaining: float = 0.0
+    contract_type: str = ""
+    trade_protection: str = ""
+    trade_protection_type: str = ""
+    trade_restriction_share: float = 0.0
+    contract_source: str = ""
+    contract_source_url: str = ""
     source: str = ""
     source_id: str = ""
     source_url: str = ""
@@ -170,6 +210,18 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
             ]
         )
         scarcity = max(0.0, (target - count) / target) if target else 0.0
+        contract_players = [player for player in group if player.cap_hit or player.contract_end_year]
+        contract_coverage = len(contract_players) / count if count else 0.0
+        total_cap_hit = sum(player.cap_hit for player in contract_players)
+        long_term_committed = sum(1 for player in contract_players if player.contract_years_remaining >= 2.0)
+        expiring_contracts = sum(1 for player in contract_players if 0 < player.contract_years_remaining <= 1.0)
+        trade_protected = sum(1 for player in contract_players if has_trade_protection(player.trade_protection))
+        avg_trade_restriction = (
+            sum(player.trade_restriction_share for player in contract_players) / len(contract_players)
+            if contract_players
+            else None
+        )
+        commitment = contract_commitment_score(group, target)
         rows.append(
             DepthRow(
                 {
@@ -195,6 +247,25 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
                     else "",
                     "goalie_wins": str(sum(player.goalie_wins for player in group) or ""),
                     "goalie_shutouts": str(sum(player.goalie_shutouts for player in group) or ""),
+                    "snapshot_dates": "; ".join(sorted({player.snapshot_date for player in group if player.snapshot_date})),
+                    "snapshot_types": "; ".join(sorted({player.snapshot_type for player in group if player.snapshot_type})),
+                    "high_confidence_assignments": str(
+                        sum(1 for player in group if player.assignment_confidence.lower() == "high")
+                    ),
+                    "contract_players": str(len(contract_players)),
+                    "contract_coverage": f"{contract_coverage:.3f}",
+                    "total_cap_hit": str(total_cap_hit or ""),
+                    "avg_cap_hit": f"{total_cap_hit / len(contract_players):.0f}" if contract_players else "",
+                    "long_term_committed": str(long_term_committed),
+                    "expiring_contracts": str(expiring_contracts),
+                    "trade_protected": str(trade_protected),
+                    "avg_trade_restriction_share": f"{avg_trade_restriction:.3f}"
+                    if avg_trade_restriction is not None
+                    else "",
+                    "roster_flexibility_score": f"{1.0 - avg_trade_restriction:.3f}"
+                    if avg_trade_restriction is not None
+                    else "",
+                    "contract_commitment_score": f"{commitment:.3f}",
                     "scarcity_target": f"{target:.1f}",
                     "scarcity_score": f"{scarcity:.3f}",
                     "example_players": "; ".join(format_example_player(player) for player in sort_example_players(group)[:5]),
@@ -257,6 +328,20 @@ def row_to_roster_player(row: dict[str, str]) -> RosterPlayer:
         goalie_save_percentage=optional_float_or_none(row, "goalie_save_percentage"),
         goalie_goals_against_average=optional_float_or_none(row, "goalie_goals_against_average"),
         goalie_shutouts=optional_int(row, "goalie_shutouts"),
+        snapshot_date=optional_text(row, "snapshot_date"),
+        snapshot_type=optional_text(row, "snapshot_type"),
+        roster_status=optional_text(row, "roster_status"),
+        assignment_confidence=optional_text(row, "assignment_confidence"),
+        last_game_date=optional_text(row, "last_game_date"),
+        cap_hit=optional_int(row, "cap_hit"),
+        contract_end_year=optional_int(row, "contract_end_year"),
+        contract_years_remaining=optional_float(row, "contract_years_remaining"),
+        contract_type=optional_text(row, "contract_type"),
+        trade_protection=optional_text(row, "trade_protection"),
+        trade_protection_type=optional_text(row, "trade_protection_type"),
+        trade_restriction_share=optional_float(row, "trade_restriction_share"),
+        contract_source=optional_text(row, "contract_source"),
+        contract_source_url=optional_text(row, "contract_source_url"),
         source=optional_text(row, "source"),
         source_id=optional_text(row, "source_id"),
         source_url=optional_text(row, "source_url"),
@@ -296,6 +381,24 @@ def roster_player_to_row(player: RosterPlayer) -> dict[str, str]:
         if player.goalie_goals_against_average is None
         else f"{player.goalie_goals_against_average:.2f}",
         "goalie_shutouts": str(player.goalie_shutouts or ""),
+        "snapshot_date": player.snapshot_date,
+        "snapshot_type": player.snapshot_type,
+        "roster_status": player.roster_status,
+        "assignment_confidence": player.assignment_confidence,
+        "last_game_date": player.last_game_date,
+        "cap_hit": str(player.cap_hit or ""),
+        "contract_end_year": str(player.contract_end_year or ""),
+        "contract_years_remaining": f"{player.contract_years_remaining:.1f}"
+        if player.contract_years_remaining
+        else "",
+        "contract_type": player.contract_type,
+        "trade_protection": player.trade_protection,
+        "trade_protection_type": player.trade_protection_type,
+        "trade_restriction_share": f"{player.trade_restriction_share:.3f}"
+        if player.trade_restriction_share
+        else "",
+        "contract_source": player.contract_source,
+        "contract_source_url": player.contract_source_url,
         "source": player.source,
         "source_id": player.source_id,
         "source_url": player.source_url,
@@ -357,6 +460,25 @@ def scarcity_target(bucket: str, role_type_value: str, league_level: str) -> flo
     if bucket == "goalie":
         return 2.0 * level_multiplier
     return 1.0
+
+
+def has_trade_protection(value: str) -> bool:
+    normalized = value.strip().upper()
+    return normalized not in {"", "NONE", "NO", "N/A", "NA"}
+
+
+def contract_commitment_score(players: list[RosterPlayer], target: float) -> float:
+    contract_players = [player for player in players if player.cap_hit or player.contract_end_year]
+    if not contract_players or not target:
+        return 0.0
+    commitment_units = 0.0
+    for player in contract_players:
+        term = min(1.0, max(0.0, player.contract_years_remaining) / 3.0)
+        cap = min(1.0, max(0, player.cap_hit) / 8_000_000)
+        protection = player.trade_restriction_share
+        commitment_units += (term * 0.50) + (cap * 0.35) + (protection * 0.15)
+    coverage = len(contract_players) / len(players) if players else 0.0
+    return min(1.0, (commitment_units / target) * coverage)
 
 
 def normalize_position(value: str) -> str:
