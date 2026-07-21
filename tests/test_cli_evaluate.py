@@ -1,22 +1,27 @@
 from pathlib import Path
 
-from draft_room_intelligence.cli import run_generate_match_map_template
-from draft_room_intelligence.cli import run_import_eliteprospects
-from draft_room_intelligence.cli import run_merge_eliteprospects
-from draft_room_intelligence.cli import run_process_eliteprospects
-from draft_room_intelligence.cli import run_report_merge_quality
-from draft_room_intelligence.cli import run_validate_eliteprospects
-from draft_room_intelligence.cli import run_evaluate
-from draft_room_intelligence.cli import run_evaluate_role_models
-from draft_room_intelligence.cli import run_etl_draft_year
-from draft_room_intelligence.cli import run_export_feature_table
+import pytest
 
+from draft_room_intelligence.cli import (
+    copy_dataset_directory,
+    run_etl_draft_year,
+    run_evaluate,
+    run_evaluate_role_models,
+    run_export_feature_table,
+    run_generate_match_map_template,
+    run_import_eliteprospects,
+    run_merge_eliteprospects,
+    run_process_eliteprospects,
+    run_report_merge_quality,
+    run_validate_eliteprospects,
+)
 
 FIXTURE = Path(__file__).parent / "fixtures" / "historical_prospects.csv"
 PILOT = Path(__file__).parents[1] / "data" / "processed" / "pilot_2019"
 ELITEPROSPECTS_FIXTURE = Path(__file__).parent / "fixtures" / "eliteprospects_export.csv"
 HOCKEYDB_DRAFT_FIXTURE = Path(__file__).parent / "fixtures" / "hockeydb_2019_draft_sample.html"
 HOCKEYDB_PLAYER_PAGES_FIXTURE = Path(__file__).parent / "fixtures" / "hockeydb_player_pages"
+NHL_DRAFT_FIXTURE = Path(__file__).parent / "fixtures" / "nhl_draft_2024_sample.json"
 
 
 def test_run_evaluate_prints_consensus_report(capsys):
@@ -235,6 +240,14 @@ def test_run_etl_draft_year_without_eliteprospects_copies_base_dataset(capsys, t
     assert (tmp_path / "etl" / "final" / "players.csv").exists()
 
 
+def test_copy_dataset_directory_rejects_overlapping_paths(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+
+    with pytest.raises(ValueError, match="must not overlap"):
+        copy_dataset_directory(source, source / "nested")
+
+
 def test_run_etl_draft_year_with_eliteprospects_runs_enrichment(capsys, tmp_path):
     run_etl_draft_year(
         PILOT,
@@ -281,6 +294,28 @@ def test_run_etl_draft_year_generates_base_from_hockeydb_html(capsys, tmp_path):
     assert "Jack Hughes" in base_players
     assert "Kaapo Kakko" in base_players
     assert "draft_slot_proxy" in final_rankings
+
+
+def test_run_etl_draft_year_generates_base_from_nhl_draft_json(capsys, tmp_path):
+    run_etl_draft_year(
+        None,
+        tmp_path / "etl",
+        draft_year=2024,
+        nhl_draft_json=NHL_DRAFT_FIXTURE,
+        eliteprospects_csv=None,
+        timing="pre_draft",
+        replace_timing="pre_draft",
+        match_map=None,
+        match_template_output=None,
+        candidate_count=3,
+    )
+
+    output = capsys.readouterr().out
+    final_players = (tmp_path / "etl" / "final" / "players.csv").read_text(encoding="utf-8")
+
+    assert "# Draft-year ETL: 2024" in output
+    assert "Macklin Celebrini" in final_players
+    assert "nhl_draft_api" in final_players
 
 
 def test_run_etl_draft_year_uses_cached_hockeydb_player_pages(capsys, tmp_path):

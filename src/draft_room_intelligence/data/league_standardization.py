@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import re
 
-
 LEAGUE_ALIASES = {
     "SM-liiga": "Liiga",
     "Swe-1": "HockeyAllsvenskan",
@@ -12,15 +11,21 @@ LEAGUE_ALIASES = {
     "Allsvenskan": "HockeyAllsvenskan",
     "Allsv": "HockeyAllsvenskan",
     "H-East": "NCAA",
+    "H-EAST": "NCAA",
     "HE": "NCAA",
     "Hockey East": "NCAA",
     "WCHA": "NCAA",
     "Big-10": "NCAA",
     "B1G": "NCAA",
     "Big Ten": "NCAA",
+    "BIG10": "NCAA",
+    "CCHA": "NCAA",
+    "AHA": "NCAA",
     "ECAC": "NCAA",
     "NCHC": "NCAA",
     "USNTDP": "USHL",
+    "NTDP": "USHL",
+    "NTDP - USHL": "USHL",
     "USDP": "USHL",
     "U.S. NTDP": "USHL",
     "U.S. National Under-18 Team": "USHL",
@@ -28,11 +33,13 @@ LEAGUE_ALIASES = {
     "Rus-MHL": "MHL",
     "Rus-VHL": "VHL",
     "Russia Jrs.": "Russia Jr.",
+    "RUSSIA-JR.": "Russia Jr.",
     "Russia Junior": "Russia Jr.",
     "Russian Junior": "Russia Jr.",
     "Russia Jr": "Russia Jr.",
     "Russia U20": "Russia Jr.",
     "Swe-Jr": "Sweden Jrs.",
+    "SWEDEN-JR.": "Sweden Jrs.",
     "Swe-Jr.": "Sweden Jrs.",
     "Sweden Jr.": "Sweden Jrs.",
     "Sweden U20": "Sweden Jrs.",
@@ -41,6 +48,7 @@ LEAGUE_ALIASES = {
     "J20 SuperElit": "Sweden Jrs.",
     "SuperElit": "Sweden Jrs.",
     "Fin-Jr": "Finland Jrs.",
+    "FINLAND-JR.": "Finland Jrs.",
     "Fin-Jr.": "Finland Jrs.",
     "Finland Jr.": "Finland Jrs.",
     "U20 SM-sarja": "Finland Jrs.",
@@ -59,13 +67,13 @@ LEAGUE_ALIASES = {
     "German Jr.": "Germany Jrs.",
     "Austria Jr.": "Austria Jrs.",
     "Belarus Jr.": "Belarus Jrs.",
-    "Jr. A SM-liiga": "Finland Jrs.",
     "NL": "National League",
     "NLA": "National League",
     "Swiss": "National League",
     "Swiss-2": "Swiss League",
     "Allsvenskan Norra": "HockeyAllsvenskan",
     "Allsvenskan Sodra": "HockeyAllsvenskan",
+    "SWEDEN-2": "HockeyAllsvenskan",
     "Slovak": "Slovakia",
     "Czechia": "Czech",
     "Czechia Extraliga": "Czech Extraliga",
@@ -78,8 +86,15 @@ LEAGUE_ALIASES = {
     "USHS-MN": "High School",
     "USHS-Prep": "Prep School",
     "Ont. H.S.": "High School",
+    "HIGH-MA": "High School",
+    "HIGH-MN": "High School",
     "J18 Regional": "Sweden Jrs.",
     "U20 Region": "Sweden Jrs.",
+}
+
+LEAGUE_ALIASES_CASEFOLD = {
+    re.sub(r"\s+", " ", alias).strip().casefold(): canonical
+    for alias, canonical in LEAGUE_ALIASES.items()
 }
 
 PLAYOFF_HINTS = (
@@ -94,7 +109,7 @@ def normalize_league_name(league: str) -> str:
     value = clean_text(league)
     if not value:
         return "Unknown"
-    return LEAGUE_ALIASES.get(value, value)
+    return LEAGUE_ALIASES.get(value, LEAGUE_ALIASES_CASEFOLD.get(value.casefold(), value))
 
 
 def infer_regular_season(*values: str) -> bool:

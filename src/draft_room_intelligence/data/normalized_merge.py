@@ -4,10 +4,9 @@ from __future__ import annotations
 
 import csv
 import shutil
-from difflib import SequenceMatcher
 from dataclasses import dataclass
+from difflib import SequenceMatcher
 from pathlib import Path
-
 
 PASSTHROUGH_TABLES = ["draft_selections.csv", "rankings.csv", "nhl_outcomes.csv"]
 PLAYER_COLUMNS = [
@@ -39,6 +38,16 @@ SEASON_STAT_LINE_COLUMNS = [
     "source",
     "source_id",
     "source_url",
+    "goalie_minutes",
+    "shots_against",
+    "saves",
+    "goals_against",
+    "save_percentage",
+    "goals_against_average",
+    "wins",
+    "losses",
+    "ties",
+    "shutouts",
 ]
 
 MATCH_MAP_TEMPLATE_COLUMNS = [

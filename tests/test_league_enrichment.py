@@ -1,0 +1,198 @@
+import csv
+
+from draft_room_intelligence.data.eliteprospects_csv import (
+    PLAYER_COLUMNS,
+    SEASON_STAT_LINE_COLUMNS,
+    write_table,
+)
+from draft_room_intelligence.data.league_enrichment import (
+    LeagueSourceSpec,
+    collect_league_sources,
+    discover_chl_source_specs,
+    enrich_draft_class_leagues,
+    load_league_source_manifest,
+    run_league_enrichment_range,
+    validate_source_cache,
+    write_league_source_manifest,
+)
+
+CHL_HTML = '''
+<table id="topskaters"><tbody></tbody></table>
+<script>
+$('#topskaters').DataTable({
+  data: [[1,"C","77","","",
+    ["https://chl.ca/ohl/players/8769","Misa, Michael"],
+    [["https://chl.ca/ohl/roster/34/79","SAG"]],"65","62","72","134"]]
+});
+</script>
+'''
+
+CHL_CATALOG_HTML = '''
+<select id="seasons">
+  <option value="https://chl.ca/ohl/stats/leaders/81/">2025 Playoffs</option>
+  <option value="https://chl.ca/ohl/stats/leaders/79/">2024-25 Regular Season</option>
+  <option value="https://chl.ca/ohl/stats/leaders/78/">2024 Pre-season</option>
+  <option value="https://chl.ca/ohl/stats/leaders/77/">2024 Playoffs</option>
+  <option value="https://chl.ca/ohl/stats/leaders/76/">2023-24 Regular Season</option>
+</select>
+'''
+
+
+def write_csv(path, fields, rows):
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def scaffold_class(root):
+    final = root / "2025" / "final"
+    final.mkdir(parents=True)
+    write_table(
+        final / "players.csv",
+        PLAYER_COLUMNS,
+        [
+            {
+                "player_id": "2025-002-michael-misa",
+                "name": "Michael Misa",
+                "position": "C",
+                "source": "nhl_draft_api",
+            }
+        ],
+    )
+    write_table(final / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, [])
+    write_csv(
+        final / "draft_selections.csv",
+        ["player_id", "drafted_from_team", "drafted_from_league"],
+        [
+            {
+                "player_id": "2025-002-michael-misa",
+                "drafted_from_team": "Saginaw",
+                "drafted_from_league": "OHL",
+            }
+        ],
+    )
+    return final
+
+
+def source_spec(cache_path):
+    return LeagueSourceSpec(
+        source_id="2025-ohl-regular",
+        enabled=True,
+        draft_year=2025,
+        adapter="chl",
+        league="OHL",
+        season="2024-25",
+        regular_season=True,
+        source_url="https://chl.ca/ohl/stats/players/79/all/points",
+        cache_path=cache_path,
+        source_label="chl",
+    )
+
+
+def test_load_manifest_resolves_cache_and_filters_disabled(tmp_path):
+    manifest = tmp_path / "sources.csv"
+    manifest.write_text(
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
+        "ohl,true,2025,chl,OHL,2024-25,regular,https://example.test/ohl,raw/ohl.html,chl\n",
+        encoding="utf-8",
+    )
+
+    sources = load_league_source_manifest(manifest, project_root=tmp_path)
+
+    assert len(sources) == 1
+    assert sources[0].cache_path == tmp_path / "raw" / "ohl.html"
+    assert sources[0].regular_season is True
+
+
+def test_cached_collection_does_not_require_network(tmp_path):
+    cache = tmp_path / "ohl.html"
+    cache.write_text(CHL_HTML, encoding="utf-8")
+
+    result = collect_league_sources([source_spec(cache)])
+
+    assert result[0].status == "cached"
+    assert result[0].byte_count > 0
+
+
+def test_chl_cache_validation_rejects_wrong_stage(tmp_path):
+    cache = tmp_path / "playoffs.html"
+    cache.write_text(
+        '<title>2024-25 Regular Season Official Statistics</title><table id="topskaters">',
+        encoding="utf-8",
+    )
+    source = source_spec(cache)
+    playoff_source = LeagueSourceSpec(
+        **{**source.__dict__, "source_id": "playoffs", "regular_season": False}
+    )
+
+    try:
+        validate_source_cache(playoff_source)
+    except ValueError as exc:
+        assert "does not indicate playoffs" in str(exc)
+    else:
+        raise AssertionError("wrong-stage CHL cache should be rejected")
+
+
+def test_discover_chl_sources_uses_official_season_catalog(tmp_path):
+    catalog = tmp_path / "catalog.html"
+    catalog.write_text(CHL_CATALOG_HTML, encoding="utf-8")
+
+    sources = discover_chl_source_specs(
+        catalog,
+        league="OHL",
+        cache_root=tmp_path / "cache",
+        start_year=2024,
+        end_year=2025,
+    )
+    output = write_league_source_manifest(
+        tmp_path / "sources.csv",
+        sources,
+        project_root=tmp_path,
+    )
+
+    assert len(sources) == 4
+    assert sources[0].source_id == "2024-ohl-regular"
+    assert sources[0].source_url.endswith("/stats/players/76/all/points")
+    assert "_s76_regular_" in sources[0].cache_path.name
+    assert sources[-1].source_id == "2025-ohl-playoffs"
+    rows = list(csv.DictReader(output.open(newline="", encoding="utf-8")))
+    assert rows[0]["cache_path"].startswith("cache/")
+
+
+def test_class_enrichment_uses_drafted_from_league_and_resumes(tmp_path):
+    class_root = tmp_path / "classes"
+    final = scaffold_class(class_root)
+    cache = tmp_path / "ohl.html"
+    cache.write_text(CHL_HTML, encoding="utf-8")
+
+    first = enrich_draft_class_leagues(class_root / "2025", [source_spec(cache)])
+    second = enrich_draft_class_leagues(class_root / "2025", [source_spec(cache)])
+
+    with (final / "season_stat_lines.csv").open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    assert first.status == "completed"
+    assert first.pre_draft_players == 1
+    assert first.coverage_pct == 100.0
+    assert second.status == "skipped_complete"
+    assert rows[0]["player_id"] == "2025-002-michael-misa"
+    assert rows[0]["source"] == "chl"
+    assert rows[0]["points"] == "134"
+
+
+def test_range_report_keeps_unconfigured_years_visible(tmp_path):
+    class_root = tmp_path / "classes"
+    scaffold_class(class_root)
+    cache = tmp_path / "ohl.html"
+    cache.write_text(CHL_HTML, encoding="utf-8")
+
+    report = run_league_enrichment_range(
+        class_root,
+        [source_spec(cache)],
+        report_dir=tmp_path / "report",
+        start_year=2024,
+        end_year=2025,
+    )
+
+    assert [row.status for row in report.results] == ["not_configured", "completed"]
+    assert (tmp_path / "report" / "summary.md").is_file()

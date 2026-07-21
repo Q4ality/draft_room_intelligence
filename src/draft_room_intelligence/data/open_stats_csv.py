@@ -6,7 +6,12 @@ import shutil
 from dataclasses import dataclass
 from pathlib import Path
 
-from draft_room_intelligence.data.chl_stats import normalize_person_key, read_table
+from draft_room_intelligence.data.chl_stats import (
+    count_normalized_names,
+    normalize_person_key,
+    read_drafted_league_hints,
+    read_table,
+)
 from draft_room_intelligence.data.eliteprospects_csv import (
     PLAYER_COLUMNS,
     SEASON_STAT_LINE_COLUMNS,
@@ -14,7 +19,6 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     write_table,
 )
 from draft_room_intelligence.data.league_standardization import normalize_league_name
-
 
 OPEN_STATS_MATCH_COLUMNS = [
     "player_id",
@@ -98,28 +102,36 @@ def enrich_open_stats_csv(
 
     players = read_table(source_root / "players.csv")
     base_stat_lines = read_table(source_root / "season_stat_lines.csv")
+    drafted_leagues = read_drafted_league_hints(source_root)
     source_lines = load_open_stats_lines(sources)
     source_by_name_league: dict[tuple[str, str], list[OpenStatsLine]] = {}
     for line in source_lines:
-        source_by_name_league.setdefault((normalize_person_key(line.name), normalize_league_name(line.league)), []).append(line)
+        key = (normalize_person_key(line.name), normalize_league_name(line.league))
+        source_by_name_league.setdefault(key, []).append(line)
 
     matched_by_player_id: dict[str, list[OpenStatsLine]] = {}
     report_rows: list[dict[str, str]] = []
+    player_name_counts = count_normalized_names(players)
     for player in players:
         player_leagues = {
             normalize_league_name(row.get("league", ""))
             for row in base_stat_lines
             if row.get("player_id") == player["player_id"]
         }
+        player_leagues.update(drafted_leagues.get(player["player_id"], set()))
         candidates: list[OpenStatsLine] = []
         player_key = normalize_person_key(player["name"])
         for league in player_leagues:
             candidates.extend(source_by_name_league.get((player_key, league), []))
-        if allow_new_leagues:
+        if allow_new_leagues and player_name_counts.get(player_key) == 1:
             for (source_name_key, _), source_candidates in source_by_name_league.items():
                 if source_name_key == player_key:
                     candidates.extend(source_candidates)
-        candidates = deduplicate_open_stats_lines(candidates)
+        candidates = (
+            deduplicate_open_stats_lines(candidates)
+            if player_name_counts.get(player_key) == 1
+            else []
+        )
         if candidates:
             matched_by_player_id[player["player_id"]] = candidates
             for candidate in candidates:

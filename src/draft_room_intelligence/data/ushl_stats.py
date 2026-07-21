@@ -2,21 +2,25 @@
 
 from __future__ import annotations
 
-import csv
 import json
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import quote
 
-from draft_room_intelligence.data.chl_stats import fetch_text, normalize_person_key, read_table
+from draft_room_intelligence.data.chl_stats import (
+    count_normalized_names,
+    fetch_text,
+    normalize_person_key,
+    read_drafted_league_hints,
+    read_table,
+)
 from draft_room_intelligence.data.eliteprospects_csv import (
     PLAYER_COLUMNS,
     SEASON_STAT_LINE_COLUMNS,
     write_table,
 )
 from draft_room_intelligence.data.league_standardization import normalize_league_name
-
 
 USHL_APP_KEY = "e828f89b243dc43f"
 USHL_CLIENT_CODE = "ushl"
@@ -85,6 +89,7 @@ def enrich_ushl_stats(
 
     players = read_table(source_root / "players.csv")
     base_stat_lines = read_table(source_root / "season_stat_lines.csv")
+    drafted_leagues = read_drafted_league_hints(source_root)
     source_lines = load_ushl_source_lines(sources)
     source_by_name: dict[str, list[UShlSkaterStatLine]] = {}
     for line in source_lines:
@@ -92,14 +97,20 @@ def enrich_ushl_stats(
 
     matched_by_player_id: dict[str, list[UShlSkaterStatLine]] = {}
     report_rows: list[dict[str, str]] = []
+    player_name_counts = count_normalized_names(players)
     for player in players:
         player_leagues = {
             normalize_league_name(row.get("league", ""))
             for row in base_stat_lines
             if row.get("player_id") == player["player_id"]
         }
+        player_leagues.update(drafted_leagues.get(player["player_id"], set()))
         candidates = source_by_name.get(normalize_person_key(player["name"]), [])
-        if normalize_league_name("USHL") in player_leagues and candidates:
+        if (
+            player_name_counts.get(normalize_person_key(player["name"])) == 1
+            and normalize_league_name("USHL") in player_leagues
+            and candidates
+        ):
             matched_by_player_id[player["player_id"]] = candidates
             for candidate in candidates:
                 report_rows.append(build_match_row(player, candidate, matched=True))

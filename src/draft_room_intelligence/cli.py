@@ -22,6 +22,14 @@ from draft_room_intelligence.data.demo_data import (
     format_demo_audit_report,
     scaffold_demo_class,
 )
+from draft_room_intelligence.data.draft_range_etl import (
+    DraftClassETLSpec,
+    filter_draft_class_specs,
+    load_draft_class_manifest,
+)
+from draft_room_intelligence.data.draft_range_etl import (
+    run_draft_range_etl as execute_draft_range_etl,
+)
 from draft_room_intelligence.data.eliteprospects_csv import (
     format_eliteprospects_validation_report,
     validate_eliteprospects_export,
@@ -41,6 +49,14 @@ from draft_room_intelligence.data.hockeydb_base import (
     HockeyDbBaseETLConfig,
     generate_hockeydb_base_tables,
 )
+from draft_room_intelligence.data.league_enrichment import (
+    collect_league_sources,
+    discover_chl_source_specs,
+    filter_league_sources,
+    load_league_source_manifest,
+    run_league_enrichment_range,
+    write_league_source_manifest,
+)
 from draft_room_intelligence.data.merge_quality import (
     build_merge_quality_report,
     format_merge_quality_report,
@@ -49,6 +65,10 @@ from draft_room_intelligence.data.nhl_api import import_nhl_rosters
 from draft_room_intelligence.data.nhl_contracts import (
     enrich_roster_contracts,
     normalize_contract_export,
+)
+from draft_room_intelligence.data.nhl_draft import (
+    collect_nhl_draft_range,
+    generate_nhl_draft_base_tables,
 )
 from draft_room_intelligence.data.normalized_merge import (
     generate_match_map_template,
@@ -817,6 +837,11 @@ def main() -> None:
         help="Existing normalized base dataset directory. Omit when generating from raw HockeyDB HTML.",
     )
     etl_parser.add_argument(
+        "--nhl-draft-json",
+        type=Path,
+        help="Cached official NHL draft-picks JSON used to generate the base dataset.",
+    )
+    etl_parser.add_argument(
         "--hockeydb-draft-html",
         type=Path,
         help="Optional local HockeyDB draft HTML file used to generate the base dataset.",
@@ -858,6 +883,94 @@ def main() -> None:
         default=3,
         help="Number of closest base-player candidates to include in the template.",
     )
+    range_etl_parser = subparsers.add_parser(
+        "etl-draft-range",
+        help="Plan or run resumable ETL for a manifest of draft classes.",
+    )
+    range_etl_parser.add_argument("manifest_path", type=Path, help="CSV manifest with one row per draft class.")
+    range_etl_parser.add_argument("report_dir", type=Path, help="Output directory for batch run reports.")
+    range_etl_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Root used to resolve relative paths in the manifest.",
+    )
+    range_etl_parser.add_argument(
+        "--output-root",
+        type=Path,
+        help="Default per-class ETL output root. Defaults to data/processed/draft_classes.",
+    )
+    range_etl_parser.add_argument("--start-year", type=int, help="Optional inclusive first draft year.")
+    range_etl_parser.add_argument("--end-year", type=int, help="Optional inclusive last draft year.")
+    range_etl_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Write readiness reports without running any class ETL.",
+    )
+    range_etl_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Rebuild classes whose required final tables already exist.",
+    )
+    range_etl_parser.add_argument(
+        "--fail-fast",
+        action="store_true",
+        help="Stop at the first class failure instead of recording it and continuing.",
+    )
+    collect_drafts_parser = subparsers.add_parser(
+        "collect-nhl-draft-range",
+        help="Cache official NHL draft-pick payloads for an inclusive year range.",
+    )
+    collect_drafts_parser.add_argument("cache_dir", type=Path, help="Raw JSON cache root.")
+    collect_drafts_parser.add_argument("--start-year", type=int, required=True)
+    collect_drafts_parser.add_argument("--end-year", type=int, required=True)
+    collect_drafts_parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Replace existing cached payloads.",
+    )
+    collect_leagues_parser = subparsers.add_parser(
+        "collect-league-sources",
+        help="Cache enabled league-stat sources from a reviewed CSV manifest.",
+    )
+    collect_leagues_parser.add_argument("manifest_path", type=Path)
+    collect_leagues_parser.add_argument("--project-root", type=Path, default=Path("."))
+    collect_leagues_parser.add_argument("--start-year", type=int)
+    collect_leagues_parser.add_argument("--end-year", type=int)
+    collect_leagues_parser.add_argument("--refresh", action="store_true")
+    collect_leagues_parser.add_argument(
+        "--include-disabled",
+        action="store_true",
+        help="Retry discovered backlog sources that are disabled because no cache exists.",
+    )
+    collect_leagues_parser.add_argument("--fail-fast", action="store_true")
+    enrich_leagues_parser = subparsers.add_parser(
+        "enrich-draft-range-leagues",
+        help="Apply cached league-stat sources to normalized draft classes.",
+    )
+    enrich_leagues_parser.add_argument("manifest_path", type=Path)
+    enrich_leagues_parser.add_argument("class_root", type=Path)
+    enrich_leagues_parser.add_argument("report_dir", type=Path)
+    enrich_leagues_parser.add_argument("--project-root", type=Path, default=Path("."))
+    enrich_leagues_parser.add_argument("--start-year", type=int, required=True)
+    enrich_leagues_parser.add_argument("--end-year", type=int, required=True)
+    enrich_leagues_parser.add_argument("--force", action="store_true")
+    enrich_leagues_parser.add_argument("--fail-fast", action="store_true")
+    discover_chl_parser = subparsers.add_parser(
+        "discover-chl-sources",
+        help="Generate historical CHL source rows from cached official season catalogs.",
+    )
+    discover_chl_parser.add_argument("output_path", type=Path)
+    discover_chl_parser.add_argument(
+        "--catalog",
+        action="append",
+        required=True,
+        help="Catalog as league,local_html_path (repeat for OHL, WHL, and QMJHL).",
+    )
+    discover_chl_parser.add_argument("--cache-root", type=Path, required=True)
+    discover_chl_parser.add_argument("--project-root", type=Path, default=Path("."))
+    discover_chl_parser.add_argument("--start-year", type=int, required=True)
+    discover_chl_parser.add_argument("--end-year", type=int, required=True)
     evaluate_parser = subparsers.add_parser(
         "evaluate",
         help="Evaluate the consensus baseline against a normalized historical CSV.",
@@ -1116,6 +1229,7 @@ def main() -> None:
             args.base_dir,
             args.output_dir,
             draft_year=args.draft_year,
+            nhl_draft_json=args.nhl_draft_json,
             hockeydb_draft_html=args.hockeydb_draft_html,
             hockeydb_player_pages_dir=args.hockeydb_player_pages_dir,
             eliteprospects_csv=args.eliteprospects_csv,
@@ -1124,6 +1238,55 @@ def main() -> None:
             match_map=args.match_map,
             match_template_output=args.match_template_output,
             candidate_count=args.candidate_count,
+        )
+    elif args.command == "etl-draft-range":
+        run_etl_draft_range(
+            args.manifest_path,
+            args.report_dir,
+            project_root=args.project_root,
+            output_root=args.output_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            dry_run=args.dry_run,
+            force=args.force,
+            continue_on_error=not args.fail_fast,
+        )
+    elif args.command == "collect-nhl-draft-range":
+        run_collect_nhl_draft_range(
+            args.cache_dir,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            refresh=args.refresh,
+        )
+    elif args.command == "collect-league-sources":
+        run_collect_league_sources(
+            args.manifest_path,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            refresh=args.refresh,
+            include_disabled=args.include_disabled,
+            continue_on_error=not args.fail_fast,
+        )
+    elif args.command == "enrich-draft-range-leagues":
+        run_enrich_draft_range_leagues(
+            args.manifest_path,
+            args.class_root,
+            args.report_dir,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            force=args.force,
+            continue_on_error=not args.fail_fast,
+        )
+    elif args.command == "discover-chl-sources":
+        run_discover_chl_sources(
+            args.output_path,
+            args.catalog,
+            cache_root=args.cache_root,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
         )
     elif args.command == "evaluate":
         run_evaluate(args.data_path, baseline=args.baseline, precision_n=args.precision_n)
@@ -1862,6 +2025,7 @@ def run_etl_draft_year(
     output_dir: Path,
     *,
     draft_year: int,
+    nhl_draft_json: Path | None = None,
     hockeydb_draft_html: Path | None = None,
     hockeydb_player_pages_dir: Path | None = None,
     eliteprospects_csv: Path | None,
@@ -1875,6 +2039,7 @@ def run_etl_draft_year(
         draft_year=draft_year,
         output_root=output_dir,
         base_dir=base_dir,
+        nhl_draft_json=nhl_draft_json,
         hockeydb_draft_html=hockeydb_draft_html,
         hockeydb_player_pages_dir=hockeydb_player_pages_dir,
         eliteprospects_csv=eliteprospects_csv,
@@ -1887,7 +2052,7 @@ def run_etl_draft_year(
     prepare_base_dataset(config)
 
     print(f"# Draft-year ETL: {draft_year}")
-    print(f"Base input directory: {base_dir or hockeydb_draft_html}")
+    print(f"Base input directory: {base_dir or nhl_draft_json or hockeydb_draft_html}")
     print(f"ETL output root: {output_dir}")
     print(f"Base snapshot: {config.base_output_dir}")
 
@@ -1910,6 +2075,210 @@ def run_etl_draft_year(
         candidate_count=candidate_count,
     )
     print(f"Final dataset: {config.final_output_dir}")
+
+
+def run_etl_draft_range(
+    manifest_path: Path,
+    report_dir: Path,
+    *,
+    project_root: Path,
+    output_root: Path | None = None,
+    start_year: int | None = None,
+    end_year: int | None = None,
+    dry_run: bool = False,
+    force: bool = False,
+    continue_on_error: bool = True,
+) -> None:
+    specs = load_draft_class_manifest(
+        manifest_path,
+        project_root=project_root,
+        output_root=output_root,
+    )
+    selected = filter_draft_class_specs(specs, start_year=start_year, end_year=end_year)
+    report = execute_draft_range_etl(
+        selected,
+        executor=execute_draft_class_spec,
+        report_dir=report_dir,
+        dry_run=dry_run,
+        force=force,
+        continue_on_error=continue_on_error,
+    )
+    print(f"# Draft-range ETL: {manifest_path}")
+    print(f"Classes selected: {len(selected)}")
+    print(f"Mode: {'dry-run' if dry_run else 'execute'}")
+    print(f"Completed or reusable: {report.ready_count}")
+    print(f"Failed: {report.failed_count}")
+    print(f"Blocked: {report.blocked_count}")
+    print(f"Run report: {report_dir / 'summary.md'}")
+    if not dry_run and (report.failed_count or report.blocked_count):
+        raise RuntimeError(
+            f"draft-range ETL incomplete: failed={report.failed_count}, "
+            f"blocked={report.blocked_count}"
+        )
+
+
+def execute_draft_class_spec(spec: DraftClassETLSpec) -> None:
+    use_normalized_base = spec.base_dir is not None and all(
+        (spec.base_dir / name).is_file()
+        for name in (
+            "players.csv",
+            "draft_selections.csv",
+            "rankings.csv",
+            "season_stat_lines.csv",
+            "nhl_outcomes.csv",
+        )
+    )
+    run_etl_draft_year(
+        spec.base_dir if use_normalized_base else None,
+        spec.output_dir,
+        draft_year=spec.draft_year,
+        nhl_draft_json=(
+            spec.nhl_draft_json
+            if not use_normalized_base and spec.nhl_draft_json and spec.nhl_draft_json.is_file()
+            else None
+        ),
+        hockeydb_draft_html=None if use_normalized_base else spec.hockeydb_draft_html,
+        hockeydb_player_pages_dir=(
+            spec.hockeydb_player_pages_dir
+            if spec.hockeydb_player_pages_dir and spec.hockeydb_player_pages_dir.is_dir()
+            else None
+        ),
+        eliteprospects_csv=(
+            spec.eliteprospects_csv
+            if spec.eliteprospects_csv and spec.eliteprospects_csv.is_file()
+            else None
+        ),
+        timing="pre_draft",
+        replace_timing="pre_draft",
+        match_map=spec.match_map if spec.match_map and spec.match_map.is_file() else None,
+        match_template_output=spec.output_dir / "eliteprospects_match_map_template.csv",
+        candidate_count=3,
+    )
+
+
+def run_collect_nhl_draft_range(
+    cache_dir: Path,
+    *,
+    start_year: int,
+    end_year: int,
+    refresh: bool = False,
+) -> None:
+    results = collect_nhl_draft_range(
+        cache_dir,
+        start_year=start_year,
+        end_year=end_year,
+        refresh=refresh,
+    )
+    print(f"# NHL draft cache: {start_year}-{end_year}")
+    for result in results:
+        print(
+            f"{result.draft_year}: {result.status}; "
+            f"picks={result.pick_count}; path={result.cache_path}"
+        )
+
+
+def run_collect_league_sources(
+    manifest_path: Path,
+    *,
+    project_root: Path,
+    start_year: int | None,
+    end_year: int | None,
+    refresh: bool,
+    include_disabled: bool,
+    continue_on_error: bool,
+) -> None:
+    sources = filter_league_sources(
+        load_league_source_manifest(manifest_path, project_root=project_root),
+        start_year=start_year,
+        end_year=end_year,
+        include_disabled=include_disabled,
+    )
+    results = collect_league_sources(
+        sources,
+        refresh=refresh,
+        continue_on_error=continue_on_error,
+    )
+    print(f"# League source cache: {manifest_path}")
+    for result in results:
+        print(
+            f"{result.source_id}: {result.status}; bytes={result.byte_count}; "
+            f"path={result.cache_path}; {result.detail}"
+        )
+    failed = sum(result.status == "failed" for result in results)
+    if failed:
+        raise RuntimeError(f"league source collection incomplete: failed={failed}")
+
+
+def run_discover_chl_sources(
+    output_path: Path,
+    catalogs: list[str],
+    *,
+    cache_root: Path,
+    project_root: Path,
+    start_year: int,
+    end_year: int,
+) -> None:
+    root = project_root.resolve()
+    resolved_cache_root = cache_root if cache_root.is_absolute() else root / cache_root
+    sources = []
+    for value in catalogs:
+        league, separator, path_text = value.partition(",")
+        if not separator or not league.strip() or not path_text.strip():
+            raise ValueError("CHL catalog must be league,local_html_path")
+        catalog_path = Path(path_text.strip())
+        if not catalog_path.is_absolute():
+            catalog_path = root / catalog_path
+        sources.extend(
+            discover_chl_source_specs(
+                catalog_path,
+                league=league.strip(),
+                cache_root=resolved_cache_root,
+                start_year=start_year,
+                end_year=end_year,
+            )
+        )
+    output = write_league_source_manifest(
+        output_path,
+        sources,
+        project_root=root,
+    )
+    print(f"# CHL source discovery: {start_year}-{end_year}")
+    print(f"Catalogs: {len(catalogs)}")
+    print(f"Sources discovered: {len(sources)}")
+    print(f"Manifest: {output}")
+
+
+def run_enrich_draft_range_leagues(
+    manifest_path: Path,
+    class_root: Path,
+    report_dir: Path,
+    *,
+    project_root: Path,
+    start_year: int,
+    end_year: int,
+    force: bool,
+    continue_on_error: bool,
+) -> None:
+    sources = filter_league_sources(
+        load_league_source_manifest(manifest_path, project_root=project_root),
+        start_year=start_year,
+        end_year=end_year,
+    )
+    report = run_league_enrichment_range(
+        class_root,
+        sources,
+        report_dir=report_dir,
+        start_year=start_year,
+        end_year=end_year,
+        force=force,
+        continue_on_error=continue_on_error,
+    )
+    print(f"# Draft-range league enrichment: {start_year}-{end_year}")
+    print(f"Sources selected: {len(sources)}")
+    print(f"Failed classes: {report.failed_count}")
+    print(f"Run report: {report_dir / 'summary.md'}")
+    if report.failed_count:
+        raise RuntimeError(f"league enrichment incomplete: failed={report.failed_count}")
 
 
 def run_evaluate(data_path: Path, *, baseline: str = "consensus", precision_n: int = 10) -> None:
@@ -2369,17 +2738,45 @@ def format_board_order_report(report: dict[str, dict[str, float]]) -> str:
 def copy_dataset_directory(source_dir: Path, destination_dir: Path) -> None:
     if not source_dir.exists():
         raise ValueError(f"missing dataset directory: {source_dir}")
-    if destination_dir.exists():
-        shutil.rmtree(destination_dir)
-    shutil.copytree(source_dir, destination_dir)
+    source = source_dir.resolve()
+    destination = destination_dir.resolve()
+    if source == destination or source in destination.parents or destination in source.parents:
+        raise ValueError(f"dataset source and destination must not overlap: {source} -> {destination}")
+
+    temporary = destination.with_name(f".{destination.name}.tmp")
+    previous = destination.with_name(f".{destination.name}.previous")
+    if temporary.exists():
+        shutil.rmtree(temporary)
+    if previous.exists():
+        shutil.rmtree(previous)
+    shutil.copytree(source, temporary)
+    if destination.exists():
+        destination.rename(previous)
+    try:
+        temporary.rename(destination)
+    except Exception:
+        if previous.exists() and not destination.exists():
+            previous.rename(destination)
+        raise
+    if previous.exists():
+        shutil.rmtree(previous)
 
 
 def prepare_base_dataset(config: DraftYearETLConfig) -> None:
     if config.base_dir is not None:
         copy_dataset_directory(config.base_dir, config.base_output_dir)
         return
+    if config.nhl_draft_json is not None:
+        generate_nhl_draft_base_tables(
+            config.nhl_draft_json,
+            config.base_output_dir,
+            draft_year=config.draft_year,
+        )
+        return
     if config.hockeydb_draft_html is None:
-        raise ValueError("either base_dir or --hockeydb-draft-html must be provided")
+        raise ValueError(
+            "one of base_dir, --nhl-draft-json, or --hockeydb-draft-html must be provided"
+        )
     generate_hockeydb_base_tables(
         HockeyDbBaseETLConfig(
             draft_year=config.draft_year,

@@ -8,6 +8,8 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 
 - `docs/project_brief.md` - source project/development draft.
 - `docs/technical_debt_and_ingestion_plan.md` - current technical debt register and systematic ingestion roadmap.
+- `docs/historical_class_etl.md` - scalable 2014-2026 draft-class collection, ETL, and integrity workflow.
+- `docs/historical_league_enrichment.md` - cache-first league-stat enrichment and coverage reporting.
 - `src/draft_room_intelligence/data/` - ETL, import, merge, and normalized table loading.
 - `src/draft_room_intelligence/evaluation/` - baseline scoring and reporting utilities.
 - `src/draft_room_intelligence/modeling/` - reusable feature table generation and role-specific models.
@@ -17,6 +19,8 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `tests/` - CLI, ETL, merge, and evaluation coverage.
 - `data/reference/` - tracked reference tables such as league context.
 - `data/reference/ingestion_source_families.csv` - source-family ingestion manifest for cache-first adapter planning.
+- `data/reference/draft_class_etl.csv` - per-class path and source manifest for 2014-2026 batch ETL.
+- `data/reference/league_stat_sources.csv` - reviewed league-stat URL/cache manifest.
 - `data/reference/codex_routing_benchmark_tasks.csv` - repeatable benchmark tasks for measuring routing impact.
 - `data/reference/codex_usage_run_log_template.csv` - local run-log template for routing usage measurements.
 - `data/reference/codex_context_routes.csv` - bounded context route map for common Codex task types.
@@ -43,6 +47,8 @@ make evaluate-pilot-hybrid
 make team-depth-sample
 make nhl-roster-sample
 make ep-pdf-sample
+make historical-draft-etl
+make historical-league-etl
 make test
 ```
 
@@ -72,6 +78,10 @@ python -m draft_room_intelligence.cli validate-eliteprospects data/raw/elitepros
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --base-dir data/processed/pilot_2019 --eliteprospects-csv data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --hockeydb-draft-html data/raw/hockeydb/2019/nhl2019e.html --eliteprospects-csv data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --hockeydb-draft-html data/raw/hockeydb/2019/nhl2019e.html --hockeydb-player-pages-dir data/raw/hockeydb/2019/player_pages --eliteprospects-csv data/raw/eliteprospects_2019.csv
+python -m draft_room_intelligence.cli collect-nhl-draft-range data/raw/nhl_draft --start-year 2014 --end-year 2026
+python -m draft_room_intelligence.cli etl-draft-range data/reference/draft_class_etl.csv outputs/draft_range_etl --project-root . --start-year 2014 --end-year 2026
+python -m draft_room_intelligence.cli collect-league-sources data/reference/league_stat_sources.csv --project-root . --start-year 2014 --end-year 2026
+python -m draft_room_intelligence.cli enrich-draft-range-leagues data/reference/league_stat_sources.csv data/processed/draft_classes outputs/league_enrichment --project-root . --start-year 2014 --end-year 2026
 python -m draft_room_intelligence.cli process-eliteprospects data/raw/eliteprospects_2019.csv data/processed/pilot_2019 data/processed/eliteprospects_2019 data/processed/pilot_2019_ep --draft-year 2019
 python -m draft_room_intelligence.cli import-eliteprospects data/raw/eliteprospects_2019.csv data/processed/eliteprospects_2019 --draft-year 2019
 python -m draft_room_intelligence.cli merge-eliteprospects data/processed/pilot_2019 data/processed/eliteprospects_2019 data/processed/pilot_2019_ep
@@ -105,6 +115,11 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
 - `make nhl-roster-sample` - import cached NHL roster/stat JSON into roster rows, then build a team-depth report.
 - `make ep-pdf-sample` - parse a limited local Elite Prospects draft-guide PDF window into normalized player/stat/profile artifacts.
+- `make historical-draft-cache` - cache official NHL draft lists for 2014-2026; this target requires network access only for uncached years.
+- `make historical-draft-etl` - build or resume all configured 2014-2026 normalized class datasets and write integrity reports.
+- `make historical-league-cache` - collect missing league-stat files from the reviewed source manifest.
+- `make historical-league-discover` - regenerate CHL season/stage URLs from cached official catalogs.
+- `make historical-league-etl` - apply cached league sources and write per-class coverage reports.
 - `make evaluate-consensus` - evaluate the consensus baseline against the fixture CSV.
 - `make evaluate-projection` - evaluate the heuristic projection baseline against the fixture CSV.
 - `make evaluate-adjusted-production` - evaluate the adjusted-production baseline against the fixture CSV.
@@ -135,6 +150,9 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel report-codex-context-routes data/reference/codex_context_routes.csv <output-dir>` - audit bounded context routes used to reduce broad repo reads.
 - `draft-room-intel report-codex-task-routing data/reference/codex_task_routing.csv data/reference/codex_context_routes.csv <output-dir>` - audit task-level routing rules for context route, agent, reasoning, and validation selection.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --base-dir <base-dir> [--eliteprospects-csv <export.csv>]` - create a base ETL snapshot from an existing normalized dataset and optionally enrich it with Elite Prospects in one command.
+- `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --nhl-draft-json <picks.json>` - generate a normalized base dataset from cached official NHL draft picks.
+- `draft-room-intel collect-nhl-draft-range <cache-dir> --start-year 2014 --end-year 2026` - cache official draft lists for offline ETL.
+- `draft-room-intel etl-draft-range data/reference/draft_class_etl.csv <report-dir> --project-root .` - plan or execute resumable multi-class ETL with per-class integrity reporting.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> [--eliteprospects-csv <export.csv>]` - generate the base dataset from a local HockeyDB draft HTML file, then optionally enrich it with Elite Prospects.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --hockeydb-draft-html <path> --hockeydb-player-pages-dir <dir> [--eliteprospects-csv <export.csv>]` - generate a richer base dataset from local HockeyDB draft and player-page HTML caches.
 - `draft-room-intel process-eliteprospects <export.csv> <base-dir> <source-output-dir> <merged-output-dir> --draft-year <year>` - run the full Elite Prospects import, merge, quality report, and match-template workflow.
@@ -157,11 +175,13 @@ The Makefile automatically uses `.venv/bin/python` when `.venv` exists. You can 
 ## Data Layout
 
 - `data/raw/hockeydb/<year>/...` - local HockeyDB draft HTML input for base generation.
+- `data/raw/nhl_draft/<year>/picks.json` - cached official NHL draft-list baseline.
 - `data/raw/hockeydb/<year>/player_pages/...` - optional cached HockeyDB player HTML pages for better bio and pre-draft stat extraction.
 - `data/raw/eliteprospects_<year>.csv` - optional Elite Prospects export for enrichment.
 - `data/processed/<year>/base` - normalized base dataset snapshot.
 - `data/processed/<year>/eliteprospects` - normalized Elite Prospects import.
 - `data/processed/<year>/final` - merged dataset used for evaluation and downstream modeling.
+- `data/processed/draft_classes/<year>/final` - standardized 2014-2026 batch-ETL snapshots.
 - `data/processed/pilot_2019` - current tracked pilot snapshot used for local evaluation and modeling examples.
 - `data/reference/league_context.csv` - tracked league strength and context table used by adjusted production logic.
 

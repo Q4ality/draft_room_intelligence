@@ -11,6 +11,7 @@ class DraftYearETLConfig:
     draft_year: int
     output_root: Path
     base_dir: Path | None = None
+    nhl_draft_json: Path | None = None
     hockeydb_draft_html: Path | None = None
     hockeydb_player_pages_dir: Path | None = None
     eliteprospects_csv: Path | None = None

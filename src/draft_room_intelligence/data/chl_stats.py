@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import csv
 import json
-import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -17,7 +16,6 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     write_table,
 )
 from draft_room_intelligence.data.league_standardization import normalize_league_name
-
 
 CHL_MATCH_COLUMNS = [
     "player_id",
@@ -95,22 +93,28 @@ def enrich_chl_stats(
 
     players = read_table(source_root / "players.csv")
     base_stat_lines = read_table(source_root / "season_stat_lines.csv")
+    drafted_leagues = read_drafted_league_hints(source_root)
     source_lines = load_chl_source_lines(sources)
     source_by_name_league: dict[tuple[str, str], list[ChlSkaterStatLine]] = {}
     for line in source_lines:
-        source_by_name_league.setdefault((normalize_person_key(line.name), normalize_league_name(line.league)), []).append(line)
+        key = (normalize_person_key(line.name), normalize_league_name(line.league))
+        source_by_name_league.setdefault(key, []).append(line)
 
     matched_by_player_id: dict[str, list[ChlSkaterStatLine]] = {}
     report_rows: list[dict[str, str]] = []
+    player_name_counts = count_normalized_names(players)
     for player in players:
         player_leagues = {
             normalize_league_name(row.get("league", ""))
             for row in base_stat_lines
             if row.get("player_id") == player["player_id"]
         }
+        player_leagues.update(drafted_leagues.get(player["player_id"], set()))
         candidates: list[ChlSkaterStatLine] = []
-        for league in player_leagues:
-            candidates.extend(source_by_name_league.get((normalize_person_key(player["name"]), league), []))
+        player_key = normalize_person_key(player["name"])
+        if player_name_counts.get(player_key) == 1:
+            for league in player_leagues:
+                candidates.extend(source_by_name_league.get((player_key, league), []))
         candidates = deduplicate_chl_lines(candidates)
         if candidates:
             matched_by_player_id[player["player_id"]] = candidates
@@ -346,6 +350,27 @@ def normalize_chl_player_name(value: str) -> str:
 
 def normalize_person_key(value: str) -> str:
     return "".join(character.lower() for character in value if character.isalnum())
+
+
+def count_normalized_names(players: list[dict[str, str]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for player in players:
+        key = normalize_person_key(player.get("name", ""))
+        if key:
+            counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def read_drafted_league_hints(dataset_root: Path) -> dict[str, set[str]]:
+    path = dataset_root / "draft_selections.csv"
+    if not path.is_file():
+        return {}
+    hints: dict[str, set[str]] = {}
+    for row in read_table(path):
+        league = normalize_league_name(row.get("drafted_from_league", ""))
+        if league:
+            hints.setdefault(row.get("player_id", ""), set()).add(league)
+    return hints
 
 
 def source_id_from_url(value: str) -> str:

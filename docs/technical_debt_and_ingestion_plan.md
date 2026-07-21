@@ -29,6 +29,19 @@ Needs cleanup before productization:
 
 ## Systematic Ingestion Architecture
 
+The 2014-2026 orchestration foundation is implemented. Official NHL draft lists are cached locally, normalized into one class directory per year, checked for referential integrity, and resumed through `etl-draft-range`. See `docs/historical_class_etl.md`.
+
+The remaining scaling problem is enrichment depth rather than draft-list coverage: 11 of 13 generated classes still have zero pre-draft season-stat rows, while the existing 2019 and 2025 datasets retain their richer histories.
+
+The league-source orchestration layer is now implemented through
+`data/reference/league_stat_sources.csv`. It applies cached CHL, USHL, and curated open CSV
+sources across class directories, fingerprints inputs for resumability, and reports exact
+player coverage. CHL catalog discovery now covers 73 source rows across 2014-2026. Six cached
+2025 rows are enabled; 67 historical rows are a disabled, retryable backlog because direct
+collection receives HTTP 403 and browser-rendered page source cannot be exported through the
+available browser security boundary. Prefer a permitted HockeyTech export/API or an authorized
+cache-building environment over browser table scraping.
+
 Use a four-stage ingestion contract for every source family:
 
 1. **Collect** raw source files into `data/raw/<source>/<year>/` or an equivalent ignored cache. Live fetches should be optional; cached HTML/CSV/PDF should be enough to rerun ETL.

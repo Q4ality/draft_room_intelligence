@@ -1,4 +1,4 @@
-.PHONY: install-dev demo demo-2025-readiness team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
+.PHONY: install-dev demo demo-2025-readiness historical-draft-cache historical-draft-etl historical-league-discover historical-league-cache historical-league-etl team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
 
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
@@ -11,6 +11,21 @@ demo:
 demo-2025-readiness:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv --gap-top-n 35 --movement-top-n 40
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli audit-team-systems outputs/org_rosters_2024_25_with_ahl.csv outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/team_system_audit
+
+historical-draft-cache:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-nhl-draft-range data/raw/nhl_draft --start-year 2014 --end-year 2026
+
+historical-draft-etl:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli etl-draft-range data/reference/draft_class_etl.csv outputs/draft_range_etl --project-root . --start-year 2014 --end-year 2026
+
+historical-league-discover:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli discover-chl-sources data/reference/league_stat_sources.csv --catalog OHL,data/raw/cache/chl_stats/ohl_2024_25_regular_players.html --catalog WHL,data/raw/cache/chl_stats/whl_2024_25_regular_players.html --catalog QMJHL,data/raw/cache/chl_stats/qmjhl_2024_25_regular_players.html --cache-root data/raw/cache/chl_stats --project-root . --start-year 2014 --end-year 2026
+
+historical-league-cache:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-league-sources data/reference/league_stat_sources.csv --project-root . --start-year 2014 --end-year 2026
+
+historical-league-etl:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli enrich-draft-range-leagues data/reference/league_stat_sources.csv data/processed/draft_classes outputs/league_enrichment --project-root . --start-year 2014 --end-year 2026
 
 team-fit-2025:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli merge-roster-csvs outputs/org_rosters_2024_25_with_ahl.csv outputs/nhl_rosters_20242025.csv outputs/ahl_rosters_2024_25.csv --resolve-cross-org-assignments --nhl-season 20242025 --assignment-cache-dir data/raw/rosters/assignment_logs/20242025

@@ -1,0 +1,46 @@
+{
+  "draftYear": 2024,
+  "state": "over",
+  "picks": [
+    {
+      "round": 1,
+      "pickInRound": 1,
+      "overallPick": 1,
+      "teamAbbrev": "SJS",
+      "teamName": {"default": "San Jose Sharks"},
+      "firstName": {"default": "Macklin"},
+      "lastName": {"default": "Celebrini"},
+      "positionCode": "C",
+      "countryCode": "CAN",
+      "height": 72,
+      "weight": 197,
+      "amateurLeague": "H-EAST",
+      "amateurClubName": "Boston University"
+    },
+    {
+      "round": 1,
+      "pickInRound": 2,
+      "overallPick": 2,
+      "teamAbbrev": "CHI",
+      "teamName": {"default": "Chicago Blackhawks"},
+      "firstName": {"default": "Artyom"},
+      "lastName": {"default": "Levshunov"},
+      "positionCode": "D",
+      "countryCode": "BLR",
+      "height": 74,
+      "weight": 205,
+      "amateurLeague": "BIG10",
+      "amateurClubName": "Michigan State U."
+    },
+    {
+      "round": 1,
+      "pickInRound": 3,
+      "overallPick": 3,
+      "teamAbbrev": "ARI",
+      "teamName": {"default": "Arizona Coyotes"},
+      "firstName": {"default": "Forfeited"},
+      "lastName": {"default": ""},
+      "positionCode": ""
+    }
+  ]
+}

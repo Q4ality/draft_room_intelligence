@@ -10,6 +10,9 @@ This project uses a split between tracked reference/sample data and untracked lo
 ## Kept Local
 
 - `raw/` is for HockeyDB HTML caches, Elite Prospects exports, and other source files we can regenerate or re-import.
+- `raw/nhl_draft/<year>/picks.json` stores the official NHL draft-list cache used by historical batch ETL.
+- `raw/cache/<source>/...` stores league-stat payloads listed in `reference/league_stat_sources.csv`.
+- `processed/draft_classes/<year>/final` stores local normalized class snapshots generated from the tracked ETL manifest.
 - larger ad hoc processed datasets can live here temporarily while we decide whether they belong in git or external storage.
 
 ## Practical Rule

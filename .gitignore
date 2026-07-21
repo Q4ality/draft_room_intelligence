@@ -14,3 +14,4 @@ dist/
 outputs/
 tmp/
 data/raw/
+data/processed/draft_classes/
