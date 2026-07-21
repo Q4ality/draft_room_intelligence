@@ -147,3 +147,52 @@ def test_team_system_audit_distinguishes_provenance_from_point_in_time_confidenc
     assert "season_participation_not_point_in_time" in reliability["review_flags"]
     summary = (output_dir / "summary.md").read_text(encoding="utf-8")
     assert "High-priority flags: 0" in summary
+
+
+def test_team_system_contract_coverage_uses_nhl_rows_only(tmp_path):
+    roster_csv = tmp_path / "roster.csv"
+    demo_dir = tmp_path / "demo"
+    output_dir = tmp_path / "audit"
+    demo_dir.mkdir()
+    players = []
+    for player_id in ("1", "2"):
+        players.append(
+            RosterPlayer(
+                "NYI",
+                "New York Islanders",
+                "NHL",
+                "",
+                player_id,
+                f"NHL Player {player_id}",
+                "D",
+                snapshot_date="2025-06-01",
+                cap_hit=1_000_000,
+                contract_end_year=2026,
+                contract_snapshot_date="2025-06-01",
+            )
+        )
+    players.append(
+        RosterPlayer(
+            "NYI",
+            "New York Islanders",
+            "AHL",
+            "Bridgeport Islanders",
+            "3",
+            "AHL Player",
+            "D",
+            snapshot_date="2025-06-01",
+        )
+    )
+    write_roster_csv(roster_csv, players)
+    (demo_dir / "manifest.json").write_text(
+        json.dumps({"team_contexts": [{"team_id": "NYI", "team_name": "New York Islanders"}]}),
+        encoding="utf-8",
+    )
+    (demo_dir / "players.json").write_text("[]", encoding="utf-8")
+
+    audit = write_team_system_audit(roster_csv, demo_dir, output_dir)
+
+    reliability = audit.reliability_rows[0]
+    assert reliability["players"] == "3"
+    assert reliability["nhl_players"] == "2"
+    assert reliability["contract_coverage"] == "1.000"

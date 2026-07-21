@@ -1,5 +1,7 @@
 import csv
+import json
 
+from draft_room_intelligence.data.nhl_contracts import file_sha256
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 
 
@@ -92,3 +94,81 @@ def test_ingestion_plan_requires_raw_cache_for_ready_status(tmp_path):
     row = list(csv.DictReader((tmp_path / "audit" / "source_family_audit.csv").open()))[0]
     assert row["readiness"] == "partial"
     assert row["next_action"] == "Stage cached raw inputs so this source can rerun without curated/manual files."
+
+
+def test_ingestion_plan_preserves_source_access_blocker(tmp_path):
+    project = tmp_path / "project"
+    project.mkdir()
+    (project / "docs").mkdir()
+    (project / "tests").mkdir()
+    (project / "docs/contracts.md").write_text("# Contracts\n", encoding="utf-8")
+    (project / "tests/test_contracts.py").write_text(
+        "def test_contracts():\n    assert True\n", encoding="utf-8"
+    )
+    manifest = project / "manifest.csv"
+    write_rows(
+        manifest,
+        [
+            {
+                "source_family": "nhl_contracts",
+                "priority": "1",
+                "draft_years": "2025",
+                "raw_cache_path": "data/raw/contracts/2025-06-01",
+                "normalized_output_path": "outputs/contracts.csv",
+                "doc_path": "docs/contracts.md",
+                "test_path": "tests/test_contracts.py",
+                "owner_stage": "source_access",
+                "notes": "permitted snapshot required",
+            }
+        ],
+    )
+
+    report = write_ingestion_plan_report(manifest, tmp_path / "audit", project_root=project)
+    row = report.audits[0].to_row()
+
+    assert row["readiness"] == "blocked"
+    assert row["next_action"] == (
+        "Obtain a permitted dated export or API credential; "
+        "do not substitute current web tables."
+    )
+
+    (project / "data/raw/contracts/2025-06-01").mkdir(parents=True)
+    (project / "outputs").mkdir()
+    (project / "outputs/contracts.csv").write_text("stale\n", encoding="utf-8")
+    report = write_ingestion_plan_report(manifest, tmp_path / "audit-empty", project_root=project)
+
+    assert report.audits[0].readiness == "blocked"
+    assert report.audits[0].raw_cache_status == "missing"
+
+    raw_csv = project / "data/raw/contracts/2025-06-01/source.csv"
+    raw_csv.write_text("Team,Player,AAV,End\n", encoding="utf-8")
+    raw_csv.with_suffix(".metadata.json").write_text("{}", encoding="utf-8")
+    report = write_ingestion_plan_report(manifest, tmp_path / "audit-invalid", project_root=project)
+
+    assert report.audits[0].readiness == "blocked"
+    assert report.audits[0].raw_cache_status == "missing"
+
+    raw_csv.write_text("Team,Player,AAV,End\nNYI,Example,$1000000,2026\n", encoding="utf-8")
+    valid_metadata = {
+        "source": "licensed-export",
+        "source_url": "https://example.test/export",
+        "snapshot_date": "2025-06-01",
+        "retrieved_at": "2026-07-21",
+        "access_basis": "licensed API export",
+        "input_sha256": file_sha256(raw_csv),
+    }
+    for invalid_metadata in (
+        {**valid_metadata, "source": None},
+        {**valid_metadata, "input_sha256": 123},
+    ):
+        raw_csv.with_suffix(".metadata.json").write_text(
+            json.dumps(invalid_metadata), encoding="utf-8"
+        )
+        report = write_ingestion_plan_report(manifest, tmp_path / "audit-wrong-type", project_root=project)
+        assert report.audits[0].raw_cache_status == "missing"
+
+    raw_csv.with_suffix(".metadata.json").write_text(json.dumps(valid_metadata), encoding="utf-8")
+    report = write_ingestion_plan_report(manifest, tmp_path / "audit-valid", project_root=project)
+
+    assert report.audits[0].readiness == "ready"
+    assert report.audits[0].raw_cache_status == "present"

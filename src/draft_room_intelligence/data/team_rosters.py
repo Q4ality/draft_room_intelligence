@@ -44,6 +44,7 @@ ROSTER_COLUMNS = [
     "trade_protection",
     "trade_protection_type",
     "trade_restriction_share",
+    "contract_snapshot_date",
     "contract_source",
     "contract_source_url",
     "source",
@@ -129,6 +130,7 @@ class RosterPlayer:
     trade_protection: str = ""
     trade_protection_type: str = ""
     trade_restriction_share: float = 0.0
+    contract_snapshot_date: str = ""
     contract_source: str = ""
     contract_source_url: str = ""
     source: str = ""
@@ -211,7 +213,7 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
             ]
         )
         scarcity = max(0.0, (target - count) / target) if target else 0.0
-        contract_players = [player for player in group if player.cap_hit or player.contract_end_year]
+        contract_players = [player for player in group if has_aligned_contract(player)]
         contract_coverage = len(contract_players) / count if count else 0.0
         total_cap_hit = sum(player.cap_hit for player in contract_players)
         long_term_committed = sum(1 for player in contract_players if player.contract_years_remaining >= 2.0)
@@ -345,6 +347,7 @@ def row_to_roster_player(row: dict[str, str]) -> RosterPlayer:
         trade_protection=optional_text(row, "trade_protection"),
         trade_protection_type=optional_text(row, "trade_protection_type"),
         trade_restriction_share=optional_float(row, "trade_restriction_share"),
+        contract_snapshot_date=optional_text(row, "contract_snapshot_date"),
         contract_source=optional_text(row, "contract_source"),
         contract_source_url=optional_text(row, "contract_source_url"),
         source=optional_text(row, "source"),
@@ -402,6 +405,7 @@ def roster_player_to_row(player: RosterPlayer) -> dict[str, str]:
         "trade_restriction_share": f"{player.trade_restriction_share:.3f}"
         if player.trade_restriction_share
         else "",
+        "contract_snapshot_date": player.contract_snapshot_date,
         "contract_source": player.contract_source,
         "contract_source_url": player.contract_source_url,
         "source": player.source,
@@ -472,8 +476,16 @@ def has_trade_protection(value: str) -> bool:
     return normalized not in {"", "NONE", "NO", "N/A", "NA"}
 
 
+def has_aligned_contract(player: RosterPlayer) -> bool:
+    return bool(
+        (player.cap_hit or player.contract_end_year)
+        and player.snapshot_date
+        and player.contract_snapshot_date == player.snapshot_date
+    )
+
+
 def contract_commitment_score(players: list[RosterPlayer], target: float) -> float:
-    contract_players = [player for player in players if player.cap_hit or player.contract_end_year]
+    contract_players = [player for player in players if has_aligned_contract(player)]
     if not contract_players or not target:
         return 0.0
     commitment_units = 0.0

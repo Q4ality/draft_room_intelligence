@@ -24,7 +24,7 @@ Needs cleanup before productization:
 - League-specific ingestion should move from curated CSV packs to cache-first source adapters with fixtures.
 - Name matching and duplicate stat-row reconciliation need stronger audits for non-English names, transliteration, and multi-source conflicts.
 - Elite Prospects PDF extraction needs a cost-aware model-routing layer. The current latest-model vision path is useful for hard pages, but too expensive as the default for full-guide extraction.
-- Contract/cap enrichment has a normalized adapter and neutral missing-data behavior, but still needs a licensed or cached source export. PuckPedia historical cap/API access and CapWages API access are paid; do not scrape around those access controls.
+- Contract/cap enrichment now includes a raw-export normalizer, historical snapshot checks, row-level matching audit, and neutral missing-data behavior. It still needs a permitted dated source export or API credential; do not scrape around provider access controls or terms.
 - Historical validation needs older draft classes with NHL outcome labels before predictive claims are made.
 
 ## Systematic Ingestion Architecture
@@ -82,6 +82,7 @@ Every new adapter should include:
    - Inputs: cap hit, contract end year, years remaining, contract type, and NTC/NMC or modified trade protection.
    - Scoring rule: contract evidence is a small team-fit component; missing coverage is neutral, and trade protection affects roster flexibility rather than player quality.
    - Acceptance: at least 80% NHL contract coverage, audited identity matches, snapshot dates, and no current-season contract rows presented as historical draft-night facts.
+   - Current blocker: no permitted 2025-06-01 league-wide export is staged. The available open Kaggle candidate was rejected because its contract fields include post-draft updates despite being paired with 2024-25 statistics.
 
 ## Near-Term Execution Order
 

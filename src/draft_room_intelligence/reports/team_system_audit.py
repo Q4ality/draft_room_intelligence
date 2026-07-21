@@ -9,6 +9,7 @@ from pathlib import Path
 
 from draft_room_intelligence.data.team_rosters import (
     RosterPlayer,
+    has_aligned_contract,
     has_trade_protection,
     load_roster_csv,
 )
@@ -58,14 +59,15 @@ def build_reliability_rows(players: list[RosterPlayer], team_names: dict[str, st
     rows: list[dict[str, str]] = []
     for team_id in sorted(team_names):
         team_players = [player for player in players if player.team_id == team_id]
-        contract_players = [player for player in team_players if player.cap_hit or player.contract_end_year]
+        nhl_players = [player for player in team_players if player.league_level == "NHL"]
+        contract_players = [player for player in nhl_players if has_aligned_contract(player)]
         snapshot_types = sorted({player.snapshot_type for player in team_players if player.snapshot_type})
         missing_snapshot = sum(1 for player in team_players if not player.snapshot_date or not player.snapshot_type)
         current_rows = sum(1 for player in team_players if player.snapshot_type == "current_roster")
         low_confidence = sum(1 for player in team_players if player.assignment_confidence.lower() == "low")
         medium_confidence = sum(1 for player in team_players if player.assignment_confidence.lower() == "medium")
         high_confidence = sum(1 for player in team_players if player.assignment_confidence.lower() == "high")
-        coverage = len(contract_players) / len(team_players) if team_players else 0.0
+        coverage = len(contract_players) / len(nhl_players) if nhl_players else 0.0
         issues = []
         if missing_snapshot:
             issues.append("missing_snapshot_provenance")
@@ -84,6 +86,7 @@ def build_reliability_rows(players: list[RosterPlayer], team_names: dict[str, st
                 "team_id": team_id,
                 "team_name": team_names[team_id],
                 "players": str(len(team_players)),
+                "nhl_players": str(len(nhl_players)),
                 "snapshot_dates": "; ".join(
                     sorted({player.snapshot_date for player in team_players if player.snapshot_date})
                 ),

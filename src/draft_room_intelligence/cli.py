@@ -46,7 +46,7 @@ from draft_room_intelligence.data.merge_quality import (
     format_merge_quality_report,
 )
 from draft_room_intelligence.data.nhl_api import import_nhl_rosters
-from draft_room_intelligence.data.nhl_contracts import enrich_roster_contracts
+from draft_room_intelligence.data.nhl_contracts import enrich_roster_contracts, normalize_contract_export
 from draft_room_intelligence.data.normalized_merge import (
     generate_match_map_template,
     merge_normalized_source_tables,
@@ -675,6 +675,20 @@ def main() -> None:
     contract_parser.add_argument("contracts_csv", type=Path, help="Cached normalized contract CSV.")
     contract_parser.add_argument("output_csv", type=Path, help="Contract-enriched roster CSV output.")
     contract_parser.add_argument("--audit-csv", type=Path, help="Optional contract matching audit CSV.")
+    normalize_contract_parser = subparsers.add_parser(
+        "normalize-nhl-contracts",
+        help="Normalize a permitted cached NHL contract export with historical snapshot checks.",
+    )
+    normalize_contract_parser.add_argument("input_csv", type=Path, help="Cached raw contract CSV export.")
+    normalize_contract_parser.add_argument("output_csv", type=Path, help="Normalized contract CSV output.")
+    normalize_contract_parser.add_argument("--snapshot-date", required=True, help="Source snapshot date in YYYY-MM-DD.")
+    normalize_contract_parser.add_argument(
+        "--metadata-json",
+        required=True,
+        type=Path,
+        help="Source metadata sidecar with snapshot, access basis, and input checksum.",
+    )
+    normalize_contract_parser.add_argument("--audit-csv", type=Path, help="Optional row-level normalization audit CSV.")
     demo_export_parser = subparsers.add_parser(
         "export-demo-package",
         help="Build board-ready demo exports for a single draft class.",
@@ -1018,6 +1032,14 @@ def main() -> None:
             args.roster_csv,
             args.contracts_csv,
             args.output_csv,
+            audit_csv=args.audit_csv,
+        )
+    elif args.command == "normalize-nhl-contracts":
+        run_normalize_nhl_contracts(
+            args.input_csv,
+            args.output_csv,
+            snapshot_date=args.snapshot_date,
+            metadata_json=args.metadata_json,
             audit_csv=args.audit_csv,
         )
     elif args.command == "export-demo-package":
@@ -2142,11 +2164,39 @@ def run_enrich_roster_contracts(
     print(f"Roster players: {summary.roster_players}")
     print(f"Contract rows: {summary.contract_rows}")
     print(f"Matched roster players: {summary.matched_players}")
+    print(f"Eligible NHL players: {summary.eligible_nhl_players}")
+    print(f"NHL contract coverage: {summary.nhl_coverage:.1%}")
     print(f"Unmatched contract rows: {summary.unmatched_contracts}")
     print(f"Ambiguous contract rows: {summary.ambiguous_contracts}")
     print(f"Roster CSV: {output_csv}")
     if audit_csv is not None:
         print(f"Contract match audit: {audit_csv}")
+
+
+def run_normalize_nhl_contracts(
+    input_csv: Path,
+    output_csv: Path,
+    *,
+    snapshot_date: str,
+    metadata_json: Path,
+    audit_csv: Path | None,
+) -> None:
+    summary = normalize_contract_export(
+        input_csv,
+        output_csv,
+        snapshot_date=snapshot_date,
+        metadata_json=metadata_json,
+        audit_csv=audit_csv,
+    )
+    print("# NHL contract normalization")
+    print(f"Input rows: {summary.input_rows}")
+    print(f"Normalized rows: {summary.normalized_rows}")
+    print(f"Rejected rows: {summary.rejected_rows}")
+    print(f"Future-signing rows rejected: {summary.future_signing_rows}")
+    print(f"Conflicting duplicate rows rejected: {summary.conflicting_duplicate_rows}")
+    print(f"Normalized contract CSV: {output_csv}")
+    if audit_csv is not None:
+        print(f"Normalization audit: {audit_csv}")
 
 
 def load_historical_prospects(data_path: Path):

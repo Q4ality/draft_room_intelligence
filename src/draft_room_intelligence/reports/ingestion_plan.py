@@ -6,6 +6,8 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
+from draft_room_intelligence.data.nhl_contracts import parse_iso_date, read_source_metadata
+
 
 SOURCE_FAMILY_COLUMNS = [
     "source_family",
@@ -136,11 +138,20 @@ def load_source_families(path: Path) -> list[SourceFamily]:
 
 
 def audit_source_family(family: SourceFamily, project_root: Path) -> IngestionAudit:
-    raw_status = path_status(project_root / family.raw_cache_path)
+    raw_path = project_root / family.raw_cache_path
+    raw_status = (
+        source_access_cache_status(raw_path)
+        if family.owner_stage == "source_access"
+        else path_status(raw_path)
+    )
     normalized_status = path_status(project_root / family.normalized_output_path)
     doc_status = path_status(project_root / family.doc_path)
     test_status = path_status(project_root / family.test_path)
-    readiness = classify_readiness(raw_status, normalized_status, doc_status, test_status)
+    readiness = (
+        "blocked"
+        if family.owner_stage == "source_access" and raw_status == "missing"
+        else classify_readiness(raw_status, normalized_status, doc_status, test_status)
+    )
     return IngestionAudit(
         source=family,
         raw_cache_status=raw_status,
@@ -172,6 +183,8 @@ def next_action(
     doc_status: str,
     test_status: str,
 ) -> str:
+    if family.owner_stage == "source_access" and raw_status == "missing":
+        return "Obtain a permitted dated export or API credential; do not substitute current web tables."
     if raw_status == "missing" and normalized_status == "missing":
         return "Collect or stage cached source files before adapter work."
     if raw_status == "missing":
@@ -224,6 +237,35 @@ def path_status(path: Path) -> str:
     if not str(path):
         return "missing"
     return "present" if path.exists() else "missing"
+
+
+def source_access_cache_status(path: Path) -> str:
+    if not path.is_dir():
+        return "missing"
+    try:
+        expected_snapshot = parse_iso_date(path.name)
+    except ValueError:
+        return "missing"
+    for csv_path in path.glob("*.csv"):
+        metadata_path = csv_path.with_suffix(".metadata.json")
+        if not metadata_path.is_file():
+            continue
+        try:
+            with csv_path.open(newline="", encoding="utf-8-sig") as handle:
+                reader = csv.reader(handle)
+                header = next(reader, [])
+                first_row = next(reader, [])
+            if not header or not any(value.strip() for value in first_row):
+                continue
+            read_source_metadata(
+                metadata_path,
+                input_csv=csv_path,
+                expected_snapshot=expected_snapshot,
+            )
+        except (OSError, ValueError):
+            continue
+        return "present"
+    return "missing"
 
 
 def int_value(value: str | None) -> int:
