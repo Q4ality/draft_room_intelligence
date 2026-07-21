@@ -63,6 +63,7 @@ from draft_room_intelligence.data.league_enrichment import (
     run_league_enrichment_range,
     write_league_source_manifest,
 )
+from draft_room_intelligence.data.league_pipeline import run_league_pipeline
 from draft_room_intelligence.data.merge_quality import (
     build_merge_quality_report,
     format_merge_quality_report,
@@ -110,7 +111,11 @@ from draft_room_intelligence.evaluation.baselines import (
     role_specific_hybrid_scores,
     weighted_hybrid_scores,
 )
-from draft_room_intelligence.modeling.feature_table import build_feature_rows, write_feature_table
+from draft_room_intelligence.modeling.feature_table import (
+    build_feature_rows,
+    load_advanced_stat_summaries,
+    write_feature_table,
+)
 from draft_room_intelligence.modeling.role_models import (
     evaluate_role_specific_models,
     write_model_summary,
@@ -133,6 +138,7 @@ from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
+from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
 from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
@@ -149,7 +155,9 @@ def main() -> None:
         "scaffold-demo-class",
         help="Create the local folder and template structure for a demo draft class.",
     )
-    scaffold_demo_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
+    scaffold_demo_parser.add_argument(
+        "--draft-year", type=int, required=True, help="NHL draft year."
+    )
     audit_demo_parser = subparsers.add_parser(
         "audit-demo-class",
         help="Audit whether a demo draft class has the expected local source files.",
@@ -160,7 +168,9 @@ def main() -> None:
         help="Convert a local Elite Prospects CSV export into normalized project tables.",
     )
     import_ep_parser.add_argument("export_path", type=Path, help="Path to the source CSV export.")
-    import_ep_parser.add_argument("output_dir", type=Path, help="Directory for normalized CSV output.")
+    import_ep_parser.add_argument(
+        "output_dir", type=Path, help="Directory for normalized CSV output."
+    )
     import_ep_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
     import_ep_parser.add_argument(
         "--timing",
@@ -173,8 +183,12 @@ def main() -> None:
         help="Convert a local Elite Prospects draft-guide PDF into normalized project tables.",
     )
     import_ep_pdf_parser.add_argument("pdf_path", type=Path, help="Path to the source PDF guide.")
-    import_ep_pdf_parser.add_argument("output_dir", type=Path, help="Directory for normalized CSV output.")
-    import_ep_pdf_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
+    import_ep_pdf_parser.add_argument(
+        "output_dir", type=Path, help="Directory for normalized CSV output."
+    )
+    import_ep_pdf_parser.add_argument(
+        "--draft-year", type=int, required=True, help="NHL draft year."
+    )
     import_ep_pdf_parser.add_argument(
         "--page-start",
         type=int,
@@ -232,9 +246,15 @@ def main() -> None:
         "overlay-eliteprospects-pdf-demo",
         help="Overlay normalized Elite Prospects PDF guide tables onto a demo final dataset.",
     )
-    overlay_ep_pdf_parser.add_argument("base_dir", type=Path, help="Existing demo final dataset directory.")
-    overlay_ep_pdf_parser.add_argument("ep_pdf_dir", type=Path, help="Directory created by import-eliteprospects-pdf.")
-    overlay_ep_pdf_parser.add_argument("output_dir", type=Path, help="Output directory for the enriched final dataset.")
+    overlay_ep_pdf_parser.add_argument(
+        "base_dir", type=Path, help="Existing demo final dataset directory."
+    )
+    overlay_ep_pdf_parser.add_argument(
+        "ep_pdf_dir", type=Path, help="Directory created by import-eliteprospects-pdf."
+    )
+    overlay_ep_pdf_parser.add_argument(
+        "output_dir", type=Path, help="Output directory for the enriched final dataset."
+    )
     overlay_ep_pdf_parser.add_argument(
         "--fuzzy-threshold",
         type=float,
@@ -250,7 +270,9 @@ def main() -> None:
         "merge-eliteprospects",
         help="Overlay normalized Elite Prospects tables onto a base draft-year dataset.",
     )
-    merge_ep_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    merge_ep_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
     merge_ep_parser.add_argument(
         "eliteprospects_dir",
         type=Path,
@@ -271,10 +293,18 @@ def main() -> None:
         "report-merge-quality",
         help="Print a quality report for a source-overlaid normalized dataset.",
     )
-    quality_parser.add_argument("base_dir", type=Path, help="Original normalized dataset directory.")
-    quality_parser.add_argument("source_dir", type=Path, help="Normalized source dataset directory.")
-    quality_parser.add_argument("merged_dir", type=Path, help="Merged normalized dataset directory.")
-    quality_parser.add_argument("--source-name", default="eliteprospects", help="Source label to audit.")
+    quality_parser.add_argument(
+        "base_dir", type=Path, help="Original normalized dataset directory."
+    )
+    quality_parser.add_argument(
+        "source_dir", type=Path, help="Normalized source dataset directory."
+    )
+    quality_parser.add_argument(
+        "merged_dir", type=Path, help="Merged normalized dataset directory."
+    )
+    quality_parser.add_argument(
+        "--source-name", default="eliteprospects", help="Source label to audit."
+    )
     quality_parser.add_argument("--timing", default="pre_draft", help="Stat-line timing to audit.")
     template_parser = subparsers.add_parser(
         "generate-match-map-template",
@@ -298,9 +328,15 @@ def main() -> None:
         help="Run Elite Prospects import, merge, quality report, and match-template generation.",
     )
     process_ep_parser.add_argument("export_path", type=Path, help="Path to the source CSV export.")
-    process_ep_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
-    process_ep_parser.add_argument("source_output_dir", type=Path, help="Directory for imported EP tables.")
-    process_ep_parser.add_argument("merged_output_dir", type=Path, help="Directory for merged output.")
+    process_ep_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
+    process_ep_parser.add_argument(
+        "source_output_dir", type=Path, help="Directory for imported EP tables."
+    )
+    process_ep_parser.add_argument(
+        "merged_output_dir", type=Path, help="Directory for merged output."
+    )
     process_ep_parser.add_argument("--draft-year", type=int, required=True, help="NHL draft year.")
     process_ep_parser.add_argument(
         "--timing",
@@ -333,8 +369,12 @@ def main() -> None:
         "enrich-wikipedia-bio",
         help="Enrich normalized player bio fields from public Wikipedia player pages.",
     )
-    wiki_bio_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
-    wiki_bio_parser.add_argument("output_dir", type=Path, help="Directory for enriched normalized output.")
+    wiki_bio_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
+    wiki_bio_parser.add_argument(
+        "output_dir", type=Path, help="Directory for enriched normalized output."
+    )
     wiki_bio_parser.add_argument(
         "--limit",
         type=int,
@@ -366,8 +406,12 @@ def main() -> None:
         "enrich-chl-stats",
         help="Overlay public CHL skater stat pages onto a normalized draft-year dataset.",
     )
-    chl_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
-    chl_stats_parser.add_argument("output_dir", type=Path, help="Directory for CHL-enriched output.")
+    chl_stats_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
+    chl_stats_parser.add_argument(
+        "output_dir", type=Path, help="Directory for CHL-enriched output."
+    )
     chl_stats_parser.add_argument(
         "--source",
         action="append",
@@ -381,8 +425,12 @@ def main() -> None:
         "enrich-ushl-stats",
         help="Overlay official USHL HockeyTech skater feeds onto a normalized draft-year dataset.",
     )
-    ushl_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
-    ushl_stats_parser.add_argument("output_dir", type=Path, help="Directory for USHL-enriched output.")
+    ushl_stats_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
+    ushl_stats_parser.add_argument(
+        "output_dir", type=Path, help="Directory for USHL-enriched output."
+    )
     ushl_stats_parser.add_argument(
         "--source",
         action="append",
@@ -396,7 +444,9 @@ def main() -> None:
         "enrich-open-stats-csv",
         help="Overlay flexible open-source stat CSVs onto a normalized draft-year dataset.",
     )
-    open_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
+    open_stats_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
     open_stats_parser.add_argument("output_dir", type=Path, help="Directory for enriched output.")
     open_stats_parser.add_argument(
         "--source",
@@ -416,9 +466,15 @@ def main() -> None:
         "enrich-wikipedia-career-stats",
         help="Overlay Wikipedia career-stat tables onto a normalized draft-year dataset.",
     )
-    wiki_career_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
-    wiki_career_stats_parser.add_argument("output_dir", type=Path, help="Directory for enriched output.")
-    wiki_career_stats_parser.add_argument("--season", required=True, help="Season to extract, e.g. 2024-25.")
+    wiki_career_stats_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
+    wiki_career_stats_parser.add_argument(
+        "output_dir", type=Path, help="Directory for enriched output."
+    )
+    wiki_career_stats_parser.add_argument(
+        "--season", required=True, help="Season to extract, e.g. 2024-25."
+    )
     wiki_career_stats_parser.add_argument(
         "--cache-dir",
         type=Path,
@@ -434,9 +490,15 @@ def main() -> None:
         "enrich-puckpedia-stats",
         help="Add same-season public stat rows from PuckPedia player pages.",
     )
-    puckpedia_stats_parser.add_argument("base_dir", type=Path, help="Existing normalized dataset directory.")
-    puckpedia_stats_parser.add_argument("output_dir", type=Path, help="Directory for enriched output.")
-    puckpedia_stats_parser.add_argument("--season", required=True, help="Season to extract, e.g. 2024-25.")
+    puckpedia_stats_parser.add_argument(
+        "base_dir", type=Path, help="Existing normalized dataset directory."
+    )
+    puckpedia_stats_parser.add_argument(
+        "output_dir", type=Path, help="Directory for enriched output."
+    )
+    puckpedia_stats_parser.add_argument(
+        "--season", required=True, help="Season to extract, e.g. 2024-25."
+    )
     puckpedia_stats_parser.add_argument(
         "--cache-dir",
         type=Path,
@@ -462,7 +524,9 @@ def main() -> None:
         type=Path,
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
-    feature_table_parser.add_argument("output_path", type=Path, help="CSV path for exported features.")
+    feature_table_parser.add_argument(
+        "output_path", type=Path, help="CSV path for exported features."
+    )
     role_models_parser = subparsers.add_parser(
         "evaluate-role-models",
         help="Fit simple role-specific models on the feature table and print evaluation metrics.",
@@ -497,7 +561,9 @@ def main() -> None:
         type=Path,
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
-    validation_parser.add_argument("output_dir", type=Path, help="Directory for validation report artifacts.")
+    validation_parser.add_argument(
+        "output_dir", type=Path, help="Directory for validation report artifacts."
+    )
     validation_parser.add_argument(
         "--precision-n",
         type=int,
@@ -515,26 +581,38 @@ def main() -> None:
         help="Build NHL/AHL organizational role-depth report from normalized roster CSV.",
     )
     team_depth_parser.add_argument("roster_csv", type=Path, help="Normalized roster CSV path.")
-    team_depth_parser.add_argument("output_dir", type=Path, help="Directory for depth report artifacts.")
+    team_depth_parser.add_argument(
+        "output_dir", type=Path, help="Directory for depth report artifacts."
+    )
     team_system_audit_parser = subparsers.add_parser(
         "audit-team-systems",
         help="Audit all NHL organizations for roster-fit and pipeline interpretation artifacts.",
     )
-    team_system_audit_parser.add_argument("roster_csv", type=Path, help="Merged normalized NHL/AHL roster CSV path.")
-    team_system_audit_parser.add_argument("demo_output_dir", type=Path, help="Demo output directory with players.json.")
-    team_system_audit_parser.add_argument("output_dir", type=Path, help="Directory for audit report artifacts.")
+    team_system_audit_parser.add_argument(
+        "roster_csv", type=Path, help="Merged normalized NHL/AHL roster CSV path."
+    )
+    team_system_audit_parser.add_argument(
+        "demo_output_dir", type=Path, help="Demo output directory with players.json."
+    )
+    team_system_audit_parser.add_argument(
+        "output_dir", type=Path, help="Directory for audit report artifacts."
+    )
     prospect_stat_audit_parser = subparsers.add_parser(
         "audit-prospect-stats",
         help="Build draft prospect skater/goalie stat summaries from normalized dataset directories.",
     )
-    prospect_stat_audit_parser.add_argument("output_dir", type=Path, help="Directory for prospect stat audit artifacts.")
+    prospect_stat_audit_parser.add_argument(
+        "output_dir", type=Path, help="Directory for prospect stat audit artifacts."
+    )
     prospect_stat_audit_parser.add_argument(
         "dataset_dirs",
         nargs="+",
         type=Path,
         help="One or more normalized source directories with players/rankings/season_stat_lines CSVs.",
     )
-    prospect_stat_audit_parser.add_argument("--draft-year", type=int, help="Draft year label for source rows without one.")
+    prospect_stat_audit_parser.add_argument(
+        "--draft-year", type=int, help="Draft year label for source rows without one."
+    )
     ingestion_plan_parser = subparsers.add_parser(
         "report-ingestion-plan",
         help="Audit systematic source-family ingestion readiness from a manifest CSV.",
@@ -544,24 +622,40 @@ def main() -> None:
         type=Path,
         help="Source-family manifest CSV, usually data/reference/ingestion_source_families.csv.",
     )
-    ingestion_plan_parser.add_argument("output_dir", type=Path, help="Directory for ingestion audit artifacts.")
+    ingestion_plan_parser.add_argument(
+        "output_dir", type=Path, help="Directory for ingestion audit artifacts."
+    )
     ingestion_plan_parser.add_argument(
         "--project-root",
         type=Path,
         default=Path("."),
         help="Project root used to resolve manifest paths.",
     )
+    league_audit_parser = subparsers.add_parser(
+        "audit-league-ingestion",
+        help="Audit normalized league coverage, conflicts, duplicates, and advanced samples.",
+    )
+    league_audit_parser.add_argument("class_root", type=Path)
+    league_audit_parser.add_argument("output_dir", type=Path)
+    league_audit_parser.add_argument("--start-year", type=int, required=True)
+    league_audit_parser.add_argument("--end-year", type=int, required=True)
     codex_usage_parser = subparsers.add_parser(
         "report-codex-usage",
         help="Build routing usage benchmark summary and dashboard from a run-log CSV.",
     )
-    codex_usage_parser.add_argument("run_log_csv", type=Path, help="CSV with baseline/routed benchmark run rows.")
-    codex_usage_parser.add_argument("output_dir", type=Path, help="Directory for usage report artifacts.")
+    codex_usage_parser.add_argument(
+        "run_log_csv", type=Path, help="CSV with baseline/routed benchmark run rows."
+    )
+    codex_usage_parser.add_argument(
+        "output_dir", type=Path, help="Directory for usage report artifacts."
+    )
     codex_routing_parser = subparsers.add_parser(
         "audit-codex-routing",
         help="Audit project Codex routing config, custom agents, and repo skill discovery links.",
     )
-    codex_routing_parser.add_argument("output_dir", type=Path, help="Directory for routing audit artifacts.")
+    codex_routing_parser.add_argument(
+        "output_dir", type=Path, help="Directory for routing audit artifacts."
+    )
     codex_routing_parser.add_argument(
         "--project-root",
         type=Path,
@@ -577,7 +671,9 @@ def main() -> None:
         type=Path,
         help="Context route manifest CSV, usually data/reference/codex_context_routes.csv.",
     )
-    codex_context_parser.add_argument("output_dir", type=Path, help="Directory for context route artifacts.")
+    codex_context_parser.add_argument(
+        "output_dir", type=Path, help="Directory for context route artifacts."
+    )
     codex_context_parser.add_argument(
         "--project-root",
         type=Path,
@@ -598,14 +694,22 @@ def main() -> None:
         type=Path,
         help="Context route manifest CSV, usually data/reference/codex_context_routes.csv.",
     )
-    codex_task_routing_parser.add_argument("output_dir", type=Path, help="Directory for task routing artifacts.")
+    codex_task_routing_parser.add_argument(
+        "output_dir", type=Path, help="Directory for task routing artifacts."
+    )
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
         help="Create a draft-night-safe roster proxy by removing draft-class players from a current roster CSV.",
     )
-    proxy_roster_parser.add_argument("roster_csv", type=Path, help="Current normalized roster CSV path.")
-    proxy_roster_parser.add_argument("data_path", type=Path, help="Normalized draft-class dataset directory.")
-    proxy_roster_parser.add_argument("output_csv", type=Path, help="Filtered proxy roster CSV output path.")
+    proxy_roster_parser.add_argument(
+        "roster_csv", type=Path, help="Current normalized roster CSV path."
+    )
+    proxy_roster_parser.add_argument(
+        "data_path", type=Path, help="Normalized draft-class dataset directory."
+    )
+    proxy_roster_parser.add_argument(
+        "output_csv", type=Path, help="Filtered proxy roster CSV output path."
+    )
     proxy_roster_parser.add_argument(
         "--audit-csv",
         type=Path,
@@ -615,8 +719,12 @@ def main() -> None:
         "merge-roster-csvs",
         help="Merge normalized roster CSV files into one roster-depth input.",
     )
-    merge_rosters_parser.add_argument("output_csv", type=Path, help="Merged normalized roster CSV output path.")
-    merge_rosters_parser.add_argument("input_csvs", nargs="+", type=Path, help="Input normalized roster CSV paths.")
+    merge_rosters_parser.add_argument(
+        "output_csv", type=Path, help="Merged normalized roster CSV output path."
+    )
+    merge_rosters_parser.add_argument(
+        "input_csvs", nargs="+", type=Path, help="Input normalized roster CSV paths."
+    )
     merge_rosters_parser.add_argument(
         "--keep-duplicates",
         action="store_true",
@@ -643,27 +751,43 @@ def main() -> None:
     )
     normalize_snapshot_parser.add_argument("input_csv", type=Path, help="Cached source export CSV.")
     normalize_snapshot_parser.add_argument("output_csv", type=Path, help="Normalized snapshot CSV.")
-    normalize_snapshot_parser.add_argument("--snapshot-date", required=True, help="Historical cutoff in YYYY-MM-DD format.")
-    normalize_snapshot_parser.add_argument("--metadata-json", required=True, type=Path, help="Source metadata sidecar.")
-    normalize_snapshot_parser.add_argument("--audit-csv", type=Path, help="Optional row-level normalization audit.")
+    normalize_snapshot_parser.add_argument(
+        "--snapshot-date", required=True, help="Historical cutoff in YYYY-MM-DD format."
+    )
+    normalize_snapshot_parser.add_argument(
+        "--metadata-json", required=True, type=Path, help="Source metadata sidecar."
+    )
+    normalize_snapshot_parser.add_argument(
+        "--audit-csv", type=Path, help="Optional row-level normalization audit."
+    )
     build_snapshot_parser = subparsers.add_parser(
         "build-point-in-time-roster",
         help="Apply a normalized rights snapshot to historical NHL/AHL season-stat rows.",
     )
-    build_snapshot_parser.add_argument("base_roster_csv", type=Path, help="Historical season-stat roster CSV.")
-    build_snapshot_parser.add_argument("snapshot_csv", type=Path, help="Normalized point-in-time rights snapshot CSV.")
-    build_snapshot_parser.add_argument("output_csv", type=Path, help="Point-in-time roster output CSV.")
+    build_snapshot_parser.add_argument(
+        "base_roster_csv", type=Path, help="Historical season-stat roster CSV."
+    )
+    build_snapshot_parser.add_argument(
+        "snapshot_csv", type=Path, help="Normalized point-in-time rights snapshot CSV."
+    )
+    build_snapshot_parser.add_argument(
+        "output_csv", type=Path, help="Point-in-time roster output CSV."
+    )
     build_snapshot_parser.add_argument(
         "--snapshot-date",
         required=True,
         help="Expected historical cutoff in YYYY-MM-DD format.",
     )
-    build_snapshot_parser.add_argument("--audit-csv", type=Path, help="Optional match and exclusion audit CSV.")
+    build_snapshot_parser.add_argument(
+        "--audit-csv", type=Path, help="Optional match and exclusion audit CSV."
+    )
     ahl_rosters_parser = subparsers.add_parser(
         "import-ahl-rosters",
         help="Import official AHL historical stats and roster details into normalized roster CSV.",
     )
-    ahl_rosters_parser.add_argument("output_csv", type=Path, help="Path for normalized AHL roster CSV output.")
+    ahl_rosters_parser.add_argument(
+        "output_csv", type=Path, help="Path for normalized AHL roster CSV output."
+    )
     ahl_rosters_parser.add_argument(
         "--season-id",
         default=DEFAULT_AHL_SEASON_ID,
@@ -690,7 +814,9 @@ def main() -> None:
         "import-nhl-rosters",
         help="Import current or historical-season NHL rosters and club stats into normalized roster CSV.",
     )
-    nhl_rosters_parser.add_argument("output_csv", type=Path, help="Path for normalized roster CSV output.")
+    nhl_rosters_parser.add_argument(
+        "output_csv", type=Path, help="Path for normalized roster CSV output."
+    )
     nhl_rosters_parser.add_argument(
         "--teams",
         nargs="+",
@@ -731,22 +857,34 @@ def main() -> None:
     )
     contract_parser.add_argument("roster_csv", type=Path, help="Normalized NHL/AHL roster CSV.")
     contract_parser.add_argument("contracts_csv", type=Path, help="Cached normalized contract CSV.")
-    contract_parser.add_argument("output_csv", type=Path, help="Contract-enriched roster CSV output.")
-    contract_parser.add_argument("--audit-csv", type=Path, help="Optional contract matching audit CSV.")
+    contract_parser.add_argument(
+        "output_csv", type=Path, help="Contract-enriched roster CSV output."
+    )
+    contract_parser.add_argument(
+        "--audit-csv", type=Path, help="Optional contract matching audit CSV."
+    )
     normalize_contract_parser = subparsers.add_parser(
         "normalize-nhl-contracts",
         help="Normalize a permitted cached NHL contract export with historical snapshot checks.",
     )
-    normalize_contract_parser.add_argument("input_csv", type=Path, help="Cached raw contract CSV export.")
-    normalize_contract_parser.add_argument("output_csv", type=Path, help="Normalized contract CSV output.")
-    normalize_contract_parser.add_argument("--snapshot-date", required=True, help="Source snapshot date in YYYY-MM-DD.")
+    normalize_contract_parser.add_argument(
+        "input_csv", type=Path, help="Cached raw contract CSV export."
+    )
+    normalize_contract_parser.add_argument(
+        "output_csv", type=Path, help="Normalized contract CSV output."
+    )
+    normalize_contract_parser.add_argument(
+        "--snapshot-date", required=True, help="Source snapshot date in YYYY-MM-DD."
+    )
     normalize_contract_parser.add_argument(
         "--metadata-json",
         required=True,
         type=Path,
         help="Source metadata sidecar with snapshot, access basis, and input checksum.",
     )
-    normalize_contract_parser.add_argument("--audit-csv", type=Path, help="Optional row-level normalization audit CSV.")
+    normalize_contract_parser.add_argument(
+        "--audit-csv", type=Path, help="Optional row-level normalization audit CSV."
+    )
     demo_export_parser = subparsers.add_parser(
         "export-demo-package",
         help="Build board-ready demo exports for a single draft class.",
@@ -756,9 +894,18 @@ def main() -> None:
         type=Path,
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
-    demo_export_parser.add_argument("output_dir", type=Path, help="Directory for demo export artifacts.")
-    demo_export_parser.add_argument("--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis.")
-    demo_export_parser.add_argument("--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis.")
+    demo_export_parser.add_argument(
+        "output_dir", type=Path, help="Directory for demo export artifacts."
+    )
+    demo_export_parser.add_argument(
+        "--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis."
+    )
+    demo_export_parser.add_argument(
+        "--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis."
+    )
+    demo_export_parser.add_argument(
+        "--advanced-stats-csv", type=Path, help="Optional normalized advanced_stat_lines.csv."
+    )
     demo_site_parser = subparsers.add_parser(
         "build-demo-site",
         help="Build a self-contained HTML demo app for a single draft class.",
@@ -768,9 +915,18 @@ def main() -> None:
         type=Path,
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
-    demo_site_parser.add_argument("output_dir", type=Path, help="Directory for demo site artifacts.")
-    demo_site_parser.add_argument("--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis.")
-    demo_site_parser.add_argument("--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis.")
+    demo_site_parser.add_argument(
+        "output_dir", type=Path, help="Directory for demo site artifacts."
+    )
+    demo_site_parser.add_argument(
+        "--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis."
+    )
+    demo_site_parser.add_argument(
+        "--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis."
+    )
+    demo_site_parser.add_argument(
+        "--advanced-stats-csv", type=Path, help="Optional normalized advanced_stat_lines.csv."
+    )
     demo_readiness_parser = subparsers.add_parser(
         "build-demo-readiness",
         help="Build the demo site plus data-gap and modeling sanity reports.",
@@ -780,9 +936,18 @@ def main() -> None:
         type=Path,
         help="Path to a wide historical CSV or normalized dataset directory.",
     )
-    demo_readiness_parser.add_argument("output_dir", type=Path, help="Directory for demo and report artifacts.")
-    demo_readiness_parser.add_argument("--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis.")
-    demo_readiness_parser.add_argument("--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis.")
+    demo_readiness_parser.add_argument(
+        "output_dir", type=Path, help="Directory for demo and report artifacts."
+    )
+    demo_readiness_parser.add_argument(
+        "--team-depth-csv", type=Path, help="Optional NHL/AHL depth CSV for team-fit analysis."
+    )
+    demo_readiness_parser.add_argument(
+        "--team-id", default="", help="Optional NHL team abbreviation for team-fit analysis."
+    )
+    demo_readiness_parser.add_argument(
+        "--advanced-stats-csv", type=Path, help="Optional normalized advanced_stat_lines.csv."
+    )
     demo_readiness_parser.add_argument(
         "--gap-top-n",
         type=int,
@@ -799,8 +964,12 @@ def main() -> None:
         "report-demo-gaps",
         help="Prioritize low-evidence players from a generated demo package.",
     )
-    demo_gaps_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv and manifest.json.")
-    demo_gaps_parser.add_argument("output_dir", type=Path, help="Directory for gap report artifacts.")
+    demo_gaps_parser.add_argument(
+        "demo_output_dir", type=Path, help="Directory with board.csv and manifest.json."
+    )
+    demo_gaps_parser.add_argument(
+        "output_dir", type=Path, help="Directory for gap report artifacts."
+    )
     demo_gaps_parser.add_argument(
         "--top-n",
         type=int,
@@ -811,8 +980,12 @@ def main() -> None:
         "report-demo-modeling",
         help="Compare a generated demo board against consensus ordering.",
     )
-    demo_modeling_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv and manifest.json.")
-    demo_modeling_parser.add_argument("output_dir", type=Path, help="Directory for modeling sanity artifacts.")
+    demo_modeling_parser.add_argument(
+        "demo_output_dir", type=Path, help="Directory with board.csv and manifest.json."
+    )
+    demo_modeling_parser.add_argument(
+        "output_dir", type=Path, help="Directory for modeling sanity artifacts."
+    )
     demo_modeling_parser.add_argument(
         "--top-n",
         type=int,
@@ -823,14 +996,22 @@ def main() -> None:
         "report-demo-sanity",
         help="Build a focused top-board, role, and story-player sanity report.",
     )
-    demo_sanity_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv and players.json.")
-    demo_sanity_parser.add_argument("output_dir", type=Path, help="Directory for demo sanity artifacts.")
+    demo_sanity_parser.add_argument(
+        "demo_output_dir", type=Path, help="Directory with board.csv and players.json."
+    )
+    demo_sanity_parser.add_argument(
+        "output_dir", type=Path, help="Directory for demo sanity artifacts."
+    )
     demo_acceptance_parser = subparsers.add_parser(
         "report-demo-acceptance",
         help="Run pass/fail business-demo acceptance checks against generated artifacts.",
     )
-    demo_acceptance_parser.add_argument("demo_output_dir", type=Path, help="Directory with board.csv, players.json, and index.html.")
-    demo_acceptance_parser.add_argument("output_dir", type=Path, help="Directory for demo acceptance artifacts.")
+    demo_acceptance_parser.add_argument(
+        "demo_output_dir", type=Path, help="Directory with board.csv, players.json, and index.html."
+    )
+    demo_acceptance_parser.add_argument(
+        "output_dir", type=Path, help="Directory for demo acceptance artifacts."
+    )
     etl_parser = subparsers.add_parser(
         "etl-draft-year",
         help="Run draft-year ETL with optional Elite Prospects enrichment.",
@@ -893,8 +1074,12 @@ def main() -> None:
         "etl-draft-range",
         help="Plan or run resumable ETL for a manifest of draft classes.",
     )
-    range_etl_parser.add_argument("manifest_path", type=Path, help="CSV manifest with one row per draft class.")
-    range_etl_parser.add_argument("report_dir", type=Path, help="Output directory for batch run reports.")
+    range_etl_parser.add_argument(
+        "manifest_path", type=Path, help="CSV manifest with one row per draft class."
+    )
+    range_etl_parser.add_argument(
+        "report_dir", type=Path, help="Output directory for batch run reports."
+    )
     range_etl_parser.add_argument(
         "--project-root",
         type=Path,
@@ -906,8 +1091,12 @@ def main() -> None:
         type=Path,
         help="Default per-class ETL output root. Defaults to data/processed/draft_classes.",
     )
-    range_etl_parser.add_argument("--start-year", type=int, help="Optional inclusive first draft year.")
-    range_etl_parser.add_argument("--end-year", type=int, help="Optional inclusive last draft year.")
+    range_etl_parser.add_argument(
+        "--start-year", type=int, help="Optional inclusive first draft year."
+    )
+    range_etl_parser.add_argument(
+        "--end-year", type=int, help="Optional inclusive last draft year."
+    )
     range_etl_parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -968,6 +1157,25 @@ def main() -> None:
     enrich_leagues_parser.add_argument("--end-year", type=int, required=True)
     enrich_leagues_parser.add_argument("--force", action="store_true")
     enrich_leagues_parser.add_argument("--fail-fast", action="store_true")
+    league_pipeline_parser = subparsers.add_parser(
+        "run-league-pipeline",
+        help="Discover, optionally collect, enrich, and audit league data in one resumable run.",
+    )
+    league_pipeline_parser.add_argument("manifest_path", type=Path)
+    league_pipeline_parser.add_argument("class_root", type=Path)
+    league_pipeline_parser.add_argument("output_dir", type=Path)
+    league_pipeline_parser.add_argument("--project-root", type=Path, default=Path("."))
+    league_pipeline_parser.add_argument(
+        "--europe-catalog",
+        type=Path,
+        default=Path("data/reference/europe_league_source_catalog.csv"),
+    )
+    league_pipeline_parser.add_argument("--start-year", type=int, required=True)
+    league_pipeline_parser.add_argument("--end-year", type=int, required=True)
+    league_pipeline_parser.add_argument("--collect", action="store_true")
+    league_pipeline_parser.add_argument("--refresh", action="store_true")
+    league_pipeline_parser.add_argument("--force", action="store_true")
+    league_pipeline_parser.add_argument("--fail-fast", action="store_true")
     discover_chl_parser = subparsers.add_parser(
         "discover-chl-sources",
         help="Generate historical CHL source rows from cached official season catalogs.",
@@ -1028,7 +1236,15 @@ def main() -> None:
     )
     evaluate_parser.add_argument(
         "--baseline",
-        choices=("consensus", "projection", "adjusted-production", "contextual", "role-aware", "role-specific-hybrid", "hybrid"),
+        choices=(
+            "consensus",
+            "projection",
+            "adjusted-production",
+            "contextual",
+            "role-aware",
+            "role-specific-hybrid",
+            "hybrid",
+        ),
         default="consensus",
         help="Baseline scorer to evaluate.",
     )
@@ -1175,13 +1391,24 @@ def main() -> None:
     elif args.command == "audit-prospect-stats":
         run_audit_prospect_stats(args.output_dir, args.dataset_dirs, draft_year=args.draft_year)
     elif args.command == "report-ingestion-plan":
-        run_report_ingestion_plan(args.manifest_csv, args.output_dir, project_root=args.project_root)
+        run_report_ingestion_plan(
+            args.manifest_csv, args.output_dir, project_root=args.project_root
+        )
+    elif args.command == "audit-league-ingestion":
+        run_audit_league_ingestion(
+            args.class_root,
+            args.output_dir,
+            start_year=args.start_year,
+            end_year=args.end_year,
+        )
     elif args.command == "report-codex-usage":
         run_report_codex_usage(args.run_log_csv, args.output_dir)
     elif args.command == "audit-codex-routing":
         run_audit_codex_routing(args.output_dir, project_root=args.project_root)
     elif args.command == "report-codex-context-routes":
-        run_report_codex_context_routes(args.manifest_csv, args.output_dir, project_root=args.project_root)
+        run_report_codex_context_routes(
+            args.manifest_csv, args.output_dir, project_root=args.project_root
+        )
     elif args.command == "report-codex-task-routing":
         run_report_codex_task_routing(args.manifest_csv, args.context_routes_csv, args.output_dir)
     elif args.command == "create-preseason-roster-proxy":
@@ -1250,9 +1477,21 @@ def main() -> None:
             audit_csv=args.audit_csv,
         )
     elif args.command == "export-demo-package":
-        run_export_demo_package(args.data_path, args.output_dir, team_depth_csv=args.team_depth_csv, team_id=args.team_id)
+        run_export_demo_package(
+            args.data_path,
+            args.output_dir,
+            team_depth_csv=args.team_depth_csv,
+            team_id=args.team_id,
+            advanced_stats_csv=args.advanced_stats_csv,
+        )
     elif args.command == "build-demo-site":
-        run_build_demo_site(args.data_path, args.output_dir, team_depth_csv=args.team_depth_csv, team_id=args.team_id)
+        run_build_demo_site(
+            args.data_path,
+            args.output_dir,
+            team_depth_csv=args.team_depth_csv,
+            team_id=args.team_id,
+            advanced_stats_csv=args.advanced_stats_csv,
+        )
     elif args.command == "build-demo-readiness":
         run_build_demo_readiness(
             args.data_path,
@@ -1261,6 +1500,7 @@ def main() -> None:
             movement_top_n=args.movement_top_n,
             team_depth_csv=args.team_depth_csv,
             team_id=args.team_id,
+            advanced_stats_csv=args.advanced_stats_csv,
         )
     elif args.command == "report-demo-gaps":
         run_report_demo_gaps(args.demo_output_dir, args.output_dir, top_n=args.top_n)
@@ -1326,6 +1566,20 @@ def main() -> None:
             force=args.force,
             continue_on_error=not args.fail_fast,
         )
+    elif args.command == "run-league-pipeline":
+        run_operational_league_pipeline(
+            args.manifest_path,
+            args.class_root,
+            args.output_dir,
+            project_root=args.project_root,
+            europe_catalog=args.europe_catalog,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            collect=args.collect,
+            refresh=args.refresh,
+            force=args.force,
+            continue_on_error=not args.fail_fast,
+        )
     elif args.command == "discover-chl-sources":
         run_discover_chl_sources(
             args.output_path,
@@ -1371,10 +1625,7 @@ def run_demo() -> None:
     prospects = sample_prospects()
     team = sample_team_context()
     projections = project_board(prospects)
-    scouting = {
-        prospect.player_id: extract_scouting_features(prospect)
-        for prospect in prospects
-    }
+    scouting = {prospect.player_id: extract_scouting_features(prospect) for prospect in prospects}
     board = rank_board(prospects, projections, scouting, team)
     prospects_by_id = {prospect.player_id: prospect for prospect in prospects}
 
@@ -1442,7 +1693,9 @@ def run_audit_demo_class(draft_year: int) -> None:
     print(format_demo_audit_report(report))
 
 
-def run_audit_prospect_stats(output_dir: Path, dataset_dirs: list[Path], *, draft_year: int | None) -> None:
+def run_audit_prospect_stats(
+    output_dir: Path, dataset_dirs: list[Path], *, draft_year: int | None
+) -> None:
     summary = write_prospect_stat_audit(output_dir, dataset_dirs, draft_year=draft_year)
     print(f"# Prospect stat audit: {draft_year or 'unknown draft year'}")
     print(f"Output directory: {output_dir}")
@@ -1461,6 +1714,25 @@ def run_report_ingestion_plan(manifest_csv: Path, output_dir: Path, *, project_r
     print(f"Blocked: {report.blocked_count}")
     print(f"Summary: {output_dir / 'summary.md'}")
     print(f"Audit CSV: {output_dir / 'source_family_audit.csv'}")
+
+
+def run_audit_league_ingestion(
+    class_root: Path,
+    output_dir: Path,
+    *,
+    start_year: int,
+    end_year: int,
+) -> None:
+    report = write_league_ingestion_audit(
+        class_root,
+        output_dir,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    print(f"# League ingestion audit: {start_year}-{end_year}")
+    print(f"Classes: {len(report.years)}")
+    print(f"Issues: {len(report.issues)}")
+    print(f"Report: {output_dir / 'summary.md'}")
 
 
 def run_report_codex_usage(run_log_csv: Path, output_dir: Path) -> None:
@@ -1485,7 +1757,9 @@ def run_audit_codex_routing(output_dir: Path, *, project_root: Path) -> None:
     print(f"Checks CSV: {output_dir / 'checks.csv'}")
 
 
-def run_report_codex_context_routes(manifest_csv: Path, output_dir: Path, *, project_root: Path) -> None:
+def run_report_codex_context_routes(
+    manifest_csv: Path, output_dir: Path, *, project_root: Path
+) -> None:
     report = write_codex_context_routes_report(manifest_csv, output_dir, project_root=project_root)
     print(f"# Codex context routes: {manifest_csv}")
     print(f"Output directory: {output_dir}")
@@ -1496,7 +1770,9 @@ def run_report_codex_context_routes(manifest_csv: Path, output_dir: Path, *, pro
     print(f"Routes CSV: {output_dir / 'context_routes.csv'}")
 
 
-def run_report_codex_task_routing(manifest_csv: Path, context_routes_csv: Path, output_dir: Path) -> None:
+def run_report_codex_task_routing(
+    manifest_csv: Path, context_routes_csv: Path, output_dir: Path
+) -> None:
     report = write_codex_task_routing_report(manifest_csv, context_routes_csv, output_dir)
     print(f"# Codex task routing: {manifest_csv}")
     print(f"Output directory: {output_dir}")
@@ -1543,7 +1819,9 @@ def run_import_eliteprospects_pdf(
     env_file: Path,
 ) -> None:
     load_env_file(env_file)
-    resolved_vision_model = vision_model or os.environ.get("OPENAI_VISION_MODEL", DEFAULT_VISION_MODEL)
+    resolved_vision_model = vision_model or os.environ.get(
+        "OPENAI_VISION_MODEL", DEFAULT_VISION_MODEL
+    )
     resolved_pdftoppm_path = os.environ.get("PDFTOPPM_PATH", pdftoppm_path)
     normalized = write_eliteprospects_pdf_tables(
         pdf_path,
@@ -1788,7 +2066,9 @@ def run_enrich_chl_stats(base_dir: Path, output_dir: Path, *, sources: list[str]
 def parse_chl_source(value: str) -> ChlStatSource:
     parts = [part.strip() for part in value.split(",", 4)]
     if len(parts) not in (3, 4, 5):
-        raise ValueError("CHL source must be league,season,url[,local_html_path][,regular|playoffs]")
+        raise ValueError(
+            "CHL source must be league,season,url[,local_html_path][,regular|playoffs]"
+        )
     league, season, url = parts[:3]
     path = Path(parts[3]) if len(parts) >= 4 and parts[3] else None
     regular_season = True
@@ -1796,7 +2076,13 @@ def parse_chl_source(value: str) -> ChlStatSource:
         if parts[4] not in ("regular", "playoffs"):
             raise ValueError("CHL source season type must be 'regular' or 'playoffs'")
         regular_season = parts[4] == "regular"
-    return ChlStatSource(league=league, season=season, source_url=url, regular_season=regular_season, source_path=path)
+    return ChlStatSource(
+        league=league,
+        season=season,
+        source_url=url,
+        regular_season=regular_season,
+        source_path=path,
+    )
 
 
 def run_enrich_ushl_stats(base_dir: Path, output_dir: Path, *, sources: list[str]) -> None:
@@ -1836,7 +2122,9 @@ def run_enrich_open_stats_csv(
     allow_new_leagues: bool = False,
 ) -> None:
     parsed_sources = [parse_open_stats_source(value) for value in sources]
-    summary = enrich_open_stats_csv(base_dir, output_dir, parsed_sources, allow_new_leagues=allow_new_leagues)
+    summary = enrich_open_stats_csv(
+        base_dir, output_dir, parsed_sources, allow_new_leagues=allow_new_leagues
+    )
     print("# Open stats CSV enrichment")
     print(f"Base directory: {base_dir}")
     print(f"Output directory: {output_dir}")
@@ -1851,7 +2139,9 @@ def run_enrich_open_stats_csv(
 def parse_open_stats_source(value: str) -> OpenStatsCsvSource:
     parts = [part.strip() for part in value.split(",", 4)]
     if len(parts) not in (3, 4, 5):
-        raise ValueError("open stats source must be csv_path,source_label,season[,league][,regular|playoffs]")
+        raise ValueError(
+            "open stats source must be csv_path,source_label,season[,league][,regular|playoffs]"
+        )
     path_text, source, season = parts[:3]
     league = parts[3] if len(parts) >= 4 else ""
     regular_season = True
@@ -1926,7 +2216,7 @@ def run_enrich_puckpedia_stats(
 
 def run_export_feature_table(data_path: Path, output_path: Path) -> None:
     prospects = load_historical_prospects(data_path)
-    rows = build_feature_rows(prospects)
+    rows = build_feature_rows(prospects, load_advanced_stat_summaries(data_path))
     write_feature_table(output_path, rows)
     print(f"# Feature table export: {output_path}")
     print(f"Prospects loaded: {len(prospects)}")
@@ -1944,6 +2234,7 @@ def run_evaluate_role_models(
     feature_rows, models, _, probability_report, board_report = evaluate_role_specific_models(
         prospects,
         precision_n=precision_n,
+        advanced_stats=load_advanced_stat_summaries(data_path),
     )
     if feature_output is not None:
         write_feature_table(feature_output, feature_rows)
@@ -1971,9 +2262,15 @@ def run_export_demo_package(
     *,
     team_depth_csv: Path | None = None,
     team_id: str = "",
+    advanced_stats_csv: Path | None = None,
 ) -> None:
     prospects = load_historical_prospects(data_path)
-    bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
+    bundle = build_demo_export_bundle(
+        prospects,
+        team_depth_csv=team_depth_csv,
+        team_id=team_id,
+        advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
+    )
     outputs = export_demo_package(output_dir, bundle)
     print(f"# Demo package export: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
@@ -1991,9 +2288,15 @@ def run_build_demo_site(
     *,
     team_depth_csv: Path | None = None,
     team_id: str = "",
+    advanced_stats_csv: Path | None = None,
 ) -> None:
     prospects = load_historical_prospects(data_path)
-    bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
+    bundle = build_demo_export_bundle(
+        prospects,
+        team_depth_csv=team_depth_csv,
+        team_id=team_id,
+        advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
+    )
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
     brief = write_demo_meeting_brief(output_dir, bundle)
@@ -2017,9 +2320,15 @@ def run_build_demo_readiness(
     movement_top_n: int,
     team_depth_csv: Path | None = None,
     team_id: str = "",
+    advanced_stats_csv: Path | None = None,
 ) -> None:
     prospects = load_historical_prospects(data_path)
-    bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
+    bundle = build_demo_export_bundle(
+        prospects,
+        team_depth_csv=team_depth_csv,
+        team_id=team_id,
+        advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
+    )
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
     brief = write_demo_meeting_brief(output_dir, bundle)
@@ -2029,7 +2338,9 @@ def run_build_demo_readiness(
     sanity_report_dir = reports_dir / "demo_sanity"
     acceptance_report_dir = reports_dir / "demo_acceptance"
     gap_report = write_demo_gap_report(output_dir, gap_report_dir, top_n=gap_top_n)
-    modeling_report = write_demo_modeling_report(output_dir, modeling_report_dir, top_n=movement_top_n)
+    modeling_report = write_demo_modeling_report(
+        output_dir, modeling_report_dir, top_n=movement_top_n
+    )
     write_demo_sanity_report(output_dir, sanity_report_dir)
     acceptance_report = write_demo_acceptance_report(output_dir, acceptance_report_dir)
 
@@ -2446,6 +2757,45 @@ def run_enrich_draft_range_leagues(
         raise RuntimeError(f"league enrichment incomplete: failed={report.failed_count}")
 
 
+def run_operational_league_pipeline(
+    manifest_path: Path,
+    class_root: Path,
+    output_dir: Path,
+    *,
+    project_root: Path,
+    europe_catalog: Path,
+    start_year: int,
+    end_year: int,
+    collect: bool,
+    refresh: bool,
+    force: bool,
+    continue_on_error: bool,
+) -> None:
+    summary = run_league_pipeline(
+        manifest_path,
+        class_root,
+        output_dir,
+        project_root=project_root,
+        europe_catalog_path=europe_catalog,
+        start_year=start_year,
+        end_year=end_year,
+        collect=collect,
+        refresh=refresh,
+        force=force,
+        continue_on_error=continue_on_error,
+    )
+    print(f"# League ingestion pipeline: {start_year}-{end_year}")
+    print(f"Ready sources: {summary.ready_sources}/{summary.discovered_sources}")
+    print(f"Collection failures: {summary.collection_failures}")
+    print(f"Enrichment failures: {summary.enrichment_failures}")
+    print(f"Audit issues: {summary.audit_issues}")
+    print(f"Run report: {output_dir / 'summary.md'}")
+    if summary.enrichment_failures:
+        raise RuntimeError(
+            f"league ingestion incomplete: failed classes={summary.enrichment_failures}"
+        )
+
+
 def run_evaluate(data_path: Path, *, baseline: str = "consensus", precision_n: int = 10) -> None:
     prospects = load_historical_prospects(data_path)
     scores = score_historical_prospects(prospects, baseline=baseline)
@@ -2577,7 +2927,9 @@ def write_preseason_proxy_audit(path: Path, players) -> None:
 
 def compact_name(value: str) -> str:
     decomposed = unicodedata.normalize("NFKD", value.casefold())
-    return "".join(character for character in decomposed if character.isascii() and character.isalnum())
+    return "".join(
+        character for character in decomposed if character.isascii() and character.isalnum()
+    )
 
 
 def run_merge_roster_csvs(
@@ -2664,7 +3016,15 @@ def dedupe_roster_assignments(players):
         grouped.setdefault(key, []).append(player)
     selected = [choose_roster_assignment(group) for group in grouped.values()]
     selected = remove_cross_organization_pipeline_duplicates(selected)
-    return sorted(selected, key=lambda player: (player.team_id, player.league_level, player.position, player.player_name))
+    return sorted(
+        selected,
+        key=lambda player: (
+            player.team_id,
+            player.league_level,
+            player.position,
+            player.player_name,
+        ),
+    )
 
 
 def remove_cross_organization_pipeline_duplicates(players):
@@ -2673,7 +3033,11 @@ def remove_cross_organization_pipeline_duplicates(players):
         grouped.setdefault(compact_name(player.player_name), []).append(player)
     kept = []
     for group in grouped.values():
-        identity_group = [player for player in group if any(same_roster_identity(player, other) for other in group if other is not player)]
+        identity_group = [
+            player
+            for player in group
+            if any(same_roster_identity(player, other) for other in group if other is not player)
+        ]
         if len({player.team_id for player in identity_group}) <= 1:
             kept.extend(group)
             continue
@@ -2697,7 +3061,11 @@ def remove_cross_organization_pipeline_duplicates(players):
         for player in group:
             if player not in identity_group or player.team_id == authoritative_team_id:
                 kept.append(
-                    replace(player, assignment_confidence="high", roster_status="latest_season_assignment")
+                    replace(
+                        player,
+                        assignment_confidence="high",
+                        roster_status="latest_season_assignment",
+                    )
                     if player in identity_group
                     else player
                 )
@@ -2720,9 +3088,19 @@ def choose_roster_assignment(players):
     if nhl_players and ahl_players:
         best_nhl = max(nhl_players, key=roster_assignment_strength)
         best_ahl = max(ahl_players, key=roster_assignment_strength)
-        if best_nhl.position == "G" and best_nhl.age < 24.5 and best_nhl.games <= 10 and best_ahl.games >= best_nhl.games:
+        if (
+            best_nhl.position == "G"
+            and best_nhl.age < 24.5
+            and best_nhl.games <= 10
+            and best_ahl.games >= best_nhl.games
+        ):
             return best_ahl
-        if best_nhl.position != "G" and best_nhl.age < 23.5 and best_nhl.games <= 10 and best_ahl.games >= best_nhl.games:
+        if (
+            best_nhl.position != "G"
+            and best_nhl.age < 23.5
+            and best_nhl.games <= 10
+            and best_ahl.games >= best_nhl.games
+        ):
             return best_ahl
         if best_nhl.games >= 20 or best_nhl.league_level == "NHL":
             return best_nhl
@@ -2871,7 +3249,9 @@ def outcome_validation_warning(prospects: list) -> str:
         return ""
     outcomes = [prospect.outcome for prospect in prospects if prospect.outcome is not None]
     if not outcomes:
-        return "Validation warning: no NHL outcome rows are available; use this as demo analysis only."
+        return (
+            "Validation warning: no NHL outcome rows are available; use this as demo analysis only."
+        )
     if all(outcome.nhl_games == 0 and outcome.nhl_points == 0 for outcome in outcomes):
         return (
             "Validation warning: all NHL outcomes are zero; recent-class metrics are not predictive validation. "
@@ -2906,7 +3286,9 @@ def copy_dataset_directory(source_dir: Path, destination_dir: Path) -> None:
     source = source_dir.resolve()
     destination = destination_dir.resolve()
     if source == destination or source in destination.parents or destination in source.parents:
-        raise ValueError(f"dataset source and destination must not overlap: {source} -> {destination}")
+        raise ValueError(
+            f"dataset source and destination must not overlap: {source} -> {destination}"
+        )
 
     temporary = destination.with_name(f".{destination.name}.tmp")
     previous = destination.with_name(f".{destination.name}.previous")

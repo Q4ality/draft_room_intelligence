@@ -7,18 +7,17 @@ import math
 from dataclasses import dataclass
 from pathlib import Path
 
+from draft_room_intelligence.domain import HistoricalProspect
 from draft_room_intelligence.evaluation.baselines import (
     evaluate_board_order,
     evaluate_historical_scores,
 )
 from draft_room_intelligence.modeling.feature_table import (
-    FEATURE_COLUMNS,
     MODEL_FEATURE_COLUMNS,
+    AdvancedStatSummary,
     FeatureRow,
     build_feature_rows,
-    role_group,
 )
-from draft_room_intelligence.domain import HistoricalProspect
 
 
 @dataclass(frozen=True)
@@ -68,7 +67,9 @@ def score_role_specific_models(
         role = values["role_group"]
         nhler_probability = models.nhler_models[role].predict_probability(values)
         impact_probability = models.impact_models[role].predict_probability(values)
-        scores[values["player_id"]] = max(0.0, min(1.0, nhler_probability * 0.7 + impact_probability * 0.3))
+        scores[values["player_id"]] = max(
+            0.0, min(1.0, nhler_probability * 0.7 + impact_probability * 0.3)
+        )
     return scores
 
 
@@ -76,6 +77,7 @@ def evaluate_role_specific_models(
     prospects: list[HistoricalProspect],
     *,
     precision_n: int = 25,
+    advanced_stats: dict[str, AdvancedStatSummary] | None = None,
 ) -> tuple[
     list[FeatureRow],
     RoleSpecificModels,
@@ -83,7 +85,7 @@ def evaluate_role_specific_models(
     dict[str, dict[str, float]],
     dict[str, dict[str, float]],
 ]:
-    feature_rows = build_feature_rows(prospects)
+    feature_rows = build_feature_rows(prospects, advanced_stats)
     models = fit_role_specific_models(feature_rows)
     scores = cross_validated_role_specific_scores(feature_rows, folds=5)
     probability_report = evaluate_historical_scores(prospects, scores, precision_n=precision_n)
@@ -97,10 +99,20 @@ def write_model_summary(path: str | Path, models: RoleSpecificModels) -> None:
     with output_path.open("w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(
             file,
-            fieldnames=["target", "role_group", "intercept", "constant_probability", "feature_names", "weights"],
+            fieldnames=[
+                "target",
+                "role_group",
+                "intercept",
+                "constant_probability",
+                "feature_names",
+                "weights",
+            ],
         )
         writer.writeheader()
-        for target_name, model_map in (("nhler", models.nhler_models), ("impact", models.impact_models)):
+        for target_name, model_map in (
+            ("nhler", models.nhler_models),
+            ("impact", models.impact_models),
+        ):
             for role, model in sorted(model_map.items()):
                 writer.writerow(
                     {
@@ -108,7 +120,9 @@ def write_model_summary(path: str | Path, models: RoleSpecificModels) -> None:
                         "role_group": role,
                         "intercept": f"{model.intercept:.6f}",
                         "constant_probability": (
-                            f"{model.constant_probability:.6f}" if model.constant_probability is not None else ""
+                            f"{model.constant_probability:.6f}"
+                            if model.constant_probability is not None
+                            else ""
                         ),
                         "feature_names": "|".join(model.feature_names),
                         "weights": "|".join(f"{weight:.6f}" for weight in model.weights),
@@ -131,7 +145,9 @@ def fit_binary_model(rows: list[FeatureRow], *, target_column: str) -> FittedBin
             constant_probability=positive_rate,
         )
 
-    means = tuple(sum(row[index] for row in x_rows) / len(x_rows) for index in range(len(feature_names)))
+    means = tuple(
+        sum(row[index] for row in x_rows) / len(x_rows) for index in range(len(feature_names))
+    )
     scales = []
     standardized_rows: list[list[float]] = []
     for index in range(len(feature_names)):
@@ -139,7 +155,9 @@ def fit_binary_model(rows: list[FeatureRow], *, target_column: str) -> FittedBin
         scale = math.sqrt(variance) or 1.0
         scales.append(scale)
     for row in x_rows:
-        standardized_rows.append([(row[index] - means[index]) / scales[index] for index in range(len(feature_names))])
+        standardized_rows.append(
+            [(row[index] - means[index]) / scales[index] for index in range(len(feature_names))]
+        )
 
     weights = [0.0] * len(feature_names)
     intercept = math.log(positive_rate / (1.0 - positive_rate))
@@ -150,7 +168,9 @@ def fit_binary_model(rows: list[FeatureRow], *, target_column: str) -> FittedBin
         gradient = [0.0] * len(feature_names)
         intercept_gradient = 0.0
         for features, actual in zip(standardized_rows, y_values):
-            prediction = sigmoid(intercept + sum(weight * value for weight, value in zip(weights, features)))
+            prediction = sigmoid(
+                intercept + sum(weight * value for weight, value in zip(weights, features))
+            )
             error = prediction - actual
             intercept_gradient += error
             for index, value in enumerate(features):

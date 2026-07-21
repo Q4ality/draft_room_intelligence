@@ -1018,6 +1018,17 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         ["Playoff GP", stats.playoff_games || 0],
         ["Sources", stats.source_count || 0],
       ];
+      if (!isGoalie && (stats.advanced_games || 0) > 0) {{
+        metrics.push(["Advanced GP", stats.advanced_games]);
+        metrics.push(["+/- per GP", decimalStat(stats.plus_minus_per_game, 2)]);
+        metrics.push(["Shots per GP", decimalStat(stats.shots_per_game, 2)]);
+        if (stats.role_group === "defense") {{
+          metrics.push(["Blocks per GP", decimalStat(stats.blocks_per_game, 2)]);
+        }} else if ((stats.faceoff_percentage || 0) > 0) {{
+          metrics.push(["Faceoff %", percent(stats.faceoff_percentage)]);
+        }}
+        metrics.push(["Role signal", decimalStat(stats.advanced_role_score, 3)]);
+      }}
       document.getElementById("detail-stat-evidence").innerHTML = metrics.map(([label, value]) => `
         <div class="tool-grade">
           <div class="tool">${{label}}</div>

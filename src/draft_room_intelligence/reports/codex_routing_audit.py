@@ -8,7 +8,6 @@ import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
-
 EXPECTED_SKILLS = [
     "prepare-draft-demo-data",
     "project-context",
@@ -137,7 +136,7 @@ def skill_checks(root: Path) -> list[RoutingCheck]:
         if not skill_path.exists():
             checks.append(RoutingCheck(f"skill_{skill}", "fail", "missing authored skill", str(skill_path.relative_to(root))))
             continue
-        if not link_path.exists():
+        if not link_path.exists() and not link_path.is_symlink():
             checks.append(RoutingCheck(f"skill_{skill}", "fail", "missing .agents/skills discovery link", str(link_path.relative_to(root))))
             continue
         if not link_path.is_symlink():

@@ -1,6 +1,8 @@
-from draft_room_intelligence.data.demo_data import audit_demo_class
-from draft_room_intelligence.data.demo_data import format_demo_audit_report
-from draft_room_intelligence.data.demo_data import scaffold_demo_class
+from draft_room_intelligence.data.demo_data import (
+    audit_demo_class,
+    format_demo_audit_report,
+    scaffold_demo_class,
+)
 
 
 def test_scaffold_demo_class_creates_expected_templates(tmp_path):

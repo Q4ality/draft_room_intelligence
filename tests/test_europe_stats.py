@@ -146,3 +146,44 @@ def test_enrichment_matches_within_country_family_and_writes_advanced_table(tmp_
     assert advanced[0]["games"] == "37"
     assert advanced[0]["plus_minus"] == "18"
     assert advanced[0]["source"] == "swehockey"
+
+
+def test_enrichment_matches_cyrillic_russian_name_with_audited_method(tmp_path):
+    base = tmp_path / "base"
+    output = tmp_path / "output"
+    base.mkdir()
+    write_table(
+        base / "players.csv",
+        PLAYER_COLUMNS,
+        [{"player_id": "p1", "name": "Alexander Zharovsky", "position": "C", "source": "test"}],
+    )
+    write_table(
+        base / "season_stat_lines.csv",
+        SEASON_STAT_LINE_COLUMNS,
+        [
+            {
+                "player_id": "p1",
+                "season": "2024-25",
+                "league": "MHL",
+                "team": "Tolpar",
+                "timing": "pre_draft",
+            }
+        ],
+    )
+    cache = tmp_path / "mhl.html"
+    cache.write_text(
+        "<table><tr><th>Player</th><th>Team</th><th>GP</th><th>G</th><th>A</th><th>PTS</th></tr>"
+        "<tr><td>Александр Жаровский</td><td>Tolpar</td><td>45</td><td>24</td><td>26</td><td>50</td></tr></table>",
+        encoding="utf-8",
+    )
+
+    summary = enrich_europe_stats(
+        base,
+        output,
+        [EuropeStatSource("2024-25", "khl", "MHL", "https://example.test", source_path=cache)],
+    )
+
+    matches = list(csv.DictReader((output / "europe_stat_matches.csv").open(encoding="utf-8")))
+    assert summary.matched_players == 1
+    assert matches[0]["matched"] == "true"
+    assert matches[0]["match_method"] == "transliterated_name"

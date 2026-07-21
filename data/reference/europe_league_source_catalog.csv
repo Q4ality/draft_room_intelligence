@@ -1,4 +1,13 @@
 source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label
+2021-sweden-j20-south-regular,false,2021,europe,Sweden Jrs.,2020-21,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/11447,data/raw/cache/europe_stats/2021_sweden_j20_south_regular.html,swehockey:combined
+2022-sweden-j20-south-regular,false,2022,europe,Sweden Jrs.,2021-22,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/12312,data/raw/cache/europe_stats/2022_sweden_j20_south_regular.html,swehockey:combined
+2022-shl-regular,false,2022,europe,SHL,2021-22,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/12318,data/raw/cache/europe_stats/2022_shl_regular.html,swehockey:combined
+2022-shl-playoffs,false,2022,europe,SHL,2021-22,playoffs,https://stats.swehockey.se/Teams/Info/PlayersByTeam/12319,data/raw/cache/europe_stats/2022_shl_playoffs.html,swehockey:combined
+2023-sweden-j20-south-regular,false,2023,europe,Sweden Jrs.,2022-23,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/13468,data/raw/cache/europe_stats/2023_sweden_j20_south_regular.html,swehockey:combined
+2023-shl-regular,false,2023,europe,SHL,2022-23,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/13469,data/raw/cache/europe_stats/2023_shl_regular.html,swehockey:combined
+2023-shl-playoffs,false,2023,europe,SHL,2022-23,playoffs,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14297,data/raw/cache/europe_stats/2023_shl_playoffs.html,swehockey:combined
+2024-sweden-j20-south-regular,false,2024,europe,Sweden Jrs.,2023-24,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709,data/raw/cache/europe_stats/2024_sweden_j20_south_regular.html,swehockey:combined
+2024-shl-regular,false,2024,europe,SHL,2023-24,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677,data/raw/cache/europe_stats/2024_shl_regular.html,swehockey:combined
 2025-sweden-j20-north-regular,false,2025,europe,Sweden Jrs.,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975,data/raw/cache/europe_stats/2025_sweden_j20_north_regular.html,swehockey:combined
 2025-sweden-j20-south-regular,false,2025,europe,Sweden Jrs.,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976,data/raw/cache/europe_stats/2025_sweden_j20_south_regular.html,swehockey:combined
 2025-shl-regular,false,2025,europe,SHL,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977,data/raw/cache/europe_stats/2025_shl_regular.html,swehockey:combined
@@ -13,3 +22,4 @@ source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,s
 2025-khl-playoffs,false,2025,europe,KHL,2024-25,playoffs,https://en.khl.ru/stat/leaders/1289/pts/?schedule=1289&section=pts,data/raw/cache/europe_stats/2025_khl_playoffs.html,khl:skaters
 2025-mhl-regular,false,2025,europe,MHL,2024-25,regular,https://mhl.khl.ru/stat/leaders/1162/pts/,data/raw/cache/europe_stats/2025_mhl_regular.html,khl:skaters
 2025-mhl-playoffs,false,2025,europe,MHL,2024-25,playoffs,https://mhl.khl.ru/stat/leaders/1292/pts/,data/raw/cache/europe_stats/2025_mhl_playoffs.html,khl:skaters
+2025-vhl-regular,false,2025,europe,VHL,2024-25,regular,https://www.vhlru.ru/en/stats/leaders/1052/pim/,data/raw/cache/europe_stats/2025_vhl_regular.html,khl:skaters

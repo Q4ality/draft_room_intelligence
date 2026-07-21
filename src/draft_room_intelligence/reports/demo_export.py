@@ -12,7 +12,7 @@ from draft_room_intelligence.evaluation.baselines import (
     consensus_scores,
     role_specific_hybrid_scores,
 )
-from draft_room_intelligence.modeling.feature_table import build_feature_rows
+from draft_room_intelligence.modeling.feature_table import AdvancedStatSummary, build_feature_rows
 
 BOARD_COLUMNS = [
     "player_id",
@@ -55,6 +55,13 @@ BOARD_COLUMNS = [
     "goalie_save_percentage",
     "goalie_goals_against_average",
     "goalie_quality_score",
+    "advanced_games",
+    "advanced_sample_weight",
+    "plus_minus_per_game",
+    "shots_per_game",
+    "blocks_per_game",
+    "faceoff_percentage",
+    "advanced_role_score",
     "ep_tool_score",
     "ep_tool_grade_count",
     "drafted_team_id",
@@ -230,15 +237,18 @@ def build_demo_export_bundle(
     *,
     team_depth_csv: str | Path | None = None,
     team_id: str = "",
+    advanced_stats: dict[str, AdvancedStatSummary] | None = None,
 ) -> DemoExportBundle:
-    feature_rows = [row.to_dict() for row in build_feature_rows(prospects)]
+    feature_rows = [row.to_dict() for row in build_feature_rows(prospects, advanced_stats)]
     features_by_id = {row["player_id"]: row for row in feature_rows}
     consensus = consensus_scores(prospects)
     base_model_scores = role_specific_hybrid_scores(prospects)
     prospects_by_id = {prospect.player_id: prospect for prospect in prospects}
     ep_scores = {prospect.player_id: ep_tool_score(prospect) for prospect in prospects}
     model_scores = {
-        player_id: scouting_adjusted_model_score(base_model_scores[player_id], ep_scores.get(player_id, 0.0))
+        player_id: scouting_adjusted_model_score(
+            base_model_scores[player_id], ep_scores.get(player_id, 0.0)
+        )
         for player_id in base_model_scores
     }
     base_board_scores = {
@@ -278,7 +288,9 @@ def build_demo_export_bundle(
     }
     ordered_ids = [
         player_id
-        for player_id, _ in sorted(board_scores.items(), key=lambda item: (item[1], item[0]), reverse=True)
+        for player_id, _ in sorted(
+            board_scores.items(), key=lambda item: (item[1], item[0]), reverse=True
+        )
     ]
     board_ranks = {player_id: index for index, player_id in enumerate(ordered_ids, start=1)}
 
@@ -290,17 +302,23 @@ def build_demo_export_bundle(
         prospect = prospects_by_id[player_id]
         feature = features_by_id[player_id]
         team_fit = team_fits[player_id]
-        team_fit_options = build_team_fit_options(prospect, team_contexts, ep_scores[player_id], board_scores[player_id])
+        team_fit_options = build_team_fit_options(
+            prospect, team_contexts, ep_scores[player_id], board_scores[player_id]
+        )
         resolved_drafted_team_id = drafted_team_id(prospect, team_contexts)
         drafted_context = team_contexts.get(resolved_drafted_team_id)
-        resolved_drafted_team_name = drafted_context.team_name if drafted_context else resolved_drafted_team_id
+        resolved_drafted_team_name = (
+            drafted_context.team_name if drafted_context else resolved_drafted_team_id
+        )
         board_rank = board_ranks[player_id]
         consensus_rank = int(feature["consensus_rank"])
         consensus_delta = board_rank - consensus_rank
         disagreement_bucket = classify_disagreement(consensus_delta)
         evidence_depth = classify_evidence_depth(feature)
         badges = build_badges(feature, disagreement_bucket, ep_scores[player_id], team_fit)
-        short_reason = build_short_reason(feature, disagreement_bucket, ep_scores[player_id], team_fit)
+        short_reason = build_short_reason(
+            feature, disagreement_bucket, ep_scores[player_id], team_fit
+        )
         risk_note = build_risk_note(feature, consensus_delta)
 
         board_row = {
@@ -344,6 +362,13 @@ def build_demo_export_bundle(
             "goalie_save_percentage": feature["goalie_save_percentage"],
             "goalie_goals_against_average": feature["goalie_goals_against_average"],
             "goalie_quality_score": feature["goalie_quality_score"],
+            "advanced_games": feature["advanced_games"],
+            "advanced_sample_weight": feature["advanced_sample_weight"],
+            "plus_minus_per_game": feature["plus_minus_per_game"],
+            "shots_per_game": feature["shots_per_game"],
+            "blocks_per_game": feature["blocks_per_game"],
+            "faceoff_percentage": feature["faceoff_percentage"],
+            "advanced_role_score": feature["advanced_role_score"],
             "ep_tool_score": f"{ep_scores[player_id]:.6f}",
             "ep_tool_grade_count": str(len(prospect.tool_grades)),
             "drafted_team_id": resolved_drafted_team_id,
@@ -362,7 +387,9 @@ def build_demo_export_bundle(
         }
         board_rows.append(board_row)
         compare_rows.append({column: board_row[column] for column in COMPARE_COLUMNS})
-        player_details.append(build_player_detail(prospect, board_row, team_fit_options, resolved_drafted_team_id))
+        player_details.append(
+            build_player_detail(prospect, board_row, team_fit_options, resolved_drafted_team_id)
+        )
 
     return DemoExportBundle(
         board_rows=board_rows,
@@ -392,7 +419,9 @@ def export_demo_package(output_dir: str | Path, bundle: DemoExportBundle) -> dic
     }
 
 
-def evidence_weighted_board_score(model_score: float, consensus_score: float, feature: dict[str, str]) -> float:
+def evidence_weighted_board_score(
+    model_score: float, consensus_score: float, feature: dict[str, str]
+) -> float:
     evidence_depth = classify_evidence_depth(feature)
     model_weight = {
         "high": 0.75,
@@ -425,7 +454,9 @@ def scouting_adjusted_model_score(base_model_score: float, tool_score: float) ->
     return (base_model_score * 0.82) + (tool_score * 0.18)
 
 
-def scouting_adjusted_board_score(base_board_score: float, consensus_score: float, tool_score: float) -> float:
+def scouting_adjusted_board_score(
+    base_board_score: float, consensus_score: float, tool_score: float
+) -> float:
     if tool_score <= 0.0:
         return base_board_score
     lift = tool_score * 0.05
@@ -536,11 +567,15 @@ def default_team_fit(
     tool_score: float,
     override_team_id: str = "",
 ) -> dict[str, object]:
-    selected_team_id = (override_team_id.upper() if override_team_id else drafted_team_id(prospect, contexts))
+    selected_team_id = (
+        override_team_id.upper() if override_team_id else drafted_team_id(prospect, contexts)
+    )
     return build_team_fit(prospect, contexts.get(selected_team_id), tool_score)
 
 
-def drafted_team_id(prospect: HistoricalProspect, contexts: dict[str, TeamFitContext] | None = None) -> str:
+def drafted_team_id(
+    prospect: HistoricalProspect, contexts: dict[str, TeamFitContext] | None = None
+) -> str:
     if prospect.selection is None:
         return ""
     raw_team_id = prospect.selection.team_id.upper()
@@ -593,7 +628,9 @@ def build_team_fit(
     matching_rows = [row for row in context.depth_rows if row.get("role_type") in candidates]
     if not matching_rows:
         matching_rows = [
-            row for row in context.depth_rows if row.get("role_bucket") == candidate_role_bucket(prospect.position)
+            row
+            for row in context.depth_rows
+            if row.get("role_bucket") == candidate_role_bucket(prospect.position)
         ]
     if not matching_rows:
         return {
@@ -607,7 +644,9 @@ def build_team_fit(
 
     best_row = max(
         matching_rows,
-        key=lambda row: team_fit_components(row, prospect, tool_score, context.depth_rows)["overall_score"],
+        key=lambda row: team_fit_components(row, prospect, tool_score, context.depth_rows)[
+            "overall_score"
+        ],
     )
     components = team_fit_components(best_row, prospect, tool_score, context.depth_rows)
     score = components["overall_score"]
@@ -787,9 +826,7 @@ def pipeline_need_ceiling(
     nhl_occupancy = min(1.0, nhl_u25 / nhl_capacity)
     development_occupancy = min(1.0, non_nhl_u25 / development_capacity)
     structural_pressure = (
-        (total_occupancy * 0.30)
-        + (nhl_occupancy * 0.45)
-        + (development_occupancy * 0.20)
+        (total_occupancy * 0.30) + (nhl_occupancy * 0.45) + (development_occupancy * 0.20)
     )
     return min(1.0, max(0.0, 1.0 - structural_pressure))
 
@@ -804,20 +841,28 @@ def contract_opportunity_score(row: dict[str, str]) -> float:
     return min(1.0, max(0.0, 1.0 - commitment + (expiring_share * 0.20)))
 
 
-def bucket_pipeline_counts(row: dict[str, str], context_rows: list[dict[str, str]] | None) -> tuple[int, int]:
+def bucket_pipeline_counts(
+    row: dict[str, str], context_rows: list[dict[str, str]] | None
+) -> tuple[int, int]:
     profile = bucket_pipeline_profile(row, context_rows)
     return int(profile["bucket_u25_count"]), int(profile["bucket_player_count"])
 
 
-def bucket_pipeline_profile(row: dict[str, str], context_rows: list[dict[str, str]] | None) -> dict[str, float]:
+def bucket_pipeline_profile(
+    row: dict[str, str], context_rows: list[dict[str, str]] | None
+) -> dict[str, float]:
     rows = context_rows or [row]
     bucket = row.get("role_bucket", "")
     same_bucket_rows = [item for item in rows if item.get("role_bucket") == bucket]
     nhl_u25 = sum(
-        safe_int(item.get("under_25", "0")) for item in same_bucket_rows if item.get("league_level") == "NHL"
+        safe_int(item.get("under_25", "0"))
+        for item in same_bucket_rows
+        if item.get("league_level") == "NHL"
     )
     ahl_u25 = sum(
-        safe_int(item.get("under_25", "0")) for item in same_bucket_rows if item.get("league_level") == "AHL"
+        safe_int(item.get("under_25", "0"))
+        for item in same_bucket_rows
+        if item.get("league_level") == "AHL"
     )
     total_u25 = sum(safe_int(item.get("under_25", "0")) for item in same_bucket_rows)
     return {
@@ -825,11 +870,15 @@ def bucket_pipeline_profile(row: dict[str, str], context_rows: list[dict[str, st
         "bucket_nhl_u25_count": float(nhl_u25),
         "bucket_ahl_u25_count": float(ahl_u25),
         "bucket_non_nhl_u25_count": float(max(0, total_u25 - nhl_u25)),
-        "bucket_player_count": float(sum(safe_int(item.get("players", "0")) for item in same_bucket_rows)),
+        "bucket_player_count": float(
+            sum(safe_int(item.get("players", "0")) for item in same_bucket_rows)
+        ),
     }
 
 
-def peer_pipeline_examples(row: dict[str, str], context_rows: list[dict[str, str]], limit: int = 5) -> str:
+def peer_pipeline_examples(
+    row: dict[str, str], context_rows: list[dict[str, str]], limit: int = 5
+) -> str:
     bucket = row.get("role_bucket", "")
     rows = [
         item
@@ -851,7 +900,9 @@ def peer_pipeline_examples(row: dict[str, str], context_rows: list[dict[str, str
 
 def peer_example_sort_key(row: dict[str, str]) -> tuple[int, int, float]:
     level_order = 0 if row.get("league_level") == "NHL" else 1
-    role_order = 0 if row.get("role_type", "").startswith(("two_way", "puck_moving", "starter")) else 1
+    role_order = (
+        0 if row.get("role_type", "").startswith(("two_way", "puck_moving", "starter")) else 1
+    )
     return (level_order, role_order, -safe_int(row.get("under_25", "0")))
 
 
@@ -875,7 +926,13 @@ def pipeline_need_score(
     players = safe_int(row.get("players", "0"))
     role_type = row.get("role_type", "")
     bucket = candidate_role_bucket(prospect.position)
-    premium_role = role_type in {"puck_moving_defense", "two_way_defense", "scoring_center", "scoring_wing", "starter_goalie"}
+    premium_role = role_type in {
+        "puck_moving_defense",
+        "two_way_defense",
+        "scoring_center",
+        "scoring_wing",
+        "starter_goalie",
+    }
     u25_pressure = min(1.0, under_25 / max(1.0, target))
     roster_saturation = min(1.0, players / max(1.0, target + 1.0))
     score = 1.0 - ((u25_pressure * 0.62) + (roster_saturation * 0.25))
@@ -979,7 +1036,19 @@ def playoff_game_share(prospect: HistoricalProspect) -> float:
 
 def is_adult_league(league: str) -> bool:
     normalized = league.strip().upper()
-    junior_markers = ("JRS", "JR.", "J20", "U20", "U18", "OHL", "WHL", "QMJHL", "USHL", "NTDP", "NCAA")
+    junior_markers = (
+        "JRS",
+        "JR.",
+        "J20",
+        "U20",
+        "U18",
+        "OHL",
+        "WHL",
+        "QMJHL",
+        "USHL",
+        "NTDP",
+        "NCAA",
+    )
     if any(marker in normalized for marker in junior_markers):
         return False
     adult_markers = (
@@ -1048,6 +1117,9 @@ def build_player_detail(
             "goalie_save_percentage": float(board_row["goalie_save_percentage"]),
             "goalie_goals_against_average": float(board_row["goalie_goals_against_average"]),
             "goalie_quality_score": float(board_row["goalie_quality_score"]),
+            "advanced_games": int(board_row["advanced_games"]),
+            "advanced_sample_weight": float(board_row["advanced_sample_weight"]),
+            "advanced_role_score": float(board_row["advanced_role_score"]),
             "ep_tool_score": float(board_row["ep_tool_score"]),
             "team_fit_score": float(board_row["team_fit_score"]),
             "evidence_depth": board_row["evidence_depth"],
@@ -1144,8 +1216,10 @@ def build_stat_evidence(
     shots_against = sum(line.shots_against or 0 for line in goalie_lines)
     saves = sum(line.saves or 0 for line in goalie_lines)
     goals_against = sum(line.goals_against or 0 for line in goalie_lines)
-    save_percentage = saves / shots_against if shots_against else weighted_average(
-        [(line.save_percentage, line.games) for line in goalie_lines]
+    save_percentage = (
+        saves / shots_against
+        if shots_against
+        else weighted_average([(line.save_percentage, line.games) for line in goalie_lines])
     )
     goals_against_average = (
         goals_against * 60 / goalie_minutes
@@ -1180,6 +1254,13 @@ def build_stat_evidence(
         "goalie_losses": sum(line.losses or 0 for line in goalie_lines),
         "goalie_shutouts": sum(line.shutouts or 0 for line in goalie_lines),
         "goalie_quality_score": float(board_row["goalie_quality_score"]),
+        "advanced_games": int(board_row.get("advanced_games", "0")),
+        "advanced_sample_weight": float(board_row.get("advanced_sample_weight", "0")),
+        "plus_minus_per_game": float(board_row.get("plus_minus_per_game", "0")),
+        "shots_per_game": float(board_row.get("shots_per_game", "0")),
+        "blocks_per_game": float(board_row.get("blocks_per_game", "0")),
+        "faceoff_percentage": float(board_row.get("faceoff_percentage", "0")),
+        "advanced_role_score": float(board_row.get("advanced_role_score", "0")),
         "qualitative_flags": qualitative_flags or scouting_qualitative_flags(prospect),
     }
 
@@ -1305,21 +1386,32 @@ def build_risk_note(feature: dict[str, str], consensus_delta: int) -> str:
         risks.append("No playoff row captured")
     elif feature.get("meaningful_playoff_sample") != "1":
         risks.append("Playoff sample is thin")
-    if feature.get("is_goalie") == "1" and float(feature.get("goalie_quality_score", "0") or 0) == 0.0:
+    if (
+        feature.get("is_goalie") == "1"
+        and float(feature.get("goalie_quality_score", "0") or 0) == 0.0
+    ):
         risks.append("Goalie metrics not yet captured")
     if abs(consensus_delta) >= 10:
         risks.append("Board-consensus gap needs review")
     return ", ".join(risks[:2]) or "No major coverage flags in current sample."
 
 
-def build_why_high(board_row: dict[str, str], qualitative_flags: list[str] | None = None) -> list[str]:
+def build_why_high(
+    board_row: dict[str, str], qualitative_flags: list[str] | None = None
+) -> list[str]:
     points: list[str] = []
     if float(board_row.get("ep_tool_score", "0") or 0) >= 0.75:
-        points.append("Elite Prospects guide grades push this player above the pure stat-only view.")
+        points.append(
+            "Elite Prospects guide grades push this player above the pure stat-only view."
+        )
     elif float(board_row.get("ep_tool_score", "0") or 0) > 0:
-        points.append("Elite Prospects guide grades add a scouting-evidence layer beyond production.")
+        points.append(
+            "Elite Prospects guide grades add a scouting-evidence layer beyond production."
+        )
     if float(board_row.get("team_fit_score", "0") or 0) >= 0.65:
-        points.append(f"{board_row['team_fit_team']} roster context flags this role as a strong fit.")
+        points.append(
+            f"{board_row['team_fit_team']} roster context flags this role as a strong fit."
+        )
     if float(board_row["role_percentile"]) >= 0.9:
         points.append("Production ranks well against comparable players in the same role.")
     if float(board_row["average_league_weight"]) >= 1.0:
@@ -1331,13 +1423,21 @@ def build_why_high(board_row: dict[str, str], qualitative_flags: list[str] | Non
     if board_row.get("meaningful_playoff_sample") == "1":
         points.append("Playoff games add pressure-sample context.")
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) > 0:
-        points.append("Goalie evaluation uses save percentage, goals-against context, and workload fields.")
+        points.append(
+            "Goalie evaluation uses save percentage, goals-against context, and workload fields."
+        )
     if qualitative_flags:
-        points.append("Scouting text adds role/context evidence not fully captured in the current stat rows.")
+        points.append(
+            "Scouting text adds role/context evidence not fully captured in the current stat rows."
+        )
     if int(board_row["pre_draft_league_count"]) > 1:
-        points.append("Multi-league history helps separate one-team context from broader performance.")
+        points.append(
+            "Multi-league history helps separate one-team context from broader performance."
+        )
     if not points:
-        points.append("Profile remains in range across consensus, role, and league-context signals.")
+        points.append(
+            "Profile remains in range across consensus, role, and league-context signals."
+        )
     return points[:3]
 
 
@@ -1355,16 +1455,24 @@ def safe_int(value: str | None) -> int:
         return 0
 
 
-def build_risk_flags(board_row: dict[str, str], qualitative_flags: list[str] | None = None) -> list[str]:
+def build_risk_flags(
+    board_row: dict[str, str], qualitative_flags: list[str] | None = None
+) -> list[str]:
     flags: list[str] = []
     if int(board_row["pre_draft_row_count"]) == 1:
-        flags.append("Only one pre-draft stat row is currently captured; treat the grade as review-ready, not final.")
+        flags.append(
+            "Only one pre-draft stat row is currently captured; treat the grade as review-ready, not final."
+        )
     if float(board_row["adult_game_share"]) == 0.0:
         flags.append("No adult-league sample is present, so junior translation remains a question.")
     elif board_row.get("meaningful_adult_sample") != "1":
-        flags.append("Adult-league exposure is present, but the game sample is too small to carry much weight.")
+        flags.append(
+            "Adult-league exposure is present, but the game sample is too small to carry much weight."
+        )
     if float(board_row["playoff_game_share"]) == 0.0 and qualitative_flags:
-        flags.append("Scouting text indicates playoff/championship role context, but playoff stat rows are not captured yet.")
+        flags.append(
+            "Scouting text indicates playoff/championship role context, but playoff stat rows are not captured yet."
+        )
     elif float(board_row["playoff_game_share"]) == 0.0:
         flags.append("No playoff row is captured yet; pressure-sample context may be incomplete.")
     elif board_row.get("meaningful_playoff_sample") != "1":
@@ -1372,7 +1480,9 @@ def build_risk_flags(board_row: dict[str, str], qualitative_flags: list[str] | N
     if board_row["role_group"] == "goalie" and float(board_row["goalie_quality_score"]) == 0.0:
         flags.append("Goalie-specific performance fields are not yet populated for this player.")
     if abs(int(board_row["consensus_delta"])) >= 10:
-        flags.append("Board rank and public consensus differ enough to warrant a scouting-room review.")
+        flags.append(
+            "Board rank and public consensus differ enough to warrant a scouting-room review."
+        )
     if not flags:
         flags.append("No major coverage or translation flags in the current dataset.")
     return flags[:3]
@@ -1411,8 +1521,12 @@ def build_manifest(
     disagreement_counts: dict[str, int] = {}
     source_counts: dict[str, int] = {}
     for row in board_rows:
-        evidence_depth_counts[row["evidence_depth"]] = evidence_depth_counts.get(row["evidence_depth"], 0) + 1
-        disagreement_counts[row["disagreement_bucket"]] = disagreement_counts.get(row["disagreement_bucket"], 0) + 1
+        evidence_depth_counts[row["evidence_depth"]] = (
+            evidence_depth_counts.get(row["evidence_depth"], 0) + 1
+        )
+        disagreement_counts[row["disagreement_bucket"]] = (
+            disagreement_counts.get(row["disagreement_bucket"], 0) + 1
+        )
     for prospect in prospects:
         for source in prospect.sources:
             source_counts[source.source] = source_counts.get(source.source, 0) + 1
@@ -1441,7 +1555,9 @@ def build_manifest(
     }
 
 
-def build_manifest_team_contexts(contexts: dict[str, TeamFitContext], team_id: str = "") -> dict[str, object]:
+def build_manifest_team_contexts(
+    contexts: dict[str, TeamFitContext], team_id: str = ""
+) -> dict[str, object]:
     if not contexts:
         return {}
     return {
@@ -1475,7 +1591,9 @@ def build_manifest_team_views(
                 "team_id": context.team_id,
                 "team_name": context.team_name,
                 "team_status": team_status(context.team_id),
-                "team_status_label": TEAM_STATUS_LABELS.get(team_status(context.team_id), team_status(context.team_id)),
+                "team_status_label": TEAM_STATUS_LABELS.get(
+                    team_status(context.team_id), team_status(context.team_id)
+                ),
                 "snapshot_label": context.snapshot_label,
                 "snapshot_warning": context.snapshot_warning,
                 "ahl_coverage": "available"
@@ -1483,14 +1601,20 @@ def build_manifest_team_views(
                 else "missing",
                 "role_gaps": build_team_role_gaps(context),
                 "top_matches": team_options[:8],
-                "strong_match_count": sum(1 for option in team_options if float(option["score"]) >= 0.65),
-                "useful_match_count": sum(1 for option in team_options if float(option["score"]) >= 0.40),
+                "strong_match_count": sum(
+                    1 for option in team_options if float(option["score"]) >= 0.65
+                ),
+                "useful_match_count": sum(
+                    1 for option in team_options if float(option["score"]) >= 0.40
+                ),
             }
         )
     return views
 
 
-def team_fit_options_for_team(player_details: list[dict[str, object]], team_id: str) -> list[dict[str, object]]:
+def team_fit_options_for_team(
+    player_details: list[dict[str, object]], team_id: str
+) -> list[dict[str, object]]:
     matches: list[dict[str, object]] = []
     for detail in player_details:
         header = detail.get("header", {})
@@ -1521,7 +1645,11 @@ def team_fit_options_for_team(player_details: list[dict[str, object]], team_id: 
             )
     return sorted(
         matches,
-        key=lambda item: (float(item["score"]), float(item["team_adjusted_score"]), -int(item["board_rank"] or 999)),
+        key=lambda item: (
+            float(item["score"]),
+            float(item["team_adjusted_score"]),
+            -int(item["board_rank"] or 999),
+        ),
         reverse=True,
     )
 
@@ -1537,7 +1665,9 @@ def build_team_role_gaps(context: TeamFitContext) -> list[dict[str, object]]:
         same_bucket = bucket_pipeline_profile(row, context.depth_rows)
         nhl_u25 = int(same_bucket["bucket_nhl_u25_count"])
         non_nhl_u25 = int(same_bucket["bucket_non_nhl_u25_count"])
-        readiness_penalty = readiness_pipeline_pressure(row.get("role_bucket", ""), nhl_u25, non_nhl_u25)
+        readiness_penalty = readiness_pipeline_pressure(
+            row.get("role_bucket", ""), nhl_u25, non_nhl_u25
+        )
         role_priority = (
             scarcity
             + (0.18 if under_25 == 0 else 0.0)
@@ -1563,7 +1693,11 @@ def build_team_role_gaps(context: TeamFitContext) -> list[dict[str, object]]:
         )
     return sorted(
         gaps,
-        key=lambda item: (float(item["priority_score"]), float(item["scarcity_score"]), -int(item["under_25"])),
+        key=lambda item: (
+            float(item["priority_score"]),
+            float(item["scarcity_score"]),
+            -int(item["under_25"]),
+        ),
         reverse=True,
     )[:8]
 

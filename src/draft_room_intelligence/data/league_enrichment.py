@@ -183,9 +183,7 @@ def discover_ushl_source_specs(
             continue
         stage = "regular" if regular_season else "playoffs"
         for position in ("skaters", "goalies"):
-            cache_name = (
-                f"ushl_{season.replace('-', '_')}_s{season_id}_{stage}_{position}.json"
-            )
+            cache_name = f"ushl_{season.replace('-', '_')}_s{season_id}_{stage}_{position}.json"
             cache_path = Path(cache_root) / cache_name
             stat_source = UShlStatSource(
                 season=season,
@@ -286,8 +284,7 @@ def discover_ncaa_source_specs(
         season = f"{draft_year - 1}-{str(draft_year)[-2:]}"
         if draft_year <= 2021:
             source_url = (
-                "https://www.uscho.com/stats/overall/division-i-men/"
-                f"{draft_year - 1}-{draft_year}"
+                f"https://www.uscho.com/stats/overall/division-i-men/{draft_year - 1}-{draft_year}"
             )
             cache_path = Path(cache_root) / f"ncaa_{season.replace('-', '_')}_uscho.html"
             sources.append(
@@ -337,20 +334,64 @@ def discover_europe_source_specs(
     end_year: int,
 ) -> list[LeagueSourceSpec]:
     sources = load_league_source_manifest(catalog_path, project_root=project_root)
-    discovered = []
+    generated = generate_liiga_source_specs(
+        cache_root=Path(project_root) / "data/raw/cache/europe_stats",
+        start_year=start_year,
+        end_year=end_year,
+    )
+    by_source_id = {source.source_id: source for source in generated}
     for source in sources:
         if source.adapter != "europe":
             raise ValueError(f"European catalog contains non-Europe adapter: {source.source_id}")
         if start_year <= source.draft_year <= end_year:
-            discovered.append(
-                LeagueSourceSpec(
-                    **{
-                        **source.__dict__,
-                        "enabled": source.cache_path.is_file(),
-                    }
-                )
+            by_source_id[source.source_id] = LeagueSourceSpec(
+                **{
+                    **source.__dict__,
+                    "enabled": source.cache_path.is_file(),
+                }
             )
-    return sorted(discovered, key=lambda source: (source.draft_year, source.source_id))
+    return sorted(by_source_id.values(), key=lambda source: (source.draft_year, source.source_id))
+
+
+def generate_liiga_source_specs(
+    *,
+    cache_root: str | Path,
+    start_year: int,
+    end_year: int,
+) -> list[LeagueSourceSpec]:
+    sources: list[LeagueSourceSpec] = []
+    for draft_year in range(start_year, end_year + 1):
+        season_start = draft_year - 1
+        season = f"{season_start}-{str(draft_year)[-2:]}"
+        for stage, tournament, regular_season in (
+            ("regular", "runkosarja", True),
+            ("playoffs", "playoffs", False),
+        ):
+            for kind, data_type in (
+                ("skaters", "basicStats"),
+                ("goalies", "basicStatsGk"),
+            ):
+                source_id = f"{draft_year}-liiga-{stage}-{kind}"
+                cache_path = Path(cache_root) / f"{source_id.replace('-', '_')}.json"
+                sources.append(
+                    LeagueSourceSpec(
+                        source_id=source_id,
+                        enabled=cache_path.is_file(),
+                        draft_year=draft_year,
+                        adapter="europe",
+                        league="Liiga",
+                        season=season,
+                        regular_season=regular_season,
+                        source_url=(
+                            "https://liiga.fi/api/v2/players/stats/summed/"
+                            f"{season_start}/{season_start}/{tournament}/true"
+                            f"?dataType={data_type}"
+                        ),
+                        cache_path=cache_path,
+                        source_label=f"liiga:{kind}",
+                    )
+                )
+    return sources
 
 
 def write_league_source_manifest(
@@ -556,9 +597,7 @@ def validate_ushl_stats_cache(path: Path, source: LeagueSourceSpec) -> None:
     position = source.source_label.partition(":")[2] or "skaters"
     required = {"name", "player_id", "games_played"}
     role_fields = (
-        {"save_percentage", "goals_against_average"}
-        if position == "goalies"
-        else {"points"}
+        {"save_percentage", "goals_against_average"} if position == "goalies" else {"points"}
     )
     if not required | role_fields <= set(headers):
         raise ValueError(f"USHL cache headers do not match {position} feed")

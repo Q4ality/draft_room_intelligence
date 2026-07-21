@@ -14,7 +14,6 @@ from draft_room_intelligence.evaluation.baselines import (
     weighted_hybrid_scores,
 )
 
-
 FIXTURE = Path(__file__).parent / "fixtures" / "historical_prospects.csv"
 PILOT = Path(__file__).parents[1] / "data" / "processed" / "pilot_2019"
 
@@ -67,7 +66,7 @@ def test_contextual_scores_cover_full_pilot_sample():
 
     assert set(scores) == {prospect.player_id for prospect in prospects}
     assert all(0.0 <= score <= 1.0 for score in scores.values())
-    assert scores["2019-001-jack-hughes"] > scores["2019-199-matthew-stienburg"]
+    assert scores["2019-001-jack-hughes"] > scores["2019-063-matthew-stienburg"]
 
 
 def test_role_aware_scores_cover_full_pilot_sample():
@@ -76,7 +75,7 @@ def test_role_aware_scores_cover_full_pilot_sample():
 
     assert set(scores) == {prospect.player_id for prospect in prospects}
     assert all(0.0 <= score <= 1.0 for score in scores.values())
-    assert scores["2019-001-jack-hughes"] > scores["2019-199-matthew-stienburg"]
+    assert scores["2019-001-jack-hughes"] > scores["2019-063-matthew-stienburg"]
 
 
 def test_role_specific_hybrid_scores_cover_full_pilot_sample():
@@ -85,4 +84,4 @@ def test_role_specific_hybrid_scores_cover_full_pilot_sample():
 
     assert set(scores) == {prospect.player_id for prospect in prospects}
     assert all(0.0 <= score <= 1.0 for score in scores.values())
-    assert scores["2019-001-jack-hughes"] > scores["2019-199-matthew-stienburg"]
+    assert scores["2019-001-jack-hughes"] > scores["2019-063-matthew-stienburg"]

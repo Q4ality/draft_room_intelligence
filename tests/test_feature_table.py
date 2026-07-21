@@ -1,5 +1,12 @@
+import csv
+
+import pytest
+
 from draft_room_intelligence.domain import HistoricalProspect, PreDraftStatLine
-from draft_room_intelligence.modeling.feature_table import build_feature_rows
+from draft_room_intelligence.modeling.feature_table import (
+    build_feature_rows,
+    load_advanced_stat_summaries,
+)
 
 
 def test_build_feature_rows_includes_pre_draft_context_shares():
@@ -140,3 +147,74 @@ def test_build_feature_rows_includes_goalie_metrics():
     assert row["goalie_save_percentage"] == "0.909309"
     assert row["goalie_goals_against_average"] == "3.349353"
     assert float(row["goalie_quality_score"]) > 0.0
+
+
+def test_build_feature_rows_uses_sample_weighted_role_advanced_stats(tmp_path):
+    advanced_path = tmp_path / "advanced_stat_lines.csv"
+    with advanced_path.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "player_id",
+                "timing",
+                "games",
+                "plus_minus",
+                "shots",
+                "blocks",
+                "faceoff_wins",
+                "faceoff_losses",
+            ],
+        )
+        writer.writeheader()
+        writer.writerow(
+            {
+                "player_id": "d1",
+                "timing": "pre_draft",
+                "games": "10",
+                "plus_minus": "5",
+                "shots": "20",
+                "blocks": "15",
+                "faceoff_wins": "0",
+                "faceoff_losses": "0",
+            }
+        )
+
+    stat_line = PreDraftStatLine(
+        league="NCAA",
+        team="Example",
+        season="2024-25",
+        games=10,
+        goals=2,
+        assists=5,
+    )
+    prospect = HistoricalProspect(
+        player_id="d1",
+        name="Example Defense",
+        draft_year=2025,
+        position="D",
+        age_at_draft=18.2,
+        height_cm=188,
+        weight_kg=84,
+        consensus_rank=15,
+        stat_line=stat_line,
+    )
+
+    summaries = load_advanced_stat_summaries(tmp_path)
+    row = build_feature_rows([prospect], summaries)[0].to_dict()
+
+    assert row["advanced_games"] == "10"
+    assert row["advanced_sample_weight"] == "0.500000"
+    assert row["plus_minus_per_game"] == "0.500000"
+    assert row["shots_per_game"] == "2.000000"
+    assert row["blocks_per_game"] == "1.500000"
+    assert 0.0 < float(row["advanced_role_score"]) < 0.5
+
+
+def test_advanced_stat_loader_rejects_schema_drift(tmp_path):
+    (tmp_path / "advanced_stat_lines.csv").write_text(
+        "player_id,games\np1,10\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="schema v1 missing columns"):
+        load_advanced_stat_summaries(tmp_path)

@@ -49,6 +49,10 @@ Use a four-stage ingestion contract for every source family:
 3. **Merge** source tables into the draft-year base dataset through reviewed identity matching and reconciliation reports.
 4. **Audit** coverage, duplicates, conflict fields, evidence-depth movement, and story-player sanity before rebuilding the demo.
 
+Run `make historical-league-audit` after enrichment. Its year summary makes low-coverage classes visible, while `issues.csv` separates source conflicts, partial advanced-stat samples, and relevant unmatched source rows for review.
+
+The reusable player-year feature table now consumes normalized advanced statistics under schema version 1 and applies sample-weighted, role-specific signals. Current limits remain explicit: advanced coverage is sparse outside NCAA and Nordic sources, plus/minus is contextual evidence rather than a standalone value metric, and demo ranking calibration does not yet retrain automatically when new advanced rows arrive.
+
 The tracked source-family manifest is `data/reference/ingestion_source_families.csv`. Rebuild the audit with:
 
 ```bash

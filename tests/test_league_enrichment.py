@@ -14,6 +14,7 @@ from draft_room_intelligence.data.league_enrichment import (
     discover_ushl_source_specs,
     enrich_draft_class_leagues,
     filter_league_sources,
+    generate_liiga_source_specs,
     load_league_source_manifest,
     run_league_enrichment_range,
     validate_source_cache,
@@ -278,7 +279,28 @@ def test_discover_europe_sources_enables_only_collected_catalog_rows(tmp_path):
         end_year=2025,
     )
 
-    assert [source.enabled for source in sources] == [False, True]
+    enabled = {source.source_id: source.enabled for source in sources}
+    assert enabled["sweden"] is True
+    assert enabled["liiga"] is False
+    assert len([source for source in sources if source.source_id.startswith("2025-liiga")]) == 4
+
+
+def test_generate_liiga_source_specs_covers_each_year_stage_and_role(tmp_path):
+    cached = tmp_path / "2022_liiga_regular_skaters.json"
+    cached.write_text("[]", encoding="utf-8")
+
+    sources = generate_liiga_source_specs(
+        cache_root=tmp_path,
+        start_year=2022,
+        end_year=2023,
+    )
+
+    assert len(sources) == 8
+    assert {source.draft_year for source in sources} == {2022, 2023}
+    assert {source.regular_season for source in sources} == {True, False}
+    assert {source.source_label for source in sources} == {"liiga:skaters", "liiga:goalies"}
+    assert sources[0].enabled is True
+    assert "summed/2021/2021/runkosarja" in sources[0].source_url
 
 
 def test_class_enrichment_uses_drafted_from_league_and_resumes(tmp_path):

@@ -27,6 +27,7 @@ EUROPE_MATCH_COLUMNS = [
     "player_id",
     "name",
     "matched",
+    "match_method",
     "provider",
     "league",
     "source_name",
@@ -42,6 +43,52 @@ LEAGUE_FAMILIES = {
     "sweden": {"SHL", "HockeyAllsvenskan", "Sweden Jrs."},
     "finland": {"Liiga", "Mestis", "Finland Jrs."},
     "russia": {"KHL", "VHL", "MHL"},
+}
+
+CYRILLIC_TRANSLITERATION = str.maketrans(
+    {
+        "а": "a",
+        "б": "b",
+        "в": "v",
+        "г": "g",
+        "д": "d",
+        "е": "e",
+        "ё": "yo",
+        "ж": "zh",
+        "з": "z",
+        "и": "i",
+        "й": "y",
+        "к": "k",
+        "л": "l",
+        "м": "m",
+        "н": "n",
+        "о": "o",
+        "п": "p",
+        "р": "r",
+        "с": "s",
+        "т": "t",
+        "у": "u",
+        "ф": "f",
+        "х": "kh",
+        "ц": "ts",
+        "ч": "ch",
+        "ш": "sh",
+        "щ": "shch",
+        "ъ": "",
+        "ы": "y",
+        "ь": "",
+        "э": "e",
+        "ю": "yu",
+        "я": "ya",
+    }
+)
+RUSSIAN_FIRST_NAME_EQUIVALENTS = {
+    "aleksandr": "alexander",
+    "aleksey": "alexei",
+    "aleksei": "alexei",
+    "artem": "artyom",
+    "egor": "yegor",
+    "semen": "semyon",
 }
 
 
@@ -116,7 +163,8 @@ def enrich_europe_stats(
     source_lines = load_europe_source_lines(sources)
     by_name: dict[str, list[EuropeStatLine]] = {}
     for line in source_lines:
-        by_name.setdefault(normalize_person_key(line.name), []).append(line)
+        for key in person_identity_keys(line.name):
+            by_name.setdefault(key, []).append(line)
 
     name_counts = count_normalized_names(players)
     matched: dict[str, list[EuropeStatLine]] = {}
@@ -129,13 +177,24 @@ def enrich_europe_stats(
             if row.get("player_id") == player_id
         }
         leagues.update(drafted_leagues.get(player_id, set()))
-        key = normalize_person_key(player["name"])
-        candidates = [line for line in by_name.get(key, []) if same_league_family(leagues, line)]
-        if name_counts.get(key) == 1 and candidates:
+        keys = person_identity_keys(player["name"])
+        exact_key = normalize_person_key(player["name"])
+        candidates = deduplicate_source_lines(
+            line
+            for key in keys
+            for line in by_name.get(key, [])
+            if same_league_family(leagues, line)
+        )
+        match_method = (
+            "exact_name"
+            if any(normalize_person_key(line.name) == exact_key for line in candidates)
+            else "transliterated_name"
+        )
+        if name_counts.get(exact_key) == 1 and candidates:
             matched[player_id] = candidates
-            report.extend(build_match_row(player, line, True) for line in candidates)
+            report.extend(build_match_row(player, line, True, match_method) for line in candidates)
         else:
-            report.append(build_match_row(player, None, False))
+            report.append(build_match_row(player, None, False, "unmatched"))
 
     candidate_keys = {
         (player_id, line.season, line.league, line.regular_season)
@@ -499,12 +558,16 @@ def has_advanced_stats(line: EuropeStatLine) -> bool:
 
 
 def build_match_row(
-    player: dict[str, str], line: EuropeStatLine | None, matched: bool
+    player: dict[str, str],
+    line: EuropeStatLine | None,
+    matched: bool,
+    match_method: str,
 ) -> dict[str, str]:
     return {
         "player_id": player["player_id"],
         "name": player["name"],
         "matched": str(matched).lower(),
+        "match_method": match_method,
         "provider": line.provider if line else "",
         "league": line.league if line else "",
         "source_name": line.name if line else "",
@@ -515,6 +578,25 @@ def build_match_row(
         "points": line.points if line else "",
         "save_percentage": line.save_percentage if line else "",
     }
+
+
+def person_identity_keys(name: str) -> set[str]:
+    exact = normalize_person_key(name)
+    transliterated = name.casefold().translate(CYRILLIC_TRANSLITERATION)
+    parts = transliterated.split()
+    if parts:
+        parts[0] = RUSSIAN_FIRST_NAME_EQUIVALENTS.get(parts[0], parts[0])
+        parts = [part[:-2] + "y" if part.endswith("iy") else part for part in parts]
+    normalized_transliteration = normalize_person_key(" ".join(parts))
+    return {key for key in (exact, normalized_transliteration) if key}
+
+
+def deduplicate_source_lines(lines) -> list[EuropeStatLine]:
+    unique: dict[tuple[str, str, str, bool, str], EuropeStatLine] = {}
+    for line in lines:
+        key = (line.source_id, line.season, line.league, line.regular_season, line.team)
+        unique[key] = line
+    return list(unique.values())
 
 
 def display_swedish_name(name: str) -> str:

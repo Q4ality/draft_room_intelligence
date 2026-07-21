@@ -305,7 +305,7 @@ def _etl_command(paths: DemoClassPaths, *, include_eliteprospects: bool) -> str:
 
 def _demo_site_command(paths: DemoClassPaths) -> str:
     return (
-        "Build demo readiness package: "
+        "Build demo site: "
         f"PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness "
         f"data/processed/demo_{paths.draft_year}/final outputs/demo_{paths.draft_year}"
     )
@@ -317,7 +317,7 @@ def _current_demo_site_command(paths: DemoClassPaths) -> str | None:
     if latest_dataset is None or latest_outputs is None:
         return None
     return (
-        "Rebuild current demo readiness package: "
+        "Rebuild current demo site: "
         f"PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness "
         f"{latest_dataset.relative_to(paths.project_root) / 'final'} "
         f"{latest_outputs.relative_to(paths.project_root)}"

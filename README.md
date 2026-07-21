@@ -122,6 +122,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make historical-ncaa-discover` - generate NCAA source rows with the USCHO historical fallback.
 - `make historical-europe-discover` - merge reviewed Swedish, Finnish, and Russian source rows.
 - `make historical-league-etl` - apply cached league sources and write per-class coverage reports.
+- `make historical-league-audit` - report cross-year coverage, conflicting rows, partial advanced samples, and relevant source-match misses.
+- `make historical-league-pipeline` - resolve source discovery, apply ready caches, and produce enrichment plus data-quality reports in one resumable run; add `--collect` to the underlying CLI command when network collection is intended.
 - `make evaluate-consensus` - evaluate the consensus baseline against the fixture CSV.
 - `make evaluate-projection` - evaluate the heuristic projection baseline against the fixture CSV.
 - `make evaluate-adjusted-production` - evaluate the adjusted-production baseline against the fixture CSV.
@@ -147,6 +149,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel report-demo-sanity <demo-output-dir> <report-output-dir>` - write top-board, top-role, biggest-disagreement, and story-player checks for demo validation.
 - `draft-room-intel report-demo-acceptance <demo-output-dir> <report-output-dir>` - run pass/fail checks that guard the business-demo board shape and evidence UI.
 - `draft-room-intel report-ingestion-plan data/reference/ingestion_source_families.csv <output-dir>` - audit cache, normalized output, docs, and tests for each planned ingestion source family.
+- `draft-room-intel audit-league-ingestion data/processed/draft_classes <output-dir> --start-year 2014 --end-year 2026` - build the normalized league-data quality baseline used after ingestion runs.
 - `draft-room-intel report-codex-usage <run-log.csv> <output-dir>` - build a Markdown/CSV/HTML dashboard comparing baseline vs routed Codex task runs.
 - `draft-room-intel audit-codex-routing <output-dir>` - verify project Codex config, custom agents, and repo skill discovery links.
 - `draft-room-intel report-codex-context-routes data/reference/codex_context_routes.csv <output-dir>` - audit bounded context routes used to reduce broad repo reads.

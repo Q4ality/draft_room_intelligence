@@ -7,7 +7,6 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     write_eliteprospects_normalized_tables,
 )
 
-
 FIXTURE = Path(__file__).parent / "fixtures" / "eliteprospects_export.csv"
 
 
@@ -47,7 +46,11 @@ def test_normalize_eliteprospects_export_maps_players_and_stat_lines():
         }
     ]
     assert len(normalized.season_stat_lines) == 2
-    ushl_line = next(line for line in normalized.season_stat_lines if line["league"] == "USHL")
+    ushl_line = next(
+        line
+        for line in normalized.season_stat_lines
+        if line["league"] == "USHL" and line["team"] == "U.S. National Under-18 Team"
+    )
     assert ushl_line["source"] == "eliteprospects"
     assert ushl_line["timing"] == "pre_draft"
     assert ushl_line["points"] == "34"
@@ -82,7 +85,6 @@ def test_normalize_eliteprospects_export_canonicalizes_leagues_and_infers_playof
     normalized = normalize_eliteprospects_export(fixture, draft_year=2019)
 
     assert len(normalized.season_stat_lines) == 2
-    assert normalized.season_stat_lines[0]["league"] == "MHL"
-    assert normalized.season_stat_lines[0]["regular_season"] == "false"
-    assert normalized.season_stat_lines[1]["league"] == "HockeyAllsvenskan"
-    assert normalized.season_stat_lines[1]["regular_season"] == "true"
+    by_league = {line["league"]: line for line in normalized.season_stat_lines}
+    assert by_league["MHL"]["regular_season"] == "false"
+    assert by_league["HockeyAllsvenskan"]["regular_season"] == "true"
