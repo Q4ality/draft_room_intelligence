@@ -586,6 +586,7 @@ def build_team_fit(
         "roster_snapshot_warning": context.snapshot_warning,
         "roster_need_score": components["roster_need_score"],
         "pipeline_need_score": components["pipeline_need_score"],
+        "pipeline_capacity_ceiling": components["pipeline_capacity_ceiling"],
         "timeline_fit_score": components["timeline_fit_score"],
         "risk_appetite_score": components["risk_appetite_score"],
         "contract_opportunity_score": components["contract_opportunity_score"],
@@ -608,6 +609,7 @@ def build_team_fit(
             f"{components['bucket_player_count']} {candidate_role_bucket(prospect.position)} rows. "
             f"NHL-ready U25: {int(components['bucket_nhl_u25_count'])}; "
             f"AHL/prospect U25: {int(components['bucket_non_nhl_u25_count'])}. "
+            f"Pipeline capacity ceiling: {components['pipeline_capacity_ceiling']:.0%}. "
             f"{contract_note}"
             f"Team status: {TEAM_STATUS_LABELS.get(status, status)}. {coverage_note}. "
             f"Roster basis: {context.snapshot_label}. "
@@ -626,9 +628,9 @@ def candidate_role_bucket(position: str) -> str:
     normalized = position.strip().upper()
     if normalized == "G":
         return "goalie"
-    if normalized.endswith("D") or normalized == "D":
+    if normalized in {"D", "LD", "RD", "LHD", "RHD"}:
         return "defense"
-    if normalized == "C":
+    if normalized.startswith("C"):
         return "center"
     return "wing"
 
@@ -661,6 +663,7 @@ def team_fit_components(
     bucket_u25 = int(pipeline_profile["bucket_u25_count"])
     bucket_players = int(pipeline_profile["bucket_player_count"])
     pipeline_need = pipeline_need_score(row, prospect, tool_score, pipeline_profile)
+    pipeline_ceiling = pipeline_need_ceiling(prospect, pipeline_profile)
     timeline_fit = timeline_fit_score(row, prospect)
     risk_fit = risk_appetite_score(prospect, row)
     contract_opportunity = contract_opportunity_score(row)
@@ -684,6 +687,7 @@ def team_fit_components(
         "overall_score": min(1.0, max(0.0, overall)),
         "roster_need_score": roster_need,
         "pipeline_need_score": pipeline_need,
+        "pipeline_capacity_ceiling": pipeline_ceiling,
         "timeline_fit_score": timeline_fit,
         "risk_appetite_score": risk_fit,
         "contract_opportunity_score": contract_opportunity,
@@ -709,6 +713,29 @@ def roster_need_score(row: dict[str, str], tool_score: float) -> float:
     level_bonus = 0.10 if row.get("league_level") == "NHL" else 0.06
     score = (scarcity * 0.62) + (min(1.0, age_pressure) * 0.20) + level_bonus + (tool_score * 0.08)
     return min(1.0, max(0.0, score))
+
+
+def pipeline_need_ceiling(
+    prospect: HistoricalProspect,
+    pipeline_profile: dict[str, float],
+) -> float:
+    """Limit subtype need when the broader position pipeline is already occupied."""
+    bucket = candidate_role_bucket(prospect.position)
+    under_25 = int(pipeline_profile["bucket_u25_count"])
+    nhl_u25 = int(pipeline_profile["bucket_nhl_u25_count"])
+    non_nhl_u25 = int(pipeline_profile["bucket_non_nhl_u25_count"])
+    u25_capacity = {"goalie": 2, "center": 4, "wing": 8, "defense": 6}.get(bucket, 4)
+    nhl_capacity = {"goalie": 1, "center": 3, "wing": 4, "defense": 4}.get(bucket, 3)
+    development_capacity = {"goalie": 2, "center": 4, "wing": 6, "defense": 5}.get(bucket, 4)
+    total_occupancy = min(1.0, under_25 / u25_capacity)
+    nhl_occupancy = min(1.0, nhl_u25 / nhl_capacity)
+    development_occupancy = min(1.0, non_nhl_u25 / development_capacity)
+    structural_pressure = (
+        (total_occupancy * 0.30)
+        + (nhl_occupancy * 0.45)
+        + (development_occupancy * 0.20)
+    )
+    return min(1.0, max(0.0, 1.0 - structural_pressure))
 
 
 def contract_opportunity_score(row: dict[str, str]) -> float:
@@ -753,12 +780,12 @@ def peer_pipeline_examples(row: dict[str, str], context_rows: list[dict[str, str
         for item in context_rows
         if item.get("role_bucket") == bucket
         and safe_int(item.get("under_25", "0")) > 0
-        and item.get("example_players", "").strip()
+        and item.get("u25_example_players", "").strip()
     ]
     rows.sort(key=peer_example_sort_key)
     examples: list[str] = []
     for item in rows:
-        for name in split_example_players(item.get("example_players", "")):
+        for name in split_example_players(item.get("u25_example_players", "")):
             if name and name not in examples:
                 examples.append(name)
             if len(examples) >= limit:
@@ -807,7 +834,7 @@ def pipeline_need_score(
         score -= 0.15
     if tool_score >= 0.75 and under_25 == 0:
         score += 0.08
-    return min(1.0, max(0.0, score))
+    return min(pipeline_need_ceiling(prospect, profile), max(0.0, score))
 
 
 def readiness_pipeline_pressure(bucket: str, nhl_u25: int, non_nhl_u25: int) -> float:

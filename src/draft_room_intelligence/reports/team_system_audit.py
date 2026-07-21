@@ -121,7 +121,7 @@ def build_team_bucket_rows(
             non_nhl_young = [player for player in young_players if player.league_level != "NHL"]
             top_options = top_team_options(player_details, team_id, bucket)
             max_fit = float(top_options[0].get("score", 0.0)) if top_options else 0.0
-            max_pipeline = float(top_options[0].get("pipeline_need_score", 0.0)) if top_options else 0.0
+            max_pipeline = max((float(option.get("pipeline_need_score", 0.0)) for option in top_options), default=0.0)
             row = {
                 "team_id": team_id,
                 "team_name": team_names[team_id],
@@ -224,7 +224,7 @@ def bucket_flags(row: dict[str, str]) -> list[str]:
     )
     if saturated and max_fit >= 0.65:
         flags.append("high_fit_despite_saturated_u25_pipeline")
-    if nhl_ready_u25 >= 2 and max_fit >= 0.60:
+    if nhl_ready_u25 >= 2 and max_fit >= 0.65:
         flags.append("high_fit_despite_nhl_ready_u25_pipeline")
     if non_nhl_u25 >= 2 and max_fit >= 0.60:
         flags.append("high_fit_despite_ahl_prospect_pipeline")
@@ -241,7 +241,7 @@ def goalie_flags(row: dict[str, str]) -> list[str]:
     flags = []
     u25 = int(row["u25_goalies"])
     max_fit = float(row["max_demo_goalie_fit_score"])
-    if u25 >= 2 and max_fit >= 0.60:
+    if u25 >= 2 and max_fit >= 0.65:
         flags.append("goalie_fit_high_despite_multiple_u25_goalies")
     if row["low_nhl_game_young_goalies"]:
         flags.append("young_low_nhl_game_goalie_assignment_check")
@@ -272,6 +272,9 @@ def format_summary(
     flag_rows: list[dict[str, str]],
     reliability_rows: list[dict[str, str]],
 ) -> str:
+    high_flags = [row for row in flag_rows if row["severity"] == "high"]
+    medium_flags = [row for row in flag_rows if row["severity"] == "medium"]
+    low_flags = [row for row in flag_rows if row["severity"] == "low"]
     lines = [
         "# NHL System Audit",
         "",
@@ -279,6 +282,9 @@ def format_summary(
         f"- Team-bucket rows: {len(team_rows)}",
         f"- Goalie rows: {len(goalie_rows)}",
         f"- Review flags: {len(flag_rows)}",
+        f"- High-priority flags: {len(high_flags)}",
+        f"- Medium-priority flags: {len(medium_flags)}",
+        f"- Low-priority monitoring flags: {len(low_flags)}",
         f"- Teams with complete snapshot provenance: {sum(1 for row in reliability_rows if row['missing_snapshot_rows'] == '0')}",
         f"- Teams with only high-confidence assignments: {sum(1 for row in reliability_rows if row['high_confidence_rows'] == row['players'])}",
         f"- Teams with >=50% contract coverage: {sum(1 for row in reliability_rows if float(row['contract_coverage']) >= 0.50)}",
@@ -286,9 +292,10 @@ def format_summary(
         "## Highest Priority Flags",
         "",
     ]
-    if not flag_rows:
-        lines.append("- No review flags generated.")
-    for row in flag_rows[:30]:
+    priority_flags = high_flags + medium_flags
+    if not priority_flags:
+        lines.append("- No high- or medium-priority team-fit contradictions generated.")
+    for row in priority_flags[:30]:
         lines.append(
             f"- **{row['severity']}** {row['team_id']} {row['role_bucket']}: {row['issue_type']}"
         )
@@ -334,7 +341,11 @@ def issue_severity(issue_type: str) -> str:
         return "high"
     if issue_type == "high_fit_despite_nhl_ready_u25_pipeline":
         return "high"
-    if issue_type in {"young_low_nhl_game_goalie_assignment_check", "thin_pipeline_but_low_demo_fit"}:
+    if issue_type in {
+        "high_fit_despite_ahl_prospect_pipeline",
+        "young_low_nhl_game_goalie_assignment_check",
+        "thin_pipeline_but_low_demo_fit",
+    }:
         return "medium"
     return "low"
 
@@ -402,9 +413,9 @@ def bucket_for_position(position: str) -> str:
     normalized = position.strip().upper()
     if normalized == "G":
         return "goalie"
-    if normalized.endswith("D") or normalized == "D":
+    if normalized in {"D", "LD", "RD", "LHD", "RHD"}:
         return "defense"
-    if normalized == "C":
+    if normalized.startswith("C"):
         return "center"
     return "wing"
 

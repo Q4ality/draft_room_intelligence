@@ -86,6 +86,7 @@ DEPTH_COLUMNS = [
     "scarcity_target",
     "scarcity_score",
     "example_players",
+    "u25_example_players",
 ]
 
 
@@ -269,6 +270,10 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
                     "scarcity_target": f"{target:.1f}",
                     "scarcity_score": f"{scarcity:.3f}",
                     "example_players": "; ".join(format_example_player(player) for player in sort_example_players(group)[:5]),
+                    "u25_example_players": "; ".join(
+                        format_example_player(player)
+                        for player in sort_example_players([player for player in group if 0 < player.age < 25])[:5]
+                    ),
                 }
             )
         )

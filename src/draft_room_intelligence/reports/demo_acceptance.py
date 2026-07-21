@@ -57,6 +57,10 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     details = json.loads((root / "players.json").read_text(encoding="utf-8"))
     html = (root / "index.html").read_text(encoding="utf-8")
     board_by_name = {row["name"]: row for row in board}
+    details_by_name = {str(detail.get("header", {}).get("name", "")): detail for detail in details}
+    misa_sjs = team_fit_option(details_by_name.get("Michael Misa", {}), "SJS")
+    schaefer_nyi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "NYI")
+    schaefer_chi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "CHI")
     checks = [
         threshold_check("board_rows", len(board), 224, "eq", "Demo should cover the full 2025 drafted-player class."),
         threshold_check("player_details", len(details), len(board), "eq", "Every board row should have a player detail payload."),
@@ -85,6 +89,21 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
         named_rank_check(board_by_name, "Michael Misa", 5, "Trust-anchor forward should remain top-tier."),
         named_rank_check(board_by_name, "Porter Martone", 5, "Trust-anchor forward should remain top-tier."),
         named_rank_check(board_by_name, "Pyotr Andreyanov", 40, "Goalie evidence story should stay visible in the top half."),
+        content_check(
+            "misa_sjs_center_pipeline",
+            str(misa_sjs.get("role_type", "")).endswith("center"),
+            "Composite center/wing positions should use the primary center pipeline.",
+        ),
+        content_check(
+            "schaefer_nyi_fit_above_chicago",
+            float_value(schaefer_nyi.get("score")) - float_value(schaefer_chi.get("score")) >= 0.02,
+            "NYI should retain a meaningful fit advantage over Chicago's defense-heavy U25 pipeline.",
+        ),
+        content_check(
+            "misa_sjs_pipeline_need_bounded",
+            0.0 < float_value(misa_sjs.get("pipeline_need_score")) <= 0.35,
+            "San Jose's established U25 center group should materially limit additional center need.",
+        ),
         content_check("prospect_stats_evidence_ui", "Prospect Stats Evidence" in html, "Player detail should show stat evidence section."),
         content_check("production_header", "<th>Production</th>" in html, "History table should use role-neutral production label."),
     ]
@@ -153,6 +172,13 @@ def count_rows(rows: list[dict[str, str]], key: str, value: str) -> int:
     return sum(1 for row in rows if row.get(key) == value)
 
 
+def team_fit_option(detail: dict[str, object], team_id: str) -> dict[str, object]:
+    return next(
+        (option for option in detail.get("team_fit_options", []) if option.get("team_id") == team_id),
+        {},
+    )
+
+
 def top_n_overlap(rows: list[dict[str, str]], n: int) -> int:
     board_top = {row["player_id"] for row in rows if int_value(row.get("board_rank")) <= n}
     consensus_top = {row["player_id"] for row in rows if int_value(row.get("consensus_rank")) <= n}
@@ -176,6 +202,13 @@ def int_value(value: str | None) -> int:
         return int(float(value or 0))
     except ValueError:
         return 0
+
+
+def float_value(value: object) -> float:
+    try:
+        return float(value or 0)
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def slug(value: str) -> str:

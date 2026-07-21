@@ -2,7 +2,42 @@ import csv
 import json
 
 from draft_room_intelligence.data.team_rosters import RosterPlayer, write_roster_csv
-from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
+from draft_room_intelligence.reports.team_system_audit import (
+    bucket_flags,
+    bucket_for_position,
+    goalie_flags,
+    issue_severity,
+    write_team_system_audit,
+)
+
+
+def test_audit_position_and_severity_semantics():
+    assert bucket_for_position("CLW") == "center"
+    assert bucket_for_position("LWC") == "wing"
+    assert bucket_for_position("RD") == "defense"
+    assert issue_severity("high_fit_despite_ahl_prospect_pipeline") == "medium"
+
+
+def test_high_priority_fit_flags_require_material_mismatch():
+    bucket_row = {
+        "role_bucket": "wing",
+        "u25_players": "6",
+        "nhl_ready_u25": "2",
+        "non_nhl_u25": "4",
+        "total_players": "12",
+        "max_demo_fit_score": "0.61",
+        "short_sample_u25": "0",
+    }
+    goalie_row = {
+        "u25_goalies": "2",
+        "max_demo_goalie_fit_score": "0.61",
+        "low_nhl_game_young_goalies": "",
+        "u25_goalie_names": "Goalie One; Goalie Two",
+    }
+
+    assert "high_fit_despite_nhl_ready_u25_pipeline" not in bucket_flags(bucket_row)
+    assert "high_fit_despite_ahl_prospect_pipeline" in bucket_flags(bucket_row)
+    assert "goalie_fit_high_despite_multiple_u25_goalies" not in goalie_flags(goalie_row)
 
 
 def test_write_team_system_audit_flags_saturated_pipeline_and_goalie_assignment(tmp_path):
@@ -110,3 +145,5 @@ def test_team_system_audit_distinguishes_provenance_from_point_in_time_confidenc
     assert reliability["missing_snapshot_rows"] == "0"
     assert reliability["medium_confidence_rows"] == "1"
     assert "season_participation_not_point_in_time" in reliability["review_flags"]
+    summary = (output_dir / "summary.md").read_text(encoding="utf-8")
+    assert "High-priority flags: 0" in summary

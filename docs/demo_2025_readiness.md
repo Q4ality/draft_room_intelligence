@@ -48,6 +48,7 @@ make demo-2025-readiness
 - Team-fit analytics now separate raw U25 depth into NHL-ready U25 and AHL/prospect U25 pipeline signals, so franchise-fit explanations are less likely to overstate need when a system already has young players in the same role.
 - NHL membership now comes from official 2024-25 club-stat participants rather than the current roster endpoint. Cross-organization NHL/AHL collisions are assigned using each player's latest official game date; unresolved collisions are retained and labeled low-confidence instead of silently favoring one league.
 - Contract opportunity is available as a guarded team-fit component. It remains neutral in the current demo because a historical contract/cap source has not yet been staged.
+- Team-fit pipeline need is capped by fixed position-level U25 capacity and NHL/AHL readiness, so an empty role subtype cannot bypass a crowded organizational pipeline.
 - Real source enrichment from Wikipedia draft data, Wikipedia bio/career pages, CHL official regular-season/playoff data, CHL goalie exposure, USHL official data, and curated open-stat packs for Russian, Nordic, NCAA/USHL, Czech, and selected cleanup targets.
 - Transparent evidence flags so weakly covered players are visible instead of hidden.
 

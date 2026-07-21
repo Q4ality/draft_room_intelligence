@@ -34,10 +34,30 @@ def test_write_demo_acceptance_report_passes_current_demo_shape(tmp_path):
     ]
     rows.extend(board_row(f"x{i}", f"Player {i}", i, i, evidence="medium") for i in range(5, 225))
     write_rows(demo / "board.csv", rows)
-    (demo / "players.json").write_text(
-        json.dumps([{"player_id": row["player_id"], "stat_evidence": {}} for row in rows]),
-        encoding="utf-8",
-    )
+    details = []
+    for row in rows:
+        detail = {
+            "player_id": row["player_id"],
+            "header": {"name": row["name"]},
+            "stat_evidence": {},
+            "team_fit_options": [],
+        }
+        if row["name"] == "Michael Misa":
+            detail["team_fit_options"] = [
+                {
+                    "team_id": "SJS",
+                    "role_type": "scoring_center",
+                    "score": 0.55,
+                    "pipeline_need_score": 0.25,
+                }
+            ]
+        if row["name"] == "Matthew Schaefer":
+            detail["team_fit_options"] = [
+                {"team_id": "NYI", "role_type": "two_way_defense", "score": 0.55},
+                {"team_id": "CHI", "role_type": "two_way_defense", "score": 0.40},
+            ]
+        details.append(detail)
+    (demo / "players.json").write_text(json.dumps(details), encoding="utf-8")
     (demo / "index.html").write_text("<th>Production</th><section>Prospect Stats Evidence</section>", encoding="utf-8")
 
     report = write_demo_acceptance_report(demo, tmp_path / "acceptance")

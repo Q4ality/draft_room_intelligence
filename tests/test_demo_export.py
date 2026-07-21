@@ -9,7 +9,9 @@ from draft_room_intelligence.reports.demo_export import (
     build_demo_export_bundle,
     build_stat_evidence,
     build_team_fit,
+    candidate_role_bucket,
     evidence_weighted_board_score,
+    pipeline_need_ceiling,
     scouting_qualitative_flags,
     team_fit_components,
 )
@@ -96,7 +98,8 @@ def test_team_fit_reason_surfaces_u25_peer_pipeline_examples():
                 "avg_age": "25.2",
                 "scarcity_score": "0.000",
                 "scarcity_target": "4.0",
-                "example_players": "Marco Kasper; Emmitt Finnie",
+                "example_players": "Marco Kasper; Emmitt Finnie; Older Veteran",
+                "u25_example_players": "Marco Kasper; Emmitt Finnie",
             },
         ],
     )
@@ -105,6 +108,7 @@ def test_team_fit_reason_surfaces_u25_peer_pipeline_examples():
 
     assert "Current role examples: Dylan Larkin" in str(fit["reason"])
     assert "U25 peer pipeline examples: Marco Kasper" in str(fit["reason"])
+    assert "Older Veteran" not in str(fit["reason"])
 
 
 def test_missing_contract_coverage_preserves_original_team_fit_formula():
@@ -140,6 +144,112 @@ def test_missing_contract_coverage_preserves_original_team_fit_formula():
     )
 
     assert abs(components["overall_score"] - expected) < 0.000001
+
+
+def test_pipeline_need_is_capped_by_crowded_position_group():
+    prospect = HistoricalProspect(
+        player_id="p-crowded-wing",
+        name="Wing Prospect",
+        draft_year=2025,
+        position="RW",
+        age_at_draft=18.0,
+        height_cm=188,
+        weight_kg=86,
+        consensus_rank=8,
+        stat_line=PreDraftStatLine(league="OHL", team="T", season="2024-25", games=60, goals=30, assists=35),
+    )
+    selected_role = {
+        "league_level": "NHL",
+        "role_bucket": "wing",
+        "role_type": "scoring_wing",
+        "players": "2",
+        "under_25": "0",
+        "avg_age": "29.0",
+        "scarcity_score": "0.5",
+        "scarcity_target": "4.0",
+    }
+    context_rows = [
+        selected_role,
+        {
+            "league_level": "NHL",
+            "role_bucket": "wing",
+            "role_type": "two_way_wing",
+            "players": "6",
+            "under_25": "2",
+        },
+        {
+            "league_level": "AHL",
+            "role_bucket": "wing",
+            "role_type": "wing_depth",
+            "players": "12",
+            "under_25": "7",
+        },
+    ]
+
+    components = team_fit_components(selected_role, prospect, tool_score=0.8, context_rows=context_rows)
+
+    assert components["bucket_u25_count"] == 9
+    assert components["pipeline_capacity_ceiling"] < 0.35
+    assert components["pipeline_need_score"] <= components["pipeline_capacity_ceiling"]
+
+
+def test_pipeline_capacity_ceiling_distinguishes_nhl_ready_depth():
+    prospect = HistoricalProspect(
+        player_id="p-defense",
+        name="Defense Prospect",
+        draft_year=2025,
+        position="D",
+        age_at_draft=18.0,
+        height_cm=188,
+        weight_kg=86,
+        consensus_rank=5,
+        stat_line=PreDraftStatLine(league="OHL", team="T", season="2024-25", games=50, goals=10, assists=30),
+    )
+    nhl_heavy = {
+        "bucket_u25_count": 8.0,
+        "bucket_player_count": 18.0,
+        "bucket_nhl_u25_count": 6.0,
+        "bucket_non_nhl_u25_count": 2.0,
+    }
+    development_heavy = {
+        "bucket_u25_count": 8.0,
+        "bucket_player_count": 18.0,
+        "bucket_nhl_u25_count": 2.0,
+        "bucket_non_nhl_u25_count": 6.0,
+    }
+
+    assert pipeline_need_ceiling(prospect, nhl_heavy) < pipeline_need_ceiling(prospect, development_heavy)
+
+
+def test_pipeline_capacity_ceiling_uses_fixed_role_capacity_not_participant_rows():
+    prospect = HistoricalProspect(
+        player_id="p-center",
+        name="Center Prospect",
+        draft_year=2025,
+        position="C",
+        age_at_draft=18.0,
+        height_cm=185,
+        weight_kg=84,
+        consensus_rank=5,
+        stat_line=PreDraftStatLine(league="OHL", team="T", season="2024-25", games=50, goals=20, assists=30),
+    )
+    compact_roster = {
+        "bucket_u25_count": 4.0,
+        "bucket_player_count": 4.0,
+        "bucket_nhl_u25_count": 2.0,
+        "bucket_non_nhl_u25_count": 2.0,
+    }
+    churned_roster = {**compact_roster, "bucket_player_count": 40.0}
+
+    assert pipeline_need_ceiling(prospect, compact_roster) == pipeline_need_ceiling(prospect, churned_roster)
+
+
+def test_composite_positions_use_primary_position_bucket():
+    assert candidate_role_bucket("CLW") == "center"
+    assert candidate_role_bucket("CRW") == "center"
+    assert candidate_role_bucket("LWC") == "wing"
+    assert candidate_role_bucket("RWLW") == "wing"
+    assert candidate_role_bucket("RD") == "defense"
 
 
 def test_scouting_qualitative_flags_capture_championship_role_context():
