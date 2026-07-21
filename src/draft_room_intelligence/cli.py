@@ -96,6 +96,7 @@ from draft_room_intelligence.reports.codex_routing_audit import write_codex_rout
 from draft_room_intelligence.reports.codex_task_routing import write_codex_task_routing_report
 from draft_room_intelligence.reports.codex_usage import write_codex_usage_report
 from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
+from draft_room_intelligence.reports.demo_brief import write_demo_meeting_brief
 from draft_room_intelligence.reports.demo_export import (
     build_demo_export_bundle,
     export_demo_package,
@@ -1757,6 +1758,7 @@ def run_build_demo_site(
     bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
+    brief = write_demo_meeting_brief(output_dir, bundle)
     print(f"# Demo site build: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
     print(f"Output directory: {output_dir}")
@@ -1764,6 +1766,8 @@ def run_build_demo_site(
     print(f"Players JSON: {outputs['players']}")
     print(f"Manifest JSON: {outputs['manifest']}")
     print(f"HTML site: {site_path}")
+    print(f"Meeting brief HTML: {brief.html_path}")
+    print(f"Meeting brief PDF: {brief.pdf_path}")
     print(f"Dataset status: {bundle.manifest['dataset_status']}")
 
 
@@ -1780,6 +1784,7 @@ def run_build_demo_readiness(
     bundle = build_demo_export_bundle(prospects, team_depth_csv=team_depth_csv, team_id=team_id)
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
+    brief = write_demo_meeting_brief(output_dir, bundle)
     reports_dir = output_dir / "reports"
     gap_report_dir = reports_dir / "data_gaps"
     modeling_report_dir = reports_dir / "modeling_sanity"
@@ -1797,6 +1802,8 @@ def run_build_demo_readiness(
     print(f"Players JSON: {outputs['players']}")
     print(f"Manifest JSON: {outputs['manifest']}")
     print(f"HTML site: {site_path}")
+    print(f"Meeting brief HTML: {brief.html_path}")
+    print(f"Meeting brief PDF: {brief.pdf_path}")
     print(f"Dataset status: {bundle.manifest['dataset_status']}")
     print(f"Low-evidence players: {len(gap_report.low_evidence_rows)}")
     print(f"Data-gap summary: {gap_report_dir / 'summary.md'}")

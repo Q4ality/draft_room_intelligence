@@ -124,7 +124,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel scaffold-demo-class --draft-year <year>` - create the local raw/reference/processed/output layout and starter CSV templates for a single-class demo.
 - `draft-room-intel audit-demo-class --draft-year <year>` - check whether a draft class has the minimum local source files for ETL and demo use.
 - `python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py audit --draft-year <year>` - use the repo-local skill helper to scaffold, audit, stage raw inputs, run ETL, and build the demo for one class.
-- `draft-room-intel build-demo-readiness <final-dataset-dir> <output-dir>` - build a self-contained demo site plus `reports/data_gaps`, `reports/modeling_sanity`, `reports/demo_sanity`, and `reports/demo_acceptance` artifacts in one command.
+- `draft-room-intel build-demo-readiness <final-dataset-dir> <output-dir>` - build a self-contained demo site, a one-page HTML/PDF meeting brief, plus `reports/data_gaps`, `reports/modeling_sanity`, `reports/demo_sanity`, and `reports/demo_acceptance` artifacts in one command.
 - `draft-room-intel report-demo-gaps <demo-output-dir> <report-output-dir>` - prioritize remaining low-evidence players after a demo build.
 - `draft-room-intel report-demo-modeling <demo-output-dir> <report-output-dir>` - compare the demo board against consensus ordering and list largest movements.
 - `draft-room-intel report-demo-sanity <demo-output-dir> <report-output-dir>` - write top-board, top-role, biggest-disagreement, and story-player checks for demo validation.

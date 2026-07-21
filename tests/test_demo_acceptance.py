@@ -23,6 +23,13 @@ def board_row(player_id, name, rank, consensus, role="forward", evidence="high")
     }
 
 
+def write_brief_artifacts(demo):
+    (demo / "meeting_brief.html").write_text(
+        "<h1>2025 Guided Draft Meeting Brief</h1>", encoding="utf-8"
+    )
+    (demo / "meeting_brief.pdf").write_bytes(b"%PDF-1.4\n" + (b"0" * 1_100))
+
+
 def test_write_demo_acceptance_report_passes_current_demo_shape(tmp_path):
     demo = tmp_path / "demo"
     demo.mkdir()
@@ -64,6 +71,7 @@ def test_write_demo_acceptance_report_passes_current_demo_shape(tmp_path):
         "<button id='guided-next'></button>",
         encoding="utf-8",
     )
+    write_brief_artifacts(demo)
 
     report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
 
@@ -93,6 +101,7 @@ def test_write_demo_acceptance_report_fails_when_schaefer_drops(tmp_path):
         "<button id='guided-next'></button>",
         encoding="utf-8",
     )
+    write_brief_artifacts(demo)
 
     report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
 

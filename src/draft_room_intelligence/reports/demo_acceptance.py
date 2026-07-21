@@ -56,6 +56,8 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     board = read_csv(root / "board.csv")
     details = json.loads((root / "players.json").read_text(encoding="utf-8"))
     html = (root / "index.html").read_text(encoding="utf-8")
+    brief_html = root / "meeting_brief.html"
+    brief_pdf = root / "meeting_brief.pdf"
     board_by_name = {row["name"]: row for row in board}
     details_by_name = {str(detail.get("header", {}).get("name", "")): detail for detail in details}
     misa_sjs = team_fit_option(details_by_name.get("Michael Misa", {}), "SJS")
@@ -113,6 +115,16 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
                 for marker in ("Start Guided Demo", "guided-previous", "guided-next")
             ),
             "Demo site should retain the presenter-mode story controls.",
+        ),
+        content_check(
+            "meeting_brief_html",
+            brief_html.is_file() and "Guided Draft Meeting Brief" in brief_html.read_text(encoding="utf-8"),
+            "Readiness build should generate the printable guided-story brief.",
+        ),
+        content_check(
+            "meeting_brief_pdf",
+            brief_pdf.is_file() and brief_pdf.stat().st_size > 1_000,
+            "Readiness build should generate a non-empty one-page PDF brief.",
         ),
     ]
     return DemoAcceptanceReport(checks=checks)

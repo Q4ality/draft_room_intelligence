@@ -5,6 +5,8 @@
 Use the current strong demo build:
 
 - Site: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
+- One-page meeting brief: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/meeting_brief.pdf`
+- Printable HTML brief: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/meeting_brief.html`
 - Dataset: `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final`
 
 Current manifest snapshot:
@@ -27,14 +29,17 @@ Demo line:
 ## Seven-Minute Flow
 
 1. Open the board and point to the dataset status and 224-player coverage.
-2. Select `Start Guided Demo`.
-3. Use the arrow controls to move from Michael Misa to Matthew Schaefer and explain the three-score calibration.
-4. Continue through Cole Reschny, Alexei Medvedev, Charlie Cerrato, and Anton Frondell.
-5. Exit guided mode and filter by disagreement bucket for open exploration.
-6. Add two players to the shortlist and export the shortlist CSV.
-7. Close on the data-quality loop: evidence labels show what is ready and what still needs source enrichment.
+2. Keep the one-page meeting brief available as the discussion agenda and leave-behind.
+3. Select `Start Guided Demo`.
+4. Use the arrow controls to move from Michael Misa to Matthew Schaefer and explain the three-score calibration.
+5. Continue through Cole Reschny, Alexei Medvedev, Charlie Cerrato, and Anton Frondell.
+6. Exit guided mode and filter by disagreement bucket for open exploration.
+7. Add two players to the shortlist and export the shortlist CSV.
+8. Close on the data-quality loop: evidence labels show what is ready and what still needs source enrichment.
 
 The compact guided sequence is intentionally limited to six complementary stories. The longer `Guided Stories` list remains available for questions about Russian, Nordic, Czech, defense, and late-round coverage.
+
+The readiness build regenerates both meeting-brief formats from the same bundle as the site. The PDF is constrained to one landscape page and uses goalie-specific SV%, GAA, record, and shutout evidence for goalie stories.
 
 ## Recommended Story Players
 
