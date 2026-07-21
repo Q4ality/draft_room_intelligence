@@ -2,7 +2,11 @@ import csv
 import json
 
 from draft_room_intelligence.data.nhl_contracts import file_sha256
-from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
+from draft_room_intelligence.data.roster_snapshots import NHL_TEAM_IDS
+from draft_room_intelligence.reports.ingestion_plan import (
+    source_access_cache_status,
+    write_ingestion_plan_report,
+)
 
 
 def write_rows(path, rows):
@@ -172,3 +176,38 @@ def test_ingestion_plan_preserves_source_access_blocker(tmp_path):
 
     assert report.audits[0].readiness == "ready"
     assert report.audits[0].raw_cache_status == "present"
+
+
+def test_roster_source_access_requires_rights_snapshot_scope(tmp_path):
+    cache = tmp_path / "2025-06-01"
+    cache.mkdir()
+    raw_csv = cache / "rights.csv"
+    roster_rows = [
+        {
+            "team": team_id,
+            "player": f"{team_id} Player {index}",
+            "pos": "D",
+            "level": "PROSPECT",
+            "status": "reserve_list",
+        }
+        for team_id in sorted(NHL_TEAM_IDS)
+        for index in range(15)
+    ]
+    write_rows(raw_csv, roster_rows)
+    metadata = {
+        "source": "licensed-export",
+        "source_url": "https://example.test/export",
+        "snapshot_date": "2025-06-01",
+        "retrieved_at": "2026-07-21",
+        "access_basis": "licensed API export",
+        "scope": "sample",
+        "input_sha256": file_sha256(raw_csv),
+    }
+    raw_csv.with_suffix(".metadata.json").write_text(json.dumps(metadata), encoding="utf-8")
+
+    assert source_access_cache_status(cache, source_family="team_rosters") == "missing"
+
+    metadata["scope"] = "full_league_rights_snapshot"
+    raw_csv.with_suffix(".metadata.json").write_text(json.dumps(metadata), encoding="utf-8")
+
+    assert source_access_cache_status(cache, source_family="team_rosters") == "present"

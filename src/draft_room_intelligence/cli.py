@@ -46,7 +46,10 @@ from draft_room_intelligence.data.merge_quality import (
     format_merge_quality_report,
 )
 from draft_room_intelligence.data.nhl_api import import_nhl_rosters
-from draft_room_intelligence.data.nhl_contracts import enrich_roster_contracts, normalize_contract_export
+from draft_room_intelligence.data.nhl_contracts import (
+    enrich_roster_contracts,
+    normalize_contract_export,
+)
 from draft_room_intelligence.data.normalized_merge import (
     generate_match_map_template,
     merge_normalized_source_tables,
@@ -54,7 +57,13 @@ from draft_room_intelligence.data.normalized_merge import (
 from draft_room_intelligence.data.normalized_tables import load_normalized_historical_prospects
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.puckpedia_stats import enrich_puckpedia_stats
-from draft_room_intelligence.data.roster_assignments import enrich_cross_organization_assignment_dates
+from draft_room_intelligence.data.roster_assignments import (
+    enrich_cross_organization_assignment_dates,
+)
+from draft_room_intelligence.data.roster_snapshots import (
+    build_point_in_time_roster,
+    normalize_roster_snapshot,
+)
 from draft_room_intelligence.data.team_rosters import (
     build_depth_rows,
     format_depth_markdown,
@@ -601,6 +610,28 @@ def main() -> None:
         type=Path,
         help="Optional cache directory for NHL and AHL assignment game logs.",
     )
+    normalize_snapshot_parser = subparsers.add_parser(
+        "normalize-roster-snapshot",
+        help="Normalize a permitted full-league point-in-time NHL rights export.",
+    )
+    normalize_snapshot_parser.add_argument("input_csv", type=Path, help="Cached source export CSV.")
+    normalize_snapshot_parser.add_argument("output_csv", type=Path, help="Normalized snapshot CSV.")
+    normalize_snapshot_parser.add_argument("--snapshot-date", required=True, help="Historical cutoff in YYYY-MM-DD format.")
+    normalize_snapshot_parser.add_argument("--metadata-json", required=True, type=Path, help="Source metadata sidecar.")
+    normalize_snapshot_parser.add_argument("--audit-csv", type=Path, help="Optional row-level normalization audit.")
+    build_snapshot_parser = subparsers.add_parser(
+        "build-point-in-time-roster",
+        help="Apply a normalized rights snapshot to historical NHL/AHL season-stat rows.",
+    )
+    build_snapshot_parser.add_argument("base_roster_csv", type=Path, help="Historical season-stat roster CSV.")
+    build_snapshot_parser.add_argument("snapshot_csv", type=Path, help="Normalized point-in-time rights snapshot CSV.")
+    build_snapshot_parser.add_argument("output_csv", type=Path, help="Point-in-time roster output CSV.")
+    build_snapshot_parser.add_argument(
+        "--snapshot-date",
+        required=True,
+        help="Expected historical cutoff in YYYY-MM-DD format.",
+    )
+    build_snapshot_parser.add_argument("--audit-csv", type=Path, help="Optional match and exclusion audit CSV.")
     ahl_rosters_parser = subparsers.add_parser(
         "import-ahl-rosters",
         help="Import official AHL historical stats and roster details into normalized roster CSV.",
@@ -1008,6 +1039,22 @@ def main() -> None:
             resolve_cross_org_assignments=args.resolve_cross_org_assignments,
             nhl_season=args.nhl_season,
             assignment_cache_dir=args.assignment_cache_dir,
+        )
+    elif args.command == "normalize-roster-snapshot":
+        run_normalize_roster_snapshot(
+            args.input_csv,
+            args.output_csv,
+            snapshot_date=args.snapshot_date,
+            metadata_json=args.metadata_json,
+            audit_csv=args.audit_csv,
+        )
+    elif args.command == "build-point-in-time-roster":
+        run_build_point_in_time_roster(
+            args.base_roster_csv,
+            args.snapshot_csv,
+            args.output_csv,
+            expected_snapshot_date=args.snapshot_date,
+            audit_csv=args.audit_csv,
         )
     elif args.command == "import-ahl-rosters":
         run_import_ahl_rosters(
@@ -2019,6 +2066,53 @@ def run_merge_roster_csvs(
     print(f"Input roster players: {input_count}")
     print(f"Roster players: {len(players)}")
     print(f"Duplicate assignment rows removed: {input_count - len(players)}")
+    print(f"Output CSV: {output_csv}")
+
+
+def run_normalize_roster_snapshot(
+    input_csv: Path,
+    output_csv: Path,
+    *,
+    snapshot_date: str,
+    metadata_json: Path,
+    audit_csv: Path | None,
+) -> None:
+    summary = normalize_roster_snapshot(
+        input_csv,
+        output_csv,
+        snapshot_date=snapshot_date,
+        metadata_json=metadata_json,
+        audit_csv=audit_csv,
+    )
+    print("# Normalized roster rights snapshot")
+    print(f"Input rows: {summary.input_rows}")
+    print(f"Normalized rows: {summary.normalized_rows}")
+    print(f"Rejected rows: {summary.rejected_rows}")
+    print(f"Teams: {summary.teams}")
+    print(f"Output CSV: {output_csv}")
+
+
+def run_build_point_in_time_roster(
+    base_roster_csv: Path,
+    snapshot_csv: Path,
+    output_csv: Path,
+    *,
+    expected_snapshot_date: str,
+    audit_csv: Path | None,
+) -> None:
+    summary = build_point_in_time_roster(
+        base_roster_csv,
+        snapshot_csv,
+        output_csv,
+        expected_snapshot_date=expected_snapshot_date,
+        audit_csv=audit_csv,
+    )
+    print("# Point-in-time organizational roster")
+    print(f"Rights snapshot rows: {summary.source_rows}")
+    print(f"Matched season-stat rows: {summary.matched_players}")
+    print(f"Rights holders without season stats: {summary.sparse_players}")
+    print(f"Excluded season-participation rows: {summary.excluded_base_players}")
+    print(f"Output roster players: {summary.output_players}")
     print(f"Output CSV: {output_csv}")
 
 

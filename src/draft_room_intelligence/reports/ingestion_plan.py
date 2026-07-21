@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import csv
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
 from draft_room_intelligence.data.nhl_contracts import parse_iso_date, read_source_metadata
-
+from draft_room_intelligence.data.roster_snapshots import normalize_roster_snapshot
 
 SOURCE_FAMILY_COLUMNS = [
     "source_family",
@@ -140,7 +141,7 @@ def load_source_families(path: Path) -> list[SourceFamily]:
 def audit_source_family(family: SourceFamily, project_root: Path) -> IngestionAudit:
     raw_path = project_root / family.raw_cache_path
     raw_status = (
-        source_access_cache_status(raw_path)
+        source_access_cache_status(raw_path, source_family=family.source_family)
         if family.owner_stage == "source_access"
         else path_status(raw_path)
     )
@@ -239,7 +240,7 @@ def path_status(path: Path) -> str:
     return "present" if path.exists() else "missing"
 
 
-def source_access_cache_status(path: Path) -> str:
+def source_access_cache_status(path: Path, *, source_family: str = "") -> str:
     if not path.is_dir():
         return "missing"
     try:
@@ -257,11 +258,20 @@ def source_access_cache_status(path: Path) -> str:
                 first_row = next(reader, [])
             if not header or not any(value.strip() for value in first_row):
                 continue
-            read_source_metadata(
-                metadata_path,
-                input_csv=csv_path,
-                expected_snapshot=expected_snapshot,
-            )
+            if source_family == "team_rosters":
+                with tempfile.TemporaryDirectory() as temporary_dir:
+                    normalize_roster_snapshot(
+                        csv_path,
+                        Path(temporary_dir) / "normalized.csv",
+                        snapshot_date=expected_snapshot.isoformat(),
+                        metadata_json=metadata_path,
+                    )
+            else:
+                read_source_metadata(
+                    metadata_path,
+                    input_csv=csv_path,
+                    expected_snapshot=expected_snapshot,
+                )
         except (OSError, ValueError):
             continue
         return "present"

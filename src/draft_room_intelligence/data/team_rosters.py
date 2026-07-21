@@ -36,6 +36,8 @@ ROSTER_COLUMNS = [
     "snapshot_type",
     "roster_status",
     "assignment_confidence",
+    "assignment_source",
+    "assignment_source_url",
     "last_game_date",
     "cap_hit",
     "contract_end_year",
@@ -74,6 +76,7 @@ DEPTH_COLUMNS = [
     "snapshot_dates",
     "snapshot_types",
     "high_confidence_assignments",
+    "assignment_sources",
     "contract_players",
     "contract_coverage",
     "total_cap_hit",
@@ -122,6 +125,8 @@ class RosterPlayer:
     snapshot_type: str = ""
     roster_status: str = ""
     assignment_confidence: str = ""
+    assignment_source: str = ""
+    assignment_source_url: str = ""
     last_game_date: str = ""
     cap_hit: int = 0
     contract_end_year: int = 0
@@ -255,6 +260,9 @@ def build_depth_rows(players: list[RosterPlayer]) -> list[DepthRow]:
                     "high_confidence_assignments": str(
                         sum(1 for player in group if player.assignment_confidence.lower() == "high")
                     ),
+                    "assignment_sources": "; ".join(
+                        sorted({player.assignment_source for player in group if player.assignment_source})
+                    ),
                     "contract_players": str(len(contract_players)),
                     "contract_coverage": f"{contract_coverage:.3f}",
                     "total_cap_hit": str(total_cap_hit or ""),
@@ -339,6 +347,8 @@ def row_to_roster_player(row: dict[str, str]) -> RosterPlayer:
         snapshot_type=optional_text(row, "snapshot_type"),
         roster_status=optional_text(row, "roster_status"),
         assignment_confidence=optional_text(row, "assignment_confidence"),
+        assignment_source=optional_text(row, "assignment_source"),
+        assignment_source_url=optional_text(row, "assignment_source_url"),
         last_game_date=optional_text(row, "last_game_date"),
         cap_hit=optional_int(row, "cap_hit"),
         contract_end_year=optional_int(row, "contract_end_year"),
@@ -393,6 +403,8 @@ def roster_player_to_row(player: RosterPlayer) -> dict[str, str]:
         "snapshot_type": player.snapshot_type,
         "roster_status": player.roster_status,
         "assignment_confidence": player.assignment_confidence,
+        "assignment_source": player.assignment_source,
+        "assignment_source_url": player.assignment_source_url,
         "last_game_date": player.last_game_date,
         "cap_hit": str(player.cap_hit or ""),
         "contract_end_year": str(player.contract_end_year or ""),

@@ -252,7 +252,12 @@ def build_demo_export_bundle(
         )
         for player_id in base_board_scores
     }
-    team_contexts = load_team_fit_contexts(team_depth_csv)
+    draft_years = {prospect.draft_year for prospect in prospects}
+    expected_roster_snapshot = f"{next(iter(draft_years))}-06-01" if len(draft_years) == 1 else ""
+    team_contexts = load_team_fit_contexts(
+        team_depth_csv,
+        expected_snapshot_date=expected_roster_snapshot,
+    )
     team_fits = {
         player_id: default_team_fit(
             prospects_by_id[player_id],
@@ -426,13 +431,20 @@ def scouting_adjusted_board_score(base_board_score: float, consensus_score: floa
     return min(1.0, base_board_score + lift)
 
 
-def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamFitContext]:
+def load_team_fit_contexts(
+    team_depth_csv: str | Path | None,
+    *,
+    expected_snapshot_date: str = "",
+) -> dict[str, TeamFitContext]:
     if not team_depth_csv:
         return {}
     path = Path(team_depth_csv)
     if not path.exists():
         return {}
-    snapshot_label, snapshot_warning = team_depth_snapshot_labels(path)
+    snapshot_label, snapshot_warning = team_depth_snapshot_labels(
+        path,
+        expected_snapshot_date=expected_snapshot_date,
+    )
     grouped: dict[str, list[dict[str, str]]] = {}
     with path.open(newline="", encoding="utf-8") as file:
         for row in csv.DictReader(file):
@@ -451,7 +463,42 @@ def load_team_fit_contexts(team_depth_csv: str | Path | None) -> dict[str, TeamF
     }
 
 
-def team_depth_snapshot_labels(path: Path) -> tuple[str, str]:
+def team_depth_snapshot_labels(
+    path: Path,
+    *,
+    expected_snapshot_date: str = "",
+) -> tuple[str, str]:
+    snapshot_types: set[str] = set()
+    snapshot_dates: set[str] = set()
+    assignment_sources: set[str] = set()
+    incomplete_rows = False
+    try:
+        with path.open(newline="", encoding="utf-8") as file:
+            for row in csv.DictReader(file):
+                row_types = split_provenance_values(row.get("snapshot_types", ""))
+                row_dates = split_provenance_values(row.get("snapshot_dates", ""))
+                row_sources = split_provenance_values(row.get("assignment_sources", ""))
+                incomplete_rows |= not row_types or not row_dates or not row_sources
+                snapshot_types.update(row_types)
+                snapshot_dates.update(row_dates)
+                assignment_sources.update(row_sources)
+    except (OSError, csv.Error):
+        snapshot_types = set()
+        snapshot_dates = set()
+        assignment_sources = set()
+        incomplete_rows = True
+    expected_dates = {expected_snapshot_date} if expected_snapshot_date else snapshot_dates
+    if (
+        not incomplete_rows
+        and snapshot_types == {"point_in_time_rights"}
+        and snapshot_dates == expected_dates
+        and assignment_sources
+    ):
+        return (
+            "Verified point-in-time organizational rights snapshot",
+            "Assignments reflect the staged full-league rights inventory at its stated historical "
+            "cutoff; season statistics remain prior-season evidence.",
+        )
     normalized = path.as_posix().lower()
     if "2024_25" in normalized and "ahl" in normalized:
         return (
@@ -472,6 +519,10 @@ def team_depth_snapshot_labels(path: Path) -> tuple[str, str]:
         "Current NHL API roster",
         "Not a pre-2025/26-season or draft-night roster snapshot.",
     )
+
+
+def split_provenance_values(value: str) -> set[str]:
+    return {item.strip() for item in value.split(";") if item.strip()}
 
 
 def default_team_fit(

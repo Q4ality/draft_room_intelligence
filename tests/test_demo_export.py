@@ -13,10 +13,45 @@ from draft_room_intelligence.reports.demo_export import (
     evidence_weighted_board_score,
     pipeline_need_ceiling,
     scouting_qualitative_flags,
+    team_depth_snapshot_labels,
     team_fit_components,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "historical_prospects.csv"
+
+
+def test_team_depth_snapshot_label_uses_embedded_point_in_time_provenance(tmp_path):
+    depth_csv = tmp_path / "depth.csv"
+    depth_csv.write_text(
+        "team_id,snapshot_types,snapshot_dates,assignment_sources\n"
+        "NYI,point_in_time_rights,2025-06-01,licensed-rights-export\n"
+        "PIT,point_in_time_rights,2025-06-01,licensed-rights-export\n",
+        encoding="utf-8",
+    )
+
+    label, warning = team_depth_snapshot_labels(
+        depth_csv,
+        expected_snapshot_date="2025-06-01",
+    )
+
+    assert label == "Verified point-in-time organizational rights snapshot"
+    assert "prior-season evidence" in warning
+
+
+def test_team_depth_snapshot_label_rejects_wrong_cutoff(tmp_path):
+    depth_csv = tmp_path / "depth.csv"
+    depth_csv.write_text(
+        "team_id,snapshot_types,snapshot_dates,assignment_sources\n"
+        "NYI,point_in_time_rights,2026-06-01,licensed-rights-export\n",
+        encoding="utf-8",
+    )
+
+    label, _ = team_depth_snapshot_labels(
+        depth_csv,
+        expected_snapshot_date="2025-06-01",
+    )
+
+    assert label != "Verified point-in-time organizational rights snapshot"
 
 
 def test_build_demo_export_bundle_returns_board_and_player_payloads():
