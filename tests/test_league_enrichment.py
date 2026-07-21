@@ -9,15 +9,18 @@ from draft_room_intelligence.data.league_enrichment import (
     LeagueSourceSpec,
     collect_league_sources,
     discover_chl_source_specs,
+    discover_europe_source_specs,
+    discover_ncaa_source_specs,
     discover_ushl_source_specs,
     enrich_draft_class_leagues,
+    filter_league_sources,
     load_league_source_manifest,
     run_league_enrichment_range,
     validate_source_cache,
     write_league_source_manifest,
 )
 
-CHL_HTML = '''
+CHL_HTML = """
 <table id="topskaters"><tbody></tbody></table>
 <script>
 $('#topskaters').DataTable({
@@ -26,9 +29,9 @@ $('#topskaters').DataTable({
     [["https://chl.ca/ohl/roster/34/79","SAG"]],"65","62","72","134"]]
 });
 </script>
-'''
+"""
 
-CHL_CATALOG_HTML = '''
+CHL_CATALOG_HTML = """
 <select id="seasons">
   <option value="https://chl.ca/ohl/stats/leaders/81/">2025 Playoffs</option>
   <option value="https://chl.ca/ohl/stats/leaders/79/">2024-25 Regular Season</option>
@@ -36,9 +39,9 @@ CHL_CATALOG_HTML = '''
   <option value="https://chl.ca/ohl/stats/leaders/77/">2024 Playoffs</option>
   <option value="https://chl.ca/ohl/stats/leaders/76/">2023-24 Regular Season</option>
 </select>
-'''
+"""
 
-USHL_CATALOG_JSON = '''{
+USHL_CATALOG_JSON = """{
   "SiteKit": {
     "Seasons": [
       {"season_id": "87", "season_name": "2024-25 Playoffs", "playoff": "1"},
@@ -47,7 +50,7 @@ USHL_CATALOG_JSON = '''{
       {"season_id": "84", "season_name": "2023-24 Playoffs", "playoff": "1"}
     ]
   }
-}'''
+}"""
 
 
 def write_csv(path, fields, rows):
@@ -125,6 +128,22 @@ def test_cached_collection_does_not_require_network(tmp_path):
 
     assert result[0].status == "cached"
     assert result[0].byte_count > 0
+
+
+def test_filter_league_sources_can_select_adapter(tmp_path):
+    chl = source_spec(tmp_path / "ohl.html")
+    ncaa = LeagueSourceSpec(
+        **{
+            **chl.__dict__,
+            "source_id": "2025-ncaa",
+            "adapter": "ncaa",
+            "league": "NCAA",
+        }
+    )
+
+    selected = filter_league_sources([chl, ncaa], adapters={"ncaa"})
+
+    assert [source.source_id for source in selected] == ["2025-ncaa"]
 
 
 def test_ushl_cache_validation_rejects_wrong_role_payload(tmp_path):
@@ -222,6 +241,44 @@ def test_discover_ushl_sources_generates_skater_and_goalie_feeds(tmp_path):
     assert "position=goalies" in goalie.source_url
     assert "sort=save_percentage" in goalie.source_url
     assert goalie.cache_path.name == "ushl_2024_25_s85_regular_goalies.json"
+
+
+def test_discover_ncaa_sources_uses_historical_fallback_and_current_provider(tmp_path):
+    sources = discover_ncaa_source_specs(
+        cache_root=tmp_path / "cache",
+        start_year=2021,
+        end_year=2022,
+    )
+
+    assert len(sources) == 3
+    assert sources[0].source_label == "uscho:combined"
+    assert sources[0].source_url.endswith("/2020-2021")
+    assert {source.source_label for source in sources[1:]} == {
+        "collegehockeyinc:skaters",
+        "collegehockeyinc:goalies",
+    }
+
+
+def test_discover_europe_sources_enables_only_collected_catalog_rows(tmp_path):
+    cache = tmp_path / "cache" / "sweden.html"
+    cache.parent.mkdir()
+    cache.write_text("ready", encoding="utf-8")
+    catalog = tmp_path / "catalog.csv"
+    catalog.write_text(
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
+        "sweden,false,2025,europe,SHL,2024-25,regular,https://example.test/swe,cache/sweden.html,swehockey:combined\n"
+        "liiga,false,2025,europe,Liiga,2024-25,regular,https://example.test/fin,cache/liiga.json,liiga:skaters\n",
+        encoding="utf-8",
+    )
+
+    sources = discover_europe_source_specs(
+        catalog,
+        project_root=tmp_path,
+        start_year=2025,
+        end_year=2025,
+    )
+
+    assert [source.enabled for source in sources] == [False, True]
 
 
 def test_class_enrichment_uses_drafted_from_league_and_resumes(tmp_path):

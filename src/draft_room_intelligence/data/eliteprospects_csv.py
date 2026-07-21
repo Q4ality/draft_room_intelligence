@@ -11,7 +11,6 @@ from draft_room_intelligence.data.league_standardization import (
     normalize_league_name,
 )
 
-
 PLAYER_COLUMNS = [
     "player_id",
     "name",
@@ -65,6 +64,25 @@ GOALIE_STAT_COLUMNS = [
     "losses",
     "ties",
     "shutouts",
+]
+
+ADVANCED_STAT_LINE_COLUMNS = [
+    "player_id",
+    "season",
+    "league",
+    "team",
+    "timing",
+    "regular_season",
+    "games",
+    "plus_minus",
+    "shots",
+    "blocks",
+    "faceoff_wins",
+    "faceoff_losses",
+    "faceoff_percentage",
+    "source",
+    "source_id",
+    "source_url",
 ]
 
 
@@ -262,6 +280,7 @@ def write_eliteprospects_normalized_tables(
     root.mkdir(parents=True, exist_ok=True)
     write_table(root / "players.csv", PLAYER_COLUMNS, normalized.players)
     write_table(root / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, normalized.season_stat_lines)
+    write_table(root / "advanced_stat_lines.csv", ADVANCED_STAT_LINE_COLUMNS, [])
     return normalized
 
 

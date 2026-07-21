@@ -1,4 +1,4 @@
-.PHONY: install-dev demo demo-2025-readiness historical-draft-cache historical-draft-etl historical-league-discover historical-ushl-catalog historical-ushl-discover historical-league-cache historical-league-etl team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
+.PHONY: install-dev demo demo-2025-readiness historical-draft-cache historical-draft-etl historical-league-discover historical-ushl-catalog historical-ushl-discover historical-ncaa-discover historical-europe-discover historical-league-cache historical-league-etl team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
 
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
@@ -26,6 +26,12 @@ historical-ushl-catalog:
 
 historical-ushl-discover:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli discover-ushl-sources data/reference/league_stat_sources.csv --catalog data/raw/cache/ushl_stats/seasons.json --cache-root data/raw/cache/ushl_stats --project-root . --start-year 2014 --end-year 2026
+
+historical-ncaa-discover:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli discover-ncaa-sources data/reference/league_stat_sources.csv --cache-root data/raw/cache/ncaa_stats --project-root . --start-year 2014 --end-year 2026
+
+historical-europe-discover:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli discover-europe-sources data/reference/league_stat_sources.csv --catalog data/reference/europe_league_source_catalog.csv --project-root . --start-year 2014 --end-year 2026
 
 historical-league-cache:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-league-sources data/reference/league_stat_sources.csv --project-root . --start-year 2014 --end-year 2026

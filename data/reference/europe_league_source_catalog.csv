@@ -1,0 +1,15 @@
+source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label
+2025-sweden-j20-north-regular,false,2025,europe,Sweden Jrs.,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975,data/raw/cache/europe_stats/2025_sweden_j20_north_regular.html,swehockey:combined
+2025-sweden-j20-south-regular,false,2025,europe,Sweden Jrs.,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976,data/raw/cache/europe_stats/2025_sweden_j20_south_regular.html,swehockey:combined
+2025-shl-regular,false,2025,europe,SHL,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977,data/raw/cache/europe_stats/2025_shl_regular.html,swehockey:combined
+2025-shl-playoffs,false,2025,europe,SHL,2024-25,playoffs,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17557,data/raw/cache/europe_stats/2025_shl_playoffs.html,swehockey:combined
+2025-hockeyallsvenskan-regular,false,2025,europe,HockeyAllsvenskan,2024-25,regular,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15986,data/raw/cache/europe_stats/2025_hockeyallsvenskan_regular.html,swehockey:combined
+2025-hockeyallsvenskan-playoffs,false,2025,europe,HockeyAllsvenskan,2024-25,playoffs,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17571,data/raw/cache/europe_stats/2025_hockeyallsvenskan_playoffs.html,swehockey:combined
+2025-liiga-regular-skaters,false,2025,europe,Liiga,2024-25,regular,https://liiga.fi/api/v2/players/stats/summed/2024/2024/runkosarja/true?dataType=basicStats,data/raw/cache/europe_stats/2025_liiga_regular_skaters.json,liiga:skaters
+2025-liiga-regular-goalies,false,2025,europe,Liiga,2024-25,regular,https://liiga.fi/api/v2/players/stats/summed/2024/2024/runkosarja/true?dataType=basicStatsGk,data/raw/cache/europe_stats/2025_liiga_regular_goalies.json,liiga:goalies
+2025-liiga-playoffs-skaters,false,2025,europe,Liiga,2024-25,playoffs,https://liiga.fi/api/v2/players/stats/summed/2024/2024/playoffs/true?dataType=basicStats,data/raw/cache/europe_stats/2025_liiga_playoffs_skaters.json,liiga:skaters
+2025-liiga-playoffs-goalies,false,2025,europe,Liiga,2024-25,playoffs,https://liiga.fi/api/v2/players/stats/summed/2024/2024/playoffs/true?dataType=basicStatsGk,data/raw/cache/europe_stats/2025_liiga_playoffs_goalies.json,liiga:goalies
+2025-khl-regular,false,2025,europe,KHL,2024-25,regular,https://en.khl.ru/stat/leaders/1288/g/?schedule=1288&section=g,data/raw/cache/europe_stats/2025_khl_regular.html,khl:skaters
+2025-khl-playoffs,false,2025,europe,KHL,2024-25,playoffs,https://en.khl.ru/stat/leaders/1289/pts/?schedule=1289&section=pts,data/raw/cache/europe_stats/2025_khl_playoffs.html,khl:skaters
+2025-mhl-regular,false,2025,europe,MHL,2024-25,regular,https://mhl.khl.ru/stat/leaders/1162/pts/,data/raw/cache/europe_stats/2025_mhl_regular.html,khl:skaters
+2025-mhl-playoffs,false,2025,europe,MHL,2024-25,playoffs,https://mhl.khl.ru/stat/leaders/1292/pts/,data/raw/cache/europe_stats/2025_mhl_playoffs.html,khl:skaters

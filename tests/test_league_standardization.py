@@ -9,6 +9,7 @@ def test_normalize_league_name_handles_official_nhl_draft_codes():
     assert normalize_league_name("SWEDEN-JR.") == "Sweden Jrs."
     assert normalize_league_name("FINLAND-JR.") == "Finland Jrs."
     assert normalize_league_name("RUSSIA-JR.") == "Russia Jr."
+    assert normalize_league_name("Nationell") == "Sweden Jrs."
 
 
 def test_normalize_league_name_matches_aliases_case_insensitively():

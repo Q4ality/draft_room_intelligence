@@ -44,6 +44,7 @@ LEAGUE_ALIASES = {
     "Sweden Jr.": "Sweden Jrs.",
     "Sweden U20": "Sweden Jrs.",
     "J20 Nationell": "Sweden Jrs.",
+    "Nationell": "Sweden Jrs.",
     "J20": "Sweden Jrs.",
     "J20 SuperElit": "Sweden Jrs.",
     "SuperElit": "Sweden Jrs.",

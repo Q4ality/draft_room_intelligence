@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+from draft_room_intelligence.data.eliteprospects_csv import ADVANCED_STAT_LINE_COLUMNS
 from draft_room_intelligence.data.league_standardization import normalize_league_name
 
 NHL_DRAFT_URL = "https://api-web.nhle.com/v1/draft/picks/{draft_year}/all"
@@ -96,6 +97,7 @@ def generate_nhl_draft_base_tables(
     )
     write_csv(root / "rankings.csv", ranking_fields(), [row["ranking"] for row in rows])
     write_csv(root / "season_stat_lines.csv", stat_line_fields(), [])
+    write_csv(root / "advanced_stat_lines.csv", ADVANCED_STAT_LINE_COLUMNS, [])
     # The draft feed has no observed NHL outcomes. Empty rows preserve unknown values.
     write_csv(root / "nhl_outcomes.csv", outcome_fields(), [])
     return root

@@ -10,8 +10,8 @@ from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
+from draft_room_intelligence.data.eliteprospects_csv import ADVANCED_STAT_LINE_COLUMNS
 from draft_room_intelligence.data.league_standardization import normalize_league_name
-
 
 TEAM_IDS = {
     "Anaheim": "ANA",
@@ -209,6 +209,7 @@ def generate_hockeydb_base_tables(config: HockeyDbBaseETLConfig) -> Path:
         ],
         build_pre_draft_stat_rows(enriched, source_fields, season),
     )
+    write_csv(root / "advanced_stat_lines.csv", ADVANCED_STAT_LINE_COLUMNS, [])
     write_csv(
         root / "nhl_outcomes.csv",
         [

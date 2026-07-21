@@ -50,9 +50,12 @@ from draft_room_intelligence.data.hockeydb_base import (
     generate_hockeydb_base_tables,
 )
 from draft_room_intelligence.data.league_enrichment import (
+    SUPPORTED_ADAPTERS,
     collect_league_sources,
     collect_ushl_season_catalog,
     discover_chl_source_specs,
+    discover_europe_source_specs,
+    discover_ncaa_source_specs,
     discover_ushl_source_specs,
     filter_league_sources,
     load_league_source_manifest,
@@ -940,6 +943,12 @@ def main() -> None:
     collect_leagues_parser.add_argument("--project-root", type=Path, default=Path("."))
     collect_leagues_parser.add_argument("--start-year", type=int)
     collect_leagues_parser.add_argument("--end-year", type=int)
+    collect_leagues_parser.add_argument(
+        "--adapter",
+        action="append",
+        choices=SUPPORTED_ADAPTERS,
+        help="Only collect the selected adapter; repeat to select more than one.",
+    )
     collect_leagues_parser.add_argument("--refresh", action="store_true")
     collect_leagues_parser.add_argument(
         "--include-disabled",
@@ -990,6 +999,24 @@ def main() -> None:
     discover_ushl_parser.add_argument("--project-root", type=Path, default=Path("."))
     discover_ushl_parser.add_argument("--start-year", type=int, required=True)
     discover_ushl_parser.add_argument("--end-year", type=int, required=True)
+    discover_ncaa_parser = subparsers.add_parser(
+        "discover-ncaa-sources",
+        help="Add NCAA national skater and goalie sources to a league manifest.",
+    )
+    discover_ncaa_parser.add_argument("manifest_path", type=Path)
+    discover_ncaa_parser.add_argument("--cache-root", type=Path, required=True)
+    discover_ncaa_parser.add_argument("--project-root", type=Path, default=Path("."))
+    discover_ncaa_parser.add_argument("--start-year", type=int, required=True)
+    discover_ncaa_parser.add_argument("--end-year", type=int, required=True)
+    discover_europe_parser = subparsers.add_parser(
+        "discover-europe-sources",
+        help="Merge reviewed Swedish, Finnish, and Russian sources into a league manifest.",
+    )
+    discover_europe_parser.add_argument("manifest_path", type=Path)
+    discover_europe_parser.add_argument("--catalog", type=Path, required=True)
+    discover_europe_parser.add_argument("--project-root", type=Path, default=Path("."))
+    discover_europe_parser.add_argument("--start-year", type=int, required=True)
+    discover_europe_parser.add_argument("--end-year", type=int, required=True)
     evaluate_parser = subparsers.add_parser(
         "evaluate",
         help="Evaluate the consensus baseline against a normalized historical CSV.",
@@ -1285,6 +1312,7 @@ def main() -> None:
             end_year=args.end_year,
             refresh=args.refresh,
             include_disabled=args.include_disabled,
+            adapters=set(args.adapter or []),
             continue_on_error=not args.fail_fast,
         )
     elif args.command == "enrich-draft-range-leagues":
@@ -1315,6 +1343,22 @@ def main() -> None:
             args.manifest_path,
             catalog_path=args.catalog,
             cache_root=args.cache_root,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+        )
+    elif args.command == "discover-ncaa-sources":
+        run_discover_ncaa_sources(
+            args.manifest_path,
+            cache_root=args.cache_root,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+        )
+    elif args.command == "discover-europe-sources":
+        run_discover_europe_sources(
+            args.manifest_path,
+            catalog_path=args.catalog,
             project_root=args.project_root,
             start_year=args.start_year,
             end_year=args.end_year,
@@ -2216,6 +2260,7 @@ def run_collect_league_sources(
     end_year: int | None,
     refresh: bool,
     include_disabled: bool,
+    adapters: set[str],
     continue_on_error: bool,
 ) -> None:
     sources = filter_league_sources(
@@ -2223,6 +2268,7 @@ def run_collect_league_sources(
         start_year=start_year,
         end_year=end_year,
         include_disabled=include_disabled,
+        adapters=adapters,
     )
     results = collect_league_sources(
         sources,
@@ -2305,6 +2351,63 @@ def run_discover_ushl_sources(
     sources = merge_league_source_specs(existing, discovered, adapter="ushl")
     output = write_league_source_manifest(manifest_path, sources, project_root=root)
     print(f"# USHL source discovery: {start_year}-{end_year}")
+    print(f"Sources discovered: {len(discovered)}")
+    print(f"Enabled caches: {sum(source.enabled for source in discovered)}")
+    print(f"Manifest: {output}")
+
+
+def run_discover_ncaa_sources(
+    manifest_path: Path,
+    *,
+    cache_root: Path,
+    project_root: Path,
+    start_year: int,
+    end_year: int,
+) -> None:
+    root = project_root.resolve()
+    cache = cache_root if cache_root.is_absolute() else root / cache_root
+    discovered = discover_ncaa_source_specs(
+        cache_root=cache,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    existing = (
+        load_league_source_manifest(manifest_path, project_root=root)
+        if manifest_path.is_file()
+        else []
+    )
+    sources = merge_league_source_specs(existing, discovered, adapter="ncaa")
+    output = write_league_source_manifest(manifest_path, sources, project_root=root)
+    print(f"# NCAA source discovery: {start_year}-{end_year}")
+    print(f"Sources discovered: {len(discovered)}")
+    print(f"Enabled caches: {sum(source.enabled for source in discovered)}")
+    print(f"Manifest: {output}")
+
+
+def run_discover_europe_sources(
+    manifest_path: Path,
+    *,
+    catalog_path: Path,
+    project_root: Path,
+    start_year: int,
+    end_year: int,
+) -> None:
+    root = project_root.resolve()
+    catalog = catalog_path if catalog_path.is_absolute() else root / catalog_path
+    discovered = discover_europe_source_specs(
+        catalog,
+        project_root=root,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    existing = (
+        load_league_source_manifest(manifest_path, project_root=root)
+        if manifest_path.is_file()
+        else []
+    )
+    sources = merge_league_source_specs(existing, discovered, adapter="europe")
+    output = write_league_source_manifest(manifest_path, sources, project_root=root)
+    print(f"# European source discovery: {start_year}-{end_year}")
     print(f"Sources discovered: {len(discovered)}")
     print(f"Enabled caches: {sum(source.enabled for source in discovered)}")
     print(f"Manifest: {output}")

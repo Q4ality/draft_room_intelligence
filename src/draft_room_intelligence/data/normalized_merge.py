@@ -8,6 +8,8 @@ from dataclasses import dataclass
 from difflib import SequenceMatcher
 from pathlib import Path
 
+from draft_room_intelligence.data.eliteprospects_csv import ADVANCED_STAT_LINE_COLUMNS
+
 PASSTHROUGH_TABLES = ["draft_selections.csv", "rankings.csv", "nhl_outcomes.csv"]
 PLAYER_COLUMNS = [
     "player_id",
@@ -97,6 +99,8 @@ def merge_normalized_source_tables(
     source_players = read_table(source_root / "players.csv")
     base_stat_lines = read_optional_table(base_root / "season_stat_lines.csv")
     source_stat_lines = read_optional_table(source_root / "season_stat_lines.csv")
+    base_advanced_lines = read_optional_table(base_root / "advanced_stat_lines.csv")
+    source_advanced_lines = read_optional_table(source_root / "advanced_stat_lines.csv")
 
     match_map = read_match_map(match_map_path)
     base_by_id = {row["player_id"]: row for row in base_players}
@@ -143,9 +147,29 @@ def merge_normalized_source_tables(
         *sorted(remapped_source_stat_lines, key=stat_line_sort_key),
         *kept_base_stat_lines,
     ]
+    remapped_advanced_lines = remap_source_stat_lines(
+        source_advanced_lines,
+        source_player_id_to_base_id,
+    )
+    if replace_timing:
+        kept_advanced_lines = [
+            line
+            for line in base_advanced_lines
+            if not (
+                line.get("player_id") in matched_base_ids
+                and line.get("timing", "").strip() == replace_timing
+            )
+        ]
+    else:
+        kept_advanced_lines = base_advanced_lines
 
     write_table(output_root / "players.csv", PLAYER_COLUMNS, merged_players)
     write_table(output_root / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, output_stat_lines)
+    write_table(
+        output_root / "advanced_stat_lines.csv",
+        ADVANCED_STAT_LINE_COLUMNS,
+        [*remapped_advanced_lines, *kept_advanced_lines],
+    )
     write_table(
         output_root / "unmatched_source_players.csv",
         PLAYER_COLUMNS,

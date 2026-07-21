@@ -9,15 +9,17 @@ non-reproducible.
 `data/reference/league_stat_sources.csv` contains one reviewed source per row:
 
 - `draft_year`, `league`, and `season` define the target class and stat context.
-- `adapter` selects `chl`, `ushl`, or `open_csv` parsing.
+- `adapter` selects `chl`, `ushl`, `ncaa`, `europe`, or `open_csv` parsing.
 - `stage` preserves regular-season versus playoff evidence.
 - `source_url` is provenance and the optional collection endpoint.
 - `cache_path` is the ignored local artifact used by ETL.
-- `source_label` identifies an open CSV provider or stores the USHL season ID.
+- `source_label` identifies the provider/feed kind or stores the USHL season ID.
 
-The generated manifest records 73 CHL and 50 USHL sources for 2014-2026. Six validated 2025
-CHL caches and all 50 USHL caches are enabled. The remaining 67 CHL rows are disabled until a
-valid cache can be collected; keeping them tracked makes the backlog exact rather than implicit.
+The generated manifest also records 18 NCAA feeds and a reviewed European source catalog. NCAA
+uses USCHO structured pages for 2014-2021 and College Hockey Inc. skater/goalie tables for
+2022-2026. The initial European slice covers 2025 Swedish J20/SHL/HockeyAllsvenskan and Liiga
+regular/playoff feeds. Protected KHL/MHL rows remain disabled and use reviewed open-CSV evidence
+as the operational fallback.
 
 USHL coverage uses separate skater and goalie feeds for regular seasons and playoffs. The public
 HockeyTech season catalog supplies opaque season IDs, so no year mapping is maintained by hand.
@@ -29,6 +31,8 @@ The 2019-20 season correctly has no playoff sources.
 make historical-league-discover
 make historical-ushl-catalog
 make historical-ushl-discover
+make historical-ncaa-discover
+make historical-europe-discover
 make historical-league-cache
 make historical-league-etl
 ```
@@ -50,6 +54,15 @@ the feeds are cached and discovery is rerun, validated files become enabled auto
 The USHL adapter preserves skater scoring and goalie GP, minutes, shots, saves, goals against,
 SV%, GAA, wins, losses, overtime losses, and shutouts. Regular-season and playoff lines remain
 separate evidence rows.
+
+NCAA and European adapters write `advanced_stat_lines.csv` beside the standard season table.
+Each row includes games, plus/minus, shots, blocks, faceoff wins/losses, and faceoff percentage
+when the source publishes them. Swedish split-phase rows do not replace an existing richer
+full-season line, but their explicitly scoped advanced evidence is retained.
+
+Use `collect-league-sources --adapter <name>` to refresh one provider family without retrying
+the entire manifest. Rerun the corresponding discovery command after collection so validated
+caches become enabled.
 
 The equivalent enrichment command is:
 
@@ -81,9 +94,8 @@ place. Source cache digests and baseline ETL state are recorded in
 Populate reviewed regular-season and playoff sources in this order:
 
 1. CHL (OHL, WHL, QMJHL) for 2014-2024 and 2026.
-2. NCAA and USNTDP-only evidence not represented in the USHL feed.
-3. Sweden, Finland, Russia, and other European development/adult leagues through curated open
-   CSV adapters until stable official APIs are available.
+2. Extend Swedish/Finnish reviewed catalogs backward from the validated 2025 slice.
+3. Add an authorized Russian cache/export path plus transliteration mapping for KHL/MHL/VHL.
 4. NHL outcome snapshots for mature classes, kept separate from pre-draft features.
 
 The report at `outputs/league_enrichment/summary.md` is the operational coverage baseline.

@@ -13,6 +13,12 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 from draft_room_intelligence.data.chl_stats import ChlStatSource, enrich_chl_stats
+from draft_room_intelligence.data.europe_stats import (
+    EuropeStatSource,
+    enrich_europe_stats,
+    load_europe_source_lines,
+)
+from draft_room_intelligence.data.ncaa_stats import NcaaStatSource, enrich_ncaa_stats
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.ushl_stats import (
     USHL_SEASON_CATALOG_URL,
@@ -24,7 +30,7 @@ from draft_room_intelligence.data.ushl_stats import (
     source_url as ushl_source_url,
 )
 
-SUPPORTED_ADAPTERS = ("chl", "ushl", "open_csv")
+SUPPORTED_ADAPTERS = ("chl", "ushl", "ncaa", "europe", "open_csv")
 ENRICHMENT_STATE_FILE = "league_enrichment_state.json"
 PIPELINE_VERSION = 1
 LEAGUE_SOURCE_FIELDS = (
@@ -269,6 +275,84 @@ def merge_league_source_specs(
     )
 
 
+def discover_ncaa_source_specs(
+    *,
+    cache_root: str | Path,
+    start_year: int,
+    end_year: int,
+) -> list[LeagueSourceSpec]:
+    sources: list[LeagueSourceSpec] = []
+    for draft_year in range(start_year, end_year + 1):
+        season = f"{draft_year - 1}-{str(draft_year)[-2:]}"
+        if draft_year <= 2021:
+            source_url = (
+                "https://www.uscho.com/stats/overall/division-i-men/"
+                f"{draft_year - 1}-{draft_year}"
+            )
+            cache_path = Path(cache_root) / f"ncaa_{season.replace('-', '_')}_uscho.html"
+            sources.append(
+                LeagueSourceSpec(
+                    source_id=f"{draft_year}-ncaa-uscho-combined",
+                    enabled=cache_path.is_file(),
+                    draft_year=draft_year,
+                    adapter="ncaa",
+                    league="NCAA",
+                    season=season,
+                    regular_season=True,
+                    source_url=source_url,
+                    cache_path=cache_path,
+                    source_label="uscho:combined",
+                )
+            )
+            continue
+        suffix = str(draft_year)[-2:]
+        for kind in ("skaters", "goalies"):
+            page = "natplayer" if kind == "skaters" else "natgoalie"
+            source_url = f"https://collegehockeyinc.com/conferences/national/{page}{suffix}.php"
+            cache_path = Path(cache_root) / (
+                f"ncaa_{season.replace('-', '_')}_collegehockeyinc_{kind}.html"
+            )
+            sources.append(
+                LeagueSourceSpec(
+                    source_id=f"{draft_year}-ncaa-collegehockeyinc-{kind}",
+                    enabled=cache_path.is_file(),
+                    draft_year=draft_year,
+                    adapter="ncaa",
+                    league="NCAA",
+                    season=season,
+                    regular_season=True,
+                    source_url=source_url,
+                    cache_path=cache_path,
+                    source_label=f"collegehockeyinc:{kind}",
+                )
+            )
+    return sources
+
+
+def discover_europe_source_specs(
+    catalog_path: str | Path,
+    *,
+    project_root: str | Path,
+    start_year: int,
+    end_year: int,
+) -> list[LeagueSourceSpec]:
+    sources = load_league_source_manifest(catalog_path, project_root=project_root)
+    discovered = []
+    for source in sources:
+        if source.adapter != "europe":
+            raise ValueError(f"European catalog contains non-Europe adapter: {source.source_id}")
+        if start_year <= source.draft_year <= end_year:
+            discovered.append(
+                LeagueSourceSpec(
+                    **{
+                        **source.__dict__,
+                        "enabled": source.cache_path.is_file(),
+                    }
+                )
+            )
+    return sorted(discovered, key=lambda source: (source.draft_year, source.source_id))
+
+
 def write_league_source_manifest(
     output_path: str | Path,
     sources: list[LeagueSourceSpec],
@@ -348,6 +432,7 @@ def filter_league_sources(
     start_year: int | None = None,
     end_year: int | None = None,
     include_disabled: bool = False,
+    adapters: set[str] | None = None,
 ) -> list[LeagueSourceSpec]:
     return [
         source
@@ -355,6 +440,7 @@ def filter_league_sources(
         if (source.enabled or include_disabled)
         and (start_year is None or source.draft_year >= start_year)
         and (end_year is None or source.draft_year <= end_year)
+        and (not adapters or source.adapter in adapters)
     ]
 
 
@@ -406,7 +492,10 @@ def download_league_source(source: LeagueSourceSpec, status: str) -> str:
         raise ValueError("source_url is empty and cache is missing or invalid")
     request = Request(
         source.source_url,
-        headers={"User-Agent": "draft-room-intelligence/0.1"},
+        headers={
+            "User-Agent": "Mozilla/5.0 (compatible; draft-room-intelligence/0.1)",
+            "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
+        },
     )
     with urlopen(request, timeout=45) as response:  # noqa: S310 - reviewed manifest URL
         payload = response.read()
@@ -430,6 +519,12 @@ def validate_source_cache(source: LeagueSourceSpec, *, path: Path | None = None)
         raise ValueError("source cache is missing or empty")
     if source.adapter == "ushl":
         validate_ushl_stats_cache(cache_path, source)
+        return
+    if source.adapter == "ncaa":
+        validate_ncaa_stats_cache(cache_path, source)
+        return
+    if source.adapter == "europe":
+        validate_europe_stats_cache(cache_path, source)
         return
     if source.adapter != "chl":
         return
@@ -467,6 +562,44 @@ def validate_ushl_stats_cache(path: Path, source: LeagueSourceSpec) -> None:
     )
     if not required | role_fields <= set(headers):
         raise ValueError(f"USHL cache headers do not match {position} feed")
+
+
+def validate_ncaa_stats_cache(path: Path, source: LeagueSourceSpec) -> None:
+    raw = path.read_text(encoding="utf-8")
+    provider, _, kind = source.source_label.partition(":")
+    if provider == "uscho":
+        if 'data-page="' not in raw or "&quot;scoring&quot;" not in raw:
+            raise ValueError("USCHO cache has no structured scoring payload")
+        return
+    if "<table" not in raw or not re.search(r"<th[^>]*>\s*GP\s*</th>", raw):
+        raise ValueError("College Hockey Inc. cache has no player statistics table")
+    if not re.search(r"<th[^>]*>\s*Name\s*</th>", raw):
+        raise ValueError("College Hockey Inc. cache has no player statistics table")
+    role_header = "SV%" if kind == "goalies" else "PTS"
+    if not re.search(rf"<th[^>]*>\s*{re.escape(role_header)}\s*</th>", raw):
+        raise ValueError(f"College Hockey Inc. cache does not match {kind} feed")
+
+
+def validate_europe_stats_cache(path: Path, source: LeagueSourceSpec) -> None:
+    provider, _, kind = source.source_label.partition(":")
+    try:
+        lines = load_europe_source_lines(
+            [
+                EuropeStatSource(
+                    season=source.season,
+                    provider=provider,
+                    league=source.league,
+                    source_url=source.source_url,
+                    regular_season=source.regular_season,
+                    kind=kind or "combined",
+                    source_path=path,
+                )
+            ]
+        )
+    except (json.JSONDecodeError, TypeError) as exc:
+        raise ValueError(f"{provider} cache is not a valid statistics payload") from exc
+    if not lines:
+        raise ValueError(f"{provider} cache has no player statistics")
 
 
 def enrich_draft_class_leagues(
@@ -632,6 +765,38 @@ def apply_adapter(
                 for source in sources
             ],
         )
+    elif adapter == "ncaa":
+        enrich_ncaa_stats(
+            source_dir,
+            target_dir,
+            [
+                NcaaStatSource(
+                    season=source.season,
+                    provider=source.source_label.partition(":")[0],
+                    kind=source.source_label.partition(":")[2] or "combined",
+                    source_url=source.source_url,
+                    source_path=source.cache_path,
+                )
+                for source in sources
+            ],
+        )
+    elif adapter == "europe":
+        enrich_europe_stats(
+            source_dir,
+            target_dir,
+            [
+                EuropeStatSource(
+                    season=source.season,
+                    provider=source.source_label.partition(":")[0],
+                    league=source.league,
+                    source_url=source.source_url,
+                    regular_season=source.regular_season,
+                    kind=source.source_label.partition(":")[2] or "combined",
+                    source_path=source.cache_path,
+                )
+                for source in sources
+            ],
+        )
     elif adapter == "open_csv":
         enrich_open_stats_csv(
             source_dir,
@@ -646,6 +811,7 @@ def apply_adapter(
                 )
                 for source in sources
             ],
+            allow_new_leagues=True,
         )
     else:  # pragma: no cover - manifest validation guards this branch
         raise ValueError(f"unsupported adapter: {adapter}")

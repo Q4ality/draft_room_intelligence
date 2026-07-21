@@ -34,7 +34,7 @@ The 2014-2026 orchestration foundation is implemented. Official NHL draft lists 
 The remaining scaling problem is enrichment depth rather than draft-list coverage: 11 of 13 generated classes still have zero pre-draft season-stat rows, while the existing 2019 and 2025 datasets retain their richer histories.
 
 The league-source orchestration layer is now implemented through
-`data/reference/league_stat_sources.csv`. It applies cached CHL, USHL, and curated open CSV
+`data/reference/league_stat_sources.csv`. It applies cached CHL, USHL, NCAA, European, and curated open CSV
 sources across class directories, fingerprints inputs for resumability, and reports exact
 player coverage. CHL catalog discovery now covers 73 source rows across 2014-2026. Six cached
 2025 rows are enabled; 67 historical rows are a disabled, retryable backlog because direct
@@ -80,15 +80,15 @@ Every new adapter should include:
 
 3. **NCAA/USHL/USNTDP adapter pass**
    - Goal: move beyond curated packs for US development paths.
-   - Acceptance: Francesco Dell'Elce, Adam Benak, Zack Sharp, and similar US-path profiles have multi-row histories with stable source provenance.
+   - Current: USHL is covered for 2014-2026; NCAA uses USCHO for 2014-2021 and College Hockey Inc. for 2022-2026. USNTDP-only reconciliation remains.
 
 4. **Swedish/Finnish adapter pass**
    - Goal: normalize SHL, HockeyAllsvenskan, J20 Nationell, Liiga, Mestis, and U20 rows consistently.
-   - Acceptance: Swedish/Finnish low-evidence clusters shrink and adult exposure is explicitly classified.
+   - Current: official 2025 Swedish and Liiga regular/playoff feeds are validated. Historical source-ID catalogs, Mestis, and Finnish U20 remain.
 
 5. **Russian KHL/MHL/VHL and goalie pass**
    - Goal: improve Russian skater and goalie rows without depending on blocked official pages as the only source.
-   - Acceptance: MHL/KHL/VHL rows preserve source provenance, playoff/adult exposure, and goalie SV%/GAA/SO where available.
+   - Current: the cache parser/manifest contract exists, but KHL/MHL return HTTP 403 to the collector. Reviewed open CSV remains the fallback; VHL discovery and Cyrillic-to-English identity mapping remain technical debt.
 
 6. **NHL organization contracts and cap context**
    - Goal: distinguish roster presence from organizational commitment and mobility.

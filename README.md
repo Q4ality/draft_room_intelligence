@@ -119,6 +119,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make historical-draft-etl` - build or resume all configured 2014-2026 normalized class datasets and write integrity reports.
 - `make historical-league-cache` - collect missing league-stat files from the reviewed source manifest.
 - `make historical-league-discover` - regenerate CHL season/stage URLs from cached official catalogs.
+- `make historical-ncaa-discover` - generate NCAA source rows with the USCHO historical fallback.
+- `make historical-europe-discover` - merge reviewed Swedish, Finnish, and Russian source rows.
 - `make historical-league-etl` - apply cached league sources and write per-class coverage reports.
 - `make evaluate-consensus` - evaluate the consensus baseline against the fixture CSV.
 - `make evaluate-projection` - evaluate the heuristic projection baseline against the fixture CSV.
