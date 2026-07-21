@@ -58,7 +58,12 @@ def test_write_demo_acceptance_report_passes_current_demo_shape(tmp_path):
             ]
         details.append(detail)
     (demo / "players.json").write_text(json.dumps(details), encoding="utf-8")
-    (demo / "index.html").write_text("<th>Production</th><section>Prospect Stats Evidence</section>", encoding="utf-8")
+    (demo / "index.html").write_text(
+        "<th>Production</th><section>Prospect Stats Evidence</section>"
+        "<button>Start Guided Demo</button><button id='guided-previous'></button>"
+        "<button id='guided-next'></button>",
+        encoding="utf-8",
+    )
 
     report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
 
@@ -82,7 +87,12 @@ def test_write_demo_acceptance_report_fails_when_schaefer_drops(tmp_path):
         json.dumps([{"player_id": row["player_id"], "stat_evidence": {}} for row in rows]),
         encoding="utf-8",
     )
-    (demo / "index.html").write_text("<th>Production</th><section>Prospect Stats Evidence</section>", encoding="utf-8")
+    (demo / "index.html").write_text(
+        "<th>Production</th><section>Prospect Stats Evidence</section>"
+        "<button>Start Guided Demo</button><button id='guided-previous'></button>"
+        "<button id='guided-next'></button>",
+        encoding="utf-8",
+    )
 
     report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
 

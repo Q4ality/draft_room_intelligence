@@ -355,6 +355,9 @@ def test_run_build_demo_site_writes_html(capsys, tmp_path):
     assert "Draft Room Intelligence Demo" in html
     assert "Single-Class Demo" in html
     assert "Load Story Shortlist" in html
+    assert "Start Guided Demo" in html
+    assert "guided-previous" in html
+    assert "guided-next" in html
     assert "Export Summary HTML" in html
     assert "Guided Stories" in html
     assert "Source Trace" in html

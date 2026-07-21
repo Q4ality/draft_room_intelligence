@@ -26,15 +26,15 @@ Demo line:
 
 ## Seven-Minute Flow
 
-1. Open the board and point to the dataset status.
-2. Show that the class is complete: 224 drafted players.
-3. Filter or sort by disagreement bucket.
-4. Open one aligned top prospect to establish trust.
-5. Open one model-higher player to show the value of normalized evidence.
-6. Open one consensus-higher player to show where the tool is cautious.
-7. Open one goalie and one European/Russian player to show non-CHL coverage.
-8. Add two players to the shortlist and export the shortlist CSV.
-9. Close on the data-quality loop: evidence labels show what is ready and what still needs source enrichment.
+1. Open the board and point to the dataset status and 224-player coverage.
+2. Select `Start Guided Demo`.
+3. Use the arrow controls to move from Michael Misa to Matthew Schaefer and explain the three-score calibration.
+4. Continue through Cole Reschny, Alexei Medvedev, Charlie Cerrato, and Anton Frondell.
+5. Exit guided mode and filter by disagreement bucket for open exploration.
+6. Add two players to the shortlist and export the shortlist CSV.
+7. Close on the data-quality loop: evidence labels show what is ready and what still needs source enrichment.
+
+The compact guided sequence is intentionally limited to six complementary stories. The longer `Guided Stories` list remains available for questions about Russian, Nordic, Czech, defense, and late-round coverage.
 
 ## Recommended Story Players
 

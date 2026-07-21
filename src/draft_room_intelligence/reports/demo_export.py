@@ -111,6 +111,11 @@ DEMO_STORY_PLAYERS = [
         "story_hook": "Familiar top-of-board OHL scorer with high evidence.",
     },
     {
+        "name": "Matthew Schaefer",
+        "story_role": "Elite defense calibration",
+        "story_hook": "Consensus and scouting evidence protect a top defense profile with a short sample.",
+    },
+    {
         "name": "Cole Reschny",
         "story_role": "Model-favored CHL forward",
         "story_hook": "Useful model-higher case with playoff context.",

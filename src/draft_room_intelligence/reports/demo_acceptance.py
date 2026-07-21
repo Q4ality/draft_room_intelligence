@@ -106,6 +106,14 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
         ),
         content_check("prospect_stats_evidence_ui", "Prospect Stats Evidence" in html, "Player detail should show stat evidence section."),
         content_check("production_header", "<th>Production</th>" in html, "History table should use role-neutral production label."),
+        content_check(
+            "guided_demo_preset",
+            all(
+                marker in html
+                for marker in ("Start Guided Demo", "guided-previous", "guided-next")
+            ),
+            "Demo site should retain the presenter-mode story controls.",
+        ),
     ]
     return DemoAcceptanceReport(checks=checks)
 

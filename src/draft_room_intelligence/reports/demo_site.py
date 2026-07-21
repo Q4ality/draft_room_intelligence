@@ -406,6 +406,39 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       gap: 8px;
       margin-top: 8px;
     }}
+    .guided-control {{
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 8px;
+      background: var(--panel-2);
+    }}
+    .guided-control.active {{ display: block; }}
+    .guided-progress {{
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 5px;
+    }}
+    .guided-title {{
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }}
+    .guided-copy {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      min-height: 34px;
+    }}
+    .guided-nav {{
+      display: grid;
+      grid-template-columns: 36px 36px 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }}
+    .guided-nav button {{ padding: 7px; }}
     .source-link {{
       color: var(--accent);
       font-weight: 600;
@@ -515,8 +548,19 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       <div class="section">
         <h3>Demo Mode</h3>
         <div class="demo-actions">
+          <button id="start-guided-demo" class="primary">Start Guided Demo</button>
           <button id="load-demo-stories" class="primary">Load Story Shortlist</button>
           <button id="load-demo-compare">Compare First Three Stories</button>
+        </div>
+        <div id="guided-control" class="guided-control" aria-live="polite">
+          <div id="guided-progress" class="guided-progress"></div>
+          <div id="guided-title" class="guided-title"></div>
+          <div id="guided-copy" class="guided-copy"></div>
+          <div class="guided-nav">
+            <button id="guided-previous" title="Previous story" aria-label="Previous story">&#8592;</button>
+            <button id="guided-next" title="Next story" aria-label="Next story">&#8594;</button>
+            <button id="guided-exit">Exit</button>
+          </div>
         </div>
       </div>
       <div class="section">
@@ -652,8 +696,10 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     const compare = [];
     const selectedTeamByPlayer = new Map();
     const teamViews = payload.manifest.team_views || [];
+    const guidedStories = demoStories.slice(0, 6);
     let selectedTeamViewId = teamViews[0]?.team_id || "";
     let selectedPlayerId = boardRows[0]?.player_id ?? null;
+    let guidedStoryIndex = -1;
 
     function uniqueValues(key) {{
       return [...new Set(boardRows.map((row) => row[key]).filter(Boolean))].sort();
@@ -1399,14 +1445,51 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       renderDetail();
     }}
 
+    function renderGuidedControl() {{
+      const control = document.getElementById("guided-control");
+      if (guidedStoryIndex < 0 || !guidedStories.length) {{
+        control.classList.remove("active");
+        return;
+      }}
+      const story = guidedStories[guidedStoryIndex];
+      control.classList.add("active");
+      document.getElementById("guided-progress").textContent =
+        `Story ${{guidedStoryIndex + 1}} of ${{guidedStories.length}} · ${{story.name}}`;
+      document.getElementById("guided-title").textContent = story.story_role;
+      document.getElementById("guided-copy").textContent = story.story_hook;
+      document.getElementById("guided-previous").disabled = guidedStoryIndex === 0;
+      document.getElementById("guided-next").disabled = guidedStoryIndex === guidedStories.length - 1;
+    }}
+
+    function openGuidedStory(index) {{
+      if (!guidedStories.length) {{
+        alert("No curated demo stories are present in this package.");
+        return;
+      }}
+      guidedStoryIndex = Math.max(0, Math.min(index, guidedStories.length - 1));
+      selectedPlayerId = guidedStories[guidedStoryIndex].player_id;
+      renderGuidedControl();
+      renderBoard();
+      renderDetail();
+    }}
+
+    function exitGuidedDemo() {{
+      guidedStoryIndex = -1;
+      renderGuidedControl();
+    }}
+
     function bindEvents() {{
       for (const id of ["filter-position", "filter-league-family", "filter-competition", "filter-disagreement", "filter-evidence", "filter-drafted-team", "filter-search"]) {{
         document.getElementById(id).addEventListener("input", renderBoard);
       }}
       document.getElementById("export-shortlist").addEventListener("click", exportShortlist);
       document.getElementById("export-summary").addEventListener("click", exportSummary);
+      document.getElementById("start-guided-demo").addEventListener("click", () => openGuidedStory(0));
       document.getElementById("load-demo-stories").addEventListener("click", loadDemoStories);
       document.getElementById("load-demo-compare").addEventListener("click", loadDemoCompare);
+      document.getElementById("guided-previous").addEventListener("click", () => openGuidedStory(guidedStoryIndex - 1));
+      document.getElementById("guided-next").addEventListener("click", () => openGuidedStory(guidedStoryIndex + 1));
+      document.getElementById("guided-exit").addEventListener("click", exitGuidedDemo);
       document.getElementById("clear-shortlist").addEventListener("click", () => {{
         shortlist.clear();
         compare.splice(0, compare.length);
