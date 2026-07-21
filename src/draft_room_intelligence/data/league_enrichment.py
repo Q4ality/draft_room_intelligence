@@ -14,7 +14,15 @@ from urllib.request import Request, urlopen
 
 from draft_room_intelligence.data.chl_stats import ChlStatSource, enrich_chl_stats
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
-from draft_room_intelligence.data.ushl_stats import UShlStatSource, enrich_ushl_stats
+from draft_room_intelligence.data.ushl_stats import (
+    USHL_SEASON_CATALOG_URL,
+    UShlStatSource,
+    enrich_ushl_stats,
+    parse_json_or_jsonp,
+)
+from draft_room_intelligence.data.ushl_stats import (
+    source_url as ushl_source_url,
+)
 
 SUPPORTED_ADAPTERS = ("chl", "ushl", "open_csv")
 ENRICHMENT_STATE_FILE = "league_enrichment_state.json"
@@ -146,6 +154,121 @@ def chl_season_context(label: str) -> tuple[int, bool] | None:
     return None
 
 
+def discover_ushl_source_specs(
+    catalog_path: str | Path,
+    *,
+    cache_root: str | Path,
+    start_year: int,
+    end_year: int,
+) -> list[LeagueSourceSpec]:
+    payload = json.loads(Path(catalog_path).read_text(encoding="utf-8"))
+    sitekit = payload.get("SiteKit", {})
+    seasons = sitekit.get("Seasons", []) if isinstance(sitekit, dict) else []
+    discovered: list[LeagueSourceSpec] = []
+    for row in seasons:
+        if not isinstance(row, dict):
+            continue
+        context = ushl_season_context(str(row.get("season_name", "")), str(row.get("playoff", "")))
+        season_id = str(row.get("season_id", "")).strip()
+        if context is None or not season_id:
+            continue
+        draft_year, regular_season, season = context
+        if not start_year <= draft_year <= end_year:
+            continue
+        stage = "regular" if regular_season else "playoffs"
+        for position in ("skaters", "goalies"):
+            cache_name = (
+                f"ushl_{season.replace('-', '_')}_s{season_id}_{stage}_{position}.json"
+            )
+            cache_path = Path(cache_root) / cache_name
+            stat_source = UShlStatSource(
+                season=season,
+                season_id=season_id,
+                regular_season=regular_season,
+                position=position,
+            )
+            discovered.append(
+                LeagueSourceSpec(
+                    source_id=f"{draft_year}-ushl-{stage}-{position}",
+                    enabled=cache_path.is_file(),
+                    draft_year=draft_year,
+                    adapter="ushl",
+                    league="USHL",
+                    season=season,
+                    regular_season=regular_season,
+                    source_url=ushl_source_url(stat_source),
+                    cache_path=cache_path,
+                    source_label=f"{season_id}:{position}",
+                )
+            )
+    return sorted(discovered, key=lambda source: (source.draft_year, source.source_id))
+
+
+def ushl_season_context(name: str, playoff: str) -> tuple[int, bool, str] | None:
+    if "preseason" in name.casefold() or "pre-season" in name.casefold():
+        return None
+    match = re.fullmatch(r"(20\d{2})-(\d{2})(?:\s+Playoffs)?", name.strip(), re.IGNORECASE)
+    if not match:
+        return None
+    start_year = int(match.group(1))
+    season = f"{start_year}-{match.group(2)}"
+    regular_season = playoff != "1" and "playoff" not in name.casefold()
+    return start_year + 1, regular_season, season
+
+
+def collect_ushl_season_catalog(
+    output_path: str | Path,
+    *,
+    refresh: bool = False,
+) -> Path:
+    path = Path(output_path)
+    if path.is_file() and not refresh:
+        validate_ushl_season_catalog(path)
+        return path
+    request = Request(
+        USHL_SEASON_CATALOG_URL,
+        headers={"User-Agent": "draft-room-intelligence/0.1"},
+    )
+    with urlopen(request, timeout=45) as response:  # noqa: S310 - fixed public USHL endpoint
+        payload = response.read()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_bytes(payload)
+    try:
+        validate_ushl_season_catalog(temporary)
+        temporary.replace(path)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+    return path
+
+
+def validate_ushl_season_catalog_payload(payload: object) -> None:
+    if not isinstance(payload, dict):
+        raise ValueError("USHL season catalog must be a JSON object")
+    sitekit = payload.get("SiteKit")
+    seasons = sitekit.get("Seasons") if isinstance(sitekit, dict) else None
+    if not isinstance(seasons, list) or not seasons:
+        raise ValueError("USHL season catalog has no seasons")
+
+
+def validate_ushl_season_catalog(path: str | Path) -> None:
+    validate_ushl_season_catalog_payload(json.loads(Path(path).read_text(encoding="utf-8")))
+
+
+def merge_league_source_specs(
+    existing: list[LeagueSourceSpec],
+    discovered: list[LeagueSourceSpec],
+    *,
+    adapter: str,
+) -> list[LeagueSourceSpec]:
+    retained = [source for source in existing if source.adapter != adapter]
+    return sorted(
+        retained + discovered,
+        key=lambda source: (source.draft_year, source.adapter, source.source_id),
+    )
+
+
 def write_league_source_manifest(
     output_path: str | Path,
     sources: list[LeagueSourceSpec],
@@ -156,7 +279,7 @@ def write_league_source_manifest(
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=LEAGUE_SOURCE_FIELDS)
+        writer = csv.DictWriter(handle, fieldnames=LEAGUE_SOURCE_FIELDS, lineterminator="\n")
         writer.writeheader()
         for source in sorted(sources, key=lambda row: (row.draft_year, row.adapter, row.source_id)):
             try:
@@ -305,6 +428,9 @@ def validate_source_cache(source: LeagueSourceSpec, *, path: Path | None = None)
     cache_path = path or source.cache_path
     if not cache_path.is_file() or cache_path.stat().st_size == 0:
         raise ValueError("source cache is missing or empty")
+    if source.adapter == "ushl":
+        validate_ushl_stats_cache(cache_path, source)
+        return
     if source.adapter != "chl":
         return
     raw = cache_path.read_text(encoding="utf-8")
@@ -319,6 +445,28 @@ def validate_source_cache(source: LeagueSourceSpec, *, path: Path | None = None)
         raise ValueError("CHL cache title indicates playoffs for a regular-season source")
     if not source.regular_season and not looks_like_playoffs:
         raise ValueError("CHL cache title does not indicate playoffs")
+
+
+def validate_ushl_stats_cache(path: Path, source: LeagueSourceSpec) -> None:
+    try:
+        payload = parse_json_or_jsonp(path.read_text(encoding="utf-8"))
+        sections = payload[0].get("sections", []) if payload else []
+        section = sections[0] if sections else {}
+        headers = section.get("headers", {}) if isinstance(section, dict) else {}
+        rows = section.get("data", []) if isinstance(section, dict) else []
+    except (json.JSONDecodeError, TypeError, IndexError) as exc:
+        raise ValueError("USHL cache is not a valid HockeyTech player payload") from exc
+    if not isinstance(rows, list) or not isinstance(headers, dict):
+        raise ValueError("USHL cache has no player statistics section")
+    position = source.source_label.partition(":")[2] or "skaters"
+    required = {"name", "player_id", "games_played"}
+    role_fields = (
+        {"save_percentage", "goals_against_average"}
+        if position == "goalies"
+        else {"points"}
+    )
+    if not required | role_fields <= set(headers):
+        raise ValueError(f"USHL cache headers do not match {position} feed")
 
 
 def enrich_draft_class_leagues(
@@ -475,10 +623,11 @@ def apply_adapter(
             [
                 UShlStatSource(
                     season=source.season,
-                    season_id=source.source_label,
+                    season_id=source.source_label.partition(":")[0],
                     regular_season=source.regular_season,
                     source_url=source.source_url or None,
                     source_path=source.cache_path,
+                    position=source.source_label.partition(":")[2] or "skaters",
                 )
                 for source in sources
             ],

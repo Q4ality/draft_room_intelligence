@@ -9,6 +9,7 @@ from draft_room_intelligence.data.league_enrichment import (
     LeagueSourceSpec,
     collect_league_sources,
     discover_chl_source_specs,
+    discover_ushl_source_specs,
     enrich_draft_class_leagues,
     load_league_source_manifest,
     run_league_enrichment_range,
@@ -36,6 +37,17 @@ CHL_CATALOG_HTML = '''
   <option value="https://chl.ca/ohl/stats/leaders/76/">2023-24 Regular Season</option>
 </select>
 '''
+
+USHL_CATALOG_JSON = '''{
+  "SiteKit": {
+    "Seasons": [
+      {"season_id": "87", "season_name": "2024-25 Playoffs", "playoff": "1"},
+      {"season_id": "85", "season_name": "2024-25", "playoff": "0"},
+      {"season_id": "86", "season_name": "2024-25 Preseason", "playoff": "0"},
+      {"season_id": "84", "season_name": "2023-24 Playoffs", "playoff": "1"}
+    ]
+  }
+}'''
 
 
 def write_csv(path, fields, rows):
@@ -115,6 +127,34 @@ def test_cached_collection_does_not_require_network(tmp_path):
     assert result[0].byte_count > 0
 
 
+def test_ushl_cache_validation_rejects_wrong_role_payload(tmp_path):
+    cache = tmp_path / "ushl.json"
+    cache.write_text(
+        '([{"sections":[{"headers":{"name":{},"player_id":{},'
+        '"games_played":{},"points":{}},"data":[]}]}])',
+        encoding="utf-8",
+    )
+    source = LeagueSourceSpec(
+        source_id="2025-ushl-regular-goalies",
+        enabled=True,
+        draft_year=2025,
+        adapter="ushl",
+        league="USHL",
+        season="2024-25",
+        regular_season=True,
+        source_url="https://example.test/ushl",
+        cache_path=cache,
+        source_label="85:goalies",
+    )
+
+    try:
+        validate_source_cache(source)
+    except ValueError as exc:
+        assert "goalies feed" in str(exc)
+    else:
+        raise AssertionError("skater payload should not validate as a goalie feed")
+
+
 def test_chl_cache_validation_rejects_wrong_stage(tmp_path):
     cache = tmp_path / "playoffs.html"
     cache.write_text(
@@ -158,6 +198,30 @@ def test_discover_chl_sources_uses_official_season_catalog(tmp_path):
     assert sources[-1].source_id == "2025-ohl-playoffs"
     rows = list(csv.DictReader(output.open(newline="", encoding="utf-8")))
     assert rows[0]["cache_path"].startswith("cache/")
+
+
+def test_discover_ushl_sources_generates_skater_and_goalie_feeds(tmp_path):
+    catalog = tmp_path / "seasons.json"
+    catalog.write_text(USHL_CATALOG_JSON, encoding="utf-8")
+
+    sources = discover_ushl_source_specs(
+        catalog,
+        cache_root=tmp_path / "cache",
+        start_year=2025,
+        end_year=2025,
+    )
+
+    assert len(sources) == 4
+    assert {source.source_label for source in sources} == {
+        "85:skaters",
+        "85:goalies",
+        "87:skaters",
+        "87:goalies",
+    }
+    goalie = next(source for source in sources if source.source_label == "85:goalies")
+    assert "position=goalies" in goalie.source_url
+    assert "sort=save_percentage" in goalie.source_url
+    assert goalie.cache_path.name == "ushl_2024_25_s85_regular_goalies.json"
 
 
 def test_class_enrichment_uses_drafted_from_league_and_resumes(tmp_path):

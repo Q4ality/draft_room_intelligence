@@ -25,6 +25,11 @@ from draft_room_intelligence.data.league_standardization import normalize_league
 USHL_APP_KEY = "e828f89b243dc43f"
 USHL_CLIENT_CODE = "ushl"
 USHL_LEAGUE_ID = "1"
+USHL_SEASON_CATALOG_URL = (
+    "https://lscluster.hockeytech.com/feed/"
+    "?feed=modulekit&view=seasons&lang=en"
+    f"&key={USHL_APP_KEY}&fmt=json&client_code={USHL_CLIENT_CODE}"
+)
 USHL_MATCH_COLUMNS = [
     "player_id",
     "name",
@@ -48,6 +53,7 @@ class UShlStatSource:
     regular_season: bool
     source_url: str | None = None
     source_path: Path | None = None
+    position: str = "skaters"
 
 
 @dataclass(frozen=True)
@@ -62,6 +68,16 @@ class UShlSkaterStatLine:
     assists: str
     points: str
     regular_season: bool
+    goalie_minutes: str = ""
+    shots_against: str = ""
+    saves: str = ""
+    goals_against: str = ""
+    save_percentage: str = ""
+    goals_against_average: str = ""
+    wins: str = ""
+    losses: str = ""
+    ties: str = ""
+    shutouts: str = ""
 
 
 @dataclass(frozen=True)
@@ -145,8 +161,15 @@ def enrich_ushl_stats(
 def load_ushl_source_lines(sources: list[UShlStatSource]) -> list[UShlSkaterStatLine]:
     lines: list[UShlSkaterStatLine] = []
     for source in sources:
-        raw = source.source_path.read_text(encoding="utf-8") if source.source_path else fetch_text(source_url(source))
-        lines.extend(parse_ushl_skaters_json(raw, source))
+        raw = (
+            source.source_path.read_text(encoding="utf-8")
+            if source.source_path
+            else fetch_text(source_url(source))
+        )
+        if source.position == "goalies":
+            lines.extend(parse_ushl_goalies_json(raw, source))
+        else:
+            lines.extend(parse_ushl_skaters_json(raw, source))
     return lines
 
 
@@ -178,11 +201,62 @@ def parse_ushl_skaters_json(raw: str, source: UShlStatSource) -> list[UShlSkater
     return lines
 
 
+def parse_ushl_goalies_json(raw: str, source: UShlStatSource) -> list[UShlSkaterStatLine]:
+    payload = parse_json_or_jsonp(raw)
+    sections = payload[0].get("sections", []) if payload else []
+    rows = sections[0].get("data", []) if sections else []
+    lines: list[UShlSkaterStatLine] = []
+    for entry in rows:
+        row = entry.get("row", {})
+        name = str(row.get("name", "")).strip()
+        source_id = str(row.get("player_id", "")).strip()
+        if not name or not source_id:
+            continue
+        shots = stat_text(row.get("shots"))
+        goals_against = stat_text(row.get("goals_against"))
+        lines.append(
+            UShlSkaterStatLine(
+                name=name,
+                source_id=source_id,
+                source_url=player_source_url(source_id, source.season_id, name),
+                season=source.season,
+                team=stat_text(row.get("team_code")),
+                games=stat_text(row.get("games_played")),
+                goals="",
+                assists="",
+                points="",
+                regular_season=source.regular_season,
+                goalie_minutes=stat_text(row.get("minutes_played")),
+                shots_against=shots,
+                saves=calculate_saves(shots, goals_against),
+                goals_against=goals_against,
+                save_percentage=stat_text(row.get("save_percentage")),
+                goals_against_average=stat_text(row.get("goals_against_average")),
+                wins=stat_text(row.get("wins")),
+                losses=stat_text(row.get("losses")),
+                ties=stat_text(row.get("ot_losses")),
+                shutouts=stat_text(row.get("shutouts")),
+            )
+        )
+    return lines
+
+
 def parse_json_or_jsonp(raw: str) -> list[dict[str, object]]:
     text = raw.strip()
     if text.startswith("(") and text.endswith(")"):
         text = text[1:-1]
     return json.loads(text)
+
+
+def stat_text(value: object) -> str:
+    return "" if value is None else str(value).strip()
+
+
+def calculate_saves(shots: str, goals_against: str) -> str:
+    try:
+        return str(int(shots) - int(goals_against))
+    except ValueError:
+        return ""
 
 
 def source_url(source: UShlStatSource) -> str:
@@ -194,14 +268,14 @@ def source_url(source: UShlStatSource) -> str:
         "&view=players"
         f"&season={source.season_id}"
         "&team=all"
-        "&position=skaters"
+        f"&position={source.position}"
         "&rookies=0"
         "&statsType=standard"
         "&rosterstatus="
         "&site_id="
         "&first=0"
         "&limit=1000"
-        "&sort=points"
+        f"&sort={'save_percentage' if source.position == 'goalies' else 'points'}"
         f"&league_id={USHL_LEAGUE_ID}"
         "&lang=en"
         "&division=-1"
@@ -230,6 +304,16 @@ def build_normalized_stat_line(player_id: str, line: UShlSkaterStatLine) -> dict
         "source": "ushl",
         "source_id": line.source_id,
         "source_url": line.source_url,
+        "goalie_minutes": line.goalie_minutes,
+        "shots_against": line.shots_against,
+        "saves": line.saves,
+        "goals_against": line.goals_against,
+        "save_percentage": line.save_percentage,
+        "goals_against_average": line.goals_against_average,
+        "wins": line.wins,
+        "losses": line.losses,
+        "ties": line.ties,
+        "shutouts": line.shutouts,
     }
 
 

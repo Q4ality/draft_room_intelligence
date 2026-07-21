@@ -15,14 +15,20 @@ non-reproducible.
 - `cache_path` is the ignored local artifact used by ETL.
 - `source_label` identifies an open CSV provider or stores the USHL season ID.
 
-The generated manifest records 73 CHL regular-season/playoff sources for 2014-2026. Six
-validated 2025 caches are enabled. The remaining 67 discovered rows are disabled until a valid
-cache can be collected; keeping them tracked makes the backlog exact rather than implicit.
+The generated manifest records 73 CHL and 50 USHL sources for 2014-2026. Six validated 2025
+CHL caches and all 50 USHL caches are enabled. The remaining 67 CHL rows are disabled until a
+valid cache can be collected; keeping them tracked makes the backlog exact rather than implicit.
+
+USHL coverage uses separate skater and goalie feeds for regular seasons and playoffs. The public
+HockeyTech season catalog supplies opaque season IDs, so no year mapping is maintained by hand.
+The 2019-20 season correctly has no playoff sources.
 
 ## Commands
 
 ```bash
 make historical-league-discover
+make historical-ushl-catalog
+make historical-ushl-discover
 make historical-league-cache
 make historical-league-etl
 ```
@@ -36,6 +42,14 @@ pass the site challenge, but the browser security boundary does not expose the u
 source for staging. An authorized environment can retry the full backlog explicitly with
 `collect-league-sources --include-disabled`; ordinary collection only checks enabled sources and
 therefore remains deterministic and green.
+
+`historical-ushl-catalog` caches the official season catalog. `historical-ushl-discover` merges
+generated USHL rows into the existing manifest without replacing CHL or open-CSV sources. Once
+the feeds are cached and discovery is rerun, validated files become enabled automatically.
+
+The USHL adapter preserves skater scoring and goalie GP, minutes, shots, saves, goals against,
+SV%, GAA, wins, losses, overtime losses, and shutouts. Regular-season and playoff lines remain
+separate evidence rows.
 
 The equivalent enrichment command is:
 
@@ -67,7 +81,7 @@ place. Source cache digests and baseline ETL state are recorded in
 Populate reviewed regular-season and playoff sources in this order:
 
 1. CHL (OHL, WHL, QMJHL) for 2014-2024 and 2026.
-2. USHL/USNTDP and NCAA for all classes.
+2. NCAA and USNTDP-only evidence not represented in the USHL feed.
 3. Sweden, Finland, Russia, and other European development/adult leagues through curated open
    CSV adapters until stable official APIs are available.
 4. NHL outcome snapshots for mature classes, kept separate from pre-draft features.

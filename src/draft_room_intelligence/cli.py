@@ -51,9 +51,12 @@ from draft_room_intelligence.data.hockeydb_base import (
 )
 from draft_room_intelligence.data.league_enrichment import (
     collect_league_sources,
+    collect_ushl_season_catalog,
     discover_chl_source_specs,
+    discover_ushl_source_specs,
     filter_league_sources,
     load_league_source_manifest,
+    merge_league_source_specs,
     run_league_enrichment_range,
     write_league_source_manifest,
 )
@@ -971,6 +974,22 @@ def main() -> None:
     discover_chl_parser.add_argument("--project-root", type=Path, default=Path("."))
     discover_chl_parser.add_argument("--start-year", type=int, required=True)
     discover_chl_parser.add_argument("--end-year", type=int, required=True)
+    collect_ushl_catalog_parser = subparsers.add_parser(
+        "collect-ushl-catalog",
+        help="Cache the official public USHL HockeyTech season catalog.",
+    )
+    collect_ushl_catalog_parser.add_argument("output_path", type=Path)
+    collect_ushl_catalog_parser.add_argument("--refresh", action="store_true")
+    discover_ushl_parser = subparsers.add_parser(
+        "discover-ushl-sources",
+        help="Add historical USHL skater and goalie feeds to a league-source manifest.",
+    )
+    discover_ushl_parser.add_argument("manifest_path", type=Path)
+    discover_ushl_parser.add_argument("--catalog", type=Path, required=True)
+    discover_ushl_parser.add_argument("--cache-root", type=Path, required=True)
+    discover_ushl_parser.add_argument("--project-root", type=Path, default=Path("."))
+    discover_ushl_parser.add_argument("--start-year", type=int, required=True)
+    discover_ushl_parser.add_argument("--end-year", type=int, required=True)
     evaluate_parser = subparsers.add_parser(
         "evaluate",
         help="Evaluate the consensus baseline against a normalized historical CSV.",
@@ -1283,6 +1302,18 @@ def main() -> None:
         run_discover_chl_sources(
             args.output_path,
             args.catalog,
+            cache_root=args.cache_root,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+        )
+    elif args.command == "collect-ushl-catalog":
+        output = collect_ushl_season_catalog(args.output_path, refresh=args.refresh)
+        print(f"# USHL season catalog\nCatalog: {output}")
+    elif args.command == "discover-ushl-sources":
+        run_discover_ushl_sources(
+            args.manifest_path,
+            catalog_path=args.catalog,
             cache_root=args.cache_root,
             project_root=args.project_root,
             start_year=args.start_year,
@@ -2245,6 +2276,37 @@ def run_discover_chl_sources(
     print(f"# CHL source discovery: {start_year}-{end_year}")
     print(f"Catalogs: {len(catalogs)}")
     print(f"Sources discovered: {len(sources)}")
+    print(f"Manifest: {output}")
+
+
+def run_discover_ushl_sources(
+    manifest_path: Path,
+    *,
+    catalog_path: Path,
+    cache_root: Path,
+    project_root: Path,
+    start_year: int,
+    end_year: int,
+) -> None:
+    root = project_root.resolve()
+    catalog = catalog_path if catalog_path.is_absolute() else root / catalog_path
+    cache = cache_root if cache_root.is_absolute() else root / cache_root
+    discovered = discover_ushl_source_specs(
+        catalog,
+        cache_root=cache,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    existing = (
+        load_league_source_manifest(manifest_path, project_root=root)
+        if manifest_path.is_file()
+        else []
+    )
+    sources = merge_league_source_specs(existing, discovered, adapter="ushl")
+    output = write_league_source_manifest(manifest_path, sources, project_root=root)
+    print(f"# USHL source discovery: {start_year}-{end_year}")
+    print(f"Sources discovered: {len(discovered)}")
+    print(f"Enabled caches: {sum(source.enabled for source in discovered)}")
     print(f"Manifest: {output}")
 
 

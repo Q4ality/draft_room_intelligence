@@ -1,10 +1,15 @@
 import csv
 import json
 
-from draft_room_intelligence.data.eliteprospects_csv import PLAYER_COLUMNS, SEASON_STAT_LINE_COLUMNS, write_table
+from draft_room_intelligence.data.eliteprospects_csv import (
+    PLAYER_COLUMNS,
+    SEASON_STAT_LINE_COLUMNS,
+    write_table,
+)
 from draft_room_intelligence.data.ushl_stats import (
     UShlStatSource,
     enrich_ushl_stats,
+    parse_ushl_goalies_json,
     parse_ushl_skaters_json,
 )
 
@@ -42,6 +47,44 @@ def test_parse_ushl_skaters_json_extracts_core_stats():
     assert rows[0].assists == "23"
     assert rows[0].points == "42"
     assert rows[0].regular_season is True
+
+
+def test_parse_ushl_goalies_json_extracts_role_specific_stats():
+    row = {
+        "row": {
+            "name": "Sample Goalie",
+            "player_id": "9001",
+            "team_code": "USA",
+            "games_played": "20",
+            "minutes_played": 1100,
+            "shots": "600",
+            "goals_against": "48",
+            "save_percentage": "0.920",
+            "goals_against_average": "2.62",
+            "wins": "12",
+            "losses": "5",
+            "ot_losses": "2",
+            "shutouts": "3",
+        }
+    }
+
+    rows = parse_ushl_goalies_json(
+        ushl_payload(row),
+        UShlStatSource(
+            season="2024-25",
+            season_id="85",
+            regular_season=True,
+            position="goalies",
+        ),
+    )
+
+    assert rows[0].games == "20"
+    assert rows[0].shots_against == "600"
+    assert rows[0].saves == "552"
+    assert rows[0].save_percentage == "0.920"
+    assert rows[0].goals_against_average == "2.62"
+    assert rows[0].ties == "2"
+    assert rows[0].shutouts == "3"
 
 
 def test_enrich_ushl_stats_replaces_matching_placeholder_rows(tmp_path):
@@ -96,7 +139,14 @@ def test_enrich_ushl_stats_replaces_matching_placeholder_rows(tmp_path):
     summary = enrich_ushl_stats(
         base_dir,
         output_dir,
-        [UShlStatSource(season="2024-25", season_id="85", regular_season=True, source_path=source_path)],
+        [
+            UShlStatSource(
+                season="2024-25",
+                season_id="85",
+                regular_season=True,
+                source_path=source_path,
+            )
+        ],
     )
 
     with (output_dir / "season_stat_lines.csv").open(newline="", encoding="utf-8") as file:
