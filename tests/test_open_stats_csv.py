@@ -225,3 +225,53 @@ def test_enrich_open_stats_csv_reconciles_russian_team_aliases(tmp_path):
         audit_rows = list(csv.DictReader(file))
     assert len(audit_rows) == 1
     assert audit_rows[0]["row_count"] == "2"
+
+
+def test_enrich_open_stats_csv_fills_blank_nationality_from_reviewed_row(tmp_path):
+    base_dir = tmp_path / "base"
+    output_dir = tmp_path / "output"
+    base_dir.mkdir()
+    write_table(
+        base_dir / "players.csv",
+        PLAYER_COLUMNS,
+        [{"player_id": "player-1", "name": "Test Player", "nationality": ""}],
+    )
+    write_table(
+        base_dir / "season_stat_lines.csv",
+        SEASON_STAT_LINE_COLUMNS,
+        [
+            {
+                "player_id": "player-1",
+                "season": "2018-19",
+                "league": "Rus-MHL",
+                "team": "Test Club Jr.",
+                "games": "40",
+                "points": "1200",
+                "timing": "pre_draft",
+                "regular_season": "true",
+                "source": "hockeydb",
+            }
+        ],
+    )
+    source_path = tmp_path / "reviewed.csv"
+    source_path.write_text(
+        "name,nationality,season,league,team,games,goals,assists,points\n"
+        "Test Player,RUS,2018-19,MHL,Test Club,40,10,15,25\n",
+        encoding="utf-8",
+    )
+
+    enrich_open_stats_csv(
+        base_dir,
+        output_dir,
+        [OpenStatsCsvSource(path=source_path, source="reviewed", season="2018-19")],
+        allow_new_leagues=True,
+    )
+
+    with (output_dir / "players.csv").open(newline="", encoding="utf-8") as file:
+        players = list(csv.DictReader(file))
+    with (output_dir / "season_stat_lines.csv").open(newline="", encoding="utf-8") as file:
+        stat_lines = list(csv.DictReader(file))
+    assert players[0]["nationality"] == "RUS"
+    assert len(stat_lines) == 1
+    assert stat_lines[0]["league"] == "MHL"
+    assert stat_lines[0]["points"] == "25"

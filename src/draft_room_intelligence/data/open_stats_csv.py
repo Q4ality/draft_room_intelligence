@@ -55,6 +55,7 @@ class OpenStatsCsvSource:
 @dataclass(frozen=True)
 class OpenStatsLine:
     name: str
+    nationality: str
     source: str
     source_id: str
     source_url: str
@@ -138,6 +139,9 @@ def enrich_open_stats_csv(
         )
         if candidates:
             matched_by_player_id[player["player_id"]] = candidates
+            nationalities = {line.nationality for line in candidates if line.nationality}
+            if not player.get("nationality") and len(nationalities) == 1:
+                player["nationality"] = nationalities.pop()
             for candidate in candidates:
                 report_rows.append(build_match_row(player, candidate, matched=True))
         else:
@@ -155,7 +159,7 @@ def enrich_open_stats_csv(
             and row.get("player_id") in matched_by_player_id
             and normalize_league_name(row.get("league", ""))
             in matched_leagues_by_player[row["player_id"]]
-            and row.get("source") in {"wikipedia", "open-stats"}
+            and row.get("source") in {"hockeydb", "wikipedia", "open-stats"}
         )
     ]
     for player_id, lines in sorted(matched_by_player_id.items()):
@@ -206,6 +210,7 @@ def load_open_stats_lines(sources: list[OpenStatsCsvSource]) -> list[OpenStatsLi
             lines.append(
                 OpenStatsLine(
                     name=name,
+                    nationality=first_text(row, "nationality", "Nation", "Country"),
                     source=first_text(row, "source", "Source") or source.source,
                     source_id=first_text(row, "source_id", "player_id", "id", "ID")
                     or normalize_person_key(name),
