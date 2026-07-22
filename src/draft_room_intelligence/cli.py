@@ -141,6 +141,7 @@ from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_
 from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
 from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
+from draft_room_intelligence.reports.russian_coverage import write_russian_coverage_report
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
 from draft_room_intelligence.sample_data import sample_prospects, sample_team_context
 from draft_room_intelligence.scouting.extraction import extract_scouting_features
@@ -639,6 +640,13 @@ def main() -> None:
     league_audit_parser.add_argument("output_dir", type=Path)
     league_audit_parser.add_argument("--start-year", type=int, required=True)
     league_audit_parser.add_argument("--end-year", type=int, required=True)
+    russian_audit_parser = subparsers.add_parser(
+        "audit-russian-coverage",
+        help="Audit KHL, VHL, and MHL evidence and produce the next player review queue.",
+    )
+    russian_audit_parser.add_argument("dataset_dir", type=Path)
+    russian_audit_parser.add_argument("output_dir", type=Path)
+    russian_audit_parser.add_argument("--draft-year", type=int, required=True)
     codex_usage_parser = subparsers.add_parser(
         "report-codex-usage",
         help="Build routing usage benchmark summary and dashboard from a run-log CSV.",
@@ -1401,6 +1409,12 @@ def main() -> None:
             start_year=args.start_year,
             end_year=args.end_year,
         )
+    elif args.command == "audit-russian-coverage":
+        run_audit_russian_coverage(
+            args.dataset_dir,
+            args.output_dir,
+            draft_year=args.draft_year,
+        )
     elif args.command == "report-codex-usage":
         run_report_codex_usage(args.run_log_csv, args.output_dir)
     elif args.command == "audit-codex-routing":
@@ -1733,6 +1747,29 @@ def run_audit_league_ingestion(
     print(f"Classes: {len(report.years)}")
     print(f"Issues: {len(report.issues)}")
     print(f"Report: {output_dir / 'summary.md'}")
+
+
+def run_audit_russian_coverage(
+    dataset_dir: Path,
+    output_dir: Path,
+    *,
+    draft_year: int,
+) -> None:
+    report = write_russian_coverage_report(
+        dataset_dir,
+        output_dir,
+        draft_year=draft_year,
+    )
+    print(f"# Russian league coverage: {draft_year}")
+    print(f"Russian prospects: {report.russian_players}")
+    print(f"Russian-league targets: {report.russian_league_targets}")
+    print(f"Covered: {report.covered_players} ({report.coverage_pct:.1f}%)")
+    print(f"External-league prospects: {report.external_league_players}")
+    print(f"Missing: {report.missing_players}")
+    print(f"Russian-family stat lines: {report.stat_lines}")
+    print(f"Players with playoff evidence: {report.playoff_players}")
+    print(f"Review queue: {output_dir / 'review_queue.csv'}")
+    print(f"Summary: {output_dir / 'summary.md'}")
 
 
 def run_report_codex_usage(run_log_csv: Path, output_dir: Path) -> None:

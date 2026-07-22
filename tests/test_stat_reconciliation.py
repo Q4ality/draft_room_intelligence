@@ -133,3 +133,28 @@ def test_reconcile_stat_lines_matches_chl_team_abbreviation_aliases():
     assert merged_sources == {"chl", "eliteprospects_pdf", "wikipedia-career"}
     assert result.duplicate_groups == 1
     assert result.conflict_groups == 0
+
+
+def test_reconcile_stat_lines_matches_mhl_translated_team_aliases():
+    rows = [
+        {
+            "player_id": "p1",
+            "season": "2024-25",
+            "league": "MHL",
+            "team": team,
+            "games": "37",
+            "timing": "pre_draft",
+            "regular_season": "true",
+            "source": source,
+        }
+        for team, source in [
+            ("Krasnaya Armiya", "open-stats"),
+            ("Krasnaya Armiya Moskva", "eliteprospects_pdf"),
+        ]
+    ]
+
+    result = reconcile_stat_lines(rows)
+
+    assert len(result.rows) == 1
+    assert result.duplicate_groups == 1
+    assert result.conflict_groups == 0

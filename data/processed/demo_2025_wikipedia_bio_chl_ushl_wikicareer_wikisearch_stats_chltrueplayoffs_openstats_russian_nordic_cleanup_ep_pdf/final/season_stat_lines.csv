@@ -57,8 +57,8 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-019-justin-carbonneau,2024-25,QMJHL,BLB,5,3,0,3,,pre_draft,false,chl,19534,https://chl.ca/lhjmq/en/players/19534/,,,,,,,,,,
 2025-019-justin-carbonneau,2024-25,QMJHL,BLB,62,46,43,89,,pre_draft,true,chl,19534,https://chl.ca/lhjmq/en/players/19534/,,,,,,,,,,
 2025-020-pyotr-andreyanov,2023-24,MHL,Krasnaya Armiya,20,0,0,0,,pre_draft,true,open-stats,Pyotr Andreyanov,https://en.wikipedia.org/wiki/Pyotr_Andreyanov,1126,,,57,0.916,3.04,9,8,0,1
-2025-020-pyotr-andreyanov,2024-25,MHL,Krasnaya Armiya,37,0,0,0,,pre_draft,true,open-stats,Pyotr Andreyanov,https://en.wikipedia.org/wiki/Pyotr_Andreyanov,2194,,,64,0.942,1.75,23,6,6,3
-2025-020-pyotr-andreyanov,2024-25,MHL,Krasnaya Armiya Moskva,37,,,,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-811,Draft25.pdf#page=811,,,,,0.942,1.75,,,,3
+2025-020-pyotr-andreyanov,2024-25,MHL,Krasnaya Armiya,6,0,0,0,,pre_draft,false,open-stats,2025-andreyanov-mhl-playoffs,https://www.nhl.com/news/topic/nhl-draft/matthew-schaefer-the-best-prospect-available-in-2025-nhl-draft,355,,,14,0.929,2.36,2,4,0,1
+2025-020-pyotr-andreyanov,2024-25,MHL,Krasnaya Armiya,37,0,0,0,,pre_draft,true,eliteprospects_pdf; open-stats,Pyotr Andreyanov,https://en.wikipedia.org/wiki/Pyotr_Andreyanov,2194,,,64,0.942,1.75,23,6,6,3
 2025-021-cameron-reid,2024-25,OHL,KIT,14,0,5,5,,pre_draft,false,chl; wikipedia-career,8948,https://chl.ca/ohl/players/8948,,,,,,,,,,
 2025-021-cameron-reid,2024-25,OHL,KIT,67,14,40,54,,pre_draft,true,chl; eliteprospects_pdf; wikipedia-career,8948,https://chl.ca/ohl/players/8948,,,,,,,,,,
 2025-022-bill-zonnon,2024-25,QMJHL,Rou,13,8,8,16,,pre_draft,false,chl; wikipedia-career,19520,https://chl.ca/lhjmq/en/players/19520/,,,,,,,,,,
@@ -128,14 +128,15 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-040-jack-murtagh,2024-25,USHL,NTDP,24,7,11,18,,pre_draft,true,ushl,10242,https://ushl.com/ht/#/player/10242/85/Jack%20Murtagh,,,,,,,,,,
 2025-040-jack-murtagh,2024-25,USHL,USNTDP Juniors,23,7,11,18,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-404,Draft25.pdf#page=404,,,,,,,,,,
 2025-041-semyon-frolov,2023-24,MHL,Tolyatti Ladia,16,0,0,0,,pre_draft,true,open-stats,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,813,,,34,0.907,2.51,7,4,2,1
-2025-041-semyon-frolov,2024-25,MHL,Krylya Sovetov Jr.,5,0,0,0,,pre_draft,true,open-stats,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,305,,,14,0.910,2.75,2,2,1,0
 2025-041-semyon-frolov,2024-25,MHL,Ladia Togliatti,9,,,,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-789,Draft25.pdf#page=789,,,,,0.937,1.83,,,,0
 2025-041-semyon-frolov,2024-25,MHL,MHK Krylia Sovetov Mos...,5,,,,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-789,Draft25.pdf#page=789,,,,,0.910,2.75,,,,0
-2025-041-semyon-frolov,2024-25,MHL,MHK Spartak Moskva,13,,,,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-789,Draft25.pdf#page=789,,,,,0.915,2.05,,,,2
-2025-041-semyon-frolov,2024-25,MHL,Moscow Spartak Jr.,13,0,0,0,,pre_draft,true,open-stats,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,762,,,26,0.915,2.05,9,2,2,2
+2025-041-semyon-frolov,2024-25,MHL,MHK Krylia Sovetov Moskva,3,0,0,0,,pre_draft,false,open-stats,2025-mhl-playoffs-semyon-frolov,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs-qc,163,,,9,0.912,3.32,1,2,0,1
+2025-041-semyon-frolov,2024-25,MHL,Krylya Sovetov Jr.,5,0,0,0,,pre_draft,true,open-stats,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,305,,,14,0.910,2.75,2,2,1,0
+2025-041-semyon-frolov,2024-25,MHL,Moscow Spartak Jr.,13,0,0,0,,pre_draft,true,eliteprospects_pdf; open-stats,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,762,,,26,0.915,2.05,9,2,2,2
 2025-041-semyon-frolov,2024-25,MHL,Tolyatti Ladia,9,0,0,0,,pre_draft,true,open-stats,Semyon Frolov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281380,491,,,15,0.937,1.83,5,3,0,0
 2025-042-daniil-prokhorov,2023-24,MHL,St. Petersburg Dynamo Jr.,36,7,9,16,,pre_draft,true,open-stats,Daniil Prokhorov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281619,,,,,,,,,,
 2025-042-daniil-prokhorov,2024-25,MHL,MHK Dynamo St. Peters...,43,20,7,27,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-667,Draft25.pdf#page=667,,,,,,,,,,
+2025-042-daniil-prokhorov,2024-25,MHL,MHK Dynamo St. Petersburg,8,4,0,4,,pre_draft,false,open-stats,2025-mhl-playoffs-daniil-prokhorov,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
 2025-042-daniil-prokhorov,2024-25,MHL,St. Petersburg Dynamo Jr.,43,20,7,27,,pre_draft,true,open-stats,Daniil Prokhorov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281619,,,,,,,,,,
 2025-043-malcolm-spence,2024-25,OHL,ER,9,4,5,9,,pre_draft,false,chl,8785,https://chl.ca/ohl/players/8785,,,,,,,,,,
 2025-043-malcolm-spence,2024-25,OHL,ER,65,32,41,73,,pre_draft,true,chl; eliteprospects_pdf,8785,https://chl.ca/ohl/players/8785,,,,,,,,,,
@@ -263,8 +264,8 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-067-kurban-limatov,2023-24,MHL,Moscow Dynamo Jr.,30,1,5,6,,pre_draft,true,open-stats,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,,,,
 2025-067-kurban-limatov,2024-25,KHL,Dynamo Moskva,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-443,Draft25.pdf#page=443,,,,,,,,,,
 2025-067-kurban-limatov,2024-25,KHL,Moscow Dynamo,1,0,0,0,,pre_draft,true,open-stats,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,,,,
-2025-067-kurban-limatov,2024-25,MHL,MHK Dynamo Moskva,46,8,15,23,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-443,Draft25.pdf#page=443,,,,,,,,,,
-2025-067-kurban-limatov,2024-25,MHL,Moscow Dynamo Jr.,46,8,15,23,,pre_draft,true,open-stats,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,,,,
+2025-067-kurban-limatov,2024-25,MHL,MHK Dynamo Moskva,7,2,3,5,,pre_draft,false,open-stats,2025-mhl-playoffs-kurban-limatov,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
+2025-067-kurban-limatov,2024-25,MHL,Moscow Dynamo Jr.,46,8,15,23,,pre_draft,true,eliteprospects_pdf; open-stats,Kurban Limatov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281527,,,,,,,,,,
 2025-067-kurban-limatov,2024-25,U18,Dynamo Moskva U18 Russia,1,0,1,1,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-443,Draft25.pdf#page=443,,,,,,,,,,
 2025-068-will-reynolds,2024-25,QMJHL,Acadie-Bathurst Titan,64,4,10,14,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1218,Draft25.pdf#page=1218,,,,,,,,,,
 2025-068-will-reynolds,2024-25,QMJHL,Bat,5,0,2,2,,pre_draft,false,chl,20214,https://chl.ca/lhjmq/en/players/20214/,,,,,,,,,,
@@ -401,7 +402,7 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-110-yegor-borikov,2023-24,KHL,Dinamo Minsk,41,5,3,8,,pre_draft,true,open-stats,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,,,,
 2025-110-yegor-borikov,2024-25,International,Belarus (all),3,2,0,2,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1692,Draft25.pdf#page=1692,,,,,,,,,,
 2025-110-yegor-borikov,2024-25,KHL,Dinamo Minsk,11,7,1,8,,pre_draft,false,open-stats,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,,,,
-2025-110-yegor-borikov,2024-25,KHL,Dinamo Minsk,67,12,13,25,,pre_draft,true,open-stats; eliteprospects_pdf,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,,,,
+2025-110-yegor-borikov,2024-25,KHL,Dinamo Minsk,67,12,13,25,,pre_draft,true,eliteprospects_pdf; open-stats,Yegor Borikov,https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%2C_%D0%95%D0%B3%D0%BE%D1%80_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87,,,,,,,,,,
 2025-110-yegor-borikov,2024-25,MHL,Dinamo-Shinnik Bobruysk,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1692,Draft25.pdf#page=1692,,,,,,,,,,
 2025-111-mikkel-eriksen,2023-24,Sweden Jrs.,Orebro HK Jr.,6,1,0,1,,pre_draft,true,open-stats,Mikkel Eriksen,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=268664,,,,,,,,,,
 2025-111-mikkel-eriksen,2024-25,D1A,Norway U20 WJC-20,5,1,3,4,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1497,Draft25.pdf#page=1497,,,,,,,,,,
@@ -430,13 +431,12 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-114-gustav-hillstrom,2024-25,SHL,Brynäs IF,18,1,1,2,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1106,Draft25.pdf#page=1106,,,,,,,,,,
 2025-114-gustav-hillstrom,2024-25,Sweden Jrs.,Brynas Jr.,5,1,1,2,,pre_draft,false,open-stats,Gustav Hillstrom,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=270709,,,,,,,,,,
 2025-114-gustav-hillstrom,2024-25,Sweden Jrs.,Brynas Jr.,43,16,22,38,,pre_draft,true,open-stats,Gustav Hillstrom,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=270709,,,,,,,,,,
-2025-115-ilyas-magomedsultanov,2023-24,MHL,Yaroslavl Loko-76,6,0,1,1,,pre_draft,true,open-stats,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,,,,
 2025-115-ilyas-magomedsultanov,2023-24,MHL,Yaroslavl Loko Jr.,49,2,2,4,,pre_draft,true,open-stats,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,,,,
+2025-115-ilyas-magomedsultanov,2023-24,MHL,Yaroslavl Loko-76,6,0,1,1,,pre_draft,true,open-stats,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,,,,
 2025-115-ilyas-magomedsultanov,2024-25,KHL,Lokomotiv Yaroslavl,0,0,0,0,,pre_draft,true,wikipedia,2025-115-ilyas-magomedsultanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
 2025-115-ilyas-magomedsultanov,2024-25,MHL,Loko-76 Yaroslavl,3,0,2,2,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1234,Draft25.pdf#page=1234,,,,,,,,,,
-2025-115-ilyas-magomedsultanov,2024-25,MHL,Loko Yaroslavl,40,1,6,7,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1234,Draft25.pdf#page=1234,,,,,,,,,,
+2025-115-ilyas-magomedsultanov,2024-25,MHL,Yaroslavl Loko Jr.,40,1,6,7,,pre_draft,true,eliteprospects_pdf; open-stats,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,,,,
 2025-115-ilyas-magomedsultanov,2024-25,MHL,Yaroslavl Loko-76,3,0,2,2,,pre_draft,true,open-stats,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,,,,
-2025-115-ilyas-magomedsultanov,2024-25,MHL,Yaroslavl Loko Jr.,40,1,6,7,,pre_draft,true,open-stats,Ilyas Magomedsultanov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=281537,,,,,,,,,,
 2025-116-samuel-meloche,2024-25,QMJHL,Rou,13,,,,,pre_draft,false,chl,20199,https://chl.ca/lhjmq/en/players/20199/,787:25,304,277,27,0.911,2.06,8,3,2,1
 2025-116-samuel-meloche,2024-25,QMJHL,Rou,51,,,,,pre_draft,true,chl; eliteprospects_pdf,20199,https://chl.ca/lhjmq/en/players/20199/,2978:32,1433,1289,144,0.900,2.90,30,14,2,5
 2025-117-david-lewandowski,2024-25,DEL,Düsseldorfer EG,7,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-799,Draft25.pdf#page=799,,,,,,,,,,
@@ -504,13 +504,13 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-139-zeb-lindgren,2024-25,Swe-Jr,Skellefteå AIK,9,0,1,1,,pre_draft,false,wikipedia-career,Zeb Lindgren,https://en.wikipedia.org/wiki/Zeb_Lindgren,,,,,,,,,,
 2025-139-zeb-lindgren,2024-25,Swe-Jr,Skellefteå AIK,38,4,15,19,,pre_draft,true,wikipedia-career,Zeb Lindgren,https://en.wikipedia.org/wiki/Zeb_Lindgren,,,,,,,,,,
 2025-140-nikita-tyurin,2024-25,KHL,Spartak Moskva,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1102,Draft25.pdf#page=1102,,,,,,,,,,
+2025-140-nikita-tyurin,2024-25,MHL,MHK Spartak Moskva,19,0,5,5,,pre_draft,false,open-stats,2025-mhl-playoffs-nikita-tyurin,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
 2025-140-nikita-tyurin,2024-25,MHL,MHK Spartak Moskva,50,4,16,20,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1102,Draft25.pdf#page=1102,,,,,,,,,,
-2025-140-nikita-tyurin,2024-25,Rus-MHL,JHC Spartak,0,0,0,0,,pre_draft,true,wikipedia,2025-140-nikita-tyurin,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
 2025-140-nikita-tyurin,2024-25,VHL,Khimik Voskresensk,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1102,Draft25.pdf#page=1102,,,,,,,,,,
 2025-141-justin-kipkie,2024-25,WHL,VIC,11,2,11,13,,pre_draft,false,chl,28960,https://chl.ca/whl/players/28960,,,,,,,,,,
 2025-141-justin-kipkie,2024-25,WHL,VIC,64,12,50,62,,pre_draft,true,chl,28960,https://chl.ca/whl/players/28960,,,,,,,,,,
+2025-142-ivan-tkach-tkachenko,2024-25,MHL,Tolpar Ufa,2,0,0,0,,pre_draft,false,open-stats,2025-mhl-playoffs-ivan-tkach-tkachenko,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs-qc,119,,,7,0.883,3.54,0,2,0,0
 2025-142-ivan-tkach-tkachenko,2024-25,MHL,Tolpar Ufa,40,,,,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1390,Draft25.pdf#page=1390,,,,,0.908,2.99,,,,2
-2025-142-ivan-tkach-tkachenko,2024-25,Rus-MHL,Ufa Tolpar,0,0,0,0,,pre_draft,true,wikipedia,2025-142-ivan-tkach-tkachenko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
 2025-143-wilson-bjorck,2024-25,HockeyAllsvenskan,Djurgårdens IF,10,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1708,Draft25.pdf#page=1708,,,,,,,,,,
 2025-143-wilson-bjorck,2024-25,HockeyEttan,Tyresö/Hanviken,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1708,Draft25.pdf#page=1708,,,,,,,,,,
 2025-143-wilson-bjorck,2024-25,International-Jr,Sweden U19 (all),4,1,1,2,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1708,Draft25.pdf#page=1708,,,,,,,,,,
@@ -533,8 +533,8 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-147-mikhail-fyodorov,2024-25,VHL,Magnitka Magnitogorsk,3,1,0,1,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1464,Draft25.pdf#page=1464,,,,,,,,,,
 2025-148-quinn-beauchesne,2024-25,OHL,GUE,49,6,18,24,,pre_draft,true,chl; eliteprospects_pdf,8960,https://chl.ca/ohl/players/8960,,,,,,,,,,
 2025-149-dmitri-isayev,2024-25,KHL,Avtomobilist Yekaterinburg,3,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1694,Draft25.pdf#page=1694,,,,,,,,,,
+2025-149-dmitri-isayev,2024-25,MHL,Avto Yekaterinburg,5,2,2,4,,pre_draft,false,open-stats,2025-mhl-playoffs-dmitri-isayev,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
 2025-149-dmitri-isayev,2024-25,MHL,Avto Yekaterinburg,44,22,23,45,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1694,Draft25.pdf#page=1694,,,,,,,,,,
-2025-149-dmitri-isayev,2024-25,Rus-MHL,JHC Avto,0,0,0,0,,pre_draft,true,wikipedia,2025-149-dmitri-isayev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
 2025-149-dmitri-isayev,2024-25,U18,Spartakovets Yek... U18 Russia,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1694,Draft25.pdf#page=1694,,,,,,,,,,
 2025-149-dmitri-isayev,2024-25,VHL,Gornyak-UGMK,1,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1694,Draft25.pdf#page=1694,,,,,,,,,,
 2025-150-max-heise,2024-25,BCHL,Penticton Vees,0,0,0,0,,pre_draft,true,wikipedia,2025-150-max-heise,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
@@ -583,8 +583,8 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-164-nathan-quinn,2024-25,QMJHL,Que,4,1,2,3,,pre_draft,false,chl,20188,https://chl.ca/lhjmq/en/players/20188/,,,,,,,,,,
 2025-164-nathan-quinn,2024-25,QMJHL,Que,54,17,29,46,,pre_draft,true,chl; eliteprospects_pdf,20188,https://chl.ca/lhjmq/en/players/20188/,,,,,,,,,,
 2025-165-kirill-yemelyanov,2024-25,MHL,Loko-76 Yaroslavl,3,0,1,1,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1014,Draft25.pdf#page=1014,,,,,,,,,,
+2025-165-kirill-yemelyanov,2024-25,MHL,Loko Yaroslavl,8,4,4,8,,pre_draft,false,open-stats,2025-mhl-playoffs-kirill-yemelyanov,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
 2025-165-kirill-yemelyanov,2024-25,MHL,Loko Yaroslavl,35,13,10,23,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1014,Draft25.pdf#page=1014,,,,,,,,,,
-2025-165-kirill-yemelyanov,2024-25,Rus-MHL,Loko Yaroslavl,0,0,0,0,,pre_draft,true,wikipedia,2025-165-kirill-yemelyanov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
 2025-166-samuel-jung,2024-25,Finland Jr.,Karpat U20,0,0,0,0,,pre_draft,true,wikipedia,2025-166-samuel-jung,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
 2025-167-ashton-schultz,2024-25,USHL,CHI,58,14,25,39,,pre_draft,true,ushl,10357,https://ushl.com/ht/#/player/10357/85/Ashton%20Schultz,,,,,,,,,,
 2025-167-ashton-schultz,2024-25,USHL,Chicago Steel,53,14,22,36,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1313,Draft25.pdf#page=1313,,,,,,,,,,
@@ -690,13 +690,14 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-205-karl-annborn,2024-25,Region,HV71 J18 J18,4,0,2,2,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1065,Draft25.pdf#page=1065,,,,,,,,,,
 2025-205-karl-annborn,2024-25,SHL,HV71,5,0,1,1,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1065,Draft25.pdf#page=1065,,,,,,,,,,
 2025-205-karl-annborn,2024-25,SweHL,HV71,0,0,0,0,,pre_draft,true,wikipedia,2025-205-karl-annborn,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
-2025-206-roman-luttsev,2022-23,MHL,Yaroslavl Loko-76,19,4,7,11,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
 2025-206-roman-luttsev,2022-23,MHL,Yaroslavl Loko Jr.,32,3,7,10,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
-2025-206-roman-luttsev,2023-24,MHL,Yaroslavl Loko-76,7,4,5,9,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
+2025-206-roman-luttsev,2022-23,MHL,Yaroslavl Loko-76,19,4,7,11,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
 2025-206-roman-luttsev,2023-24,MHL,Yaroslavl Loko Jr.,36,9,18,27,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
+2025-206-roman-luttsev,2023-24,MHL,Yaroslavl Loko-76,7,4,5,9,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
 2025-206-roman-luttsev,2024-25,KHL,Yaroslavl Lokomotiv,3,0,0,0,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
-2025-206-roman-luttsev,2024-25,MHL,Yaroslavl Loko-76,1,0,3,3,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
+2025-206-roman-luttsev,2024-25,MHL,Loko Yaroslavl,8,2,1,3,,pre_draft,false,open-stats,2025-mhl-playoffs-roman-luttsev,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
 2025-206-roman-luttsev,2024-25,MHL,Yaroslavl Loko Jr.,50,30,33,63,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
+2025-206-roman-luttsev,2024-25,MHL,Yaroslavl Loko-76,1,0,3,3,,pre_draft,true,open-stats,Roman Luttsev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=273338,,,,,,,,,,
 2025-207-matthew-lansing,2024-25,NTDP,U.S. National U18 Team,6,0,1,1,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1292,Draft25.pdf#page=1292,,,,,,,,,,
 2025-207-matthew-lansing,2024-25,USHL,Fargo Force,11,3,2,5,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1292,Draft25.pdf#page=1292,,,,,,,,,,
 2025-207-matthew-lansing,2024-25,USHL,FGO,2,1,0,1,,pre_draft,false,ushl,10299,https://ushl.com/ht/#/player/10299/87/Matthew%20Lansing,,,,,,,,,,
@@ -708,7 +709,7 @@ player_id,season,league,team,games,goals,assists,points,age,timing,regular_seaso
 2025-210-richard-gallant,2024-25,NTDP,U.S. National U18 Team,55,23,22,45,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1536,Draft25.pdf#page=1536,,,,,,,,,,
 2025-210-richard-gallant,2024-25,USHL,NTDP,27,11,11,22,,pre_draft,true,ushl,10246,https://ushl.com/ht/#/player/10246/85/Richard%20Gallant,,,,,,,,,,
 2025-210-richard-gallant,2024-25,USHL,USNTDP Juniors,25,11,11,22,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1536,Draft25.pdf#page=1536,,,,,,,,,,
-2025-211-yan-matveiko,2024-25,Rus-MHL,Krasnaya Armiya Moskva,0,0,0,0,,pre_draft,true,wikipedia,2025-211-yan-matveiko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft,,,,,,,,,,
+2025-211-yan-matveiko,2024-25,MHL,Krasnaya Armiya Moskva,6,1,3,4,,pre_draft,false,open-stats,2025-mhl-playoffs-yan-matveiko,https://www.eliteprospects.com/league/mhl/stats/2024-2025/playoffs,,,,,,,,,,
 2025-212-grant-spada,2024-25,GOJHL,Ayr Centennials,2,0,0,0,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1679,Draft25.pdf#page=1679,,,,,,,,,,
 2025-212-grant-spada,2024-25,OHL,GUE,58,0,6,6,,pre_draft,true,chl; eliteprospects_pdf,9063,https://chl.ca/ohl/players/9063,,,,,,,,,,
 2025-213-andrei-trofimov,2024-25,MHL,Stalnye Lisy Magnitogorsk,26,,,,,pre_draft,true,eliteprospects_pdf,2025-ep-pdf-page-1391,Draft25.pdf#page=1391,,,,,0.929,2.10,,,,3

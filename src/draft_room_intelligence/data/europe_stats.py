@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 from dataclasses import dataclass
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -440,6 +441,10 @@ def liiga_row(row: dict[str, object], source: EuropeStatSource) -> EuropeStatLin
 def parse_khl_html(raw: str, source: EuropeStatSource) -> list[EuropeStatLine]:
     parser = HtmlTableParser()
     parser.feed(raw)
+    profile_lines = parse_khl_player_profile(raw, parser.tables, source)
+    if profile_lines:
+        return profile_lines
+
     lines: list[EuropeStatLine] = []
     for table in parser.tables:
         header_index = next(
@@ -477,6 +482,115 @@ def parse_khl_html(raw: str, source: EuropeStatSource) -> list[EuropeStatLine]:
     if not lines:
         raise ValueError("KHL-family payload has no complete player statistics table")
     return lines
+
+
+def parse_khl_player_profile(
+    raw: str,
+    tables: list[list[list[tuple[str, str]]]],
+    source: EuropeStatSource,
+) -> list[EuropeStatLine]:
+    name = khl_profile_name(raw)
+    if not name:
+        return []
+    source_id_match = re.search(r"/players/(\d+)", source.source_url)
+    source_id = source_id_match.group(1) if source_id_match else normalize_person_key(name)
+    lines: list[EuropeStatLine] = []
+    for table in tables:
+        header_index = next(
+            (
+                index
+                for index, row in enumerate(table)
+                if row and re.fullmatch(r"Турнир\s*/\s*(?:Команда|Клуб)", row[0][0])
+            ),
+            -1,
+        )
+        if header_index < 0:
+            continue
+        headers = [cell[0] for cell in table[header_index]]
+        season = ""
+        regular_season = source.regular_season
+        for row in table[header_index + 1 :]:
+            marker = row[0][0] if row else ""
+            season_match = re.match(r"(\d{2})/(\d{2})\s*\|\s*(.+)", marker)
+            if season_match:
+                season = f"20{season_match.group(1)}-{season_match.group(2)}"
+                regular_season = "регуляр" in season_match.group(3).casefold()
+                continue
+            if not season or len(row) < len(headers) or marker.startswith("Суммарная"):
+                continue
+            values = {
+                header: row[index][0] if index < len(row) else ""
+                for index, header in enumerate(headers)
+            }
+            games = values.get("И", "")
+            if not games or not marker:
+                continue
+            if "%ОБ" in headers:
+                lines.append(
+                    EuropeStatLine(
+                        name,
+                        source_id,
+                        source.source_url,
+                        source.provider,
+                        source.league,
+                        season,
+                        regular_season,
+                        marker,
+                        games,
+                        goals=values.get("Ш", ""),
+                        assists=values.get("А", ""),
+                        goalie_minutes=values.get("ВП", ""),
+                        saves=values.get("ОБ", ""),
+                        goals_against=values.get("ПШ", ""),
+                        save_percentage=percent_to_decimal(values.get("%ОБ", "")),
+                        goals_against_average=values.get("КН", ""),
+                        wins=values.get("В", ""),
+                        losses=values.get("П", ""),
+                        shutouts=values.get('И"0"', ""),
+                    )
+                )
+                continue
+            faceoff_attempts = integer(values.get("Вбр", ""))
+            faceoff_wins = integer(values.get("ВВбр", ""))
+            lines.append(
+                EuropeStatLine(
+                    name,
+                    source_id,
+                    source.source_url,
+                    source.provider,
+                    source.league,
+                    season,
+                    regular_season,
+                    marker,
+                    games,
+                    goals=values.get("Ш", ""),
+                    assists=values.get("А", ""),
+                    points=values.get("О", ""),
+                    plus_minus=values.get("+/-", ""),
+                    shots=values.get("БВ", ""),
+                    blocks=values.get("БлБ", ""),
+                    faceoff_wins=str(faceoff_wins) if values.get("ВВбр", "") else "",
+                    faceoff_losses=(
+                        str(max(faceoff_attempts - faceoff_wins, 0))
+                        if values.get("Вбр", "") and values.get("ВВбр", "")
+                        else ""
+                    ),
+                    faceoff_percentage=values.get("%Вбр", ""),
+                )
+            )
+    return lines
+
+
+def khl_profile_name(raw: str) -> str:
+    title_match = re.search(r"<title[^>]*>(.*?)</title>", raw, re.IGNORECASE | re.DOTALL)
+    if not title_match:
+        return ""
+    title = re.sub(r"<[^>]+>", "", unescape(title_match.group(1)))
+    russian_name = re.split(r",|\s+[–-]\s+", title, maxsplit=1)[0].strip()
+    parts = russian_name.split()
+    if len(parts) < 2 or not re.search(r"[А-Яа-яЁё]", russian_name):
+        return ""
+    return " ".join(parts[1:] + parts[:1])
 
 
 def same_league_family(leagues: set[str], line: EuropeStatLine) -> bool:

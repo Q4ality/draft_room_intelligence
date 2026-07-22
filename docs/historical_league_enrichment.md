@@ -99,3 +99,23 @@ Populate reviewed regular-season and playoff sources in this order:
 4. NHL outcome snapshots for mature classes, kept separate from pre-draft features.
 
 The report at `outputs/league_enrichment/summary.md` is the operational coverage baseline.
+
+## Russian Coverage Iteration
+
+Russian enrichment uses one reviewed source pack per draft year, for example
+`data/reference/russian_open_stats_2026.csv`. Each row must retain its source URL and stage.
+The pack is enabled through `league_stat_sources.csv` with the `open_csv` adapter, so it runs
+inside the same atomic, fingerprinted class enrichment as NCAA, USHL, and other leagues.
+
+After each enrichment pass, generate the next player-level review queue:
+
+```bash
+PYTHONPATH=src python -m draft_room_intelligence.cli audit-russian-coverage \
+  data/processed/draft_classes/2026/final \
+  outputs/russian_coverage/2026 \
+  --draft-year 2026
+```
+
+The queue separates covered and missing Russian prospects and summarizes regular-season,
+playoff, KHL, VHL, and MHL games. Repeat the same workflow for an earlier draft year by adding
+its reviewed source pack and manifest row; no adapter code changes are required.

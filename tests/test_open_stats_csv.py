@@ -1,6 +1,10 @@
 import csv
 
-from draft_room_intelligence.data.eliteprospects_csv import PLAYER_COLUMNS, SEASON_STAT_LINE_COLUMNS, write_table
+from draft_room_intelligence.data.eliteprospects_csv import (
+    PLAYER_COLUMNS,
+    SEASON_STAT_LINE_COLUMNS,
+    write_table,
+)
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 
 
@@ -64,7 +68,11 @@ def test_enrich_open_stats_csv_replaces_placeholder_and_keeps_goalie_metrics(tmp
     summary = enrich_open_stats_csv(
         base_dir,
         output_dir,
-        [OpenStatsCsvSource(path=source_path, source="collegehockeyinc", season="2024-25", league="NCAA")],
+        [
+            OpenStatsCsvSource(
+                path=source_path, source="collegehockeyinc", season="2024-25", league="NCAA"
+            )
+        ],
     )
 
     with (output_dir / "season_stat_lines.csv").open(newline="", encoding="utf-8") as file:
@@ -148,3 +156,72 @@ def test_enrich_open_stats_csv_can_append_curated_new_league_rows(tmp_path):
     assert summary.matched_players == 1
     assert len(stat_lines) == 2
     assert {row["league"] for row in stat_lines} == {"NCAA", "USHL"}
+
+
+def test_enrich_open_stats_csv_reconciles_russian_team_aliases(tmp_path):
+    base_dir = tmp_path / "base"
+    output_dir = tmp_path / "out"
+    source_path = tmp_path / "mhl.csv"
+    base_dir.mkdir()
+    write_table(
+        base_dir / "players.csv",
+        PLAYER_COLUMNS,
+        [
+            {
+                "player_id": "2025-199-pyotr-andreyanov",
+                "name": "Pyotr Andreyanov",
+                "position": "G",
+            }
+        ],
+    )
+    write_table(
+        base_dir / "season_stat_lines.csv",
+        SEASON_STAT_LINE_COLUMNS,
+        [
+            {
+                "player_id": "2025-199-pyotr-andreyanov",
+                "season": "2024-25",
+                "league": "MHL",
+                "team": "Krasnaya Armiya Moskva",
+                "games": "37",
+                "timing": "pre_draft",
+                "regular_season": "true",
+                "source": "eliteprospects_pdf",
+                "source_id": "2025-ep-pdf-page-99",
+            }
+        ],
+    )
+    source_path.write_text(
+        "\n".join(
+            [
+                "name,season,league,team,games,save_percentage,goals_against_average,regular_season,source_url",
+                "Pyotr Andreyanov,2024-25,MHL,Krasnaya Armiya,37,.942,1.75,true,https://example.test/andreyanov",
+                "Pyotr Andreyanov,2024-25,MHL,Krasnaya Armiya,6,.929,2.36,false,https://example.test/andreyanov",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    summary = enrich_open_stats_csv(
+        base_dir,
+        output_dir,
+        [OpenStatsCsvSource(path=source_path, source="reviewed", season="2024-25")],
+    )
+
+    with (output_dir / "season_stat_lines.csv").open(newline="", encoding="utf-8") as file:
+        stat_lines = list(csv.DictReader(file))
+
+    assert summary.output_stat_lines == 2
+    regular = next(row for row in stat_lines if row["regular_season"] == "true")
+    playoffs = next(row for row in stat_lines if row["regular_season"] == "false")
+    assert regular["games"] == "37"
+    assert regular["save_percentage"] == "0.942"
+    assert set(regular["source"].split("; ")) == {"eliteprospects_pdf", "open-stats"}
+    assert playoffs["games"] == "6"
+
+    with (output_dir / "stat_line_reconciliation_audit.csv").open(
+        newline="", encoding="utf-8"
+    ) as file:
+        audit_rows = list(csv.DictReader(file))
+    assert len(audit_rows) == 1
+    assert audit_rows[0]["row_count"] == "2"

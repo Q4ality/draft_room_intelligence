@@ -95,6 +95,68 @@ def test_parse_cached_khl_table():
     assert lines[0].plus_minus == "2"
 
 
+def test_parse_khl_player_profile_preserves_stages_and_advanced_stats():
+    raw = """
+    <title>Жаровский Александр, хоккеист: статистика, матчи КХЛ, новости</title>
+    <table><thead><tr><th>Турнир / Команда</th><th>№</th><th>И</th><th>Ш</th>
+    <th>А</th><th>О</th><th>+/-</th><th>БВ</th><th>Вбр</th><th>ВВбр</th>
+    <th>%Вбр</th><th>БлБ</th></tr></thead><tbody>
+    <tr><td colspan="12">24/25 | Регулярный чемпионат</td></tr>
+    <tr><td>Салават Юлаев</td><td>27</td><td>7</td><td>0</td><td>1</td><td>1</td>
+    <td>2</td><td>8</td><td>20</td><td>9</td><td>45.0</td><td>3</td></tr>
+    <tr><td colspan="12">24/25 | Плей-офф</td></tr>
+    <tr><td>Салават Юлаев</td><td>27</td><td>3</td><td>1</td><td>0</td><td>1</td>
+    <td>1</td><td>5</td><td>10</td><td>6</td><td>60.0</td><td>2</td></tr>
+    </tbody></table>
+    """
+
+    lines = parse_khl_html(
+        raw,
+        EuropeStatSource(
+            "2024-25", "khl", "KHL", "https://www.khl.ru/players/43001/", kind="profile"
+        ),
+    )
+
+    assert [(line.season, line.regular_season, line.games) for line in lines] == [
+        ("2024-25", True, "7"),
+        ("2024-25", False, "3"),
+    ]
+    assert lines[0].name == "Александр Жаровский"
+    assert lines[0].source_id == "43001"
+    assert lines[0].points == "1"
+    assert lines[0].blocks == "3"
+    assert lines[0].faceoff_losses == "11"
+
+
+def test_parse_mhl_goalie_profile_preserves_goalie_metrics():
+    raw = """
+    <title>Тулинов Никита, хоккеист: статистика, матчи МХЛ, новости</title>
+    <table><thead><tr><th>Турнир / Клуб</th><th>№</th><th>И</th><th>В</th>
+    <th>П</th><th>ИБ</th><th>БВ</th><th>ПШ</th><th>ОБ</th><th>%ОБ</th>
+    <th>КН</th><th>Ш</th><th>А</th><th>И"0"</th><th>Штр</th><th>ВП</th>
+    </tr></thead><tbody>
+    <tr><td colspan="16">22/23 | Плей-офф</td></tr>
+    <tr><td>Сибирские Снайперы</td><td>95</td><td>3</td><td>0</td><td>1</td>
+    <td>0</td><td>65</td><td>9</td><td>56</td><td>86.2</td><td>5.19</td>
+    <td>0</td><td>1</td><td>0</td><td>0</td><td>103:58</td></tr>
+    </tbody></table>
+    """
+
+    lines = parse_khl_html(
+        raw,
+        EuropeStatSource(
+            "2022-23", "khl", "MHL", "https://mhl.khl.ru/players/39262/", kind="profile"
+        ),
+    )
+
+    assert len(lines) == 1
+    assert lines[0].name == "Никита Тулинов"
+    assert lines[0].regular_season is False
+    assert lines[0].save_percentage == "0.862"
+    assert lines[0].goals_against_average == "5.19"
+    assert lines[0].shutouts == "0"
+
+
 def test_enrichment_matches_within_country_family_and_writes_advanced_table(tmp_path):
     base = tmp_path / "base"
     output = tmp_path / "output"

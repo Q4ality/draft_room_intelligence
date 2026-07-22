@@ -19,6 +19,10 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     write_table,
 )
 from draft_room_intelligence.data.league_standardization import normalize_league_name
+from draft_room_intelligence.data.stat_reconciliation import (
+    RECONCILIATION_AUDIT_COLUMNS,
+    reconcile_stat_lines,
+)
 
 OPEN_STATS_MATCH_COLUMNS = [
     "player_id",
@@ -157,9 +161,16 @@ def enrich_open_stats_csv(
     for player_id, lines in sorted(matched_by_player_id.items()):
         output_stat_lines.extend(build_normalized_stat_line(player_id, line) for line in lines)
 
+    reconciliation = reconcile_stat_lines(output_stat_lines)
+    output_stat_lines = reconciliation.rows
+    audit_path = target_root / "stat_line_reconciliation_audit.csv"
+    existing_audit_rows = read_table(audit_path) if audit_path.exists() else []
+    audit_rows = deduplicate_audit_rows(existing_audit_rows + reconciliation.audit_rows)
+
     write_table(target_root / "players.csv", PLAYER_COLUMNS, players)
     write_table(target_root / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, output_stat_lines)
     write_table(target_root / "open_stats_matches.csv", OPEN_STATS_MATCH_COLUMNS, report_rows)
+    write_table(audit_path, RECONCILIATION_AUDIT_COLUMNS, audit_rows)
 
     return OpenStatsCsvEnrichmentSummary(
         players_scanned=len(players),
@@ -168,6 +179,18 @@ def enrich_open_stats_csv(
         output_stat_lines=len(output_stat_lines),
         match_report_path=target_root / "open_stats_matches.csv",
     )
+
+
+def deduplicate_audit_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    seen: set[tuple[str, ...]] = set()
+    output: list[dict[str, str]] = []
+    for row in rows:
+        key = tuple(row.get(column, "") for column in RECONCILIATION_AUDIT_COLUMNS)
+        if key in seen:
+            continue
+        seen.add(key)
+        output.append(row)
+    return output
 
 
 def load_open_stats_lines(sources: list[OpenStatsCsvSource]) -> list[OpenStatsLine]:
@@ -184,7 +207,8 @@ def load_open_stats_lines(sources: list[OpenStatsCsvSource]) -> list[OpenStatsLi
                 OpenStatsLine(
                     name=name,
                     source=first_text(row, "source", "Source") or source.source,
-                    source_id=first_text(row, "source_id", "player_id", "id", "ID") or normalize_person_key(name),
+                    source_id=first_text(row, "source_id", "player_id", "id", "ID")
+                    or normalize_person_key(name),
                     source_url=first_text(row, "source_url", "url", "URL"),
                     season=first_text(row, "season", "Season") or source.season,
                     league=league,
@@ -193,13 +217,18 @@ def load_open_stats_lines(sources: list[OpenStatsCsvSource]) -> list[OpenStatsLi
                     goals=first_text(row, "goals", "G", "Goals"),
                     assists=first_text(row, "assists", "A", "Assists"),
                     points=first_text(row, "points", "PTS", "TP", "Points"),
-                    regular_season=parse_regular_season(first_text(row, "regular_season", "season_type", "Stage"), source.regular_season),
+                    regular_season=parse_regular_season(
+                        first_text(row, "regular_season", "season_type", "Stage"),
+                        source.regular_season,
+                    ),
                     timing=first_text(row, "timing", "Timing") or source.timing,
                     goalie_minutes=first_text(row, "goalie_minutes", "minutes", "MIN", "Mins"),
                     shots_against=first_text(row, "shots_against", "SA", "Shots Against"),
                     saves=first_text(row, "saves", "SV", "Saves"),
                     goals_against=first_text(row, "goals_against", "GA", "Goals Against"),
-                    save_percentage=normalize_save_percentage(first_text(row, "save_percentage", "SV%", "Save Percentage")),
+                    save_percentage=normalize_save_percentage(
+                        first_text(row, "save_percentage", "SV%", "Save Percentage")
+                    ),
                     goals_against_average=first_text(row, "goals_against_average", "GAA"),
                     wins=first_text(row, "wins", "W"),
                     losses=first_text(row, "losses", "L"),

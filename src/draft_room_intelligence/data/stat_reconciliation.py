@@ -6,7 +6,6 @@ from dataclasses import dataclass
 
 from draft_room_intelligence.data.eliteprospects_csv import SEASON_STAT_LINE_COLUMNS
 
-
 RECONCILIATION_AUDIT_COLUMNS = [
     "player_id",
     "season",
@@ -105,6 +104,20 @@ TEAM_ALIASES_BY_LEAGUE = {
         "VIC": "Victoria Royals",
         "WEN": "Wenatchee Wild",
     },
+    "mhl": {
+        "KRASNAYA ARMIYA": "Krasnaya Armiya Moskva",
+        "KRASNAYA ARMIYA MOSKVA": "Krasnaya Armiya Moskva",
+        "KRYLYA SOVETOV JR.": "MHK Krylia Sovetov Moskva",
+        "MHK KRYLIA SOVETOV MOSKVA": "MHK Krylia Sovetov Moskva",
+        "MOSCOW DYNAMO JR.": "MHK Dynamo Moskva",
+        "MHK DYNAMO MOSKVA": "MHK Dynamo Moskva",
+        "MOSCOW SPARTAK JR.": "MHK Spartak Moskva",
+        "MHK SPARTAK MOSKVA": "MHK Spartak Moskva",
+        "ST. PETERSBURG DYNAMO JR.": "MHK Dynamo St. Petersburg",
+        "MHK DYNAMO ST. PETERSBURG": "MHK Dynamo St. Petersburg",
+        "YAROSLAVL LOKO JR.": "Loko Yaroslavl",
+        "LOKO YAROSLAVL": "Loko Yaroslavl",
+    },
 }
 
 
@@ -144,7 +157,7 @@ def reconcile_stat_lines(rows: list[dict[str, str]]) -> StatReconciliationResult
                 "team": key[3],
                 "regular_season": key[4],
                 "row_count": str(len(group)),
-                "sources": "; ".join(sorted({row.get("source", "") for row in group if row.get("source", "")})),
+                "sources": "; ".join(sorted(source_labels(merge_source_labels(group)))),
                 "action": "merged_with_conflicts" if conflict_fields else "merged",
                 "conflict_fields": "; ".join(conflict_fields),
                 "chosen_sources": "; ".join(chosen_sources),
@@ -169,7 +182,9 @@ def merge_stat_group(rows: list[dict[str, str]]) -> tuple[dict[str, str], list[s
         if not values:
             merged[column] = ""
             continue
-        chosen = max(values, key=lambda row: (source_priority(row), value_specificity(row.get(column, ""))))
+        chosen = max(
+            values, key=lambda row: (source_priority(row), value_specificity(row.get(column, "")))
+        )
         normalized_values = {
             normalize_stat_value(column, row.get(column, ""))
             for row in values
@@ -188,7 +203,9 @@ def merge_stat_group(rows: list[dict[str, str]]) -> tuple[dict[str, str], list[s
 
 
 def normalize_stat_row(row: dict[str, str]) -> dict[str, str]:
-    normalized = {column: str(row.get(column, "") or "").strip() for column in SEASON_STAT_LINE_COLUMNS}
+    normalized = {
+        column: str(row.get(column, "") or "").strip() for column in SEASON_STAT_LINE_COLUMNS
+    }
     normalized["regular_season"] = normalize_regular_season(normalized.get("regular_season", ""))
     return normalized
 
@@ -264,7 +281,7 @@ def value_specificity(value: str) -> int:
 def merge_source_labels(rows: list[dict[str, str]]) -> str:
     labels: list[str] = []
     for row in sorted(rows, key=source_priority, reverse=True):
-        for label in source_labels(row.get("source", "")):
+        for label in sorted(source_labels(row.get("source", ""))):
             if label not in labels:
                 labels.append(label)
     return "; ".join(labels)
