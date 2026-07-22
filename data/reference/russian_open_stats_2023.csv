@@ -1,0 +1,35 @@
+name,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Alexander Rykov,2022-23,VHL,Chelmet Chelyabinsk,20,4,7,11,true,canes-prospect-bio,2023-vhl-regular-alexander-rykov,https://canespr.com/alexanderrykov/,,,,,,,,,,
+Alexander Rykov,2022-23,KHL,Traktor Chelyabinsk,6,0,0,0,true,canes-prospect-bio,2023-khl-regular-alexander-rykov,https://canespr.com/alexanderrykov/,,,,,,,,,,
+Bogdan Konyushkov,2022-23,KHL,Torpedo Nizhny Novgorod,64,2,23,25,true,marqueur,2023-khl-regular-bogdan-konyushkov,https://www.marqueur.com/hockey/stats/nhl/player/Bogdan-Konyushkov-67896,,,,,,,,,,
+Daniil But,2022-23,MHL,Loko Yaroslavl,26,15,11,26,true,wikipedia-career,2023-mhl-regular-daniil-but,https://en.wikipedia.org/wiki/Daniil_But,,,,,,,,,,
+Daniil But,2022-23,MHL,Loko Yaroslavl,7,4,5,9,false,wikipedia-career,2023-mhl-playoffs-daniil-but,https://en.wikipedia.org/wiki/Daniil_But,,,,,,,,,,
+Daniil But,2022-23,KHL,Lokomotiv Yaroslavl,15,2,0,2,true,wikipedia-career,2023-khl-regular-daniil-but,https://en.wikipedia.org/wiki/Daniil_But,,,,,,,,,,
+Daniil But,2022-23,KHL,Lokomotiv Yaroslavl,1,0,0,0,false,wikipedia-career,2023-khl-playoffs-daniil-but,https://en.wikipedia.org/wiki/Daniil_But,,,,,,,,,,
+Dmitriy Simashev,2022-23,MHL,Loko Yaroslavl,29,1,9,10,true,nhl-prospect-bios,2023-mhl-regular-dmitriy-simashev,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=67,,,,,,,,,,
+Dmitriy Simashev,2022-23,MHL,Loko Yaroslavl,10,2,4,6,false,nhl-prospect-bios,2023-mhl-playoffs-dmitriy-simashev,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=67,,,,,,,,,,
+Dmitriy Simashev,2022-23,KHL,Lokomotiv Yaroslavl,18,0,0,0,true,nhl-prospect-bios,2023-khl-regular-dmitriy-simashev,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=67,,,,,,,,,,
+Egor Velmakin,2022-23,VHL,Buran Voronezh,12,0,0,0,true,eliteprospects-league-goalie,2023-vhl-regular-egor-velmakin,https://www.eliteprospects.com/league/vhl/stats/2022-2023?page-goalie=2&sort-goalie-stats=svp,636,366,343,23,0.937,2.17,7,4,1,1
+Egor Zavragin,2022-23,MHL,Mamonty Yugry,21,0,0,0,true,wikipedia-career-goalie,2023-mhl-regular-egor-zavragin,https://en.wikipedia.org/wiki/Yegor_Zavragin,1132,,,47,0.920,2.49,11,6,1,1
+Egor Zavragin,2022-23,MHL,Mamonty Yugry,4,0,0,0,false,wikipedia-career-goalie,2023-mhl-playoffs-egor-zavragin,https://en.wikipedia.org/wiki/Yegor_Zavragin,246,,,11,0.927,2.68,2,2,0,0
+Matvei Michkov,2022-23,KHL,SKA St. Petersburg,3,0,0,0,true,wikipedia-career,2023-khl-regular-ska-matvei-michkov,https://en.wikipedia.org/wiki/Matvei_Michkov,,,,,,,,,,
+Matvei Michkov,2022-23,KHL,HK Sochi,27,9,11,20,true,nhl-prospect-bios,2023-khl-regular-sochi-matvei-michkov,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=50,,,,,,,,,,
+Mikhail Gulyayev,2022-23,MHL,Omskie Yastreby,22,2,23,25,true,nhl-prospect-bios,2023-mhl-regular-mikhail-gulyayev,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=58,,,,,,,,,,
+Mikhail Gulyayev,2022-23,MHL,Omskie Yastreby,17,2,8,10,false,nhl-prospect-bios,2023-mhl-playoffs-mikhail-gulyayev,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=58,,,,,,,,,,
+Mikhail Gulyayev,2022-23,KHL,Avangard Omsk,13,0,1,1,true,nhl-prospect-bios,2023-khl-regular-mikhail-gulyayev,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=58,,,,,,,,,,
+Mikhail Ilyin,2022-23,MHL,Almaz Cherepovets,28,4,22,26,true,quanthockey-league,2023-mhl-regular-mikhail-ilyin,https://www.quanthockey.com/mhl/en/seasons/2022-23-mhl-players-stats.html,,,,,,,,,,
+Mikhail Ilyin,2022-23,KHL,Severstal Cherepovets,21,0,2,2,true,khl-player-profile,2023-khl-regular-mikhail-ilyin,https://www.khl.ru/players/40905/,,,,,,,,,,
+Nikita Ishimnikov,2022-23,MHL,Avto Yekaterinburg,41,11,7,18,true,quanthockey-league,2023-mhl-regular-nikita-ishimnikov,https://www.quanthockey.com/mhl/en/seasons/2022-23-mhl-players-stats.html,,,,,,,,,,
+Nikita Susuyev,2022-23,MHL,MHK Spartak Moskva,38,11,17,28,true,puckpedia,2023-mhl-regular-nikita-susuyev,https://puckpedia.com/player/nikita-susuyev,,,,,,,,,,
+Nikita Susuyev,2022-23,MHL,MHK Spartak Moskva,7,2,4,6,false,puckpedia,2023-mhl-playoffs-nikita-susuyev,https://puckpedia.com/player/nikita-susuyev,,,,,,,,,,
+Roman Kantserov,2022-23,MHL,Stalnye Lisy Magnitogorsk,45,27,27,54,true,nhl-prospect-bios,2023-mhl-regular-roman-kantserov,https://media.nhl.com/site/asset/public/ext/2022-23/2023%20NHL%20Draft%20Prospect%20Bios_Final.pdf#page=64,,,,,,,,,,
+Ruslan Khazheyev,2022-23,MHL,Belye Medvedi Chelyabinsk,23,0,0,0,true,eliteprospects-league-goalie,2023-mhl-regular-ruslan-khazheyev,https://www.eliteprospects.com/league/mhl/stats/2022-2023?tab=goalies,1312,672,620,52,0.923,2.38,8,8,7,2
+Ruslan Khazheyev,2022-23,MHL,Belye Medvedi Chelyabinsk,7,0,0,0,false,canes-draft-guide,2023-mhl-playoffs-ruslan-khazheyev,https://canespr.com/wp-content/uploads/2024/06/Carolina-Hurricanes-Draft-Guide.pdf,,,,,0.917,2.48,,,,
+Stanislav Yarovoi,2022-23,KHL,Vityaz Podolsk,45,7,9,16,true,canes-prospect-bio,2023-khl-regular-stanislav-yarovoi,https://canespr.com/stanislavyarovoi/,,,,,,,,,,
+Stanislav Yarovoi,2022-23,VHL,Ryazan-VDV,3,0,1,1,true,canes-prospect-bio,2023-vhl-regular-stanislav-yarovoi,https://canespr.com/stanislavyarovoi/,,,,,,,,,,
+Stanislav Yarovoi,2022-23,MHL,Russkie Vityazi,5,5,7,12,true,canes-prospect-bio,2023-mhl-regular-stanislav-yarovoi,https://canespr.com/stanislavyarovoi/,,,,,,,,,,
+Stepan Zvyagin,2022-23,MHL,Dinamo-Shinnik Bobruysk,37,14,19,33,true,quanthockey-league,2023-mhl-regular-stepan-zvyagin,https://www.quanthockey.com/mhl/en/seasons/2022-23-mhl-players-stats.html,,,,,,,,,,
+Timur Mukhanov,2022-23,MHL,Omskie Yastreby,15,8,9,17,true,quanthockey-league,2023-mhl-regular-timur-mukhanov,https://www.quanthockey.com/mhl/en/seasons/2022-23-mhl-players-stats.html,,,,,,,,,,
+Timur Mukhanov,2022-23,VHL,Omskie Krylia,31,4,4,8,true,khl-youngster-report,2023-vhl-regular-timur-mukhanov,https://en.khl.ru/news/2023/08/30/518651.html,,,,,,,,,,
+Yegor Yegorov,2022-23,MHL,MHK Dynamo Moskva,15,0,0,0,true,quanthockey-player-goalie,2023-mhl-regular-yegor-yegorov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=150840,786,354,324,30,0.915,2.29,9,4,0,2
+Yevgeni Volokhin,2022-23,MHL,Mamonty Yugry,31,0,0,0,true,eliteprospects-league-goalie,2023-mhl-regular-yevgeni-volokhin,https://www.eliteprospects.com/league/mhl/stats/2022-2023?tab=goalies,1700,817,757,60,0.927,2.12,20,6,3,4

@@ -121,6 +121,9 @@ The queue separates covered and missing Russian prospects and summarizes regular
 playoff, KHL, VHL, and MHL games. Repeat the same workflow for an earlier draft year by adding
 its reviewed source pack and manifest row; no adapter code changes are required.
 
-The first backward iteration covers all four 2024 Russian-league targets. It deliberately keeps
-KHL and MHL playoff lines separate, so notable evidence such as Ilya Nabokov's 23-game KHL title
-run and Nikita Artamonov's 11-game MHL playoff run survives downstream feature aggregation.
+The reviewed 2022 and 2023 packs extend the same workflow to earlier classes using official NHL
+prospect bios and public player, league, team, and club media pages. The initial 2024 pack covers
+four high-priority Russian-league prospects. The corrected audit treats `Russia Jr.` and
+`RUSSIA-2` draft codes as domestic MHL/VHL pathways, preventing uncovered players from being
+hidden in the external-league bucket. KHL, VHL, MHL, and playoff rows remain separate so adult
+exposure and meaningful postseason runs survive feature aggregation.
