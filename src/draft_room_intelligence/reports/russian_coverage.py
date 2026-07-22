@@ -10,6 +10,14 @@ from draft_room_intelligence.data.chl_stats import read_table
 
 RUSSIAN_LEAGUES = ("KHL", "VHL", "MHL")
 RUSSIAN_NATIONALITIES = {"RUS", "RUSSIA", "RUSSIAN FEDERATION"}
+RUSSIAN_DRAFT_LEAGUES = {
+    "KHL",
+    "MHL",
+    "RUSSIA",
+    "RUSSIA JR.",
+    "RUSSIA-2",
+    "VHL",
+}
 
 REVIEW_COLUMNS = [
     "player_id",
@@ -97,11 +105,12 @@ def build_russian_coverage_report(
             if rows:
                 covered_russian_ids.add(player_id)
         drafted_from_league = drafted_league_by_player.get(player_id, "")
+        drafted_from_key = drafted_from_league.strip().upper()
         is_external = bool(
             is_russian
             and not rows
             and drafted_from_league
-            and drafted_from_league.upper() not in {*RUSSIAN_LEAGUES, "RUSSIA"}
+            and drafted_from_key not in RUSSIAN_DRAFT_LEAGUES
         )
         if is_external:
             external_russian_ids.add(player_id)

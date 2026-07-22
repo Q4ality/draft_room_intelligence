@@ -18,6 +18,8 @@ def test_russian_coverage_report_builds_missing_player_queue(tmp_path):
         [
             {"player_id": "covered", "name": "Covered Player", "nationality": "RUS"},
             {"player_id": "missing", "name": "Missing Player", "nationality": "RUS"},
+            {"player_id": "junior", "name": "Junior Player", "nationality": "RUS"},
+            {"player_id": "second-tier", "name": "Second Tier Player", "nationality": "RUS"},
             {"player_id": "external", "name": "External Player", "nationality": "RUS"},
         ],
     )
@@ -54,20 +56,25 @@ def test_russian_coverage_report_builds_missing_player_queue(tmp_path):
             [
                 {"player_id": "covered", "drafted_from_league": "RUSSIA"},
                 {"player_id": "missing", "drafted_from_league": "RUSSIA"},
+                {"player_id": "junior", "drafted_from_league": "Russia Jr."},
+                {"player_id": "second-tier", "drafted_from_league": "RUSSIA-2"},
                 {"player_id": "external", "drafted_from_league": "OHL"},
             ]
         )
 
     report = write_russian_coverage_report(dataset, output, draft_year=2026)
 
-    assert report.russian_players == 3
-    assert report.russian_league_targets == 2
+    assert report.russian_players == 5
+    assert report.russian_league_targets == 4
     assert report.covered_players == 1
     assert report.external_league_players == 1
+    assert report.missing_players == 3
     assert report.playoff_players == 1
     with (output / "review_queue.csv").open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
-    assert rows[0]["name"] == "Missing Player"
-    assert rows[1]["coverage_status"] == "external_league"
-    assert rows[2]["regular_games"] == "40"
-    assert rows[2]["playoff_games"] == "12"
+    assert rows[0]["name"] == "Junior Player"
+    assert rows[1]["name"] == "Missing Player"
+    assert rows[2]["name"] == "Second Tier Player"
+    assert rows[3]["coverage_status"] == "external_league"
+    assert rows[4]["regular_games"] == "40"
+    assert rows[4]["playoff_games"] == "12"
