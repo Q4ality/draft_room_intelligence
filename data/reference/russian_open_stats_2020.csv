@@ -1,0 +1,23 @@
+name,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Alexander Gordin,2019-20,MHL,SKA-1946 St. Petersburg,59,39,29,68,true,nhl-draft-guide,2020-mhl-regular-alexander-gordin,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Alexander Nikishin,2019-20,KHL,Spartak Moscow,29,0,3,3,true,nhl-draft-guide,2020-khl-regular-alexander-nikishin,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Alexander Pashin,2019-20,MHL,Tolpar Ufa,37,17,22,39,true,nhl-draft-guide,2020-mhl-regular-alexander-pashin,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Amir Miftakhov,2019-20,VHL,Bars Kazan,23,0,0,0,true,nhl-draft-guide,2020-vhl-regular-amir-miftakhov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,1235,,,,.913,2.19,,,,2
+Artur Akhtyamov,2019-20,MHL,Irbis Kazan,46,0,0,0,true,dobber-prospects,2020-mhl-regular-artur-akhtyamov,https://dobberprospects.com/player/artur-akhtyamov/,2568,,,77,.931,1.80,26,13,6,7
+Artyom Galimov,2019-20,VHL,Bars Kazan,55,13,10,23,true,nhl-draft-guide,2020-vhl-regular-artyom-galimov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Bogdan Trineyev,2019-20,MHL,MHC Dynamo Moscow,36,12,14,26,true,nhl-draft-guide,2020-mhl-regular-bogdan-trineyev,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Daniil Chechelev,2019-20,MHL,Russkie Vityazi Chekhov,49,0,0,0,true,flames-media-guide,2020-mhl-regular-daniil-chechelev,https://flamesmedia.ca/wp-content/uploads/2021/01/Calgary-Flames-2021-Media-Guide.pdf,2839,,,104,.922,2.20,24,20,3,5
+Dmitry Ovchinnikov,2019-20,MHL,Sibirskie Snaipery,54,24,31,55,true,wikipedia-career,2020-mhl-regular-dmitry-ovchinnikov,https://en.wikipedia.org/wiki/Dmitri_Ovchinnikov,,,,,,,,,,
+Dmitry Ovchinnikov,2019-20,KHL,Sibir Novosibirsk,2,0,0,0,true,markerzone-player,2020-khl-regular-dmitry-ovchinnikov,https://www.markerzone.com/hockey/stats/nhl/player/Dmitry-Ovchinnikov-64002,,,,,,,,,,
+Dmitry Zlodeyev,2019-20,MHL,MHC Dynamo Moscow,42,12,16,28,true,nhl-draft-guide,2020-mhl-regular-dmitry-zlodeyev,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Egor Chinakhov,2019-20,MHL,Omskie Yastreby,56,27,42,69,true,nhl-draft-guide,2020-mhl-regular-egor-chinakhov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Maksim Berezkin,2019-20,MHL,Loko Yaroslavl,51,25,29,54,true,nhl-draft-guide,2020-mhl-regular-maksim-berezkin,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Marat Khusnutdinov,2019-20,MHL,SKA-1946 St. Petersburg,44,13,25,38,true,nhl-draft-guide,2020-mhl-regular-marat-khusnutdinov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Maxim Groshev,2019-20,KHL,Neftekhimik Nizhnekamsk,36,1,6,7,true,nhl-draft-guide,2020-khl-regular-maxim-groshev,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Maxim Marushev,2019-20,VHL,Bars Kazan,35,23,17,40,true,golden-knights-player-bio,2020-vhl-regular-maxim-marushev,https://www.nhl.com/goldenknights/news/vegas-golden-knights-sign-forward-maxim-marushev-to-entry-level-contra-323193500,,,,,,,,,,
+Maxim Marushev,2019-20,VHL,Bars Kazan,10,1,2,3,false,puckpedia-player,2020-vhl-playoffs-maxim-marushev,https://puckpedia.com/player/maxim-marushev,,,,,,,,,,
+Rodion Amirov,2019-20,KHL,Salavat Yulaev Ufa,21,0,2,2,true,nhl-draft-guide,2020-khl-regular-rodion-amirov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Rodion Amirov,2019-20,MHL,Tolpar Ufa,17,10,12,22,true,nhl-draft-guide,2020-mhl-regular-rodion-amirov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Shakir Mukhamadullin,2019-20,KHL,Salavat Yulaev Ufa,27,0,1,1,true,nhl-draft-guide,2020-khl-regular-shakir-mukhamadullin,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,,,,,,,,,,
+Yaroslav Askarov,2019-20,VHL,SKA-Neva St. Petersburg,18,0,0,0,true,nhl-draft-guide,2020-vhl-regular-yaroslav-askarov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,1052,,,,.920,2.45,12,3,3,1
+Yaroslav Askarov,2019-20,KHL,SKA St. Petersburg,1,0,0,0,true,nhl-draft-guide,2020-khl-regular-yaroslav-askarov,https://media.nhl.com/site/asset/public/ext/2019-20/2020DraftGuide.pdf,60,,,,.920,2.00,1,0,0,0
