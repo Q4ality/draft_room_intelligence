@@ -103,7 +103,8 @@ The report at `outputs/league_enrichment/summary.md` is the operational coverage
 ## Russian Coverage Iteration
 
 Russian enrichment uses one reviewed source pack per draft year, for example
-`data/reference/russian_open_stats_2026.csv`. Each row must retain its source URL and stage.
+`data/reference/russian_open_stats_2024.csv` and `data/reference/russian_open_stats_2026.csv`.
+Each row must retain its source URL and stage.
 The pack is enabled through `league_stat_sources.csv` with the `open_csv` adapter, so it runs
 inside the same atomic, fingerprinted class enrichment as NCAA, USHL, and other leagues.
 
@@ -119,3 +120,7 @@ PYTHONPATH=src python -m draft_room_intelligence.cli audit-russian-coverage \
 The queue separates covered and missing Russian prospects and summarizes regular-season,
 playoff, KHL, VHL, and MHL games. Repeat the same workflow for an earlier draft year by adding
 its reviewed source pack and manifest row; no adapter code changes are required.
+
+The first backward iteration covers all four 2024 Russian-league targets. It deliberately keeps
+KHL and MHL playoff lines separate, so notable evidence such as Ilya Nabokov's 23-game KHL title
+run and Nikita Artamonov's 11-game MHL playoff run survives downstream feature aggregation.

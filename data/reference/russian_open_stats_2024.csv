@@ -1,0 +1,12 @@
+name,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Anton Silayev,2023-24,KHL,Torpedo Nizhny Novgorod,63,3,8,11,true,wikipedia-career,2024-khl-regular-anton-silayev,https://en.wikipedia.org/wiki/Anton_Silayev,,,,,,,,,,
+Anton Silayev,2023-24,KHL,Torpedo Nizhny Novgorod,5,0,2,2,false,wikipedia-career,2024-khl-playoffs-anton-silayev,https://en.wikipedia.org/wiki/Anton_Silayev,,,,,,,,,,
+Anton Silayev,2023-24,MHL,Chaika Nizhny Novgorod,4,0,2,2,false,nhl-team-release,2024-mhl-playoffs-anton-silayev,https://www.nhl.com/devils/news/topic/10-takeaways/devils-sign-defenseman-anton-silayev-release-6-1-26,,,,,,,,,,
+Igor Chernyshov,2023-24,KHL,Dynamo Moskva,34,3,1,4,true,wikipedia-career,2024-khl-regular-igor-chernyshov,https://en.wikipedia.org/wiki/Igor_Chernyshov_(ice_hockey),,,,,,,,,,
+Igor Chernyshov,2023-24,KHL,Dynamo Moskva,10,0,0,0,false,wikipedia-career,2024-khl-playoffs-igor-chernyshov,https://en.wikipedia.org/wiki/Igor_Chernyshov_(ice_hockey),,,,,,,,,,
+Igor Chernyshov,2023-24,MHL,MHC Dynamo Moskva,22,13,15,28,true,wikipedia-career,2024-mhl-regular-igor-chernyshov,https://en.wikipedia.org/wiki/Igor_Chernyshov_(ice_hockey),,,,,,,,,,
+Ilya Nabokov,2023-24,KHL,Metallurg Magnitogorsk,43,0,0,0,true,wikipedia-career-goalie,2024-khl-regular-ilya-nabokov,https://en.wikipedia.org/wiki/Ilya_Nabokov,2231,,,80,0.930,2.15,23,13,3,3
+Ilya Nabokov,2023-24,KHL,Metallurg Magnitogorsk,23,0,0,0,false,wikipedia-career-goalie,2024-khl-playoffs-ilya-nabokov,https://en.wikipedia.org/wiki/Ilya_Nabokov,1349,,,41,0.942,1.82,16,6,0,4
+Nikita Artamonov,2023-24,KHL,Torpedo Nizhny Novgorod,54,7,16,23,true,eliteprospects-team,2024-khl-regular-nikita-artamonov,https://www.eliteprospects.com/team/200/torpedo-nizhny-novgorod/stats/2023-2024,,,,,,,,,,
+Nikita Artamonov,2023-24,KHL,Torpedo Nizhny Novgorod,5,0,0,0,false,recruit-scouting,2024-khl-playoffs-nikita-artamonov,https://www.recruitscouting.com/recruitscoutings-2024-nhl-draft-guide/,,,,,,,,,,
+Nikita Artamonov,2023-24,MHL,Chaika Nizhny Novgorod,11,6,4,10,false,recruit-scouting,2024-mhl-playoffs-nikita-artamonov,https://www.recruitscouting.com/recruitscoutings-2024-nhl-draft-guide/,,,,,,,,,,
