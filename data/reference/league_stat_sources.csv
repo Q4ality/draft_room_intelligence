@@ -88,6 +88,7 @@ source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,s
 2022-whl-regular,false,2022,chl,WHL,2021-22,regular,https://chl.ca/whl/stats/players/275/all/points,data/raw/cache/chl_stats/whl_2021_22_s275_regular_players.html,chl
 2022-ncaa-collegehockeyinc-goalies,true,2022,ncaa,NCAA,2021-22,regular,https://collegehockeyinc.com/conferences/national/natgoalie22.php,data/raw/cache/ncaa_stats/ncaa_2021_22_collegehockeyinc_goalies.html,collegehockeyinc:goalies
 2022-ncaa-collegehockeyinc-skaters,true,2022,ncaa,NCAA,2021-22,regular,https://collegehockeyinc.com/conferences/national/natplayer22.php,data/raw/cache/ncaa_stats/ncaa_2021_22_collegehockeyinc_skaters.html,collegehockeyinc:skaters
+2019-russia-reviewed-open-stats,true,2019,open_csv,,2018-19,regular,,data/reference/russian_open_stats_2019.csv,reviewed-russian-open-stats
 2020-russia-reviewed-open-stats,true,2020,open_csv,,2019-20,regular,,data/reference/russian_open_stats_2020.csv,reviewed-russian-open-stats
 2021-russia-reviewed-open-stats,true,2021,open_csv,,2020-21,regular,,data/reference/russian_open_stats_2021.csv,reviewed-russian-open-stats
 2022-russia-reviewed-open-stats,true,2022,open_csv,,2021-22,regular,,data/reference/russian_open_stats_2022.csv,reviewed-russian-open-stats

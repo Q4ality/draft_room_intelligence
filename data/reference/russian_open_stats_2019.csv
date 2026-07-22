@@ -1,0 +1,31 @@
+name,nationality,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Vasili Podkolzin,RUS,2018-19,KHL,SKA St. Petersburg,3,0,0,0,true,wikipedia-career,2019-khl-regular-vasili-podkolzin,https://en.wikipedia.org/wiki/Vasily_Podkolzin,,,,,,,,,,
+Vasili Podkolzin,RUS,2018-19,VHL,SKA-Neva St. Petersburg,14,2,3,5,true,wikipedia-career,2019-vhl-regular-vasili-podkolzin,https://en.wikipedia.org/wiki/Vasily_Podkolzin,,,,,,,,,,
+Vasili Podkolzin,RUS,2018-19,VHL,SKA-Neva St. Petersburg,8,2,1,3,false,wikipedia-career,2019-vhl-playoffs-vasili-podkolzin,https://en.wikipedia.org/wiki/Vasily_Podkolzin,,,,,,,,,,
+Vasili Podkolzin,RUS,2018-19,MHL,SKA-1946 St. Petersburg,12,6,2,8,true,wikipedia-career,2019-mhl-regular-vasili-podkolzin,https://en.wikipedia.org/wiki/Vasily_Podkolzin,,,,,,,,,,
+Vasili Podkolzin,RUS,2018-19,MHL,SKA-1946 St. Petersburg,3,2,1,3,false,wikipedia-career,2019-mhl-playoffs-vasili-podkolzin,https://en.wikipedia.org/wiki/Vasily_Podkolzin,,,,,,,,,,
+Pyotr Kochetkov,RUS,2018-19,VHL,HC Ryazan,18,0,0,0,true,wikipedia-career,2019-vhl-regular-pyotr-kochetkov,https://en.wikipedia.org/wiki/Pyotr_Kochetkov,985,,,35,.930,2.13,8,7,3,2
+Pyotr Kochetkov,RUS,2018-19,VHL,HC Ryazan,3,0,0,0,false,wikipedia-career,2019-vhl-playoffs-pyotr-kochetkov,https://en.wikipedia.org/wiki/Pyotr_Kochetkov,187,,,5,.955,1.61,0,3,0,0
+Daniil Misyul,RUS,2018-19,MHL,Loko Yaroslavl,46,4,6,10,true,hockeydb-player,2019-mhl-regular-daniil-misyul,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=223327,,,,,,,,,,
+Pavel Dorofeyev,RUS,2018-19,KHL,Metallurg Magnitogorsk,23,1,1,2,true,hockeydb-player,2019-khl-regular-pavel-dorofeyev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=218842,,,,,,,,,,
+Pavel Dorofeyev,RUS,2018-19,MHL,Stalnye Lisy Magnitogorsk,19,17,14,31,true,wikipedia-career,2019-mhl-regular-pavel-dorofeyev,https://en.wikipedia.org/wiki/Pavel_Dorofeyev,,,,,,,,,,
+Pavel Dorofeyev,RUS,2018-19,MHL,Stalnye Lisy Magnitogorsk,3,0,2,2,false,wikipedia-career,2019-mhl-playoffs-pavel-dorofeyev,https://en.wikipedia.org/wiki/Pavel_Dorofeyev,,,,,,,,,,
+Ilya Konovalov,RUS,2018-19,KHL,Lokomotiv Yaroslavl,45,0,0,0,true,wikipedia-career,2019-khl-regular-ilya-konovalov,https://en.wikipedia.org/wiki/Ilya_Konovalov_(ice_hockey),2417,,,76,.930,1.89,25,15,1,10
+Ilya Konovalov,RUS,2018-19,KHL,Lokomotiv Yaroslavl,8,0,0,0,false,wikipedia-career,2019-khl-playoffs-ilya-konovalov,https://en.wikipedia.org/wiki/Ilya_Konovalov_(ice_hockey),422,,,17,.905,2.42,3,3,,1
+Ilya Nikolaev,RUS,2018-19,MHL,Loko Yaroslavl,41,10,15,25,true,blue-jackets-draft-profile,2019-mhl-regular-ilya-nikolaev,https://media.d3.nhle.com/image/private/t_document/prd/v7tufvuip0rj2ydvvbjs.pdf,,,,,,,,,,
+Ilya Nikolaev,RUS,2018-19,MHL,Loko Yaroslavl,6,5,3,8,false,blue-jackets-draft-profile,2019-mhl-playoffs-ilya-nikolaev,https://media.d3.nhle.com/image/private/t_document/prd/v7tufvuip0rj2ydvvbjs.pdf,,,,,,,,,,
+Alexandr Daryin,RUS,2018-19,MHL,Loko Yaroslavl,47,20,15,35,true,hockeydb-player,2019-mhl-regular-alexandr-daryin,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225161,,,,,,,,,,
+Yegor Spiridonov,RUS,2018-19,MHL,Stalnye Lisy Magnitogorsk,43,15,26,41,true,hockeydb-player,2019-mhl-regular-yegor-spiridonov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225162,,,,,,,,,,
+Dmitri Voronkov,RUS,2018-19,VHL,Bars Kazan,50,7,7,14,true,hockeydb-player,2019-vhl-regular-dmitri-voronkov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=223335,,,,,,,,,,
+Semyon Chistyakov,RUS,2018-19,MHL,Tolpar Ufa,32,1,11,12,true,hockeydb-player,2019-mhl-regular-semyon-chistyakov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=235002,,,,,,,,,,
+Arseny Gritsyuk,RUS,2018-19,MHL,Omskie Yastreby,30,12,9,21,true,hockeydb-player,2019-mhl-regular-arseny-gritsyuk,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225165,,,,,,,,,,
+Kirill Slepets,RUS,2018-19,MHL,Loko Yaroslavl,17,12,7,19,true,hockeydb-player,2019-mhl-regular-kirill-slepets,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=204717,,,,,,,,,,
+Kirill Slepets,RUS,2018-19,MHL,Loko Yaroslavl,17,4,6,10,false,russian-hockey-blog,2019-mhl-playoffs-kirill-slepets,https://conwaysrussianhockey.wordpress.com/2019/04/25/loko/,,,,,,,,,,
+Roman Bychkov,RUS,2018-19,MHL,Loko Yaroslavl,40,2,13,15,true,hockeydb-player,2019-mhl-regular-roman-bychkov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225169,,,,,,,,,,
+Timur Ibragimov,RUS,2018-19,MHL,SKA-1946 St. Petersburg,63,17,24,41,true,hockeydb-player,2019-mhl-regular-timur-ibragimov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225172,,,,,,,,,,
+Arsen Khisamutdinov,RUS,2018-19,MHL,Reaktor Nizhnekamsk,41,26,29,55,true,hockeydb-player,2019-mhl-regular-arsen-khisamutdinov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=223344,,,,,,,,,,
+Danil Savunov,RUS,2018-19,VHL,Dizel Penza,45,6,9,15,true,hockeydb-player,2019-vhl-regular-danil-savunov,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225173,,,,,,,,,,
+Kirill Tyutyayev,RUS,2018-19,MHL,Avto Yekaterinburg,60,19,41,60,true,hockeydb-player,2019-mhl-regular-kirill-tyutyayev,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=225176,,,,,,,,,,
+Maxim Denezhkin,RUS,2018-19,MHL,Loko Yaroslavl,51,22,17,39,true,hockeydb-player,2019-mhl-regular-maxim-denezhkin,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=223325,,,,,,,,,,
+Mikhail Shalagin,RUS,2018-19,MHL,MHC Spartak Moscow,43,48,27,75,true,hockeydb-player,2019-mhl-regular-mikhail-shalagin,https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=213183,,,,,,,,,,
+Vadim Zherenko,RUS,2018-19,MHL,MHC Dynamo Moscow,19,0,1,1,true,quanthockey-player,2019-mhl-regular-vadim-zherenko,https://www.quanthockey.com/hockey-stats/en/profile.php?player=93823,1021,609,570,39,.936,2.29,7,7,2,3
