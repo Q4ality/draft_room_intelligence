@@ -1,0 +1,24 @@
+name,nationality,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Alexander Kadeykin,RUS,2013-14,KHL,Atlant Moscow Oblast,54,8,15,23,true,wikipedia-career,2014-khl-regular-alexander-kadeykin,https://en.wikipedia.org/wiki/Alexander_Kadeikin,,,,,,,,,,
+Alexander Kadeykin,RUS,2013-14,MHL,Mytishchinskie Atlanty,1,1,0,1,true,wikipedia-career,2014-mhl-regular-alexander-kadeykin,https://en.wikipedia.org/wiki/Alexander_Kadeikin,,,,,,,,,,
+Alexander Kadeykin,RUS,2013-14,MHL,Mytishchinskie Atlanty,3,0,3,3,false,wikipedia-career,2014-mhl-playoffs-alexander-kadeykin,https://en.wikipedia.org/wiki/Alexander_Kadeikin,,,,,,,,,,
+Igor Shesterkin,RUS,2013-14,KHL,Spartak Moscow,9,0,0,0,true,nhl-prospect-bio,2014-khl-regular-igor-shesterkin,https://media.d3.nhle.com/image/private/t_document/prd/sc4qak0kbcao4of5q6ok.pdf,428,207,187,20,.903,2.80,2,5,1,1
+Igor Shesterkin,RUS,2013-14,MHL,MHK Spartak Moscow,23,0,0,0,true,quanthockey-player,2014-mhl-regular-igor-shesterkin,https://www.quanthockey.com/hockey-stats/en/profile.php?player=23699,1399,627,594,33,.947,1.42,14,5,4,5
+Igor Shesterkin,RUS,2013-14,MHL,MHK Spartak Moscow,19,0,0,0,false,quanthockey-player,2014-mhl-playoffs-igor-shesterkin,https://www.quanthockey.com/hockey-stats/en/profile.php?player=23699,1134,526,493,33,.937,1.75,12,7,0,4
+Ilya Sorokin,RUS,2013-14,KHL,Metallurg Novokuznetsk,27,0,0,0,true,wikipedia-career,2014-khl-regular-ilya-sorokin,https://en.wikipedia.org/wiki/Ilya_Sorokin,1346,,,65,.911,2.90,5,12,0,0
+Ilya Sorokin,RUS,2013-14,MHL,Kuznetskie Medvedi,4,0,0,0,true,wikipedia-career,2014-mhl-regular-ilya-sorokin,https://en.wikipedia.org/wiki/Ilya_Sorokin,245,,,11,.917,2.69,2,1,1,0
+Ilya Sorokin,RUS,2013-14,MHL,Kuznetskie Medvedi,2,0,0,0,false,wikipedia-career,2014-mhl-playoffs-ilya-sorokin,https://en.wikipedia.org/wiki/Ilya_Sorokin,104,,,7,.800,4.04,0,2,0,0
+Ivan Nalimov,RUS,2013-14,MHL,SKA-1946 St. Petersburg,12,0,0,0,true,eliteprospects-league,2014-mhl-regular-ivan-nalimov,https://www.eliteprospects.com/league/mhl/stats/2013-2014,634,282,252,30,.894,2.84,5,7,0,0
+Ivan Nalimov,RUS,2013-14,VHL,SKA-VMF St. Petersburg,1,0,0,0,true,eliteprospects-team,2014-vhl-regular-ivan-nalimov,https://www.eliteprospects.com/team/4537/ska-vmf-st.-petersburg/stats/2013-2014,60,29,28,1,.966,1.00,1,0,0,0
+Nikita Tryamkin,RUS,2013-14,KHL,Avtomobilist Yekaterinburg,45,1,6,7,true,ice-hockey-wiki,2014-khl-regular-nikita-tryamkin,https://icehockey.fandom.com/wiki/Nikita_Tryamkin,,,,,,,,,,
+Nikita Tryamkin,RUS,2013-14,KHL,Avtomobilist Yekaterinburg,4,0,0,0,false,ice-hockey-wiki,2014-khl-playoffs-nikita-tryamkin,https://icehockey.fandom.com/wiki/Nikita_Tryamkin,,,,,,,,,,
+Nikita Tryamkin,RUS,2013-14,MHL,Avto Yekaterinburg,2,2,1,3,true,ice-hockey-wiki,2014-mhl-regular-nikita-tryamkin,https://icehockey.fandom.com/wiki/Nikita_Tryamkin,,,,,,,,,,
+Nikita Tryamkin,RUS,2013-14,MHL,Avto Yekaterinburg,1,0,0,0,false,ice-hockey-wiki,2014-mhl-playoffs-nikita-tryamkin,https://icehockey.fandom.com/wiki/Nikita_Tryamkin,,,,,,,,,,
+Pavel Kraskovsky,RUS,2013-14,KHL,Lokomotiv Yaroslavl,8,1,0,1,true,puckpedia,2014-khl-regular-pavel-kraskovsky,https://puckpedia.com/player/pavel-kraskovsky,,,,,,,,,,
+Pavel Kraskovsky,RUS,2013-14,MHL,Loko Yaroslavl,39,10,17,27,true,puckpedia,2014-mhl-regular-pavel-kraskovsky,https://puckpedia.com/player/pavel-kraskovsky,,,,,,,,,,
+Pavel Kraskovsky,RUS,2013-14,MHL,Loko Yaroslavl,7,0,0,0,false,puckpedia,2014-mhl-playoffs-pavel-kraskovsky,https://puckpedia.com/player/pavel-kraskovsky,,,,,,,,,,
+Vladislav Kamenev,RUS,2013-14,KHL,Metallurg Magnitogorsk,16,1,0,1,true,wikipedia-career,2014-khl-regular-vladislav-kamenev,https://en.wikipedia.org/wiki/Vladislav_Kamenev,,,,,,,,,,
+Vladislav Kamenev,RUS,2013-14,VHL,Yuzhny Ural Orsk,3,0,1,1,true,wikipedia-career,2014-vhl-regular-vladislav-kamenev,https://en.wikipedia.org/wiki/Vladislav_Kamenev,,,,,,,,,,
+Vladislav Kamenev,RUS,2013-14,VHL,Yuzhny Ural Orsk,1,0,0,0,false,wikipedia-career,2014-vhl-playoffs-vladislav-kamenev,https://en.wikipedia.org/wiki/Vladislav_Kamenev,,,,,,,,,,
+Vladislav Kamenev,RUS,2013-14,MHL,Stalnye Lisy Magnitogorsk,15,4,6,10,true,wikipedia-career,2014-mhl-regular-vladislav-kamenev,https://en.wikipedia.org/wiki/Vladislav_Kamenev,,,,,,,,,,
+Vladislav Kamenev,RUS,2013-14,MHL,Stalnye Lisy Magnitogorsk,5,1,2,3,false,wikipedia-career,2014-mhl-playoffs-vladislav-kamenev,https://en.wikipedia.org/wiki/Vladislav_Kamenev,,,,,,,,,,

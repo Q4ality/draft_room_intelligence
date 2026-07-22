@@ -1,0 +1,26 @@
+name,nationality,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Alexander Dergachyov,RUS,2014-15,MHL,SKA-1946 St. Petersburg,45,10,29,39,true,wikipedia-career,2015-mhl-regular-alexander-dergachyov,https://en.wikipedia.org/wiki/Alexander_Dergachyov,,,,,,,,,,
+Alexander Dergachyov,RUS,2014-15,MHL,SKA-1946 St. Petersburg,19,11,7,18,false,wikipedia-career,2015-mhl-playoffs-alexander-dergachyov,https://en.wikipedia.org/wiki/Alexander_Dergachyov,,,,,,,,,,
+Andrei Mironov,RUS,2014-15,KHL,Dynamo Moscow,52,5,3,8,true,wikipedia-career,2015-khl-regular-andrei-mironov,https://en.wikipedia.org/wiki/Andrei_Mironov_(ice_hockey),,,,,,,,,,
+Andrei Mironov,RUS,2014-15,KHL,Dynamo Moscow,11,0,1,1,false,wikipedia-career,2015-khl-playoffs-andrei-mironov,https://en.wikipedia.org/wiki/Andrei_Mironov_(ice_hockey),,,,,,,,,,
+Denis Gurianov,RUS,2014-15,KHL,Lada Togliatti,8,0,1,1,true,wikipedia-career,2015-khl-regular-denis-gurianov,https://en.wikipedia.org/wiki/Denis_Gurianov,,,,,,,,,,
+Denis Gurianov,RUS,2014-15,MHL,Ladia Togliatti,23,15,10,25,true,wikipedia-career,2015-mhl-regular-denis-gurianov,https://en.wikipedia.org/wiki/Denis_Gurianov,,,,,,,,,,
+Denis Gurianov,RUS,2014-15,MHL,Ladia Togliatti,4,3,1,4,false,wikipedia-career,2015-mhl-playoffs-denis-gurianov,https://en.wikipedia.org/wiki/Denis_Gurianov,,,,,,,,,,
+Dmitry Zhukenov,RUS,2014-15,MHL,Omskie Yastreby,35,3,16,19,true,puckpedia,2015-mhl-regular-dmitry-zhukenov,https://puckpedia.com/player/dmitry-zhukenov,,,,,,,,,,
+Dmitry Zhukenov,RUS,2014-15,MHL,Omskie Yastreby,4,0,2,2,false,puckpedia,2015-mhl-playoffs-dmitry-zhukenov,https://puckpedia.com/player/dmitry-zhukenov,,,,,,,,,,
+Ilya Samsonov,RUS,2014-15,MHL,Stalnye Lisy Magnitogorsk,18,0,0,0,true,quanthockey-player,2015-mhl-regular-ilya-samsonov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=25091,1039,500,454,46,.908,2.66,11,4,1,2
+Ilya Samsonov,RUS,2014-15,MHL,Stalnye Lisy Magnitogorsk,2,0,0,0,false,quanthockey-player,2015-mhl-playoffs-ilya-samsonov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=25091,127,95,89,6,.937,2.83,1,1,0,0
+Ivan Fedotov,RUS,2014-15,MHL,Reaktor Nizhnekamsk,41,0,0,0,true,quanthockey-player,2015-mhl-regular-ivan-fedotov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=25136,2305,838,763,75,.911,1.95,21,10,7,6
+Ivan Fedotov,RUS,2014-15,MHL,Reaktor Nizhnekamsk,10,0,0,0,false,quanthockey-player,2015-mhl-playoffs-ivan-fedotov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=25136,578,273,244,29,.894,3.01,6,4,0,0
+Kirill Kaprizov,RUS,2014-15,KHL,Metallurg Novokuznetsk,31,4,4,8,true,quanthockey-player,2015-khl-regular-kirill-kaprizov,https://www.quanthockey.com/hockey-stats/fi/profile.php?player=24740,,,,,,,,,,
+Kirill Kaprizov,RUS,2014-15,MHL,Kuznetskie Medvedi,3,0,2,2,true,quanthockey-player,2015-mhl-regular-kirill-kaprizov,https://www.quanthockey.com/hockey-stats/fi/profile.php?player=24740,,,,,,,,,,
+Mikhail Vorobyev,RUS,2014-15,MHL,Tolpar Ufa,39,8,12,20,true,ice-hockey-wiki,2015-mhl-regular-mikhail-vorobyev,https://icehockey.fandom.com/wiki/Mikhail_Vorobyev_(ice_hockey),,,,,,,,,,
+Mikhail Vorobyev,RUS,2014-15,MHL,Tolpar Ufa,8,3,0,3,false,ice-hockey-wiki,2015-mhl-playoffs-mikhail-vorobyev,https://icehockey.fandom.com/wiki/Mikhail_Vorobyev_(ice_hockey),,,,,,,,,,
+Vladislav Gavrikov,RUS,2014-15,KHL,Lokomotiv Yaroslavl,16,0,1,1,true,nhl-prospect-bio,2015-khl-regular-vladislav-gavrikov,https://media.d3.nhle.com/image/private/t_document/prd/sc4qak0kbcao4of5q6ok.pdf,,,,,,,,,,
+Vladislav Gavrikov,RUS,2014-15,KHL,Lokomotiv Yaroslavl,4,0,0,0,false,nhl-prospect-bio,2015-khl-playoffs-vladislav-gavrikov,https://media.d3.nhle.com/image/private/t_document/prd/sc4qak0kbcao4of5q6ok.pdf,,,,,,,,,,
+Vladislav Gavrikov,RUS,2014-15,VHL,HC Ryazan,11,1,2,3,true,wikipedia-career,2015-vhl-regular-vladislav-gavrikov,https://en.wikipedia.org/wiki/Vladislav_Gavrikov,,,,,,,,,,
+Vladislav Gavrikov,RUS,2014-15,MHL,Loko Yaroslavl,16,1,6,7,true,wikipedia-career,2015-mhl-regular-vladislav-gavrikov,https://en.wikipedia.org/wiki/Vladislav_Gavrikov,,,,,,,,,,
+Vladislav Gavrikov,RUS,2014-15,MHL,Loko Yaroslavl,5,0,0,0,false,wikipedia-career,2015-mhl-playoffs-vladislav-gavrikov,https://en.wikipedia.org/wiki/Vladislav_Gavrikov,,,,,,,,,,
+Ziyat Paigin,RUS,2014-15,KHL,Ak Bars Kazan,33,1,1,2,true,wikipedia-career,2015-khl-regular-ziyat-paigin,https://en.wikipedia.org/wiki/Ziyat_Paigin,,,,,,,,,,
+Ziyat Paigin,RUS,2014-15,KHL,Ak Bars Kazan,2,0,0,0,false,wikipedia-career,2015-khl-playoffs-ziyat-paigin,https://en.wikipedia.org/wiki/Ziyat_Paigin,,,,,,,,,,
+Ziyat Paigin,RUS,2014-15,VHL,Bars Kazan,3,0,1,1,true,wikipedia-career,2015-vhl-regular-ziyat-paigin,https://en.wikipedia.org/wiki/Ziyat_Paigin,,,,,,,,,,
