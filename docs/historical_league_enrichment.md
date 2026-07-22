@@ -121,7 +121,7 @@ The queue separates covered and missing Russian prospects and summarizes regular
 playoff, KHL, VHL, and MHL games. Repeat the same workflow for an earlier draft year by adding
 its reviewed source pack and manifest row; no adapter code changes are required.
 
-The reviewed 2019 through 2024 packs extend the same workflow to earlier classes using official NHL
+The reviewed 2018 through 2024 packs extend the same workflow to earlier classes using official NHL
 prospect bios and public player, league, team, and club media pages. These packs cover all
 domestic Russian-league targets, including separate adult, junior, playoff, and goalie evidence.
 The corrected audit treats `Russia Jr.` and
