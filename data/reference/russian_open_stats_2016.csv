@@ -1,0 +1,26 @@
+name,nationality,season,league,team,games,goals,assists,points,regular_season,source,source_id,source_url,goalie_minutes,shots_against,saves,goals_against,save_percentage,goals_against_average,wins,losses,ties,shutouts
+Anatolii Golyshev,RUS,2015-16,KHL,Avtomobilist Yekaterinburg,56,25,19,44,true,wikipedia-career,2016-khl-regular-anatolii-golyshev,https://en.wikipedia.org/wiki/Anatolii_Golyshev,,,,,,,,,,
+Anatolii Golyshev,RUS,2015-16,KHL,Avtomobilist Yekaterinburg,6,1,0,1,false,wikipedia-career,2016-khl-playoffs-anatolii-golyshev,https://en.wikipedia.org/wiki/Anatolii_Golyshev,,,,,,,,,,
+Artur Kayumov,RUS,2015-16,MHL,Team Russia U18,39,12,19,31,true,wikipedia-career,2016-mhl-regular-artur-kayumov,https://en.wikipedia.org/wiki/Artur_Kayumov,,,,,,,,,,
+Artur Kayumov,RUS,2015-16,MHL,Team Russia U18,3,0,1,1,false,wikipedia-career,2016-mhl-playoffs-artur-kayumov,https://en.wikipedia.org/wiki/Artur_Kayumov,,,,,,,,,,
+Egor Korshkov,RUS,2015-16,KHL,Lokomotiv Yaroslavl,41,6,6,12,true,wikipedia-career,2016-khl-regular-egor-korshkov,https://en.wikipedia.org/wiki/Yegor_Korshkov,,,,,,,,,,
+Egor Korshkov,RUS,2015-16,KHL,Lokomotiv Yaroslavl,4,0,0,0,false,wikipedia-career,2016-khl-playoffs-egor-korshkov,https://en.wikipedia.org/wiki/Yegor_Korshkov,,,,,,,,,,
+Egor Korshkov,RUS,2015-16,MHL,Loko Yaroslavl,4,2,4,6,true,wikipedia-career,2016-mhl-regular-egor-korshkov,https://en.wikipedia.org/wiki/Yegor_Korshkov,,,,,,,,,,
+Egor Korshkov,RUS,2015-16,MHL,Loko Yaroslavl,15,9,10,19,false,wikipedia-career,2016-mhl-playoffs-egor-korshkov,https://en.wikipedia.org/wiki/Yegor_Korshkov,,,,,,,,,,
+German Rubtsov,RUS,2015-16,MHL,Team Russia U18,28,12,14,26,true,wikipedia-career,2016-mhl-regular-german-rubtsov,https://en.wikipedia.org/wiki/German_Rubtsov,,,,,,,,,,
+German Rubtsov,RUS,2015-16,MHL,Team Russia U18,3,0,1,1,false,wikipedia-career,2016-mhl-playoffs-german-rubtsov,https://en.wikipedia.org/wiki/German_Rubtsov,,,,,,,,,,
+Konstantin Volkov,RUS,2015-16,MHL,SKA-1946 St. Petersburg,17,0,0,0,true,quanthockey-player,2016-mhl-regular-konstantin-volkov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=29983,929,368,332,36,.902,2.33,10,4,,1
+Konstantin Volkov,RUS,2015-16,MHL,SKA-1946 St. Petersburg,1,0,0,0,false,quanthockey-player,2016-mhl-playoffs-konstantin-volkov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=29983,23,15,13,2,.867,5.29,0,0,,0
+Maxim Mamin,RUS,2015-16,KHL,CSKA Moscow,48,4,3,7,true,wikipedia-career,2016-khl-regular-maxim-mamin,https://en.wikipedia.org/wiki/Maxim_Mamin_(ice_hockey%2C_born_1995),,,,,,,,,,
+Maxim Mamin,RUS,2015-16,KHL,CSKA Moscow,19,1,1,2,false,wikipedia-career,2016-khl-playoffs-maxim-mamin,https://en.wikipedia.org/wiki/Maxim_Mamin_(ice_hockey%2C_born_1995),,,,,,,,,,
+Mikhail Berdin,RUS,2015-16,MHL,Team Russia U18,22,0,1,1,true,quanthockey-league,2016-mhl-regular-mikhail-berdin,https://www.quanthockey.com/mhl/en/teams/team-russia-u18-goalies-career-mhl-stats.html,1188,569,528,41,.928,2.07,12,6,,4
+Mikhail Maltsev,RUS,2015-16,MHL,Team Russia U18,29,11,12,23,true,wikipedia-career,2016-mhl-regular-mikhail-maltsev,https://en.wikipedia.org/wiki/Mikhail_Maltsev,,,,,,,,,,
+Mikhail Maltsev,RUS,2015-16,MHL,Team Russia U18,3,0,2,2,false,wikipedia-career,2016-mhl-playoffs-mikhail-maltsev,https://en.wikipedia.org/wiki/Mikhail_Maltsev,,,,,,,,,,
+Nikolai Chebykin,RUS,2015-16,MHL,HK MVD Balashikha,39,13,22,35,true,wikipedia-career,2016-mhl-regular-nikolai-chebykin,https://en.wikipedia.org/wiki/Nikolai_Chebykin,,,,,,,,,,
+Vasily Glotov,RUS,2015-16,MHL,Serebryanye Lvy St. Petersburg,42,23,32,55,true,quanthockey-player,2016-mhl-regular-vasily-glotov,https://www.quanthockey.com/hockey-stats/en/profile.php?player=30311,,,,,,,,,,
+Yegor Rykov,RUS,2015-16,KHL,SKA St. Petersburg,10,0,1,1,true,wikipedia-career,2016-khl-regular-yegor-rykov,https://en.wikipedia.org/wiki/Yegor_Rykov,,,,,,,,,,
+Yegor Rykov,RUS,2015-16,KHL,SKA St. Petersburg,2,0,0,0,false,wikipedia-career,2016-khl-playoffs-yegor-rykov,https://en.wikipedia.org/wiki/Yegor_Rykov,,,,,,,,,,
+Yegor Rykov,RUS,2015-16,VHL,SKA-Neva St. Petersburg,10,0,2,2,true,wikipedia-career,2016-vhl-regular-yegor-rykov,https://en.wikipedia.org/wiki/Yegor_Rykov,,,,,,,,,,
+Yegor Rykov,RUS,2015-16,VHL,SKA-Neva St. Petersburg,5,1,0,1,false,wikipedia-career,2016-vhl-playoffs-yegor-rykov,https://en.wikipedia.org/wiki/Yegor_Rykov,,,,,,,,,,
+Yegor Rykov,RUS,2015-16,MHL,SKA-1946 St. Petersburg,20,3,7,10,true,wikipedia-career,2016-mhl-regular-yegor-rykov,https://fr.wikipedia.org/wiki/Iegor_Rykov,,,,,,,,,,
+Yegor Rykov,RUS,2015-16,MHL,SKA-1946 St. Petersburg,2,0,0,0,false,wikipedia-career,2016-mhl-playoffs-yegor-rykov,https://fr.wikipedia.org/wiki/Iegor_Rykov,,,,,,,,,,
