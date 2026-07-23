@@ -4,24 +4,24 @@
   "draft_year": 2025,
   "files": [
     {
-      "bytes": 55428,
+      "bytes": 55001,
       "path": "final/advanced_stat_lines.csv",
-      "sha256": "01a6ff54547573831a7d27da8af45a548142f6dd946b4267823b7171c32e5c66"
+      "sha256": "57eb4f9a540f824fb16c5585bb5a9f25b74bcc0271fc563ac170fc211fa17240"
     },
     {
-      "bytes": 53092,
+      "bytes": 52609,
       "path": "final/chl_stat_matches.csv",
-      "sha256": "b06c998afc005aeb0c2f783bb69f7888f9fa427b29760cda5cf8f1da1282b98c"
+      "sha256": "17baa7e6377868f79c01b3e3c0137712edac1e82b1b15e6fc0383a88776a7d43"
     },
     {
-      "bytes": 43369,
+      "bytes": 43144,
       "path": "final/draft_selections.csv",
-      "sha256": "1e638d036fec3f22aa44337efd5418c4af386c87fc35a131f327779bfae1e6ca"
+      "sha256": "e929d20f14affa363ff41a131eda799b9efa667d2134a46265309e8f3b7e03ec"
     },
     {
-      "bytes": 16892,
+      "bytes": 16702,
       "path": "final/ep_pdf_match_audit.csv",
-      "sha256": "9101e338b7ead5e71ede767b033a239977f6e124268d70c511f1afae0c471c6c"
+      "sha256": "3c9011863aacbd3da6b963d6ad1b3415cf8ff9e221f4bf6d26410db85eacd9f0"
     },
     {
       "bytes": 418,
@@ -29,77 +29,77 @@
       "sha256": "2eed738012ca62e34c78bd14938d6395a43beadaeac427e26e1bdf730142203d"
     },
     {
-      "bytes": 61925,
+      "bytes": 61735,
       "path": "final/ep_pdf_profiles.csv",
-      "sha256": "445c22b7460c41ff0fb0a676b729bc7bc89312cc877e66827343bdc65d699ba2"
+      "sha256": "885d26a029a15311b6c1361b8a5cf3b79d79bff1bcf7431a77798c43e1834d74"
     },
     {
-      "bytes": 112646,
+      "bytes": 111511,
       "path": "final/ep_pdf_tool_grades.csv",
-      "sha256": "265fcc53ec22bb7852b7f401b43f1330cde64481ac23eeafc267a7952fbe3ab0"
+      "sha256": "bf4455a8e93f9df9d1cf204377c8a8f2d38d96afdc9e1ac64ae06f400b79d573"
     },
     {
-      "bytes": 30004,
+      "bytes": 29722,
       "path": "final/europe_stat_matches.csv",
-      "sha256": "35450b9d04b7f1d3373c3386be90e91c601a94477c45ceda7921c4fa30076375"
+      "sha256": "831981dad21c976975621ac072b2f02ea89294d25e80aaf4f41a7e17ba1cf73f"
     },
     {
-      "bytes": 18030,
+      "bytes": 17805,
       "path": "final/ncaa_stat_matches.csv",
-      "sha256": "bb53dfb834b9ea5ca14c551f3e19941d3960d0ee7ab093676a169e599c50dec6"
+      "sha256": "bb75c608740bef89419a54601cf989143a4cb392083cc96f452d85a6d7c78bb1"
     },
     {
-      "bytes": 27247,
+      "bytes": 27022,
       "path": "final/nhl_outcomes.csv",
-      "sha256": "61db9999287c98dfe112dd181001838ef2f7effe1d1dc6231b0594f152a0eab6"
+      "sha256": "1b7c8b2f20172ebaf6532f170f8a6a06bb0cd61941fe6476955d262a05706c1e"
     },
     {
-      "bytes": 20247,
+      "bytes": 19996,
       "path": "final/open_stats_matches.csv",
-      "sha256": "aa001b67087097ff960e12867a749e9385ef584e28811ebed4b9a485d50c0fbf"
+      "sha256": "3b3e4113aab6a918804019eb42142ab6ad6dfb73cfdc7bcd33a4c7e85dfa2cf1"
     },
     {
-      "bytes": 33673,
+      "bytes": 33448,
       "path": "final/players.csv",
-      "sha256": "3706d3b6bb351f177d4d501abfe77dffa10c94651cc33ac7ec994fd0e56c5b7b"
+      "sha256": "736f39646fdd17402c8e49ad5f53e96b1430791e175c34172d79b57033ab9a7e"
     },
     {
-      "bytes": 47735,
+      "bytes": 47390,
       "path": "final/rankings.csv",
-      "sha256": "a0d3cfd11d0133d9a1aab3937a501249be22396199052c0b8cd10488d45e48d1"
+      "sha256": "c46dc12013609fc9114c33bcb163a8b723f1512f066656a49149a2103bb47362"
     },
     {
-      "bytes": 126926,
+      "bytes": 126079,
       "path": "final/season_stat_lines.csv",
-      "sha256": "d303ad0af45cee0eb12818712c3d65d9ee9d1c6a4237b445583b4442c5f6f098"
+      "sha256": "935cdb60a76cbd9a893e2bf937f6acff1c45fdc9281031dcabc32a323e6036ec"
     },
     {
-      "bytes": 50809,
+      "bytes": 50599,
       "path": "final/stat_line_reconciliation_audit.csv",
-      "sha256": "299f9fa25a79cbfe20e544bb797e04ad63fd1949b234b34c7a4e33631c66185f"
+      "sha256": "456c25cfd95c966c0df71806bae5ecbfbb20ca367a0ae640a95aaf5925ff9863"
     },
     {
-      "bytes": 35643,
+      "bytes": 35334,
       "path": "final/ushl_stat_matches.csv",
-      "sha256": "030e5db3c2cbc760843e73d8ee4d5350814d416881f3b2fb9f270895aa1beda8"
+      "sha256": "07b9d358749cfcf520ee7076f17bc22c180cca6e1a1f04f5d24b38bb21a8618e"
     },
     {
-      "bytes": 15112,
+      "bytes": 14887,
       "path": "final/wikipedia_bio_matches.csv",
-      "sha256": "16f9c154554663adc1647daa25d178983997aa63682bd756ad510adc71ef06ec"
+      "sha256": "ae5a84c239f1868df72f573e17bac32e2b47bb37b7dd01319b33a49a4355b567"
     },
     {
-      "bytes": 8982,
+      "bytes": 8917,
       "path": "final/wikipedia_career_stat_matches.csv",
-      "sha256": "5a856263376e768e5f03970b52c96cc6aad25adcbd6709f65da126dac4832e40"
+      "sha256": "e1e96941e46d27e034128a115aee638aa104f55aa63adb5e35192274b452a0af"
     },
     {
-      "bytes": 146925,
+      "bytes": 146258,
       "path": "team_depth.csv",
-      "sha256": "6381c029af7d7ba211e73ca8e7ac22cd385bb03948b0da16ab81e76bded6da55"
+      "sha256": "d4cd208416678e959acb6f7c962b95398ca21d454840c79e5e0cf2bc379b5319"
     }
   ],
   "schema_version": 1,
-  "snapshot_id": "sha256:b07595995807db94506faadee9e5bb06265c57c4f56a57d62e61b48fd4ab65ab",
+  "snapshot_id": "sha256:ec4f99c2f42c6558812a84f1007cc35772fc0138130f6e0a7f45479d02013c19",
   "team_depth_csv": "team_depth.csv"
 }
