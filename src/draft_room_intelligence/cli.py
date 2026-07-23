@@ -129,8 +129,14 @@ from draft_room_intelligence.modeling.role_models import (
 from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
 from draft_room_intelligence.reports.codex_context_routes import write_codex_context_routes_report
+from draft_room_intelligence.reports.codex_dispatch import (
+    build_codex_dispatch,
+    format_codex_dispatch,
+    run_codex_dispatch,
+)
 from draft_room_intelligence.reports.codex_routing_audit import write_codex_routing_audit
 from draft_room_intelligence.reports.codex_task_routing import write_codex_task_routing_report
+from draft_room_intelligence.reports.codex_telemetry import write_codex_telemetry_report
 from draft_room_intelligence.reports.codex_usage import write_codex_usage_report
 from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
 from draft_room_intelligence.reports.demo_brief import write_demo_meeting_brief
@@ -151,6 +157,26 @@ from draft_room_intelligence.reports.russian_coverage import write_russian_cover
 from draft_room_intelligence.reports.team_system_audit import write_team_system_audit
 from draft_room_intelligence.sample_data import sample_prospects, sample_team_context
 from draft_room_intelligence.scouting.extraction import extract_scouting_features
+
+
+def add_codex_dispatch_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("task", help="Plain-language task to classify and execute.")
+    parser.add_argument(
+        "--task-id",
+        help="Explicit routing task id; bypasses keyword matching when supplied.",
+    )
+    parser.add_argument(
+        "--manifest-csv",
+        type=Path,
+        default=Path("data/reference/codex_task_routing.csv"),
+        help="Task routing manifest.",
+    )
+    parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Repository root passed to codex exec.",
+    )
 
 
 def main() -> None:
@@ -710,6 +736,68 @@ def main() -> None:
     )
     codex_task_routing_parser.add_argument(
         "output_dir", type=Path, help="Directory for task routing artifacts."
+    )
+    route_codex_parser = subparsers.add_parser(
+        "route-codex-task",
+        help="Select a project task route and print the enforced codex exec command.",
+    )
+    add_codex_dispatch_arguments(route_codex_parser)
+    route_codex_parser.add_argument(
+        "--format",
+        choices=["markdown", "json", "shell"],
+        default="markdown",
+        help="Output format for the selected route.",
+    )
+    run_codex_parser = subparsers.add_parser(
+        "run-codex-task",
+        help="Select and execute a project task route with exact JSON usage capture.",
+    )
+    add_codex_dispatch_arguments(run_codex_parser)
+    run_codex_parser.add_argument(
+        "--run-log",
+        type=Path,
+        default=Path("outputs/codex_usage/run_log.csv"),
+        help="Usage CSV receiving the routed run.",
+    )
+    run_codex_parser.add_argument(
+        "--variant",
+        choices=["baseline", "routed"],
+        default="routed",
+        help="Benchmark variant recorded for this run.",
+    )
+    run_codex_parser.add_argument(
+        "--quality-score",
+        type=float,
+        default=0.0,
+        help="Optional post-run quality score used by the comparison report.",
+    )
+    run_codex_parser.add_argument(
+        "--model",
+        help="Optional model override. Baseline runs default to gpt-5.6-sol.",
+    )
+    run_codex_parser.add_argument(
+        "--reasoning-effort",
+        choices=["low", "medium", "high"],
+        help="Optional reasoning override. Baseline runs default to medium.",
+    )
+    codex_telemetry_parser = subparsers.add_parser(
+        "report-codex-telemetry",
+        help="Report actual historical Codex model selections from the local state database.",
+    )
+    codex_telemetry_parser.add_argument(
+        "output_dir", type=Path, help="Directory for historical telemetry artifacts."
+    )
+    codex_telemetry_parser.add_argument(
+        "--state-db",
+        type=Path,
+        default=Path("~/.codex/state_5.sqlite").expanduser(),
+        help="Read-only Codex state database.",
+    )
+    codex_telemetry_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Project cwd prefix used to select relevant threads.",
     )
     proxy_roster_parser = subparsers.add_parser(
         "create-preseason-roster-proxy",
@@ -1446,6 +1534,32 @@ def main() -> None:
         )
     elif args.command == "report-codex-task-routing":
         run_report_codex_task_routing(args.manifest_csv, args.context_routes_csv, args.output_dir)
+    elif args.command == "route-codex-task":
+        run_route_codex_task(
+            args.task,
+            args.manifest_csv,
+            project_root=args.project_root,
+            task_id=args.task_id,
+            output_format=args.format,
+        )
+    elif args.command == "run-codex-task":
+        run_execute_codex_task(
+            args.task,
+            args.manifest_csv,
+            project_root=args.project_root,
+            task_id=args.task_id,
+            run_log=args.run_log,
+            variant=args.variant,
+            quality_score=args.quality_score,
+            model=args.model,
+            reasoning_effort=args.reasoning_effort,
+        )
+    elif args.command == "report-codex-telemetry":
+        run_report_codex_telemetry(
+            args.state_db,
+            args.output_dir,
+            project_root=args.project_root,
+        )
     elif args.command == "create-preseason-roster-proxy":
         run_create_preseason_roster_proxy(
             args.roster_csv,
@@ -1849,6 +1963,80 @@ def run_report_codex_task_routing(
     print(f"Failed: {report.failed_count}")
     print(f"Summary: {output_dir / 'summary.md'}")
     print(f"Rules CSV: {output_dir / 'task_routing.csv'}")
+
+
+def run_route_codex_task(
+    task: str,
+    manifest_csv: Path,
+    *,
+    project_root: Path,
+    task_id: str | None,
+    output_format: str,
+) -> None:
+    dispatch = build_codex_dispatch(
+        task,
+        manifest_csv,
+        project_root=project_root,
+        task_id=task_id,
+    )
+    print(format_codex_dispatch(dispatch, output_format=output_format), end="")
+
+
+def run_execute_codex_task(
+    task: str,
+    manifest_csv: Path,
+    *,
+    project_root: Path,
+    task_id: str | None,
+    run_log: Path,
+    variant: str,
+    quality_score: float,
+    model: str | None,
+    reasoning_effort: str | None,
+) -> None:
+    baseline = variant == "baseline"
+    dispatch = build_codex_dispatch(
+        task,
+        manifest_csv,
+        project_root=project_root,
+        task_id=task_id,
+        model=model or ("gpt-5.6-sol" if baseline else None),
+        reasoning_effort=reasoning_effort or ("medium" if baseline else None),
+    )
+    print(format_codex_dispatch(dispatch), end="")
+    result = run_codex_dispatch(
+        dispatch,
+        run_log_csv=run_log,
+        variant=variant,
+        quality_score=quality_score,
+    )
+    run = result.usage_run
+    if result.response:
+        print("# Routed task result")
+        print(result.response)
+    print(f"Run id: {run.run_id}")
+    print(f"Exact input tokens: {run.exact_input_tokens}")
+    print(f"Exact cached input tokens: {run.exact_cached_input_tokens}")
+    print(f"Exact output tokens: {run.exact_output_tokens}")
+    print(f"Usage log: {run_log}")
+
+
+def run_report_codex_telemetry(
+    state_db: Path,
+    output_dir: Path,
+    *,
+    project_root: Path,
+) -> None:
+    threads = write_codex_telemetry_report(
+        state_db,
+        output_dir,
+        project_root=project_root,
+    )
+    print(f"# Codex historical telemetry: {project_root.resolve()}")
+    print(f"Recorded threads: {len(threads)}")
+    print(f"Child/subagent threads: {sum(thread.is_child for thread in threads)}")
+    print(f"Summary: {output_dir / 'summary.md'}")
+    print(f"Model summary: {output_dir / 'model_summary.csv'}")
 
 
 def run_import_eliteprospects(

@@ -91,6 +91,37 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-task-routing 
   outputs/codex_task_routing
 ```
 
+### Executable Routing
+
+The routing manifest is enforced for new non-interactive tasks through two commands:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli route-codex-task \
+  "Update the demo player detail view" \
+  --format shell
+
+PYTHONPATH=src python3 -m draft_room_intelligence.cli run-codex-task \
+  "Update the demo player detail view"
+```
+
+`route-codex-task` classifies the task from manifest trigger words and prints the exact command. Use `--task-id` when a task is ambiguous or when deterministic benchmark pairing matters.
+
+`run-codex-task` passes the selected `--model` and `model_reasoning_effort` directly to `codex exec --json`. It records exact uncached input, cached input, and output tokens in `outputs/codex_usage/run_log.csv`. A failed launch is also recorded so routing reliability remains visible.
+
+The project-level default remains Sol for interactive tasks. Automatic tier selection applies when the task is launched through `run-codex-task`; changing a routing CSV cannot mutate a task that is already running.
+
+### Telemetry
+
+Historical model selection can be inspected from the local Codex state database:
+
+```bash
+PYTHONPATH=src python3 -m draft_room_intelligence.cli report-codex-telemetry \
+  outputs/codex_telemetry \
+  --project-root .
+```
+
+This report counts tasks by model and identifies child/subagent tasks. The state database's `tokens_used` value is a cumulative internal counter, so it is retained only for diagnostics and never summed as spend. Use `run-codex-task` for exact future run measurements, then compare matched baseline and routed tasks with `report-codex-usage`.
+
 ## Operating Rules
 
 - Do not use multiple write agents in parallel.

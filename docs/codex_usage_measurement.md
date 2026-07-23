@@ -13,15 +13,17 @@ This project measures routing impact with a small repeatable benchmark loop. Exa
 
 ## Workflow
 
-1. Copy the template once:
+1. Route and run a benchmark task:
 
 ```bash
-mkdir -p outputs/codex_usage
-cp data/reference/codex_usage_run_log_template.csv outputs/codex_usage/run_log.csv
+PYTHONPATH=src python3 -m draft_room_intelligence.cli run-codex-task \
+  "Generate the Codex usage dashboard" \
+  --task-id usage-measurement \
+  --quality-score 4
 ```
 
-2. For each benchmark task, run a baseline and a routed variant.
-3. Add one row per run to `outputs/codex_usage/run_log.csv`.
+2. For each benchmark task, run a baseline and routed variant with the same prompt. Pass `--variant baseline` to use the project Sol/medium default, then `--variant routed` to use the selected route. `--model` and `--reasoning-effort` remain available for an explicit benchmark override.
+3. `run-codex-task` automatically appends exact JSON usage and route metadata to `outputs/codex_usage/run_log.csv`.
 4. Generate the dashboard:
 
 ```bash

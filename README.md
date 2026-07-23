@@ -156,6 +156,9 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel audit-codex-routing <output-dir>` - verify project Codex config, custom agents, and repo skill discovery links.
 - `draft-room-intel report-codex-context-routes data/reference/codex_context_routes.csv <output-dir>` - audit bounded context routes used to reduce broad repo reads.
 - `draft-room-intel report-codex-task-routing data/reference/codex_task_routing.csv data/reference/codex_context_routes.csv <output-dir>` - audit task-level routing rules for context route, agent, reasoning, and validation selection.
+- `draft-room-intel route-codex-task "<task>" [--task-id <route>] [--format markdown|json|shell]` - deterministically select a route and print the exact `codex exec` command with its model and reasoning override.
+- `draft-room-intel run-codex-task "<task>" [--task-id <route>]` - execute the selected route and append exact Codex JSON usage to `outputs/codex_usage/run_log.csv`.
+- `draft-room-intel report-codex-telemetry <output-dir> --project-root <path>` - report historical local model/thread selection from `~/.codex/state_5.sqlite` without treating cumulative thread counters as cost.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --base-dir <base-dir> [--eliteprospects-csv <export.csv>]` - create a base ETL snapshot from an existing normalized dataset and optionally enrich it with Elite Prospects in one command.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --nhl-draft-json <picks.json>` - generate a normalized base dataset from cached official NHL draft picks.
 - `draft-room-intel collect-nhl-draft-range <cache-dir> --start-year 2014 --end-year 2026` - cache official draft lists for offline ETL.
