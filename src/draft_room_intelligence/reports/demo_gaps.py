@@ -83,6 +83,7 @@ def format_demo_gap_report(report: DemoGapReport) -> str:
         f"- Draft year: {manifest.get('draft_year', 'unknown')}",
         f"- Players: {manifest.get('player_count', 'unknown')}",
         f"- Dataset status: `{manifest.get('dataset_status', 'unknown')}`",
+        f"- Baseline: `{manifest.get('baseline_id', 'missing')}`",
         f"- Low-evidence players: {len(report.low_evidence_rows)}",
         "",
         "## Low-Evidence League Clusters",

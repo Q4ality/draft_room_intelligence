@@ -7,6 +7,10 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
+from draft_room_intelligence.reports.demo_baseline import (
+    artifact_metrics,
+    load_demo_baseline,
+)
 
 CHECK_COLUMNS = ["check_id", "status", "actual", "expected", "detail"]
 
@@ -55,6 +59,8 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     root = Path(demo_output_dir)
     board = read_csv(root / "board.csv")
     details = json.loads((root / "players.json").read_text(encoding="utf-8"))
+    manifest = read_json(root / "manifest.json")
+    baseline = load_demo_baseline(root)
     html = (root / "index.html").read_text(encoding="utf-8")
     brief_html = root / "meeting_brief.html"
     brief_pdf = root / "meeting_brief.pdf"
@@ -63,7 +69,7 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     misa_sjs = team_fit_option(details_by_name.get("Michael Misa", {}), "SJS")
     schaefer_nyi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "NYI")
     schaefer_chi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "CHI")
-    checks = [
+    checks = baseline_acceptance_checks(baseline, manifest, board, details) + [
         threshold_check("board_rows", len(board), 224, "eq", "Demo should cover the full 2025 drafted-player class."),
         threshold_check("player_details", len(details), len(board), "eq", "Every board row should have a player detail payload."),
         threshold_check(
@@ -130,6 +136,71 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     return DemoAcceptanceReport(checks=checks)
 
 
+def baseline_acceptance_checks(
+    baseline: dict[str, object],
+    manifest: dict[str, object],
+    board: list[dict[str, str]],
+    details: list[dict[str, object]],
+) -> list[AcceptanceCheck]:
+    if not baseline:
+        return [
+            content_check(
+                "baseline_present",
+                False,
+                "Demo package must include the canonical baseline.json artifact.",
+            )
+        ]
+    baseline_id = str(baseline.get("baseline_id", ""))
+    manifest_id = str(manifest.get("baseline_id", ""))
+    expected = baseline.get("metrics", {})
+    expected_metrics = expected if isinstance(expected, dict) else {}
+    manifest_metrics = manifest.get("baseline_metrics", {})
+    actual_metrics = artifact_metrics(board, details)
+    return [
+        content_check(
+            "baseline_present",
+            bool(baseline_id),
+            "Demo package must include a non-empty canonical baseline identity.",
+        ),
+        content_check(
+            "baseline_manifest_identity",
+            bool(baseline_id) and baseline_id == manifest_id,
+            "Manifest and baseline must reference the same dataset fingerprint.",
+        ),
+        value_check(
+            "baseline_player_count",
+            len(board),
+            expected_metrics.get("player_count"),
+            "Board rows must match the canonical dataset player count.",
+        ),
+        value_check(
+            "baseline_player_details",
+            len(details),
+            expected_metrics.get("player_count"),
+            "Player payload rows must match the canonical dataset player count.",
+        ),
+        content_check(
+            "baseline_manifest_metrics",
+            expected_metrics == manifest_metrics,
+            "Manifest must embed the exact canonical baseline metrics.",
+        ),
+        content_check(
+            "baseline_board_metrics",
+            all(
+                actual_metrics.get(key) == expected_metrics.get(key)
+                for key in (
+                    "board_row_count",
+                    "player_detail_count",
+                    "evidence_depth_counts",
+                    "top_50_consensus_overlap",
+                    "average_absolute_consensus_delta",
+                )
+            ),
+            "Board and player artifacts must reproduce the canonical baseline metrics.",
+        ),
+    ]
+
+
 def format_demo_acceptance_report(report: DemoAcceptanceReport) -> str:
     lines = [
         "# Demo Acceptance Report",
@@ -188,6 +259,21 @@ def content_check(check_id: str, passed: bool, detail: str) -> AcceptanceCheck:
     )
 
 
+def value_check(
+    check_id: str,
+    actual: object,
+    expected: object,
+    detail: str,
+) -> AcceptanceCheck:
+    return AcceptanceCheck(
+        check_id=check_id,
+        status="pass" if actual == expected else "fail",
+        actual=str(actual),
+        expected=str(expected),
+        detail=detail,
+    )
+
+
 def count_rows(rows: list[dict[str, str]], key: str, value: str) -> int:
     return sum(1 for row in rows if row.get(key) == value)
 
@@ -208,6 +294,13 @@ def top_n_overlap(rows: list[dict[str, str]], n: int) -> int:
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
+
+
+def read_json(path: Path) -> dict[str, object]:
+    if not path.is_file():
+        return {}
+    value = json.loads(path.read_text(encoding="utf-8"))
+    return value if isinstance(value, dict) else {}
 
 
 def write_csv(path: Path, columns: list[str], rows: list[dict[str, str]]) -> None:

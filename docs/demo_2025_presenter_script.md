@@ -13,7 +13,8 @@ Current manifest snapshot:
 
 - Players: 224
 - Dataset status: `strong`
-- Evidence depth: 138 high, 59 medium, 27 low
+- Evidence depth: 169 high, 25 medium, 30 low
+- Canonical baseline: 224 players and 906 pre-draft season-stat rows
 - Disagreement buckets: 80 aligned, 15 model higher, 129 consensus higher
 - Source coverage: Wikipedia draft rows, draft-slot proxy, CHL, USHL, Wikipedia career rows, and curated open-stats packs
 - Score posture: `model_score` remains production-sensitive, `board_score` blends model plus consensus and EP evidence, and `team_adjusted_score` adds organization fit.

@@ -39,6 +39,7 @@ STORY_COLUMNS = [
 
 @dataclass(frozen=True)
 class DemoSanityReport:
+    baseline_id: str
     board_rows: list[dict[str, str]]
     player_details: list[dict[str, object]]
     top_overall: list[dict[str, str]]
@@ -63,6 +64,7 @@ def write_demo_sanity_report(demo_output_dir: str | Path, output_dir: str | Path
 
 def build_demo_sanity_report(demo_output_dir: str | Path) -> DemoSanityReport:
     root = Path(demo_output_dir)
+    manifest = read_json(root / "manifest.json")
     board_rows = read_csv(root / "board.csv")
     player_details = json.loads((root / "players.json").read_text(encoding="utf-8"))
     players_by_name = {detail["header"]["name"]: detail for detail in player_details}
@@ -76,6 +78,7 @@ def build_demo_sanity_report(demo_output_dir: str | Path) -> DemoSanityReport:
     biggest_disagreements = [project_board_row(row) | {"rank_delta": str(rank_delta(row))} for row in disagreements]
     story_rows = [build_story_row(name, board_rows, players_by_name) for name in story_player_names()]
     return DemoSanityReport(
+        baseline_id=str(manifest.get("baseline_id", "missing")),
         board_rows=board_rows,
         player_details=player_details,
         top_overall=top_overall,
@@ -89,6 +92,8 @@ def build_demo_sanity_report(demo_output_dir: str | Path) -> DemoSanityReport:
 def format_demo_sanity_report(report: DemoSanityReport) -> str:
     lines = [
         "# Demo Sanity Report",
+        "",
+        f"- Baseline: `{report.baseline_id}`",
         "",
         "## Score Interpretation",
         "",
@@ -198,6 +203,13 @@ def format_table(rows: list[dict[str, str]], columns: list[str]) -> str:
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
+
+
+def read_json(path: Path) -> dict[str, object]:
+    if not path.is_file():
+        return {}
+    value = json.loads(path.read_text(encoding="utf-8"))
+    return value if isinstance(value, dict) else {}
 
 
 def write_csv(path: Path, columns: list[str], rows: list[dict[str, str]]) -> None:

@@ -142,6 +142,10 @@ from draft_room_intelligence.reports.codex_task_routing import write_codex_task_
 from draft_room_intelligence.reports.codex_telemetry import write_codex_telemetry_report
 from draft_room_intelligence.reports.codex_usage import write_codex_usage_report
 from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
+from draft_room_intelligence.reports.demo_baseline import (
+    build_demo_baseline,
+    write_demo_baseline,
+)
 from draft_room_intelligence.reports.demo_brief import write_demo_meeting_brief
 from draft_room_intelligence.reports.demo_export import (
     build_demo_export_bundle,
@@ -2545,6 +2549,14 @@ def run_export_demo_package(
         team_id=team_id,
         advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
     )
+    baseline_path = attach_demo_baseline(
+        data_path,
+        output_dir,
+        prospects,
+        bundle,
+        advanced_stats_csv=advanced_stats_csv,
+        team_depth_csv=team_depth_csv,
+    )
     outputs = export_demo_package(output_dir, bundle)
     print(f"# Demo package export: {data_path}")
     print(f"Prospects loaded: {len(prospects)}")
@@ -2553,6 +2565,7 @@ def run_export_demo_package(
     print(f"Compare CSV: {outputs['compare']}")
     print(f"Players JSON: {outputs['players']}")
     print(f"Manifest JSON: {outputs['manifest']}")
+    print(f"Baseline JSON: {baseline_path}")
     print(f"Dataset status: {bundle.manifest['dataset_status']}")
 
 
@@ -2571,6 +2584,14 @@ def run_build_demo_site(
         team_id=team_id,
         advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
     )
+    baseline_path = attach_demo_baseline(
+        data_path,
+        output_dir,
+        prospects,
+        bundle,
+        advanced_stats_csv=advanced_stats_csv,
+        team_depth_csv=team_depth_csv,
+    )
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
     brief = write_demo_meeting_brief(output_dir, bundle)
@@ -2580,6 +2601,7 @@ def run_build_demo_site(
     print(f"Board CSV: {outputs['board']}")
     print(f"Players JSON: {outputs['players']}")
     print(f"Manifest JSON: {outputs['manifest']}")
+    print(f"Baseline JSON: {baseline_path}")
     print(f"HTML site: {site_path}")
     print(f"Meeting brief HTML: {brief.html_path}")
     print(f"Meeting brief PDF: {brief.pdf_path}")
@@ -2603,6 +2625,14 @@ def run_build_demo_readiness(
         team_id=team_id,
         advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
     )
+    baseline_path = attach_demo_baseline(
+        data_path,
+        output_dir,
+        prospects,
+        bundle,
+        advanced_stats_csv=advanced_stats_csv,
+        team_depth_csv=team_depth_csv,
+    )
     outputs = export_demo_package(output_dir, bundle)
     site_path = write_demo_site(output_dir, bundle)
     brief = write_demo_meeting_brief(output_dir, bundle)
@@ -2624,6 +2654,7 @@ def run_build_demo_readiness(
     print(f"Board CSV: {outputs['board']}")
     print(f"Players JSON: {outputs['players']}")
     print(f"Manifest JSON: {outputs['manifest']}")
+    print(f"Baseline JSON: {baseline_path}")
     print(f"HTML site: {site_path}")
     print(f"Meeting brief HTML: {brief.html_path}")
     print(f"Meeting brief PDF: {brief.pdf_path}")
@@ -2636,6 +2667,30 @@ def run_build_demo_readiness(
     print(f"Demo sanity summary: {sanity_report_dir / 'summary.md'}")
     print(f"Demo acceptance: {'pass' if acceptance_report.passed else 'fail'}")
     print(f"Demo acceptance summary: {acceptance_report_dir / 'summary.md'}")
+
+
+def attach_demo_baseline(
+    data_path: Path,
+    output_dir: Path,
+    prospects: list,
+    bundle,
+    *,
+    advanced_stats_csv: Path | None,
+    team_depth_csv: Path | None,
+) -> Path:
+    supporting_paths = [
+        path for path in (advanced_stats_csv, team_depth_csv) if path is not None
+    ]
+    baseline = build_demo_baseline(
+        data_path,
+        prospects,
+        bundle.board_rows,
+        bundle.player_details,
+        supporting_paths=supporting_paths,
+    )
+    bundle.manifest["baseline_id"] = baseline["baseline_id"]
+    bundle.manifest["baseline_metrics"] = baseline["metrics"]
+    return write_demo_baseline(output_dir, baseline)
 
 
 def run_report_demo_gaps(demo_output_dir: Path, output_dir: Path, *, top_n: int) -> None:

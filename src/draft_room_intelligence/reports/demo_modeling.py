@@ -113,6 +113,7 @@ def format_demo_modeling_report(report: DemoModelingReport) -> str:
         f"- Draft year: {manifest.get('draft_year', 'unknown')}",
         f"- Players: {manifest.get('player_count', len(report.board_rows))}",
         f"- Dataset status: `{manifest.get('dataset_status', 'unknown')}`",
+        f"- Baseline: `{manifest.get('baseline_id', 'missing')}`",
         f"- Average absolute board-vs-consensus movement: {report.avg_abs_delta:.1f} slots",
         f"- Players moved 10+ slots: {report.moved_10_plus}",
         f"- 10+ slot moves with high/medium evidence: {report.high_or_medium_moved_10_plus}",

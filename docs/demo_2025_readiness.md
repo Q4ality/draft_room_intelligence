@@ -55,7 +55,7 @@ make demo-2025-readiness
 Latest manifest snapshot:
 
 - `dataset_status`: `strong`
-- evidence depth: 30 low, 29 medium, 165 high
+- evidence depth: 30 low, 25 medium, 169 high
 - disagreement buckets: 80 aligned, 129 consensus higher, 15 model higher
 - current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
 - demo acceptance: 11 of 11 checks passing, including full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral `Production` history labeling.
@@ -64,6 +64,8 @@ Latest manifest snapshot:
 Recent enrichment improvement:
 
 - Russian, Nordic, cleanup open-stat packs, EP-PDF evidence, and CHL history now provide 906 stat lines.
+- `baseline.json` fingerprints the canonical normalized inputs and records the authoritative player, stat-line, evidence, and board-sanity metrics used by every readiness report.
+- The upstream range-ETL run report is not the demo baseline; use `baseline.json` when validating business-facing demo counts.
 - High-evidence players moved to 138 in the current EP-PDF package.
 - Examples: Alexei Medvedev, Max Psenicka, Shane Vansaghi, Charlie Cerrato, Matthew Gard, Nathan Behm, Vojtech Cihar, Hayden Paupanekis, Tommy Lafreniere, Eric Nilson, Milton Gastrin, Roman Luttsev, and Alexander Zharovsky now carry richer histories.
 - CHL true-playoff enrichment now adds regular and playoff rows separately instead of using playoff-team regular-season pages.
