@@ -102,6 +102,303 @@ class LeagueEnrichmentReport:
         return sum(row.status == "failed" for row in self.results)
 
 
+@dataclass(frozen=True)
+class SweHockeyCatalogSpec:
+    league: str
+    draft_year: int
+    season: str
+    source_url: str
+    cache_path: Path
+
+
+SWEHOCKEY_SEEDS = (
+    (
+        "SHL",
+        "https://stats.swehockey.se/ScheduleAndResults/Overview/17556",
+        "swehockey_seed_shl.html",
+    ),
+    (
+        "HockeyAllsvenskan",
+        "https://stats.swehockey.se/ScheduleAndResults/Overview/17570",
+        "swehockey_seed_hockeyallsvenskan.html",
+    ),
+    (
+        "Sweden Jrs.",
+        "https://stats.swehockey.se/ScheduleAndResults/Overview/17324",
+        "swehockey_seed_sweden_j20.html",
+    ),
+)
+
+
+def discover_swehockey_catalog_specs(
+    *,
+    cache_root: str | Path,
+    start_year: int,
+    end_year: int,
+) -> list[SweHockeyCatalogSpec]:
+    root = Path(cache_root)
+    catalogs: list[SweHockeyCatalogSpec] = []
+    for league, _, seed_name in SWEHOCKEY_SEEDS:
+        seed_path = root / seed_name
+        if not seed_path.is_file():
+            continue
+        for draft_year, overview_id in parse_swehockey_season_roots(
+            seed_path.read_text(encoding="utf-8")
+        ).items():
+            if not start_year <= draft_year <= end_year:
+                continue
+            league_key = slugify_source_name(league)
+            catalogs.append(
+                SweHockeyCatalogSpec(
+                    league=league,
+                    draft_year=draft_year,
+                    season=f"{draft_year - 1}-{str(draft_year)[-2:]}",
+                    source_url=(
+                        "https://stats.swehockey.se/ScheduleAndResults/Overview/"
+                        f"{overview_id}"
+                    ),
+                    cache_path=root / f"swehockey_catalog_{league_key}_{draft_year}.html",
+                )
+            )
+    return sorted(catalogs, key=lambda row: (row.draft_year, row.league))
+
+
+def collect_swehockey_seeds(
+    *,
+    cache_root: str | Path,
+    refresh: bool = False,
+) -> None:
+    root = Path(cache_root)
+    for league, source_url, seed_name in SWEHOCKEY_SEEDS:
+        seed_path = root / seed_name
+        if seed_path.is_file() and not refresh:
+            raw = seed_path.read_text(encoding="utf-8")
+        else:
+            payload = download_url(source_url)
+            raw = payload.decode("utf-8")
+            if not parse_swehockey_season_roots(raw):
+                raise ValueError(f"Swehockey {league} seed has no historical season selector")
+            seed_path.parent.mkdir(parents=True, exist_ok=True)
+            seed_path.write_bytes(payload)
+        if not parse_swehockey_season_roots(raw):
+            raise ValueError(f"Swehockey {league} seed has no historical season selector")
+
+
+def parse_swehockey_season_roots(raw: str) -> dict[int, str]:
+    pattern = re.compile(
+        r'<option[^>]+value="/ScheduleAndResults/(?:Overview|Schedule)/(?P<id>\d+)"'
+        r"[^>]*>\s*(?P<season>20\d{2}-\d{2})\s*</option>",
+        re.IGNORECASE,
+    )
+    return {
+        int(match.group("season")[:4]) + 1: match.group("id")
+        for match in pattern.finditer(raw)
+    }
+
+
+def collect_swehockey_catalogs(
+    catalogs: list[SweHockeyCatalogSpec],
+    *,
+    refresh: bool = False,
+    continue_on_error: bool = False,
+) -> list[LeagueSourceCollectionResult]:
+    results: list[LeagueSourceCollectionResult] = []
+    for catalog in catalogs:
+        try:
+            if catalog.cache_path.is_file() and not refresh:
+                status = "cached"
+            else:
+                payload = download_url(catalog.source_url)
+                if not payload:
+                    raise ValueError("download returned an empty response")
+                raw = payload.decode("utf-8")
+                validate_swehockey_catalog(raw, catalog)
+                catalog.cache_path.parent.mkdir(parents=True, exist_ok=True)
+                catalog.cache_path.write_bytes(payload)
+                status = "downloaded"
+            if status == "cached":
+                validate_swehockey_catalog(
+                    catalog.cache_path.read_text(encoding="utf-8"),
+                    catalog,
+                )
+            results.append(
+                LeagueSourceCollectionResult(
+                    f"{catalog.draft_year}-{slugify_source_name(catalog.league)}-catalog",
+                    catalog.draft_year,
+                    status,
+                    str(catalog.cache_path),
+                    catalog.cache_path.stat().st_size,
+                    "Swehockey season catalog is ready",
+                )
+            )
+        except Exception as exc:
+            results.append(
+                LeagueSourceCollectionResult(
+                    f"{catalog.draft_year}-{slugify_source_name(catalog.league)}-catalog",
+                    catalog.draft_year,
+                    "failed",
+                    str(catalog.cache_path),
+                    0,
+                    f"{type(exc).__name__}: {exc}",
+                )
+            )
+            if not continue_on_error:
+                raise
+    return results
+
+
+def validate_swehockey_catalog(raw: str, catalog: SweHockeyCatalogSpec) -> None:
+    expected_label = re.escape(catalog.season)
+    if not re.search(
+        rf"<label>\s*(?:{expected_label}\s*-.*?|.*?-\s*{expected_label})\s*</label>",
+        raw,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        raise ValueError(f"Swehockey catalog does not identify season {catalog.season}")
+    if not parse_swehockey_tournaments(raw, catalog.league):
+        raise ValueError(f"Swehockey catalog has no classified {catalog.league} tournaments")
+
+
+def generate_swehockey_source_specs(
+    *,
+    cache_root: str | Path,
+    start_year: int,
+    end_year: int,
+) -> list[LeagueSourceSpec]:
+    sources: list[LeagueSourceSpec] = []
+    for catalog in discover_swehockey_catalog_specs(
+        cache_root=cache_root,
+        start_year=start_year,
+        end_year=end_year,
+    ):
+        if not catalog.cache_path.is_file():
+            continue
+        raw = catalog.cache_path.read_text(encoding="utf-8")
+        for tournament_id, label, regular_season in parse_swehockey_tournaments(
+            raw, catalog.league
+        ):
+            stage = "regular" if regular_season else "playoffs"
+            label_key = slugify_source_name(label)
+            source_id = swehockey_source_id(
+                catalog.draft_year,
+                catalog.league,
+                label_key,
+                stage,
+            )
+            cache_path = Path(cache_root) / f"{source_id.replace('-', '_')}.html"
+            sources.append(
+                LeagueSourceSpec(
+                    source_id=source_id,
+                    enabled=cache_path.is_file(),
+                    draft_year=catalog.draft_year,
+                    adapter="europe",
+                    league=catalog.league,
+                    season=catalog.season,
+                    regular_season=regular_season,
+                    source_url=(
+                        "https://stats.swehockey.se/Teams/Info/PlayersByTeam/"
+                        f"{tournament_id}"
+                    ),
+                    cache_path=cache_path,
+                    source_label="swehockey:combined",
+                )
+            )
+    return sorted(sources, key=lambda row: (row.draft_year, row.source_id))
+
+
+def swehockey_source_id(draft_year: int, league: str, label_key: str, stage: str) -> str:
+    if league == "SHL":
+        return f"{draft_year}-{slugify_source_name(league)}-{stage}"
+    if league == "HockeyAllsvenskan":
+        if stage == "regular":
+            return f"{draft_year}-{slugify_source_name(league)}-{stage}"
+        return f"{draft_year}-{slugify_source_name(league)}-{label_key}-{stage}"
+    phase = label_key.removeprefix("j20-").removeprefix("u20-").strip("-")
+    phase = phase.removeprefix("nationell-").removeprefix("superelit-")
+    direction = {"norra": "north", "sodra": "south"}.get(phase, phase)
+    return f"{draft_year}-sweden-j20-{direction}-{stage}"
+
+
+def parse_swehockey_tournaments(
+    raw: str,
+    league: str,
+) -> list[tuple[str, str, bool]]:
+    label_match = re.search(
+        r"<label>\s*(?:20\d{2}-\d{2}\s*-\s*.*?|.*?\s*-\s*20\d{2}-\d{2})\s*</label>",
+        raw,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if not label_match:
+        return []
+    select_match = re.search(
+        r"<select[^>]*>\s*(?P<options>.*?)</select>",
+        raw[label_match.end() :],
+        re.IGNORECASE | re.DOTALL,
+    )
+    if not select_match:
+        return []
+    option_pattern = re.compile(
+        r'<option[^>]+value="/ScheduleAndResults/(?:Overview|Schedule)/(?P<id>\d+)"'
+        r"[^>]*>(?P<label>.*?)</option>",
+        re.IGNORECASE | re.DOTALL,
+    )
+    tournaments: list[tuple[str, str, bool]] = []
+    for match in option_pattern.finditer(select_match.group("options")):
+        label = re.sub(r"\s+", " ", html.unescape(match.group("label"))).strip()
+        regular_season = swehockey_stage(league, label)
+        if regular_season is not None:
+            tournaments.append((match.group("id"), label, regular_season))
+    if tournaments:
+        return tournaments
+    single_stage = re.search(
+        r'<option[^>]+value="/ScheduleAndResults/Overview/(?P<id>\d+)"[^>]*>'
+        r"\s*Games\s*</option>",
+        select_match.group("options"),
+        re.IGNORECASE,
+    )
+    if single_stage:
+        label = "J20 Nationell" if league == "Sweden Jrs." else league
+        return [(single_stage.group("id"), label, True)]
+    return tournaments
+
+
+def swehockey_stage(league: str, label: str) -> bool | None:
+    normalized = label.casefold()
+    if "play out" in normalized or "kval" in normalized:
+        return None
+    if league == "SHL":
+        if normalized == "shl":
+            return True
+        return False if "slutspel" in normalized or "final" in normalized else None
+    if league == "HockeyAllsvenskan":
+        if normalized == "hockeyallsvenskan":
+            return True
+        if "slutspel" in normalized or "final" in normalized:
+            return False
+        if "play off" in normalized and "till " not in normalized:
+            return False
+        return None
+    if "sm-slutspel" in normalized and ("j20" in normalized or "u20" in normalized):
+        return False
+    if "play off" in normalized and "till " in normalized:
+        return None
+    if ("j20" in normalized or "u20" in normalized) and (
+        "nationell" in normalized or "superelit" in normalized
+    ):
+        return True
+    return None
+
+
+def slugify_source_name(value: str) -> str:
+    ascii_value = (
+        value.casefold()
+        .replace("å", "a")
+        .replace("ä", "a")
+        .replace("ö", "o")
+    )
+    return re.sub(r"[^a-z0-9]+", "-", ascii_value).strip("-")
+
+
 def discover_chl_source_specs(
     catalog_path: str | Path,
     *,
@@ -345,16 +642,36 @@ def discover_europe_source_specs(
     end_year: int,
 ) -> list[LeagueSourceSpec]:
     sources = load_league_source_manifest(catalog_path, project_root=project_root)
+    cache_root = Path(project_root) / "data/raw/cache/europe_stats"
     generated = generate_liiga_source_specs(
-        cache_root=Path(project_root) / "data/raw/cache/europe_stats",
+        cache_root=cache_root,
         start_year=start_year,
         end_year=end_year,
     )
+    generated.extend(
+        generate_swehockey_source_specs(
+            cache_root=cache_root,
+            start_year=start_year,
+            end_year=end_year,
+        )
+    )
     by_source_id = {source.source_id: source for source in generated}
+    swehockey_scopes = {
+        (source.draft_year, source.league)
+        for source in generated
+        if source.source_label == "swehockey:combined"
+    }
     for source in sources:
         if source.adapter != "europe":
             raise ValueError(f"European catalog contains non-Europe adapter: {source.source_id}")
         if start_year <= source.draft_year <= end_year:
+            if (
+                source.source_label == "swehockey:combined"
+                and source.source_url.startswith("https://stats.swehockey.se/")
+                and (source.draft_year, source.league) in swehockey_scopes
+                and source.source_id not in by_source_id
+            ):
+                continue
             by_source_id[source.source_id] = LeagueSourceSpec(
                 **{
                     **source.__dict__,
@@ -362,6 +679,24 @@ def discover_europe_source_specs(
                 }
             )
     return sorted(by_source_id.values(), key=lambda source: (source.draft_year, source.source_id))
+
+
+def is_stale_generated_swehockey_source(
+    source: LeagueSourceSpec,
+    discovered_source_ids: set[str],
+    discovered_scopes: set[tuple[int, str]],
+    *,
+    start_year: int,
+    end_year: int,
+) -> bool:
+    return (
+        source.adapter == "europe"
+        and start_year <= source.draft_year <= end_year
+        and source.source_label == "swehockey:combined"
+        and source.source_url.startswith("https://stats.swehockey.se/")
+        and (source.draft_year, source.league) in discovered_scopes
+        and source.source_id not in discovered_source_ids
+    )
 
 
 def generate_liiga_source_specs(
@@ -485,6 +820,7 @@ def filter_league_sources(
     end_year: int | None = None,
     include_disabled: bool = False,
     adapters: set[str] | None = None,
+    source_labels: set[str] | None = None,
 ) -> list[LeagueSourceSpec]:
     return [
         source
@@ -493,6 +829,7 @@ def filter_league_sources(
         and (start_year is None or source.draft_year >= start_year)
         and (end_year is None or source.draft_year <= end_year)
         and (not adapters or source.adapter in adapters)
+        and (not source_labels or source.source_label in source_labels)
     ]
 
 

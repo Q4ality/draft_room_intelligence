@@ -12,8 +12,9 @@ from draft_room_intelligence.data.league_enrichment import (
     collect_league_sources,
     discover_europe_source_specs,
     filter_league_sources,
+    generate_swehockey_source_specs,
+    is_stale_generated_swehockey_source,
     load_league_source_manifest,
-    merge_league_source_specs,
     run_league_enrichment_range,
     write_league_source_manifest,
 )
@@ -60,7 +61,31 @@ def run_league_pipeline(
         start_year=start_year,
         end_year=end_year,
     )
-    sources = merge_league_source_specs(sources, europe_sources, adapter="europe")
+    retained = [source for source in sources if source.adapter != "europe"]
+    generated_swehockey = generate_swehockey_source_specs(
+        cache_root=project / "data/raw/cache/europe_stats",
+        start_year=start_year,
+        end_year=end_year,
+    )
+    discovered_ids = {source.source_id for source in generated_swehockey}
+    discovered_swehockey_scopes = {
+        (source.draft_year, source.league)
+        for source in generated_swehockey
+    }
+    europe_by_source_id = {
+        source.source_id: source
+        for source in sources
+        if source.adapter == "europe"
+        and not is_stale_generated_swehockey_source(
+            source,
+            discovered_ids,
+            discovered_swehockey_scopes,
+            start_year=start_year,
+            end_year=end_year,
+        )
+    }
+    europe_by_source_id.update({source.source_id: source for source in europe_sources})
+    sources = retained + list(europe_by_source_id.values())
     sources = [
         replace(source, enabled=source.enabled or source.cache_path.is_file())
         for source in sources

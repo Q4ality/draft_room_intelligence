@@ -88,7 +88,7 @@ Every new adapter should include:
 
 4. **Swedish/Finnish adapter pass**
    - Goal: normalize SHL, HockeyAllsvenskan, J20 Nationell, Liiga, Mestis, and U20 rows consistently.
-   - Current: official 2025 Swedish and Liiga regular/playoff feeds are validated. Historical source-ID catalogs, Mestis, and Finnish U20 remain.
+   - Current: 114 official SHL, HockeyAllsvenskan, and J20/U20 feeds are validated across 2014-2026, including split-phase aggregation, canceled-stage handling, and playoff separation. Liiga rows are generated for 2014-2026. Historical Liiga collection plus Mestis and Finnish U20 remain.
 
 5. **Russian KHL/MHL/VHL and goalie pass**
    - Goal: improve Russian skater and goalie rows without depending on blocked official pages as the only source.

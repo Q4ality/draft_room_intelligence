@@ -34,12 +34,18 @@ def test_pipeline_writes_resumable_operational_artifacts_without_network(tmp_pat
     manifest = tmp_path / "sources.csv"
     manifest.write_text(
         "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
-        "missing,false,2025,open_csv,OHL,2024-25,regular,,missing.csv,test\n",
+        "missing,false,2025,open_csv,OHL,2024-25,regular,,missing.csv,test\n"
+        "tracked-sweden,false,2025,europe,SHL,2024-25,regular,"
+        "https://stats.swehockey.se/Teams/Info/PlayersByTeam/17556,"
+        "sweden.html,swehockey:combined\n",
         encoding="utf-8",
     )
     europe_catalog = tmp_path / "europe.csv"
     europe_catalog.write_text(
-        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n",
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
+        "catalog-sweden,false,2025,europe,SHL,2024-25,regular,"
+        "https://stats.swehockey.se/Teams/Info/PlayersByTeam/legacy,"
+        "catalog-sweden.html,swehockey:combined\n",
         encoding="utf-8",
     )
 
@@ -58,3 +64,8 @@ def test_pipeline_writes_resumable_operational_artifacts_without_network(tmp_pat
     assert payload["ready_sources"] == 0
     assert (tmp_path / "report" / "resolved_sources.csv").is_file()
     assert (tmp_path / "report" / "audit" / "year_summary.csv").is_file()
+    resolved = list(
+        csv.DictReader((tmp_path / "report" / "resolved_sources.csv").open(encoding="utf-8"))
+    )
+    assert any(row["source_id"] == "tracked-sweden" for row in resolved)
+    assert any(row["source_id"] == "catalog-sweden" for row in resolved)

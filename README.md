@@ -120,6 +120,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make historical-league-cache` - collect missing league-stat files from the reviewed source manifest; CHL rows use a validated HockeyTech fallback when public CHL pages reject automation.
 - `make historical-league-discover` - regenerate CHL season/stage URLs from cached official catalogs.
 - `make historical-ncaa-discover` - generate NCAA source rows with the USCHO historical fallback.
+- `make historical-swehockey-catalogs` - cache official Swedish season indexes for scalable historical feed discovery.
+- `make historical-swehockey-feeds` - collect only discovered Swehockey feeds without retrying other European providers.
 - `make historical-europe-discover` - merge reviewed Swedish, Finnish, and Russian source rows.
 - `make historical-league-etl` - apply cached league sources and write per-class coverage reports.
 - `make historical-league-audit` - report cross-year coverage, conflicting rows, partial advanced samples, and relevant source-match misses.

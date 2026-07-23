@@ -33,6 +33,12 @@ historical-ncaa-discover:
 historical-europe-discover:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli discover-europe-sources data/reference/league_stat_sources.csv --catalog data/reference/europe_league_source_catalog.csv --project-root . --start-year 2014 --end-year 2026
 
+historical-swehockey-catalogs:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-swehockey-catalogs --cache-root data/raw/cache/europe_stats --project-root . --start-year 2014 --end-year 2026 --continue-on-error
+
+historical-swehockey-feeds:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-league-sources data/reference/league_stat_sources.csv --project-root . --start-year 2014 --end-year 2026 --adapter europe --source-label swehockey:combined --include-disabled
+
 historical-league-cache:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-league-sources data/reference/league_stat_sources.csv --project-root . --start-year 2014 --end-year 2026 --adapter chl --include-disabled
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-league-sources data/reference/league_stat_sources.csv --project-root . --start-year 2014 --end-year 2026

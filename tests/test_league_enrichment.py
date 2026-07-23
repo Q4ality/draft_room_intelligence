@@ -1,6 +1,7 @@
 import csv
 
-from draft_room_intelligence.cli import run_discover_chl_sources
+import draft_room_intelligence.data.league_enrichment as league_enrichment
+from draft_room_intelligence.cli import run_discover_chl_sources, run_discover_europe_sources
 from draft_room_intelligence.data.eliteprospects_csv import (
     PLAYER_COLUMNS,
     SEASON_STAT_LINE_COLUMNS,
@@ -9,18 +10,26 @@ from draft_room_intelligence.data.eliteprospects_csv import (
 from draft_room_intelligence.data.league_enrichment import (
     LeagueSourceCollectionResult,
     LeagueSourceSpec,
+    SweHockeyCatalogSpec,
     collect_league_sources,
+    collect_swehockey_catalogs,
+    collect_swehockey_seeds,
     discover_chl_source_specs,
     discover_europe_source_specs,
     discover_ncaa_source_specs,
+    discover_swehockey_catalog_specs,
     discover_ushl_source_specs,
     enable_collected_sources,
     enrich_draft_class_leagues,
     filter_league_sources,
     generate_liiga_source_specs,
+    generate_swehockey_source_specs,
     load_league_source_manifest,
+    parse_swehockey_season_roots,
+    parse_swehockey_tournaments,
     run_league_enrichment_range,
     validate_source_cache,
+    validate_swehockey_catalog,
     write_league_source_manifest,
 )
 
@@ -148,6 +157,30 @@ def test_filter_league_sources_can_select_adapter(tmp_path):
     selected = filter_league_sources([chl, ncaa], adapters={"ncaa"})
 
     assert [source.source_id for source in selected] == ["2025-ncaa"]
+
+
+def test_filter_league_sources_can_select_exact_provider_label(tmp_path):
+    swehockey = LeagueSourceSpec(
+        **{
+            **source_spec(tmp_path / "sweden.html").__dict__,
+            "adapter": "europe",
+            "source_label": "swehockey:combined",
+        }
+    )
+    liiga = LeagueSourceSpec(
+        **{
+            **swehockey.__dict__,
+            "source_id": "2025-liiga",
+            "source_label": "liiga:skaters",
+        }
+    )
+
+    selected = filter_league_sources(
+        [swehockey, liiga],
+        source_labels={"swehockey:combined"},
+    )
+
+    assert [source.source_id for source in selected] == ["2025-ohl-regular"]
 
 
 def test_enable_collected_sources_only_enables_successful_backlog(tmp_path):
@@ -311,10 +344,25 @@ def test_discover_europe_sources_enables_only_collected_catalog_rows(tmp_path):
     cache = tmp_path / "cache" / "sweden.html"
     cache.parent.mkdir()
     cache.write_text("ready", encoding="utf-8")
+    swehockey_cache = tmp_path / "data/raw/cache/europe_stats"
+    swehockey_cache.mkdir(parents=True)
+    (swehockey_cache / "swehockey_seed_hockeyallsvenskan.html").write_text(
+        '<select><option value="/ScheduleAndResults/Overview/17570">2024-25</option></select>',
+        encoding="utf-8",
+    )
+    (swehockey_cache / "swehockey_catalog_hockeyallsvenskan_2025.html").write_text(
+        "<label>2024-25 - HockeyAllsvenskan</label><select>"
+        '<option value="/ScheduleAndResults/Overview/16000">HockeyAllsvenskan</option>'
+        '<option value="/ScheduleAndResults/Overview/17571">Slutspel HockeyAllsvenskan</option>'
+        "</select>",
+        encoding="utf-8",
+    )
     catalog = tmp_path / "catalog.csv"
     catalog.write_text(
         "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
         "sweden,false,2025,europe,SHL,2024-25,regular,https://example.test/swe,cache/sweden.html,swehockey:combined\n"
+        "2025-hockeyallsvenskan-playoffs,false,2025,europe,HockeyAllsvenskan,2024-25,playoffs,"
+        "https://stats.swehockey.se/Teams/Info/PlayersByTeam/old,cache/old.html,swehockey:combined\n"
         "liiga,false,2025,europe,Liiga,2024-25,regular,https://example.test/fin,cache/liiga.json,liiga:skaters\n",
         encoding="utf-8",
     )
@@ -328,6 +376,7 @@ def test_discover_europe_sources_enables_only_collected_catalog_rows(tmp_path):
 
     enabled = {source.source_id: source.enabled for source in sources}
     assert enabled["sweden"] is True
+    assert "2025-hockeyallsvenskan-playoffs" not in enabled
     assert enabled["liiga"] is False
     assert len([source for source in sources if source.source_id.startswith("2025-liiga")]) == 4
 
@@ -348,6 +397,229 @@ def test_generate_liiga_source_specs_covers_each_year_stage_and_role(tmp_path):
     assert {source.source_label for source in sources} == {"liiga:skaters", "liiga:goalies"}
     assert sources[0].enabled is True
     assert "summed/2021/2021/runkosarja" in sources[0].source_url
+
+
+def test_swehockey_discovery_uses_seed_seasons_and_catalog_tournaments(tmp_path):
+    seed = tmp_path / "swehockey_seed_shl.html"
+    seed.write_text(
+        '<select><option value="/ScheduleAndResults/Overview/17556">2024-25</option>'
+        '<option value="/ScheduleAndResults/Overview/15791">2023-24</option></select>',
+        encoding="utf-8",
+    )
+    roots = parse_swehockey_season_roots(seed.read_text(encoding="utf-8"))
+    assert roots == {2025: "17556", 2024: "15791"}
+
+    catalogs = discover_swehockey_catalog_specs(
+        cache_root=tmp_path,
+        start_year=2024,
+        end_year=2024,
+    )
+    assert len(catalogs) == 1
+    assert catalogs[0].source_url.endswith("/15791")
+
+    catalogs[0].cache_path.write_text(
+        "<label>2023-24 - SHL</label><select>"
+        '<option value="/ScheduleAndResults/Overview/15791">Play Out SHL</option>'
+        '<option value="/ScheduleAndResults/Overview/15792">SM-slutspel SHL</option>'
+        '<option value="/ScheduleAndResults/Overview/14677">SHL</option>'
+        "</select>",
+        encoding="utf-8",
+    )
+    sources = generate_swehockey_source_specs(
+        cache_root=tmp_path,
+        start_year=2024,
+        end_year=2024,
+    )
+    assert len(sources) == 2
+    assert {source.regular_season for source in sources} == {True, False}
+    assert {source.source_url.rsplit("/", 1)[-1] for source in sources} == {"15792", "14677"}
+    assert {source.source_id for source in sources} == {
+        "2024-shl-regular",
+        "2024-shl-playoffs",
+    }
+
+
+def test_swehockey_junior_discovery_keeps_competitive_phases():
+    raw = (
+        "<label>2023-24 - U20 Nationell</label><select>"
+        '<option value="/ScheduleAndResults/Overview/15769">J20 SM-slutspel</option>'
+        '<option value="/ScheduleAndResults/Overview/15961">Kvalserien till J20 Nationell</option>'
+        '<option value="/ScheduleAndResults/Overview/15645">J20 - Nationell Top 10</option>'
+        '<option value="/ScheduleAndResults/Overview/15644">J20 - Nationell Forts.</option>'
+        '<option value="/ScheduleAndResults/Overview/14709">J20 - Nationell Sodra</option>'
+        '<option value="/ScheduleAndResults/Overview/15785">Play Off till J20 Nationell</option>'
+        "</select>"
+    )
+
+    tournaments = parse_swehockey_tournaments(raw, "Sweden Jrs.")
+
+    assert [(row[1], row[2]) for row in tournaments] == [
+        ("J20 SM-slutspel", False),
+        ("J20 - Nationell Top 10", True),
+        ("J20 - Nationell Forts.", True),
+        ("J20 - Nationell Sodra", True),
+    ]
+
+
+def test_swehockey_historical_playoff_labels_are_classified():
+    shl = (
+        "<label>2014-15 - SHL</label><select>"
+        '<option value="/ScheduleAndResults/Overview/1">SHL</option>'
+        '<option value="/ScheduleAndResults/Overview/2">SM-slutspel SHL</option>'
+        '<option value="/ScheduleAndResults/Overview/3">Play Out SHL</option>'
+        "</select>"
+    )
+    allsvenskan = (
+        "<label>2014-15 - HockeyAllsvenskan</label><select>"
+        '<option value="/ScheduleAndResults/Overview/4">HockeyAllsvenskan</option>'
+        '<option value="/ScheduleAndResults/Overview/5">Slutspelsserien</option>'
+        '<option value="/ScheduleAndResults/Overview/6">HockeyAllsvenskan Final</option>'
+        '<option value="/ScheduleAndResults/Overview/7">Play Off till SHL</option>'
+        "</select>"
+    )
+
+    assert [(row[1], row[2]) for row in parse_swehockey_tournaments(shl, "SHL")] == [
+        ("SHL", True),
+        ("SM-slutspel SHL", False),
+    ]
+    assert [
+        (row[1], row[2])
+        for row in parse_swehockey_tournaments(allsvenskan, "HockeyAllsvenskan")
+    ] == [
+        ("HockeyAllsvenskan", True),
+        ("Slutspelsserien", False),
+        ("HockeyAllsvenskan Final", False),
+    ]
+
+
+def test_swehockey_hockeyallsvenskan_postseason_phases_have_unique_ids(tmp_path):
+    (tmp_path / "swehockey_seed_hockeyallsvenskan.html").write_text(
+        '<select><option value="/ScheduleAndResults/Overview/4">2014-15</option></select>',
+        encoding="utf-8",
+    )
+    catalog = tmp_path / "swehockey_catalog_hockeyallsvenskan_2015.html"
+    catalog.write_text(
+        "<label>2014-15 - HockeyAllsvenskan</label><select>"
+        '<option value="/ScheduleAndResults/Overview/4">HockeyAllsvenskan</option>'
+        '<option value="/ScheduleAndResults/Overview/5">Slutspelsserien</option>'
+        '<option value="/ScheduleAndResults/Overview/6">HockeyAllsvenska finalen</option>'
+        "</select>",
+        encoding="utf-8",
+    )
+
+    sources = generate_swehockey_source_specs(
+        cache_root=tmp_path,
+        start_year=2015,
+        end_year=2015,
+    )
+
+    ids = [source.source_id for source in sources]
+    assert len(ids) == len(set(ids))
+    assert "2015-hockeyallsvenskan-slutspelsserien-playoffs" in ids
+    assert "2015-hockeyallsvenskan-hockeyallsvenska-finalen-playoffs" in ids
+
+
+def test_swehockey_catalog_supports_reversed_2019_20_shl_label():
+    raw = (
+        "<label>SHL - 2019-20</label><select>"
+        '<option value="/ScheduleAndResults/Overview/10371">Games</option>'
+        "</select>"
+    )
+    catalog = SweHockeyCatalogSpec(
+        "SHL",
+        2020,
+        "2019-20",
+        "https://example.test/catalog",
+        None,
+    )
+
+    validate_swehockey_catalog(raw, catalog)
+
+    assert parse_swehockey_tournaments(raw, "SHL") == [("10371", "SHL", True)]
+
+
+def test_swehockey_seed_collection_bootstraps_empty_cache(tmp_path, monkeypatch):
+    seed_html = (
+        '<select><option value="/ScheduleAndResults/Overview/15791">'
+        "2023-24</option></select>"
+    ).encode()
+    monkeypatch.setattr(league_enrichment, "download_url", lambda _: seed_html)
+
+    collect_swehockey_seeds(cache_root=tmp_path)
+
+    assert (tmp_path / "swehockey_seed_shl.html").is_file()
+    assert (tmp_path / "swehockey_seed_hockeyallsvenskan.html").is_file()
+    assert (tmp_path / "swehockey_seed_sweden_j20.html").is_file()
+
+
+def test_swehockey_catalog_collection_rejects_error_page(tmp_path, monkeypatch):
+    catalog = SweHockeyCatalogSpec(
+        "SHL",
+        2024,
+        "2023-24",
+        "https://example.test/catalog",
+        tmp_path / "catalog.html",
+    )
+    monkeypatch.setattr(
+        league_enrichment,
+        "download_url",
+        lambda _: b"<html><title>Forbidden</title></html>",
+    )
+
+    results = collect_swehockey_catalogs([catalog], continue_on_error=True)
+
+    assert results[0].status == "failed"
+    assert not catalog.cache_path.exists()
+
+
+def test_swehockey_catalog_validation_requires_expected_tournaments():
+    catalog = SweHockeyCatalogSpec(
+        "SHL",
+        2024,
+        "2023-24",
+        "https://example.test/catalog",
+        None,
+    )
+
+    try:
+        validate_swehockey_catalog("<label>2023-24 - SHL</label><select></select>", catalog)
+    except ValueError as exc:
+        assert "no classified" in str(exc)
+    else:
+        raise AssertionError("empty Swehockey tournament catalog should fail")
+
+
+def test_bounded_europe_discovery_preserves_other_years(tmp_path):
+    manifest = tmp_path / "sources.csv"
+    manifest.write_text(
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
+        "2025-shl-regular,false,2025,europe,SHL,2024-25,regular,"
+        "https://example.test/shl,cache/2025.html,swehockey:combined\n"
+        "2024-vhl-reviewed,false,2024,europe,VHL,2023-24,regular,"
+        "https://example.test/vhl,cache/vhl.html,khl:skaters\n"
+        "2025-ohl-regular,false,2025,chl,OHL,2024-25,regular,"
+        "https://example.test/ohl,cache/ohl.html,chl\n",
+        encoding="utf-8",
+    )
+    catalog = tmp_path / "europe.csv"
+    catalog.write_text(
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n",
+        encoding="utf-8",
+    )
+
+    run_discover_europe_sources(
+        manifest,
+        catalog_path=catalog,
+        project_root=tmp_path,
+        start_year=2024,
+        end_year=2024,
+    )
+
+    sources = load_league_source_manifest(manifest, project_root=tmp_path)
+    assert any(source.source_id == "2025-shl-regular" for source in sources)
+    assert any(source.source_id == "2024-vhl-reviewed" for source in sources)
+    assert any(source.source_id == "2025-ohl-regular" for source in sources)
+    assert len([source for source in sources if source.draft_year == 2024]) == 5
 
 
 def test_class_enrichment_uses_drafted_from_league_and_resumes(tmp_path):

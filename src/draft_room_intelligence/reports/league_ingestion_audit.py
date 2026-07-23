@@ -191,8 +191,19 @@ def build_league_ingestion_audit(
                 covered_player_ids,
             )
         )
-        duplicate_issues = exact_duplicate_issues(draft_year, pre_draft, player_names)
+        duplicate_issues = exact_duplicate_issues(
+            draft_year,
+            pre_draft + advanced_pre_draft,
+            player_names,
+        )
         conflict_issues = conflicting_key_issues(draft_year, pre_draft, player_names)
+        conflict_issues.extend(
+            conflicting_advanced_key_issues(
+                draft_year,
+                advanced_pre_draft,
+                player_names,
+            )
+        )
         partial_issues = partial_advanced_issues(
             draft_year,
             pre_draft,
@@ -342,7 +353,7 @@ def conflicting_key_issues(
     issues = []
     for rows in by_key.values():
         production_rows = [row for row in rows if not has_goalie_evidence(row)]
-        values = {
+        production_values = {
             (
                 row.get("games", ""),
                 row.get("goals", ""),
@@ -351,7 +362,7 @@ def conflicting_key_issues(
             )
             for row in production_rows
         }
-        if len(values) > 1:
+        if len(production_values) > 1:
             sources = ", ".join(sorted({row.get("source", "unknown") for row in production_rows}))
             issues.append(
                 issue_row(
@@ -359,9 +370,79 @@ def conflicting_key_issues(
                     "conflicting_stat_key",
                     rows[0],
                     player_names,
-                    f"{len(values)} production totals across sources: {sources}",
+                    f"{len(production_values)} production totals across sources: {sources}",
                 )
             )
+        goalie_rows = [row for row in rows if has_goalie_evidence(row)]
+        goalie_values = {
+            tuple(row.get(field, "") for field in GOALIE_CONFLICT_FIELDS)
+            for row in goalie_rows
+        }
+        if len(goalie_values) > 1:
+            sources = ", ".join(sorted({row.get("source", "unknown") for row in goalie_rows}))
+            issues.append(
+                issue_row(
+                    draft_year,
+                    "conflicting_goalie_stat_key",
+                    goalie_rows[0],
+                    player_names,
+                    f"{len(goalie_values)} goalie totals across sources: {sources}",
+                )
+            )
+    return issues
+
+
+GOALIE_CONFLICT_FIELDS = (
+    "games",
+    "goalie_minutes",
+    "shots_against",
+    "saves",
+    "goals_against",
+    "save_percentage",
+    "goals_against_average",
+    "wins",
+    "losses",
+    "ties",
+    "shutouts",
+)
+
+ADVANCED_CONFLICT_FIELDS = (
+    "games",
+    "plus_minus",
+    "shots",
+    "blocks",
+    "faceoff_wins",
+    "faceoff_losses",
+    "faceoff_percentage",
+)
+
+
+def conflicting_advanced_key_issues(
+    draft_year: int,
+    advanced: list[dict[str, str]],
+    player_names: dict[str, str],
+) -> list[dict[str, str]]:
+    by_key: dict[tuple[str, str, str, str, str], list[dict[str, str]]] = {}
+    for row in advanced:
+        by_key.setdefault(conflict_key(row), []).append(row)
+    issues = []
+    for rows in by_key.values():
+        values = {
+            tuple(row.get(field, "") for field in ADVANCED_CONFLICT_FIELDS)
+            for row in rows
+        }
+        if len(values) <= 1:
+            continue
+        sources = ", ".join(sorted({row.get("source", "unknown") for row in rows}))
+        issues.append(
+            issue_row(
+                draft_year,
+                "conflicting_advanced_stat_key",
+                rows[0],
+                player_names,
+                f"{len(values)} advanced totals across sources: {sources}",
+            )
+        )
     return issues
 
 
@@ -374,6 +455,10 @@ def has_goalie_evidence(row: dict[str, str]) -> bool:
             "goals_against",
             "save_percentage",
             "goals_against_average",
+            "wins",
+            "losses",
+            "ties",
+            "shutouts",
         )
     )
 
@@ -415,6 +500,8 @@ def unmatched_match_issues(
     for filename in MATCH_AUDITS:
         for row in read_csv(final_dir / filename):
             if row.get("matched", "").casefold() != "false":
+                continue
+            if row.get("match_method", "").casefold() == "not_configured":
                 continue
             player_id = row.get("player_id", "")
             if not leagues_by_player.get(player_id, set()) & MATCH_LEAGUES[filename]:

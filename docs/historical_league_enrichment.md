@@ -17,9 +17,11 @@ non-reproducible.
 
 The generated manifest also records 18 NCAA feeds and a reviewed European source catalog. NCAA
 uses USCHO structured pages for 2014-2021 and College Hockey Inc. skater/goalie tables for
-2022-2026. The initial European slice covers 2025 Swedish J20/SHL/HockeyAllsvenskan and Liiga
-regular/playoff feeds. Protected KHL/MHL rows remain disabled and use reviewed open-CSV evidence
-as the operational fallback.
+2022-2026. Swedish discovery reads official season selectors and cached season indexes instead
+of maintaining tournament IDs by hand. The first historical proof covers 2024 J20
+Nationell/SHL/HockeyAllsvenskan regular and playoff feeds; Liiga source rows are generated for
+2014-2026. Protected KHL/MHL rows remain disabled and use reviewed open-CSV evidence as the
+operational fallback.
 
 USHL coverage uses separate skater and goalie feeds for regular seasons and playoffs. The public
 HockeyTech season catalog supplies opaque season IDs, so no year mapping is maintained by hand.
@@ -36,7 +38,9 @@ make historical-league-discover
 make historical-ushl-catalog
 make historical-ushl-discover
 make historical-ncaa-discover
+make historical-swehockey-catalogs
 make historical-europe-discover
+make historical-swehockey-feeds
 make historical-league-cache
 make historical-league-etl
 ```
@@ -59,10 +63,21 @@ The USHL adapter preserves skater scoring and goalie GP, minutes, shots, saves, 
 SV%, GAA, wins, losses, overtime losses, and shutouts. Regular-season and playoff lines remain
 separate evidence rows.
 
+`historical-swehockey-catalogs` caches official SHL, HockeyAllsvenskan, and J20/U20 season
+indexes. `historical-europe-discover` then derives stable player-feed rows from those local
+indexes. Discovery preserves European manifest rows outside a bounded year range. Junior
+North/South, Top 10, and continuation phases are aggregated by player and team, while championship
+playoffs remain separate evidence.
+
+`historical-swehockey-feeds` collects only exact `swehockey:combined` rows. This provider filter
+avoids retrying unrelated Liiga or protected Russian endpoints during a Swedish backfill. The
+2019-20 SHL single-stage page and its reversed season label are handled explicitly; no playoff row
+is generated for that canceled postseason.
+
 NCAA and European adapters write `advanced_stat_lines.csv` beside the standard season table.
 Each row includes games, plus/minus, shots, blocks, faceoff wins/losses, and faceoff percentage
-when the source publishes them. Swedish split-phase rows do not replace an existing richer
-full-season line, but their explicitly scoped advanced evidence is retained.
+when the source publishes them. Exact feed duplicates are removed before Swedish split phases
+are combined, preserving auditable source URLs on the normalized row.
 
 Use `collect-league-sources --adapter <name>` to refresh one provider family without retrying
 the entire manifest. Rerun the corresponding discovery command after collection so validated
@@ -99,7 +114,8 @@ place. Source cache digests and baseline ETL state are recorded in
 
 Populate reviewed regular-season and playoff sources in this order:
 
-1. Extend Swedish/Finnish reviewed catalogs backward from the validated 2025 slice.
+1. Run the Swehockey catalog/collection workflow for 2014-2023 and 2025-2026, then add Mestis and
+   Finnish U20.
 2. Add stable Canadian Junior A/B and US high-school sources.
 3. Resolve the remaining explicit CHL transliteration aliases through a reviewed identity map.
 4. NHL outcome snapshots for mature classes, kept separate from pre-draft features.
@@ -112,6 +128,12 @@ The report at `outputs/league_enrichment/summary.md` is the operational coverage
 Run `audit-league-ingestion` after enrichment to refresh `year_summary.csv`, `issues.csv`, and
 `coverage_gaps.csv`. The gap queue orders uncovered players by draft tier and records their
 drafted-from league and source family, making it the input backlog for the next adapter pass.
+
+The completed 2014-2026 Swehockey pass validates 114 feeds. Against the prior cross-year baseline,
+it adds normalized pre-draft evidence for 217 players, reduces Nordic gaps from 460 to 243, and
+adds advanced coverage for 218 players. The final audit checks exact duplicates and conflicting
+skater, goalie, and advanced-stat keys. Remaining gaps are tracked by the standard audit rather
+than inferred from source collection success.
 
 ## Russian Coverage Iteration
 

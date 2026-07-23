@@ -52,13 +52,18 @@ from draft_room_intelligence.data.hockeydb_base import (
 from draft_room_intelligence.data.league_enrichment import (
     SUPPORTED_ADAPTERS,
     collect_league_sources,
+    collect_swehockey_catalogs,
+    collect_swehockey_seeds,
     collect_ushl_season_catalog,
     discover_chl_source_specs,
     discover_europe_source_specs,
     discover_ncaa_source_specs,
+    discover_swehockey_catalog_specs,
     discover_ushl_source_specs,
     enable_collected_sources,
     filter_league_sources,
+    generate_swehockey_source_specs,
+    is_stale_generated_swehockey_source,
     load_league_source_manifest,
     merge_league_source_specs,
     run_league_enrichment_range,
@@ -1147,6 +1152,11 @@ def main() -> None:
         choices=SUPPORTED_ADAPTERS,
         help="Only collect the selected adapter; repeat to select more than one.",
     )
+    collect_leagues_parser.add_argument(
+        "--source-label",
+        action="append",
+        help="Only collect exact provider/feed labels; repeat to select more than one.",
+    )
     collect_leagues_parser.add_argument("--refresh", action="store_true")
     collect_leagues_parser.add_argument(
         "--include-disabled",
@@ -1234,6 +1244,16 @@ def main() -> None:
     discover_europe_parser.add_argument("--project-root", type=Path, default=Path("."))
     discover_europe_parser.add_argument("--start-year", type=int, required=True)
     discover_europe_parser.add_argument("--end-year", type=int, required=True)
+    swehockey_catalog_parser = subparsers.add_parser(
+        "collect-swehockey-catalogs",
+        help="Cache official Swehockey season indexes used to discover historical feeds.",
+    )
+    swehockey_catalog_parser.add_argument("--cache-root", type=Path, required=True)
+    swehockey_catalog_parser.add_argument("--project-root", type=Path, default=Path("."))
+    swehockey_catalog_parser.add_argument("--start-year", type=int, required=True)
+    swehockey_catalog_parser.add_argument("--end-year", type=int, required=True)
+    swehockey_catalog_parser.add_argument("--refresh", action="store_true")
+    swehockey_catalog_parser.add_argument("--continue-on-error", action="store_true")
     evaluate_parser = subparsers.add_parser(
         "evaluate",
         help="Evaluate the consensus baseline against a normalized historical CSV.",
@@ -1568,6 +1588,7 @@ def main() -> None:
             refresh=args.refresh,
             include_disabled=args.include_disabled,
             adapters=set(args.adapter or []),
+            source_labels=set(args.source_label or []),
             continue_on_error=not args.fail_fast,
         )
     elif args.command == "enrich-draft-range-leagues":
@@ -1631,6 +1652,15 @@ def main() -> None:
             project_root=args.project_root,
             start_year=args.start_year,
             end_year=args.end_year,
+        )
+    elif args.command == "collect-swehockey-catalogs":
+        run_collect_swehockey_catalogs(
+            cache_root=args.cache_root,
+            project_root=args.project_root,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            refresh=args.refresh,
+            continue_on_error=args.continue_on_error,
         )
     elif args.command == "evaluate":
         run_evaluate(args.data_path, baseline=args.baseline, precision_n=args.precision_n)
@@ -2610,6 +2640,7 @@ def run_collect_league_sources(
     refresh: bool,
     include_disabled: bool,
     adapters: set[str],
+    source_labels: set[str],
     continue_on_error: bool,
 ) -> None:
     all_sources = load_league_source_manifest(manifest_path, project_root=project_root)
@@ -2619,6 +2650,7 @@ def run_collect_league_sources(
         end_year=end_year,
         include_disabled=include_disabled,
         adapters=adapters,
+        source_labels=source_labels,
     )
     results = collect_league_sources(
         sources,
@@ -2772,12 +2804,74 @@ def run_discover_europe_sources(
         if manifest_path.is_file()
         else []
     )
-    sources = merge_league_source_specs(existing, discovered, adapter="europe")
+    retained = [source for source in existing if source.adapter != "europe"]
+    generated_swehockey = generate_swehockey_source_specs(
+        cache_root=root / "data/raw/cache/europe_stats",
+        start_year=start_year,
+        end_year=end_year,
+    )
+    discovered_ids = {source.source_id for source in generated_swehockey}
+    discovered_swehockey_scopes = {
+        (source.draft_year, source.league)
+        for source in generated_swehockey
+    }
+    europe_by_source_id = {
+        source.source_id: source
+        for source in existing
+        if source.adapter == "europe"
+        and not is_stale_generated_swehockey_source(
+            source,
+            discovered_ids,
+            discovered_swehockey_scopes,
+            start_year=start_year,
+            end_year=end_year,
+        )
+    }
+    europe_by_source_id.update({source.source_id: source for source in discovered})
+    sources = sorted(
+        retained + list(europe_by_source_id.values()),
+        key=lambda source: (source.draft_year, source.adapter, source.source_id),
+    )
     output = write_league_source_manifest(manifest_path, sources, project_root=root)
     print(f"# European source discovery: {start_year}-{end_year}")
     print(f"Sources discovered: {len(discovered)}")
     print(f"Enabled caches: {sum(source.enabled for source in discovered)}")
     print(f"Manifest: {output}")
+
+
+def run_collect_swehockey_catalogs(
+    *,
+    cache_root: Path,
+    project_root: Path,
+    start_year: int,
+    end_year: int,
+    refresh: bool,
+    continue_on_error: bool,
+) -> None:
+    root = project_root.resolve()
+    cache = cache_root if cache_root.is_absolute() else root / cache_root
+    collect_swehockey_seeds(cache_root=cache, refresh=refresh)
+    catalogs = discover_swehockey_catalog_specs(
+        cache_root=cache,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    if not catalogs:
+        raise RuntimeError("Swehockey catalog collection found no historical seasons")
+    results = collect_swehockey_catalogs(
+        catalogs,
+        refresh=refresh,
+        continue_on_error=continue_on_error,
+    )
+    failures = sum(result.status == "failed" for result in results)
+    print(f"# Swehockey catalog collection: {start_year}-{end_year}")
+    print(f"Catalogs selected: {len(catalogs)}")
+    print(f"Ready catalogs: {len(results) - failures}")
+    print(f"Failures: {failures}")
+    for result in results:
+        print(f"- {result.source_id}: {result.status} ({result.detail})")
+    if failures:
+        raise RuntimeError(f"Swehockey catalog collection incomplete: failed={failures}")
 
 
 def run_enrich_draft_range_leagues(

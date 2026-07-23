@@ -162,6 +162,10 @@ def enrich_europe_stats(
     base_advanced = read_table(advanced_path) if advanced_path.is_file() else []
     drafted_leagues = read_drafted_league_hints(source_root)
     source_lines = load_europe_source_lines(sources)
+    configured_families = {
+        {"swehockey": "sweden", "liiga": "finland", "khl": "russia"}[source.provider]
+        for source in sources
+    }
     by_name: dict[str, list[EuropeStatLine]] = {}
     for line in source_lines:
         for key in person_identity_keys(line.name):
@@ -195,7 +199,17 @@ def enrich_europe_stats(
             matched[player_id] = candidates
             report.extend(build_match_row(player, line, True, match_method) for line in candidates)
         else:
-            report.append(build_match_row(player, None, False, "unmatched"))
+            applicable = any(
+                leagues & LEAGUE_FAMILIES[family] for family in configured_families
+            )
+            report.append(
+                build_match_row(
+                    player,
+                    None,
+                    False,
+                    "unmatched" if applicable else "not_configured",
+                )
+            )
 
     candidate_keys = {
         (player_id, line.season, line.league, line.regular_season)
@@ -203,11 +217,22 @@ def enrich_europe_stats(
         for line in lines
     }
     existing_games: dict[tuple[str, str, str, bool], int] = {}
+    existing_sources: dict[tuple[str, str, str, bool], set[str]] = {}
     for row in base_stats:
         key = stat_key(row)
         if key in candidate_keys:
             existing_games[key] = max(existing_games.get(key, 0), integer(row.get("games", "")))
-    replacement_keys = {
+            existing_sources.setdefault(key, set()).add(row.get("source", ""))
+    candidate_providers = {
+        key: {
+            line.provider
+            for player_id, lines in matched.items()
+            for line in lines
+            if (player_id, line.season, line.league, line.regular_season) == key
+        }
+        for key in candidate_keys
+    }
+    full_replacement_keys = {
         key
         for key in candidate_keys
         if max(
@@ -218,13 +243,39 @@ def enrich_europe_stats(
         )
         >= existing_games.get(key, 0)
     }
-    output_stats = [row for row in base_stats if stat_key(row) not in replacement_keys]
-    output_advanced = [row for row in base_advanced if stat_key(row) not in replacement_keys]
+    provider_correction_keys = {
+        key
+        for key in candidate_keys - full_replacement_keys
+        if any(
+            source_contains_provider(source, provider)
+            for source in existing_sources.get(key, set())
+            for provider in candidate_providers[key]
+        )
+    }
+    advanced_candidate_keys = {
+        (player_id, line.season, line.league, line.regular_season)
+        for player_id, lines in matched.items()
+        for line in lines
+        if has_advanced_stats(line)
+    }
+    output_stats = [
+        row
+        for row in base_stats
+        if stat_key(row) not in full_replacement_keys
+        and not (
+            stat_key(row) in provider_correction_keys
+            and row.get("source", "") in candidate_providers[stat_key(row)]
+        )
+    ]
+    output_advanced = [
+        row for row in base_advanced if stat_key(row) not in advanced_candidate_keys
+    ]
     for player_id, lines in sorted(matched.items()):
         output_stats.extend(
             build_stat_line(player_id, line)
             for line in lines
-            if (player_id, line.season, line.league, line.regular_season) in replacement_keys
+            if (player_id, line.season, line.league, line.regular_season)
+            in full_replacement_keys | provider_correction_keys
         )
         output_advanced.extend(
             build_advanced_line(player_id, line) for line in lines if has_advanced_stats(line)
@@ -400,7 +451,8 @@ def parse_liiga(raw: str, source: EuropeStatSource) -> list[EuropeStatLine]:
 
 def liiga_row(row: dict[str, object], source: EuropeStatSource) -> EuropeStatLine | None:
     name = " ".join(str(row.get(field, "")).strip() for field in ("firstName", "lastName")).strip()
-    if not name or not row.get("games"):
+    games = row.get("playedGames", row.get("games"))
+    if not name or not games:
         return None
     common = (
         name,
@@ -411,19 +463,20 @@ def liiga_row(row: dict[str, object], source: EuropeStatSource) -> EuropeStatLin
         source.season,
         source.regular_season,
         str(row.get("teamName", "")),
-        value(row, "games"),
+        str(games),
     )
     if source.kind == "goalies" or row.get("goalkeeper") is True:
         return EuropeStatLine(
             *common,
-            goalie_minutes=value(row, "timeOnIce"),
-            saves=value(row, "saves"),
+            goalie_minutes=seconds_to_minutes_text(row.get("timeOnIce")),
+            saves=value(row, "blockedOrSavedShots"),
             goals_against=value(row, "goalsAgainst"),
             save_percentage=normalize_save_percentage(row.get("savePercentage")),
-            goals_against_average=value(row, "goalsAgainstAverage"),
-            wins=value(row, "wins"),
-            losses=value(row, "losses"),
-            shutouts=value(row, "shutouts"),
+            goals_against_average=value(row, "goalsAgainstAvg"),
+            wins=value(row, "gkWins"),
+            losses=value(row, "gkLosses"),
+            ties=value(row, "gkTies"),
+            shutouts=value(row, "shutOut"),
         )
     return EuropeStatLine(
         *common,
@@ -706,11 +759,151 @@ def person_identity_keys(name: str) -> set[str]:
 
 
 def deduplicate_source_lines(lines) -> list[EuropeStatLine]:
-    unique: dict[tuple[str, str, str, bool, str], EuropeStatLine] = {}
+    unique: dict[tuple[str, ...], EuropeStatLine] = {}
     for line in lines:
-        key = (line.source_id, line.season, line.league, line.regular_season, line.team)
-        unique[key] = line
-    return list(unique.values())
+        key_parts = (
+            line.source_id,
+            line.season,
+            line.league,
+            str(line.regular_season),
+            line.team,
+        )
+        key = (*key_parts, line.source_url) if line.provider == "swehockey" else key_parts
+        previous = unique.get(key)
+        if previous is None or stat_line_detail_score(line) > stat_line_detail_score(previous):
+            unique[key] = line
+    aggregated: dict[tuple[str, str, str, bool, str], EuropeStatLine] = {}
+    output: list[EuropeStatLine] = []
+    for line in unique.values():
+        if line.provider != "swehockey":
+            output.append(line)
+            continue
+        key = (
+            normalize_person_key(line.name),
+            line.season,
+            line.league,
+            line.regular_season,
+            line.team,
+        )
+        previous = aggregated.get(key)
+        aggregated[key] = line if previous is None else combine_stat_lines(previous, line)
+    return output + list(aggregated.values())
+
+
+def stat_line_detail_score(line: EuropeStatLine) -> int:
+    goalie_fields = (
+        line.goalie_minutes,
+        line.saves,
+        line.goals_against,
+        line.save_percentage,
+        line.goals_against_average,
+        line.wins,
+        line.losses,
+        line.shutouts,
+    )
+    skater_fields = (
+        line.goals,
+        line.assists,
+        line.points,
+        line.plus_minus,
+        line.shots,
+        line.faceoff_wins,
+        line.faceoff_losses,
+    )
+    return sum(bool(value) for value in goalie_fields) * 2 + sum(
+        bool(value) for value in skater_fields
+    )
+
+
+def combine_stat_lines(left: EuropeStatLine, right: EuropeStatLine) -> EuropeStatLine:
+    games = integer(left.games) + integer(right.games)
+    goalie_minutes = minutes_value(left.goalie_minutes) + minutes_value(right.goalie_minutes)
+    saves = integer(left.saves) + integer(right.saves)
+    goals_against = integer(left.goals_against) + integer(right.goals_against)
+    faceoff_wins = integer(left.faceoff_wins) + integer(right.faceoff_wins)
+    faceoff_losses = integer(left.faceoff_losses) + integer(right.faceoff_losses)
+    return EuropeStatLine(
+        name=left.name,
+        source_id=combined_source_id(left, right),
+        source_url=left.source_url,
+        provider=left.provider,
+        league=left.league,
+        season=left.season,
+        regular_season=left.regular_season,
+        team=left.team,
+        games=str(games),
+        goals=sum_integer_text(left.goals, right.goals),
+        assists=sum_integer_text(left.assists, right.assists),
+        points=sum_integer_text(left.points, right.points),
+        goalie_minutes=decimal_text(goalie_minutes),
+        saves=str(saves) if left.saves or right.saves else "",
+        goals_against=str(goals_against) if left.goals_against or right.goals_against else "",
+        save_percentage=(
+            f"{saves / (saves + goals_against):.3f}" if saves + goals_against else ""
+        ),
+        goals_against_average=(
+            f"{goals_against * 60 / goalie_minutes:.2f}" if goalie_minutes else ""
+        ),
+        wins=sum_integer_text(left.wins, right.wins),
+        losses=sum_integer_text(left.losses, right.losses),
+        ties=sum_integer_text(left.ties, right.ties),
+        shutouts=sum_integer_text(left.shutouts, right.shutouts),
+        plus_minus=sum_integer_text(left.plus_minus, right.plus_minus),
+        shots=sum_integer_text(left.shots, right.shots),
+        blocks=sum_integer_text(left.blocks, right.blocks),
+        faceoff_wins=str(faceoff_wins) if left.faceoff_wins or right.faceoff_wins else "",
+        faceoff_losses=(
+            str(faceoff_losses) if left.faceoff_losses or right.faceoff_losses else ""
+        ),
+        faceoff_percentage=(
+            f"{faceoff_wins * 100 / (faceoff_wins + faceoff_losses):.1f}"
+            if faceoff_wins + faceoff_losses
+            else ""
+        ),
+    )
+
+
+def combined_source_id(left: EuropeStatLine, right: EuropeStatLine) -> str:
+    base_id, _, existing_feeds = left.source_id.partition("@")
+    feed_ids = existing_feeds.split("+") if existing_feeds else []
+    for url in (left.source_url, right.source_url):
+        match = re.search(r"/(\d+)(?:[/?#]|$)", url)
+        if match and match.group(1) not in feed_ids:
+            feed_ids.append(match.group(1))
+    if not feed_ids:
+        return base_id
+    return f"{base_id}@{'+'.join(feed_ids)}"
+
+
+def sum_integer_text(left: str, right: str) -> str:
+    return str(integer(left) + integer(right)) if left or right else ""
+
+
+def minutes_value(raw: object) -> float:
+    text = str(raw).strip()
+    if ":" in text:
+        minutes, _, seconds = text.partition(":")
+        try:
+            return float(minutes) + float(seconds) / 60
+        except ValueError:
+            return 0.0
+    try:
+        return float(text)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def decimal_text(value_number: float) -> str:
+    if not value_number:
+        return ""
+    return str(int(value_number)) if value_number.is_integer() else f"{value_number:.2f}"
+
+
+def seconds_to_minutes_text(raw: object) -> str:
+    try:
+        return decimal_text(float(str(raw)) / 60)
+    except (TypeError, ValueError):
+        return ""
 
 
 def display_swedish_name(name: str) -> str:
@@ -738,6 +931,10 @@ def normalize_save_percentage(raw: object) -> str:
 def value(row: dict[str, object], key: str) -> str:
     raw = row.get(key, "")
     return "" if raw is None else str(raw)
+
+
+def source_contains_provider(source: str, provider: str) -> bool:
+    return provider in {part.strip() for part in source.split(";") if part.strip()}
 
 
 def integer(raw: object) -> int:

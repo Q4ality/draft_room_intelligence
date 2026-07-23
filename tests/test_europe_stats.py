@@ -7,7 +7,9 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     write_table,
 )
 from draft_room_intelligence.data.europe_stats import (
+    EuropeStatLine,
     EuropeStatSource,
+    deduplicate_source_lines,
     enrich_europe_stats,
     parse_khl_html,
     parse_liiga,
@@ -48,6 +50,131 @@ def test_parse_swehockey_preserves_skater_and_goalie_context():
     assert lines[1].save_percentage == "0.926"
 
 
+def test_swehockey_split_phases_are_aggregated_without_duplicate_season_rows():
+    phase_one = EuropeStatLine(
+        "Eric Nilson",
+        "ericnilson",
+        "https://example.test/14709",
+        "swehockey",
+        "Sweden Jrs.",
+        "2023-24",
+        True,
+        "Djurgardens IF",
+        "20",
+        "5",
+        "10",
+        "15",
+        plus_minus="4",
+        shots="50",
+        faceoff_wins="100",
+        faceoff_losses="80",
+    )
+    phase_two = EuropeStatLine(
+        "Eric Nilson",
+        "ericnilson",
+        "https://example.test/15645",
+        "swehockey",
+        "Sweden Jrs.",
+        "2023-24",
+        True,
+        "Djurgardens IF",
+        "18",
+        "7",
+        "9",
+        "16",
+        plus_minus="6",
+        shots="45",
+        faceoff_wins="90",
+        faceoff_losses="70",
+    )
+
+    lines = deduplicate_source_lines([phase_one, phase_two, phase_one])
+
+    assert len(lines) == 1
+    assert lines[0].games == "38"
+    assert lines[0].points == "31"
+    assert lines[0].plus_minus == "10"
+    assert lines[0].shots == "95"
+    assert lines[0].faceoff_percentage == "55.9"
+    assert lines[0].source_id == "ericnilson@14709+15645"
+    assert lines[0].source_url == "https://example.test/14709"
+
+
+def test_swehockey_split_goalie_phases_preserve_minutes_and_recalculate_rates():
+    first = EuropeStatLine(
+        "Sample Goalie",
+        "samplegoalie",
+        "https://example.test/14709",
+        "swehockey",
+        "Sweden Jrs.",
+        "2023-24",
+        True,
+        "Djurgardens IF",
+        "10",
+        goalie_minutes="598:30",
+        saves="300",
+        goals_against="20",
+    )
+    second = EuropeStatLine(
+        "Sample Goalie",
+        "samplegoalie",
+        "https://example.test/15645",
+        "swehockey",
+        "Sweden Jrs.",
+        "2023-24",
+        True,
+        "Djurgardens IF",
+        "8",
+        goalie_minutes="470:30",
+        saves="220",
+        goals_against="18",
+    )
+
+    lines = deduplicate_source_lines([first, second])
+
+    assert len(lines) == 1
+    assert lines[0].games == "18"
+    assert lines[0].goalie_minutes == "1069"
+    assert lines[0].save_percentage == "0.932"
+    assert lines[0].goals_against_average == "2.13"
+
+
+def test_liiga_role_feeds_do_not_double_goalie_totals():
+    skater_feed = EuropeStatLine(
+        "Sample Goalie",
+        "42",
+        "https://example.test/basicStats",
+        "liiga",
+        "Liiga",
+        "2023-24",
+        True,
+        "Jukurit",
+        "55",
+    )
+    goalie_feed = EuropeStatLine(
+        "Sample Goalie",
+        "42",
+        "https://example.test/basicStatsGk",
+        "liiga",
+        "Liiga",
+        "2023-24",
+        True,
+        "Jukurit",
+        "55",
+        goalie_minutes="34717",
+        saves="1000",
+        goals_against="100",
+        goals_against_average="2.75",
+    )
+
+    lines = deduplicate_source_lines([goalie_feed, skater_feed])
+
+    assert len(lines) == 1
+    assert lines[0].games == "55"
+    assert lines[0].goalie_minutes == "34717"
+    assert lines[0].goals_against_average == "2.75"
+
+
 def test_parse_liiga_json_preserves_advanced_stats():
     raw = json.dumps(
         [
@@ -77,6 +204,131 @@ def test_parse_liiga_json_preserves_advanced_stats():
     assert lines[0].points == "47"
     assert lines[0].shots == "120"
     assert lines[0].faceoff_wins == "300"
+
+
+def test_parse_liiga_goalie_uses_played_games_and_normalizes_api_fields():
+    raw = json.dumps(
+        [
+            {
+                "playerId": 42,
+                "firstName": "Daniel",
+                "lastName": "Salonen",
+                "teamName": "Jukurit",
+                "goalkeeper": True,
+                "games": 6,
+                "playedGames": 1,
+                "timeOnIce": 138,
+                "blockedOrSavedShots": 3,
+                "goalsAgainst": 2,
+                "savePercentage": 60,
+                "goalsAgainstAvg": 52.17,
+                "gkWins": 0,
+                "gkLosses": 0,
+                "gkTies": 0,
+                "shutOut": 0,
+            }
+        ]
+    )
+
+    lines = parse_liiga(
+        raw,
+        EuropeStatSource("2024-25", "liiga", "Liiga", "https://example.test", kind="goalies"),
+    )
+
+    assert len(lines) == 1
+    assert lines[0].games == "1"
+    assert lines[0].goalie_minutes == "2.30"
+    assert lines[0].saves == "3"
+    assert lines[0].save_percentage == "0.600"
+    assert lines[0].goals_against_average == "52.17"
+
+
+def test_enrichment_replaces_stale_row_from_same_authoritative_provider(tmp_path):
+    base = tmp_path / "base"
+    output = tmp_path / "output"
+    base.mkdir()
+    write_table(
+        base / "players.csv",
+        PLAYER_COLUMNS,
+        [{"player_id": "p1", "name": "Daniel Salonen", "position": "G", "source": "test"}],
+    )
+    write_table(
+        base / "season_stat_lines.csv",
+        SEASON_STAT_LINE_COLUMNS,
+        [
+            {
+                "player_id": "p1",
+                "season": "2024-25",
+                "league": "Liiga",
+                "team": "Lukko",
+                "games": "6",
+                "goalie_minutes": "138",
+                "timing": "pre_draft",
+                "regular_season": "true",
+                "source": "liiga; eliteprospects_pdf",
+            },
+            {
+                "player_id": "p1",
+                "season": "2024-25",
+                "league": "Liiga",
+                "team": "Lukko",
+                "games": "40",
+                "goalie_minutes": "2400",
+                "timing": "pre_draft",
+                "regular_season": "true",
+                "source": "eliteprospects_pdf",
+            },
+        ],
+    )
+    cache = tmp_path / "liiga.json"
+    cache.write_text(
+        json.dumps(
+            [
+                {
+                    "playerId": 42,
+                    "firstName": "Daniel",
+                    "lastName": "Salonen",
+                    "teamName": "Lukko",
+                    "goalkeeper": True,
+                    "games": 6,
+                    "playedGames": 1,
+                    "timeOnIce": 138,
+                    "blockedOrSavedShots": 0,
+                    "goalsAgainst": 0,
+                    "savePercentage": None,
+                    "goalsAgainstAvg": 0,
+                    "gkWins": 0,
+                    "gkLosses": 0,
+                    "gkTies": 0,
+                    "shutOut": 0,
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    enrich_europe_stats(
+        base,
+        output,
+        [
+            EuropeStatSource(
+                "2024-25",
+                "liiga",
+                "Liiga",
+                "https://example.test",
+                kind="goalies",
+                source_path=cache,
+            )
+        ],
+    )
+
+    rows = list(csv.DictReader((output / "season_stat_lines.csv").open(encoding="utf-8")))
+    assert len(rows) == 3
+    by_source = {row["source"]: row for row in rows}
+    assert by_source["liiga"]["games"] == "1"
+    assert by_source["liiga"]["goalie_minutes"] == "2.30"
+    assert by_source["liiga; eliteprospects_pdf"]["games"] == "6"
+    assert by_source["eliteprospects_pdf"]["games"] == "40"
 
 
 def test_parse_cached_khl_table():
@@ -160,6 +412,7 @@ def test_parse_mhl_goalie_profile_preserves_goalie_metrics():
 def test_enrichment_matches_within_country_family_and_writes_advanced_table(tmp_path):
     base = tmp_path / "base"
     output = tmp_path / "output"
+    second_output = tmp_path / "second-output"
     base.mkdir()
     write_table(
         base / "players.csv",
@@ -199,15 +452,32 @@ def test_enrichment_matches_within_country_family_and_writes_advanced_table(tmp_
             )
         ],
     )
+    enrich_europe_stats(
+        output,
+        second_output,
+        [
+            EuropeStatSource(
+                "2024-25",
+                "swehockey",
+                "Sweden Jrs.",
+                "https://example.test",
+                source_path=cache,
+            )
+        ],
+    )
 
     stats = list(csv.DictReader((output / "season_stat_lines.csv").open(encoding="utf-8")))
     advanced = list(csv.DictReader((output / "advanced_stat_lines.csv").open(encoding="utf-8")))
+    second_advanced = list(
+        csv.DictReader((second_output / "advanced_stat_lines.csv").open(encoding="utf-8"))
+    )
     assert summary.matched_players == 1
     assert stats[0]["points"] == "45"
     assert stats[0]["source"] == "old"
     assert advanced[0]["games"] == "37"
     assert advanced[0]["plus_minus"] == "18"
     assert advanced[0]["source"] == "swehockey"
+    assert len(second_advanced) == 1
 
 
 def test_enrichment_matches_cyrillic_russian_name_with_audited_method(tmp_path):
@@ -249,3 +519,47 @@ def test_enrichment_matches_cyrillic_russian_name_with_audited_method(tmp_path):
     assert summary.matched_players == 1
     assert matches[0]["matched"] == "true"
     assert matches[0]["match_method"] == "transliterated_name"
+
+
+def test_enrichment_marks_unavailable_provider_family_as_not_configured(tmp_path):
+    base = tmp_path / "base"
+    output = tmp_path / "output"
+    base.mkdir()
+    write_table(
+        base / "players.csv",
+        PLAYER_COLUMNS,
+        [{"player_id": "p1", "name": "Russian Prospect", "position": "C", "source": "test"}],
+    )
+    write_table(
+        base / "season_stat_lines.csv",
+        SEASON_STAT_LINE_COLUMNS,
+        [
+            {
+                "player_id": "p1",
+                "season": "2023-24",
+                "league": "MHL",
+                "team": "Test",
+                "timing": "pre_draft",
+            }
+        ],
+    )
+    cache = tmp_path / "sweden.html"
+    cache.write_text(SWEHOCKEY_HTML, encoding="utf-8")
+
+    enrich_europe_stats(
+        base,
+        output,
+        [
+            EuropeStatSource(
+                "2023-24",
+                "swehockey",
+                "Sweden Jrs.",
+                "https://example.test",
+                source_path=cache,
+            )
+        ],
+    )
+
+    matches = list(csv.DictReader((output / "europe_stat_matches.csv").open(encoding="utf-8")))
+    assert matches[0]["matched"] == "false"
+    assert matches[0]["match_method"] == "not_configured"
