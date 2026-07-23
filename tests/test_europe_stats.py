@@ -480,6 +480,42 @@ def test_enrichment_matches_within_country_family_and_writes_advanced_table(tmp_
     assert len(second_advanced) == 1
 
 
+def test_enrichment_accepts_country_level_draft_league_hint(tmp_path):
+    base = tmp_path / "base"
+    output = tmp_path / "output"
+    base.mkdir()
+    write_table(
+        base / "players.csv",
+        PLAYER_COLUMNS,
+        [{"player_id": "p1", "name": "Eric Nilson", "position": "C", "source": "test"}],
+    )
+    write_table(base / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, [])
+    with (base / "draft_selections.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["player_id", "drafted_from_league"])
+        writer.writeheader()
+        writer.writerow({"player_id": "p1", "drafted_from_league": "SWEDEN"})
+    cache = tmp_path / "sweden.html"
+    cache.write_text(SWEHOCKEY_HTML, encoding="utf-8")
+
+    summary = enrich_europe_stats(
+        base,
+        output,
+        [
+            EuropeStatSource(
+                "2024-25",
+                "swehockey",
+                "Sweden Jrs.",
+                "https://example.test",
+                source_path=cache,
+            )
+        ],
+    )
+
+    matches = list(csv.DictReader((output / "europe_stat_matches.csv").open(encoding="utf-8")))
+    assert summary.matched_players == 1
+    assert matches[0]["matched"] == "true"
+
+
 def test_enrichment_matches_cyrillic_russian_name_with_audited_method(tmp_path):
     base = tmp_path / "base"
     output = tmp_path / "output"

@@ -46,6 +46,12 @@ LEAGUE_FAMILIES = {
     "russia": {"KHL", "VHL", "MHL"},
 }
 
+COUNTRY_LEAGUE_FAMILIES = {
+    "SWEDEN": "sweden",
+    "FINLAND": "finland",
+    "RUSSIA": "russia",
+}
+
 CYRILLIC_TRANSLITERATION = str.maketrans(
     {
         "а": "a",
@@ -200,7 +206,7 @@ def enrich_europe_stats(
             report.extend(build_match_row(player, line, True, match_method) for line in candidates)
         else:
             applicable = any(
-                leagues & LEAGUE_FAMILIES[family] for family in configured_families
+                leagues_match_family(leagues, family) for family in configured_families
             )
             report.append(
                 build_match_row(
@@ -648,7 +654,13 @@ def khl_profile_name(raw: str) -> str:
 
 def same_league_family(leagues: set[str], line: EuropeStatLine) -> bool:
     provider_family = {"swehockey": "sweden", "liiga": "finland", "khl": "russia"}[line.provider]
-    return bool(leagues & LEAGUE_FAMILIES[provider_family])
+    return leagues_match_family(leagues, provider_family)
+
+
+def leagues_match_family(leagues: set[str], family: str) -> bool:
+    return bool(leagues & LEAGUE_FAMILIES[family]) or any(
+        COUNTRY_LEAGUE_FAMILIES.get(league) == family for league in leagues
+    )
 
 
 def stat_key(row: dict[str, str]) -> tuple[str, str, str, bool] | None:

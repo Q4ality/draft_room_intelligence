@@ -84,6 +84,10 @@ Each row includes games, plus/minus, shots, blocks, faceoff wins/losses, and fac
 when the source publishes them. Exact feed duplicates are removed before Swedish split phases
 are combined, preserving auditable source URLs on the normalized row.
 
+European identity matching also treats country-level `SWEDEN`, `FINLAND`, and `RUSSIA` draft
+labels as source-family hints. This permits an official adult or junior source to establish the
+first normalized pre-draft row without pretending that a country label is itself a league.
+
 The 2025-2026 cache-first proof applies 18 NCAA/USHL feeds per class, including up to three prior
 USHL seasons. After all enabled adapters and canonical duplicate reconciliation, the 2025 class
 contains 846 stat rows, covers all 224 players, and has 16 low-evidence demo profiles. The 2026
@@ -132,6 +136,11 @@ Populate reviewed regular-season and playoff sources in this order:
 2. Add stable Canadian Junior A/B and US high-school sources.
 3. Resolve the remaining explicit CHL transliteration aliases through a reviewed identity map.
 4. NHL outcome snapshots for mature classes, kept separate from pre-draft features.
+
+Finnish U20 SM is the next Nordic collection target. The federation's public results site exposes
+regular-season scoring and goalie views, but its standalone `helpers/getplayers` and export calls
+currently return HTTP 500 outside an interactive browser session. Add a cache-building collector
+only after its browser-session request contract can be reproduced and fixture-tested.
 
 The CHL backlog is restored for played seasons across 2014-2026. The main structural exception is
 the 2021 OHL draft cohort because the 2020-21 OHL season was canceled; those players require their
