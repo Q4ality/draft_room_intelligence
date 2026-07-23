@@ -33,6 +33,14 @@ IGNORED_ROUTE_WORDS = {
     "to",
     "with",
 }
+ROUTING_PHASES = ("discovery", "implementation", "validation", "review", "full")
+
+
+@dataclass(frozen=True)
+class PhaseRoute:
+    agent: str
+    model: str
+    reasoning_effort: str
 
 
 @dataclass(frozen=True)
@@ -40,6 +48,8 @@ class CodexDispatch:
     rule: TaskRoutingRule
     task: str
     project_root: Path
+    phase: str
+    agent: str
     model: str
     reasoning_effort: str
 
@@ -55,7 +65,7 @@ class CodexDispatch:
             f'model_reasoning_effort="{self.reasoning_effort}"',
             "--cd",
             str(self.project_root),
-            format_routed_prompt(self.rule, self.task),
+            format_routed_prompt(self.rule, self.task, phase=self.phase, agent=self.agent),
         ]
 
     def to_dict(self) -> dict[str, str]:
@@ -63,7 +73,8 @@ class CodexDispatch:
             "task_id": self.rule.task_id,
             "task_name": self.rule.task_name,
             "context_route": self.rule.recommended_context_route,
-            "agent": self.rule.recommended_agent,
+            "phase": self.phase,
+            "agent": self.agent,
             "model": self.model,
             "reasoning_effort": self.reasoning_effort,
             "risk_level": self.rule.risk_level,
@@ -113,18 +124,44 @@ def build_codex_dispatch(
     *,
     project_root: str | Path,
     task_id: str | None = None,
+    phase: str = "implementation",
     model: str | None = None,
     reasoning_effort: str | None = None,
 ) -> CodexDispatch:
     rules = load_task_routing_rules(Path(manifest_path))
     rule = select_task_routing_rule(rules, task, task_id=task_id)
+    phase_route = route_for_phase(rule, phase)
     return CodexDispatch(
         rule=rule,
         task=task,
         project_root=Path(project_root).resolve(),
-        model=model or rule.recommended_model,
-        reasoning_effort=reasoning_effort or rule.reasoning_effort,
+        phase=phase,
+        agent=phase_route.agent,
+        model=model or phase_route.model,
+        reasoning_effort=reasoning_effort or phase_route.reasoning_effort,
     )
+
+
+def route_for_phase(rule: TaskRoutingRule, phase: str) -> PhaseRoute:
+    if phase not in ROUTING_PHASES:
+        raise ValueError(
+            f"Unknown Codex routing phase: {phase}. Expected one of {', '.join(ROUTING_PHASES)}."
+        )
+    if phase == "discovery":
+        return PhaseRoute("kb_explorer", "gpt-5.6-terra", "low")
+    if phase == "validation":
+        return PhaseRoute("main", "gpt-5.6-luna", "low")
+    if phase in {"review", "full"}:
+        return PhaseRoute(
+            rule.recommended_agent,
+            rule.recommended_model,
+            rule.reasoning_effort,
+        )
+    if rule.recommended_model == "gpt-5.6-luna":
+        return PhaseRoute("main", "gpt-5.6-luna", rule.reasoning_effort)
+    if rule.risk_level == "low":
+        return PhaseRoute("main", "gpt-5.6-luna", "low")
+    return PhaseRoute("main", "gpt-5.6-terra", "medium")
 
 
 def format_codex_dispatch(dispatch: CodexDispatch, output_format: str = "markdown") -> str:
@@ -139,6 +176,7 @@ def format_codex_dispatch(dispatch: CodexDispatch, output_format: str = "markdow
             "",
             f"- Task class: `{payload['task_id']}` ({payload['task_name']})",
             f"- Context route: `{payload['context_route']}`",
+            f"- Phase: `{payload['phase']}`",
             f"- Agent path: `{payload['agent']}`",
             f"- Model: `{payload['model']}`",
             f"- Reasoning: `{payload['reasoning_effort']}`",
@@ -194,7 +232,8 @@ def run_codex_dispatch(
         success="yes" if completed.returncode == 0 else "no",
         quality_score=quality_score,
         notes=(
-            f"task_route={dispatch.rule.task_id}; agent={dispatch.rule.recommended_agent}; "
+            f"task_route={dispatch.rule.task_id}; phase={dispatch.phase}; "
+            f"agent={dispatch.agent}; "
             f"exit_code={completed.returncode}"
         ),
     )
@@ -207,13 +246,20 @@ def run_codex_dispatch(
     return CodexExecutionResult(usage_run=run, response=response)
 
 
-def format_routed_prompt(rule: TaskRoutingRule, task: str) -> str:
+def format_routed_prompt(
+    rule: TaskRoutingRule,
+    task: str,
+    *,
+    phase: str,
+    agent: str,
+) -> str:
     return "\n".join(
         [
             "Use the project Codex task route below.",
             f"Route: {rule.task_id}",
             f"Context route: {rule.recommended_context_route}",
-            f"Recommended agent path: {rule.recommended_agent}",
+            f"Phase: {phase}",
+            f"Recommended agent path: {agent}",
             f"Required validation: {rule.validation_command}",
             "",
             f"Task: {task}",

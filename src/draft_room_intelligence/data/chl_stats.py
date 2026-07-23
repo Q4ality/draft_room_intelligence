@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 from draft_room_intelligence.data.eliteprospects_csv import (
+    ADVANCED_STAT_LINE_COLUMNS,
     PLAYER_COLUMNS,
     SEASON_STAT_LINE_COLUMNS,
     write_table,
@@ -103,6 +104,7 @@ class ChlSkaterStatLine:
     losses: str = ""
     ties: str = ""
     shutouts: str = ""
+    plus_minus: str = ""
 
 
 @dataclass(frozen=True)
@@ -130,6 +132,8 @@ def enrich_chl_stats(
 
     players = read_table(source_root / "players.csv")
     base_stat_lines = read_table(source_root / "season_stat_lines.csv")
+    advanced_path = source_root / "advanced_stat_lines.csv"
+    base_advanced_lines = read_table(advanced_path) if advanced_path.is_file() else []
     drafted_leagues = read_drafted_league_hints(source_root)
     source_lines = load_chl_source_lines(sources)
     source_by_name_league: dict[tuple[str, str], list[ChlSkaterStatLine]] = {}
@@ -210,9 +214,42 @@ def enrich_chl_stats(
     ]
     for player_id, lines in sorted(matched_by_player_id.items()):
         output_stat_lines.extend(build_normalized_stat_line(player_id, line) for line in lines)
+    matched_advanced_keys = {
+        (
+            player_id,
+            line.season,
+            normalize_league_name(line.league),
+            "true" if line.regular_season else "false",
+        )
+        for player_id, lines in matched_by_player_id.items()
+        for line in lines
+        if line.plus_minus
+    }
+    output_advanced_lines = [
+        row
+        for row in base_advanced_lines
+        if (
+            row.get("player_id", ""),
+            row.get("season", ""),
+            normalize_league_name(row.get("league", "")),
+            row.get("regular_season", ""),
+        )
+        not in matched_advanced_keys
+    ]
+    for player_id, lines in sorted(matched_by_player_id.items()):
+        output_advanced_lines.extend(
+            build_normalized_advanced_line(player_id, line)
+            for line in lines
+            if line.plus_minus
+        )
 
     write_table(target_root / "players.csv", PLAYER_COLUMNS, players)
     write_table(target_root / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, output_stat_lines)
+    write_table(
+        target_root / "advanced_stat_lines.csv",
+        ADVANCED_STAT_LINE_COLUMNS,
+        output_advanced_lines,
+    )
     write_table(target_root / "chl_stat_matches.csv", CHL_MATCH_COLUMNS, report_rows)
 
     return ChlStatsEnrichmentSummary(
@@ -292,6 +329,7 @@ def parse_chl_hockeytech_json(
                         losses=stat_text(row.get("losses")),
                         ties=stat_text(row.get("ot_losses")),
                         shutouts=stat_text(row.get("shutouts")),
+                        plus_minus=stat_text(row.get("plus_minus")),
                     )
                 )
             else:
@@ -308,6 +346,7 @@ def parse_chl_hockeytech_json(
                         assists=stat_text(row.get("assists")),
                         points=stat_text(row.get("points")),
                         regular_season=source.regular_season,
+                        plus_minus=stat_text(row.get("plus_minus")),
                     )
                 )
     return lines
@@ -349,7 +388,8 @@ def parse_json_or_jsonp(raw: str) -> object:
 
 
 def stat_text(value: object) -> str:
-    return "" if value is None else str(value).strip()
+    text = "" if value is None else str(value).strip()
+    return "" if text.lower() in {"n/a", "na", "-", "—"} else text
 
 
 def calculate_saves(shots: str, goals_against: str) -> str:
@@ -375,11 +415,12 @@ def parse_chl_skaters_html(html: str, source: ChlStatSource) -> list[ChlSkaterSt
                 league=normalize_league_name(source.league),
                 season=source.season,
                 team="/".join(str(team[-1]) for team in teams if isinstance(team, list) and team),
-                games=str(row[7]),
-                goals=str(row[8]),
-                assists=str(row[9]),
-                points=str(row[10]),
+                games=stat_text(row[7]),
+                goals=stat_text(row[8]),
+                assists=stat_text(row[9]),
+                points=stat_text(row[10]),
                 regular_season=source.regular_season,
+                plus_minus=stat_text(row[11]) if len(row) > 11 else "",
             )
         )
     return lines
@@ -401,21 +442,21 @@ def parse_chl_goalies_html(html: str, source: ChlStatSource) -> list[ChlSkaterSt
                 league=normalize_league_name(source.league),
                 season=source.season,
                 team="/".join(str(team[-1]) for team in teams if isinstance(team, list) and team),
-                games=str(row[7]),
+                games=stat_text(row[7]),
                 goals="",
                 assists="",
                 points="",
                 regular_season=source.regular_season,
-                goalie_minutes=str(row[8]),
-                shots_against=str(row[9]),
-                saves=str(row[10]),
-                goals_against=str(row[11]),
-                shutouts=str(row[12]),
-                goals_against_average=str(row[13]),
-                save_percentage=str(row[14]),
-                wins=str(row[15]),
-                losses=str(row[16]),
-                ties=str(row[17]) if len(row) > 17 else "",
+                goalie_minutes=stat_text(row[8]),
+                shots_against=stat_text(row[9]),
+                saves=stat_text(row[10]),
+                goals_against=stat_text(row[11]),
+                shutouts=stat_text(row[12]),
+                goals_against_average=stat_text(row[13]),
+                save_percentage=stat_text(row[14]),
+                wins=stat_text(row[15]),
+                losses=stat_text(row[16]),
+                ties=stat_text(row[17]) if len(row) > 17 else "",
             )
         )
     return lines
@@ -513,11 +554,36 @@ def build_match_row(
     }
 
 
+def build_normalized_advanced_line(
+    player_id: str,
+    line: ChlSkaterStatLine,
+) -> dict[str, str]:
+    return {
+        "player_id": player_id,
+        "season": line.season,
+        "league": line.league,
+        "team": line.team,
+        "timing": "pre_draft",
+        "regular_season": "true" if line.regular_season else "false",
+        "games": line.games,
+        "plus_minus": line.plus_minus,
+        "shots": "",
+        "blocks": "",
+        "faceoff_wins": "",
+        "faceoff_losses": "",
+        "faceoff_percentage": "",
+        "source": "chl",
+        "source_id": line.source_id,
+        "source_url": line.source_url,
+    }
+
+
 def deduplicate_chl_lines(lines: list[ChlSkaterStatLine]) -> list[ChlSkaterStatLine]:
-    by_key: dict[tuple[str, str, bool], ChlSkaterStatLine] = {}
+    by_key: dict[tuple[str, str, str, bool], ChlSkaterStatLine] = {}
     for line in lines:
         key = (
             normalize_league_name(line.league),
+            line.season,
             normalize_person_key(line.team),
             line.regular_season,
         )

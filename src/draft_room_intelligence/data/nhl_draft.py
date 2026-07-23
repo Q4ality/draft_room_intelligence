@@ -103,6 +103,50 @@ def generate_nhl_draft_base_tables(
     return root
 
 
+def backfill_nhl_draft_player_fields(
+    dataset_dir: str | Path,
+    draft_json_path: str | Path,
+    *,
+    draft_year: int,
+) -> int:
+    """Fill blank normalized player fields from the official NHL draft payload."""
+    payload = read_payload(Path(draft_json_path))
+    validate_payload(payload, draft_year)
+    official = {
+        row["player"]["player_id"]: row["player"]
+        for raw in payload.get("picks", [])
+        if is_player_pick(raw)
+        for row in [normalize_pick(raw, draft_year)]
+    }
+    players_path = Path(dataset_dir) / "players.csv"
+    with players_path.open(newline="", encoding="utf-8-sig") as handle:
+        reader = csv.DictReader(handle)
+        players = list(reader)
+        columns = list(reader.fieldnames or player_fields())
+    updated = 0
+    for player in players:
+        source = official.get(player.get("player_id", ""))
+        if not source:
+            continue
+        changed = False
+        for field in ("nationality", "position", "height_cm", "weight_kg"):
+            if not player.get(field) and source.get(field):
+                player[field] = str(source[field])
+                changed = True
+        if changed:
+            player["source"] = append_source(player.get("source", ""), "nhl_draft_api")
+            updated += 1
+    write_csv(players_path, columns, players)
+    return updated
+
+
+def append_source(existing: str, source: str) -> str:
+    values = [value.strip() for value in existing.split(";") if value.strip()]
+    if source not in values:
+        values.append(source)
+    return "; ".join(values)
+
+
 def normalize_pick(raw: dict[str, object], draft_year: int) -> dict[str, dict[str, object]]:
     overall_pick = int(raw.get("overallPick") or 0)
     position = str(raw.get("positionCode") or "")

@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from draft_room_intelligence.data.nhl_draft import (
+    backfill_nhl_draft_player_fields,
     collect_nhl_draft_year,
     generate_nhl_draft_base_tables,
     normalize_pick,
@@ -58,3 +59,26 @@ def test_generate_nhl_draft_base_tables_rejects_wrong_year(tmp_path):
 
     with pytest.raises(ValueError, match="does not match"):
         generate_nhl_draft_base_tables(wrong, tmp_path / "base", draft_year=2023)
+
+
+def test_backfill_nhl_draft_player_fields_preserves_existing_values(tmp_path):
+    generated = generate_nhl_draft_base_tables(FIXTURE, tmp_path / "official", draft_year=2024)
+    players = read_rows(generated / "players.csv")
+    players[0]["height_cm"] = ""
+    players[0]["weight_kg"] = ""
+    players[0]["position"] = ""
+    players[0]["nationality"] = "Canada"
+    with (generated / "players.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=players[0].keys())
+        writer.writeheader()
+        writer.writerows(players)
+
+    updated = backfill_nhl_draft_player_fields(generated, FIXTURE, draft_year=2024)
+    result = read_rows(generated / "players.csv")[0]
+
+    assert updated == 1
+    assert result["height_cm"] == "183"
+    assert result["weight_kg"] == "89"
+    assert result["position"] == "C"
+    assert result["nationality"] == "Canada"
+    assert "nhl_draft_api" in result["source"]

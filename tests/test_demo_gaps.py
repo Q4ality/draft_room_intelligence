@@ -2,7 +2,10 @@ import csv
 import json
 
 from draft_room_intelligence.cli import run_report_demo_gaps
-from draft_room_intelligence.reports.demo_gaps import build_demo_gap_report
+from draft_room_intelligence.reports.demo_gaps import (
+    build_demo_gap_report,
+    playoff_evidence_status,
+)
 
 
 def write_demo_package(tmp_path):
@@ -169,3 +172,24 @@ def test_run_report_demo_gaps_writes_csv_and_summary(capsys, tmp_path):
     assert (output_dir / "priority_gaps.csv").exists()
     assert (output_dir / "summary.md").exists()
     assert "USHL Gap" in (output_dir / "summary.md").read_text(encoding="utf-8")
+
+
+def test_playoff_evidence_status_distinguishes_experience_coverage_and_unavailable():
+    assert (
+        playoff_evidence_status(
+            {"playoff_game_share": "0.1", "primary_league": "OHL", "pre_draft_row_count": "2"}
+        )
+        == "playoff_experience"
+    )
+    assert (
+        playoff_evidence_status(
+            {"playoff_game_share": "0", "primary_league": "OHL", "pre_draft_row_count": "1"}
+        )
+        == "covered_no_appearance"
+    )
+    assert (
+        playoff_evidence_status(
+            {"playoff_game_share": "0", "primary_league": "MHL", "pre_draft_row_count": "1"}
+        )
+        == "unavailable"
+    )

@@ -118,10 +118,11 @@ def choose_pre_draft_stat_line(
     if pre_draft_rows:
         return build_pre_draft_stat_line(pre_draft_rows[0])
 
+    draft_year = required_int(selection_row, "draft_year")
     return PreDraftStatLine(
         league=required_text(selection_row, "drafted_from_league"),
         team=required_text(selection_row, "drafted_from_team"),
-        season=f"{required_int(selection_row, 'draft_year') - 1}-{str(required_int(selection_row, 'draft_year'))[-2:]}",
+        season=f"{draft_year - 1}-{str(draft_year)[-2:]}",
         games=0,
         goals=0,
         assists=0,
@@ -304,26 +305,30 @@ def required_int(row: dict[str, str], column: str) -> int:
 
 def optional_int(row: dict[str, str], column: str) -> int | None:
     value = optional_text(row, column)
-    if not value:
+    if is_missing_numeric(value):
         return None
     return int(value)
 
 
 def optional_float(row: dict[str, str], column: str) -> float | None:
     value = optional_text(row, column)
-    if not value:
+    if is_missing_numeric(value):
         return None
     return float(value)
 
 
 def optional_minutes(row: dict[str, str], column: str) -> float | None:
     value = optional_text(row, column)
-    if not value:
+    if is_missing_numeric(value):
         return None
     if ":" not in value:
         return float(value)
     minutes, seconds = value.split(":", 1)
     return float(minutes) + (float(seconds) / 60)
+
+
+def is_missing_numeric(value: str) -> bool:
+    return value.strip().casefold() in {"", "n/a", "na", "-", "—"}
 
 
 def optional_bool(row: dict[str, str], column: str, *, default: bool) -> bool:

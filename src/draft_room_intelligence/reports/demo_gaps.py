@@ -8,7 +8,6 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
-
 GAP_COLUMNS = [
     "priority_rank",
     "priority_score",
@@ -26,6 +25,7 @@ GAP_COLUMNS = [
     "pre_draft_league_count",
     "adult_game_share",
     "playoff_game_share",
+    "playoff_evidence_status",
     "suggested_source_strategy",
     "gap_reason",
 ]
@@ -108,8 +108,14 @@ def format_demo_gap_report(report: DemoGapReport) -> str:
             "",
             "## Recommended Next Data Work",
             "",
-            "1. Close the highest-ranked low-evidence players that also have model/consensus disagreement.",
-            "2. Work by source family so each pass improves a visible cluster, not just one player.",
+            (
+                "1. Close the highest-ranked low-evidence players that also have "
+                "model/consensus disagreement."
+            ),
+            (
+                "2. Work by source family so each pass improves a visible cluster, "
+                "not just one player."
+            ),
             "3. Rebuild the demo and compare high/medium/low evidence movement after each pass.",
         ]
     )
@@ -136,6 +142,7 @@ def build_gap_row(row: dict[str, str], *, priority_rank: int) -> dict[str, str]:
         "pre_draft_league_count": row["pre_draft_league_count"],
         "adult_game_share": row["adult_game_share"],
         "playoff_game_share": row["playoff_game_share"],
+        "playoff_evidence_status": playoff_evidence_status(row),
         "suggested_source_strategy": strategy,
         "gap_reason": gap_reason(row, strategy),
     }
@@ -156,7 +163,7 @@ def priority_score(row: dict[str, str]) -> float:
         score += 8
     if float_value(row, "adult_game_share") > 0:
         score += 6
-    if float_value(row, "playoff_game_share") == 0:
+    if playoff_evidence_status(row) == "unavailable":
         score += 2
     if int_value(row, "pre_draft_row_count") <= 1:
         score += 5
@@ -196,11 +203,25 @@ def gap_reason(row: dict[str, str], strategy: str) -> str:
         reasons.append(row["disagreement_bucket"].replace("_", " "))
     if int_value(row, "pre_draft_row_count") <= 1:
         reasons.append("single stat row")
-    if float_value(row, "playoff_game_share") == 0:
-        reasons.append("missing playoff signal")
+    playoff_status = playoff_evidence_status(row)
+    if playoff_status == "covered_no_appearance":
+        reasons.append("no playoff appearance found")
+    elif playoff_status == "unavailable":
+        reasons.append("playoff source unavailable")
     if float_value(row, "adult_game_share") > 0:
         reasons.append("adult exposure needs verification")
     return "; ".join(reasons) + f"; source family: {strategy}"
+
+
+def playoff_evidence_status(row: dict[str, str]) -> str:
+    if float_value(row, "playoff_game_share") > 0:
+        return "playoff_experience"
+    if (
+        row.get("primary_league") in {"OHL", "WHL", "QMJHL"}
+        and int_value(row, "pre_draft_row_count") > 0
+    ):
+        return "covered_no_appearance"
+    return "unavailable"
 
 
 def read_manifest(path: Path) -> dict[str, object]:

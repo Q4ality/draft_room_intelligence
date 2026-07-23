@@ -8,7 +8,7 @@ Open the current demo shell from:
 
 Current normalized dataset:
 
-- `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final`
+- `data/processed/draft_classes/2025/final`
 
 Current export files:
 
@@ -25,7 +25,7 @@ Rebuild the full local package with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
-  data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final \
+  data/processed/draft_classes/2025/final \
   outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
   --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv \
   --gap-top-n 35 \
@@ -55,7 +55,7 @@ make demo-2025-readiness
 Latest manifest snapshot:
 
 - `dataset_status`: `strong`
-- evidence depth: 27 low, 59 medium, 138 high
+- evidence depth: 30 low, 29 medium, 165 high
 - disagreement buckets: 80 aligned, 129 consensus higher, 15 model higher
 - current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
 - demo acceptance: 11 of 11 checks passing, including full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral `Production` history labeling.
@@ -63,7 +63,7 @@ Latest manifest snapshot:
 
 Recent enrichment improvement:
 
-- Russian, Nordic, cleanup open-stat packs, and EP-PDF overlay now lift the current package to 737 stat lines.
+- Russian, Nordic, cleanup open-stat packs, EP-PDF evidence, and CHL history now provide 906 stat lines.
 - High-evidence players moved to 138 in the current EP-PDF package.
 - Examples: Alexei Medvedev, Max Psenicka, Shane Vansaghi, Charlie Cerrato, Matthew Gard, Nathan Behm, Vojtech Cihar, Hayden Paupanekis, Tommy Lafreniere, Eric Nilson, Milton Gastrin, Roman Luttsev, and Alexander Zharovsky now carry richer histories.
 - CHL true-playoff enrichment now adds regular and playoff rows separately instead of using playoff-team regular-season pages.

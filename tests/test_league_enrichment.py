@@ -21,6 +21,7 @@ from draft_room_intelligence.data.league_enrichment import (
     discover_ushl_source_specs,
     enable_collected_sources,
     enrich_draft_class_leagues,
+    expand_chl_history_sources,
     filter_league_sources,
     generate_liiga_source_specs,
     generate_swehockey_source_specs,
@@ -116,6 +117,41 @@ def source_spec(cache_path):
         cache_path=cache_path,
         source_label="chl",
     )
+
+
+def test_expand_chl_history_sources_reuses_prior_cache_without_post_draft_rows(tmp_path):
+    historical = [
+        LeagueSourceSpec(
+            source_id=f"{year}-ohl-regular",
+            enabled=True,
+            draft_year=year,
+            adapter="chl",
+            league="OHL",
+            season=f"{year - 1}-{str(year)[-2:]}",
+            regular_season=True,
+            source_url=f"https://example.test/{year}",
+            cache_path=tmp_path / f"{year}.html",
+            source_label="chl",
+        )
+        for year in (2021, 2022, 2023, 2024, 2025, 2026)
+    ]
+
+    expanded = expand_chl_history_sources(
+        historical,
+        start_year=2025,
+        end_year=2025,
+        lookback_years=3,
+    )
+    selected = [source for source in expanded if source.draft_year == 2025]
+
+    assert {source.season for source in selected} == {
+        "2021-22",
+        "2022-23",
+        "2023-24",
+        "2024-25",
+    }
+    assert all(source.season != "2025-26" for source in selected)
+    assert len({source.source_id for source in selected}) == len(selected)
 
 
 def test_load_manifest_resolves_cache_and_filters_disabled(tmp_path):

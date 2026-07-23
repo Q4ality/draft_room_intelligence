@@ -7,7 +7,7 @@ Use the current strong demo build:
 - Site: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
 - One-page meeting brief: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/meeting_brief.pdf`
 - Printable HTML brief: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/meeting_brief.html`
-- Dataset: `data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final`
+- Dataset: `data/processed/draft_classes/2025/final`
 
 Current manifest snapshot:
 

@@ -833,6 +833,51 @@ def filter_league_sources(
     ]
 
 
+def expand_chl_history_sources(
+    sources: list[LeagueSourceSpec],
+    *,
+    start_year: int,
+    end_year: int,
+    lookback_years: int = 3,
+) -> list[LeagueSourceSpec]:
+    """Clone cached earlier CHL seasons into each target draft-class source set."""
+    expanded = list(sources)
+    existing_scopes = {
+        (
+            source.draft_year,
+            source.adapter,
+            normalize_league_name(source.league),
+            source.season,
+            source.regular_season,
+        )
+        for source in sources
+    }
+    historical = [source for source in sources if source.adapter == "chl"]
+    for draft_year in range(start_year, end_year + 1):
+        for source in historical:
+            if not draft_year - lookback_years <= source.draft_year < draft_year:
+                continue
+            scope = (
+                draft_year,
+                source.adapter,
+                normalize_league_name(source.league),
+                source.season,
+                source.regular_season,
+            )
+            if scope in existing_scopes:
+                continue
+            expanded.append(
+                replace(
+                    source,
+                    source_id=f"{draft_year}-history-{source.source_id}",
+                    draft_year=draft_year,
+                    enabled=source.enabled or source.cache_path.is_file(),
+                )
+            )
+            existing_scopes.add(scope)
+    return sorted(expanded, key=lambda source: (source.draft_year, source.source_id))
+
+
 def enable_collected_sources(
     sources: list[LeagueSourceSpec],
     results: list[LeagueSourceCollectionResult],

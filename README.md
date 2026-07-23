@@ -73,7 +73,7 @@ python -m draft_room_intelligence.cli enrich-roster-contracts outputs/org_roster
 python -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
 python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft25.pdf outputs/ep_pdf_2025_sample --draft-year 2025 --page-start 29 --page-end 80 --profile-limit 10
 OPENAI_API_KEY=... python -m draft_room_intelligence.cli import-eliteprospects-pdf data/raw/draftdata/Draft26.pdf outputs/ep_pdf_2026_vision --draft-year 2026 --page-start 36 --page-end 64 --profile-limit 10 --vision-missing-tool-grades --pdftoppm-path /path/to/pdftoppm
-python -m draft_room_intelligence.cli build-demo-readiness data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv
+python -m draft_room_intelligence.cli build-demo-readiness data/processed/draft_classes/2025/final outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv
 python -m draft_room_intelligence.cli validate-eliteprospects data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --base-dir data/processed/pilot_2019 --eliteprospects-csv data/raw/eliteprospects_2019.csv
 python -m draft_room_intelligence.cli etl-draft-year data/processed/etl_2019 --draft-year 2019 --hockeydb-draft-html data/raw/hockeydb/2019/nhl2019e.html --eliteprospects-csv data/raw/eliteprospects_2019.csv
@@ -156,8 +156,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel audit-codex-routing <output-dir>` - verify project Codex config, custom agents, and repo skill discovery links.
 - `draft-room-intel report-codex-context-routes data/reference/codex_context_routes.csv <output-dir>` - audit bounded context routes used to reduce broad repo reads.
 - `draft-room-intel report-codex-task-routing data/reference/codex_task_routing.csv data/reference/codex_context_routes.csv <output-dir>` - audit task-level routing rules for context route, agent, reasoning, and validation selection.
-- `draft-room-intel route-codex-task "<task>" [--task-id <route>] [--format markdown|json|shell]` - deterministically select a route and print the exact `codex exec` command with its model and reasoning override.
-- `draft-room-intel run-codex-task "<task>" [--task-id <route>]` - execute the selected route and append exact Codex JSON usage to `outputs/codex_usage/run_log.csv`.
+- `draft-room-intel route-codex-task "<task>" [--task-id <route>] [--phase discovery|implementation|validation|review|full] [--format markdown|json|shell]` - deterministically select a phase-aware route and print the exact `codex exec` command.
+- `draft-room-intel run-codex-task "<task>" [--task-id <route>] [--phase discovery|implementation|validation|review|full]` - execute the selected phase route and append exact Codex JSON usage to `outputs/codex_usage/run_log.csv`.
 - `draft-room-intel report-codex-telemetry <output-dir> --project-root <path>` - report historical local model/thread selection from `~/.codex/state_5.sqlite` without treating cumulative thread counters as cost.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --base-dir <base-dir> [--eliteprospects-csv <export.csv>]` - create a base ETL snapshot from an existing normalized dataset and optionally enrich it with Elite Prospects in one command.
 - `draft-room-intel etl-draft-year <output-dir> --draft-year <year> --nhl-draft-json <picks.json>` - generate a normalized base dataset from cached official NHL draft picks.

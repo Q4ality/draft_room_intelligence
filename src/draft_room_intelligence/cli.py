@@ -61,6 +61,7 @@ from draft_room_intelligence.data.league_enrichment import (
     discover_swehockey_catalog_specs,
     discover_ushl_source_specs,
     enable_collected_sources,
+    expand_chl_history_sources,
     filter_league_sources,
     generate_swehockey_source_specs,
     is_stale_generated_swehockey_source,
@@ -80,6 +81,7 @@ from draft_room_intelligence.data.nhl_contracts import (
     normalize_contract_export,
 )
 from draft_room_intelligence.data.nhl_draft import (
+    backfill_nhl_draft_player_fields,
     collect_nhl_draft_range,
     generate_nhl_draft_base_tables,
 )
@@ -130,6 +132,7 @@ from draft_room_intelligence.optimization.board import rank_board
 from draft_room_intelligence.projection.baseline import project_board
 from draft_room_intelligence.reports.codex_context_routes import write_codex_context_routes_report
 from draft_room_intelligence.reports.codex_dispatch import (
+    ROUTING_PHASES,
     build_codex_dispatch,
     format_codex_dispatch,
     run_codex_dispatch,
@@ -164,6 +167,15 @@ def add_codex_dispatch_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--task-id",
         help="Explicit routing task id; bypasses keyword matching when supplied.",
+    )
+    parser.add_argument(
+        "--phase",
+        choices=ROUTING_PHASES,
+        default="implementation",
+        help=(
+            "Task phase. Implementation defaults to Luna/Terra; use review for the "
+            "route's original high-risk model."
+        ),
     )
     parser.add_argument(
         "--manifest-csv",
@@ -1540,6 +1552,7 @@ def main() -> None:
             args.manifest_csv,
             project_root=args.project_root,
             task_id=args.task_id,
+            phase=args.phase,
             output_format=args.format,
         )
     elif args.command == "run-codex-task":
@@ -1548,6 +1561,7 @@ def main() -> None:
             args.manifest_csv,
             project_root=args.project_root,
             task_id=args.task_id,
+            phase=args.phase,
             run_log=args.run_log,
             variant=args.variant,
             quality_score=args.quality_score,
@@ -1971,6 +1985,7 @@ def run_route_codex_task(
     *,
     project_root: Path,
     task_id: str | None,
+    phase: str,
     output_format: str,
 ) -> None:
     dispatch = build_codex_dispatch(
@@ -1978,6 +1993,7 @@ def run_route_codex_task(
         manifest_csv,
         project_root=project_root,
         task_id=task_id,
+        phase=phase,
     )
     print(format_codex_dispatch(dispatch, output_format=output_format), end="")
 
@@ -1988,6 +2004,7 @@ def run_execute_codex_task(
     *,
     project_root: Path,
     task_id: str | None,
+    phase: str,
     run_log: Path,
     variant: str,
     quality_score: float,
@@ -2000,6 +2017,7 @@ def run_execute_codex_task(
         manifest_csv,
         project_root=project_root,
         task_id=task_id,
+        phase=phase,
         model=model or ("gpt-5.6-sol" if baseline else None),
         reasoning_effort=reasoning_effort or ("medium" if baseline else None),
     )
@@ -2776,7 +2794,7 @@ def execute_draft_class_spec(spec: DraftClassETLSpec) -> None:
         draft_year=spec.draft_year,
         nhl_draft_json=(
             spec.nhl_draft_json
-            if not use_normalized_base and spec.nhl_draft_json and spec.nhl_draft_json.is_file()
+            if spec.nhl_draft_json and spec.nhl_draft_json.is_file()
             else None
         ),
         hockeydb_draft_html=None if use_normalized_base else spec.hockeydb_draft_html,
@@ -3074,7 +3092,11 @@ def run_enrich_draft_range_leagues(
     continue_on_error: bool,
 ) -> None:
     sources = filter_league_sources(
-        load_league_source_manifest(manifest_path, project_root=project_root),
+        expand_chl_history_sources(
+            load_league_source_manifest(manifest_path, project_root=project_root),
+            start_year=start_year,
+            end_year=end_year,
+        ),
         start_year=start_year,
         end_year=end_year,
     )
@@ -3650,6 +3672,12 @@ def copy_dataset_directory(source_dir: Path, destination_dir: Path) -> None:
 def prepare_base_dataset(config: DraftYearETLConfig) -> None:
     if config.base_dir is not None:
         copy_dataset_directory(config.base_dir, config.base_output_dir)
+        if config.nhl_draft_json is not None:
+            backfill_nhl_draft_player_fields(
+                config.base_output_dir,
+                config.nhl_draft_json,
+                draft_year=config.draft_year,
+            )
         return
     if config.nhl_draft_json is not None:
         generate_nhl_draft_base_tables(

@@ -17,7 +17,7 @@ Current EP-PDF demo rebuilt with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
-  data/processed/demo_2025_wikipedia_bio_chl_ushl_wikicareer_wikisearch_stats_chltrueplayoffs_openstats_russian_nordic_cleanup_ep_pdf/final \
+  data/processed/draft_classes/2025/final \
   outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
   --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv \
   --gap-top-n 35 \
@@ -102,7 +102,7 @@ Recommended close:
 
 ## Current Demo Metrics
 
-- Evidence depth: 138 high, 59 medium, 27 low
+- Evidence depth: 165 high, 29 medium, 30 low
 - Disagreement buckets: 80 aligned, 15 model higher, 129 consensus higher
 - Average board-vs-consensus movement: 13.8 slots
 - Players moved 10+ slots: 135

@@ -4,6 +4,7 @@ import subprocess
 
 from draft_room_intelligence.reports.codex_dispatch import (
     build_codex_dispatch,
+    route_for_phase,
     run_codex_dispatch,
     select_task_routing_rule,
 )
@@ -95,6 +96,80 @@ def test_build_codex_dispatch_supports_baseline_overrides(tmp_path):
 
     assert dispatch.model == "gpt-5.6-sol"
     assert 'model_reasoning_effort="medium"' in dispatch.command
+
+
+def test_high_risk_implementation_uses_terra_before_sol_review():
+    rule = routing_rule(
+        task_id="ingestion-change",
+        model="gpt-5.6-sol",
+        reasoning="high",
+    )
+    rule = TaskRoutingRule(
+        **{
+            **rule.__dict__,
+            "risk_level": "high",
+            "recommended_agent": "reviewer",
+        }
+    )
+
+    implementation = route_for_phase(rule, "implementation")
+    review = route_for_phase(rule, "review")
+
+    assert implementation.model == "gpt-5.6-terra"
+    assert implementation.reasoning_effort == "medium"
+    assert implementation.agent == "main"
+    assert review.model == "gpt-5.6-sol"
+    assert review.reasoning_effort == "high"
+    assert review.agent == "reviewer"
+
+
+def test_discovery_and_validation_use_lower_cost_phase_routes():
+    rule = routing_rule(model="gpt-5.6-sol", reasoning="high")
+
+    discovery = route_for_phase(rule, "discovery")
+    validation = route_for_phase(rule, "validation")
+
+    assert (discovery.model, discovery.reasoning_effort, discovery.agent) == (
+        "gpt-5.6-terra",
+        "low",
+        "kb_explorer",
+    )
+    assert (validation.model, validation.reasoning_effort, validation.agent) == (
+        "gpt-5.6-luna",
+        "low",
+        "main",
+    )
+
+
+def test_dispatch_reports_selected_phase(tmp_path):
+    manifest = tmp_path / "routes.csv"
+    write_manifest(
+        manifest,
+        [
+            {
+                **routing_rule(
+                    task_id="ingestion-change",
+                    model="gpt-5.6-sol",
+                    reasoning="high",
+                ).__dict__,
+                "risk_level": "high",
+                "recommended_agent": "reviewer",
+            }
+        ],
+    )
+
+    dispatch = build_codex_dispatch(
+        "Fix parser source coverage",
+        manifest,
+        project_root=tmp_path,
+        task_id="ingestion-change",
+        phase="implementation",
+    )
+
+    assert dispatch.phase == "implementation"
+    assert dispatch.model == "gpt-5.6-terra"
+    assert dispatch.to_dict()["agent"] == "main"
+    assert "Phase: implementation" in dispatch.command[-1]
 
 
 def test_run_codex_dispatch_records_exact_usage(monkeypatch, tmp_path):

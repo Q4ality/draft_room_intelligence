@@ -15,6 +15,7 @@ from draft_room_intelligence.data.chl_stats import (
     redacted_source_name_key,
 )
 from draft_room_intelligence.data.eliteprospects_csv import (
+    ADVANCED_STAT_LINE_COLUMNS,
     PLAYER_COLUMNS,
     SEASON_STAT_LINE_COLUMNS,
     write_table,
@@ -40,6 +41,18 @@ $('#topskaters').DataTable({
     ["https:\\/\\/chl.ca\\/ohl\\/players\\/8769","Misa, Michael"],
     [["https:\\/\\/chl.ca\\/ohl\\/roster\\/34\\/79","SAG"]],
     "11","10","14","24"]]
+});
+</script>
+"""
+
+ADVANCED_HTML = """
+<table id="topskaters"><tbody></tbody></table>
+<script>
+$('#topskaters').DataTable({
+  data: [[1,"C","77","","",
+    ["https:\\/\\/chl.ca\\/ohl\\/players\\/8769","Misa, Michael"],
+    [["https:\\/\\/chl.ca\\/ohl\\/roster\\/34\\/79","SAG"]],
+    "65","62","72","134","+45"]]
 });
 </script>
 """
@@ -385,3 +398,47 @@ def test_enrich_chl_stats_keeps_regular_and_playoff_rows(tmp_path):
     playoff = [row for row in stat_lines if row["regular_season"] == "false"][0]
     assert playoff["games"] == "11"
     assert playoff["points"] == "24"
+
+
+def test_enrich_chl_stats_keeps_same_team_across_seasons_and_writes_plus_minus(tmp_path):
+    base_dir = tmp_path / "base"
+    output_dir = tmp_path / "out"
+    current_path = tmp_path / "current.html"
+    previous_path = tmp_path / "previous.html"
+    base_dir.mkdir()
+    current_path.write_text(ADVANCED_HTML, encoding="utf-8")
+    previous_path.write_text(ADVANCED_HTML, encoding="utf-8")
+    write_table(
+        base_dir / "players.csv",
+        PLAYER_COLUMNS,
+        [{"player_id": "2025-002-michael-misa", "name": "Michael Misa", "position": "C"}],
+    )
+    write_table(base_dir / "season_stat_lines.csv", SEASON_STAT_LINE_COLUMNS, [])
+    write_table(base_dir / "advanced_stat_lines.csv", ADVANCED_STAT_LINE_COLUMNS, [])
+    with (base_dir / "draft_selections.csv").open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=["player_id", "drafted_from_league"])
+        writer.writeheader()
+        writer.writerow(
+            {
+                "player_id": "2025-002-michael-misa",
+                "drafted_from_league": "OHL",
+            }
+        )
+
+    enrich_chl_stats(
+        base_dir,
+        output_dir,
+        [
+            ChlStatSource("OHL", "2024-25", "", source_path=current_path),
+            ChlStatSource("OHL", "2023-24", "", source_path=previous_path),
+        ],
+    )
+
+    with (output_dir / "season_stat_lines.csv").open(newline="", encoding="utf-8") as file:
+        stat_lines = list(csv.DictReader(file))
+    with (output_dir / "advanced_stat_lines.csv").open(newline="", encoding="utf-8") as file:
+        advanced = list(csv.DictReader(file))
+
+    assert {row["season"] for row in stat_lines} == {"2023-24", "2024-25"}
+    assert {row["season"] for row in advanced} == {"2023-24", "2024-25"}
+    assert {row["plus_minus"] for row in advanced} == {"+45"}
