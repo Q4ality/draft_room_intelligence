@@ -22,6 +22,10 @@ from draft_room_intelligence.data.demo_data import (
     format_demo_audit_report,
     scaffold_demo_class,
 )
+from draft_room_intelligence.data.demo_snapshot import (
+    create_demo_snapshot,
+    load_demo_snapshot,
+)
 from draft_room_intelligence.data.draft_range_etl import (
     DraftClassETLSpec,
     filter_draft_class_specs,
@@ -1067,6 +1071,23 @@ def main() -> None:
     demo_readiness_parser.add_argument(
         "--advanced-stats-csv", type=Path, help="Optional normalized advanced_stat_lines.csv."
     )
+    demo_snapshot_create_parser = subparsers.add_parser(
+        "create-demo-snapshot",
+        help="Create a versioned, self-contained input bundle for a demo build.",
+    )
+    demo_snapshot_create_parser.add_argument("data_path", type=Path)
+    demo_snapshot_create_parser.add_argument("snapshot_dir", type=Path)
+    demo_snapshot_create_parser.add_argument("--draft-year", type=int, required=True)
+    demo_snapshot_create_parser.add_argument("--team-depth-csv", type=Path)
+    demo_snapshot_create_parser.add_argument("--advanced-stats-csv", type=Path)
+    demo_snapshot_build_parser = subparsers.add_parser(
+        "build-demo-snapshot",
+        help="Validate a versioned demo snapshot and build its ready-to-present site.",
+    )
+    demo_snapshot_build_parser.add_argument("snapshot_dir", type=Path)
+    demo_snapshot_build_parser.add_argument("output_dir", type=Path)
+    demo_snapshot_build_parser.add_argument("--gap-top-n", type=int, default=35)
+    demo_snapshot_build_parser.add_argument("--movement-top-n", type=int, default=40)
     demo_readiness_parser.add_argument(
         "--gap-top-n",
         type=int,
@@ -1669,6 +1690,21 @@ def main() -> None:
             team_depth_csv=args.team_depth_csv,
             team_id=args.team_id,
             advanced_stats_csv=args.advanced_stats_csv,
+        )
+    elif args.command == "create-demo-snapshot":
+        run_create_demo_snapshot(
+            args.data_path,
+            args.snapshot_dir,
+            draft_year=args.draft_year,
+            team_depth_csv=args.team_depth_csv,
+            advanced_stats_csv=args.advanced_stats_csv,
+        )
+    elif args.command == "build-demo-snapshot":
+        run_build_demo_snapshot(
+            args.snapshot_dir,
+            args.output_dir,
+            gap_top_n=args.gap_top_n,
+            movement_top_n=args.movement_top_n,
         )
     elif args.command == "report-demo-gaps":
         run_report_demo_gaps(args.demo_output_dir, args.output_dir, top_n=args.top_n)
@@ -2668,6 +2704,45 @@ def run_build_demo_readiness(
     print(f"Demo sanity summary: {sanity_report_dir / 'summary.md'}")
     print(f"Demo acceptance: {'pass' if acceptance_report.passed else 'fail'}")
     print(f"Demo acceptance summary: {acceptance_report_dir / 'summary.md'}")
+
+
+def run_create_demo_snapshot(
+    data_path: Path,
+    snapshot_dir: Path,
+    *,
+    draft_year: int,
+    team_depth_csv: Path | None = None,
+    advanced_stats_csv: Path | None = None,
+) -> None:
+    snapshot = create_demo_snapshot(
+        data_path,
+        snapshot_dir,
+        draft_year=draft_year,
+        team_depth_csv=team_depth_csv,
+        advanced_stats_csv=advanced_stats_csv,
+    )
+    print(f"# Demo snapshot created: {snapshot.draft_year}")
+    print(f"Snapshot directory: {snapshot.root}")
+    print(f"Snapshot ID: {snapshot.snapshot_id}")
+
+
+def run_build_demo_snapshot(
+    snapshot_dir: Path,
+    output_dir: Path,
+    *,
+    gap_top_n: int,
+    movement_top_n: int,
+) -> None:
+    snapshot = load_demo_snapshot(snapshot_dir)
+    print(f"# Verified demo snapshot: {snapshot.snapshot_id}")
+    run_build_demo_readiness(
+        snapshot.data_dir,
+        output_dir,
+        gap_top_n=gap_top_n,
+        movement_top_n=movement_top_n,
+        team_depth_csv=snapshot.team_depth_csv,
+        advanced_stats_csv=snapshot.advanced_stats_csv,
+    )
 
 
 def attach_demo_baseline(

@@ -52,6 +52,19 @@ make historical-league-etl
 make test
 ```
 
+## Reproducible 2025 Demo
+
+The reviewed 2025 business demo can be rebuilt from a fresh clone without raw provider caches,
+private exports, or an API key:
+
+```bash
+make demo-2025-reproducible
+```
+
+The command verifies the committed input snapshot in `data/demo_snapshots/2025`, then writes a new
+site and its reports to `outputs/demo_2025_reproducible`. The snapshot contains normalized final
+tables, advanced statistics, and the team-depth input; generated site artifacts remain local.
+
 Equivalent commands without `make`:
 
 ```bash
@@ -111,6 +124,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make install-dev` - install the project in editable mode with development tools.
 - `make demo` - run the sample projection, scouting, team-fit, and player-card flow.
 - `make demo-2025-readiness` - rebuild the current EP-PDF-enriched 2025 demo site, data-gap report, modeling sanity report, and demo sanity report.
+- `make demo-2025-reproducible` - validate the tracked 2025 demo snapshot and rebuild the business-demo site from committed inputs only.
 - `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
 - `make nhl-roster-sample` - import cached NHL roster/stat JSON into roster rows, then build a team-depth report.
@@ -146,6 +160,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel audit-demo-class --draft-year <year>` - check whether a draft class has the minimum local source files for ETL and demo use.
 - `python3 skills/prepare-draft-demo-data/scripts/demo_data_workflow.py audit --draft-year <year>` - use the repo-local skill helper to scaffold, audit, stage raw inputs, run ETL, and build the demo for one class.
 - `draft-room-intel build-demo-readiness <final-dataset-dir> <output-dir>` - build a self-contained demo site, a one-page HTML/PDF meeting brief, canonical `baseline.json`, plus `reports/data_gaps`, `reports/modeling_sanity`, `reports/demo_sanity`, and `reports/demo_acceptance` artifacts in one command. Acceptance fails when generated artifacts disagree with the baseline fingerprint or metrics.
+- `draft-room-intel create-demo-snapshot <final-dataset-dir> <snapshot-dir> --draft-year <year>` - publish a reviewed, checksum-verified demo input bundle; add `--team-depth-csv` when team-fit is included.
+- `draft-room-intel build-demo-snapshot <snapshot-dir> <output-dir>` - validate the snapshot checksums and rebuild a demo site without raw source caches.
 - `draft-room-intel report-demo-gaps <demo-output-dir> <report-output-dir>` - prioritize remaining low-evidence players after a demo build.
 - `draft-room-intel report-demo-modeling <demo-output-dir> <report-output-dir>` - compare the demo board against consensus ordering and list largest movements.
 - `draft-room-intel report-demo-sanity <demo-output-dir> <report-output-dir>` - write top-board, top-role, biggest-disagreement, and story-player checks for demo validation.

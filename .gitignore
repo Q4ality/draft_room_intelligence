@@ -15,3 +15,5 @@ outputs/
 tmp/
 data/raw/
 data/processed/draft_classes/
+!data/demo_snapshots/
+!data/demo_snapshots/**

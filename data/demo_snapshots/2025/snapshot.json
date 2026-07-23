@@ -1,0 +1,105 @@
+{
+  "advanced_stats_csv": "final/advanced_stat_lines.csv",
+  "data_dir": "final",
+  "draft_year": 2025,
+  "files": [
+    {
+      "bytes": 55428,
+      "path": "final/advanced_stat_lines.csv",
+      "sha256": "01a6ff54547573831a7d27da8af45a548142f6dd946b4267823b7171c32e5c66"
+    },
+    {
+      "bytes": 53092,
+      "path": "final/chl_stat_matches.csv",
+      "sha256": "b06c998afc005aeb0c2f783bb69f7888f9fa427b29760cda5cf8f1da1282b98c"
+    },
+    {
+      "bytes": 43369,
+      "path": "final/draft_selections.csv",
+      "sha256": "1e638d036fec3f22aa44337efd5418c4af386c87fc35a131f327779bfae1e6ca"
+    },
+    {
+      "bytes": 16892,
+      "path": "final/ep_pdf_match_audit.csv",
+      "sha256": "9101e338b7ead5e71ede767b033a239977f6e124268d70c511f1afae0c471c6c"
+    },
+    {
+      "bytes": 418,
+      "path": "final/ep_pdf_overlay_report.md",
+      "sha256": "2eed738012ca62e34c78bd14938d6395a43beadaeac427e26e1bdf730142203d"
+    },
+    {
+      "bytes": 61925,
+      "path": "final/ep_pdf_profiles.csv",
+      "sha256": "445c22b7460c41ff0fb0a676b729bc7bc89312cc877e66827343bdc65d699ba2"
+    },
+    {
+      "bytes": 112646,
+      "path": "final/ep_pdf_tool_grades.csv",
+      "sha256": "265fcc53ec22bb7852b7f401b43f1330cde64481ac23eeafc267a7952fbe3ab0"
+    },
+    {
+      "bytes": 30004,
+      "path": "final/europe_stat_matches.csv",
+      "sha256": "35450b9d04b7f1d3373c3386be90e91c601a94477c45ceda7921c4fa30076375"
+    },
+    {
+      "bytes": 18030,
+      "path": "final/ncaa_stat_matches.csv",
+      "sha256": "bb53dfb834b9ea5ca14c551f3e19941d3960d0ee7ab093676a169e599c50dec6"
+    },
+    {
+      "bytes": 27247,
+      "path": "final/nhl_outcomes.csv",
+      "sha256": "61db9999287c98dfe112dd181001838ef2f7effe1d1dc6231b0594f152a0eab6"
+    },
+    {
+      "bytes": 20247,
+      "path": "final/open_stats_matches.csv",
+      "sha256": "aa001b67087097ff960e12867a749e9385ef584e28811ebed4b9a485d50c0fbf"
+    },
+    {
+      "bytes": 33673,
+      "path": "final/players.csv",
+      "sha256": "3706d3b6bb351f177d4d501abfe77dffa10c94651cc33ac7ec994fd0e56c5b7b"
+    },
+    {
+      "bytes": 47735,
+      "path": "final/rankings.csv",
+      "sha256": "a0d3cfd11d0133d9a1aab3937a501249be22396199052c0b8cd10488d45e48d1"
+    },
+    {
+      "bytes": 126926,
+      "path": "final/season_stat_lines.csv",
+      "sha256": "d303ad0af45cee0eb12818712c3d65d9ee9d1c6a4237b445583b4442c5f6f098"
+    },
+    {
+      "bytes": 50809,
+      "path": "final/stat_line_reconciliation_audit.csv",
+      "sha256": "299f9fa25a79cbfe20e544bb797e04ad63fd1949b234b34c7a4e33631c66185f"
+    },
+    {
+      "bytes": 35643,
+      "path": "final/ushl_stat_matches.csv",
+      "sha256": "030e5db3c2cbc760843e73d8ee4d5350814d416881f3b2fb9f270895aa1beda8"
+    },
+    {
+      "bytes": 15112,
+      "path": "final/wikipedia_bio_matches.csv",
+      "sha256": "16f9c154554663adc1647daa25d178983997aa63682bd756ad510adc71ef06ec"
+    },
+    {
+      "bytes": 8982,
+      "path": "final/wikipedia_career_stat_matches.csv",
+      "sha256": "5a856263376e768e5f03970b52c96cc6aad25adcbd6709f65da126dac4832e40"
+    },
+    {
+      "bytes": 146925,
+      "path": "team_depth.csv",
+      "sha256": "6381c029af7d7ba211e73ca8e7ac22cd385bb03948b0da16ab81e76bded6da55"
+    }
+  ],
+  "schema_version": 1,
+  "snapshot_id": "sha256:b07595995807db94506faadee9e5bb06265c57c4f56a57d62e61b48fd4ab65ab",
+  "team_depth_csv": "team_depth.csv"
+}

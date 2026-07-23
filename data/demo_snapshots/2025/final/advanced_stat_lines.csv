@@ -1,0 +1,427 @@
+player_id,season,league,team,timing,regular_season,games,plus_minus,shots,blocks,faceoff_wins,faceoff_losses,faceoff_percentage,source,source_id,source_url
+2025-001-matthew-schaefer,2023-24,OHL,ER,pre_draft,false,6,4,,,,,,chl,8998,https://chl.ca/ohl/stats/players/77/all/points
+2025-001-matthew-schaefer,2023-24,OHL,ER,pre_draft,true,56,-2,,,,,,chl,8998,https://chl.ca/ohl/stats/players/76/all/points
+2025-001-matthew-schaefer,2024-25,OHL,ER,pre_draft,true,17,21,,,,,,chl,8998,https://chl.ca/ohl/players/8998
+2025-002-michael-misa,2022-23,OHL,SAG,pre_draft,false,11,1,,,,,,chl,8769,https://chl.ca/ohl/stats/players/74/all/points
+2025-002-michael-misa,2022-23,OHL,SAG,pre_draft,true,45,7,,,,,,chl,8769,https://chl.ca/ohl/stats/players/73/all/points
+2025-002-michael-misa,2023-24,OHL,SAG,pre_draft,false,17,2,,,,,,chl,8769,https://chl.ca/ohl/stats/players/77/all/points
+2025-002-michael-misa,2023-24,OHL,SAG,pre_draft,true,67,3,,,,,,chl,8769,https://chl.ca/ohl/stats/players/76/all/points
+2025-002-michael-misa,2024-25,OHL,SAG,pre_draft,false,4,-10,,,,,,chl,8769,https://chl.ca/ohl/players/8769
+2025-002-michael-misa,2024-25,OHL,SAG,pre_draft,true,65,45,,,,,,chl,8769,https://chl.ca/ohl/players/8769
+2025-004-caleb-desnoyers,2023-24,QMJHL,Mon,pre_draft,false,4,-5,,,,,,chl,20164,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-004-caleb-desnoyers,2023-24,QMJHL,Mon,pre_draft,true,60,2,,,,,,chl,20164,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-004-caleb-desnoyers,2024-25,QMJHL,Mon,pre_draft,false,19,5,,,,,,chl,20164,https://chl.ca/lhjmq/en/players/20164/
+2025-004-caleb-desnoyers,2024-25,QMJHL,Mon,pre_draft,true,56,51,,,,,,chl,20164,https://chl.ca/lhjmq/en/players/20164/
+2025-005-brady-martin,2023-24,OHL,SOO,pre_draft,false,11,0,,,,,,chl,9018,https://chl.ca/ohl/stats/players/77/all/points
+2025-005-brady-martin,2023-24,OHL,SOO,pre_draft,true,52,12,,,,,,chl,9018,https://chl.ca/ohl/stats/players/76/all/points
+2025-005-brady-martin,2024-25,OHL,SOO,pre_draft,false,5,-5,,,,,,chl,9018,https://chl.ca/ohl/players/9018
+2025-005-brady-martin,2024-25,OHL,SOO,pre_draft,true,57,25,,,,,,chl,9018,https://chl.ca/ohl/players/9018
+2025-006-porter-martone,2022-23,OHL,MISS,pre_draft,false,6,2,,,,,,chl,8743,https://chl.ca/ohl/stats/players/74/all/points
+2025-006-porter-martone,2022-23,OHL,MISS,pre_draft,true,61,-10,,,,,,chl,8743,https://chl.ca/ohl/stats/players/73/all/points
+2025-006-porter-martone,2023-24,OHL,MISS,pre_draft,false,5,2,,,,,,chl,8743,https://chl.ca/ohl/stats/players/77/all/points
+2025-006-porter-martone,2023-24,OHL,MISS,pre_draft,true,60,25,,,,,,chl,8743,https://chl.ca/ohl/stats/players/76/all/points
+2025-006-porter-martone,2024-25,OHL,BRAM,pre_draft,false,6,3,,,,,,chl,8743,https://chl.ca/ohl/players/8743
+2025-006-porter-martone,2024-25,OHL,BRAM,pre_draft,true,57,19,,,,,,chl,8743,https://chl.ca/ohl/players/8743
+2025-008-jake-o-brien,2023-24,OHL,BFD,pre_draft,false,6,-3,,,,,,chl,8965,https://chl.ca/ohl/stats/players/77/all/points
+2025-008-jake-o-brien,2023-24,OHL,BFD,pre_draft,true,61,4,,,,,,chl,8965,https://chl.ca/ohl/stats/players/76/all/points
+2025-008-jake-o-brien,2024-25,OHL,BFD,pre_draft,false,11,1,,,,,,chl,8965,https://chl.ca/ohl/players/8965
+2025-008-jake-o-brien,2024-25,OHL,BFD,pre_draft,true,66,-2,,,,,,chl,8965,https://chl.ca/ohl/players/8965
+2025-009-radim-mrtka,2024-25,WHL,SEA,pre_draft,false,6,-3,,,,,,chl,29902,https://chl.ca/whl/players/29902
+2025-009-radim-mrtka,2024-25,WHL,SEA,pre_draft,true,43,10,,,,,,chl,29902,https://chl.ca/whl/players/29902
+2025-010-roger-mcqueen,2021-22,WHL,BDN,pre_draft,true,2,-4,,,,,,chl,29112,https://chl.ca/whl/stats/players/275/all/points
+2025-010-roger-mcqueen,2022-23,WHL,BDN,pre_draft,true,55,-16,,,,,,chl,29112,https://chl.ca/whl/stats/players/279/all/points
+2025-010-roger-mcqueen,2023-24,WHL,BDN,pre_draft,false,4,-2,,,,,,chl,29112,https://chl.ca/whl/stats/players/284/all/points
+2025-010-roger-mcqueen,2023-24,WHL,BDN,pre_draft,true,53,5,,,,,,chl,29112,https://chl.ca/whl/stats/players/281/all/points
+2025-010-roger-mcqueen,2024-25,WHL,BDN,pre_draft,false,3,-1,,,,,,chl,29112,https://chl.ca/whl/players/29112
+2025-010-roger-mcqueen,2024-25,WHL,BDN,pre_draft,true,17,8,,,,,,chl,29112,https://chl.ca/whl/players/29112
+2025-011-ben-kindel,2022-23,WHL,CGY,pre_draft,true,1,0,,,,,,chl,29345,https://chl.ca/whl/stats/players/279/all/points
+2025-011-ben-kindel,2023-24,WHL,CGY,pre_draft,true,68,2,,,,,,chl,29345,https://chl.ca/whl/stats/players/281/all/points
+2025-011-ben-kindel,2024-25,WHL,CGY,pre_draft,false,11,6,,,,,,chl,29345,https://chl.ca/whl/players/29345
+2025-011-ben-kindel,2024-25,WHL,CGY,pre_draft,true,65,39,,,,,,chl,29345,https://chl.ca/whl/players/29345
+2025-012-jack-nesbitt,2023-24,OHL,WSR,pre_draft,true,58,-32,,,,,,chl,8942,https://chl.ca/ohl/stats/players/76/all/points
+2025-012-jack-nesbitt,2024-25,OHL,WSR,pre_draft,false,12,-5,,,,,,chl,8942,https://chl.ca/ohl/players/8942
+2025-012-jack-nesbitt,2024-25,OHL,WSR,pre_draft,true,65,12,,,,,,chl,8942,https://chl.ca/ohl/players/8942
+2025-013-carter-bear,2022-23,WHL,EVT,pre_draft,false,5,-1,,,,,,chl,29026,https://chl.ca/whl/stats/players/280/all/points
+2025-013-carter-bear,2022-23,WHL,EVT,pre_draft,true,19,-3,,,,,,chl,29026,https://chl.ca/whl/stats/players/279/all/points
+2025-013-carter-bear,2023-24,WHL,EVT,pre_draft,false,9,-6,,,,,,chl,29026,https://chl.ca/whl/stats/players/284/all/points
+2025-013-carter-bear,2023-24,WHL,EVT,pre_draft,true,67,23,,,,,,chl,29026,https://chl.ca/whl/stats/players/281/all/points
+2025-013-carter-bear,2024-25,WHL,EVT,pre_draft,true,56,33,,,,,,chl,29026,https://chl.ca/whl/players/29026
+2025-014-jackson-smith,2022-23,WHL,TC,pre_draft,false,2,-3,,,,,,chl,29287,https://chl.ca/whl/stats/players/280/all/points
+2025-014-jackson-smith,2022-23,WHL,TC,pre_draft,true,6,3,,,,,,chl,29287,https://chl.ca/whl/stats/players/279/all/points
+2025-014-jackson-smith,2023-24,WHL,TC,pre_draft,true,62,-29,,,,,,chl,29287,https://chl.ca/whl/stats/players/281/all/points
+2025-014-jackson-smith,2024-25,WHL,TC,pre_draft,false,5,-4,,,,,,chl,29287,https://chl.ca/whl/players/29287
+2025-014-jackson-smith,2024-25,WHL,TC,pre_draft,true,68,2,,,,,,chl,29287,https://chl.ca/whl/players/29287
+2025-015-braeden-cootes,2022-23,WHL,SEA,pre_draft,true,7,4,,,,,,chl,29138,https://chl.ca/whl/stats/players/279/all/points
+2025-015-braeden-cootes,2023-24,WHL,SEA,pre_draft,true,64,-22,,,,,,chl,29138,https://chl.ca/whl/stats/players/281/all/points
+2025-015-braeden-cootes,2024-25,WHL,SEA,pre_draft,false,6,-3,,,,,,chl,29138,https://chl.ca/whl/players/29138
+2025-015-braeden-cootes,2024-25,WHL,SEA,pre_draft,true,60,5,,,,,,chl,29138,https://chl.ca/whl/players/29138
+2025-017-kashawn-aitcheson,2022-23,OHL,BAR,pre_draft,false,4,-3,,,,,,chl,8803,https://chl.ca/ohl/stats/players/74/all/points
+2025-017-kashawn-aitcheson,2022-23,OHL,BAR,pre_draft,true,23,-9,,,,,,chl,8803,https://chl.ca/ohl/stats/players/73/all/points
+2025-017-kashawn-aitcheson,2023-24,OHL,BAR,pre_draft,false,6,-3,,,,,,chl,8803,https://chl.ca/ohl/stats/players/77/all/points
+2025-017-kashawn-aitcheson,2023-24,OHL,BAR,pre_draft,true,64,-1,,,,,,chl,8803,https://chl.ca/ohl/stats/players/76/all/points
+2025-017-kashawn-aitcheson,2024-25,OHL,BAR,pre_draft,false,16,2,,,,,,chl,8803,https://chl.ca/ohl/players/8803
+2025-017-kashawn-aitcheson,2024-25,OHL,BAR,pre_draft,true,64,6,,,,,,chl,8803,https://chl.ca/ohl/players/8803
+2025-018-cole-reschny,2022-23,WHL,VIC,pre_draft,true,4,-8,,,,,,chl,29291,https://chl.ca/whl/stats/players/279/all/points
+2025-018-cole-reschny,2023-24,WHL,VIC,pre_draft,false,4,-5,,,,,,chl,29291,https://chl.ca/whl/stats/players/284/all/points
+2025-018-cole-reschny,2023-24,WHL,VIC,pre_draft,true,61,3,,,,,,chl,29291,https://chl.ca/whl/stats/players/281/all/points
+2025-018-cole-reschny,2024-25,WHL,VIC,pre_draft,false,11,9,,,,,,chl,29291,https://chl.ca/whl/players/29291
+2025-018-cole-reschny,2024-25,WHL,VIC,pre_draft,true,62,42,,,,,,chl,29291,https://chl.ca/whl/players/29291
+2025-019-justin-carbonneau,2022-23,QMJHL,BLB,pre_draft,false,4,-2,,,,,,chl,19534,https://chl.ca/lhjmq/en/stats/players/203/all/points
+2025-019-justin-carbonneau,2022-23,QMJHL,BLB,pre_draft,true,32,-15,,,,,,chl,19534,https://chl.ca/lhjmq/en/stats/players/202/all/points
+2025-019-justin-carbonneau,2023-24,QMJHL,BLB,pre_draft,false,7,-3,,,,,,chl,19534,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-019-justin-carbonneau,2023-24,QMJHL,BLB,pre_draft,true,68,-1,,,,,,chl,19534,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-019-justin-carbonneau,2024-25,QMJHL,BLB,pre_draft,false,5,0,,,,,,chl,19534,https://chl.ca/lhjmq/en/players/19534/
+2025-019-justin-carbonneau,2024-25,QMJHL,BLB,pre_draft,true,62,3,,,,,,chl,19534,https://chl.ca/lhjmq/en/players/19534/
+2025-021-cameron-reid,2023-24,OHL,KIT,pre_draft,false,10,-5,,,,,,chl,8948,https://chl.ca/ohl/stats/players/77/all/points
+2025-021-cameron-reid,2023-24,OHL,KIT,pre_draft,true,49,18,,,,,,chl,8948,https://chl.ca/ohl/stats/players/76/all/points
+2025-021-cameron-reid,2024-25,OHL,KIT,pre_draft,false,14,-5,,,,,,chl,8948,https://chl.ca/ohl/players/8948
+2025-021-cameron-reid,2024-25,OHL,KIT,pre_draft,true,67,39,,,,,,chl,8948,https://chl.ca/ohl/players/8948
+2025-022-bill-zonnon,2022-23,QMJHL,Rou,pre_draft,false,9,-3,,,,,,chl,19520,https://chl.ca/lhjmq/en/stats/players/203/all/points
+2025-022-bill-zonnon,2022-23,QMJHL,Rou,pre_draft,true,63,-3,,,,,,chl,19520,https://chl.ca/lhjmq/en/stats/players/202/all/points
+2025-022-bill-zonnon,2023-24,QMJHL,Rou,pre_draft,false,10,2,,,,,,chl,19520,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-022-bill-zonnon,2023-24,QMJHL,Rou,pre_draft,true,68,27,,,,,,chl,19520,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-022-bill-zonnon,2024-25,QMJHL,Rou,pre_draft,false,13,3,,,,,,chl,19520,https://chl.ca/lhjmq/en/players/19520/
+2025-022-bill-zonnon,2024-25,QMJHL,Rou,pre_draft,true,64,5,,,,,,chl,19520,https://chl.ca/lhjmq/en/players/19520/
+2025-027-lynden-lakovic,2021-22,WHL,MJ,pre_draft,true,1,-1,,,,,,chl,29121,https://chl.ca/whl/stats/players/275/all/points
+2025-027-lynden-lakovic,2022-23,WHL,MJ,pre_draft,false,10,-5,,,,,,chl,29121,https://chl.ca/whl/stats/players/280/all/points
+2025-027-lynden-lakovic,2022-23,WHL,MJ,pre_draft,true,37,-3,,,,,,chl,29121,https://chl.ca/whl/stats/players/279/all/points
+2025-027-lynden-lakovic,2023-24,WHL,MJ,pre_draft,false,20,-4,,,,,,chl,29121,https://chl.ca/whl/stats/players/284/all/points
+2025-027-lynden-lakovic,2023-24,WHL,MJ,pre_draft,true,68,4,,,,,,chl,29121,https://chl.ca/whl/stats/players/281/all/points
+2025-027-lynden-lakovic,2024-25,WHL,MJ,pre_draft,true,47,-25,,,,,,chl,29121,https://chl.ca/whl/players/29121
+2025-030-joshua-ravensbergen,2023-24,WHL,PG,pre_draft,false,12,0,,,,,,chl,29467,https://chl.ca/whl/stats/players/284/all/points
+2025-030-joshua-ravensbergen,2023-24,WHL,PG,pre_draft,true,38,0,,,,,,chl,29467,https://chl.ca/whl/stats/players/281/all/points
+2025-031-henry-brzustewicz,2023-24,OHL,LDN,pre_draft,false,16,2,,,,,,chl,9042,https://chl.ca/ohl/stats/players/77/all/points
+2025-031-henry-brzustewicz,2023-24,OHL,LDN,pre_draft,true,52,7,,,,,,chl,9042,https://chl.ca/ohl/stats/players/76/all/points
+2025-031-henry-brzustewicz,2024-25,OHL,LDN,pre_draft,false,17,9,,,,,,chl,9042,https://chl.ca/ohl/players/9042
+2025-031-henry-brzustewicz,2024-25,OHL,LDN,pre_draft,true,67,24,,,,,,chl,9042,https://chl.ca/ohl/players/9042
+2025-033-haoxi-wang,2024-25,OHL,OSH,pre_draft,false,21,3,,,,,,chl,9293,https://chl.ca/ohl/players/9293
+2025-033-haoxi-wang,2024-25,OHL,OSH,pre_draft,true,32,3,,,,,,chl,9293,https://chl.ca/ohl/players/9293
+2025-036-blake-fiddler,2023-24,WHL,EDM,pre_draft,true,63,-31,,,,,,chl,29374,https://chl.ca/whl/stats/players/281/all/points
+2025-036-blake-fiddler,2024-25,WHL,EDM,pre_draft,false,7,-2,,,,,,chl,29374,https://chl.ca/whl/players/29374
+2025-036-blake-fiddler,2024-25,WHL,EDM,pre_draft,true,64,6,,,,,,chl,29374,https://chl.ca/whl/players/29374
+2025-039-peyton-kettles,2022-23,WHL,SC,pre_draft,true,2,0,,,,,,chl,29319,https://chl.ca/whl/stats/players/279/all/points
+2025-039-peyton-kettles,2023-24,WHL,SC,pre_draft,false,8,1,,,,,,chl,29319,https://chl.ca/whl/stats/players/284/all/points
+2025-039-peyton-kettles,2023-24,WHL,SC,pre_draft,true,61,19,,,,,,chl,29319,https://chl.ca/whl/stats/players/281/all/points
+2025-039-peyton-kettles,2024-25,WHL,SC,pre_draft,false,5,-2,,,,,,chl,29319,https://chl.ca/whl/players/29319
+2025-039-peyton-kettles,2024-25,WHL,SC,pre_draft,true,53,0,,,,,,chl,29319,https://chl.ca/whl/players/29319
+2025-043-malcolm-spence,2022-23,OHL,ER,pre_draft,true,64,-28,,,,,,chl,8785,https://chl.ca/ohl/stats/players/73/all/points
+2025-043-malcolm-spence,2023-24,OHL,ER,pre_draft,false,6,-1,,,,,,chl,8785,https://chl.ca/ohl/stats/players/77/all/points
+2025-043-malcolm-spence,2023-24,OHL,ER,pre_draft,true,66,11,,,,,,chl,8785,https://chl.ca/ohl/stats/players/76/all/points
+2025-043-malcolm-spence,2024-25,OHL,ER,pre_draft,false,9,-6,,,,,,chl,8785,https://chl.ca/ohl/players/8785
+2025-043-malcolm-spence,2024-25,OHL,ER,pre_draft,true,65,10,,,,,,chl,8785,https://chl.ca/ohl/players/8785
+2025-046-max-psenicka,2024-25,WHL,POR,pre_draft,false,18,-14,,,,,,chl,29924,https://chl.ca/whl/players/29924
+2025-046-max-psenicka,2024-25,WHL,POR,pre_draft,true,24,-2,,,,,,chl,29924,https://chl.ca/whl/players/29924
+2025-056-ethan-czata,2023-24,OHL,NIAG,pre_draft,true,62,-35,,,,,,chl,8964,https://chl.ca/ohl/stats/players/76/all/points
+2025-056-ethan-czata,2024-25,OHL,NIAG,pre_draft,false,5,-4,,,,,,chl,8964,https://chl.ca/ohl/players/8964
+2025-056-ethan-czata,2024-25,OHL,NIAG,pre_draft,true,68,-9,,,,,,chl,8964,https://chl.ca/ohl/players/8964
+2025-057-matthew-gard,2023-24,WHL,RD,pre_draft,false,7,-2,,,,,,chl,29236,https://chl.ca/whl/stats/players/284/all/points
+2025-057-matthew-gard,2023-24,WHL,RD,pre_draft,true,55,7,,,,,,chl,29236,https://chl.ca/whl/stats/players/281/all/points
+2025-057-matthew-gard,2024-25,WHL,RD,pre_draft,true,66,-4,,,,,,chl,29236,https://chl.ca/whl/players/29236
+2025-058-jack-ivankovic,2023-24,OHL,MISS,pre_draft,false,4,0,,,,,,chl,8949,https://chl.ca/ohl/stats/players/77/all/points
+2025-058-jack-ivankovic,2023-24,OHL,MISS,pre_draft,true,25,0,,,,,,chl,8949,https://chl.ca/ohl/stats/players/76/all/points
+2025-058-jack-ivankovic,2024-25,OHL,BRAM,pre_draft,false,5,0,,,,,,chl,8949,https://chl.ca/ohl/players/8949
+2025-065-kieren-dervin,2024-25,OHL,KGN,pre_draft,false,11,1,,,,,,chl,9300,https://chl.ca/ohl/players/9300
+2025-065-kieren-dervin,2024-25,OHL,KGN,pre_draft,true,10,2,,,,,,chl,9300,https://chl.ca/ohl/players/9300
+2025-066-nathan-behm,2022-23,WHL,KAM,pre_draft,false,1,0,,,,,,chl,29169,https://chl.ca/whl/stats/players/280/all/points
+2025-066-nathan-behm,2022-23,WHL,KAM,pre_draft,true,6,-1,,,,,,chl,29169,https://chl.ca/whl/stats/players/279/all/points
+2025-066-nathan-behm,2023-24,WHL,KAM,pre_draft,true,68,-33,,,,,,chl,29169,https://chl.ca/whl/stats/players/281/all/points
+2025-066-nathan-behm,2024-25,WHL,KAM,pre_draft,true,59,-23,,,,,,chl,29169,https://chl.ca/whl/players/29169
+2025-068-will-reynolds,2023-24,QMJHL,Bat,pre_draft,false,8,0,,,,,,chl,20214,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-068-will-reynolds,2023-24,QMJHL,Bat,pre_draft,true,30,-6,,,,,,chl,20214,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-068-will-reynolds,2024-25,QMJHL,Bat,pre_draft,false,5,1,,,,,,chl,20214,https://chl.ca/lhjmq/en/players/20214/
+2025-068-will-reynolds,2024-25,QMJHL,Bat,pre_draft,true,64,5,,,,,,chl,20214,https://chl.ca/lhjmq/en/players/20214/
+2025-069-hayden-paupanekis,2022-23,WHL,SPO,pre_draft,true,1,0,,,,,,chl,29281,https://chl.ca/whl/stats/players/279/all/points
+2025-069-hayden-paupanekis,2023-24,WHL,SPO,pre_draft,false,4,-2,,,,,,chl,29281,https://chl.ca/whl/stats/players/284/all/points
+2025-069-hayden-paupanekis,2023-24,WHL,SPO,pre_draft,true,61,-9,,,,,,chl,29281,https://chl.ca/whl/stats/players/281/all/points
+2025-069-hayden-paupanekis,2024-25,WHL,SPO/KEL,pre_draft,true,71,-30,,,,,,chl,29281,https://chl.ca/whl/players/29281
+2025-071-david-bedkowski,2022-23,OHL,OSH,pre_draft,false,5,-1,,,,,,chl,8726,https://chl.ca/ohl/stats/players/74/all/points
+2025-071-david-bedkowski,2022-23,OHL,OSH,pre_draft,true,55,-39,,,,,,chl,8726,https://chl.ca/ohl/stats/players/73/all/points
+2025-071-david-bedkowski,2023-24,OHL,OSH,pre_draft,false,20,-3,,,,,,chl,8726,https://chl.ca/ohl/stats/players/77/all/points
+2025-071-david-bedkowski,2023-24,OHL,OSH,pre_draft,true,68,5,,,,,,chl,8726,https://chl.ca/ohl/stats/players/76/all/points
+2025-071-david-bedkowski,2024-25,OHL,OS,pre_draft,false,4,-8,,,,,,chl,8726,https://chl.ca/ohl/players/8726
+2025-071-david-bedkowski,2024-25,OHL,OSH/OS,pre_draft,true,37,-7,,,,,,chl,8726,https://chl.ca/ohl/players/8726
+2025-072-noah-read,2024-25,OHL,LDN,pre_draft,false,17,3,,,,,,chl,9242,https://chl.ca/ohl/players/9242
+2025-072-noah-read,2024-25,OHL,LDN,pre_draft,true,45,10,,,,,,chl,9242,https://chl.ca/ohl/players/9242
+2025-074-luca-romano,2023-24,OHL,KIT,pre_draft,false,10,1,,,,,,chl,8947,https://chl.ca/ohl/stats/players/77/all/points
+2025-074-luca-romano,2023-24,OHL,KIT,pre_draft,true,56,1,,,,,,chl,8947,https://chl.ca/ohl/stats/players/76/all/points
+2025-074-luca-romano,2024-25,OHL,KIT,pre_draft,false,16,5,,,,,,chl,8947,https://chl.ca/ohl/players/8947
+2025-074-luca-romano,2024-25,OHL,KIT,pre_draft,true,67,5,,,,,,chl,8947,https://chl.ca/ohl/players/8947
+2025-081-bryce-pickford,2021-22,WHL,SEA,pre_draft,false,8,0,,,,,,chl,29125,https://chl.ca/whl/stats/players/277/all/points
+2025-081-bryce-pickford,2021-22,WHL,SEA,pre_draft,true,2,1,,,,,,chl,29125,https://chl.ca/whl/stats/players/275/all/points
+2025-081-bryce-pickford,2022-23,WHL,SEA,pre_draft,false,17,0,,,,,,chl,29125,https://chl.ca/whl/stats/players/280/all/points
+2025-081-bryce-pickford,2022-23,WHL,SEA,pre_draft,true,54,25,,,,,,chl,29125,https://chl.ca/whl/stats/players/279/all/points
+2025-081-bryce-pickford,2023-24,WHL,SEA,pre_draft,true,65,-36,,,,,,chl,29125,https://chl.ca/whl/stats/players/281/all/points
+2025-081-bryce-pickford,2024-25,WHL,MH,pre_draft,false,18,23,,,,,,chl,29125,https://chl.ca/whl/players/29125
+2025-081-bryce-pickford,2024-25,WHL,MH,pre_draft,true,48,34,,,,,,chl,29125,https://chl.ca/whl/players/29125
+2025-083-tommy-lafreniere,2023-24,WHL,KAM,pre_draft,true,9,-9,,,,,,chl,29407,https://chl.ca/whl/stats/players/281/all/points
+2025-083-tommy-lafreniere,2024-25,WHL,KAM,pre_draft,true,68,-33,,,,,,chl,29407,https://chl.ca/whl/players/29407
+2025-084-gabriel-d-aigle,2022-23,QMJHL,Vic,pre_draft,true,21,0,,,,,,chl,19516,https://chl.ca/lhjmq/en/stats/players/202/all/points
+2025-084-gabriel-d-aigle,2023-24,QMJHL,Vic,pre_draft,false,1,0,,,,,,chl,19516,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-084-gabriel-d-aigle,2023-24,QMJHL,Vic,pre_draft,true,25,0,,,,,,chl,19516,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-085-mateo-nobert,2023-24,QMJHL,BLB,pre_draft,false,7,0,,,,,,chl,20166,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-085-mateo-nobert,2023-24,QMJHL,BLB,pre_draft,true,62,-12,,,,,,chl,20166,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-085-mateo-nobert,2024-25,QMJHL,BLB,pre_draft,false,4,0,,,,,,chl,20166,https://chl.ca/lhjmq/en/players/20166/
+2025-085-mateo-nobert,2024-25,QMJHL,BLB,pre_draft,true,57,1,,,,,,chl,20166,https://chl.ca/lhjmq/en/players/20166/
+2025-086-tyler-hopkins,2023-24,OHL,KGN,pre_draft,false,5,-3,,,,,,chl,8972,https://chl.ca/ohl/stats/players/77/all/points
+2025-086-tyler-hopkins,2023-24,OHL,KGN,pre_draft,true,59,-20,,,,,,chl,8972,https://chl.ca/ohl/stats/players/76/all/points
+2025-086-tyler-hopkins,2024-25,OHL,KGN,pre_draft,false,11,0,,,,,,chl,8972,https://chl.ca/ohl/players/8972
+2025-086-tyler-hopkins,2024-25,OHL,KGN,pre_draft,true,67,-1,,,,,,chl,8972,https://chl.ca/ohl/players/8972
+2025-088-kristian-epperson,2024-25,OHL,SAG,pre_draft,false,5,-8,,,,,,chl,9116,https://chl.ca/ohl/players/9116
+2025-088-kristian-epperson,2024-25,OHL,SAG,pre_draft,true,58,45,,,,,,chl,9116,https://chl.ca/ohl/players/9116
+2025-092-owen-martin,2022-23,WHL,SPO,pre_draft,true,1,0,,,,,,chl,29277,https://chl.ca/whl/stats/players/279/all/points
+2025-092-owen-martin,2023-24,WHL,SPO,pre_draft,false,4,-1,,,,,,chl,29277,https://chl.ca/whl/stats/players/284/all/points
+2025-092-owen-martin,2023-24,WHL,SPO,pre_draft,true,54,-12,,,,,,chl,29277,https://chl.ca/whl/stats/players/281/all/points
+2025-092-owen-martin,2024-25,WHL,SPO,pre_draft,false,20,9,,,,,,chl,29277,https://chl.ca/whl/players/29277
+2025-092-owen-martin,2024-25,WHL,SPO,pre_draft,true,39,16,,,,,,chl,29277,https://chl.ca/whl/players/29277
+2025-094-cameron-schmidt,2022-23,WHL,VAN,pre_draft,true,3,2,,,,,,chl,29235,https://chl.ca/whl/stats/players/279/all/points
+2025-094-cameron-schmidt,2023-24,WHL,VAN,pre_draft,false,5,-4,,,,,,chl,29235,https://chl.ca/whl/stats/players/284/all/points
+2025-094-cameron-schmidt,2023-24,WHL,VAN,pre_draft,true,59,5,,,,,,chl,29235,https://chl.ca/whl/stats/players/281/all/points
+2025-094-cameron-schmidt,2024-25,WHL,VAN,pre_draft,false,5,-2,,,,,,chl,29235,https://chl.ca/whl/players/29235
+2025-094-cameron-schmidt,2024-25,WHL,VAN,pre_draft,true,61,-7,,,,,,chl,29235,https://chl.ca/whl/players/29235
+2025-097-lucas-beckman,2023-24,QMJHL,BaC,pre_draft,false,1,0,,,,,,chl,20198,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-097-lucas-beckman,2023-24,QMJHL,BaC,pre_draft,true,9,0,,,,,,chl,20198,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-098-julius-sumpf,2023-24,QMJHL,Mon,pre_draft,false,4,-3,,,,,,chl,20520,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-098-julius-sumpf,2023-24,QMJHL,Mon,pre_draft,true,60,10,,,,,,chl,20520,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-098-julius-sumpf,2024-25,QMJHL,Mon,pre_draft,false,19,8,,,,,,chl,20520,https://chl.ca/lhjmq/en/players/20520/
+2025-098-julius-sumpf,2024-25,QMJHL,Mon,pre_draft,true,58,61,,,,,,chl,20520,https://chl.ca/lhjmq/en/players/20520/
+2025-099-trenten-bennett,2024-25,OHL,OS,pre_draft,true,6,0,,,,,,chl,9297,https://chl.ca/ohl/players/9297
+2025-105-travis-hayes,2023-24,OHL,SOO,pre_draft,false,9,-2,,,,,,chl,9017,https://chl.ca/ohl/stats/players/77/all/points
+2025-105-travis-hayes,2023-24,OHL,SOO,pre_draft,true,58,9,,,,,,chl,9017,https://chl.ca/ohl/stats/players/76/all/points
+2025-105-travis-hayes,2024-25,OHL,SOO,pre_draft,false,5,0,,,,,,chl,9017,https://chl.ca/ohl/players/9017
+2025-105-travis-hayes,2024-25,OHL,SOO,pre_draft,true,65,8,,,,,,chl,9017,https://chl.ca/ohl/players/9017
+2025-107-parker-holmes,2024-25,OHL,BFD,pre_draft,true,21,-8,,,,,,chl,9152,https://chl.ca/ohl/players/9152
+2025-116-samuel-meloche,2023-24,QMJHL,Rou,pre_draft,true,1,0,,,,,,chl,20199,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-117-david-lewandowski,2024-25,WHL,SAS,pre_draft,false,4,-3,,,,,,chl,29786,https://chl.ca/whl/players/29786
+2025-117-david-lewandowski,2024-25,WHL,SAS,pre_draft,true,52,21,,,,,,chl,29786,https://chl.ca/whl/players/29786
+2025-121-lirim-amidovski,2022-23,OHL,NB,pre_draft,true,2,0,,,,,,chl,8915,https://chl.ca/ohl/stats/players/73/all/points
+2025-121-lirim-amidovski,2023-24,OHL,NB,pre_draft,false,16,-2,,,,,,chl,8915,https://chl.ca/ohl/stats/players/77/all/points
+2025-121-lirim-amidovski,2023-24,OHL,NB,pre_draft,true,57,-11,,,,,,chl,8915,https://chl.ca/ohl/stats/players/76/all/points
+2025-121-lirim-amidovski,2024-25,OHL,NB,pre_draft,false,5,-1,,,,,,chl,8915,https://chl.ca/ohl/players/8915
+2025-121-lirim-amidovski,2024-25,OHL,NB,pre_draft,true,67,-10,,,,,,chl,8915,https://chl.ca/ohl/players/8915
+2025-122-alex-huang,2023-24,QMJHL,Chi,pre_draft,false,8,-6,,,,,,chl,20168,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-122-alex-huang,2023-24,QMJHL,Chi,pre_draft,true,61,-13,,,,,,chl,20168,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-122-alex-huang,2024-25,QMJHL,Chi,pre_draft,false,11,5,,,,,,chl,20168,https://chl.ca/lhjmq/en/players/20168/
+2025-122-alex-huang,2024-25,QMJHL,Chi,pre_draft,true,64,11,,,,,,chl,20168,https://chl.ca/lhjmq/en/players/20168/
+2025-123-carter-klippenstein,2022-23,WHL,BDN,pre_draft,true,2,0,,,,,,chl,29223,https://chl.ca/whl/stats/players/279/all/points
+2025-123-carter-klippenstein,2023-24,WHL,BDN,pre_draft,false,4,-1,,,,,,chl,29223,https://chl.ca/whl/stats/players/284/all/points
+2025-123-carter-klippenstein,2023-24,WHL,BDN,pre_draft,true,66,-8,,,,,,chl,29223,https://chl.ca/whl/stats/players/281/all/points
+2025-123-carter-klippenstein,2024-25,WHL,BDN,pre_draft,false,3,-5,,,,,,chl,29223,https://chl.ca/whl/players/29223
+2025-123-carter-klippenstein,2024-25,WHL,BDN,pre_draft,true,58,20,,,,,,chl,29223,https://chl.ca/whl/players/29223
+2025-125-jimmy-lombardi,2023-24,OHL,FLNT,pre_draft,false,4,-2,,,,,,chl,8927,https://chl.ca/ohl/stats/players/77/all/points
+2025-125-jimmy-lombardi,2023-24,OHL,FLNT,pre_draft,true,62,-11,,,,,,chl,8927,https://chl.ca/ohl/stats/players/76/all/points
+2025-125-jimmy-lombardi,2024-25,OHL,FLNT,pre_draft,false,5,-1,,,,,,chl,8927,https://chl.ca/ohl/players/8927
+2025-125-jimmy-lombardi,2024-25,OHL,FLNT,pre_draft,true,63,-4,,,,,,chl,8927,https://chl.ca/ohl/players/8927
+2025-126-brandon-gorzynski,2023-24,WHL,CGY,pre_draft,true,42,-9,,,,,,chl,29502,https://chl.ca/whl/stats/players/281/all/points
+2025-126-brandon-gorzynski,2024-25,WHL,CGY,pre_draft,false,11,-1,,,,,,chl,29502,https://chl.ca/whl/players/29502
+2025-126-brandon-gorzynski,2024-25,WHL,CGY,pre_draft,true,68,27,,,,,,chl,29502,https://chl.ca/whl/players/29502
+2025-127-aiden-foster,2023-24,WHL,PG,pre_draft,false,15,-2,,,,,,chl,29470,https://chl.ca/whl/stats/players/284/all/points
+2025-127-aiden-foster,2023-24,WHL,PG,pre_draft,true,66,4,,,,,,chl,29470,https://chl.ca/whl/stats/players/281/all/points
+2025-127-aiden-foster,2024-25,WHL,PG,pre_draft,false,7,-2,,,,,,chl,29470,https://chl.ca/whl/players/29470
+2025-127-aiden-foster,2024-25,WHL,PG,pre_draft,true,68,-2,,,,,,chl,29470,https://chl.ca/whl/players/29470
+2025-128-shea-busch,2024-25,WHL,EVT,pre_draft,false,13,4,,,,,,chl,29907,https://chl.ca/whl/players/29907
+2025-128-shea-busch,2024-25,WHL,EVT,pre_draft,true,39,14,,,,,,chl,29907,https://chl.ca/whl/players/29907
+2025-129-shamar-moses,2023-24,OHL,BAR,pre_draft,false,6,-1,,,,,,chl,8924,https://chl.ca/ohl/stats/players/77/all/points
+2025-129-shamar-moses,2023-24,OHL,BAR,pre_draft,true,66,-21,,,,,,chl,8924,https://chl.ca/ohl/stats/players/76/all/points
+2025-129-shamar-moses,2024-25,OHL,NB,pre_draft,false,5,-3,,,,,,chl,8924,https://chl.ca/ohl/players/8924
+2025-129-shamar-moses,2024-25,OHL,BAR/NB,pre_draft,true,66,-19,,,,,,chl,8924,https://chl.ca/ohl/players/8924
+2025-130-ryan-miller,2022-23,WHL,POR,pre_draft,true,3,-1,,,,,,chl,29255,https://chl.ca/whl/stats/players/279/all/points
+2025-130-ryan-miller,2023-24,WHL,POR,pre_draft,false,17,2,,,,,,chl,29255,https://chl.ca/whl/stats/players/284/all/points
+2025-130-ryan-miller,2023-24,WHL,POR,pre_draft,true,44,9,,,,,,chl,29255,https://chl.ca/whl/stats/players/281/all/points
+2025-130-ryan-miller,2024-25,WHL,POR,pre_draft,false,16,-4,,,,,,chl,29255,https://chl.ca/whl/players/29255
+2025-130-ryan-miller,2024-25,WHL,POR,pre_draft,true,50,-10,,,,,,chl,29255,https://chl.ca/whl/players/29255
+2025-133-cole-chandler,2023-24,QMJHL,Sha,pre_draft,false,2,-1,,,,,,chl,20179,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-133-cole-chandler,2023-24,QMJHL,Sha,pre_draft,true,25,5,,,,,,chl,20179,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-133-cole-chandler,2024-25,QMJHL,Sha,pre_draft,false,16,9,,,,,,chl,20179,https://chl.ca/lhjmq/en/players/20179/
+2025-133-cole-chandler,2024-25,QMJHL,Sha,pre_draft,true,64,12,,,,,,chl,20179,https://chl.ca/lhjmq/en/players/20179/
+2025-135-noah-laberge,2023-24,QMJHL,Bat,pre_draft,false,8,-1,,,,,,chl,19578,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-135-noah-laberge,2023-24,QMJHL,Bat,pre_draft,true,65,9,,,,,,chl,19578,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-135-noah-laberge,2024-25,QMJHL,Bat,pre_draft,false,5,-1,,,,,,chl,19578,https://chl.ca/lhjmq/en/players/19578/
+2025-135-noah-laberge,2024-25,QMJHL,Bat,pre_draft,true,63,16,,,,,,chl,19578,https://chl.ca/lhjmq/en/players/19578/
+2025-136-alexis-mathieu,2023-24,QMJHL,BaC,pre_draft,false,4,2,,,,,,chl,20192,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-136-alexis-mathieu,2023-24,QMJHL,BaC,pre_draft,true,39,15,,,,,,chl,20192,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-136-alexis-mathieu,2024-25,QMJHL,BaC,pre_draft,false,11,4,,,,,,chl,20192,https://chl.ca/lhjmq/en/players/20192/
+2025-136-alexis-mathieu,2024-25,QMJHL,BaC,pre_draft,true,59,-14,,,,,,chl,20192,https://chl.ca/lhjmq/en/players/20192/
+2025-141-justin-kipkie,2021-22,WHL,VIC,pre_draft,true,8,-4,,,,,,chl,28960,https://chl.ca/whl/stats/players/275/all/points
+2025-141-justin-kipkie,2022-23,WHL,VIC,pre_draft,true,67,-26,,,,,,chl,28960,https://chl.ca/whl/stats/players/279/all/points
+2025-141-justin-kipkie,2023-24,WHL,VIC,pre_draft,false,4,0,,,,,,chl,28960,https://chl.ca/whl/stats/players/284/all/points
+2025-141-justin-kipkie,2023-24,WHL,VIC,pre_draft,true,67,-9,,,,,,chl,28960,https://chl.ca/whl/stats/players/281/all/points
+2025-141-justin-kipkie,2024-25,WHL,VIC,pre_draft,false,11,-1,,,,,,chl,28960,https://chl.ca/whl/players/28960
+2025-141-justin-kipkie,2024-25,WHL,VIC,pre_draft,true,64,18,,,,,,chl,28960,https://chl.ca/whl/players/28960
+2025-145-alexis-cournoyer,2022-23,QMJHL,SNB,pre_draft,false,5,-6,,,,,,chl,18270,https://chl.ca/lhjmq/en/stats/players/203/all/points
+2025-145-alexis-cournoyer,2022-23,QMJHL,SNB,pre_draft,true,67,-33,,,,,,chl,18270,https://chl.ca/lhjmq/en/stats/players/202/all/points
+2025-145-alexis-cournoyer,2022-23,QMJHL,Sha,pre_draft,true,2,0,,,,,,chl,19296,https://chl.ca/lhjmq/en/stats/players/202/all/points
+2025-145-alexis-cournoyer,2024-25,QMJHL,Cap,pre_draft,true,21,0,,,,,,chl,19296,https://chl.ca/lhjmq/en/players/19296/
+2025-148-quinn-beauchesne,2023-24,OHL,GUE,pre_draft,false,4,1,,,,,,chl,8960,https://chl.ca/ohl/stats/players/77/all/points
+2025-148-quinn-beauchesne,2023-24,OHL,GUE,pre_draft,true,33,0,,,,,,chl,8960,https://chl.ca/ohl/stats/players/76/all/points
+2025-148-quinn-beauchesne,2024-25,OHL,GUE,pre_draft,true,49,-10,,,,,,chl,8960,https://chl.ca/ohl/players/8960
+2025-153-harry-nansi,2023-24,OHL,OS,pre_draft,false,4,-2,,,,,,chl,9030,https://chl.ca/ohl/stats/players/77/all/points
+2025-153-harry-nansi,2023-24,OHL,OS,pre_draft,true,41,-10,,,,,,chl,9030,https://chl.ca/ohl/stats/players/76/all/points
+2025-153-harry-nansi,2024-25,OHL,OS,pre_draft,false,2,0,,,,,,chl,9030,https://chl.ca/ohl/players/9030
+2025-153-harry-nansi,2024-25,OHL,OS,pre_draft,true,67,-10,,,,,,chl,9030,https://chl.ca/ohl/players/9030
+2025-154-jordan-charron,2024-25,OHL,SOO,pre_draft,false,5,-3,,,,,,chl,9279,https://chl.ca/ohl/players/9279
+2025-154-jordan-charron,2024-25,OHL,SOO,pre_draft,true,48,-19,,,,,,chl,9279,https://chl.ca/ohl/players/9279
+2025-157-luke-vlooswyk,2022-23,WHL,RD,pre_draft,true,1,0,,,,,,chl,29233,https://chl.ca/whl/stats/players/279/all/points
+2025-157-luke-vlooswyk,2023-24,WHL,RD,pre_draft,false,9,-3,,,,,,chl,29233,https://chl.ca/whl/stats/players/284/all/points
+2025-157-luke-vlooswyk,2023-24,WHL,RD,pre_draft,true,7,0,,,,,,chl,29233,https://chl.ca/whl/stats/players/281/all/points
+2025-157-luke-vlooswyk,2024-25,WHL,RD,pre_draft,true,68,8,,,,,,chl,29233,https://chl.ca/whl/players/29233
+2025-159-emile-guite,2023-24,QMJHL,Chi,pre_draft,false,8,-5,,,,,,chl,20165,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-159-emile-guite,2023-24,QMJHL,Chi,pre_draft,true,61,-7,,,,,,chl,20165,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-159-emile-guite,2024-25,QMJHL,Chi,pre_draft,false,11,-1,,,,,,chl,20165,https://chl.ca/lhjmq/en/players/20165/
+2025-159-emile-guite,2024-25,QMJHL,Chi,pre_draft,true,59,7,,,,,,chl,20165,https://chl.ca/lhjmq/en/players/20165/
+2025-160-owen-griffin,2023-24,OHL,OSH,pre_draft,false,21,1,,,,,,chl,8932,https://chl.ca/ohl/stats/players/77/all/points
+2025-160-owen-griffin,2023-24,OHL,OSH,pre_draft,true,61,-16,,,,,,chl,8932,https://chl.ca/ohl/stats/players/76/all/points
+2025-160-owen-griffin,2024-25,OHL,OSH,pre_draft,false,21,7,,,,,,chl,8932,https://chl.ca/ohl/players/8932
+2025-160-owen-griffin,2024-25,OHL,OSH,pre_draft,true,62,3,,,,,,chl,8932,https://chl.ca/ohl/players/8932
+2025-162-ashton-cumby,2021-22,WHL,WPG,pre_draft,true,2,1,,,,,,chl,28831,https://chl.ca/whl/stats/players/275/all/points
+2025-162-ashton-cumby,2022-23,WHL,WPG,pre_draft,false,10,0,,,,,,chl,28831,https://chl.ca/whl/stats/players/280/all/points
+2025-162-ashton-cumby,2022-23,WHL,WPG,pre_draft,true,55,13,,,,,,chl,28831,https://chl.ca/whl/stats/players/279/all/points
+2025-162-ashton-cumby,2023-24,WHL,SEA,pre_draft,true,72,-20,,,,,,chl,28831,https://chl.ca/whl/stats/players/281/all/points
+2025-162-ashton-cumby,2024-25,WHL,SEA,pre_draft,false,6,-1,,,,,,chl,28831,https://chl.ca/whl/players/28831
+2025-162-ashton-cumby,2024-25,WHL,SEA,pre_draft,true,68,-13,,,,,,chl,28831,https://chl.ca/whl/players/28831
+2025-164-nathan-quinn,2023-24,QMJHL,Que,pre_draft,true,34,-9,,,,,,chl,20188,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-164-nathan-quinn,2024-25,QMJHL,Que,pre_draft,false,4,0,,,,,,chl,20188,https://chl.ca/lhjmq/en/players/20188/
+2025-164-nathan-quinn,2024-25,QMJHL,Que,pre_draft,true,54,-7,,,,,,chl,20188,https://chl.ca/lhjmq/en/players/20188/
+2025-171-evan-passmore,2023-24,OHL,BAR,pre_draft,false,6,0,,,,,,chl,9008,https://chl.ca/ohl/stats/players/77/all/points
+2025-171-evan-passmore,2023-24,OHL,BAR,pre_draft,true,53,-4,,,,,,chl,9008,https://chl.ca/ohl/stats/players/76/all/points
+2025-171-evan-passmore,2024-25,OHL,BAR,pre_draft,false,16,3,,,,,,chl,9008,https://chl.ca/ohl/players/9008
+2025-171-evan-passmore,2024-25,OHL,BAR,pre_draft,true,62,-1,,,,,,chl,9008,https://chl.ca/ohl/players/9008
+2025-172-will-murphy,2023-24,QMJHL,Cap,pre_draft,true,2,0,,,,,,chl,20204,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-172-will-murphy,2024-25,QMJHL,Cap,pre_draft,false,6,3,,,,,,chl,20204,https://chl.ca/lhjmq/en/players/20204/
+2025-172-will-murphy,2024-25,QMJHL,Cap,pre_draft,true,54,2,,,,,,chl,20204,https://chl.ca/lhjmq/en/players/20204/
+2025-175-gabriel-chiarot,2023-24,OHL,MISS,pre_draft,false,3,0,,,,,,chl,8953,https://chl.ca/ohl/stats/players/77/all/points
+2025-175-gabriel-chiarot,2023-24,OHL,MISS,pre_draft,true,48,-1,,,,,,chl,8953,https://chl.ca/ohl/stats/players/76/all/points
+2025-175-gabriel-chiarot,2024-25,OHL,BRAM,pre_draft,false,6,-2,,,,,,chl,8953,https://chl.ca/ohl/players/8953
+2025-175-gabriel-chiarot,2024-25,OHL,BRAM,pre_draft,true,66,21,,,,,,chl,8953,https://chl.ca/ohl/players/8953
+2025-177-carlos-handel,2024-25,QMJHL,Hal,pre_draft,false,10,-6,,,,,,chl,21612,https://chl.ca/lhjmq/en/players/21612/
+2025-177-carlos-handel,2024-25,QMJHL,Hal,pre_draft,true,52,-22,,,,,,chl,21612,https://chl.ca/lhjmq/en/players/21612/
+2025-185-rylan-fellinger,2023-24,OHL,FLNT,pre_draft,false,3,0,,,,,,chl,9046,https://chl.ca/ohl/stats/players/77/all/points
+2025-185-rylan-fellinger,2023-24,OHL,FLNT,pre_draft,true,58,-11,,,,,,chl,9046,https://chl.ca/ohl/stats/players/76/all/points
+2025-185-rylan-fellinger,2024-25,OHL,FLNT,pre_draft,false,5,-3,,,,,,chl,9046,https://chl.ca/ohl/players/9046
+2025-185-rylan-fellinger,2024-25,OHL,FLNT,pre_draft,true,64,-8,,,,,,chl,9046,https://chl.ca/ohl/players/9046
+2025-189-andrew-macniel,2023-24,OHL,KIT,pre_draft,false,1,0,,,,,,chl,8946,https://chl.ca/ohl/stats/players/77/all/points
+2025-189-andrew-macniel,2023-24,OHL,KIT,pre_draft,true,5,0,,,,,,chl,8946,https://chl.ca/ohl/stats/players/76/all/points
+2025-189-andrew-macniel,2024-25,OHL,KIT,pre_draft,false,12,-1,,,,,,chl,8946,https://chl.ca/ohl/players/8946
+2025-189-andrew-macniel,2024-25,OHL,KIT,pre_draft,true,33,6,,,,,,chl,8946,https://chl.ca/ohl/players/8946
+2025-190-dawson-sharkey,2023-24,QMJHL,Bat,pre_draft,false,8,0,,,,,,chl,19752,https://chl.ca/lhjmq/en/stats/players/206/all/points
+2025-190-dawson-sharkey,2023-24,QMJHL,Bat,pre_draft,true,41,-4,,,,,,chl,19752,https://chl.ca/lhjmq/en/stats/players/205/all/points
+2025-190-dawson-sharkey,2024-25,QMJHL,Bat,pre_draft,false,5,-1,,,,,,chl,19752,https://chl.ca/lhjmq/en/players/19752/
+2025-190-dawson-sharkey,2024-25,QMJHL,Bat,pre_draft,true,54,-10,,,,,,chl,19752,https://chl.ca/lhjmq/en/players/19752/
+2025-197-brendan-dunphy,2024-25,WHL,WEN,pre_draft,true,47,-9,,,,,,chl,29897,https://chl.ca/whl/players/29897
+2025-200-brady-turko,2023-24,WHL,BDN,pre_draft,true,7,3,,,,,,chl,29601,https://chl.ca/whl/stats/players/281/all/points
+2025-200-brady-turko,2024-25,WHL,BDN,pre_draft,false,5,-2,,,,,,chl,29601,https://chl.ca/whl/players/29601
+2025-200-brady-turko,2024-25,WHL,BDN,pre_draft,true,68,11,,,,,,chl,29601,https://chl.ca/whl/players/29601
+2025-212-grant-spada,2023-24,OHL,GUE,pre_draft,true,7,-1,,,,,,chl,9063,https://chl.ca/ohl/stats/players/76/all/points
+2025-212-grant-spada,2024-25,OHL,GUE,pre_draft,true,58,-29,,,,,,chl,9063,https://chl.ca/ohl/players/9063
+2025-215-marco-mignosa,2021-22,OHL,SOO,pre_draft,false,10,6,,,,,,chl,8577,https://chl.ca/ohl/stats/players/71/all/points
+2025-215-marco-mignosa,2021-22,OHL,SOO,pre_draft,true,55,0,,,,,,chl,8577,https://chl.ca/ohl/stats/players/70/all/points
+2025-215-marco-mignosa,2022-23,OHL,SOO,pre_draft,true,68,-24,,,,,,chl,8577,https://chl.ca/ohl/stats/players/73/all/points
+2025-215-marco-mignosa,2023-24,OHL,SOO,pre_draft,false,11,-3,,,,,,chl,8577,https://chl.ca/ohl/stats/players/77/all/points
+2025-215-marco-mignosa,2023-24,OHL,SOO,pre_draft,true,57,19,,,,,,chl,8577,https://chl.ca/ohl/stats/players/76/all/points
+2025-215-marco-mignosa,2024-25,OHL,SOO,pre_draft,false,5,0,,,,,,chl,8577,https://chl.ca/ohl/players/8577
+2025-215-marco-mignosa,2024-25,OHL,SOO,pre_draft,true,58,10,,,,,,chl,8577,https://chl.ca/ohl/players/8577
+2025-216-william-sharpe,2022-23,WHL,LET,pre_draft,true,2,-1,,,,,,chl,29211,https://chl.ca/whl/stats/players/279/all/points
+2025-216-william-sharpe,2023-24,WHL,LET,pre_draft,false,4,0,,,,,,chl,29211,https://chl.ca/whl/stats/players/284/all/points
+2025-216-william-sharpe,2023-24,WHL,LET,pre_draft,true,58,0,,,,,,chl,29211,https://chl.ca/whl/stats/players/281/all/points
+2025-216-william-sharpe,2024-25,WHL,LET/KEL,pre_draft,true,66,-46,,,,,,chl,29211,https://chl.ca/whl/players/29211
+2025-217-matthew-hlacar,2024-25,OHL,KIT,pre_draft,false,14,-6,,,,,,chl,9168,https://chl.ca/ohl/players/9168
+2025-217-matthew-hlacar,2024-25,OHL,KIT,pre_draft,true,43,2,,,,,,chl,9168,https://chl.ca/ohl/players/9168
+2025-220-jacob-cloutier,2023-24,OHL,SAG,pre_draft,true,4,-1,,,,,,chl,8990,https://chl.ca/ohl/stats/players/76/all/points
+2025-220-jacob-cloutier,2024-25,OHL,SAG,pre_draft,false,3,1,,,,,,chl,8990,https://chl.ca/ohl/players/8990
+2025-220-jacob-cloutier,2024-25,OHL,SAG,pre_draft,true,67,15,,,,,,chl,8990,https://chl.ca/ohl/players/8990
+2025-221-filip-ekberg,2024-25,OHL,OTT,pre_draft,true,53,5,,,,,,chl,9181,https://chl.ca/ohl/players/9181
+2025-222-charlie-paquette,2021-22,OHL,GUE,pre_draft,false,5,1,,,,,,chl,8562,https://chl.ca/ohl/stats/players/71/all/points
+2025-222-charlie-paquette,2021-22,OHL,GUE,pre_draft,true,54,7,,,,,,chl,8562,https://chl.ca/ohl/stats/players/70/all/points
+2025-222-charlie-paquette,2022-23,OHL,GUE,pre_draft,false,6,-2,,,,,,chl,8562,https://chl.ca/ohl/stats/players/74/all/points
+2025-222-charlie-paquette,2022-23,OHL,GUE,pre_draft,true,68,-16,,,,,,chl,8562,https://chl.ca/ohl/stats/players/73/all/points
+2025-222-charlie-paquette,2023-24,OHL,GUE,pre_draft,false,4,-3,,,,,,chl,8562,https://chl.ca/ohl/stats/players/77/all/points
+2025-222-charlie-paquette,2023-24,OHL,GUE,pre_draft,true,68,-15,,,,,,chl,8562,https://chl.ca/ohl/stats/players/76/all/points
+2025-222-charlie-paquette,2024-25,OHL,GUE,pre_draft,true,68,-19,,,,,,chl,8562,https://chl.ca/ohl/players/8562
+2025-007-james-hagens,2024-25,NCAA,Boston College,pre_draft,true,37,21,99,7,185,219,45.8,collegehockeyinc,60303,https://collegehockeyinc.com/players/career/60303
+2025-023-logan-hensler,2024-25,NCAA,Wisconsin,pre_draft,true,32,-13,50,30,0,0,,collegehockeyinc,60142,https://collegehockeyinc.com/players/career/60142
+2025-024-will-horcoff,2024-25,NCAA,Michigan,pre_draft,true,18,-4,44,2,3,5,37.5,collegehockeyinc,60749,https://collegehockeyinc.com/players/career/60749
+2025-028-sascha-boumedienne,2024-25,NCAA,Boston University,pre_draft,true,40,8,33,24,0,0,,collegehockeyinc,60815,https://collegehockeyinc.com/players/career/60815
+2025-032-cullen-potter,2024-25,NCAA,Arizona State,pre_draft,true,35,-1,118,10,218,273,44.4,collegehockeyinc,60311,https://collegehockeyinc.com/players/career/60311
+2025-048-shane-vansaghi,2024-25,NCAA,Michigan State,pre_draft,true,37,10,55,4,16,17,48.5,collegehockeyinc,60774,https://collegehockeyinc.com/players/career/60774
+2025-049-charlie-cerrato,2024-25,NCAA,Penn State,pre_draft,true,38,16,94,25,388,290,57.2,collegehockeyinc,57817,https://collegehockeyinc.com/players/career/57817
+2025-077-francesco-dell-elce,2024-25,NCAA,Massachusetts,pre_draft,true,40,18,80,38,0,0,,collegehockeyinc,59094,https://collegehockeyinc.com/players/career/59094
+2025-124-zack-sharp,2024-25,NCAA,Western Michigan,pre_draft,true,42,19,60,29,0,0,,collegehockeyinc,57833,https://collegehockeyinc.com/players/career/57833
+2025-003-anton-frondell,2024-25,HockeyAllsvenskan,Djurgårdens IF,pre_draft,true,29,11,78,,5,2,71.43,swehockey,antonfrondell,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15986
+2025-003-anton-frondell,2024-25,HockeyAllsvenskan,Djurgårdens IF,pre_draft,false,16,3,25,,2,2,50.00,swehockey,antonfrondell,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17571
+2025-003-anton-frondell,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,true,10,9,39,,1,1,50.00,swehockey,antonfrondell,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-016-victor-eklund,2024-25,HockeyAllsvenskan,Djurgårdens IF,pre_draft,true,42,16,111,,0,0,N/A,swehockey,victoreklund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15986
+2025-016-victor-eklund,2024-25,HockeyAllsvenskan,Djurgårdens IF,pre_draft,false,16,2,35,,0,0,N/A,swehockey,victoreklund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17571
+2025-016-victor-eklund,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,true,1,1,6,,0,0,N/A,swehockey,victoreklund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-037-milton-gastrin,2024-25,SHL,MoDo Hockey,pre_draft,true,8,-2,1,,0,0,N/A,swehockey,miltongastrin,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-037-milton-gastrin,2024-25,Sweden Jrs.,MoDo Hockey,pre_draft,true,40,6,119,,337,293,53.5,swehockey,miltongastrin@17323+15975,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-044-eddie-genborg,2024-25,SHL,Linköping HC,pre_draft,true,28,-1,17,,0,0,N/A,swehockey,eddiegenborg,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-044-eddie-genborg,2024-25,Sweden Jrs.,Linköping HC,pre_draft,false,3,0,11,,0,0,N/A,swehockey,eddiegenborg,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-044-eddie-genborg,2024-25,Sweden Jrs.,Linköping HC,pre_draft,true,28,18,76,,0,0,,swehockey,eddiegenborg@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-045-eric-nilson,2024-25,HockeyAllsvenskan,Djurgårdens IF,pre_draft,true,4,1,2,,0,0,N/A,swehockey,ericnilson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15986
+2025-045-eric-nilson,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,true,37,22,113,,212,204,51.0,swehockey,ericnilson@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-045-eric-nilson,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,false,9,7,30,,56,57,49.56,swehockey,ericnilson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-052-theodor-hallquisth,2024-25,SHL,Örebro HK,pre_draft,true,12,-2,1,,0,0,N/A,swehockey,theodorhallquisth,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-052-theodor-hallquisth,2024-25,Sweden Jrs.,Örebro HK,pre_draft,true,41,26,69,,0,0,,swehockey,theodorhallquisth@17323+15976,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-052-theodor-hallquisth,2024-25,Sweden Jrs.,Örebro HK,pre_draft,false,4,6,11,,0,0,N/A,swehockey,theodorhallquisth,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-054-theo-stockselius,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,true,40,22,93,,95,116,45.0,swehockey,theostockselius@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-054-theo-stockselius,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,false,9,8,27,,21,7,75.00,swehockey,theostockselius,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-055-jakob-ihs-wozniak,2024-25,SHL,Luleå HF,pre_draft,false,2,0,0,,0,0,N/A,swehockey,jakobihswozniak,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17557
+2025-055-jakob-ihs-wozniak,2024-25,SHL,Luleå HF,pre_draft,true,13,2,1,,0,0,N/A,swehockey,jakobihswozniak,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-055-jakob-ihs-wozniak,2024-25,Sweden Jrs.,Luleå HF,pre_draft,true,40,25,168,,239,163,59.5,swehockey,jakobihswozniak@17323+15975,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-055-jakob-ihs-wozniak,2024-25,Sweden Jrs.,Luleå HF,pre_draft,false,3,-2,10,,13,13,50.00,swehockey,jakobihswozniak,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-061-liam-pettersson,2024-25,SHL,Växjö Lakers HC,pre_draft,true,5,0,0,,0,0,N/A,swehockey,liampettersson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-061-liam-pettersson,2024-25,Sweden Jrs.,Växjö Lakers HC,pre_draft,true,39,-5,91,,0,0,,swehockey,liampettersson@17323+15976,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-064-tinus-luc-koblar,2024-25,Sweden Jrs.,Leksands IF,pre_draft,true,43,7,65,,155,189,45.1,swehockey,tinusluckoblar@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-064-tinus-luc-koblar,2024-25,Sweden Jrs.,Leksands IF,pre_draft,false,7,3,20,,59,28,67.82,swehockey,tinusluckoblar,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-076-malte-vass,2024-25,SHL,Färjestad BK,pre_draft,true,5,0,0,,0,0,N/A,swehockey,maltevass,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-076-malte-vass,2024-25,Sweden Jrs.,Färjestad BK,pre_draft,false,2,0,3,,0,0,N/A,swehockey,maltevass,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-076-malte-vass,2024-25,Sweden Jrs.,Färjestad BK,pre_draft,true,40,-6,60,,0,0,,swehockey,maltevass@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-108-benjamin-rautiainen,2024-25,Liiga,Tappara,pre_draft,true,3,0,3,,16,13,55.17,liiga,33490124,https://liiga.fi/api/v2/players/stats/summed/2024/2024/runkosarja/true?dataType=basicStats
+2025-111-mikkel-eriksen,2024-25,Sweden Jrs.,Färjestad BK,pre_draft,false,2,-2,6,,17,16,51.52,swehockey,mikkeleriksen,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-111-mikkel-eriksen,2024-25,Sweden Jrs.,Färjestad BK,pre_draft,true,40,1,106,,205,222,48.0,swehockey,mikkeleriksen@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-112-mads-kongsbak-klyvo,2024-25,SHL,Frölunda HC,pre_draft,false,4,-1,2,,0,0,N/A,swehockey,madskongsbakklyvo,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17557
+2025-112-mads-kongsbak-klyvo,2024-25,Sweden Jrs.,Frölunda HC,pre_draft,false,6,3,16,,0,0,N/A,swehockey,madskongsbakklyvo,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-112-mads-kongsbak-klyvo,2024-25,Sweden Jrs.,Frölunda HC,pre_draft,true,42,3,85,,1,2,33.3,swehockey,madskongsbakklyvo@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-114-gustav-hillstrom,2024-25,SHL,Brynäs IF,pre_draft,true,18,-3,7,,11,6,64.71,swehockey,gustavhillstrom,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-114-gustav-hillstrom,2024-25,Sweden Jrs.,Brynäs IF,pre_draft,true,43,12,70,,354,251,58.5,swehockey,gustavhillstrom@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-114-gustav-hillstrom,2024-25,Sweden Jrs.,Brynäs IF,pre_draft,false,5,0,13,,47,47,50.00,swehockey,gustavhillstrom,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-118-linus-funck,2024-25,Sweden Jrs.,Luleå HF,pre_draft,true,48,3,80,,0,0,,swehockey,linusfunck@17323+15975,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-118-linus-funck,2024-25,Sweden Jrs.,Luleå HF,pre_draft,false,3,0,5,,0,0,N/A,swehockey,linusfunck,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-119-michal-svrcek,2024-25,SHL,Brynäs IF,pre_draft,false,10,2,6,,0,0,N/A,swehockey,michalsvrcek,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17557
+2025-119-michal-svrcek,2024-25,SHL,Brynäs IF,pre_draft,true,17,-1,7,,0,0,N/A,swehockey,michalsvrcek,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-119-michal-svrcek,2024-25,Sweden Jrs.,Brynäs IF,pre_draft,true,30,9,81,,7,4,63.6,swehockey,michalsvrcek@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-119-michal-svrcek,2024-25,Sweden Jrs.,Brynäs IF,pre_draft,false,3,-4,8,,0,0,N/A,swehockey,michalsvrcek,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-132-max-westergard,2024-25,SHL,Frölunda HC,pre_draft,false,11,-2,10,,0,0,N/A,swehockey,maxwestergard,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17557
+2025-132-max-westergard,2024-25,SHL,Frölunda HC,pre_draft,true,4,0,3,,0,0,N/A,swehockey,maxwestergard,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-132-max-westergard,2024-25,Sweden Jrs.,Frölunda HC,pre_draft,true,41,28,132,,0,1,0.0,swehockey,maxwestergard@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-139-zeb-lindgren,2024-25,SHL,Skellefteå AIK,pre_draft,true,5,0,1,,0,0,N/A,swehockey,zeblindgren,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-139-zeb-lindgren,2024-25,Sweden Jrs.,Skellefteå AIK,pre_draft,true,38,8,75,,0,0,,swehockey,zeblindgren@17323+15975,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-139-zeb-lindgren,2024-25,Sweden Jrs.,Skellefteå AIK,pre_draft,false,9,-2,13,,0,0,N/A,swehockey,zeblindgren,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-143-wilson-bjorck,2024-25,HockeyAllsvenskan,Djurgårdens IF,pre_draft,true,10,2,6,,0,0,N/A,swehockey,wilsonbjorck,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15986
+2025-143-wilson-bjorck,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,true,43,31,153,,161,116,58.1,swehockey,wilsonbjorck@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-143-wilson-bjorck,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,false,9,7,27,,61,54,53.04,swehockey,wilsonbjorck,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-156-viktor-klingsell,2024-25,SHL,Skellefteå AIK,pre_draft,true,3,0,0,,0,0,N/A,swehockey,viktorklingsell,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-156-viktor-klingsell,2024-25,Sweden Jrs.,Skellefteå AIK,pre_draft,true,43,5,121,,3,3,50.0,swehockey,viktorklingsell@17323+15975,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-156-viktor-klingsell,2024-25,Sweden Jrs.,Skellefteå AIK,pre_draft,false,9,4,15,,1,0,100.00,swehockey,viktorklingsell,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-180-aron-dahlqvist,2024-25,SHL,Brynäs IF,pre_draft,true,16,0,0,,0,0,N/A,swehockey,arondahlqvist,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-180-aron-dahlqvist,2024-25,Sweden Jrs.,Brynäs IF,pre_draft,true,37,5,32,,6,2,75.0,swehockey,arondahlqvist@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-180-aron-dahlqvist,2024-25,Sweden Jrs.,Brynäs IF,pre_draft,false,5,-3,7,,0,0,N/A,swehockey,arondahlqvist,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-183-viggo-nordlund,2024-25,SHL,Skellefteå AIK,pre_draft,false,7,-1,2,,0,0,N/A,swehockey,viggonordlund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17557
+2025-183-viggo-nordlund,2024-25,SHL,Skellefteå AIK,pre_draft,true,15,-1,8,,0,0,N/A,swehockey,viggonordlund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-183-viggo-nordlund,2024-25,Sweden Jrs.,Skellefteå AIK,pre_draft,true,40,6,177,,0,0,,swehockey,viggonordlund@17323+15975,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-183-viggo-nordlund,2024-25,Sweden Jrs.,Skellefteå AIK,pre_draft,false,6,9,26,,0,0,N/A,swehockey,viggonordlund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-187-gustav-sjoqvist,2024-25,HockeyAllsvenskan,AIK,pre_draft,true,39,4,26,,1,1,50.00,swehockey,gustavsjoqvist,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15986
+2025-187-gustav-sjoqvist,2024-25,HockeyAllsvenskan,AIK,pre_draft,false,18,-1,10,,0,0,N/A,swehockey,gustavsjoqvist,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17571
+2025-187-gustav-sjoqvist,2024-25,Sweden Jrs.,AIK,pre_draft,true,31,6,112,,0,0,,swehockey,gustavsjoqvist@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-192-arvid-drott,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,true,40,19,100,,0,0,,swehockey,arviddrott@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-192-arvid-drott,2024-25,Sweden Jrs.,Djurgårdens IF,pre_draft,false,9,4,12,,0,0,N/A,swehockey,arviddrott,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-195-melvin-novotny,2024-25,Sweden Jrs.,Leksands IF,pre_draft,true,41,10,118,,0,0,,swehockey,melvinnovotny@15975+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15975
+2025-195-melvin-novotny,2024-25,Sweden Jrs.,Leksands IF,pre_draft,false,7,0,28,,0,0,N/A,swehockey,melvinnovotny,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-203-felix-farhammar,2024-25,SHL,Örebro HK,pre_draft,true,2,0,0,,0,0,N/A,swehockey,felixfarhammar,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-203-felix-farhammar,2024-25,Sweden Jrs.,Örebro HK,pre_draft,true,43,25,82,,3,2,60.0,swehockey,felixfarhammar@17323+15976,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17323
+2025-203-felix-farhammar,2024-25,Sweden Jrs.,Örebro HK,pre_draft,false,4,4,10,,0,0,N/A,swehockey,felixfarhammar,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-205-karl-annborn,2024-25,SHL,HV 71,pre_draft,true,5,2,1,,0,0,N/A,swehockey,karlannborn,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15977
+2025-205-karl-annborn,2024-25,Sweden Jrs.,HV 71,pre_draft,true,39,12,63,,0,0,,swehockey,karlannborn@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-208-jakob-leander,2024-25,Sweden Jrs.,HV 71,pre_draft,false,2,0,1,,0,0,N/A,swehockey,jakobleander,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-208-jakob-leander,2024-25,Sweden Jrs.,HV 71,pre_draft,true,39,-11,33,,0,0,,swehockey,jakobleander@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976
+2025-218-loke-krantz,2024-25,Sweden Jrs.,Linköping HC,pre_draft,false,3,-1,9,,0,0,N/A,swehockey,lokekrantz,https://stats.swehockey.se/Teams/Info/PlayersByTeam/17324
+2025-218-loke-krantz,2024-25,Sweden Jrs.,Linköping HC,pre_draft,true,44,-14,109,,0,1,0.0,swehockey,lokekrantz@15976+17322,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15976

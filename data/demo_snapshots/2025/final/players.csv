@@ -1,0 +1,225 @@
+player_id,name,birth_date,nationality,position,handedness,height_cm,weight_kg,age_at_draft,source,source_id,source_url
+2025-001-matthew-schaefer,Matthew Schaefer,2007-09-05,Canada,D,L,187,83,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-29,Draft25.pdf#page=29
+2025-002-michael-misa,Michael Misa,2007-02-16,Canada,CLW,L,185,83,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-47,Draft25.pdf#page=47
+2025-003-anton-frondell,Anton Frondell,2007-05-07,Sweden,C,L,185,90,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-218,Draft25.pdf#page=218
+2025-004-caleb-desnoyers,Caleb Desnoyers,2007-04-11,Canada,C,L,187,81,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-127,Draft25.pdf#page=127
+2025-005-brady-martin,Brady Martin,2007-03-16,Canada,C,R,183,81,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-204,Draft25.pdf#page=204
+2025-006-porter-martone,Porter Martone,2006-10-26,Canada,RW,R,190,94,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-64,Draft25.pdf#page=64
+2025-007-james-hagens,James Hagens,2006-11-03,United States,C,L,179,80,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-86,Draft25.pdf#page=86
+2025-008-jake-o-brien,Jake O'Brien,2007-06-16,Canada,C,R,187,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-173,Draft25.pdf#page=173
+2025-009-radim-mrtka,Radim Mrtka,2007-06-09,Czech Republic,D,R,197,94,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-253,Draft25.pdf#page=253
+2025-010-roger-mcqueen,Roger McQueen,2006-10-02,Canada,C,R,196,89,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-104,Draft25.pdf#page=104
+2025-011-ben-kindel,Ben Kindel,2007-04-19,Canada,CRW,R,178,80,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-314,Draft25.pdf#page=314
+2025-012-jack-nesbitt,Jack Nesbitt,2007-01-12,Canada,C,L,194,84,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-582,Draft25.pdf#page=582
+2025-013-carter-bear,Carter Bear,2006-11-04,Canada,LW,L,183,81,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-144,Draft25.pdf#page=144
+2025-014-jackson-smith,Jackson Smith,2007-05-13,Canada,D,L,191,88,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-114,Draft25.pdf#page=114
+2025-015-braeden-cootes,Braeden Cootes,2007-02-09,Canada,C,R,181,83,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-267,Draft25.pdf#page=267
+2025-016-victor-eklund,Victor Eklund,2006-10-03,Sweden,RWLW,R,180,73,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-154,Draft25.pdf#page=154
+2025-017-kashawn-aitcheson,Kashawn Aitcheson,2006-09-21,Canada,D,L,187,89,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-290,Draft25.pdf#page=290
+2025-018-cole-reschny,Cole Reschny,2007-04-06,Canada,C,L,179,83,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-370,Draft25.pdf#page=370
+2025-019-justin-carbonneau,Justin Carbonneau,2006-11-25,Canada,RW,R,185,87,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-188,Draft25.pdf#page=188
+2025-020-pyotr-andreyanov,Pyotr Andreyanov,2007-01-22,Russia,G,L,183,94,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-811,Draft25.pdf#page=811
+2025-021-cameron-reid,Cameron Reid,2007-04-08,Canada,D,L,182,88,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-302,Draft25.pdf#page=302
+2025-022-bill-zonnon,Bill Zonnon,2006-10-03,Canada,CLW,L,187,84,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-396,Draft25.pdf#page=396
+2025-023-logan-hensler,Logan Hensler,2006-10-14,United States,D,R,189,87,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-278,Draft25.pdf#page=278
+2025-024-will-horcoff,Will Horcoff,2007-01-23,United States,LWC,L,195,86,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-676,Draft25.pdf#page=676
+2025-025-vaclav-nestrasil,Vaclav Nestrasil,2007-04-06,Czech Republic,RW,R,196,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-380,Draft25.pdf#page=380
+2025-026-ryker-lee,Ryker Lee,2006-11-08,United States,RW,R,182,82,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-456,Draft25.pdf#page=456
+2025-027-lynden-lakovic,Lynden Lakovic,2006-12-12,Canada,LWRW,L,194,86,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-241,Draft25.pdf#page=241
+2025-028-sascha-boumedienne,Sascha Boumedienne,2007-01-17,Sweden,D,L,185,79,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-485,Draft25.pdf#page=485
+2025-029-mason-west,Mason West,2007-08-03,United States,CRW,R,197,94,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-568,Draft25.pdf#page=568
+2025-030-joshua-ravensbergen,Joshua Ravensbergen,2006-11-27,Canada,G,R,196,86,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-364,Draft25.pdf#page=364
+2025-031-henry-brzustewicz,Henry Brzustewicz,2007-02-09,United States,D,R,187,92,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-498,Draft25.pdf#page=498
+2025-032-cullen-potter,Cullen Potter,2007-01-10,United States,CLW,L,178,78,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-415,Draft25.pdf#page=415
+2025-033-haoxi-wang,Haoxi Wang,2007-07-27,China,D,L,197,98,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-589,Draft25.pdf#page=589
+2025-034-alexander-zharovsky,Alexander Zharovsky,2007-02-22,Russia,RW,L,185,74,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-533,Draft25.pdf#page=533
+2025-035-jacob-rombach,Jacob Rombach,2007-04-01,United States,D,L,199,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-434,Draft25.pdf#page=434
+2025-036-blake-fiddler,Blake Fiddler,2007-07-09,United States,D,R,193,95,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-352,Draft25.pdf#page=352
+2025-037-milton-gastrin,Milton Gastrin,2007-06-02,Sweden,C,L,184,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-556,Draft25.pdf#page=556
+2025-038-carter-amico,Carter Amico,2007-03-15,United States,D,R,196,102,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-713,Draft25.pdf#page=713
+2025-039-peyton-kettles,Peyton Kettles,2007-09-01,Canada,D,R,196,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-691,Draft25.pdf#page=691
+2025-040-jack-murtagh,Jack Murtagh,2007-08-22,United States,RW,L,185,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-404,Draft25.pdf#page=404
+2025-041-semyon-frolov,Semyon Frolov,2007-01-17,Russia,G,L,190,92,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-789,Draft25.pdf#page=789
+2025-042-daniil-prokhorov,Daniil Prokhorov,2007-04-27,Russia,LW,L,196,95,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-667,Draft25.pdf#page=667
+2025-043-malcolm-spence,Malcolm Spence,2006-09-22,Canada,LW,L,185,92,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-324,Draft25.pdf#page=324
+2025-044-eddie-genborg,Eddie Genborg,2007-04-20,Sweden,LWRW,L,185,81,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-720,Draft25.pdf#page=720
+2025-045-eric-nilson,Eric Nilson,2007-05-11,Sweden,C,R,182,71,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-697,Draft25.pdf#page=697
+2025-046-max-psenicka,Max Psenicka,2007-01-18,Czech Republic,D,R,193,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-426,Draft25.pdf#page=426
+2025-047-alexei-medvedev,Alexei Medvedev,2007-09-10,Russia,G,L,189,81,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-742,Draft25.pdf#page=742
+2025-048-shane-vansaghi,Shane Vansaghi,2006-10-11,United States,RW,R,189,95,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-389,Draft25.pdf#page=389
+2025-049-charlie-cerrato,Charlie Cerrato,2005-03-10,United States,C,L,183,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1410,Draft25.pdf#page=1410
+2025-050-conrad-fondrk,Conrad Fondrk,2007-06-01,United States,CLW,L,182,88,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1287,Draft25.pdf#page=1287
+2025-051-william-moore,William Moore,2007-03-24,United States,LWC,L,189,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-465,Draft25.pdf#page=465
+2025-052-theodor-hallquisth,Theodor Hallquisth,2007-06-14,Sweden,D,R,185,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1022,Draft25.pdf#page=1022
+2025-053-cole-mckinney,Cole McKinney,2007-03-16,United States,C,R,183,91,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-603,Draft25.pdf#page=603
+2025-054-theo-stockselius,Theo Stockselius,2007-07-24,Sweden,CLW,L,188,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-683,Draft25.pdf#page=683
+2025-055-jakob-ihs-wozniak,Jakob Ihs-Wozniak,2007-02-01,Sweden,LWC,R,189,83,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-632,Draft25.pdf#page=632
+2025-056-ethan-czata,Ethan Czata,2007-05-29,Canada,CRW,L,186,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-597,Draft25.pdf#page=597
+2025-057-matthew-gard,Matthew Gard,2007-04-07,Canada,C,L,195,87,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-550,Draft25.pdf#page=550
+2025-058-jack-ivankovic,Jack Ivankovic,2007-05-22,Canada,G,L,180,81,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-975,Draft25.pdf#page=975
+2025-059-vojtech-cihar,Vojtech Cihar,2007-03-29,Czech Republic,LWC,L,183,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-995,Draft25.pdf#page=995
+2025-060-lasse-boelius,Lasse Boelius,2007-03-16,Finland,D,L,182,81,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-982,Draft25.pdf#page=982
+2025-061-liam-pettersson,Liam Pettersson,2007-01-04,Sweden,D,L,188,77,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-897,Draft25.pdf#page=897
+2025-062-ivan-ryabkin,Ivan Ryabkin,2007-04-25,Russia,CLW,L,180,91,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-612,Draft25.pdf#page=612
+2025-063-ben-kevan,Ben Kevan,2007-01-03,United States,RWLW,R,184,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-522,Draft25.pdf#page=522
+2025-064-tinus-luc-koblar,Tinus Luc Koblar,2007-07-21,Norway,C,L,190,80,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-1503,Draft25.pdf#page=1503
+2025-065-kieren-dervin,Kieren Dervin,2007-03-31,Canada,C,L,185,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-989,Draft25.pdf#page=989
+2025-066-nathan-behm,Nathan Behm,2007-04-18,Canada,LW,R,187,87,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-478,Draft25.pdf#page=478
+2025-067-kurban-limatov,Kurban Limatov,2007-03-20,Russia,D,L,190,90,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-443,Draft25.pdf#page=443
+2025-068-will-reynolds,Will Reynolds,2007-08-11,Canada,D,L,190,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1218,Draft25.pdf#page=1218
+2025-069-hayden-paupanekis,Hayden Paupanekis,2007-02-04,Canada,C,R,194,89,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-544,Draft25.pdf#page=544
+2025-070-sean-barnhill,Sean Barnhill,2007-01-08,United States,D,R,195,93,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-745,Draft25.pdf#page=745
+2025-071-david-bedkowski,David Bedkowski,2006-12-07,Canada,D,R,194,98,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-576,Draft25.pdf#page=576
+2025-072-noah-read,Noah Read,2007-01-06,Canada,LW,L,183,77,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-909,Draft25.pdf#page=909
+2025-073-charlie-trethewey,Charlie Trethewey,2007-08-02,United States,D,R,185,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-649,Draft25.pdf#page=649
+2025-074-luca-romano,Luca Romano,2007-06-25,Canada,C,R,181,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-513,Draft25.pdf#page=513
+2025-075-michal-pradel,Michal Pradel,2007-03-10,Slovakia,G,L,194,88,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1152,Draft25.pdf#page=1152
+2025-076-malte-vass,Malte Vass,2007-03-28,Sweden,D,L,187,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-728,Draft25.pdf#page=728
+2025-077-francesco-dell-elce,Francesco Dell'Elce,,Canada,D,,185,82,,wikipedia; nhl_draft_api,2025-077-francesco-dell-elce,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-078-stepan-hoch,Stepan Hoch,2006-10-11,Czech Republic,LWC,L,190,77,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1343,Draft25.pdf#page=1343
+2025-079-cooper-simpson,Cooper Simpson,2007-02-05,United States,LW,L,183,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-765,Draft25.pdf#page=765
+2025-080-mace-o-phillips,Mace'o Phillips,2007-02-25,United States,D,L,197,103,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-754,Draft25.pdf#page=754
+2025-081-bryce-pickford,Bryce Pickford,2006-04-02,Canada,D,R,184,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-901,Draft25.pdf#page=901
+2025-082-arseni-radkov,Arseni Radkov,2007-08-05,Belarus,G,L,190,90,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1389,Draft25.pdf#page=1389
+2025-083-tommy-lafreniere,Tommy Lafreniere,2007-01-16,Canada,RWC,R,180,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1056,Draft25.pdf#page=1056
+2025-084-gabriel-d-aigle,Gabriel D'Aigle,2006-11-21,Canada,G,L,192,96,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1376,Draft25.pdf#page=1376
+2025-085-mateo-nobert,Mateo Nobert,2007-08-12,Canada,C,L,183,75,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1070,Draft25.pdf#page=1070
+2025-086-tyler-hopkins,Tyler Hopkins,2007-01-23,Canada,C,L,185,81,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-708,Draft25.pdf#page=708
+2025-087-roman-bausov,Roman Bausov,2007-04-28,Russia,D,R,196,81,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1047,Draft25.pdf#page=1047
+2025-088-kristian-epperson,Kristian Epperson,2006-05-16,United States,LW,L,182,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-504,Draft25.pdf#page=504
+2025-089-artyom-gonchar,Artyom Gonchar,2006-10-25,Russia,D,L,183,70,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1473,Draft25.pdf#page=1473
+2025-090-mason-moe,Mason Moe,2007-03-26,United States,CLW,L,186,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1299,Draft25.pdf#page=1299
+2025-091-brady-peddle,Brady Peddle,2007-05-23,Canada,D,L,190,87,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-829,Draft25.pdf#page=829
+2025-092-owen-martin,Owen Martin,2007-05-11,Canada,C,L,182,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-925,Draft25.pdf#page=925
+2025-093-blake-vanek,Blake Vanek,2007-08-16,United States,RW,R,190,90,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1402,Draft25.pdf#page=1402
+2025-094-cameron-schmidt,Cameron Schmidt,2007-01-19,Canada,LW,R,171,73,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-336,Draft25.pdf#page=336
+2025-095-teddy-mutryn,Teddy Mutryn,2007-02-16,United States,RW,R,185,94,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-851,Draft25.pdf#page=851
+2025-096-maxim-schafer,Maxim Schafer,2007-05-17,Germany,LWRW,L,193,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1349,Draft25.pdf#page=1349
+2025-097-lucas-beckman,Lucas Beckman,2007-08-23,Canada,G,L,187,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-865,Draft25.pdf#page=865
+2025-098-julius-sumpf,Julius Sumpf,,Germany,C,,188,86,,wikipedia; nhl_draft_api,2025-098-julius-sumpf,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-099-trenten-bennett,Trenten Bennett,2006-04-01,Canada,G,L,198,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1373,Draft25.pdf#page=1373
+2025-100-vashek-blanar,Vashek Blanar,,Czech Republic,D,,193,83,,wikipedia; nhl_draft_api,2025-100-vashek-blanar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-101-drew-schock,Drew Schock,2007-02-07,United States,D,L,181,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1309,Draft25.pdf#page=1309
+2025-102-adam-benak,Adam Benak,2007-04-10,Czech Republic,RWC,L,171,73,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-929,Draft25.pdf#page=929
+2025-103-matous-kucharcik,Matous Kucharcik,,Czech Republic,C,,193,82,,wikipedia; eliteprospects_pdf; nhl_draft_api,2025-ep-pdf-page-1111,Draft25.pdf#page=1111
+2025-104-elijah-neuenschwander,Elijah Neuenschwander,2006-10-17,Switzerland,G,L,193,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1385,Draft25.pdf#page=1385
+2025-105-travis-hayes,Travis Hayes,,United States,R,,180,79,,wikipedia; nhl_draft_api,2025-105-travis-hayes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-106-tomas-poletin,Tomas Poletin,2007-04-30,Czech Republic,LW,L,186,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1090,Draft25.pdf#page=1090
+2025-107-parker-holmes,Parker Holmes,,Canada,L,,193,101,,wikipedia; nhl_draft_api,2025-107-parker-holmes,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-108-benjamin-rautiainen,Benjamin Rautiainen,2005-06-12,Finland,LW,L,183,79,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-1141,Draft25.pdf#page=1141
+2025-109-brent-solomon,Brent Solomon,2007-01-02,United States,RW,R,182,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1650,Draft25.pdf#page=1650
+2025-110-yegor-borikov,Yegor Borikov,2005-08-28,Belarus,RWLW,R,185,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1692,Draft25.pdf#page=1692
+2025-111-mikkel-eriksen,Mikkel Eriksen,2007-09-13,Norway,C,L,180,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1497,Draft25.pdf#page=1497
+2025-112-mads-kongsbak-klyvo,Mads Kongsbak Klyvo,2007-05-03,Denmark,LWRW,L,188,88,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-913,Draft25.pdf#page=913
+2025-113-l-j-mooney,L.J. Mooney,2007-03-08,United States,CRW,R,170,73,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-776,Draft25.pdf#page=776
+2025-114-gustav-hillstrom,Gustav Hillstrom,2007-01-20,Sweden,C,R,187,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1106,Draft25.pdf#page=1106
+2025-115-ilyas-magomedsultanov,Ilyas Magomedsultanov,2006-10-24,Russia,D,L,188,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1234,Draft25.pdf#page=1234
+2025-116-samuel-meloche,Samuel Meloche,2007-07-22,Canada,G,L,188,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1150,Draft25.pdf#page=1150
+2025-117-david-lewandowski,David Lewandowski,2007-02-20,Germany,LW,L,186,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-799,Draft25.pdf#page=799
+2025-118-linus-funck,Linus Funck,2007-05-10,Sweden,D,R,190,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1261,Draft25.pdf#page=1261
+2025-119-michal-svrcek,Michal Svrcek,,Slovakia,L,,180,86,,wikipedia; nhl_draft_api,2025-119-michal-svrcek,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-120-caeden-herrington,Caeden Herrington,2006-01-26,United States,D,R,187,92,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1539,Draft25.pdf#page=1539
+2025-121-lirim-amidovski,Lirim Amidovski,2006-12-22,Canada,RW,R,185,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-845,Draft25.pdf#page=845
+2025-122-alex-huang,Alex Huang,2007-07-30,Canada,D,R,183,77,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-883,Draft25.pdf#page=883
+2025-123-carter-klippenstein,Carter Klippenstein,2006-11-25,Canada,LWC,L,189,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1567,Draft25.pdf#page=1567
+2025-124-zack-sharp,Zack Sharp,,United States,D,,,,,wikipedia,2025-124-zack-sharp,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-125-jimmy-lombardi,Jimmy Lombardi,2007-02-16,Canada,C,L,183,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-872,Draft25.pdf#page=872
+2025-126-brandon-gorzynski,Brandon Gorzynski,2007-03-12,United States,LW,L,187,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-750,Draft25.pdf#page=750
+2025-127-aiden-foster,Aiden Foster,2007-02-05,Canada,LW,L,188,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1564,Draft25.pdf#page=1564
+2025-128-shea-busch,Shea Busch,2007-06-12,Canada,LW,L,187,94,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1760,Draft25.pdf#page=1760
+2025-129-shamar-moses,Shamar Moses,2007-05-06,Canada,RW,R,185,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-855,Draft25.pdf#page=855
+2025-130-ryan-miller,Ryan Miller,2007-05-03,Canada,LW,L,182,80,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-992,Draft25.pdf#page=992
+2025-131-asher-barnett,Asher Barnett,2007-05-16,United States,D,L,184,90,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1278,Draft25.pdf#page=1278
+2025-132-max-westergard,Max Westergard,2007-09-03,Finland,RWLW,L,178,72,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-968,Draft25.pdf#page=968
+2025-133-cole-chandler,Cole Chandler,2007-05-01,Canada,CLW,L,187,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1440,Draft25.pdf#page=1440
+2025-134-maxim-agafonov,Maxim Agafonov,2007-04-10,Russia,D,R,188,90,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-917,Draft25.pdf#page=917
+2025-135-noah-laberge,Noah Laberge,2006-10-09,Canada,D,L,184,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1019,Draft25.pdf#page=1019
+2025-136-alexis-mathieu,Alexis Mathieu,2007-05-25,Canada,D,L,191,89,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1457,Draft25.pdf#page=1457
+2025-137-william-belle,William Belle,2007-01-14,United States,RW,R,191,99,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1282,Draft25.pdf#page=1282
+2025-138-sam-laurila,Sam Laurila,2006-09-02,United States,D,L,185,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1295,Draft25.pdf#page=1295
+2025-139-zeb-lindgren,Zeb Lindgren,2007-04-14,Sweden,D,L,185,88,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-1265,Draft25.pdf#page=1265
+2025-140-nikita-tyurin,Nikita Tyurin,2007-07-02,Russia,D,L,183,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1102,Draft25.pdf#page=1102
+2025-141-justin-kipkie,Justin Kipkie,,Canada,D,,193,94,,wikipedia; nhl_draft_api,2025-141-justin-kipkie,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-142-ivan-tkach-tkachenko,Ivan Tkach-Tkachenko,2007-05-30,Russia,G,L,190,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1390,Draft25.pdf#page=1390
+2025-143-wilson-bjorck,Wilson Bjorck,2006-01-13,Sweden,LWC,L,183,74,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1708,Draft25.pdf#page=1708
+2025-144-ethan-wyttenbach,Ethan Wyttenbach,2007-02-10,United States,RWLW,R,176,82,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-1322,Draft25.pdf#page=1322
+2025-145-alexis-cournoyer,Alexis Cournoyer,2005-12-13,Canada,G,L,193,93,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1375,Draft25.pdf#page=1375
+2025-146-atte-joki,Atte Joki,2007-07-21,Finland,C,L,184,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1618,Draft25.pdf#page=1618
+2025-147-mikhail-fyodorov,Mikhail Fyodorov,2006-12-01,Russia,RWLW,L,180,69,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1464,Draft25.pdf#page=1464
+2025-148-quinn-beauchesne,Quinn Beauchesne,2007-03-01,Canada,D,R,183,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-877,Draft25.pdf#page=877
+2025-149-dmitri-isayev,Dmitri Isayev,2007-06-26,Russia,LW,R,175,67,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1694,Draft25.pdf#page=1694
+2025-150-max-heise,Max Heise,,Canada,C,,190,77,,wikipedia; nhl_draft_api,2025-150-max-heise,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-151-everett-baldwin,Everett Baldwin,2007-01-15,United States,D,R,181,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-761,Draft25.pdf#page=761
+2025-152-petteri-rimpinen,Petteri Rimpinen,2006-04-25,Finland,G,L,180,79,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-923,Draft25.pdf#page=923
+2025-153-harry-nansi,Harry Nansi,2007-09-10,Canada,RW,R,190,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-941,Draft25.pdf#page=941
+2025-154-jordan-charron,Jordan Charron,2007-06-21,Canada,RW,R,185,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1099,Draft25.pdf#page=1099
+2025-155-jackson-crowder,Jackson Crowder,,United States,C,,190,83,,wikipedia; eliteprospects_pdf; nhl_draft_api,2025-ep-pdf-page-1533,Draft25.pdf#page=1533
+2025-156-viktor-klingsell,Viktor Klingsell,2007-02-10,Sweden,LWRW,L,177,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-813,Draft25.pdf#page=813
+2025-157-luke-vlooswyk,Luke Vlooswyk,2007-01-09,Canada,D,R,194,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1586,Draft25.pdf#page=1586
+2025-158-mans-goos,Mans Goos,2007-05-05,Sweden,G,L,196,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1148,Draft25.pdf#page=1148
+2025-159-emile-guite,Emile Guite,2007-05-31,Canada,LW,L,186,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1204,Draft25.pdf#page=1204
+2025-160-owen-griffin,Owen Griffin,2007-04-08,Canada,C,R,177,73,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-824,Draft25.pdf#page=824
+2025-161-david-rozsival,David Rozsival,2007-07-01,Czech Republic,LWRW,L,180,69,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1126,Draft25.pdf#page=1126
+2025-162-ashton-cumby,Ashton Cumby,,Canada,D,,196,98,,wikipedia; nhl_draft_api,2025-162-ashton-cumby,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-163-daniel-nieminen,Daniel Nieminen,2006-03-01,Finland,D,L,183,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1040,Draft25.pdf#page=1040
+2025-164-nathan-quinn,Nathan Quinn,2007-08-29,Canada,C,R,180,76,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1059,Draft25.pdf#page=1059
+2025-165-kirill-yemelyanov,Kirill Yemelyanov,2007-01-08,Russia,C,L,184,77,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1014,Draft25.pdf#page=1014
+2025-166-samuel-jung,Samuel Jung,,Czech Republic,R,,190,78,,wikipedia; nhl_draft_api,2025-166-samuel-jung,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-167-ashton-schultz,Ashton Schultz,2006-10-03,United States,CW,R,180,82,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1313,Draft25.pdf#page=1313
+2025-168-anthony-allain-samake,Anthony Allain-Samake,2007-09-10,Canada,D,L,187,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-904,Draft25.pdf#page=904
+2025-169-carter-sanderson,Carter Sanderson,,United States,L,,185,89,,wikipedia; nhl_draft_api,2025-169-carter-sanderson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-170-burke-hood,Burke Hood,2007-04-30,Canada,G,L,190,89,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1379,Draft25.pdf#page=1379
+2025-171-evan-passmore,Evan Passmore,2006-12-05,Canada,D,R,195,95,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-957,Draft25.pdf#page=957
+2025-172-will-murphy,Will Murphy,2007-08-24,Canada,D,L,192,95,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1690,Draft25.pdf#page=1690
+2025-173-victor-hedin-raftheim,Victor Hedin Raftheim,2007-08-19,Sweden,D,L,193,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1722,Draft25.pdf#page=1722
+2025-174-ludvig-johnson,Ludvig Johnson,,Switzerland,D,,183,82,,wikipedia; nhl_draft_api,2025-174-ludvig-johnson,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-175-gabriel-chiarot,Gabriel Chiarot,2006-09-17,Canada,RW,R,180,87,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1661,Draft25.pdf#page=1661
+2025-176-aidan-lane,Aidan Lane,,Canada,R,,,,,wikipedia,2025-176-aidan-lane,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-177-carlos-handel,Carlos Handel,2007-03-31,Germany,D,R,184,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-946,Draft25.pdf#page=946
+2025-178-sigge-holmgren,Sigge Holmgren,,Sweden,D,,185,84,,wikipedia; nhl_draft_api,2025-178-sigge-holmgren,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-179-love-harenstam,Love Harenstam,2007-01-18,Sweden,G,L,186,86,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1149,Draft25.pdf#page=1149
+2025-180-aron-dahlqvist,Aron Dahlqvist,2007-02-22,Sweden,D,L,190,92,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1494,Draft25.pdf#page=1494
+2025-181-bruno-idzan,Bruno Idzan,2006-01-16,Croatia,LW,L,185,88,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1075,Draft25.pdf#page=1075
+2025-182-reko-alanko,Reko Alanko,2007-07-15,Finland,D,R,196,91,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1614,Draft25.pdf#page=1614
+2025-183-viggo-nordlund,Viggo Nordlund,2006-09-22,Sweden,LW,L,175,76,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-833,Draft25.pdf#page=833
+2025-184-jan-chovan,Jan Chovan,2007-01-09,Slovakia,CRW,L,188,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1352,Draft25.pdf#page=1352
+2025-185-rylan-fellinger,Rylan Fellinger,,Canada,D,,193,89,,wikipedia; nhl_draft_api,2025-185-rylan-fellinger,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-186-alexander-weiermair,Alexander Weiermair,,United States,C,,185,86,,wikipedia; nhl_draft_api,2025-186-alexander-weiermair,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-187-gustav-sjoqvist,Gustav Sjoqvist,,Sweden,D,,190,94,,wikipedia; nhl_draft_api,2025-187-gustav-sjoqvist,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-188-edison-engle,Edison Engle,2007-02-15,United States,D,L,187,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-770,Draft25.pdf#page=770
+2025-189-andrew-macniel,Andrew MacNiel,,Canada,D,,190,89,,wikipedia; nhl_draft_api,2025-189-andrew-macniel,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-190-dawson-sharkey,Dawson Sharkey,,Canada,R,,185,85,,wikipedia; nhl_draft_api,2025-190-dawson-sharkey,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-191-daniel-salonen,Daniel Salonen,,Finland,G,,190,84,,wikipedia; nhl_draft_api,2025-191-daniel-salonen,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-192-arvid-drott,Arvid Drott,2007-08-11,Sweden,RW,R,182,83,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1251,Draft25.pdf#page=1251
+2025-193-caleb-heil,Caleb Heil,,United States,G,,188,89,,wikipedia; nhl_draft_api,2025-193-caleb-heil,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-194-ilya-kanarsky,Ilya Kanarsky,,Russia,G,,190,82,,wikipedia; nhl_draft_api,2025-194-ilya-kanarsky,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-195-melvin-novotny,Melvin Novotny,2007-04-03,Sweden,LW,L,185,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1270,Draft25.pdf#page=1270
+2025-196-brendan-mcmorrow,Brendan McMorrow,,United States,C,,183,78,,wikipedia; nhl_draft_api,2025-196-brendan-mcmorrow,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-197-brendan-dunphy,Brendan Dunphy,2006-02-02,United States,D,L,196,94,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1764,Draft25.pdf#page=1764
+2025-198-jeremy-loranger,Jeremy Loranger,2007-06-15,Canada,LWRW,R,175,73,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1655,Draft25.pdf#page=1655
+2025-199-yevgeni-prokhorov,Yevgeni Prokhorov,,Belarus,G,,190,81,,wikipedia; nhl_draft_api,2025-199-yevgeni-prokhorov,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-200-brady-turko,Brady Turko,,Canada,R,,183,76,,wikipedia; nhl_draft_api,2025-200-brady-turko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-201-kale-dach,Kale Dach,2007-02-15,Canada,C,L,178,75,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1407,Draft25.pdf#page=1407
+2025-202-jacob-kvasnicka,Jacob Kvasnicka,2007-08-10,United States,RW,R,181,79,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1550,Draft25.pdf#page=1550
+2025-203-felix-farhammar,Felix Farhammar,2007-04-11,Sweden,D,L,185,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1257,Draft25.pdf#page=1257
+2025-204-grayden-robertson-palmer,Grayden Robertson-Palmer,2007-08-29,Canada,C,L,180,89,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1400,Draft25.pdf#page=1400
+2025-205-karl-annborn,Karl Annborn,2007-03-06,Sweden,D,R,185,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1065,Draft25.pdf#page=1065
+2025-206-roman-luttsev,Roman Luttsev,,Russia,C,,183,77,,wikipedia; nhl_draft_api,2025-206-roman-luttsev,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-207-matthew-lansing,Matthew Lansing,2007-02-24,United States,CLW,L,183,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1292,Draft25.pdf#page=1292
+2025-208-jakob-leander,Jakob Leander,,Sweden,D,,193,89,,wikipedia; nhl_draft_api,2025-208-jakob-leander,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-209-maxon-vig,Maxon Vig,,United States,D,,188,96,,wikipedia; nhl_draft_api,2025-209-maxon-vig,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-210-richard-gallant,Richard Gallant,2007-06-12,United States,LW,L,173,77,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1536,Draft25.pdf#page=1536
+2025-211-yan-matveiko,Yan Matveiko,,Russia,L,,185,68,,wikipedia; nhl_draft_api,2025-211-yan-matveiko,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-212-grant-spada,Grant Spada,2007-06-24,Canada,D,L,194,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1679,Draft25.pdf#page=1679
+2025-213-andrei-trofimov,Andrei Trofimov,2006-07-20,Russia,G,L,190,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1391,Draft25.pdf#page=1391
+2025-214-nolan-roed,Nolan Roed,2005-10-25,United States,C,L,180,84,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1747,Draft25.pdf#page=1747
+2025-215-marco-mignosa,Marco Mignosa,,Canada,R,,183,78,,wikipedia; nhl_draft_api,2025-215-marco-mignosa,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-216-william-sharpe,William Sharpe,2007-03-07,Canada,D,L,183,88,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1332,Draft25.pdf#page=1332
+2025-217-matthew-hlacar,Matthew Hlacar,,Canada,L,,190,91,,wikipedia; nhl_draft_api,2025-217-matthew-hlacar,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-218-loke-krantz,Loke Krantz,2007-05-12,Sweden,R,R,185,88,,wikipedia+wikipedia_bio,Q136948881,https://en.wikipedia.org/wiki/Loke_Krantz
+2025-219-ryan-rucinski,Ryan Rucinski,2006-12-01,United States,C,R,177,80,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1306,Draft25.pdf#page=1306
+2025-220-jacob-cloutier,Jacob Cloutier,2007-03-22,Canada,RW,R,178,78,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1159,Draft25.pdf#page=1159
+2025-221-filip-ekberg,Filip Ekberg,2007-04-14,Sweden,LW,L,177,75,,wikipedia+wikipedia_bio; eliteprospects_pdf,2025-ep-pdf-page-791,Draft25.pdf#page=791
+2025-222-charlie-paquette,Charlie Paquette,,Canada,R,,188,94,,wikipedia; nhl_draft_api,2025-222-charlie-paquette,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
+2025-223-aidan-park,Aidan Park,2006-01-06,United States,C,R,185,85,,wikipedia; eliteprospects_pdf,2025-ep-pdf-page-1003,Draft25.pdf#page=1003
+2025-224-yegor-midlak,Yegor Midlak,,Russia,G,,198,80,,wikipedia; nhl_draft_api,2025-224-yegor-midlak,https://en.wikipedia.org/wiki/2025_NHL_entry_draft
