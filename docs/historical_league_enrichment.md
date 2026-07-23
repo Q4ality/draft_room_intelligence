@@ -63,7 +63,10 @@ The USHL adapter preserves skater scoring and goalie GP, minutes, shots, saves, 
 SV%, GAA, wins, losses, overtime losses, and shutouts. Regular-season and playoff lines remain
 separate evidence rows. Draft-class enrichment reuses up to three cached prior USHL seasons, so
 NTDP and club histories are not reduced to the draft-year feed. Skater and goalie feeds remain
-distinct when historical sources are cloned.
+distinct when historical sources are cloned. Match audits label each source row as `usntdp` or
+`ushl_club` while retaining `USHL` as the canonical modeling league. Replacement scopes include
+that competition context and the normalized player role, so a same-season NTDP row does not erase
+club history and a goalie row cannot replace skater evidence.
 
 `historical-swehockey-catalogs` caches official SHL, HockeyAllsvenskan, and J20/U20 season
 indexes. `historical-europe-discover` then derives stable player-feed rows from those local

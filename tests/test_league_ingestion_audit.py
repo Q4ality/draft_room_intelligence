@@ -198,13 +198,23 @@ def test_unmatched_audit_uses_explicit_eligible_disposition_without_stat_row(tmp
                 "matched": "false",
                 "disposition": "not_eligible",
             },
+            {
+                "player_id": "p3",
+                "name": "Intentional Team Exclusion",
+                "matched": "false",
+                "disposition": "not_eligible_team",
+            },
         ],
     )
 
     issues = unmatched_audit_issues(
         2025,
         final,
-        {"p1": "Missing Eligible Player", "p2": "Ineligible Player"},
+        {
+            "p1": "Missing Eligible Player",
+            "p2": "Ineligible Player",
+            "p3": "Intentional Team Exclusion",
+        },
         {},
     )
 

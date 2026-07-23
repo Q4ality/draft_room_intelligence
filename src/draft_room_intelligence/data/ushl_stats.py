@@ -37,6 +37,7 @@ USHL_MATCH_COLUMNS = [
     "matched",
     "disposition",
     "source_availability",
+    "competition_context",
     "source_name",
     "source_id",
     "source_url",
@@ -111,6 +112,7 @@ def enrich_ushl_stats(
     players = read_table(source_root / "players.csv")
     base_stat_lines = read_table(source_root / "season_stat_lines.csv")
     drafted_leagues = read_drafted_league_hints(source_root)
+    drafted_teams = read_drafted_team_hints(source_root)
     available_sources, source_availability = classify_available_sources(sources)
     source_lines = load_ushl_source_lines(available_sources)
     source_by_name: dict[str, list[UShlSkaterStatLine]] = {}
@@ -122,6 +124,9 @@ def enrich_ushl_stats(
     matched_by_player_id: dict[str, list[UShlSkaterStatLine]] = {}
     report_rows: list[dict[str, str]] = []
     player_name_counts = count_normalized_names(players)
+    player_roles = {
+        player["player_id"]: player_role(player.get("position", "")) for player in players
+    }
     for player in players:
         player_leagues = {
             normalize_league_name(row.get("league", ""))
@@ -132,14 +137,25 @@ def enrich_ushl_stats(
         candidates = source_by_name.get(ushl_person_key(player["name"]), [])
         if not candidates:
             candidates = source_by_alias.get(ushl_alias_key(player["name"]), [])
+        candidates = deduplicate_ushl_lines(candidates)
         candidate_identity_count = len({line.source_id for line in candidates})
         name_count = player_name_counts.get(normalize_person_key(player["name"]), 0)
-        eligible = normalize_league_name("USHL") in player_leagues
+        has_ushl_hint = normalize_league_name("USHL") in player_leagues
+        has_usntdp_hint = any(
+            is_usntdp_team(team) for team in drafted_teams.get(player["player_id"], set())
+        )
         disposition = match_disposition(
-            eligible=eligible,
+            eligible=has_ushl_hint or has_usntdp_hint,
             name_count=name_count,
             has_candidates=bool(candidates),
             candidate_identity_count=candidate_identity_count,
+            role_collision=has_role_collision(candidates),
+            team_mismatch=(
+                has_usntdp_hint
+                and not has_ushl_hint
+                and bool(candidates)
+                and not any(is_usntdp_team(line.team) for line in candidates)
+            ),
             source_availability=source_availability,
         )
         if disposition == "matched":
@@ -164,7 +180,13 @@ def enrich_ushl_stats(
             )
 
     matched_scopes = {
-        (player_id, line.season, line.regular_season)
+        (
+            player_id,
+            line.season,
+            line.regular_season,
+            competition_context(line.team),
+            player_roles.get(player_id, stat_role(line)),
+        )
         for player_id, lines in matched_by_player_id.items()
         for line in lines
     }
@@ -178,6 +200,8 @@ def enrich_ushl_stats(
                 row.get("player_id", ""),
                 row.get("season", ""),
                 row.get("regular_season", "true").casefold() == "true",
+                competition_context(row.get("team", "")),
+                player_roles.get(row.get("player_id", ""), row_role(row)),
             )
             in matched_scopes
         )
@@ -222,15 +246,19 @@ def match_disposition(
     has_candidates: bool,
     source_availability: str,
     candidate_identity_count: int = 1,
+    role_collision: bool = False,
+    team_mismatch: bool = False,
 ) -> str:
     if not eligible:
         return "not_eligible"
-    if name_count != 1 or candidate_identity_count > 1:
+    if name_count != 1 or candidate_identity_count > 1 or role_collision:
         return "ambiguous_identity"
     if source_availability == "unavailable":
         return "source_unavailable"
     if not has_candidates:
         return "unmatched_in_cached_source"
+    if team_mismatch:
+        return "usntdp_team_mismatch"
     return "matched"
 
 
@@ -254,6 +282,83 @@ def ushl_alias_key(value: str) -> str:
     if parts and parts[-1].upper().rstrip(".") in {"JR", "SR", "II", "III", "IV", "V"}:
         parts.pop()
     return person_alias_key(" ".join(parts))
+
+
+def read_drafted_team_hints(dataset_root: Path) -> dict[str, set[str]]:
+    path = dataset_root / "draft_selections.csv"
+    if not path.is_file():
+        return {}
+    hints: dict[str, set[str]] = {}
+    for row in read_table(path):
+        team = row.get("drafted_from_team", "").strip()
+        if team:
+            hints.setdefault(row.get("player_id", ""), set()).add(team)
+    return hints
+
+
+def is_usntdp_team(value: str) -> bool:
+    key = normalize_person_key(value)
+    return key in {
+        "usa",
+        "ntdp",
+        "usantdp",
+        "usntdp",
+        "usnationalteamdevelopmentprogram",
+        "usnationalunder18team",
+        "usau18",
+    }
+
+
+def competition_context(team: str) -> str:
+    return "usntdp" if is_usntdp_team(team) else "ushl_club"
+
+
+def stat_role(line: UShlSkaterStatLine) -> str:
+    return "goalie" if line.save_percentage or line.goalie_minutes or line.saves else "skater"
+
+
+def player_role(position: str) -> str:
+    return "goalie" if normalize_person_key(position) in {"g", "goalie"} else "skater"
+
+
+def row_role(row: dict[str, str]) -> str:
+    return (
+        "goalie"
+        if any(
+            row.get(field, "")
+            for field in ("goalie_minutes", "saves", "save_percentage", "goals_against_average")
+        )
+        else "skater"
+    )
+
+
+def deduplicate_ushl_lines(
+    lines: list[UShlSkaterStatLine],
+) -> list[UShlSkaterStatLine]:
+    unique: dict[tuple[str, str, str, bool, str], UShlSkaterStatLine] = {}
+    for line in lines:
+        key = (
+            line.source_id,
+            line.season,
+            normalize_person_key(line.team),
+            line.regular_season,
+            stat_role(line),
+        )
+        unique.setdefault(key, line)
+    return list(unique.values())
+
+
+def has_role_collision(lines: list[UShlSkaterStatLine]) -> bool:
+    roles_by_scope: dict[tuple[str, str, str, bool], set[str]] = {}
+    for line in lines:
+        key = (
+            line.source_id,
+            line.season,
+            normalize_person_key(line.team),
+            line.regular_season,
+        )
+        roles_by_scope.setdefault(key, set()).add(stat_role(line))
+    return any(len(roles) > 1 for roles in roles_by_scope.values())
 
 
 def load_ushl_source_lines(sources: list[UShlStatSource]) -> list[UShlSkaterStatLine]:
@@ -429,6 +534,7 @@ def build_match_row(
         "matched": "true" if disposition == "matched" else "false",
         "disposition": disposition,
         "source_availability": source_availability,
+        "competition_context": competition_context(line.team) if line else "",
         "source_name": line.name if line else "",
         "source_id": line.source_id if line else "",
         "source_url": line.source_url if line else "",

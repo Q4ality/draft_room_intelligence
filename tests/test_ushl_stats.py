@@ -7,11 +7,17 @@ from draft_room_intelligence.data.eliteprospects_csv import (
     write_table,
 )
 from draft_room_intelligence.data.ushl_stats import (
+    UShlSkaterStatLine,
     UShlStatSource,
+    competition_context,
+    deduplicate_ushl_lines,
     enrich_ushl_stats,
+    has_role_collision,
+    is_usntdp_team,
     match_disposition,
     parse_ushl_goalies_json,
     parse_ushl_skaters_json,
+    player_role,
     ushl_alias_key,
     ushl_person_key,
 )
@@ -156,6 +162,22 @@ def test_enrich_ushl_stats_replaces_matching_placeholder_rows(tmp_path):
             },
             {
                 "player_id": "2025-025-vaclav-nestrasil",
+                "season": "2024-25",
+                "league": "USHL",
+                "team": "USA U-18",
+                "games": "4",
+                "goals": "1",
+                "assists": "2",
+                "points": "3",
+                "age": "",
+                "timing": "pre_draft",
+                "regular_season": "true",
+                "source": "curated",
+                "source_id": "ntdp-context",
+                "source_url": "",
+            },
+            {
+                "player_id": "2025-025-vaclav-nestrasil",
                 "season": "2023-24",
                 "league": "USHL",
                 "team": "Muskegon Lumberjacks",
@@ -192,17 +214,20 @@ def test_enrich_ushl_stats_replaces_matching_placeholder_rows(tmp_path):
         matches = list(csv.DictReader(file))
 
     assert summary.matched_players == 1
-    assert len(stat_lines) == 2
-    official = next(row for row in stat_lines if row["season"] == "2024-25")
+    assert len(stat_lines) == 3
+    official = next(row for row in stat_lines if row["source"] == "ushl")
+    ntdp = next(row for row in stat_lines if row["source_id"] == "ntdp-context")
     historical = next(row for row in stat_lines if row["season"] == "2023-24")
     assert official["source"] == "ushl"
     assert official["games"] == "61"
     assert official["points"] == "42"
+    assert ntdp["team"] == "USA U-18"
     assert historical["source"] == "curated"
     assert historical["regular_season"] == "false"
     assert matches[0]["matched"] == "true"
     assert matches[0]["disposition"] == "matched"
     assert matches[0]["source_availability"] == "available"
+    assert matches[0]["competition_context"] == "ushl_club"
     assert summary.disposition_counts == {"matched": 1}
 
 
@@ -278,3 +303,65 @@ def test_ushl_person_key_ignores_common_name_suffixes():
 
 def test_ushl_alias_key_maps_common_first_name_variants():
     assert ushl_alias_key("Will Moore") == ushl_alias_key("William Moore")
+
+
+def test_usntdp_team_context_uses_reviewed_team_labels():
+    assert is_usntdp_team("U.S. NTDP")
+    assert is_usntdp_team("NTDP")
+    assert is_usntdp_team("USA U-18")
+    assert is_usntdp_team("U.S. National Under-18 Team")
+    assert competition_context("USA") == "usntdp"
+    assert competition_context("MUS") == "ushl_club"
+    assert player_role("G") == "goalie"
+    assert player_role("RW") == "skater"
+
+
+def test_ushl_candidate_deduplication_and_role_collision():
+    skater = UShlSkaterStatLine(
+        "Example Player",
+        "100",
+        "",
+        "2024-25",
+        "USA",
+        "10",
+        "2",
+        "3",
+        "5",
+        True,
+    )
+    goalie = UShlSkaterStatLine(
+        "Example Player",
+        "100",
+        "",
+        "2024-25",
+        "USA",
+        "10",
+        "",
+        "",
+        "",
+        True,
+        save_percentage="0.920",
+    )
+
+    assert deduplicate_ushl_lines([skater, skater]) == [skater]
+    assert has_role_collision([skater, goalie])
+    assert (
+        match_disposition(
+            eligible=True,
+            name_count=1,
+            has_candidates=True,
+            role_collision=True,
+            source_availability="available",
+        )
+        == "ambiguous_identity"
+    )
+    assert (
+        match_disposition(
+            eligible=True,
+            name_count=1,
+            has_candidates=True,
+            team_mismatch=True,
+            source_availability="available",
+        )
+        == "usntdp_team_mismatch"
+    )

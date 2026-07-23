@@ -515,7 +515,7 @@ def unmatched_audit_issues(
                 continue
             player_id = row.get("player_id", "")
             disposition = row.get("disposition", "").casefold()
-            if disposition == "not_eligible":
+            if disposition in {"not_eligible", "not_eligible_league", "not_eligible_team"}:
                 continue
             if not disposition and not (
                 leagues_by_player.get(player_id, set()) & MATCH_LEAGUES[filename]
