@@ -139,8 +139,23 @@ Populate reviewed regular-season and playoff sources in this order:
 
 Finnish U20 SM is the next Nordic collection target. The federation's public results site exposes
 regular-season scoring and goalie views, but its standalone `helpers/getplayers` and export calls
-currently return HTTP 500 outside an interactive browser session. Add a cache-building collector
-only after its browser-session request contract can be reproduced and fixture-tested.
+currently return HTTP 500, including when called with the page's browser-equivalent parameters.
+Add a cache-building collector only after that request contract can be reproduced and
+fixture-tested. Do not fill this gap with player-by-player rows.
+
+Liiga uses generated source specifications. Their enabled state is derived from the presence of the
+canonical local cache rather than an older static catalog flag. After staging a cache, refresh the
+European manifest before enrichment:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m draft_room_intelligence.cli discover-europe-sources \
+  data/reference/league_stat_sources.csv \
+  --catalog data/reference/europe_league_source_catalog.csv \
+  --project-root . --start-year 2026 --end-year 2026
+```
+
+This keeps Liiga skater and goalie feeds, regular season and playoffs, cache-first and avoids
+manual manifest toggles.
 
 The CHL backlog is restored for played seasons across 2014-2026. The main structural exception is
 the 2021 OHL draft cohort because the 2020-21 OHL season was canceled; those players require their

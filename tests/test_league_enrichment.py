@@ -476,6 +476,30 @@ def test_generate_liiga_source_specs_covers_each_year_stage_and_role(tmp_path):
     assert "summed/2021/2021/runkosarja" in sources[0].source_url
 
 
+def test_discover_europe_sources_prefers_cached_generated_liiga_feed(tmp_path):
+    cache = tmp_path / "data/raw/cache/europe_stats/2025_liiga_regular_skaters.json"
+    cache.parent.mkdir(parents=True)
+    cache.write_text("[]", encoding="utf-8")
+    catalog = tmp_path / "catalog.csv"
+    catalog.write_text(
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
+        "2025-liiga-regular-skaters,false,2025,europe,Liiga,2024-25,regular,"
+        "https://liiga.fi/old,data/raw/cache/europe_stats/2025_liiga_regular_skaters.json,liiga:skaters\n",
+        encoding="utf-8",
+    )
+
+    sources = discover_europe_source_specs(
+        catalog,
+        project_root=tmp_path,
+        start_year=2025,
+        end_year=2025,
+    )
+
+    source = next(item for item in sources if item.source_id == "2025-liiga-regular-skaters")
+    assert source.enabled is True
+    assert "summed/2024/2024/runkosarja" in source.source_url
+
+
 def test_swehockey_discovery_uses_seed_seasons_and_catalog_tournaments(tmp_path):
     seed = tmp_path / "swehockey_seed_shl.html"
     seed.write_text(

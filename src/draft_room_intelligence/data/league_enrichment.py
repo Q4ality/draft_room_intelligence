@@ -656,6 +656,7 @@ def discover_europe_source_specs(
         )
     )
     by_source_id = {source.source_id: source for source in generated}
+    generated_source_ids = set(by_source_id)
     swehockey_scopes = {
         (source.draft_year, source.league)
         for source in generated
@@ -671,6 +672,10 @@ def discover_europe_source_specs(
                 and (source.draft_year, source.league) in swehockey_scopes
                 and source.source_id not in by_source_id
             ):
+                continue
+            # Generated Liiga specs derive enabled state from the local cache.
+            # Catalog rows retain provenance but cannot disable a cached feed.
+            if source.source_id in generated_source_ids:
                 continue
             by_source_id[source.source_id] = LeagueSourceSpec(
                 **{
