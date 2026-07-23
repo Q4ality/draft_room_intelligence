@@ -63,10 +63,13 @@ CHL_HOCKEYTECH_CONFIG = {
 
 FIRST_NAME_ALIASES = {
     "egor": "yegor",
+    "jack": "john",
     "jake": "jacob",
     "jc": "jeanchristophe",
     "mitch": "mitchell",
+    "nick": "nicholas",
     "tony": "anthony",
+    "will": "william",
 }
 
 CHL_CANCELED_STAGES = {("QMJHL", 2020, False)}
@@ -197,19 +200,28 @@ def enrich_chl_stats(
         else:
             report_rows.append(build_match_row(player, None, matched=False))
 
-    matched_leagues_by_player = {
-        player_id: {normalize_league_name(line.league) for line in lines}
+    matched_scopes = {
+        (
+            player_id,
+            line.season,
+            normalize_league_name(line.league),
+            line.regular_season,
+        )
         for player_id, lines in matched_by_player_id.items()
+        for line in lines
     }
     output_stat_lines = [
         row
         for row in base_stat_lines
         if not (
             row.get("timing") == "pre_draft"
-            and row.get("player_id") in matched_by_player_id
-            and row.get("source") in {"wikipedia", "chl"}
-            and normalize_league_name(row.get("league", ""))
-            in matched_leagues_by_player[row["player_id"]]
+            and (
+                row.get("player_id", ""),
+                row.get("season", ""),
+                normalize_league_name(row.get("league", "")),
+                row.get("regular_season", "true").casefold() == "true",
+            )
+            in matched_scopes
         )
     ]
     for player_id, lines in sorted(matched_by_player_id.items()):

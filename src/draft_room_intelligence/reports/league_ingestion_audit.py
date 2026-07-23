@@ -210,7 +210,7 @@ def build_league_ingestion_audit(
             advanced,
             player_names,
         )
-        unmatched = unmatched_match_issues(
+        unmatched = unmatched_audit_issues(
             draft_year,
             final_dir,
             player_names,
@@ -374,6 +374,16 @@ def conflicting_key_issues(
                 )
             )
         goalie_rows = [row for row in rows if has_goalie_evidence(row)]
+        if production_rows and goalie_rows:
+            issues.append(
+                issue_row(
+                    draft_year,
+                    "conflicting_role_stat_key",
+                    rows[0],
+                    player_names,
+                    "same player/season/team/stage appears as both skater and goalie evidence",
+                )
+            )
         goalie_values = {
             tuple(row.get(field, "") for field in GOALIE_CONFLICT_FIELDS)
             for row in goalie_rows
@@ -490,7 +500,7 @@ def partial_advanced_issues(
     return issues
 
 
-def unmatched_match_issues(
+def unmatched_audit_issues(
     draft_year: int,
     final_dir: Path,
     player_names: dict[str, str],
@@ -504,7 +514,12 @@ def unmatched_match_issues(
             if row.get("match_method", "").casefold() == "not_configured":
                 continue
             player_id = row.get("player_id", "")
-            if not leagues_by_player.get(player_id, set()) & MATCH_LEAGUES[filename]:
+            disposition = row.get("disposition", "").casefold()
+            if disposition == "not_eligible":
+                continue
+            if not disposition and not (
+                leagues_by_player.get(player_id, set()) & MATCH_LEAGUES[filename]
+            ):
                 continue
             issues.append(
                 {
@@ -516,7 +531,7 @@ def unmatched_match_issues(
                     "league": "",
                     "stage": "",
                     "source": filename.removesuffix("_matches.csv"),
-                    "detail": "no reviewed exact-name source match",
+                    "detail": disposition or "no reviewed exact-name source match",
                 }
             )
     return issues

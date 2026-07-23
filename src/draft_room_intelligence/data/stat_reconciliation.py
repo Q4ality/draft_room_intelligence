@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from draft_room_intelligence.data.eliteprospects_csv import SEASON_STAT_LINE_COLUMNS
+from draft_room_intelligence.data.league_standardization import normalize_league_name
 
 RECONCILIATION_AUDIT_COLUMNS = [
     "player_id",
@@ -211,11 +212,12 @@ def normalize_stat_row(row: dict[str, str]) -> dict[str, str]:
 
 
 def reconciliation_key(row: dict[str, str]) -> tuple[str, str, str, str, str]:
+    league = normalize_league_name(row.get("league", ""))
     return (
         row.get("player_id", ""),
         row.get("season", ""),
-        normalize_key_value(row.get("league", "")),
-        normalize_team_key(row.get("league", ""), row.get("team", "")),
+        normalize_key_value(league),
+        normalize_team_key(league, row.get("team", "")),
         normalize_regular_season(row.get("regular_season", "")),
     )
 

@@ -12,6 +12,7 @@ from draft_room_intelligence.data.league_enrichment import (
     collect_league_sources,
     discover_europe_source_specs,
     expand_chl_history_sources,
+    expand_ushl_history_sources,
     filter_league_sources,
     generate_swehockey_source_specs,
     is_stale_generated_swehockey_source,
@@ -88,6 +89,11 @@ def run_league_pipeline(
     europe_by_source_id.update({source.source_id: source for source in europe_sources})
     sources = retained + list(europe_by_source_id.values())
     sources = expand_chl_history_sources(
+        sources,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    sources = expand_ushl_history_sources(
         sources,
         start_year=start_year,
         end_year=end_year,

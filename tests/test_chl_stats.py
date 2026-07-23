@@ -285,7 +285,7 @@ def test_enrich_chl_stats_replaces_matching_placeholder_rows(tmp_path):
                 "age": "",
                 "timing": "pre_draft",
                 "regular_season": "true",
-                "source": "wikipedia",
+                "source": "chl; eliteprospects_pdf",
                 "source_id": "2025-002-michael-misa",
                 "source_url": "",
             }

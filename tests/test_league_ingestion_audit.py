@@ -2,6 +2,8 @@ import csv
 
 from draft_room_intelligence.reports.league_ingestion_audit import (
     build_league_ingestion_audit,
+    conflicting_key_issues,
+    unmatched_audit_issues,
     write_league_ingestion_audit,
 )
 
@@ -153,6 +155,61 @@ def test_write_audit_keeps_missing_years_visible(tmp_path):
     assert (tmp_path / "report" / "year_summary.csv").is_file()
     assert (tmp_path / "report" / "coverage_gaps.csv").is_file()
     assert "| 2024 | 0/0" in (tmp_path / "report" / "summary.md").read_text(encoding="utf-8")
+
+
+def test_audit_detects_same_scope_skater_goalie_collision():
+    common = {
+        "player_id": "g1",
+        "season": "2024-25",
+        "league": "USHL",
+        "team": "NTDP",
+        "regular_season": "true",
+        "games": "20",
+        "source": "ushl",
+    }
+    issues = conflicting_key_issues(
+        2025,
+        [
+            {**common, "goals": "0", "assists": "1", "points": "1"},
+            {**common, "save_percentage": "0.920", "wins": "12"},
+        ],
+        {"g1": "Goalie Example"},
+    )
+
+    assert {row["issue_type"] for row in issues} == {"conflicting_role_stat_key"}
+
+
+def test_unmatched_audit_uses_explicit_eligible_disposition_without_stat_row(tmp_path):
+    final = tmp_path / "final"
+    final.mkdir()
+    write_csv(
+        final / "ushl_stat_matches.csv",
+        ["player_id", "name", "matched", "disposition"],
+        [
+            {
+                "player_id": "p1",
+                "name": "Missing Eligible Player",
+                "matched": "false",
+                "disposition": "unmatched_in_cached_source",
+            },
+            {
+                "player_id": "p2",
+                "name": "Ineligible Player",
+                "matched": "false",
+                "disposition": "not_eligible",
+            },
+        ],
+    )
+
+    issues = unmatched_audit_issues(
+        2025,
+        final,
+        {"p1": "Missing Eligible Player", "p2": "Ineligible Player"},
+        {},
+    )
+
+    assert [row["player_id"] for row in issues] == ["p1"]
+    assert issues[0]["detail"] == "unmatched_in_cached_source"
 
 
 def test_audit_reports_goalie_and_advanced_conflicts(tmp_path):

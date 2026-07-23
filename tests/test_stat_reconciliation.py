@@ -158,3 +158,33 @@ def test_reconcile_stat_lines_matches_mhl_translated_team_aliases():
     assert len(result.rows) == 1
     assert result.duplicate_groups == 1
     assert result.conflict_groups == 0
+
+
+def test_reconcile_stat_lines_matches_canonical_league_aliases():
+    rows = [
+        {
+            "player_id": "g1",
+            "season": "2024-25",
+            "league": league,
+            "team": "Kiekko-Espoo",
+            "games": games,
+            "goals": goals,
+            "assists": goals,
+            "points": goals,
+            "timing": "pre_draft",
+            "regular_season": "true",
+            "source": source,
+            "save_percentage": save_percentage,
+        }
+        for league, games, goals, source, save_percentage in [
+            ("SM-liiga", "0", "0", "wikipedia", ""),
+            ("Liiga", "40", "", "eliteprospects_pdf", "0.912"),
+        ]
+    ]
+
+    result = reconcile_stat_lines(rows)
+
+    assert len(result.rows) == 1
+    assert result.duplicate_groups == 1
+    assert result.rows[0]["games"] == "40"
+    assert result.rows[0]["save_percentage"] == "0.912"

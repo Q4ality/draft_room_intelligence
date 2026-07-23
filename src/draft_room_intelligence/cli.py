@@ -62,6 +62,7 @@ from draft_room_intelligence.data.league_enrichment import (
     discover_ushl_source_specs,
     enable_collected_sources,
     expand_chl_history_sources,
+    expand_ushl_history_sources,
     filter_league_sources,
     generate_swehockey_source_specs,
     is_stale_generated_swehockey_source,
@@ -3146,12 +3147,19 @@ def run_enrich_draft_range_leagues(
     force: bool,
     continue_on_error: bool,
 ) -> None:
+    sources = load_league_source_manifest(manifest_path, project_root=project_root)
+    sources = expand_chl_history_sources(
+        sources,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    sources = expand_ushl_history_sources(
+        sources,
+        start_year=start_year,
+        end_year=end_year,
+    )
     sources = filter_league_sources(
-        expand_chl_history_sources(
-            load_league_source_manifest(manifest_path, project_root=project_root),
-            start_year=start_year,
-            end_year=end_year,
-        ),
+        sources,
         start_year=start_year,
         end_year=end_year,
     )

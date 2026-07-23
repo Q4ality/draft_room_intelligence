@@ -841,6 +841,40 @@ def expand_chl_history_sources(
     lookback_years: int = 3,
 ) -> list[LeagueSourceSpec]:
     """Clone cached earlier CHL seasons into each target draft-class source set."""
+    return expand_adapter_history_sources(
+        sources,
+        adapter="chl",
+        start_year=start_year,
+        end_year=end_year,
+        lookback_years=lookback_years,
+    )
+
+
+def expand_ushl_history_sources(
+    sources: list[LeagueSourceSpec],
+    *,
+    start_year: int,
+    end_year: int,
+    lookback_years: int = 3,
+) -> list[LeagueSourceSpec]:
+    """Clone cached earlier USHL/NTDP seasons into target draft classes."""
+    return expand_adapter_history_sources(
+        sources,
+        adapter="ushl",
+        start_year=start_year,
+        end_year=end_year,
+        lookback_years=lookback_years,
+    )
+
+
+def expand_adapter_history_sources(
+    sources: list[LeagueSourceSpec],
+    *,
+    adapter: str,
+    start_year: int,
+    end_year: int,
+    lookback_years: int,
+) -> list[LeagueSourceSpec]:
     expanded = list(sources)
     existing_scopes = {
         (
@@ -849,10 +883,11 @@ def expand_chl_history_sources(
             normalize_league_name(source.league),
             source.season,
             source.regular_season,
+            source.source_label.rsplit(":", 1)[-1],
         )
         for source in sources
     }
-    historical = [source for source in sources if source.adapter == "chl"]
+    historical = [source for source in sources if source.adapter == adapter]
     for draft_year in range(start_year, end_year + 1):
         for source in historical:
             if not draft_year - lookback_years <= source.draft_year < draft_year:
@@ -863,6 +898,7 @@ def expand_chl_history_sources(
                 normalize_league_name(source.league),
                 source.season,
                 source.regular_season,
+                source.source_label.rsplit(":", 1)[-1],
             )
             if scope in existing_scopes:
                 continue

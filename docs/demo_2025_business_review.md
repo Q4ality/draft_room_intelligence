@@ -102,12 +102,12 @@ Recommended close:
 
 ## Current Demo Metrics
 
-- Evidence depth: 169 high, 25 medium, 30 low
-- Canonical baseline: 224 players and 906 pre-draft season-stat rows; verify the current fingerprint and board metrics in the generated `baseline.json`.
-- Disagreement buckets: 80 aligned, 15 model higher, 129 consensus higher
-- Average board-vs-consensus movement: 13.8 slots
-- Players moved 10+ slots: 135
-- 10+ slot moves with high/medium evidence: 116
+- Evidence depth: 178 high, 30 medium, 16 low
+- Canonical baseline: 224 players and 846 pre-draft season-stat rows; verify the current fingerprint and board metrics in the generated `baseline.json`.
+- Disagreement buckets: 76 aligned, 21 model higher, 127 consensus higher
+- Average board-vs-consensus movement: 14.3 slots
+- Players moved 10+ slots: 136
+- 10+ slot moves with high/medium evidence: 122
 - Top 50 overlap with consensus: 50 of 50
 
 Interpretation:

@@ -13,6 +13,7 @@ from pathlib import Path
 from draft_room_intelligence.data.chl_stats import (
     count_normalized_names,
     normalize_person_key,
+    person_alias_key,
     read_drafted_league_hints,
     read_table,
 )
@@ -28,6 +29,8 @@ NCAA_MATCH_COLUMNS = [
     "player_id",
     "name",
     "matched",
+    "disposition",
+    "source_availability",
     "provider",
     "source_name",
     "source_id",
@@ -85,6 +88,8 @@ class NcaaStatsEnrichmentSummary:
     output_stat_lines: int
     output_advanced_lines: int
     match_report_path: Path
+    source_availability: str
+    disposition_counts: dict[str, int]
 
 
 def enrich_ncaa_stats(
@@ -103,10 +108,13 @@ def enrich_ncaa_stats(
     advanced_path = source_root / "advanced_stat_lines.csv"
     base_advanced = read_table(advanced_path) if advanced_path.is_file() else []
     drafted_leagues = read_drafted_league_hints(source_root)
-    source_lines = load_ncaa_source_lines(sources)
+    available_sources, source_availability = classify_available_sources(sources)
+    source_lines = load_ncaa_source_lines(available_sources)
     by_name: dict[str, list[NcaaStatLine]] = {}
+    by_alias: dict[str, list[NcaaStatLine]] = {}
     for line in source_lines:
         by_name.setdefault(normalize_person_key(line.name), []).append(line)
+        by_alias.setdefault(person_alias_key(line.name), []).append(line)
 
     matched: dict[str, list[NcaaStatLine]] = {}
     report: list[dict[str, str]] = []
@@ -121,20 +129,49 @@ def enrich_ncaa_stats(
         leagues.update(drafted_leagues.get(player_id, set()))
         key = normalize_person_key(player["name"])
         candidates = by_name.get(key, [])
-        if name_counts.get(key) == 1 and "NCAA" in leagues and candidates:
+        if not candidates:
+            candidates = by_alias.get(person_alias_key(player["name"]), [])
+        candidate_identity_count = len({line.source_id for line in candidates})
+        disposition = match_disposition(
+            eligible="NCAA" in leagues,
+            name_count=name_counts.get(key, 0),
+            has_candidates=bool(candidates),
+            candidate_identity_count=candidate_identity_count,
+            source_availability=source_availability,
+        )
+        if disposition == "matched":
             matched[player_id] = candidates
-            report.extend(build_match_row(player, line, True) for line in candidates)
+            report.extend(
+                build_match_row(
+                    player,
+                    line,
+                    disposition=disposition,
+                    source_availability=source_availability,
+                )
+                for line in candidates
+            )
         else:
-            report.append(build_match_row(player, None, False))
+            report.append(
+                build_match_row(
+                    player,
+                    None,
+                    disposition=disposition,
+                    source_availability=source_availability,
+                )
+            )
 
-    matched_ids = set(matched)
+    matched_scopes = {
+        (player_id, line.season)
+        for player_id, lines in matched.items()
+        for line in lines
+    }
     output_stats = [
         row
         for row in base_stats
         if not (
             row.get("timing") == "pre_draft"
-            and row.get("player_id") in matched_ids
             and normalize_league_name(row.get("league", "")) == "NCAA"
+            and (row.get("player_id", ""), row.get("season", "")) in matched_scopes
         )
     ]
     output_advanced = [
@@ -142,8 +179,8 @@ def enrich_ncaa_stats(
         for row in base_advanced
         if not (
             row.get("timing") == "pre_draft"
-            and row.get("player_id") in matched_ids
             and normalize_league_name(row.get("league", "")) == "NCAA"
+            and (row.get("player_id", ""), row.get("season", "")) in matched_scopes
         )
     ]
     for player_id, lines in sorted(matched.items()):
@@ -165,7 +202,51 @@ def enrich_ncaa_stats(
         len(output_stats),
         len(output_advanced),
         target_root / "ncaa_stat_matches.csv",
+        source_availability,
+        count_dispositions(report),
     )
+
+
+def classify_available_sources(
+    sources: list[NcaaStatSource],
+) -> tuple[list[NcaaStatSource], str]:
+    available = [
+        source
+        for source in sources
+        if source.source_path is not None and source.source_path.is_file()
+    ]
+    if not available:
+        return [], "unavailable"
+    if len(available) < len(sources):
+        return available, "partial"
+    return available, "available"
+
+
+def match_disposition(
+    *,
+    eligible: bool,
+    name_count: int,
+    has_candidates: bool,
+    source_availability: str,
+    candidate_identity_count: int = 1,
+) -> str:
+    if not eligible:
+        return "not_eligible"
+    if name_count != 1 or candidate_identity_count > 1:
+        return "ambiguous_identity"
+    if source_availability == "unavailable":
+        return "source_unavailable"
+    if not has_candidates:
+        return "unmatched_in_cached_source"
+    return "matched"
+
+
+def count_dispositions(rows: list[dict[str, str]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        disposition = row["disposition"]
+        counts[disposition] = counts.get(disposition, 0) + 1
+    return counts
 
 
 def load_ncaa_source_lines(sources: list[NcaaStatSource]) -> list[NcaaStatLine]:
@@ -254,6 +335,9 @@ def college_hockey_row(
     name_index = headers.index("Name") if "Name" in headers else -1
     name = values.get("Name", "")
     if not name or name_index < 0:
+        return None
+    position = values.get("Pos.", values.get("Pos", "")).strip().casefold()
+    if source.kind != "goalies" and position in {"g", "goalie"}:
         return None
     href = cells[name_index][1]
     source_id = href.rstrip("/").split("/")[-1] if href else normalize_person_key(name)
@@ -423,12 +507,18 @@ def has_advanced_stats(line: NcaaStatLine) -> bool:
 
 
 def build_match_row(
-    player: dict[str, str], line: NcaaStatLine | None, matched: bool
+    player: dict[str, str],
+    line: NcaaStatLine | None,
+    *,
+    disposition: str,
+    source_availability: str,
 ) -> dict[str, str]:
     return {
         "player_id": player["player_id"],
         "name": player["name"],
-        "matched": "true" if matched else "false",
+        "matched": "true" if disposition == "matched" else "false",
+        "disposition": disposition,
+        "source_availability": source_availability,
         "provider": line.provider if line else "",
         "source_name": line.name if line else "",
         "source_id": line.source_id if line else "",

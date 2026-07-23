@@ -61,7 +61,9 @@ the feeds are cached and discovery is rerun, validated files become enabled auto
 
 The USHL adapter preserves skater scoring and goalie GP, minutes, shots, saves, goals against,
 SV%, GAA, wins, losses, overtime losses, and shutouts. Regular-season and playoff lines remain
-separate evidence rows.
+separate evidence rows. Draft-class enrichment reuses up to three cached prior USHL seasons, so
+NTDP and club histories are not reduced to the draft-year feed. Skater and goalie feeds remain
+distinct when historical sources are cloned.
 
 `historical-swehockey-catalogs` caches official SHL, HockeyAllsvenskan, and J20/U20 season
 indexes. `historical-europe-discover` then derives stable player-feed rows from those local
@@ -78,6 +80,12 @@ NCAA and European adapters write `advanced_stat_lines.csv` beside the standard s
 Each row includes games, plus/minus, shots, blocks, faceoff wins/losses, and faceoff percentage
 when the source publishes them. Exact feed duplicates are removed before Swedish split phases
 are combined, preserving auditable source URLs on the normalized row.
+
+The 2025-2026 cache-first proof applies 18 NCAA/USHL feeds per class, including up to three prior
+USHL seasons. After all enabled adapters and canonical duplicate reconciliation, the 2025 class
+contains 846 stat rows, covers all 224 players, and has 16 low-evidence demo profiles. The 2026
+class contains 497 stat rows and covers 175 of 223 players (78.5%); its remaining 48-player queue
+is concentrated outside the cached NCAA/USHL feeds.
 
 Use `collect-league-sources --adapter <name>` to refresh one provider family without retrying
 the entire manifest. Rerun the corresponding discovery command after collection so validated
@@ -104,7 +112,9 @@ League adapters use both existing stat leagues and the official NHL draft select
 CHL matching starts with an accent-insensitive normalized name. It also recognizes a small reviewed
 set of preferred/legal first-name variants and provider-redacted surnames only when the candidate
 is unique inside the same league. Ambiguous identities are rejected. Every adapter writes a match
-audit beside normalized tables.
+audit beside normalized tables. NCAA and USHL audits classify every player as `matched`,
+`not_eligible`, `ambiguous_identity`, `unmatched_in_cached_source`, or `source_unavailable`, and
+record whether the configured cache set was available, partial, or unavailable.
 
 Class replacement is staged and atomic. A failed adapter leaves the prior `final` directory in
 place. Source cache digests and baseline ETL state are recorded in
