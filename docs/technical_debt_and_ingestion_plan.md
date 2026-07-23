@@ -106,7 +106,7 @@ Every new adapter should include:
 1. Keep the current 2025 demo frozen for tomorrow's review unless a blocking UI/data issue appears.
 2. After review, pick one source family and run the full collect-parse-merge-audit loop instead of adding another one-off CSV.
 3. Start with CHL cleanup if the review focuses on top-board credibility; start with 2026 EP guide extraction if the review asks for future-class scalability.
-4. Rebuild `make demo-2025-readiness` after every ingestion pass and compare:
+4. Rebuild `make demo-2025-local-readiness` after every ingestion pass and compare:
    - low-evidence count,
    - high/medium evidence count,
    - top-50 sanity,

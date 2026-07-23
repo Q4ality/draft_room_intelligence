@@ -10,6 +10,7 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `docs/technical_debt_and_ingestion_plan.md` - current technical debt register and systematic ingestion roadmap.
 - `docs/historical_class_etl.md` - scalable 2014-2026 draft-class collection, ETL, and integrity workflow.
 - `docs/historical_league_enrichment.md` - cache-first league-stat enrichment and coverage reporting.
+- `docs/reproducibility.md` - supported offline, local-cache, and online-refresh operating modes.
 - `src/draft_room_intelligence/data/` - ETL, import, merge, and normalized table loading.
 - `src/draft_room_intelligence/evaluation/` - baseline scoring and reporting utilities.
 - `src/draft_room_intelligence/modeling/` - reusable feature table generation and role-specific models.
@@ -39,6 +40,7 @@ cd /path/to/current_project
 python3 -m venv .venv
 make install-dev
 make demo
+make demo-2025-reproducible
 make evaluate-consensus
 make evaluate-projection
 make evaluate-pilot-consensus
@@ -46,16 +48,14 @@ make evaluate-pilot-adjusted-production
 make evaluate-pilot-hybrid
 make team-depth-sample
 make nhl-roster-sample
-make ep-pdf-sample
-make historical-draft-etl
-make historical-league-etl
 make test
+make check
 ```
 
 ## Reproducible 2025 Demo
 
 The reviewed 2025 business demo can be rebuilt from a fresh clone without raw provider caches,
-private exports, or an API key:
+private exports, an API key, or network collection:
 
 ```bash
 make demo-2025-reproducible
@@ -63,7 +63,8 @@ make demo-2025-reproducible
 
 The command verifies the committed input snapshot in `data/demo_snapshots/2025`, then writes a new
 site and its reports to `outputs/demo_2025_reproducible`. The snapshot contains normalized final
-tables, advanced statistics, and the team-depth input; generated site artifacts remain local.
+tables, advanced statistics, and the team-depth input; generated site artifacts remain local. See
+`docs/reproducibility.md` for the distinct offline-demo, local-cache, and online-refresh modes.
 
 Equivalent commands without `make`:
 
@@ -108,12 +109,13 @@ The package exposes the same CLI as `draft-room-intel` after editable install.
 
 ## Local Environment
 
-Copy `.env.example` to `.env` and put private local credentials there. `.env` is ignored by git.
+Copy `.env.example` to `.env` only when using OpenAI vision extraction. `.env` is ignored by git
+and must never be committed. The normal demo and tests do not require it.
 
 ```bash
 OPENAI_API_KEY=sk-...
 OPENAI_VISION_MODEL=gpt-5.6
-PDFTOPPM_PATH=/Users/Sergei_Smirnov1/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/pdftoppm
+PDFTOPPM_PATH=pdftoppm
 ```
 
 The CLI reads `.env` by default. For another file, pass `--env-file path/to/file` to
@@ -123,7 +125,8 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 
 - `make install-dev` - install the project in editable mode with development tools.
 - `make demo` - run the sample projection, scouting, team-fit, and player-card flow.
-- `make demo-2025-readiness` - rebuild the current EP-PDF-enriched 2025 demo site, data-gap report, modeling sanity report, and demo sanity report.
+- `make demo-2025-readiness` - alias for the reproducible 2025 demo build.
+- `make demo-2025-local-readiness` - rebuild from ignored local processed and roster datasets after an ingestion run.
 - `make demo-2025-reproducible` - validate the tracked 2025 demo snapshot and rebuild the business-demo site from committed inputs only.
 - `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
@@ -194,7 +197,7 @@ The current historical validation note is tracked in [`docs/historical_validatio
 - `python -m draft_room_intelligence.cli evaluate <csv-or-directory> --baseline hybrid` - evaluate the weighted hybrid baseline.
 - `make test` - run the automated tests.
 - `make lint` - run Ruff against `src` and `tests`.
-- `make check` - run linting and tests.
+- `make check` - run tests and rebuild the offline 2025 demo snapshot.
 
 The Makefile automatically uses `.venv/bin/python` when `.venv` exists. You can still override it with `make PYTHON=/path/to/python check`.
 

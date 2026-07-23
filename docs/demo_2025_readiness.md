@@ -35,7 +35,7 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
 Equivalent Make target:
 
 ```bash
-make demo-2025-readiness
+make demo-2025-local-readiness
 ```
 
 ## What We Have

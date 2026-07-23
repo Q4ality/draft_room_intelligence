@@ -59,7 +59,7 @@ PYTHONPATH=src .venv/bin/python -m draft_room_intelligence.cli enrich-roster-con
   --audit-csv outputs/contracts_2025_match_audit.csv
 ```
 
-Then rebuild depth using the enriched roster CSV and run `make demo-2025-readiness` after pointing the team-depth build at that output.
+Then rebuild depth using the enriched roster CSV and run `make demo-2025-local-readiness` after pointing the team-depth build at that output.
 
 ## Activation Gate
 
