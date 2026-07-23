@@ -117,7 +117,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make ep-pdf-sample` - parse a limited local Elite Prospects draft-guide PDF window into normalized player/stat/profile artifacts.
 - `make historical-draft-cache` - cache official NHL draft lists for 2014-2026; this target requires network access only for uncached years.
 - `make historical-draft-etl` - build or resume all configured 2014-2026 normalized class datasets and write integrity reports.
-- `make historical-league-cache` - collect missing league-stat files from the reviewed source manifest.
+- `make historical-league-cache` - collect missing league-stat files from the reviewed source manifest; CHL rows use a validated HockeyTech fallback when public CHL pages reject automation.
 - `make historical-league-discover` - regenerate CHL season/stage URLs from cached official catalogs.
 - `make historical-ncaa-discover` - generate NCAA source rows with the USCHO historical fallback.
 - `make historical-europe-discover` - merge reviewed Swedish, Finnish, and Russian source rows.
@@ -149,7 +149,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `draft-room-intel report-demo-sanity <demo-output-dir> <report-output-dir>` - write top-board, top-role, biggest-disagreement, and story-player checks for demo validation.
 - `draft-room-intel report-demo-acceptance <demo-output-dir> <report-output-dir>` - run pass/fail checks that guard the business-demo board shape and evidence UI.
 - `draft-room-intel report-ingestion-plan data/reference/ingestion_source_families.csv <output-dir>` - audit cache, normalized output, docs, and tests for each planned ingestion source family.
-- `draft-room-intel audit-league-ingestion data/processed/draft_classes <output-dir> --start-year 2014 --end-year 2026` - build the normalized league-data quality baseline used after ingestion runs.
+- `draft-room-intel audit-league-ingestion data/processed/draft_classes <output-dir> --start-year 2014 --end-year 2026` - build the normalized league-data quality baseline and prioritized `coverage_gaps.csv` backlog used after ingestion runs.
 - `draft-room-intel report-codex-usage <run-log.csv> <output-dir>` - build a Markdown/CSV/HTML dashboard comparing baseline vs routed Codex task runs.
 - `draft-room-intel audit-codex-routing <output-dir>` - verify project Codex config, custom agents, and repo skill discovery links.
 - `draft-room-intel report-codex-context-routes data/reference/codex_context_routes.csv <output-dir>` - audit bounded context routes used to reduce broad repo reads.

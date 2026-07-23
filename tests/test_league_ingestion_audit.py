@@ -61,6 +61,18 @@ def test_audit_reports_conflicts_partial_advanced_and_unmatched_rows(tmp_path):
                 "regular_season": "true",
                 "source": "two",
             },
+            {
+                "player_id": "p2",
+                "season": "2024-25",
+                "league": "OHL",
+                "games": "",
+                "goals": "",
+                "assists": "",
+                "points": "",
+                "timing": "pre_draft",
+                "regular_season": "true",
+                "source": "placeholder",
+            },
         ],
     )
     write_csv(
@@ -93,6 +105,24 @@ def test_audit_reports_conflicts_partial_advanced_and_unmatched_rows(tmp_path):
         ["player_id", "name", "matched"],
         [{"player_id": "p1", "name": "Example Defender", "matched": "false"}],
     )
+    write_csv(
+        final / "draft_selections.csv",
+        ["player_id", "overall_pick", "drafted_from_team", "drafted_from_league"],
+        [
+            {
+                "player_id": "p1",
+                "overall_pick": "4",
+                "drafted_from_team": "Example Club",
+                "drafted_from_league": "SHL",
+            },
+            {
+                "player_id": "p2",
+                "overall_pick": "42",
+                "drafted_from_team": "Missing Club",
+                "drafted_from_league": "OHL",
+            },
+        ],
+    )
 
     report = build_league_ingestion_audit(tmp_path / "classes", start_year=2025, end_year=2025)
 
@@ -105,6 +135,10 @@ def test_audit_reports_conflicts_partial_advanced_and_unmatched_rows(tmp_path):
         "partial_advanced_sample",
         "unmatched_source_audit",
     }
+    assert len(report.coverage_gaps) == 1
+    assert report.coverage_gaps[0]["player_name"] == "Missing"
+    assert report.coverage_gaps[0]["priority"] == "high"
+    assert report.coverage_gaps[0]["source_family"] == "CHL"
 
 
 def test_write_audit_keeps_missing_years_visible(tmp_path):
@@ -117,4 +151,5 @@ def test_write_audit_keeps_missing_years_visible(tmp_path):
 
     assert len(report.years) == 2
     assert (tmp_path / "report" / "year_summary.csv").is_file()
+    assert (tmp_path / "report" / "coverage_gaps.csv").is_file()
     assert "| 2024 | 0/0" in (tmp_path / "report" / "summary.md").read_text(encoding="utf-8")

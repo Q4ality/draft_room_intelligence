@@ -8,16 +8,25 @@ import html
 import json
 import re
 import shutil
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from urllib.request import Request, urlopen
 
-from draft_room_intelligence.data.chl_stats import ChlStatSource, enrich_chl_stats
+from draft_room_intelligence.data.chl_stats import (
+    CHL_CANCELED_STAGES,
+    ChlStatSource,
+    build_chl_hockeytech_urls,
+    combine_chl_hockeytech_payloads,
+    enrich_chl_stats,
+    is_hockeytech_cache,
+    parse_chl_hockeytech_json,
+)
 from draft_room_intelligence.data.europe_stats import (
     EuropeStatSource,
     enrich_europe_stats,
     load_europe_source_lines,
 )
+from draft_room_intelligence.data.league_standardization import normalize_league_name
 from draft_room_intelligence.data.ncaa_stats import NcaaStatSource, enrich_ncaa_stats
 from draft_room_intelligence.data.open_stats_csv import OpenStatsCsvSource, enrich_open_stats_csv
 from draft_room_intelligence.data.ushl_stats import (
@@ -115,6 +124,8 @@ def discover_chl_source_specs(
             continue
         draft_year, regular_season = context
         if not start_year <= draft_year <= end_year:
+            continue
+        if (normalize_league_name(league), draft_year, regular_season) in CHL_CANCELED_STAGES:
             continue
         stage = "regular" if regular_season else "playoffs"
         season = f"{draft_year - 1}-{str(draft_year)[-2:]}"
@@ -485,6 +496,19 @@ def filter_league_sources(
     ]
 
 
+def enable_collected_sources(
+    sources: list[LeagueSourceSpec],
+    results: list[LeagueSourceCollectionResult],
+) -> list[LeagueSourceSpec]:
+    ready_ids = {result.source_id for result in results if result.status != "failed"}
+    return [
+        replace(source, enabled=True)
+        if source.source_id in ready_ids and not source.enabled
+        else source
+        for source in sources
+    ]
+
+
 def collect_league_sources(
     sources: list[LeagueSourceSpec],
     *,
@@ -531,15 +555,11 @@ def collect_league_sources(
 def download_league_source(source: LeagueSourceSpec, status: str) -> str:
     if not source.source_url:
         raise ValueError("source_url is empty and cache is missing or invalid")
-    request = Request(
-        source.source_url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (compatible; draft-room-intelligence/0.1)",
-            "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
-        },
+    payload = (
+        download_chl_hockeytech_source(source)
+        if source.adapter == "chl"
+        else download_url(source.source_url)
     )
-    with urlopen(request, timeout=45) as response:  # noqa: S310 - reviewed manifest URL
-        payload = response.read()
     if not payload:
         raise ValueError("download returned an empty response")
     source.cache_path.parent.mkdir(parents=True, exist_ok=True)
@@ -552,6 +572,26 @@ def download_league_source(source: LeagueSourceSpec, status: str) -> str:
         if temporary.exists():
             temporary.unlink()
     return status
+
+
+def download_url(url: str) -> bytes:
+    request = Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (compatible; draft-room-intelligence/0.1)",
+            "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
+        },
+    )
+    with urlopen(request, timeout=45) as response:  # noqa: S310 - reviewed manifest URL
+        return response.read()
+
+
+def download_chl_hockeytech_source(source: LeagueSourceSpec) -> bytes:
+    skaters_url, goalies_url = build_chl_hockeytech_urls(source.league, source.source_url)
+    return combine_chl_hockeytech_payloads(
+        download_url(skaters_url).decode("utf-8"),
+        download_url(goalies_url).decode("utf-8"),
+    )
 
 
 def validate_source_cache(source: LeagueSourceSpec, *, path: Path | None = None) -> None:
@@ -570,6 +610,18 @@ def validate_source_cache(source: LeagueSourceSpec, *, path: Path | None = None)
     if source.adapter != "chl":
         return
     raw = cache_path.read_text(encoding="utf-8")
+    if is_hockeytech_cache(raw):
+        parse_chl_hockeytech_json(
+            raw,
+            ChlStatSource(
+                league=source.league,
+                season=source.season,
+                source_url=source.source_url,
+                regular_season=source.regular_season,
+                source_path=cache_path,
+            ),
+        )
+        return
     if 'id="topskaters"' not in raw and 'id="topgoalies"' not in raw:
         raise ValueError("CHL cache has no player or goalie statistics table")
     title_match = re.search(r"<title>(.*?)</title>", raw, re.IGNORECASE | re.DOTALL)

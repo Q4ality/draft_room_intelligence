@@ -15,6 +15,7 @@ RUSSIAN_DRAFT_LEAGUES = {
     "MHL",
     "RUSSIA",
     "RUSSIA JR.",
+    "RUSSIA JR. 2",
     "RUSSIA-2",
     "VHL",
 }

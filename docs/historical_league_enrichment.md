@@ -25,6 +25,10 @@ USHL coverage uses separate skater and goalie feeds for regular seasons and play
 HockeyTech season catalog supplies opaque season IDs, so no year mapping is maintained by hand.
 The 2019-20 season correctly has no playoff sources.
 
+CHL collection also uses HockeyTech as the machine-readable fallback for reviewed OHL, WHL, and
+QMJHL season URLs. Each cache bundles the skater and goalie payloads while preserving the original
+CHL URL as provenance. The adapter retains regular-season/playoff separation and goalie exposure.
+
 ## Commands
 
 ```bash
@@ -41,11 +45,11 @@ make historical-league-etl
 season IDs, and generates stable season-ID cache names. Existing validated cache paths remain
 enabled. Missing historical caches are generated as disabled rows.
 
-The CHL website currently returns HTTP 403 to the non-browser collector. Browser rendering can
-pass the site challenge, but the browser security boundary does not expose the underlying page
-source for staging. An authorized environment can retry the full backlog explicitly with
-`collect-league-sources --include-disabled`; ordinary collection only checks enabled sources and
-therefore remains deterministic and green.
+The CHL website currently returns HTTP 403 to the non-browser collector. For `chl` manifest rows,
+the collector extracts the reviewed season ID and downloads the corresponding HockeyTech skater
+and goalie feeds instead. A successful `collect-league-sources --include-disabled` run now enables
+the validated source in the manifest automatically. Empty or invalid feeds remain disabled; this
+correctly covers canceled stages such as the 2019-20 QMJHL playoffs.
 
 `historical-ushl-catalog` caches the official season catalog. `historical-ushl-discover` merges
 generated USHL rows into the existing manifest without replacing CHL or open-CSV sources. Once
@@ -82,8 +86,10 @@ year is `blocked` when its cache is absent, `completed` after application, and
 
 League adapters use both existing stat leagues and the official NHL draft selection's
 `drafted_from_league` field. This allows an empty historical class to gain its first stat row.
-Matching remains exact after normalized-name comparison and is rejected when two class players
-share the same normalized name. Every adapter writes a match audit beside normalized tables.
+CHL matching starts with an accent-insensitive normalized name. It also recognizes a small reviewed
+set of preferred/legal first-name variants and provider-redacted surnames only when the candidate
+is unique inside the same league. Ambiguous identities are rejected. Every adapter writes a match
+audit beside normalized tables.
 
 Class replacement is staged and atomic. A failed adapter leaves the prior `final` directory in
 place. Source cache digests and baseline ETL state are recorded in
@@ -93,12 +99,19 @@ place. Source cache digests and baseline ETL state are recorded in
 
 Populate reviewed regular-season and playoff sources in this order:
 
-1. CHL (OHL, WHL, QMJHL) for 2014-2024 and 2026.
-2. Extend Swedish/Finnish reviewed catalogs backward from the validated 2025 slice.
-3. Add an authorized Russian cache/export path plus transliteration mapping for KHL/MHL/VHL.
+1. Extend Swedish/Finnish reviewed catalogs backward from the validated 2025 slice.
+2. Add stable Canadian Junior A/B and US high-school sources.
+3. Resolve the remaining explicit CHL transliteration aliases through a reviewed identity map.
 4. NHL outcome snapshots for mature classes, kept separate from pre-draft features.
 
+The CHL backlog is restored for played seasons across 2014-2026. The main structural exception is
+the 2021 OHL draft cohort because the 2020-21 OHL season was canceled; those players require their
+actual alternate-league evidence rather than synthetic OHL rows.
+
 The report at `outputs/league_enrichment/summary.md` is the operational coverage baseline.
+Run `audit-league-ingestion` after enrichment to refresh `year_summary.csv`, `issues.csv`, and
+`coverage_gaps.csv`. The gap queue orders uncovered players by draft tier and records their
+drafted-from league and source family, making it the input backlog for the next adapter pass.
 
 ## Russian Coverage Iteration
 

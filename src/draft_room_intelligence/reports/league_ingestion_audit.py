@@ -34,6 +34,43 @@ ISSUE_COLUMNS = [
     "detail",
 ]
 
+COVERAGE_GAP_COLUMNS = [
+    "priority",
+    "draft_year",
+    "overall_pick",
+    "player_id",
+    "player_name",
+    "position",
+    "nationality",
+    "drafted_from_team",
+    "drafted_from_league",
+    "source_family",
+    "gap_reason",
+]
+
+STAT_EVIDENCE_FIELDS = {
+    "games",
+    "goals",
+    "assists",
+    "points",
+    "goalie_minutes",
+    "shots_against",
+    "saves",
+    "goals_against",
+    "save_percentage",
+    "goals_against_average",
+    "wins",
+    "losses",
+    "ties",
+    "shutouts",
+    "plus_minus",
+    "shots",
+    "blocks",
+    "faceoff_wins",
+    "faceoff_losses",
+    "faceoff_percentage",
+}
+
 MATCH_AUDITS = (
     "chl_stat_matches.csv",
     "ushl_stat_matches.csv",
@@ -96,6 +133,7 @@ class LeagueAuditYear:
 class LeagueIngestionAudit:
     years: tuple[LeagueAuditYear, ...]
     issues: tuple[dict[str, str], ...]
+    coverage_gaps: tuple[dict[str, str], ...]
 
 
 def write_league_ingestion_audit(
@@ -114,6 +152,11 @@ def write_league_ingestion_audit(
     root.mkdir(parents=True, exist_ok=True)
     write_csv(root / "year_summary.csv", SUMMARY_COLUMNS, [year.to_row() for year in report.years])
     write_csv(root / "issues.csv", ISSUE_COLUMNS, list(report.issues))
+    write_csv(
+        root / "coverage_gaps.csv",
+        COVERAGE_GAP_COLUMNS,
+        list(report.coverage_gaps),
+    )
     (root / "summary.md").write_text(format_league_ingestion_audit(report), encoding="utf-8")
     return report
 
@@ -126,6 +169,7 @@ def build_league_ingestion_audit(
 ) -> LeagueIngestionAudit:
     years: list[LeagueAuditYear] = []
     issues: list[dict[str, str]] = []
+    coverage_gaps: list[dict[str, str]] = []
     for draft_year in range(start_year, end_year + 1):
         final_dir = Path(class_root) / str(draft_year) / "final"
         players = read_csv(final_dir / "players.csv")
@@ -133,6 +177,20 @@ def build_league_ingestion_audit(
         advanced = read_csv(final_dir / "advanced_stat_lines.csv")
         player_names = {row.get("player_id", ""): row.get("name", "") for row in players}
         pre_draft = [row for row in stats if row.get("timing") == "pre_draft"]
+        advanced_pre_draft = [row for row in advanced if row.get("timing") == "pre_draft"]
+        covered_player_ids = {
+            row.get("player_id", "")
+            for row in pre_draft + advanced_pre_draft
+            if row.get("player_id") and has_statistical_evidence(row)
+        }
+        coverage_gaps.extend(
+            build_coverage_gaps(
+                draft_year,
+                players,
+                read_csv(final_dir / "draft_selections.csv"),
+                covered_player_ids,
+            )
+        )
         duplicate_issues = exact_duplicate_issues(draft_year, pre_draft, player_names)
         conflict_issues = conflicting_key_issues(draft_year, pre_draft, player_names)
         partial_issues = partial_advanced_issues(
@@ -152,9 +210,7 @@ def build_league_ingestion_audit(
             LeagueAuditYear(
                 draft_year=draft_year,
                 players=len(players),
-                players_with_pre_draft_stats=len(
-                    {row.get("player_id", "") for row in pre_draft if row.get("player_id")}
-                ),
+                players_with_pre_draft_stats=len(covered_player_ids),
                 stat_lines=len(pre_draft),
                 advanced_stat_lines=len(advanced),
                 players_with_advanced_stats=len(
@@ -166,7 +222,94 @@ def build_league_ingestion_audit(
                 partial_advanced_rows=len(partial_issues),
             )
         )
-    return LeagueIngestionAudit(tuple(years), tuple(issues))
+    coverage_gaps.sort(key=coverage_gap_sort_key)
+    return LeagueIngestionAudit(tuple(years), tuple(issues), tuple(coverage_gaps))
+
+
+def has_statistical_evidence(row: dict[str, str]) -> bool:
+    return any((row.get(field) or "").strip() for field in STAT_EVIDENCE_FIELDS)
+
+
+def build_coverage_gaps(
+    draft_year: int,
+    players: list[dict[str, str]],
+    selections: list[dict[str, str]],
+    covered_player_ids: set[str],
+) -> list[dict[str, str]]:
+    selections_by_player = {row.get("player_id", ""): row for row in selections}
+    rows = []
+    for player in players:
+        player_id = player.get("player_id", "")
+        if not player_id or player_id in covered_player_ids:
+            continue
+        selection = selections_by_player.get(player_id, {})
+        overall_pick = int_value(selection.get("overall_pick"))
+        drafted_from_league = selection.get("drafted_from_league", "")
+        rows.append(
+            {
+                "priority": coverage_priority(overall_pick),
+                "draft_year": str(draft_year),
+                "overall_pick": str(overall_pick) if overall_pick else "",
+                "player_id": player_id,
+                "player_name": player.get("name", ""),
+                "position": player.get("position", ""),
+                "nationality": player.get("nationality", ""),
+                "drafted_from_team": selection.get("drafted_from_team", ""),
+                "drafted_from_league": drafted_from_league,
+                "source_family": source_family(drafted_from_league),
+                "gap_reason": "no normalized pre-draft stat lines",
+            }
+        )
+    return rows
+
+
+def coverage_priority(overall_pick: int) -> str:
+    if overall_pick <= 0:
+        return "standard"
+    if 0 < overall_pick <= 32:
+        return "critical"
+    if overall_pick <= 96:
+        return "high"
+    if overall_pick <= 160:
+        return "medium"
+    return "standard"
+
+
+def source_family(league: str) -> str:
+    normalized = league.strip().casefold()
+    if normalized in {"ohl", "whl", "qmjhl"}:
+        return "CHL"
+    if any(token in normalized for token in ("sweden", "swe-", "j20", "finland", "fin-")):
+        return "Nordic"
+    if normalized in {"liiga", "mestis", "hockeyallsvenskan", "shl"}:
+        return "Nordic"
+    if any(token in normalized for token in ("russia", "khl", "vhl", "mhl")):
+        return "Russia"
+    if normalized == "ncaa":
+        return "NCAA"
+    if normalized == "ushl":
+        return "USHL"
+    if any(
+        token in normalized
+        for token in ("high", "jhl", "nahl", "usphl", "usmaa", "us east", "us west")
+    ):
+        return "North American junior"
+    if any(
+        token in normalized
+        for token in ("czech", "czrep", "slovakia", "germany", "swiss", "national league")
+    ):
+        return "Central Europe"
+    return "Other"
+
+
+def coverage_gap_sort_key(row: dict[str, str]) -> tuple[int, int, int, str]:
+    priority_order = {"critical": 0, "high": 1, "medium": 2, "standard": 3}
+    return (
+        priority_order.get(row.get("priority", ""), 4),
+        int_value(row.get("overall_pick")) or 999,
+        int_value(row.get("draft_year")),
+        row.get("player_name", ""),
+    )
 
 
 def exact_duplicate_issues(
@@ -365,6 +508,20 @@ def format_league_ingestion_audit(report: LeagueIngestionAudit) -> str:
         lines.extend(f"- {key}: {value}" for key, value in sorted(issue_counts.items()))
     else:
         lines.append("- No data-quality issues detected.")
+    family_counts: dict[str, int] = {}
+    priority_counts: dict[str, int] = {}
+    for gap in report.coverage_gaps:
+        family = gap["source_family"]
+        priority = gap["priority"]
+        family_counts[family] = family_counts.get(family, 0) + 1
+        priority_counts[priority] = priority_counts.get(priority, 0) + 1
+    lines.extend(["", "## Coverage Gap Queue", ""])
+    lines.append(f"- Players without normalized pre-draft stats: {len(report.coverage_gaps)}")
+    for priority in ("critical", "high", "medium", "standard"):
+        lines.append(f"- {priority}: {priority_counts.get(priority, 0)}")
+    lines.extend(["", "### Source Families", ""])
+    for family, count in sorted(family_counts.items(), key=lambda item: (-item[1], item[0])):
+        lines.append(f"- {family}: {count}")
     return "\n".join(lines) + "\n"
 
 

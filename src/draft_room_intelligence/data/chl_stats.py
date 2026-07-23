@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 import shutil
+import unicodedata
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
@@ -32,6 +35,40 @@ CHL_MATCH_COLUMNS = [
     "points",
     "regular_season",
 ]
+
+CHL_HOCKEYTECH_CONFIG = {
+    "OHL": {
+        "base_url": "https://lscluster.hockeytech.com/feed/index.php",
+        "client_code": "ohl",
+        "key": "f1aa699db3d81487",
+        "league_id": "1",
+        "site_id": "1",
+    },
+    "WHL": {
+        "base_url": "https://lscluster.hockeytech.com/feed/index.php",
+        "client_code": "whl",
+        "key": "f1aa699db3d81487",
+        "league_id": "7",
+        "site_id": "0",
+    },
+    "QMJHL": {
+        "base_url": "https://cluster.leaguestat.com/feed/index.php",
+        "client_code": "lhjmq",
+        "key": "f322673b6bcae299",
+        "league_id": "6",
+        "site_id": "0",
+    },
+}
+
+FIRST_NAME_ALIASES = {
+    "egor": "yegor",
+    "jake": "jacob",
+    "jc": "jeanchristophe",
+    "mitch": "mitchell",
+    "tony": "anthony",
+}
+
+CHL_CANCELED_STAGES = {("QMJHL", 2020, False)}
 
 
 @dataclass(frozen=True)
@@ -96,13 +133,24 @@ def enrich_chl_stats(
     drafted_leagues = read_drafted_league_hints(source_root)
     source_lines = load_chl_source_lines(sources)
     source_by_name_league: dict[tuple[str, str], list[ChlSkaterStatLine]] = {}
+    source_by_alias_league: dict[tuple[str, str], list[ChlSkaterStatLine]] = {}
+    source_by_redacted_league: dict[tuple[str, str], list[ChlSkaterStatLine]] = {}
     for line in source_lines:
-        key = (normalize_person_key(line.name), normalize_league_name(line.league))
+        league = normalize_league_name(line.league)
+        key = (normalize_person_key(line.name), league)
         source_by_name_league.setdefault(key, []).append(line)
+        alias_key = person_alias_key(line.name)
+        if alias_key:
+            source_by_alias_league.setdefault((alias_key, league), []).append(line)
+        redacted_key = redacted_source_name_key(line.name)
+        if redacted_key:
+            source_by_redacted_league.setdefault((redacted_key, league), []).append(line)
 
     matched_by_player_id: dict[str, list[ChlSkaterStatLine]] = {}
     report_rows: list[dict[str, str]] = []
     player_name_counts = count_normalized_names(players)
+    player_alias_counts = count_player_keys(players, person_alias_key)
+    player_redacted_counts = count_player_keys(players, player_redacted_name_key)
     for player in players:
         player_leagues = {
             normalize_league_name(row.get("league", ""))
@@ -115,6 +163,28 @@ def enrich_chl_stats(
         if player_name_counts.get(player_key) == 1:
             for league in player_leagues:
                 candidates.extend(source_by_name_league.get((player_key, league), []))
+            if not candidates:
+                alias_candidates: list[ChlSkaterStatLine] = []
+                alias_key = person_alias_key(player["name"])
+                for league in player_leagues:
+                    alias_candidates.extend(source_by_alias_league.get((alias_key, league), []))
+                if (
+                    player_alias_counts.get(alias_key) == 1
+                    and len({line.source_id for line in alias_candidates}) == 1
+                ):
+                    candidates.extend(alias_candidates)
+            if not candidates:
+                redacted_candidates: list[ChlSkaterStatLine] = []
+                redacted_key = player_redacted_name_key(player["name"])
+                for league in player_leagues:
+                    redacted_candidates.extend(
+                        source_by_redacted_league.get((redacted_key, league), [])
+                    )
+                if (
+                    player_redacted_counts.get(redacted_key) == 1
+                    and len({line.source_id for line in redacted_candidates}) == 1
+                ):
+                    candidates.extend(redacted_candidates)
         candidates = deduplicate_chl_lines(candidates)
         if candidates:
             matched_by_player_id[player["player_id"]] = candidates
@@ -157,10 +227,136 @@ def enrich_chl_stats(
 def load_chl_source_lines(sources: list[ChlStatSource]) -> list[ChlSkaterStatLine]:
     lines: list[ChlSkaterStatLine] = []
     for source in sources:
-        html = source.source_path.read_text(encoding="utf-8") if source.source_path else fetch_text(source.source_url)
-        lines.extend(parse_chl_skaters_html(html, source))
-        lines.extend(parse_chl_goalies_html(html, source))
+        html = (
+            source.source_path.read_text(encoding="utf-8")
+            if source.source_path
+            else fetch_text(source.source_url)
+        )
+        if is_hockeytech_cache(html):
+            lines.extend(parse_chl_hockeytech_json(html, source))
+        else:
+            lines.extend(parse_chl_skaters_html(html, source))
+            lines.extend(parse_chl_goalies_html(html, source))
     return lines
+
+
+def is_hockeytech_cache(raw: str) -> bool:
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        return False
+    return isinstance(payload, dict) and payload.get("provider") == "hockeytech"
+
+
+def parse_chl_hockeytech_json(
+    raw: str,
+    source: ChlStatSource,
+) -> list[ChlSkaterStatLine]:
+    payload = json.loads(raw)
+    lines: list[ChlSkaterStatLine] = []
+    for position in ("skaters", "goalies"):
+        sections = payload.get(position, [])
+        section_rows = sections[0].get("sections", []) if sections else []
+        rows = section_rows[0].get("data", []) if section_rows else []
+        if not rows:
+            raise ValueError(f"HockeyTech CHL cache has no {position} statistics")
+        for entry in rows:
+            row = entry.get("row", {})
+            name = normalize_chl_player_name(str(row.get("name", "")))
+            source_id = str(row.get("player_id", "")).strip()
+            if not name or not source_id:
+                continue
+            if position == "goalies":
+                shots = stat_text(row.get("shots"))
+                goals_against = stat_text(row.get("goals_against"))
+                lines.append(
+                    ChlSkaterStatLine(
+                        name=name,
+                        source_id=source_id,
+                        source_url=source.source_url,
+                        league=normalize_league_name(source.league),
+                        season=source.season,
+                        team=stat_text(row.get("team_code")),
+                        games=stat_text(row.get("games_played")),
+                        goals="",
+                        assists="",
+                        points="",
+                        regular_season=source.regular_season,
+                        goalie_minutes=stat_text(row.get("minutes_played")),
+                        shots_against=shots,
+                        saves=calculate_saves(shots, goals_against),
+                        goals_against=goals_against,
+                        save_percentage=stat_text(row.get("save_percentage")),
+                        goals_against_average=stat_text(row.get("goals_against_average")),
+                        wins=stat_text(row.get("wins")),
+                        losses=stat_text(row.get("losses")),
+                        ties=stat_text(row.get("ot_losses")),
+                        shutouts=stat_text(row.get("shutouts")),
+                    )
+                )
+            else:
+                lines.append(
+                    ChlSkaterStatLine(
+                        name=name,
+                        source_id=source_id,
+                        source_url=source.source_url,
+                        league=normalize_league_name(source.league),
+                        season=source.season,
+                        team=stat_text(row.get("team_code")),
+                        games=stat_text(row.get("games_played")),
+                        goals=stat_text(row.get("goals")),
+                        assists=stat_text(row.get("assists")),
+                        points=stat_text(row.get("points")),
+                        regular_season=source.regular_season,
+                    )
+                )
+    return lines
+
+
+def build_chl_hockeytech_urls(league: str, source_url: str) -> tuple[str, str]:
+    league_name = normalize_league_name(league)
+    config = CHL_HOCKEYTECH_CONFIG.get(league_name)
+    if config is None:
+        raise ValueError(f"unsupported CHL HockeyTech league: {league}")
+    match = re.search(r"/stats/players/(\d+)", source_url)
+    if not match:
+        raise ValueError(f"CHL source URL has no season id: {source_url}")
+    season_id = match.group(1)
+    common = (
+        f"{config['base_url']}?feed=statviewfeed&view=players"
+        f"&season={season_id}&team=all&rookies=0&statsType=standard"
+        f"&rosterstatus=&site_id={config['site_id']}&first=0&limit=2000"
+        f"&league_id={config['league_id']}&lang=en&division=-1"
+        f"&key={config['key']}&client_code={config['client_code']}"
+    )
+    return f"{common}&sort=points", f"{common}&position=goalies&sort=save_percentage"
+
+
+def combine_chl_hockeytech_payloads(skaters_raw: str, goalies_raw: str) -> bytes:
+    payload = {
+        "provider": "hockeytech",
+        "skaters": parse_json_or_jsonp(skaters_raw),
+        "goalies": parse_json_or_jsonp(goalies_raw),
+    }
+    return (json.dumps(payload, separators=(",", ":")) + "\n").encode("utf-8")
+
+
+def parse_json_or_jsonp(raw: str) -> object:
+    text = raw.strip()
+    if text.startswith("(") and text.endswith(")"):
+        text = text[1:-1]
+    return json.loads(text)
+
+
+def stat_text(value: object) -> str:
+    return "" if value is None else str(value).strip()
+
+
+def calculate_saves(shots: str, goals_against: str) -> str:
+    try:
+        return str(int(shots) - int(goals_against))
+    except ValueError:
+        return ""
 
 
 def parse_chl_skaters_html(html: str, source: ChlStatSource) -> list[ChlSkaterStatLine]:
@@ -320,7 +516,11 @@ def build_match_row(
 def deduplicate_chl_lines(lines: list[ChlSkaterStatLine]) -> list[ChlSkaterStatLine]:
     by_key: dict[tuple[str, str, bool], ChlSkaterStatLine] = {}
     for line in lines:
-        key = (normalize_league_name(line.league), normalize_person_key(line.team), line.regular_season)
+        key = (
+            normalize_league_name(line.league),
+            normalize_person_key(line.team),
+            line.regular_season,
+        )
         existing = by_key.get(key)
         if existing is not None and (has_goalie_metrics(existing) or not has_goalie_metrics(line)):
             continue
@@ -349,13 +549,54 @@ def normalize_chl_player_name(value: str) -> str:
 
 
 def normalize_person_key(value: str) -> str:
-    return "".join(character.lower() for character in value if character.isalnum())
+    ascii_value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    return "".join(character.lower() for character in ascii_value if character.isalnum())
+
+
+def person_alias_key(value: str) -> str:
+    parts = value.split()
+    if len(parts) < 2:
+        return ""
+    first = normalize_person_key(parts[0])
+    last = normalize_person_key(parts[-1])
+    canonical_first = FIRST_NAME_ALIASES.get(first, first)
+    return f"{canonical_first}{last}" if canonical_first and last else ""
+
+
+def redacted_source_name_key(value: str) -> str:
+    parts = value.split()
+    if len(parts) != 2:
+        return ""
+    first = normalize_person_key(parts[0])
+    last = normalize_person_key(parts[1])
+    return f"{first}{last}" if first and len(last) == 1 else ""
+
+
+def player_redacted_name_key(value: str) -> str:
+    parts = value.split()
+    if len(parts) < 2:
+        return ""
+    first = normalize_person_key(parts[0])
+    last = normalize_person_key(parts[-1])
+    return f"{first}{last[:1]}" if first and last else ""
 
 
 def count_normalized_names(players: list[dict[str, str]]) -> dict[str, int]:
     counts: dict[str, int] = {}
     for player in players:
         key = normalize_person_key(player.get("name", ""))
+        if key:
+            counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def count_player_keys(
+    players: list[dict[str, str]],
+    key_builder: Callable[[str], str],
+) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for player in players:
+        key = key_builder(player.get("name", ""))
         if key:
             counts[key] = counts.get(key, 0) + 1
     return counts

@@ -57,6 +57,7 @@ from draft_room_intelligence.data.league_enrichment import (
     discover_europe_source_specs,
     discover_ncaa_source_specs,
     discover_ushl_source_specs,
+    enable_collected_sources,
     filter_league_sources,
     load_league_source_manifest,
     merge_league_source_specs,
@@ -2611,8 +2612,9 @@ def run_collect_league_sources(
     adapters: set[str],
     continue_on_error: bool,
 ) -> None:
+    all_sources = load_league_source_manifest(manifest_path, project_root=project_root)
     sources = filter_league_sources(
-        load_league_source_manifest(manifest_path, project_root=project_root),
+        all_sources,
         start_year=start_year,
         end_year=end_year,
         include_disabled=include_disabled,
@@ -2623,12 +2625,25 @@ def run_collect_league_sources(
         refresh=refresh,
         continue_on_error=continue_on_error,
     )
+    updated_sources = enable_collected_sources(all_sources, results)
+    enabled_count = sum(
+        not before.enabled and after.enabled
+        for before, after in zip(all_sources, updated_sources, strict=True)
+    )
+    if enabled_count:
+        write_league_source_manifest(
+            manifest_path,
+            updated_sources,
+            project_root=project_root,
+        )
     print(f"# League source cache: {manifest_path}")
     for result in results:
         print(
             f"{result.source_id}: {result.status}; bytes={result.byte_count}; "
             f"path={result.cache_path}; {result.detail}"
         )
+    if enabled_count:
+        print(f"Manifest sources enabled: {enabled_count}")
     failed = sum(result.status == "failed" for result in results)
     if failed:
         raise RuntimeError(f"league source collection incomplete: failed={failed}")
@@ -2662,9 +2677,13 @@ def run_discover_chl_sources(
                 end_year=end_year,
             )
         )
+    existing = (
+        load_league_source_manifest(output_path, project_root=root) if output_path.is_file() else []
+    )
+    merged = merge_league_source_specs(existing, sources, adapter="chl")
     output = write_league_source_manifest(
         output_path,
-        sources,
+        merged,
         project_root=root,
     )
     print(f"# CHL source discovery: {start_year}-{end_year}")

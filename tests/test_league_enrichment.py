@@ -1,17 +1,20 @@
 import csv
 
+from draft_room_intelligence.cli import run_discover_chl_sources
 from draft_room_intelligence.data.eliteprospects_csv import (
     PLAYER_COLUMNS,
     SEASON_STAT_LINE_COLUMNS,
     write_table,
 )
 from draft_room_intelligence.data.league_enrichment import (
+    LeagueSourceCollectionResult,
     LeagueSourceSpec,
     collect_league_sources,
     discover_chl_source_specs,
     discover_europe_source_specs,
     discover_ncaa_source_specs,
     discover_ushl_source_specs,
+    enable_collected_sources,
     enrich_draft_class_leagues,
     filter_league_sources,
     generate_liiga_source_specs,
@@ -147,6 +150,26 @@ def test_filter_league_sources_can_select_adapter(tmp_path):
     assert [source.source_id for source in selected] == ["2025-ncaa"]
 
 
+def test_enable_collected_sources_only_enables_successful_backlog(tmp_path):
+    ready = LeagueSourceSpec(**{**source_spec(tmp_path / "ready").__dict__, "enabled": False})
+    failed = LeagueSourceSpec(
+        **{
+            **source_spec(tmp_path / "failed").__dict__,
+            "source_id": "2025-ohl-playoffs",
+            "enabled": False,
+        }
+    )
+    results = [
+        LeagueSourceCollectionResult(ready.source_id, 2025, "downloaded", "", 1, "ready"),
+        LeagueSourceCollectionResult(failed.source_id, 2025, "failed", "", 0, "empty"),
+    ]
+
+    updated = enable_collected_sources([ready, failed], results)
+
+    assert updated[0].enabled is True
+    assert updated[1].enabled is False
+
+
 def test_ushl_cache_validation_rejects_wrong_role_payload(tmp_path):
     cache = tmp_path / "ushl.json"
     cache.write_text(
@@ -218,6 +241,30 @@ def test_discover_chl_sources_uses_official_season_catalog(tmp_path):
     assert sources[-1].source_id == "2025-ohl-playoffs"
     rows = list(csv.DictReader(output.open(newline="", encoding="utf-8")))
     assert rows[0]["cache_path"].startswith("cache/")
+
+
+def test_run_discover_chl_sources_preserves_other_manifest_adapters(tmp_path):
+    manifest = tmp_path / "sources.csv"
+    manifest.write_text(
+        "source_id,enabled,draft_year,adapter,league,season,stage,source_url,cache_path,source_label\n"
+        "ncaa,true,2025,ncaa,NCAA,2024-25,regular,https://example.test,ncaa.html,test\n",
+        encoding="utf-8",
+    )
+    catalog = tmp_path / "ohl.html"
+    catalog.write_text(CHL_CATALOG_HTML, encoding="utf-8")
+
+    run_discover_chl_sources(
+        manifest,
+        [f"OHL,{catalog}"],
+        cache_root=tmp_path / "cache",
+        project_root=tmp_path,
+        start_year=2025,
+        end_year=2025,
+    )
+
+    sources = load_league_source_manifest(manifest, project_root=tmp_path)
+    assert {source.adapter for source in sources} == {"chl", "ncaa"}
+    assert any(source.source_id == "ncaa" for source in sources)
 
 
 def test_discover_ushl_sources_generates_skater_and_goalie_feeds(tmp_path):
