@@ -41,6 +41,7 @@ python3 -m venv .venv
 make install-dev
 make demo
 make demo-2025-reproducible
+make demo-year DRAFT_YEAR=2025
 make evaluate-consensus
 make evaluate-projection
 make evaluate-pilot-consensus
@@ -128,6 +129,7 @@ The CLI reads `.env` by default. For another file, pass `--env-file path/to/file
 - `make demo-2025-readiness` - alias for the reproducible 2025 demo build.
 - `make demo-2025-local-readiness` - rebuild from ignored local processed and roster datasets after an ingestion run.
 - `make demo-2025-reproducible` - validate the tracked 2025 demo snapshot and rebuild the business-demo site from committed inputs only.
+- `make demo-year DRAFT_YEAR=<year>` - build any reviewed, checksum-verified draft snapshot and write `outputs/demo_<year>_reproducible`.
 - `make validate-pilot-2019` - compare consensus, production, hybrid, and role-aware scoring approaches against 2019 NHL outcomes.
 - `make team-depth-sample` - build a sample NHL/AHL organizational role-depth report from normalized roster rows.
 - `make nhl-roster-sample` - import cached NHL roster/stat JSON into roster rows, then build a team-depth report.

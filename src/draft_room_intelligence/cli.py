@@ -25,6 +25,7 @@ from draft_room_intelligence.data.demo_data import (
 from draft_room_intelligence.data.demo_snapshot import (
     create_demo_snapshot,
     load_demo_snapshot,
+    load_demo_snapshot_for_year,
 )
 from draft_room_intelligence.data.draft_range_etl import (
     DraftClassETLSpec,
@@ -1088,6 +1089,17 @@ def main() -> None:
     demo_snapshot_build_parser.add_argument("output_dir", type=Path)
     demo_snapshot_build_parser.add_argument("--gap-top-n", type=int, default=35)
     demo_snapshot_build_parser.add_argument("--movement-top-n", type=int, default=40)
+    demo_year_parser = subparsers.add_parser(
+        "build-demo-year",
+        help="Build the reviewed, reproducible demo registered for one draft year.",
+    )
+    demo_year_parser.add_argument("draft_year", type=int)
+    demo_year_parser.add_argument(
+        "--snapshots-root", type=Path, default=Path("data/demo_snapshots")
+    )
+    demo_year_parser.add_argument("--output-root", type=Path, default=Path("outputs"))
+    demo_year_parser.add_argument("--gap-top-n", type=int, default=35)
+    demo_year_parser.add_argument("--movement-top-n", type=int, default=40)
     demo_readiness_parser.add_argument(
         "--gap-top-n",
         type=int,
@@ -1703,6 +1715,14 @@ def main() -> None:
         run_build_demo_snapshot(
             args.snapshot_dir,
             args.output_dir,
+            gap_top_n=args.gap_top_n,
+            movement_top_n=args.movement_top_n,
+        )
+    elif args.command == "build-demo-year":
+        run_build_demo_year(
+            args.draft_year,
+            snapshots_root=args.snapshots_root,
+            output_root=args.output_root,
             gap_top_n=args.gap_top_n,
             movement_top_n=args.movement_top_n,
         )
@@ -2735,6 +2755,28 @@ def run_build_demo_snapshot(
 ) -> None:
     snapshot = load_demo_snapshot(snapshot_dir)
     print(f"# Verified demo snapshot: {snapshot.snapshot_id}")
+    run_build_demo_readiness(
+        snapshot.data_dir,
+        output_dir,
+        gap_top_n=gap_top_n,
+        movement_top_n=movement_top_n,
+        team_depth_csv=snapshot.team_depth_csv,
+        advanced_stats_csv=snapshot.advanced_stats_csv,
+    )
+
+
+def run_build_demo_year(
+    draft_year: int,
+    *,
+    snapshots_root: Path,
+    output_root: Path,
+    gap_top_n: int,
+    movement_top_n: int,
+) -> None:
+    """Build a demo by year without exposing the snapshot directory contract."""
+    snapshot = load_demo_snapshot_for_year(draft_year, snapshots_root)
+    output_dir = output_root / f"demo_{draft_year}_reproducible"
+    print(f"# Building reviewed {draft_year} demo from {snapshot.root}")
     run_build_demo_readiness(
         snapshot.data_dir,
         output_dir,

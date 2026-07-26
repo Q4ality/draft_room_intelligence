@@ -1,4 +1,4 @@
-.PHONY: install-dev demo demo-2025-readiness demo-2025-local-readiness demo-2025-reproducible historical-draft-cache historical-draft-etl historical-league-discover historical-ushl-catalog historical-ushl-discover historical-ncaa-discover historical-europe-discover historical-league-cache historical-league-etl historical-league-audit historical-league-pipeline team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
+.PHONY: install-dev demo demo-year demo-2025-readiness demo-2025-local-readiness demo-2025-reproducible historical-draft-cache historical-draft-etl historical-league-discover historical-ushl-catalog historical-ushl-discover historical-ncaa-discover historical-europe-discover historical-league-cache historical-league-etl historical-league-audit historical-league-pipeline team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
 
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
@@ -16,7 +16,11 @@ demo-2025-local-readiness:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli audit-team-systems outputs/org_rosters_2024_25_with_ahl.csv outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/team_system_audit
 
 demo-2025-reproducible:
-	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli build-demo-snapshot data/demo_snapshots/2025 outputs/demo_2025_reproducible --gap-top-n 35 --movement-top-n 40
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli build-demo-year 2025 --gap-top-n 35 --movement-top-n 40
+
+demo-year:
+	@test -n "$(DRAFT_YEAR)" || (echo "Set DRAFT_YEAR, for example: make demo-year DRAFT_YEAR=2025"; exit 2)
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli build-demo-year $(DRAFT_YEAR)
 
 historical-draft-cache:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli collect-nhl-draft-range data/raw/nhl_draft --start-year 2014 --end-year 2026

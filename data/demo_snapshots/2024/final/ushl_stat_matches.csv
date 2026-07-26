@@ -1,0 +1,250 @@
+player_id,name,matched,source_name,source_id,source_url,team,games,goals,assists,points,regular_season
+2024-001-macklin-celebrini,Macklin Celebrini,false,,,,,,,,,
+2024-002-artyom-levshunov,Artyom Levshunov,false,,,,,,,,,
+2024-003-beckett-sennecke,Beckett Sennecke,false,,,,,,,,,
+2024-004-cayden-lindstrom,Cayden Lindstrom,false,,,,,,,,,
+2024-005-ivan-demidov,Ivan Demidov,false,,,,,,,,,
+2024-006-tij-iginla,Tij Iginla,false,,,,,,,,,
+2024-007-carter-yakemchuk,Carter Yakemchuk,false,,,,,,,,,
+2024-008-berkly-catton,Berkly Catton,false,,,,,,,,,
+2024-009-zayne-parekh,Zayne Parekh,false,,,,,,,,,
+2024-010-anton-silayev,Anton Silayev,false,,,,,,,,,
+2024-011-sam-dickinson,Sam Dickinson,false,,,,,,,,,
+2024-012-zeev-buium,Zeev Buium,false,,,,,,,,,
+2024-013-jett-luchanko,Jett Luchanko,false,,,,,,,,,
+2024-014-konsta-helenius,Konsta Helenius,false,,,,,,,,,
+2024-015-michael-brandsegg-nyg-rd,Michael Brandsegg-Nygård,false,,,,,,,,,
+2024-016-adam-jiricek,Adam Jiricek,false,,,,,,,,,
+2024-017-terik-parascak,Terik Parascak,false,,,,,,,,,
+2024-018-sacha-boisvert,Sacha Boisvert,true,Sacha Boisvert,9719,https://ushl.com/ht/#/player/9719/84/Sacha%20Boisvert,MUS,8,0,3,3,false
+2024-018-sacha-boisvert,Sacha Boisvert,true,Sacha Boisvert,9719,https://ushl.com/ht/#/player/9719/82/Sacha%20Boisvert,MUS,61,36,32,68,true
+2024-019-trevor-connelly,Trevor Connelly,true,Trevor Connelly,9775,https://ushl.com/ht/#/player/9775/82/Trevor%20Connelly,TC,52,31,47,78,true
+2024-020-cole-eiserman,Cole Eiserman,true,Cole Eiserman,9884,https://ushl.com/ht/#/player/9884/82/Cole%20Eiserman,NTDP,24,25,9,34,true
+2024-021-michael-hage,Michael Hage,true,Michael Hage,9629,https://ushl.com/ht/#/player/9629/84/Michael%20Hage,CHI,2,2,2,4,false
+2024-021-michael-hage,Michael Hage,true,Michael Hage,9629,https://ushl.com/ht/#/player/9629/82/Michael%20Hage,CHI,54,33,42,75,true
+2024-022-egor-surin,Egor Surin,false,,,,,,,,,
+2024-023-stian-solberg,Stian Solberg,false,,,,,,,,,
+2024-024-cole-beaudoin,Cole Beaudoin,false,,,,,,,,,
+2024-025-dean-letourneau,Dean Letourneau,false,,,,,,,,,
+2024-026-liam-greentree,Liam Greentree,false,,,,,,,,,
+2024-027-marek-vanacker,Marek Vanacker,false,,,,,,,,,
+2024-028-matvei-gridin,Matvei Gridin,true,Matvei Gridin,9851,https://ushl.com/ht/#/player/9851/84/Matvei%20Gridin,MUS,8,1,4,5,false
+2024-028-matvei-gridin,Matvei Gridin,true,Matvei Gridin,9851,https://ushl.com/ht/#/player/9851/82/Matvei%20Gridin,MUS,60,38,45,83,true
+2024-029-emil-hemming,Emil Hemming,false,,,,,,,,,
+2024-030-ej-emery,EJ Emery,true,EJ Emery,9891,https://ushl.com/ht/#/player/9891/82/EJ%20Emery,NTDP,27,0,6,6,true
+2024-031-ben-danford,Ben Danford,false,,,,,,,,,
+2024-032-sam-o-reilly,Sam O'Reilly,false,,,,,,,,,
+2024-033-igor-chernyshov,Igor Chernyshov,false,,,,,,,,,
+2024-034-dominik-badinka,Dominik Badinka,false,,,,,,,,,
+2024-035-lucas-pettersson,Lucas Pettersson,false,,,,,,,,,
+2024-036-charlie-elick,Charlie Elick,false,,,,,,,,,
+2024-037-alfons-freij,Alfons Freij,false,,,,,,,,,
+2024-038-ilya-nabokov,Ilya Nabokov,false,,,,,,,,,
+2024-039-gabriel-eliasson,Gabriel Eliasson,false,,,,,,,,,
+2024-040-julius-miettinen,Julius Miettinen,false,,,,,,,,,
+2024-041-andrew-basha,Andrew Basha,false,,,,,,,,,
+2024-042-adam-kleber,Adam Kleber,true,Adam Kleber,9858,https://ushl.com/ht/#/player/9858/84/Adam%20Kleber,LIN,5,1,1,2,false
+2024-042-adam-kleber,Adam Kleber,true,Adam Kleber,9858,https://ushl.com/ht/#/player/9858/82/Adam%20Kleber,LIN,56,5,21,26,true
+2024-043-cole-hutson,Cole Hutson,true,Cole Hutson,9895,https://ushl.com/ht/#/player/9895/82/Cole%20Hutson,NTDP,19,3,9,12,true
+2024-044-harrison-brunicke,Harrison Brunicke,false,,,,,,,,,
+2024-045-ryder-ritchie,Ryder Ritchie,false,,,,,,,,,
+2024-046-tanner-howe,Tanner Howe,false,,,,,,,,,
+2024-047-max-plante,Max Plante,true,Max Plante,9887,https://ushl.com/ht/#/player/9887/82/Max%20Plante,NTDP,25,6,23,29,true
+2024-048-colin-ralph,Colin Ralph,false,,,,,,,,,
+2024-049-mikhail-yegorov,Mikhail Yegorov,true,Mikhail Yegorov,10122,https://ushl.com/ht/#/player/10122/82/Mikhail%20Yegorov,OMA,43,,,,true
+2024-049-mikhail-yegorov,Mikhail Yegorov,true,Mikhail Yegorov,10122,https://ushl.com/ht/#/player/10122/82/Mikhail%20Yegorov,OMA,43,0,0,0,true
+2024-050-nikita-artamonov,Nikita Artamonov,false,,,,,,,,,
+2024-051-jack-berglund,Jack Berglund,false,,,,,,,,,
+2024-052-leon-muggli,Leon Muggli,false,,,,,,,,,
+2024-053-leo-sahlin-wallenius,Leo Sahlin Wallenius,false,,,,,,,,,
+2024-054-jesse-pulkkinen,Jesse Pulkkinen,false,,,,,,,,,
+2024-055-teddy-stiga,Teddy Stiga,true,Teddy Stiga,9879,https://ushl.com/ht/#/player/9879/82/Teddy%20Stiga,NTDP,27,18,20,38,true
+2024-056-lukas-fischer,Lukas Fischer,false,,,,,,,,,
+2024-057-carter-george,Carter George,false,,,,,,,,,
+2024-058-linus-eriksson,Linus Eriksson,false,,,,,,,,,
+2024-059-spencer-gill,Spencer Gill,false,,,,,,,,,
+2024-060-evan-gardner,Evan Gardner,false,,,,,,,,,
+2024-061-kamil-bednarik,Kamil Bednarik,true,Kamil Bednarik,9881,https://ushl.com/ht/#/player/9881/82/Kamil%20Bednarik,NTDP,27,11,19,30,true
+2024-062-jacob-battaglia,Jacob Battaglia,false,,,,,,,,,
+2024-063-nathan-villeneuve,Nathan Villeneuve,false,,,,,,,,,
+2024-064-eemil-vinni,Eemil Vinni,false,,,,,,,,,
+2024-065-will-skahan,Will Skahan,true,Will Skahan,9894,https://ushl.com/ht/#/player/9894/82/Will%20Skahan,NTDP,24,4,2,6,true
+2024-066-maxim-mass,Maxim Massé,false,,,,,,,,,
+2024-067-john-mustard,John Mustard,true,John Mustard,10205,https://ushl.com/ht/#/player/10205/84/John%20Mustard,WAT,2,0,0,0,false
+2024-067-john-mustard,John Mustard,true,John Mustard,10205,https://ushl.com/ht/#/player/10205/82/John%20Mustard,WAT,60,29,27,56,true
+2024-068-ethan-procyszyn,Ethan Procyszyn,false,,,,,,,,,
+2024-069-noel-frans-n,Noel Fransén,false,,,,,,,,,
+2024-070-aatos-koivu,Aatos Koivu,false,,,,,,,,,
+2024-071-brodie-ziemer,Brodie Ziemer,true,Brodie Ziemer,9883,https://ushl.com/ht/#/player/9883/82/Brodie%20Ziemer,NTDP,27,8,16,24,true
+2024-072-anthony-aj-spellacy,Anthony (AJ) Spellacy,false,,,,,,,,,
+2024-073-alexis-bernier,Alexis Bernier,false,,,,,,,,,
+2024-074-henry-mews,Henry Mews,false,,,,,,,,,
+2024-075-ilya-protas,Ilya Protas,true,Ilya Protas,10064,https://ushl.com/ht/#/player/10064/82/Ilya%20Protas,DM,61,14,37,51,true
+2024-076-william-zellers,William Zellers,false,,,,,,,,,
+2024-077-viggo-gustafsson,Viggo Gustafsson,false,,,,,,,,,
+2024-078-logan-sawyer,Logan Sawyer,false,,,,,,,,,
+2024-079-tarin-smith,Tarin Smith,false,,,,,,,,,
+2024-080-ondrej-becher,Ondrej Becher,false,,,,,,,,,
+2024-081-ondrej-kos,Ondrej Kos,false,,,,,,,,,
+2024-082-carson-wetsch,Carson Wetsch,false,,,,,,,,,
+2024-083-pavel-moysevich,Pavel Moysevich,false,,,,,,,,,
+2024-084-kirill-zarubin,Kirill Zarubin,false,,,,,,,,,
+2024-085-kasper-pikkarainen,Kasper Pikkarainen,false,,,,,,,,,
+2024-086-luca-marrelli,Luca Marrelli,false,,,,,,,,,
+2024-087-miguel-marques,Miguel Marques,false,,,,,,,,,
+2024-088-kim-saarinen,Kim Saarinen,false,,,,,,,,,
+2024-089-tomas-lavoie,Tomas Lavoie,false,,,,,,,,,
+2024-090-eriks-mateiko,Eriks Mateiko,false,,,,,,,,,
+2024-091-herman-tr-ff,Herman Träff,false,,,,,,,,,
+2024-092-jack-pridham,Jack Pridham,false,,,,,,,,,
+2024-093-melvin-fernstr-m,Melvin Fernström,false,,,,,,,,,
+2024-094-hiroki-gojsic,Hiroki Gojsic,false,,,,,,,,,
+2024-095-adam-jecho,Adam Jecho,false,,,,,,,,,
+2024-096-veeti-v-is-nen,Veeti Väisänen,false,,,,,,,,,
+2024-097-matvei-shuravin,Matvei Shuravin,false,,,,,,,,,
+2024-098-gregor-biber,Gregor Biber,false,,,,,,,,,
+2024-099-jakub-milota,Jakub Milota,false,,,,,,,,,
+2024-100-alexandre-blais,Alexandre Blais,false,,,,,,,,,
+2024-101-tanner-henricks,Tanner Henricks,true,Tanner Henricks,10117,https://ushl.com/ht/#/player/10117/84/Tanner%20Henricks,LIN,5,0,1,1,false
+2024-101-tanner-henricks,Tanner Henricks,true,Tanner Henricks,10117,https://ushl.com/ht/#/player/10117/82/Tanner%20Henricks,LIN,59,0,9,9,true
+2024-102-owen-protz,Owen Protz,false,,,,,,,,,
+2024-103-gabe-smith,Gabe Smith,false,,,,,,,,,
+2024-104-lucas-ellinas,Lucas Ellinas,false,,,,,,,,,
+2024-105-ollie-josephson,Ollie Josephson,false,,,,,,,,,
+2024-106-trevor-hoskin,Trevor Hoskin,false,,,,,,,,,
+2024-107-heikki-ruohonen,Heikki Ruohonen,false,,,,,,,,,
+2024-108-luke-osburn,Luke Osburn,true,Luke Osburn,10137,https://ushl.com/ht/#/player/10137/84/Luke%20Osburn,YNG,7,0,1,1,false
+2024-108-luke-osburn,Luke Osburn,true,Luke Osburn,10137,https://ushl.com/ht/#/player/10137/82/Luke%20Osburn,YNG,60,8,15,23,true
+2024-109-kevin-he,Kevin He,false,,,,,,,,,
+2024-110-elliott-groenewold,Elliott Groenewold,true,Elliott Groenewold,10036,https://ushl.com/ht/#/player/10036/82/Elliott%20Groenewold,CR,57,5,11,16,true
+2024-111-chase-pietila,Chase Pietila,false,,,,,,,,,
+2024-112-javon-moore,Javon Moore,false,,,,,,,,,
+2024-113-tomas-mrsic,Tomas Mrsic,false,,,,,,,,,
+2024-114-nicholas-kempf,Nicholas Kempf,false,,,,,,,,,
+2024-115-dmitry-gamzin,Dmitry Gamzin,false,,,,,,,,,
+2024-116-christian-kirsch,Christian Kirsch,false,,,,,,,,,
+2024-117-blake-montgomery,Blake Montgomery,true,Blake Montgomery,10113,https://ushl.com/ht/#/player/10113/84/Blake%20Montgomery,LIN,5,0,1,1,false
+2024-117-blake-montgomery,Blake Montgomery,true,Blake Montgomery,10113,https://ushl.com/ht/#/player/10113/82/Blake%20Montgomery,LIN,58,22,21,43,true
+2024-118-jan-golicic,Jan Golicic,false,,,,,,,,,
+2024-119-raoul-boilard,Raoul Boilard,false,,,,,,,,,
+2024-120-victor-johansson,Victor Johansson,false,,,,,,,,,
+2024-121-jake-fisher,Jake Fisher,true,Jake Fisher,9909,https://ushl.com/ht/#/player/9909/84/Jake%20Fisher,FGO,12,4,2,6,false
+2024-121-jake-fisher,Jake Fisher,true,Jake Fisher,9909,https://ushl.com/ht/#/player/9909/82/Jake%20Fisher,FGO,51,23,24,47,true
+2024-122-aron-kiviharju,Aron Kiviharju,false,,,,,,,,,
+2024-123-simon-pier-brunet,Simon-Pier Brunet,false,,,,,,,,,
+2024-124-alexander-siryatsky,Alexander Siryatsky,false,,,,,,,,,
+2024-125-riley-patterson,Riley Patterson,false,,,,,,,,,
+2024-126-landon-miller,Landon Miller,false,,,,,,,,,
+2024-127-viktor-norringer,Viktor Norringer,false,,,,,,,,,
+2024-128-hagen-burrows,Hagen Burrows,false,,,,,,,,,
+2024-129-simon-zether,Simon Zether,false,,,,,,,,,
+2024-130-tyler-thorpe,Tyler Thorpe,false,,,,,,,,,
+2024-131-colton-roberts,Colton Roberts,false,,,,,,,,,
+2024-132-louka-cloutier,Louka Cloutier,true,Louka Cloutier,10222,https://ushl.com/ht/#/player/10222/84/Louka%20Cloutier,CHI,2,,,,false
+2024-132-louka-cloutier,Louka Cloutier,true,Louka Cloutier,10222,https://ushl.com/ht/#/player/10222/84/Louka%20Cloutier,CHI,2,0,0,0,false
+2024-132-louka-cloutier,Louka Cloutier,true,Louka Cloutier,10222,https://ushl.com/ht/#/player/10222/82/Louka%20Cloutier,CHI,34,,,,true
+2024-132-louka-cloutier,Louka Cloutier,true,Louka Cloutier,10222,https://ushl.com/ht/#/player/10222/82/Louka%20Cloutier,CHI,34,0,0,0,true
+2024-133-oskar-vuollet,Oskar Vuollet,false,,,,,,,,,
+2024-134-mikus-vecvanags,Mikus Vecvanags,false,,,,,,,,,
+2024-135-owen-allard,Owen Allard,false,,,,,,,,,
+2024-136-eerik-wallenius,Eerik Wallenius,false,,,,,,,,,
+2024-137-ivan-yunin,Ivan Yunin,false,,,,,,,,,
+2024-138-joel-svensson,Joel Svensson,false,,,,,,,,,
+2024-139-max-graham,Max Graham,false,,,,,,,,,
+2024-140-sebastian-soini,Sebastian Soini,false,,,,,,,,,
+2024-141-clarke-caswell,Clarke Caswell,false,,,,,,,,,
+2024-142-chase-wutzke,Chase Wutzke,false,,,,,,,,,
+2024-143-nate-misskey,Nate Misskey,false,,,,,,,,,
+2024-144-john-whipple,John Whipple,true,John Whipple,9890,https://ushl.com/ht/#/player/9890/82/John%20Whipple,NTDP,27,1,3,4,true
+2024-145-william-mcisaac,William McIsaac,false,,,,,,,,,
+2024-146-veeti-louhivaara,Veeti Louhivaara,false,,,,,,,,,
+2024-147-marcus-gidl-f,Marcus Gidlöf,false,,,,,,,,,
+2024-148-noah-powell,Noah Powell,true,Noah Powell,9654,https://ushl.com/ht/#/player/9654/84/Noah%20Powell,DBQ,11,2,3,5,false
+2024-148-noah-powell,Noah Powell,true,Noah Powell,9654,https://ushl.com/ht/#/player/9654/82/Noah%20Powell,DBQ,61,43,31,74,true
+2024-149-joona-saarelainen,Joona Saarelainen,false,,,,,,,,,
+2024-150-luke-misa,Luke Misa,false,,,,,,,,,
+2024-151-miroslav-holinka,Miroslav Holinka,false,,,,,,,,,
+2024-152-alexander-plesovskikh,Alexander Plesovskikh,false,,,,,,,,,
+2024-153-ales-cech,Ales Cech,false,,,,,,,,,
+2024-154-jonathan-morello,Jonathan Morello,false,,,,,,,,,
+2024-155-markus-loponen,Markus Loponen,false,,,,,,,,,
+2024-156-justin-poirier,Justin Poirier,false,,,,,,,,,
+2024-157-timofei-obvintsev,Timofei Obvintsev,false,,,,,,,,,
+2024-158-niilopekka-muhonen,Niilopekka Muhonen,false,,,,,,,,,
+2024-159-nathan-aspinall,Nathan Aspinall,false,,,,,,,,,
+2024-160-connor-clattenburg,Connor Clattenburg,false,,,,,,,,,
+2024-161-maxmilian-curran,Maxmilian Curran,false,,,,,,,,,
+2024-162-anthony-romani,Anthony Romani,false,,,,,,,,,
+2024-163-ty-henry,Ty Henry,false,,,,,,,,,
+2024-164-jared-woolley,Jared Woolley,false,,,,,,,,,
+2024-165-luke-ashton,Luke Ashton,false,,,,,,,,,
+2024-166-ben-merrill,Ben Merrill,false,,,,,,,,,
+2024-167-vojtech-hradec,Vojtech Hradec,false,,,,,,,,,
+2024-168-timur-kol,Timur Kol,false,,,,,,,,,
+2024-169-stepan-gorbunov,Stepan Gorbunov,false,,,,,,,,,
+2024-170-hunter-laing,Hunter Laing,false,,,,,,,,,
+2024-171-matyas-melovsky,Matyas Melovsky,false,,,,,,,,,
+2024-172-patrick-geary,Patrick Geary,false,,,,,,,,,
+2024-173-ilya-pautov,Ilya Pautov,false,,,,,,,,,
+2024-174-stevie-leskovar,Stevie Leskovar,false,,,,,,,,,
+2024-175-joona-v-is-nen,Joona Väisänen,true,Joona Vaisanen,10167,https://ushl.com/ht/#/player/10167/84/Joona%20Vaisanen,DBQ,11,1,2,3,false
+2024-175-joona-v-is-nen,Joona Väisänen,true,Joona Vaisanen,10167,https://ushl.com/ht/#/player/10167/82/Joona%20Vaisanen,DBQ,53,9,31,40,true
+2024-176-charlie-forslund,Charlie Forslund,false,,,,,,,,,
+2024-177-eric-jamieson,Eric Jamieson,false,,,,,,,,,
+2024-178-petr-sikora,Petr Sikora,false,,,,,,,,,
+2024-179-xavier-veilleux,Xavier Veilleux,true,Xavier Veilleux,9982,https://ushl.com/ht/#/player/9982/84/Xavier%20Veilleux,MUS,7,1,4,5,false
+2024-179-xavier-veilleux,Xavier Veilleux,true,Xavier Veilleux,9982,https://ushl.com/ht/#/player/9982/82/Xavier%20Veilleux,MUS,62,3,29,32,true
+2024-180-trent-swick,Trent Swick,false,,,,,,,,,
+2024-181-kaden-pitre,Kaden Pitre,false,,,,,,,,,
+2024-182-austin-burnevik,Austin Burnevik,true,Austin Burnevik,9275,https://ushl.com/ht/#/player/9275/84/Austin%20Burnevik,MAD,3,2,0,2,false
+2024-182-austin-burnevik,Austin Burnevik,true,Austin Burnevik,9275,https://ushl.com/ht/#/player/9275/82/Austin%20Burnevik,MAD,61,40,31,71,true
+2024-183-albin-sundin,Albin Sundin,false,,,,,,,,,
+2024-184-roman-shokhrin,Roman Shokhrin,false,,,,,,,,,
+2024-185-tory-pitner,Tory Pitner,true,Tory Pitner,9917,https://ushl.com/ht/#/player/9917/84/Tory%20Pitner,YNG,7,1,0,1,false
+2024-185-tory-pitner,Tory Pitner,true,Tory Pitner,9917,https://ushl.com/ht/#/player/9917/82/Tory%20Pitner,YNG,50,8,16,24,true
+2024-186-loke-johansson,Loke Johansson,false,,,,,,,,,
+2024-187-kieron-walton,Kieron Walton,false,,,,,,,,,
+2024-188-fyodor-avramov,Fyodor Avramov,false,,,,,,,,,
+2024-189-parker-alcos,Parker Alcos,false,,,,,,,,,
+2024-190-ludvig-lafton,Ludvig Lafton,false,,,,,,,,,
+2024-191-rico-gredig,Rico Gredig,false,,,,,,,,,
+2024-192-dalyn-wakely,Dalyn Wakely,false,,,,,,,,,
+2024-193-hunter-st-martin,Hunter St. Martin,false,,,,,,,,,
+2024-194-yaroslav-korostelyov,Yaroslav Korostelyov,false,,,,,,,,,
+2024-195-joe-connor,Joe Connor,true,Joe Connor,9994,https://ushl.com/ht/#/player/9994/84/Joe%20Connor,MUS,8,3,2,5,false
+2024-195-joe-connor,Joe Connor,true,Joe Connor,9994,https://ushl.com/ht/#/player/9994/82/Joe%20Connor,MUS,50,31,29,60,true
+2024-196-william-nicholl,William Nicholl,false,,,,,,,,,
+2024-197-lucas-van-vliet,Lucas Van Vliet,true,Lucas Van Vliet,9903,https://ushl.com/ht/#/player/9903/82/Lucas%20Van%20Vliet,NTDP,19,4,4,8,true
+2024-198-james-reeder,James Reeder,true,James Reeder,9655,https://ushl.com/ht/#/player/9655/84/James%20Reeder,DBQ,11,1,4,5,false
+2024-198-james-reeder,James Reeder,true,James Reeder,9655,https://ushl.com/ht/#/player/9655/82/James%20Reeder,DBQ,53,20,40,60,true
+2024-199-noah-steen,Noah Steen,false,,,,,,,,,
+2024-200-matt-lahey,Matt Lahey,false,,,,,,,,,
+2024-201-denis-gabdrakhmanov,Denis Gabdrakhmanov,false,,,,,,,,,
+2024-202-jakub-fibigr,Jakub Fibigr,false,,,,,,,,,
+2024-203-austin-baker,Austin Baker,true,Austin Baker,9902,https://ushl.com/ht/#/player/9902/82/Austin%20Baker,NTDP,25,10,4,14,true
+2024-204-vasily-zelenov,Vasily Zelenov,false,,,,,,,,,
+2024-205-austin-moline,Austin Moline,false,,,,,,,,,
+2024-206-harrison-meneghin,Harrison Meneghin,false,,,,,,,,,
+2024-207-mac-swanson,Mac Swanson,true,Mac Swanson,9674,https://ushl.com/ht/#/player/9674/84/Mac%20Swanson,FGO,12,5,12,17,false
+2024-207-mac-swanson,Mac Swanson,true,Mac Swanson,9674,https://ushl.com/ht/#/player/9674/82/Mac%20Swanson,FGO,55,26,51,77,true
+2024-208-fisher-scott,Fisher Scott,true,Fisher Scott,9520,https://ushl.com/ht/#/player/9520/84/Fisher%20Scott,DBQ,11,1,0,1,false
+2024-208-fisher-scott,Fisher Scott,true,Fisher Scott,9520,https://ushl.com/ht/#/player/9520/82/Fisher%20Scott,DBQ,61,8,25,33,true
+2024-209-antoine-dorion,Antoine Dorion,false,,,,,,,,,
+2024-210-makar-khanin,Makar Khanin,false,,,,,,,,,
+2024-211-matvei-korotky,Matvei Korotky,false,,,,,,,,,
+2024-212-miroslav-satan,Miroslav Satan,false,,,,,,,,,
+2024-213-erik-p-hlsson,Erik Påhlsson,true,Erik Pahlsson,10175,https://ushl.com/ht/#/player/10175/84/Erik%20Pahlsson,DBQ,11,1,4,5,false
+2024-213-erik-p-hlsson,Erik Påhlsson,true,Erik Pahlsson,10175,https://ushl.com/ht/#/player/10175/82/Erik%20Pahlsson,DBQ,57,28,44,72,true
+2024-214-darels-uljanskis,Darels Uljanskis,false,,,,,,,,,
+2024-215-christian-humphreys,Christian Humphreys,true,Christian Humphreys,9885,https://ushl.com/ht/#/player/9885/82/Christian%20Humphreys,NTDP,23,7,17,24,true
+2024-216-sam-mccue,Sam McCue,false,,,,,,,,,
+2024-217-nikita-prishchepov,Nikita Prishchepov,false,,,,,,,,,
+2024-218-bauer-berry,Bauer Berry,true,Bauer Berry,9964,https://ushl.com/ht/#/player/9964/84/Bauer%20Berry,MUS,8,1,1,2,false
+2024-218-bauer-berry,Bauer Berry,true,Bauer Berry,9964,https://ushl.com/ht/#/player/9964/82/Bauer%20Berry,MUS,59,1,13,14,true
+2024-219-ryerson-leenders,Ryerson Leenders,false,,,,,,,,,
+2024-220-andrey-krutov,Andrey Krutov,false,,,,,,,,,
+2024-221-basile-sansonnens,Basile Sansonnens,false,,,,,,,,,
+2024-222-william-samuelsson,William Samuelsson,false,,,,,,,,,
+2024-223-finn-harding,Finn Harding,false,,,,,,,,,
+2024-224-rasmus-bergqvist,Rasmus Bergqvist,false,,,,,,,,,
+2024-225-nathan-mayes,Nathan Mayes,false,,,,,,,,,

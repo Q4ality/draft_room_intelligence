@@ -1,0 +1,226 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2024-001-macklin-celebrini,2024,SJS,San Jose Sharks,1,1,Boston University,NCAA,nhl_draft_api,2024-1,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-002-artyom-levshunov,2024,CHI,Chicago Blackhawks,1,2,Michigan State U.,NCAA,nhl_draft_api,2024-2,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-003-beckett-sennecke,2024,ANA,Anaheim Ducks,1,3,Oshawa,OHL,nhl_draft_api,2024-3,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-004-cayden-lindstrom,2024,CBJ,Columbus Blue Jackets,1,4,Medicine Hat,WHL,nhl_draft_api,2024-4,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-005-ivan-demidov,2024,MTL,Montréal Canadiens,1,5,SKA Saint Petersburg Jr.,Russia Jr.,nhl_draft_api,2024-5,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-006-tij-iginla,2024,UTA,Utah Hockey Club,1,6,Kelowna,WHL,nhl_draft_api,2024-6,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-007-carter-yakemchuk,2024,OTT,Ottawa Senators,1,7,Calgary,WHL,nhl_draft_api,2024-7,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-008-berkly-catton,2024,SEA,Seattle Kraken,1,8,Spokane,WHL,nhl_draft_api,2024-8,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-009-zayne-parekh,2024,CGY,Calgary Flames,1,9,Saginaw,OHL,nhl_draft_api,2024-9,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-010-anton-silayev,2024,NJD,New Jersey Devils,1,10,Nizhny Novgorod,RUSSIA,nhl_draft_api,2024-10,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-011-sam-dickinson,2024,SJS,San Jose Sharks,1,11,London,OHL,nhl_draft_api,2024-11,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-012-zeev-buium,2024,MIN,Minnesota Wild,1,12,Denver,NCAA,nhl_draft_api,2024-12,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-013-jett-luchanko,2024,PHI,Philadelphia Flyers,1,13,Guelph,OHL,nhl_draft_api,2024-13,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-014-konsta-helenius,2024,BUF,Buffalo Sabres,1,14,Jukurit,FINLAND,nhl_draft_api,2024-14,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-015-michael-brandsegg-nyg-rd,2024,DET,Detroit Red Wings,1,15,Mora,HockeyAllsvenskan,nhl_draft_api,2024-15,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-016-adam-jiricek,2024,STL,St. Louis Blues,1,16,Plzen,Czech,nhl_draft_api,2024-16,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-017-terik-parascak,2024,WSH,Washington Capitals,1,17,Prince George,WHL,nhl_draft_api,2024-17,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-018-sacha-boisvert,2024,CHI,Chicago Blackhawks,1,18,Muskegon,USHL,nhl_draft_api,2024-18,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-019-trevor-connelly,2024,VGK,Vegas Golden Knights,1,19,Tri-City,USHL,nhl_draft_api,2024-19,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-020-cole-eiserman,2024,NYI,New York Islanders,1,20,USA U-18,USHL,nhl_draft_api,2024-20,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-021-michael-hage,2024,MTL,Montréal Canadiens,1,21,Chicago,USHL,nhl_draft_api,2024-21,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-022-egor-surin,2024,NSH,Nashville Predators,1,22,Yaroslavl Jr.,Russia Jr.,nhl_draft_api,2024-22,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-023-stian-solberg,2024,ANA,Anaheim Ducks,1,23,Valerenga,NORWAY,nhl_draft_api,2024-23,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-024-cole-beaudoin,2024,UTA,Utah Hockey Club,1,24,Barrie,OHL,nhl_draft_api,2024-24,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-025-dean-letourneau,2024,BOS,Boston Bruins,1,25,St. Andrews College,HIGH-ON,nhl_draft_api,2024-25,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-026-liam-greentree,2024,LAK,Los Angeles Kings,1,26,Windsor,OHL,nhl_draft_api,2024-26,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-027-marek-vanacker,2024,CHI,Chicago Blackhawks,1,27,Brantford,OHL,nhl_draft_api,2024-27,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-028-matvei-gridin,2024,CGY,Calgary Flames,1,28,Muskegon,USHL,nhl_draft_api,2024-28,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-029-emil-hemming,2024,DAL,Dallas Stars,1,29,TPS,FINLAND,nhl_draft_api,2024-29,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-030-ej-emery,2024,NYR,New York Rangers,1,30,USA U-18,USHL,nhl_draft_api,2024-30,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-031-ben-danford,2024,TOR,Toronto Maple Leafs,1,31,Oshawa,OHL,nhl_draft_api,2024-31,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-032-sam-o-reilly,2024,EDM,Edmonton Oilers,1,32,London,OHL,nhl_draft_api,2024-32,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-033-igor-chernyshov,2024,SJS,San Jose Sharks,2,33,Dynamo Moscow,RUSSIA,nhl_draft_api,2024-33,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-034-dominik-badinka,2024,CAR,Carolina Hurricanes,2,34,Malmo,SWEDEN,nhl_draft_api,2024-34,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-035-lucas-pettersson,2024,ANA,Anaheim Ducks,2,35,Modo Jr.,Sweden Jrs.,nhl_draft_api,2024-35,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-036-charlie-elick,2024,CBJ,Columbus Blue Jackets,2,36,Brandon,WHL,nhl_draft_api,2024-36,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-037-alfons-freij,2024,WPG,Winnipeg Jets,2,37,Vaxjo Jr.,Sweden Jrs.,nhl_draft_api,2024-37,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-038-ilya-nabokov,2024,COL,Colorado Avalanche,2,38,Magnitogorsk,RUSSIA,nhl_draft_api,2024-38,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-039-gabriel-eliasson,2024,OTT,Ottawa Senators,2,39,HV71 Jr.,Sweden Jrs.,nhl_draft_api,2024-39,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-040-julius-miettinen,2024,SEA,Seattle Kraken,2,40,Everett,WHL,nhl_draft_api,2024-40,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-041-andrew-basha,2024,CGY,Calgary Flames,2,41,Medicine Hat,WHL,nhl_draft_api,2024-41,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-042-adam-kleber,2024,BUF,Buffalo Sabres,2,42,Lincoln,USHL,nhl_draft_api,2024-42,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-043-cole-hutson,2024,WSH,Washington Capitals,2,43,USA U-18,USHL,nhl_draft_api,2024-43,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-044-harrison-brunicke,2024,PIT,Pittsburgh Penguins,2,44,Kamloops,WHL,nhl_draft_api,2024-44,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-045-ryder-ritchie,2024,MIN,Minnesota Wild,2,45,Prince Albert,WHL,nhl_draft_api,2024-45,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-046-tanner-howe,2024,PIT,Pittsburgh Penguins,2,46,Regina,WHL,nhl_draft_api,2024-46,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-047-max-plante,2024,DET,Detroit Red Wings,2,47,USA U-18,USHL,nhl_draft_api,2024-47,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-048-colin-ralph,2024,STL,St. Louis Blues,2,48,Shattuck-St. Mary's,High School,nhl_draft_api,2024-48,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-049-mikhail-yegorov,2024,NJD,New Jersey Devils,2,49,Omaha,USHL,nhl_draft_api,2024-49,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-050-nikita-artamonov,2024,CAR,Carolina Hurricanes,2,50,Nizhny Novgorod,RUSSIA,nhl_draft_api,2024-50,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-051-jack-berglund,2024,PHI,Philadelphia Flyers,2,51,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2024-51,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-052-leon-muggli,2024,WSH,Washington Capitals,2,52,Zug,National League,nhl_draft_api,2024-52,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-053-leo-sahlin-wallenius,2024,SJS,San Jose Sharks,2,53,Vaxjo Jr.,Sweden Jrs.,nhl_draft_api,2024-53,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-054-jesse-pulkkinen,2024,NYI,New York Islanders,2,54,Jyp,FINLAND,nhl_draft_api,2024-54,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-055-teddy-stiga,2024,NSH,Nashville Predators,2,55,USA U-18,USHL,nhl_draft_api,2024-55,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-056-lukas-fischer,2024,STL,St. Louis Blues,2,56,Sarnia,OHL,nhl_draft_api,2024-56,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-057-carter-george,2024,LAK,Los Angeles Kings,2,57,Owen Sound,OHL,nhl_draft_api,2024-57,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-058-linus-eriksson,2024,FLA,Florida Panthers,2,58,Djurgarden,HockeyAllsvenskan,nhl_draft_api,2024-58,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-059-spencer-gill,2024,PHI,Philadelphia Flyers,2,59,Rimouski,QMJHL,nhl_draft_api,2024-59,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-060-evan-gardner,2024,CBJ,Columbus Blue Jackets,2,60,Saskatoon,WHL,nhl_draft_api,2024-60,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-061-kamil-bednarik,2024,NYI,New York Islanders,2,61,USA U-18,USHL,nhl_draft_api,2024-61,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-062-jacob-battaglia,2024,CGY,Calgary Flames,2,62,Kingston,OHL,nhl_draft_api,2024-62,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-063-nathan-villeneuve,2024,SEA,Seattle Kraken,2,63,Sudbury,OHL,nhl_draft_api,2024-63,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-064-eemil-vinni,2024,EDM,Edmonton Oilers,2,64,Jokipojat,FINLAND-2,nhl_draft_api,2024-64,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-065-will-skahan,2024,UTA,Utah Hockey Club,2,65,USA U-18,USHL,nhl_draft_api,2024-65,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-066-maxim-mass,2024,ANA,Anaheim Ducks,3,66,Chicoutimi,QMJHL,nhl_draft_api,2024-66,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-067-john-mustard,2024,CHI,Chicago Blackhawks,3,67,Waterloo,USHL,nhl_draft_api,2024-67,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-068-ethan-procyszyn,2024,ANA,Anaheim Ducks,3,68,North Bay,OHL,nhl_draft_api,2024-68,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-069-noel-frans-n,2024,CAR,Carolina Hurricanes,3,69,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2024-69,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-070-aatos-koivu,2024,MTL,Montréal Canadiens,3,70,TPS Jr.,Finland Jrs.,nhl_draft_api,2024-70,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-071-brodie-ziemer,2024,BUF,Buffalo Sabres,3,71,USA U-18,USHL,nhl_draft_api,2024-71,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-072-anthony-aj-spellacy,2024,CHI,Chicago Blackhawks,3,72,Windsor,OHL,nhl_draft_api,2024-72,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-073-alexis-bernier,2024,SEA,Seattle Kraken,3,73,Baie Comeau,QMJHL,nhl_draft_api,2024-73,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-074-henry-mews,2024,CGY,Calgary Flames,3,74,Ottawa,OHL,nhl_draft_api,2024-74,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-075-ilya-protas,2024,WSH,Washington Capitals,3,75,Des Moines,USHL,nhl_draft_api,2024-75,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-076-william-zellers,2024,COL,Colorado Avalanche,3,76,Shattuck-St. Mary's,High School,nhl_draft_api,2024-76,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-077-viggo-gustafsson,2024,NSH,Nashville Predators,3,77,HV71 Jr.,Sweden Jrs.,nhl_draft_api,2024-77,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-078-logan-sawyer,2024,MTL,Montréal Canadiens,3,78,Brooks,BCHL,nhl_draft_api,2024-78,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-079-tarin-smith,2024,ANA,Anaheim Ducks,3,79,Everett,WHL,nhl_draft_api,2024-79,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-080-ondrej-becher,2024,DET,Detroit Red Wings,3,80,Prince George,WHL,nhl_draft_api,2024-80,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-081-ondrej-kos,2024,STL,St. Louis Blues,3,81,Ilves Jr.,Finland Jrs.,nhl_draft_api,2024-81,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-082-carson-wetsch,2024,SJS,San Jose Sharks,3,82,Calgary,WHL,nhl_draft_api,2024-82,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-083-pavel-moysevich,2024,VGK,Vegas Golden Knights,3,83,SKA St. Petersburg,RUSSIA,nhl_draft_api,2024-83,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-084-kirill-zarubin,2024,CGY,Calgary Flames,3,84,AKM Tula Jr.,Russia Jr.,nhl_draft_api,2024-84,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-085-kasper-pikkarainen,2024,NJD,New Jersey Devils,3,85,TPS Jr.,Finland Jrs.,nhl_draft_api,2024-85,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-086-luca-marrelli,2024,CBJ,Columbus Blue Jackets,3,86,Oshawa,OHL,nhl_draft_api,2024-86,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-087-miguel-marques,2024,NSH,Nashville Predators,3,87,Lethbridge,WHL,nhl_draft_api,2024-87,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-088-kim-saarinen,2024,SEA,Seattle Kraken,3,88,HPK Jr.,Finland Jrs.,nhl_draft_api,2024-88,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-089-tomas-lavoie,2024,UTA,Utah Hockey Club,3,89,Cape Breton,QMJHL,nhl_draft_api,2024-89,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-090-eriks-mateiko,2024,WSH,Washington Capitals,3,90,Saint John,QMJHL,nhl_draft_api,2024-90,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-091-herman-tr-ff,2024,NJD,New Jersey Devils,3,91,HV71 Jr.,Sweden Jrs.,nhl_draft_api,2024-91,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-092-jack-pridham,2024,CHI,Chicago Blackhawks,3,92,West Kelowna,BCHL,nhl_draft_api,2024-92,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-093-melvin-fernstr-m,2024,VAN,Vancouver Canucks,3,93,Orebro Jr.,Sweden Jrs.,nhl_draft_api,2024-93,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-094-hiroki-gojsic,2024,NSH,Nashville Predators,3,94,Kelowna,WHL,nhl_draft_api,2024-94,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-095-adam-jecho,2024,STL,St. Louis Blues,3,95,Edmonton,WHL,nhl_draft_api,2024-95,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-096-veeti-v-is-nen,2024,UTA,Utah Hockey Club,3,96,Kookoo,FINLAND,nhl_draft_api,2024-96,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-097-matvei-shuravin,2024,FLA,Florida Panthers,3,97,CSKA Jr.,Russia Jr.,nhl_draft_api,2024-97,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-098-gregor-biber,2024,UTA,Utah Hockey Club,4,98,Rogle Jr.,Sweden Jrs.,nhl_draft_api,2024-98,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-099-jakub-milota,2024,NSH,Nashville Predators,4,99,Cape Breton,QMJHL,nhl_draft_api,2024-99,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-100-alexandre-blais,2024,ANA,Anaheim Ducks,4,100,Rimouski,QMJHL,nhl_draft_api,2024-100,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-101-tanner-henricks,2024,CBJ,Columbus Blue Jackets,4,101,Lincoln,USHL,nhl_draft_api,2024-101,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-102-owen-protz,2024,MTL,Montréal Canadiens,4,102,Brantford,OHL,nhl_draft_api,2024-102,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-103-gabe-smith,2024,UTA,Utah Hockey Club,4,103,Moncton,QMJHL,nhl_draft_api,2024-103,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-104-lucas-ellinas,2024,OTT,Ottawa Senators,4,104,Kitchener,OHL,nhl_draft_api,2024-104,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-105-ollie-josephson,2024,SEA,Seattle Kraken,4,105,Red Deer,WHL,nhl_draft_api,2024-105,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-106-trevor-hoskin,2024,CGY,Calgary Flames,4,106,Cobourg,OJHL,nhl_draft_api,2024-106,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-107-heikki-ruohonen,2024,PHI,Philadelphia Flyers,4,107,Kiekko-Espoo Jr.,Finland Jrs.,nhl_draft_api,2024-107,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-108-luke-osburn,2024,BUF,Buffalo Sabres,4,108,Youngstown,USHL,nhl_draft_api,2024-108,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-109-kevin-he,2024,WPG,Winnipeg Jets,4,109,Niagara,OHL,nhl_draft_api,2024-109,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-110-elliott-groenewold,2024,BOS,Boston Bruins,4,110,Cedar Rapids,USHL,nhl_draft_api,2024-110,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-111-chase-pietila,2024,PIT,Pittsburgh Penguins,4,111,Michigan Tech,NCAA,nhl_draft_api,2024-111,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-112-javon-moore,2024,OTT,Ottawa Senators,4,112,Minnetonka,High School,nhl_draft_api,2024-112,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-113-tomas-mrsic,2024,STL,St. Louis Blues,4,113,Medicine Hat,WHL,nhl_draft_api,2024-113,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-114-nicholas-kempf,2024,WSH,Washington Capitals,4,114,USA U-18,USHL,nhl_draft_api,2024-114,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-115-dmitry-gamzin,2024,NYI,New York Islanders,4,115,Zvezda Moscow,RUSSIA-2,nhl_draft_api,2024-115,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-116-christian-kirsch,2024,SJS,San Jose Sharks,4,116,Zug Jr.,SWISS-JR.,nhl_draft_api,2024-116,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-117-blake-montgomery,2024,OTT,Ottawa Senators,4,117,Lincoln,USHL,nhl_draft_api,2024-117,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-118-jan-golicic,2024,TBL,Tampa Bay Lightning,4,118,Gatineau,QMJHL,nhl_draft_api,2024-118,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-119-raoul-boilard,2024,NYR,New York Rangers,4,119,Baie Comeau,QMJHL,nhl_draft_api,2024-119,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-120-victor-johansson,2024,TOR,Toronto Maple Leafs,4,120,Leksand Jr.,Sweden Jrs.,nhl_draft_api,2024-120,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-121-jake-fisher,2024,COL,Colorado Avalanche,4,121,Fargo,USHL,nhl_draft_api,2024-121,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-122-aron-kiviharju,2024,MIN,Minnesota Wild,4,122,HIFK,FINLAND,nhl_draft_api,2024-122,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-123-simon-pier-brunet,2024,BUF,Buffalo Sabres,4,123,Drummondville,QMJHL,nhl_draft_api,2024-123,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-124-alexander-siryatsky,2024,CAR,Carolina Hurricanes,4,124,Magnitogorsk Jr.,Russia Jr.,nhl_draft_api,2024-124,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-125-riley-patterson,2024,VAN,Vancouver Canucks,4,125,Barrie,OHL,nhl_draft_api,2024-125,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-126-landon-miller,2024,DET,Detroit Red Wings,4,126,Sault Ste. Marie,OHL,nhl_draft_api,2024-126,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-127-viktor-norringer,2024,NSH,Nashville Predators,4,127,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2024-127,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-128-hagen-burrows,2024,TBL,Tampa Bay Lightning,4,128,Minnetonka,High School,nhl_draft_api,2024-128,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-129-simon-zether,2024,FLA,Florida Panthers,4,129,Rogle,SWEDEN,nhl_draft_api,2024-129,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-130-tyler-thorpe,2024,MTL,Montréal Canadiens,5,130,Vancouver,WHL,nhl_draft_api,2024-130,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-131-colton-roberts,2024,SJS,San Jose Sharks,5,131,Vancouver,WHL,nhl_draft_api,2024-131,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-132-louka-cloutier,2024,COL,Colorado Avalanche,5,132,Chicago,USHL,nhl_draft_api,2024-132,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-133-oskar-vuollet,2024,CAR,Carolina Hurricanes,5,133,Skelleftea Jr.,Sweden Jrs.,nhl_draft_api,2024-133,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-134-mikus-vecvanags,2024,MTL,Montréal Canadiens,5,134,HS Riga,LATVIA,nhl_draft_api,2024-134,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-135-owen-allard,2024,UTA,Utah Hockey Club,5,135,Sault Ste. Marie,OHL,nhl_draft_api,2024-135,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-136-eerik-wallenius,2024,OTT,Ottawa Senators,5,136,HPK Jr.,Finland Jrs.,nhl_draft_api,2024-136,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-137-ivan-yunin,2024,COL,Colorado Avalanche,5,137,Omsk Jr.,Russia Jr.,nhl_draft_api,2024-137,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-138-joel-svensson,2024,CHI,Chicago Blackhawks,5,138,Vaxjo Jr.,Sweden Jrs.,nhl_draft_api,2024-138,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-139-max-graham,2024,NJD,New Jersey Devils,5,139,Kelowna,WHL,nhl_draft_api,2024-139,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-140-sebastian-soini,2024,MIN,Minnesota Wild,5,140,Ilves Jr.,Finland Jrs.,nhl_draft_api,2024-140,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-141-clarke-caswell,2024,SEA,Seattle Kraken,5,141,Swift Current,WHL,nhl_draft_api,2024-141,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-142-chase-wutzke,2024,MIN,Minnesota Wild,5,142,Red Deer,WHL,nhl_draft_api,2024-142,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-143-nate-misskey,2024,SJS,San Jose Sharks,5,143,Victoria,WHL,nhl_draft_api,2024-143,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-144-john-whipple,2024,DET,Detroit Red Wings,5,144,USA U-18,USHL,nhl_draft_api,2024-144,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-145-william-mcisaac,2024,STL,St. Louis Blues,5,145,Spokane,WHL,nhl_draft_api,2024-145,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-146-veeti-louhivaara,2024,NJD,New Jersey Devils,5,146,JYP Jr.,Finland Jrs.,nhl_draft_api,2024-146,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-147-marcus-gidl-f,2024,NYI,New York Islanders,5,147,Leksand Jr.,Sweden Jrs.,nhl_draft_api,2024-147,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-148-noah-powell,2024,PHI,Philadelphia Flyers,5,148,Dubuque,USHL,nhl_draft_api,2024-148,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-149-joona-saarelainen,2024,TBL,Tampa Bay Lightning,5,149,Kalpa Jr.,Finland Jrs.,nhl_draft_api,2024-149,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-150-luke-misa,2024,CGY,Calgary Flames,5,150,Mississauga,OHL,nhl_draft_api,2024-150,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-151-miroslav-holinka,2024,TOR,Toronto Maple Leafs,5,151,Trinec Jr.,CZECHIA-JR.,nhl_draft_api,2024-151,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-152-alexander-plesovskikh,2024,TOR,Toronto Maple Leafs,5,152,Khanty-Mansiysk Jr.,Russia Jr.,nhl_draft_api,2024-152,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-153-ales-cech,2024,UTA,Utah Hockey Club,5,153,Mladá Boleslav,Czech,nhl_draft_api,2024-153,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-154-jonathan-morello,2024,BOS,Boston Bruins,5,154,St. Michael's,OJHL,nhl_draft_api,2024-154,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-155-markus-loponen,2024,WPG,Winnipeg Jets,5,155,Karpat Jr.,Finland Jrs.,nhl_draft_api,2024-155,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-156-justin-poirier,2024,CAR,Carolina Hurricanes,5,156,Baie Comeau,QMJHL,nhl_draft_api,2024-156,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-157-timofei-obvintsev,2024,TOR,Toronto Maple Leafs,5,157,CSKA Jr.,Russia Jr.,nhl_draft_api,2024-157,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-158-niilopekka-muhonen,2024,DAL,Dallas Stars,5,158,Kalpa Jr.,Finland Jrs.,nhl_draft_api,2024-158,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-159-nathan-aspinall,2024,NYR,New York Rangers,5,159,Flint,OHL,nhl_draft_api,2024-159,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-160-connor-clattenburg,2024,EDM,Edmonton Oilers,5,160,Flint,OHL,nhl_draft_api,2024-160,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-161-maxmilian-curran,2024,COL,Colorado Avalanche,5,161,Tri-City,WHL,nhl_draft_api,2024-161,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-162-anthony-romani,2024,VAN,Vancouver Canucks,6,162,North Bay,OHL,nhl_draft_api,2024-162,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-163-ty-henry,2024,CHI,Chicago Blackhawks,6,163,Erie,OHL,nhl_draft_api,2024-163,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-164-jared-woolley,2024,LAK,Los Angeles Kings,6,164,London,OHL,nhl_draft_api,2024-164,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-165-luke-ashton,2024,CBJ,Columbus Blue Jackets,6,165,Langley,BCHL,nhl_draft_api,2024-165,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-166-ben-merrill,2024,MTL,Montréal Canadiens,6,166,St. Sebastian's School,High School,nhl_draft_api,2024-166,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-167-vojtech-hradec,2024,UTA,Utah Hockey Club,6,167,Mladá Boleslav,Czech,nhl_draft_api,2024-167,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-168-timur-kol,2024,CAR,Carolina Hurricanes,6,168,Omsk Jr.,Russia Jr.,nhl_draft_api,2024-168,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-169-stepan-gorbunov,2024,FLA,Florida Panthers,6,169,Chelyabinsk Jr.,Russia Jr.,nhl_draft_api,2024-169,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-170-hunter-laing,2024,CGY,Calgary Flames,6,170,Prince George,WHL,nhl_draft_api,2024-170,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-171-matyas-melovsky,2024,NJD,New Jersey Devils,6,171,Baie Comeau,QMJHL,nhl_draft_api,2024-171,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-172-patrick-geary,2024,BUF,Buffalo Sabres,6,172,Michigan State U.,NCAA,nhl_draft_api,2024-172,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-173-ilya-pautov,2024,PHI,Philadelphia Flyers,6,173,CSKA Jr.,Russia Jr.,nhl_draft_api,2024-173,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-174-stevie-leskovar,2024,MIN,Minnesota Wild,6,174,Mississauga,OHL,nhl_draft_api,2024-174,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-175-joona-v-is-nen,2024,PIT,Pittsburgh Penguins,6,175,Dubuque,USHL,nhl_draft_api,2024-175,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-176-charlie-forslund,2024,DET,Detroit Red Wings,6,176,Falu IF,SWEDEN-3,nhl_draft_api,2024-176,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-177-eric-jamieson,2024,CGY,Calgary Flames,6,177,Everett,WHL,nhl_draft_api,2024-177,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-178-petr-sikora,2024,WSH,Washington Capitals,6,178,Trinec Jr.,CZECHIA-JR.,nhl_draft_api,2024-178,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-179-xavier-veilleux,2024,NYI,New York Islanders,6,179,Muskegon,USHL,nhl_draft_api,2024-179,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-180-trent-swick,2024,VGK,Vegas Golden Knights,6,180,Kitchener,OHL,nhl_draft_api,2024-180,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-181-kaden-pitre,2024,TBL,Tampa Bay Lightning,6,181,Flint,OHL,nhl_draft_api,2024-181,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-182-austin-burnevik,2024,ANA,Anaheim Ducks,6,182,Madison,USHL,nhl_draft_api,2024-182,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-183-albin-sundin,2024,EDM,Edmonton Oilers,6,183,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2024-183,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-184-roman-shokhrin,2024,CAR,Carolina Hurricanes,6,184,LOKO-76 Yaroslavl,Russia Jr.,nhl_draft_api,2024-184,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-185-tory-pitner,2024,COL,Colorado Avalanche,6,185,Youngstown,USHL,nhl_draft_api,2024-185,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-186-loke-johansson,2024,BOS,Boston Bruins,6,186,AIK Jr.,Sweden Jrs.,nhl_draft_api,2024-186,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-187-kieron-walton,2024,WPG,Winnipeg Jets,6,187,Sudbury,OHL,nhl_draft_api,2024-187,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-188-fyodor-avramov,2024,CAR,Carolina Hurricanes,6,188,Stupino Jr.,Russia Jr.,nhl_draft_api,2024-188,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-189-parker-alcos,2024,VAN,Vancouver Canucks,6,189,Edmonton,WHL,nhl_draft_api,2024-189,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-190-ludvig-lafton,2024,UTA,Utah Hockey Club,6,190,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2024-190,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-191-rico-gredig,2024,NYR,New York Rangers,6,191,Davos,National League,nhl_draft_api,2024-191,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-192-dalyn-wakely,2024,EDM,Edmonton Oilers,6,192,North Bay,OHL,nhl_draft_api,2024-192,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-193-hunter-st-martin,2024,FLA,Florida Panthers,6,193,Medicine Hat,WHL,nhl_draft_api,2024-193,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-194-yaroslav-korostelyov,2024,SJS,San Jose Sharks,7,194,SKA Saint Petersburg Jr.,Russia Jr.,nhl_draft_api,2024-194,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-195-joe-connor,2024,TBL,Tampa Bay Lightning,7,195,Muskegon,USHL,nhl_draft_api,2024-195,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-196-william-nicholl,2024,EDM,Edmonton Oilers,7,196,London,OHL,nhl_draft_api,2024-196,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-197-lucas-van-vliet,2024,VGK,Vegas Golden Knights,7,197,USA U-18,USHL,nhl_draft_api,2024-197,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-198-james-reeder,2024,LAK,Los Angeles Kings,7,198,Dubuque,USHL,nhl_draft_api,2024-198,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-199-noah-steen,2024,TBL,Tampa Bay Lightning,7,199,Mora,HockeyAllsvenskan,nhl_draft_api,2024-199,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-200-matt-lahey,2024,TOR,Toronto Maple Leafs,7,200,Nanaimo,BCHL,nhl_draft_api,2024-200,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-201-denis-gabdrakhmanov,2024,FLA,Florida Panthers,7,201,Tyumen Jr.,Russia Jr.,nhl_draft_api,2024-201,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-202-jakub-fibigr,2024,SEA,Seattle Kraken,7,202,Mississauga,OHL,nhl_draft_api,2024-202,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-203-austin-baker,2024,DET,Detroit Red Wings,7,203,USA U-18,USHL,nhl_draft_api,2024-203,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-204-vasily-zelenov,2024,BUF,Buffalo Sabres,7,204,RB Hockey Juniors,AUSTRIA-2,nhl_draft_api,2024-204,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-205-austin-moline,2024,PHI,Philadelphia Flyers,7,205,Shattuck-St. Mary's,High School,nhl_draft_api,2024-205,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-206-harrison-meneghin,2024,TBL,Tampa Bay Lightning,7,206,Lethbridge,WHL,nhl_draft_api,2024-206,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-207-mac-swanson,2024,PIT,Pittsburgh Penguins,7,207,Fargo,USHL,nhl_draft_api,2024-207,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-208-fisher-scott,2024,DET,Detroit Red Wings,7,208,Dubuque,USHL,nhl_draft_api,2024-208,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-209-antoine-dorion,2024,STL,St. Louis Blues,7,209,Quebec,QMJHL,nhl_draft_api,2024-209,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-210-makar-khanin,2024,MTL,Montréal Canadiens,7,210,Dynamo St. Petersburg Jr.,Russia Jr.,nhl_draft_api,2024-210,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-211-matvei-korotky,2024,STL,St. Louis Blues,7,211,SKA Saint Petersburg Jr.,Russia Jr.,nhl_draft_api,2024-211,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-212-miroslav-satan,2024,WSH,Washington Capitals,7,212,Bratislava Jr.,SLOVAKIA-JR.,nhl_draft_api,2024-212,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-213-erik-p-hlsson,2024,NSH,Nashville Predators,7,213,Dubuque,USHL,nhl_draft_api,2024-213,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-214-darels-uljanskis,2024,ANA,Anaheim Ducks,7,214,AIK Jr.,Sweden Jrs.,nhl_draft_api,2024-214,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-215-christian-humphreys,2024,COL,Colorado Avalanche,7,215,USA U-18,USHL,nhl_draft_api,2024-215,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-216-sam-mccue,2024,TOR,Toronto Maple Leafs,7,216,Owen Sound,OHL,nhl_draft_api,2024-216,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-217-nikita-prishchepov,2024,COL,Colorado Avalanche,7,217,Victoriaville,QMJHL,nhl_draft_api,2024-217,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-218-bauer-berry,2024,EDM,Edmonton Oilers,7,218,Muskegon,USHL,nhl_draft_api,2024-218,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-219-ryerson-leenders,2024,BUF,Buffalo Sabres,7,219,Mississauga,OHL,nhl_draft_api,2024-219,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-220-andrey-krutov,2024,CAR,Carolina Hurricanes,7,220,Nizhny Novgorod Jr.,Russia Jr.,nhl_draft_api,2024-220,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-221-basile-sansonnens,2024,VAN,Vancouver Canucks,7,221,Fribourg Jr.,SWISS-JR.,nhl_draft_api,2024-221,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-222-william-samuelsson,2024,DAL,Dallas Stars,7,222,Sodertalje Jr.,Sweden Jrs.,nhl_draft_api,2024-222,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-223-finn-harding,2024,PIT,Pittsburgh Penguins,7,223,Mississauga,OHL,nhl_draft_api,2024-223,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-224-rasmus-bergqvist,2024,MTL,Montréal Canadiens,7,224,Skelleftea Jr.,Sweden Jrs.,nhl_draft_api,2024-224,https://api-web.nhle.com/v1/draft/picks/2024/all
+2024-225-nathan-mayes,2024,TOR,Toronto Maple Leafs,7,225,Spokane,WHL,nhl_draft_api,2024-225,https://api-web.nhle.com/v1/draft/picks/2024/all

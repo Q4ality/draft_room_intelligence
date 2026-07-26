@@ -22,6 +22,21 @@ advanced statistics, team-depth input, and a checksum manifest. The generated si
 `make demo-2025-local-readiness` command is retained only for a machine that has the ignored local
 dataset and roster outputs from an ingestion run.
 
+## Year-Parameterized Demos
+
+Build any reviewed snapshot by its draft year:
+
+```bash
+make demo-year DRAFT_YEAR=2025
+# Equivalent: python -m draft_room_intelligence.cli build-demo-year 2025
+```
+
+The command resolves `data/demo_snapshots/<year>`, verifies its checksums, and writes
+`outputs/demo_<year>_reproducible`. A missing snapshot is an intentional, clear failure: it means
+the class has not yet been reviewed and packaged for offline use. Create one from a local audited
+class with `create-demo-snapshot`; historical classes retain their data-quality labels and do not
+inherit the special 2025 showcase-player acceptance checks.
+
 ## Offline Development
 
 Tests, the pilot dataset, and small fixtures are tracked and can be used from a clean clone:

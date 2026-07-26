@@ -46,11 +46,15 @@ class DemoAcceptanceReport:
         return sum(1 for check in self.checks if check.status != "pass")
 
 
-def write_demo_acceptance_report(demo_output_dir: str | Path, output_dir: str | Path) -> DemoAcceptanceReport:
+def write_demo_acceptance_report(
+    demo_output_dir: str | Path, output_dir: str | Path
+) -> DemoAcceptanceReport:
     report = build_demo_acceptance_report(demo_output_dir)
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
-    write_csv(root / "acceptance_checks.csv", CHECK_COLUMNS, [check.to_row() for check in report.checks])
+    write_csv(
+        root / "acceptance_checks.csv", CHECK_COLUMNS, [check.to_row() for check in report.checks]
+    )
     (root / "summary.md").write_text(format_demo_acceptance_report(report), encoding="utf-8")
     return report
 
@@ -66,12 +70,22 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     brief_pdf = root / "meeting_brief.pdf"
     board_by_name = {row["name"]: row for row in board}
     details_by_name = {str(detail.get("header", {}).get("name", "")): detail for detail in details}
+    metrics = baseline.get("metrics", {})
+    draft_year = manifest.get("draft_year") or (
+        metrics.get("draft_year") if isinstance(metrics, dict) else None
+    )
+    is_2025_showcase = str(draft_year) == "2025"
     misa_sjs = team_fit_option(details_by_name.get("Michael Misa", {}), "SJS")
     schaefer_nyi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "NYI")
     schaefer_chi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "CHI")
     checks = baseline_acceptance_checks(baseline, manifest, board, details) + [
-        threshold_check("board_rows", len(board), 224, "eq", "Demo should cover the full 2025 drafted-player class."),
-        threshold_check("player_details", len(details), len(board), "eq", "Every board row should have a player detail payload."),
+        threshold_check(
+            "player_details",
+            len(details),
+            len(board),
+            "eq",
+            "Every board row should have a player detail payload.",
+        ),
         threshold_check(
             "details_have_stat_evidence",
             sum(1 for detail in details if "stat_evidence" in detail),
@@ -79,52 +93,27 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
             "eq",
             "Every player detail should include role-aware stat evidence.",
         ),
-        threshold_check(
-            "low_evidence_players",
-            count_rows(board, "evidence_depth", "low"),
-            30,
-            "lte",
-            "Low-evidence count should stay at or below the current demo tolerance.",
-        ),
-        threshold_check(
-            "top_50_consensus_overlap",
-            top_n_overlap(board, 50),
-            45,
-            "gte",
-            "Top 50 should remain anchored enough for a recent-class business demo.",
-        ),
-        named_rank_check(board_by_name, "Matthew Schaefer", 5, "Elite defense calibration should remain top-tier."),
-        named_rank_check(board_by_name, "Michael Misa", 5, "Trust-anchor forward should remain top-tier."),
-        named_rank_check(board_by_name, "Porter Martone", 5, "Trust-anchor forward should remain top-tier."),
-        named_rank_check(board_by_name, "Pyotr Andreyanov", 40, "Goalie evidence story should stay visible in the top half."),
         content_check(
-            "misa_sjs_center_pipeline",
-            str(misa_sjs.get("role_type", "")).endswith("center"),
-            "Composite center/wing positions should use the primary center pipeline.",
+            "prospect_stats_evidence_ui",
+            "Prospect Stats Evidence" in html,
+            "Player detail should show stat evidence section.",
         ),
         content_check(
-            "schaefer_nyi_fit_above_chicago",
-            float_value(schaefer_nyi.get("score")) - float_value(schaefer_chi.get("score")) >= 0.02,
-            "NYI should retain a meaningful fit advantage over Chicago's defense-heavy U25 pipeline.",
+            "production_header",
+            "<th>Production</th>" in html,
+            "History table should use role-neutral production label.",
         ),
-        content_check(
-            "misa_sjs_pipeline_need_bounded",
-            0.0 < float_value(misa_sjs.get("pipeline_need_score")) <= 0.35,
-            "San Jose's established U25 center group should materially limit additional center need.",
-        ),
-        content_check("prospect_stats_evidence_ui", "Prospect Stats Evidence" in html, "Player detail should show stat evidence section."),
-        content_check("production_header", "<th>Production</th>" in html, "History table should use role-neutral production label."),
         content_check(
             "guided_demo_preset",
             all(
-                marker in html
-                for marker in ("Start Guided Demo", "guided-previous", "guided-next")
+                marker in html for marker in ("Start Guided Demo", "guided-previous", "guided-next")
             ),
             "Demo site should retain the presenter-mode story controls.",
         ),
         content_check(
             "meeting_brief_html",
-            brief_html.is_file() and "Guided Draft Meeting Brief" in brief_html.read_text(encoding="utf-8"),
+            brief_html.is_file()
+            and "Guided Draft Meeting Brief" in brief_html.read_text(encoding="utf-8"),
             "Readiness build should generate the printable guided-story brief.",
         ),
         content_check(
@@ -133,6 +122,69 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
             "Readiness build should generate a non-empty one-page PDF brief.",
         ),
     ]
+    if is_2025_showcase:
+        checks.extend(
+            [
+                threshold_check(
+                    "board_rows",
+                    len(board),
+                    224,
+                    "eq",
+                    "Demo should cover the full 2025 drafted-player class.",
+                ),
+                threshold_check(
+                    "low_evidence_players",
+                    count_rows(board, "evidence_depth", "low"),
+                    30,
+                    "lte",
+                    "Low-evidence count should stay at or below the current demo tolerance.",
+                ),
+                threshold_check(
+                    "top_50_consensus_overlap",
+                    top_n_overlap(board, 50),
+                    45,
+                    "gte",
+                    "Top 50 should remain anchored enough for a recent-class business demo.",
+                ),
+                named_rank_check(
+                    board_by_name,
+                    "Matthew Schaefer",
+                    5,
+                    "Elite defense calibration should remain top-tier.",
+                ),
+                named_rank_check(
+                    board_by_name, "Michael Misa", 5, "Trust-anchor forward should remain top-tier."
+                ),
+                named_rank_check(
+                    board_by_name,
+                    "Porter Martone",
+                    5,
+                    "Trust-anchor forward should remain top-tier.",
+                ),
+                named_rank_check(
+                    board_by_name,
+                    "Pyotr Andreyanov",
+                    40,
+                    "Goalie evidence story should stay visible in the top half.",
+                ),
+                content_check(
+                    "misa_sjs_center_pipeline",
+                    str(misa_sjs.get("role_type", "")).endswith("center"),
+                    "Composite center/wing positions should use the primary center pipeline.",
+                ),
+                content_check(
+                    "schaefer_nyi_fit_above_chicago",
+                    float_value(schaefer_nyi.get("score")) - float_value(schaefer_chi.get("score"))
+                    >= 0.02,
+                    "NYI should retain a meaningful fit advantage over Chicago's defense-heavy U25 pipeline.",
+                ),
+                content_check(
+                    "misa_sjs_pipeline_need_bounded",
+                    0.0 < float_value(misa_sjs.get("pipeline_need_score")) <= 0.35,
+                    "San Jose's established U25 center group should materially limit additional center need.",
+                ),
+            ]
+        )
     return DemoAcceptanceReport(checks=checks)
 
 
@@ -219,7 +271,9 @@ def format_demo_acceptance_report(report: DemoAcceptanceReport) -> str:
     return "\n".join(lines) + "\n"
 
 
-def threshold_check(check_id: str, actual: int, expected: int, operator: str, detail: str) -> AcceptanceCheck:
+def threshold_check(
+    check_id: str, actual: int, expected: int, operator: str, detail: str
+) -> AcceptanceCheck:
     passed = {
         "eq": actual == expected,
         "lte": actual <= expected,
@@ -235,7 +289,9 @@ def threshold_check(check_id: str, actual: int, expected: int, operator: str, de
     )
 
 
-def named_rank_check(board_by_name: dict[str, dict[str, str]], name: str, max_rank: int, detail: str) -> AcceptanceCheck:
+def named_rank_check(
+    board_by_name: dict[str, dict[str, str]], name: str, max_rank: int, detail: str
+) -> AcceptanceCheck:
     row = board_by_name.get(name)
     if row is None:
         return AcceptanceCheck(
@@ -280,7 +336,11 @@ def count_rows(rows: list[dict[str, str]], key: str, value: str) -> int:
 
 def team_fit_option(detail: dict[str, object], team_id: str) -> dict[str, object]:
     return next(
-        (option for option in detail.get("team_fit_options", []) if option.get("team_id") == team_id),
+        (
+            option
+            for option in detail.get("team_fit_options", [])
+            if option.get("team_id") == team_id
+        ),
         {},
     )
 

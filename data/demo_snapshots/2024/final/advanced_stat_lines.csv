@@ -1,0 +1,67 @@
+player_id,season,league,team,timing,regular_season,games,plus_minus,shots,blocks,faceoff_wins,faceoff_losses,faceoff_percentage,source,source_id,source_url
+2024-001-macklin-celebrini,2023-24,NCAA,Boston University,pre_draft,true,38,25,179,15,317,275,53.5,collegehockeyinc,59213,https://collegehockeyinc.com/players/career/59213
+2024-002-artyom-levshunov,2023-24,NCAA,Michigan State,pre_draft,true,38,27,82,24,0,0,,collegehockeyinc,60239,https://collegehockeyinc.com/players/career/60239
+2024-012-zeev-buium,2023-24,NCAA,Denver,pre_draft,true,42,33,75,41,0,0,,collegehockeyinc,60326,https://collegehockeyinc.com/players/career/60326
+2024-111-chase-pietila,2023-24,NCAA,Michigan Tech,pre_draft,true,40,1,78,52,0,0,,collegehockeyinc,57102,https://collegehockeyinc.com/players/career/57102
+2024-172-patrick-geary,2023-24,NCAA,Michigan State,pre_draft,true,32,1,38,25,0,0,,collegehockeyinc,59512,https://collegehockeyinc.com/players/career/59512
+2024-015-michael-brandsegg-nyg-rd,2023-24,HockeyAllsvenskan,Mora IK,pre_draft,true,41,3,75,,4,6,40.00,swehockey,michaelbrandseggnygard,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14678
+2024-015-michael-brandsegg-nyg-rd,2023-24,HockeyAllsvenskan,Mora IK,pre_draft,false,12,1,27,,9,6,60.00,swehockey,michaelbrandseggnygard,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15784
+2024-015-michael-brandsegg-nyg-rd,2023-24,Sweden Jrs.,Mora IK,pre_draft,true,7,9,38,,3,4,42.86,swehockey,michaelbrandseggnygard,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14708
+2024-035-lucas-pettersson,2023-24,SHL,MoDo Hockey,pre_draft,true,5,-1,0,,1,2,33.33,swehockey,lucaspettersson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-035-lucas-pettersson,2023-24,Sweden Jrs.,MoDo Hockey,pre_draft,true,44,27,162,,447,408,52.3,swehockey,lucaspettersson@15644+14708,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15644
+2024-037-alfons-freij,2023-24,Sweden Jrs.,Växjö Lakers HC,pre_draft,false,5,-2,14,,0,0,N/A,swehockey,alfonsfreij,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-037-alfons-freij,2023-24,Sweden Jrs.,Växjö Lakers HC,pre_draft,true,40,0,96,,0,0,,swehockey,alfonsfreij@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-039-gabriel-eliasson,2023-24,Sweden Jrs.,HV 71,pre_draft,false,2,0,1,,0,0,N/A,swehockey,gabrieleliasson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-039-gabriel-eliasson,2023-24,Sweden Jrs.,HV 71,pre_draft,true,36,-3,52,,0,0,,swehockey,gabrieleliasson@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-051-jack-berglund,2023-24,SHL,Färjestad BK,pre_draft,true,8,1,7,,0,0,N/A,swehockey,jackberglund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-051-jack-berglund,2023-24,Sweden Jrs.,Färjestad BK,pre_draft,false,2,0,3,,18,16,52.94,swehockey,jackberglund,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-051-jack-berglund,2023-24,Sweden Jrs.,Färjestad BK,pre_draft,true,41,4,73,,319,244,56.7,swehockey,jackberglund@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-053-leo-sahlin-wallenius,2023-24,Sweden Jrs.,Växjö Lakers HC,pre_draft,false,5,1,8,,0,0,N/A,swehockey,leosahlinwallenius,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-053-leo-sahlin-wallenius,2023-24,Sweden Jrs.,Växjö Lakers HC,pre_draft,true,43,20,87,,1,0,100.0,swehockey,leosahlinwallenius@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-058-linus-eriksson,2023-24,HockeyAllsvenskan,Djurgårdens IF,pre_draft,true,29,-1,40,,107,138,43.67,swehockey,linuseriksson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14678
+2024-058-linus-eriksson,2023-24,HockeyAllsvenskan,Djurgårdens IF,pre_draft,false,12,-3,22,,36,49,42.35,swehockey,linuseriksson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15784
+2024-058-linus-eriksson,2023-24,Sweden Jrs.,Djurgårdens IF,pre_draft,true,25,15,54,,190,127,59.9,swehockey,linuseriksson@14708+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14708
+2024-069-noel-frans-n,2023-24,SHL,Färjestad BK,pre_draft,true,4,1,2,,0,0,N/A,swehockey,noelfransen,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-069-noel-frans-n,2023-24,Sweden Jrs.,Färjestad BK,pre_draft,false,2,-1,11,,0,0,N/A,swehockey,noelfransen,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-069-noel-frans-n,2023-24,Sweden Jrs.,Färjestad BK,pre_draft,true,45,1,144,,0,0,,swehockey,noelfransen@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-077-viggo-gustafsson,2023-24,Sweden Jrs.,HV 71,pre_draft,false,2,-3,5,,0,0,N/A,swehockey,viggogustafsson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-077-viggo-gustafsson,2023-24,Sweden Jrs.,HV 71,pre_draft,true,41,15,54,,0,0,,swehockey,viggogustafsson@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-091-herman-tr-ff,2023-24,HockeyAllsvenskan,Västerås IK,pre_draft,true,8,2,15,,0,0,N/A,swehockey,hermantraff,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14678
+2024-091-herman-tr-ff,2023-24,SHL,HV 71,pre_draft,true,10,-1,5,,1,1,50.00,swehockey,hermantraff,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-091-herman-tr-ff,2023-24,Sweden Jrs.,HV 71,pre_draft,false,2,0,10,,3,4,42.86,swehockey,hermantraff,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-091-herman-tr-ff,2023-24,Sweden Jrs.,HV 71,pre_draft,true,26,0,86,,20,21,48.8,swehockey,hermantraff@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-093-melvin-fernstr-m,2023-24,SHL,Örebro HK,pre_draft,false,3,0,0,,0,0,N/A,swehockey,melvinfernstrom,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15792
+2024-093-melvin-fernstr-m,2023-24,SHL,Örebro HK,pre_draft,true,6,-2,3,,0,0,N/A,swehockey,melvinfernstrom,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-093-melvin-fernstr-m,2023-24,Sweden Jrs.,Örebro HK,pre_draft,true,45,25,150,,6,9,40.0,swehockey,melvinfernstrom@15644+14709,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15644
+2024-093-melvin-fernstr-m,2023-24,Sweden Jrs.,Örebro HK,pre_draft,false,8,4,24,,2,2,50.00,swehockey,melvinfernstrom,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-098-gregor-biber,2023-24,Sweden Jrs.,Rögle BK,pre_draft,false,3,-2,4,,0,0,N/A,swehockey,gregorbiber,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-098-gregor-biber,2023-24,Sweden Jrs.,Rögle BK,pre_draft,true,40,5,21,,0,0,,swehockey,gregorbiber@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-120-victor-johansson,2023-24,Sweden Jrs.,Leksands IF,pre_draft,true,34,6,48,,0,0,,swehockey,victorjohansson@14708+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14708
+2024-120-victor-johansson,2023-24,Sweden Jrs.,Leksands IF,pre_draft,false,5,2,4,,0,0,N/A,swehockey,victorjohansson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-127-viktor-norringer,2023-24,Sweden Jrs.,Frölunda HC,pre_draft,false,7,-2,9,,0,0,N/A,swehockey,viktornorringer,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-127-viktor-norringer,2023-24,Sweden Jrs.,Frölunda HC,pre_draft,true,25,4,92,,0,0,,swehockey,viktornorringer@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-133-oskar-vuollet,2023-24,SHL,Skellefteå AIK,pre_draft,false,4,0,1,,0,0,N/A,swehockey,oskarvuollet,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15792
+2024-133-oskar-vuollet,2023-24,SHL,Skellefteå AIK,pre_draft,true,15,-2,3,,0,0,N/A,swehockey,oskarvuollet,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-133-oskar-vuollet,2023-24,Sweden Jrs.,Skellefteå AIK,pre_draft,true,41,22,169,,6,11,35.3,swehockey,oskarvuollet@14708+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14708
+2024-133-oskar-vuollet,2023-24,Sweden Jrs.,Skellefteå AIK,pre_draft,false,9,17,48,,0,1,0.00,swehockey,oskarvuollet,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-138-joel-svensson,2023-24,SHL,Växjö Lakers HC,pre_draft,true,7,2,3,,0,0,N/A,swehockey,joelsvensson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-138-joel-svensson,2023-24,Sweden Jrs.,Växjö Lakers HC,pre_draft,false,4,0,17,,0,1,0.00,swehockey,joelsvensson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-138-joel-svensson,2023-24,Sweden Jrs.,Växjö Lakers HC,pre_draft,true,25,11,116,,35,29,54.7,swehockey,joelsvensson@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-183-albin-sundin,2023-24,SHL,Frölunda HC,pre_draft,false,14,0,18,,0,2,0.00,swehockey,albinsundin,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15792
+2024-183-albin-sundin,2023-24,SHL,Frölunda HC,pre_draft,true,18,4,5,,2,1,66.67,swehockey,albinsundin,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14677
+2024-183-albin-sundin,2023-24,Sweden Jrs.,Frölunda HC,pre_draft,false,4,10,18,,0,0,N/A,swehockey,albinsundin,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-183-albin-sundin,2023-24,Sweden Jrs.,Frölunda HC,pre_draft,true,41,5,116,,0,3,0.0,swehockey,albinsundin@14709+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14709
+2024-186-loke-johansson,2023-24,HockeyAllsvenskan,AIK,pre_draft,true,19,1,11,,0,0,N/A,swehockey,lokejohansson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14678
+2024-186-loke-johansson,2023-24,Sweden Jrs.,AIK,pre_draft,true,33,5,73,,0,0,,swehockey,lokejohansson@15644+14708,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15644
+2024-186-loke-johansson,2023-24,Sweden Jrs.,AIK,pre_draft,false,2,-2,4,,0,0,N/A,swehockey,lokejohansson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-190-ludvig-lafton,2023-24,Sweden Jrs.,Färjestad BK,pre_draft,false,2,1,3,,0,0,N/A,swehockey,ludviglafton,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-190-ludvig-lafton,2023-24,Sweden Jrs.,Färjestad BK,pre_draft,true,16,-3,15,,0,0,N/A,swehockey,ludviglafton,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15645
+2024-199-noah-steen,2023-24,HockeyAllsvenskan,Mora IK,pre_draft,true,40,6,64,,1,1,50.00,swehockey,noahsteen,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14678
+2024-199-noah-steen,2023-24,HockeyAllsvenskan,Mora IK,pre_draft,false,12,4,34,,1,2,33.33,swehockey,noahsteen,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15784
+2024-199-noah-steen,2023-24,Sweden Jrs.,Mora IK,pre_draft,true,17,9,72,,0,2,0.0,swehockey,noahsteen@15644+14708,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15644
+2024-214-darels-uljanskis,2023-24,Sweden Jrs.,AIK,pre_draft,true,45,1,109,,0,1,0.0,swehockey,darelsuljanskis@15644+14708,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15644
+2024-214-darels-uljanskis,2023-24,Sweden Jrs.,AIK,pre_draft,false,2,-3,12,,0,0,N/A,swehockey,darelsuljanskis,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-222-william-samuelsson,2023-24,Sweden Jrs.,Södertälje SK,pre_draft,true,50,5,115,,396,391,50.3,swehockey,williamsamuelsson@15644+14709,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15644
+2024-222-william-samuelsson,2023-24,Sweden Jrs.,Södertälje SK,pre_draft,false,4,-1,8,,32,31,50.79,swehockey,williamsamuelsson,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769
+2024-224-rasmus-bergqvist,2023-24,Sweden Jrs.,Skellefteå AIK,pre_draft,true,36,-2,41,,0,0,,swehockey,rasmusbergqvist@14708+15645,https://stats.swehockey.se/Teams/Info/PlayersByTeam/14708
+2024-224-rasmus-bergqvist,2023-24,Sweden Jrs.,Skellefteå AIK,pre_draft,false,9,7,13,,0,0,N/A,swehockey,rasmusbergqvist,https://stats.swehockey.se/Teams/Info/PlayersByTeam/15769

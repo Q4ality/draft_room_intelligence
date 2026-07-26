@@ -154,3 +154,31 @@ def test_demo_acceptance_fails_when_board_drifts_from_baseline(tmp_path):
 
     failed = {check.check_id for check in report.checks if check.status == "fail"}
     assert "baseline_board_metrics" in failed
+
+
+def test_demo_acceptance_uses_generic_checks_for_non_2025_draft(tmp_path):
+    demo = tmp_path / "demo"
+    demo.mkdir()
+    rows = [board_row("p1", "Historical Prospect", 1, 1, evidence="low")]
+    write_rows(demo / "board.csv", rows)
+    details = [{"player_id": "p1", "stat_evidence": {}, "header": {"name": "Historical Prospect"}}]
+    (demo / "players.json").write_text(json.dumps(details), encoding="utf-8")
+    write_baseline_artifacts(demo, rows, details)
+    baseline = json.loads((demo / "baseline.json").read_text(encoding="utf-8"))
+    baseline["metrics"]["draft_year"] = 2024
+    (demo / "baseline.json").write_text(json.dumps(baseline), encoding="utf-8")
+    manifest = json.loads((demo / "manifest.json").read_text(encoding="utf-8"))
+    manifest["baseline_metrics"]["draft_year"] = 2024
+    (demo / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    (demo / "index.html").write_text(
+        "<th>Production</th><section>Prospect Stats Evidence</section>"
+        "<button>Start Guided Demo</button><button id='guided-previous'></button>"
+        "<button id='guided-next'></button>",
+        encoding="utf-8",
+    )
+    write_brief_artifacts(demo)
+
+    report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
+
+    assert report.passed
+    assert not any(check.check_id == "matthew_schaefer_rank" for check in report.checks)

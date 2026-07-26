@@ -16,6 +16,7 @@ REQUIRED_FINAL_FILES = (
     "rankings.csv",
     "season_stat_lines.csv",
 )
+SNAPSHOT_TEXT_SUFFIXES = {".csv", ".json", ".md"}
 
 
 @dataclass(frozen=True)
@@ -67,6 +68,7 @@ def create_demo_snapshot(
     else:
         depth_path = None
 
+    normalize_snapshot_line_endings(target)
     entries = fingerprint_files(target)
     snapshot_id = hash_entries(entries)
     manifest = {
@@ -89,6 +91,24 @@ def create_demo_snapshot(
         depth_path,
         manifest["snapshot_id"],
     )
+
+
+def refresh_demo_snapshot(snapshot_dir: str | Path) -> DemoSnapshot:
+    """Normalize a reviewed snapshot and refresh its checksum manifest in place."""
+    root = Path(snapshot_dir)
+    manifest_path = root / SNAPSHOT_MANIFEST
+    if not manifest_path.is_file():
+        raise ValueError(f"Demo snapshot manifest is missing: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("schema_version") != SNAPSHOT_SCHEMA_VERSION:
+        raise ValueError("Unsupported demo snapshot schema version")
+    validate_final_dataset(root / str(manifest.get("data_dir", "final")))
+    normalize_snapshot_line_endings(root)
+    entries = fingerprint_files(root)
+    manifest["files"] = entries
+    manifest["snapshot_id"] = f"sha256:{hash_entries(entries)}"
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return load_demo_snapshot(root)
 
 
 def load_demo_snapshot(snapshot_dir: str | Path) -> DemoSnapshot:
@@ -117,6 +137,24 @@ def load_demo_snapshot(snapshot_dir: str | Path) -> DemoSnapshot:
     return DemoSnapshot(root, draft_year, data_dir, advanced, depth, str(manifest["snapshot_id"]))
 
 
+def load_demo_snapshot_for_year(
+    draft_year: int, snapshots_root: str | Path = "data/demo_snapshots"
+) -> DemoSnapshot:
+    """Load the reviewed snapshot registered for one draft year."""
+    snapshot_dir = Path(snapshots_root) / str(draft_year)
+    if not snapshot_dir.is_dir():
+        raise ValueError(
+            f"No reviewed demo snapshot is available for draft year {draft_year}: {snapshot_dir}"
+        )
+    snapshot = load_demo_snapshot(snapshot_dir)
+    if snapshot.draft_year != draft_year:
+        raise ValueError(
+            "Demo snapshot year mismatch: "
+            f"requested {draft_year}, manifest declares {snapshot.draft_year}"
+        )
+    return snapshot
+
+
 def validate_final_dataset(data_dir: Path) -> None:
     missing = [name for name in REQUIRED_FINAL_FILES if not (data_dir / name).is_file()]
     if missing:
@@ -133,6 +171,17 @@ def fingerprint_files(root: Path) -> list[dict[str, object]]:
         for path in sorted(root.rglob("*"))
         if path.is_file() and path.name != SNAPSHOT_MANIFEST
     ]
+
+
+def normalize_snapshot_line_endings(root: Path) -> None:
+    """Keep checksum-verified text inputs independent of the source machine's EOL style."""
+    for path in root.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in SNAPSHOT_TEXT_SUFFIXES:
+            continue
+        contents = path.read_bytes()
+        normalized = contents.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        if normalized != contents:
+            path.write_bytes(normalized)
 
 
 def hash_entries(entries: list[dict[str, object]]) -> str:
