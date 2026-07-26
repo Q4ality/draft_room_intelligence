@@ -14,9 +14,16 @@ make install-dev
 make demo-2025-reproducible
 ```
 
-The tracked `data/demo_snapshots/2025` bundle contains the reviewed normalized player tables,
-advanced statistics, team-depth input, and a checksum manifest. The generated site is written to
-`outputs/demo_2025_reproducible`.
+Reviewed snapshots currently available offline:
+
+| Draft year | Command | Context |
+| --- | --- | --- |
+| 2024 | `make demo-year DRAFT_YEAR=2024` | Retrospective board; evidence labels remain prominent. |
+| 2025 | `make demo-year DRAFT_YEAR=2025` | Business-demo board with team-depth context. |
+| 2026 | `make demo-year DRAFT_YEAR=2026` | Current-class board; no roster-depth scenario until a defensible 2026 snapshot exists. |
+
+Each tracked `data/demo_snapshots/<year>` bundle contains reviewed normalized player tables and a
+checksum manifest. The generated site is written to `outputs/demo_<year>_reproducible`.
 
 `make demo-2025-readiness` is an alias for this supported path. The older
 `make demo-2025-local-readiness` command is retained only for a machine that has the ignored local

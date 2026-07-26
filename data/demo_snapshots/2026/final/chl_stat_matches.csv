@@ -1,0 +1,439 @@
+player_id,name,matched,league,source_name,source_id,source_url,team,games,goals,assists,points,regular_season
+2026-001-gavin-mckenna,Gavin McKenna,false,,,,,,,,,,false
+2026-002-ivar-stenberg,Ivar Stenberg,false,,,,,,,,,,false
+2026-003-caleb-malhotra,Caleb Malhotra,true,OHL,Caleb Malhotra,9474,https://chl.ca/ohl/stats/players/85/all/points,BFD,15,13,13,26,false
+2026-003-caleb-malhotra,Caleb Malhotra,true,OHL,Caleb Malhotra,9474,https://chl.ca/ohl/stats/players/83/all/points,BFD,67,29,55,84,true
+2026-004-daxon-rudolph,Daxon Rudolph,true,WHL,Daxon Rudolph,29416,https://chl.ca/whl/players/29416,PA,11,1,11,12,false
+2026-004-daxon-rudolph,Daxon Rudolph,true,WHL,Daxon Rudolph,29416,https://chl.ca/whl/players/29416,PA,64,7,34,41,true
+2026-004-daxon-rudolph,Daxon Rudolph,true,WHL,Daxon Rudolph,29416,https://chl.ca/whl/stats/players/293/all/points,PA,19,9,18,27,false
+2026-004-daxon-rudolph,Daxon Rudolph,true,WHL,Daxon Rudolph,29416,https://chl.ca/whl/stats/players/289/all/points,PA,68,28,50,78,true
+2026-005-alberts-smits,Alberts Smits,false,,,,,,,,,,false
+2026-006-carson-carels,Carson Carels,true,WHL,Carson Carels,29468,https://chl.ca/whl/stats/players/281/all/points,PG,7,0,3,3,true
+2026-006-carson-carels,Carson Carels,true,WHL,Carson Carels,29468,https://chl.ca/whl/players/29468,PG,7,1,3,4,false
+2026-006-carson-carels,Carson Carels,true,WHL,Carson Carels,29468,https://chl.ca/whl/players/29468,PG,60,6,29,35,true
+2026-006-carson-carels,Carson Carels,true,WHL,Carson Carels,29468,https://chl.ca/whl/stats/players/293/all/points,PG,10,1,9,10,false
+2026-006-carson-carels,Carson Carels,true,WHL,Carson Carels,29468,https://chl.ca/whl/stats/players/289/all/points,PG,58,20,53,73,true
+2026-007-chase-reid,Chase Reid,true,OHL,Chase Reid,9299,https://chl.ca/ohl/players/9299,SOO,5,0,3,3,false
+2026-007-chase-reid,Chase Reid,true,OHL,Chase Reid,9299,https://chl.ca/ohl/players/9299,SOO,39,7,33,40,true
+2026-007-chase-reid,Chase Reid,true,OHL,Chase Reid,9299,https://chl.ca/ohl/stats/players/85/all/points,SOO,10,3,3,6,false
+2026-007-chase-reid,Chase Reid,true,OHL,Chase Reid,9299,https://chl.ca/ohl/stats/players/83/all/points,SOO,45,18,30,48,true
+2026-008-viggo-bjorck,Viggo Bjorck,false,,,,,,,,,,false
+2026-009-keaton-verhoeff,Keaton Verhoeff,false,,,,,,,,,,false
+2026-010-wyatt-cullen,Wyatt Cullen,false,,,,,,,,,,false
+2026-011-tynan-lawrence,Tynan Lawrence,false,,,,,,,,,,false
+2026-012-alexander-command,Alexander Command,false,,,,,,,,,,false
+2026-013-malte-gustafsson,Malte Gustafsson,false,,,,,,,,,,false
+2026-014-oscar-hemming,Oscar Hemming,false,,,,,,,,,,false
+2026-015-nikita-klepov,Nikita Klepov,true,OHL,Nikita Klepov,9385,https://chl.ca/ohl/stats/players/85/all/points,SAG,4,1,4,5,false
+2026-015-nikita-klepov,Nikita Klepov,true,OHL,Nikita Klepov,9385,https://chl.ca/ohl/stats/players/83/all/points,SAG,67,37,60,97,true
+2026-016-maddox-dagenais,Maddox Dagenais,true,QMJHL,Maddox Dagenais,21279,https://chl.ca/lhjmq/en/players/21279/,Que,4,0,0,0,false
+2026-016-maddox-dagenais,Maddox Dagenais,true,QMJHL,Maddox Dagenais,21279,https://chl.ca/lhjmq/en/players/21279/,Que,43,12,14,26,true
+2026-016-maddox-dagenais,Maddox Dagenais,true,QMJHL,Maddox Dagenais,21279,https://chl.ca/lhjmq/en/stats/players/212/all/points,Que,11,3,3,6,false
+2026-016-maddox-dagenais,Maddox Dagenais,true,QMJHL,Maddox Dagenais,21279,https://chl.ca/lhjmq/en/stats/players/211/all/points,Que,62,30,32,62,true
+2026-017-ethan-belchetz,Ethan Belchetz,true,OHL,Ethan Belchetz,9102,https://chl.ca/ohl/players/9102,WSR,56,17,21,38,true
+2026-017-ethan-belchetz,Ethan Belchetz,true,OHL,Ethan Belchetz,9102,https://chl.ca/ohl/stats/players/83/all/points,WSR,57,34,25,59,true
+2026-018-oliver-suvanto,Oliver Suvanto,false,,,,,,,,,,false
+2026-019-elton-hermansson,Elton Hermansson,false,,,,,,,,,,false
+2026-020-ilia-morozov,Ilia Morozov,false,,,,,,,,,,false
+2026-021-ryan-lin,Ryan Lin,true,WHL,Ryan Lin,29532,https://chl.ca/whl/stats/players/284/all/points,VAN,3,0,0,0,false
+2026-021-ryan-lin,Ryan Lin,true,WHL,Ryan Lin,29532,https://chl.ca/whl/stats/players/281/all/points,VAN,1,0,0,0,true
+2026-021-ryan-lin,Ryan Lin,true,WHL,Ryan Lin,29532,https://chl.ca/whl/players/29532,VAN,5,0,2,2,false
+2026-021-ryan-lin,Ryan Lin,true,WHL,Ryan Lin,29532,https://chl.ca/whl/players/29532,VAN,60,5,48,53,true
+2026-021-ryan-lin,Ryan Lin,true,WHL,Ryan Lin,29532,https://chl.ca/whl/stats/players/289/all/points,VAN,53,14,43,57,true
+2026-022-liam-ruck,Liam Ruck,true,WHL,Liam Ruck,29383,https://chl.ca/whl/stats/players/284/all/points,MH,1,0,0,0,false
+2026-022-liam-ruck,Liam Ruck,true,WHL,Liam Ruck,29383,https://chl.ca/whl/stats/players/281/all/points,MH,3,1,1,2,true
+2026-022-liam-ruck,Liam Ruck,true,WHL,Liam Ruck,29383,https://chl.ca/whl/players/29383,MH,18,6,4,10,false
+2026-022-liam-ruck,Liam Ruck,true,WHL,Liam Ruck,29383,https://chl.ca/whl/players/29383,MH,61,25,16,41,true
+2026-022-liam-ruck,Liam Ruck,true,WHL,Liam Ruck,29383,https://chl.ca/whl/stats/players/293/all/points,MH,14,8,4,12,false
+2026-022-liam-ruck,Liam Ruck,true,WHL,Liam Ruck,29383,https://chl.ca/whl/stats/players/289/all/points,MH,68,45,59,104,true
+2026-023-jeffrey-jp-hurlbert,Jeffrey (JP) Hurlbert,false,,,,,,,,,,false
+2026-024-adam-novotny,Adam Novotny,true,OHL,Adam Novotný,9638,https://chl.ca/ohl/stats/players/85/all/points,PBO,6,0,1,1,false
+2026-024-adam-novotny,Adam Novotny,true,OHL,Adam Novotný,9638,https://chl.ca/ohl/stats/players/83/all/points,PBO,58,34,31,65,true
+2026-025-jonas-lagerberg-hoen,Jonas Lagerberg Hoen,false,,,,,,,,,,false
+2026-026-gleb-pugachyov,Gleb Pugachyov,false,,,,,,,,,,false
+2026-027-maksim-sokolovskii,Maksim Sokolovskii,true,OHL,Maksim Sokolovskii,9427,https://chl.ca/ohl/stats/players/85/all/points,LDN,5,0,0,0,false
+2026-027-maksim-sokolovskii,Maksim Sokolovskii,true,OHL,Maksim Sokolovskii,9427,https://chl.ca/ohl/stats/players/83/all/points,LDN,44,2,6,8,true
+2026-028-marcus-nordmark,Marcus Nordmark,false,,,,,,,,,,false
+2026-029-juho-piiparinen,Juho Piiparinen,false,,,,,,,,,,false
+2026-030-jack-hextall,Jack Hextall,false,,,,,,,,,,false
+2026-031-thomas-bleyl,Thomas Bleyl,false,,,,,,,,,,false
+2026-032-jaxon-cover,Jaxon Cover,true,OHL,Jaxon Cover,9333,https://chl.ca/ohl/players/9333,LDN,3,0,2,2,true
+2026-032-jaxon-cover,Jaxon Cover,true,OHL,Jaxon Cover,9333,https://chl.ca/ohl/stats/players/85/all/points,LDN,5,2,1,3,false
+2026-032-jaxon-cover,Jaxon Cover,true,OHL,Jaxon Cover,9333,https://chl.ca/ohl/stats/players/83/all/points,LDN,67,20,32,52,true
+2026-033-brooks-rogowski,Brooks Rogowski,true,OHL,Brooks Rogowski,9126,https://chl.ca/ohl/players/9126,OSH,19,3,3,6,false
+2026-033-brooks-rogowski,Brooks Rogowski,true,OHL,Brooks Rogowski,9126,https://chl.ca/ohl/players/9126,OSH,66,11,12,23,true
+2026-033-brooks-rogowski,Brooks Rogowski,true,OHL,Brooks Rogowski,9126,https://chl.ca/ohl/stats/players/83/all/points,OSH,46,15,27,42,true
+2026-034-xavier-villeneuve,Xavier Villeneuve,true,QMJHL,Xavier Villeneuve,20170,https://chl.ca/lhjmq/en/stats/players/206/all/points,BLB,7,1,4,5,false
+2026-034-xavier-villeneuve,Xavier Villeneuve,true,QMJHL,Xavier Villeneuve,20170,https://chl.ca/lhjmq/en/stats/players/205/all/points,BLB,54,8,35,43,true
+2026-034-xavier-villeneuve,Xavier Villeneuve,true,QMJHL,Xavier Villeneuve,20170,https://chl.ca/lhjmq/en/players/20170/,BLB,5,0,4,4,false
+2026-034-xavier-villeneuve,Xavier Villeneuve,true,QMJHL,Xavier Villeneuve,20170,https://chl.ca/lhjmq/en/players/20170/,BLB,61,12,50,62,true
+2026-034-xavier-villeneuve,Xavier Villeneuve,true,QMJHL,Xavier Villeneuve,20170,https://chl.ca/lhjmq/en/stats/players/212/all/points,BLB,17,6,8,14,false
+2026-034-xavier-villeneuve,Xavier Villeneuve,true,QMJHL,Xavier Villeneuve,20170,https://chl.ca/lhjmq/en/stats/players/211/all/points,BLB,37,6,32,38,true
+2026-035-ryan-roobroeck,Ryan Roobroeck,true,OHL,Ryan Roobroeck,8963,https://chl.ca/ohl/stats/players/76/all/points,NIAG,63,28,23,51,true
+2026-035-ryan-roobroeck,Ryan Roobroeck,true,OHL,Ryan Roobroeck,8963,https://chl.ca/ohl/players/8963,NIAG,5,3,3,6,false
+2026-035-ryan-roobroeck,Ryan Roobroeck,true,OHL,Ryan Roobroeck,8963,https://chl.ca/ohl/players/8963,NIAG,64,41,46,87,true
+2026-035-ryan-roobroeck,Ryan Roobroeck,true,OHL,Ryan Roobroeck,8963,https://chl.ca/ohl/stats/players/83/all/points,NIAG,49,30,28,58,true
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/stats/players/279/all/points,SPO,4,0,1,1,true
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/stats/players/284/all/points,SPO,3,0,1,1,false
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/stats/players/281/all/points,SPO,61,6,16,22,true
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/players/29279,SPO,20,6,8,14,false
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/players/29279,SPO,68,19,31,50,true
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/stats/players/293/all/points,SPO,6,2,2,4,false
+2026-036-chase-harrington,Chase Harrington,true,WHL,Chase Harrington,29279,https://chl.ca/whl/stats/players/289/all/points,SPO,61,28,29,57,true
+2026-037-matias-vanhanen,Matias Vanhanen,true,WHL,Matias Vanhanen,30307,https://chl.ca/whl/stats/players/293/all/points,EVT,18,12,12,24,false
+2026-037-matias-vanhanen,Matias Vanhanen,true,WHL,Matias Vanhanen,30307,https://chl.ca/whl/stats/players/289/all/points,EVT,62,21,66,87,true
+2026-038-casey-mutryn,Casey Mutryn,false,,,,,,,,,,false
+2026-039-markus-ruck,Markus Ruck,true,WHL,Markus Ruck,29384,https://chl.ca/whl/stats/players/281/all/points,MH,2,0,0,0,true
+2026-039-markus-ruck,Markus Ruck,true,WHL,Markus Ruck,29384,https://chl.ca/whl/players/29384,MH,14,1,3,4,false
+2026-039-markus-ruck,Markus Ruck,true,WHL,Markus Ruck,29384,https://chl.ca/whl/players/29384,MH,62,8,21,29,true
+2026-039-markus-ruck,Markus Ruck,true,WHL,Markus Ruck,29384,https://chl.ca/whl/stats/players/293/all/points,MH,15,4,9,13,false
+2026-039-markus-ruck,Markus Ruck,true,WHL,Markus Ruck,29384,https://chl.ca/whl/stats/players/289/all/points,MH,68,21,87,108,true
+2026-040-simas-ignatavicius,Simas Ignatavicius,false,,,,,,,,,,false
+2026-041-niklas-aaram-olsen,Niklas Aaram-Olsen,false,,,,,,,,,,false
+2026-042-tobias-trejbal,Tobias Trejbal,false,,,,,,,,,,false
+2026-043-egor-shilov,Egor Shilov,true,QMJHL,Egor Shilov,23769,https://chl.ca/lhjmq/en/stats/players/212/all/points,Vic,4,2,3,5,false
+2026-043-egor-shilov,Egor Shilov,true,QMJHL,Egor Shilov,23769,https://chl.ca/lhjmq/en/stats/players/211/all/points,Vic,63,32,50,82,true
+2026-044-nikita-shcherbakov,Nikita Shcherbakov,false,,,,,,,,,,false
+2026-045-jayden-kurtz,Jayden Kurtz,false,,,,,,,,,,false
+2026-046-liam-lefebvre,Liam Lefebvre,true,QMJHL,Liam Lefebvre,22095,https://chl.ca/lhjmq/en/stats/players/212/all/points,Chi,20,5,7,12,false
+2026-046-liam-lefebvre,Liam Lefebvre,true,QMJHL,Liam Lefebvre,22095,https://chl.ca/lhjmq/en/stats/players/211/all/points,Chi,59,32,27,59,true
+2026-047-victor-plante,Victor Plante,false,,,,,,,,,,false
+2026-048-ryder-cali,Ryder Cali,true,OHL,Ryder Cali,9310,https://chl.ca/ohl/players/9310,NB,5,0,0,0,true
+2026-048-ryder-cali,Ryder Cali,true,OHL,Ryder Cali,9310,https://chl.ca/ohl/stats/players/85/all/points,NB,10,1,3,4,false
+2026-048-ryder-cali,Ryder Cali,true,OHL,Ryder Cali,9310,https://chl.ca/ohl/stats/players/83/all/points,NB,47,16,20,36,true
+2026-049-adam-goljer,Adam Goljer,false,,,,,,,,,,false
+2026-050-mathis-preston,Mathis Preston,true,WHL,Mathis Preston,29463,https://chl.ca/whl/stats/players/284/all/points,SPO,3,0,0,0,false
+2026-050-mathis-preston,Mathis Preston,true,WHL,Mathis Preston,29463,https://chl.ca/whl/stats/players/281/all/points,SPO,5,4,0,4,true
+2026-050-mathis-preston,Mathis Preston,true,WHL,Mathis Preston,29463,https://chl.ca/whl/players/29463,SPO,20,9,7,16,false
+2026-050-mathis-preston,Mathis Preston,true,WHL,Mathis Preston,29463,https://chl.ca/whl/players/29463,SPO,54,23,22,45,true
+2026-050-mathis-preston,Mathis Preston,true,WHL,Mathis Preston,29463,https://chl.ca/whl/stats/players/289/all/points,VAN,46,18,26,44,true
+2026-051-william-hakansson,William Hakansson,false,,,,,,,,,,false
+2026-052-oleg-kulebiakin,Oleg Kulebiakin,true,QMJHL,Oleg Kulebiakin,23745,https://chl.ca/lhjmq/en/stats/players/212/all/points,Hal,4,0,2,2,false
+2026-052-oleg-kulebiakin,Oleg Kulebiakin,true,QMJHL,Oleg Kulebiakin,23745,https://chl.ca/lhjmq/en/stats/players/211/all/points,Hal,64,29,44,73,true
+2026-053-brek-liske,Brek Liske,true,WHL,Brek Liske,29404,https://chl.ca/whl/stats/players/284/all/points,EVT,3,0,0,0,false
+2026-053-brek-liske,Brek Liske,true,WHL,Brek Liske,29404,https://chl.ca/whl/stats/players/281/all/points,EVT,3,1,1,2,true
+2026-053-brek-liske,Brek Liske,true,WHL,Brek Liske,29404,https://chl.ca/whl/players/29404,EVT,13,0,1,1,false
+2026-053-brek-liske,Brek Liske,true,WHL,Brek Liske,29404,https://chl.ca/whl/players/29404,EVT,66,2,9,11,true
+2026-053-brek-liske,Brek Liske,true,WHL,Brek Liske,29404,https://chl.ca/whl/stats/players/293/all/points,EVT,18,4,13,17,false
+2026-053-brek-liske,Brek Liske,true,WHL,Brek Liske,29404,https://chl.ca/whl/stats/players/289/all/points,EVT,52,7,17,24,true
+2026-054-tomas-galvas,Tomas Galvas,false,,,,,,,,,,false
+2026-055-alan-shaikhlislamov,Alan Shaikhlislamov,false,,,,,,,,,,false
+2026-056-yuri-ivanov,Yuri Ivanov,false,,,,,,,,,,false
+2026-057-timofei-runtso,Timofei Runtso,true,WHL,Timofei Runtso,30219,https://chl.ca/whl/stats/players/289/all/points,VIC,68,11,33,44,true
+2026-058-rudolfs-berzkalns,Rudolfs Berzkalns,false,,,,,,,,,,false
+2026-059-jakub-vanecek,Jakub Vanecek,true,WHL,Jakub Vanecek,29955,https://chl.ca/whl/stats/players/289/all/points,TC,59,14,21,35,true
+2026-060-alexander-bilecki,Alexander Bilecki,true,OHL,Alexander Bilecki,9162,https://chl.ca/ohl/players/9162,KIT,3,0,0,0,false
+2026-060-alexander-bilecki,Alexander Bilecki,true,OHL,Alexander Bilecki,9162,https://chl.ca/ohl/players/9162,KIT,45,3,11,14,true
+2026-060-alexander-bilecki,Alexander Bilecki,true,OHL,Alexander Bilecki,9162,https://chl.ca/ohl/stats/players/85/all/points,KIT,18,2,9,11,false
+2026-060-alexander-bilecki,Alexander Bilecki,true,OHL,Alexander Bilecki,9162,https://chl.ca/ohl/stats/players/83/all/points,KIT,66,9,20,29,true
+2026-061-wiggo-sorensson,Wiggo Sorensson,false,,,,,,,,,,false
+2026-062-martin-psohlavec,Martin Psohlavec,false,,,,,,,,,,false
+2026-064-benjamin-macbeath,Benjamin MacBeath,false,,,,,,,,,,false
+2026-065-joe-iginla,Joe Iginla,true,WHL,Joe Iginla,29393,https://chl.ca/whl/stats/players/281/all/points,EDM,5,3,2,5,true
+2026-065-joe-iginla,Joe Iginla,true,WHL,Joe Iginla,29393,https://chl.ca/whl/players/29393,EDM,3,0,0,0,false
+2026-065-joe-iginla,Joe Iginla,true,WHL,Joe Iginla,29393,https://chl.ca/whl/players/29393,EDM,61,9,7,16,true
+2026-065-joe-iginla,Joe Iginla,true,WHL,Joe Iginla,29393,https://chl.ca/whl/stats/players/289/all/points,VAN,59,15,16,31,true
+2026-066-samu-alalauri,Samu Alalauri,false,,,,,,,,,,false
+2026-067-danai-shaiikov,Danai Shaiikov,true,QMJHL,Danai Shaiikov,23743,https://chl.ca/lhjmq/en/stats/players/212/all/points,Gat,7,0,0,0,false
+2026-067-danai-shaiikov,Danai Shaiikov,true,QMJHL,Danai Shaiikov,23743,https://chl.ca/lhjmq/en/stats/players/211/all/points,Gat,50,0,0,0,true
+2026-068-zachary-lansard,Zachary Lansard,true,WHL,Zachary Lansard,29458,https://chl.ca/whl/players/29458,REG,54,7,12,19,true
+2026-068-zachary-lansard,Zachary Lansard,true,WHL,Zachary Lansard,29458,https://chl.ca/whl/stats/players/293/all/points,REG,5,3,0,3,false
+2026-068-zachary-lansard,Zachary Lansard,true,WHL,Zachary Lansard,29458,https://chl.ca/whl/stats/players/289/all/points,REG,68,24,32,56,true
+2026-069-ethan-mackenzie,Ethan MacKenzie,true,WHL,Ethan MacKenzie,29207,https://chl.ca/whl/stats/players/279/all/points,EDM,50,1,11,12,true
+2026-069-ethan-mackenzie,Ethan MacKenzie,true,WHL,Ethan MacKenzie,29207,https://chl.ca/whl/stats/players/281/all/points,EDM,26,1,5,6,true
+2026-069-ethan-mackenzie,Ethan MacKenzie,true,WHL,Ethan MacKenzie,29207,https://chl.ca/whl/players/29207,EDM,7,2,1,3,false
+2026-069-ethan-mackenzie,Ethan MacKenzie,true,WHL,Ethan MacKenzie,29207,https://chl.ca/whl/players/29207,EDM,54,5,27,32,true
+2026-069-ethan-mackenzie,Ethan MacKenzie,true,WHL,Ethan MacKenzie,29207,https://chl.ca/whl/stats/players/293/all/points,EDM,7,1,2,3,false
+2026-069-ethan-mackenzie,Ethan MacKenzie,true,WHL,Ethan MacKenzie,29207,https://chl.ca/whl/stats/players/289/all/points,EDM,59,22,36,58,true
+2026-070-dmitri-borichev,Dmitri Borichev,false,,,,,,,,,,false
+2026-071-samuel-hrenak,Samuel Hrenak,false,,,,,,,,,,false
+2026-072-adam-nemec,Adam Nemec,true,OHL,Adam Nemec,9685,https://chl.ca/ohl/stats/players/85/all/points,SBY,4,0,2,2,false
+2026-072-adam-nemec,Adam Nemec,true,OHL,Adam Nemec,9685,https://chl.ca/ohl/stats/players/83/all/points,SBY,31,14,21,35,true
+2026-073-zach-olsen,Zach Olsen,true,WHL,Zach Olsen,29429,https://chl.ca/whl/stats/players/281/all/points,SAS,1,0,0,0,true
+2026-073-zach-olsen,Zach Olsen,true,WHL,Zach Olsen,29429,https://chl.ca/whl/players/29429,SAS,4,1,0,1,false
+2026-073-zach-olsen,Zach Olsen,true,WHL,Zach Olsen,29429,https://chl.ca/whl/players/29429,SAS,60,11,12,23,true
+2026-073-zach-olsen,Zach Olsen,true,WHL,Zach Olsen,29429,https://chl.ca/whl/stats/players/293/all/points,SAS,10,2,4,6,false
+2026-073-zach-olsen,Zach Olsen,true,WHL,Zach Olsen,29429,https://chl.ca/whl/stats/players/289/all/points,SAS,57,18,16,34,true
+2026-074-beckett-hamilton,Beckett Hamilton,true,WHL,Beckett Hamilton,29516,https://chl.ca/whl/stats/players/281/all/points,RD,3,0,0,0,true
+2026-074-beckett-hamilton,Beckett Hamilton,true,WHL,Beckett Hamilton,29516,https://chl.ca/whl/players/29516,RD,67,14,11,25,true
+2026-074-beckett-hamilton,Beckett Hamilton,true,WHL,Beckett Hamilton,29516,https://chl.ca/whl/stats/players/293/all/points,RD,5,2,3,5,false
+2026-074-beckett-hamilton,Beckett Hamilton,true,WHL,Beckett Hamilton,29516,https://chl.ca/whl/stats/players/289/all/points,RD,67,24,38,62,true
+2026-075-luke-schairer,Luke Schairer,false,,,,,,,,,,false
+2026-076-mans-gudmundsson,Mans Gudmundsson,false,,,,,,,,,,false
+2026-077-charlie-morrison,Charlie Morrison,true,QMJHL,Charlie Morrison,21306,https://chl.ca/lhjmq/en/players/21306/,Que,4,0,1,1,false
+2026-077-charlie-morrison,Charlie Morrison,true,QMJHL,Charlie Morrison,21306,https://chl.ca/lhjmq/en/players/21306/,Que,63,2,13,15,true
+2026-077-charlie-morrison,Charlie Morrison,true,QMJHL,Charlie Morrison,21306,https://chl.ca/lhjmq/en/stats/players/212/all/points,Que,10,2,2,4,false
+2026-077-charlie-morrison,Charlie Morrison,true,QMJHL,Charlie Morrison,21306,https://chl.ca/lhjmq/en/stats/players/211/all/points,Que,41,4,9,13,true
+2026-078-dmitri-ivchenko,Dmitri Ivchenko,false,,,,,,,,,,false
+2026-079-michal-orsulak,Michal Orsulak,true,WHL,Michal Orsulak,30250,https://chl.ca/whl/stats/players/293/all/points,PA,20,0,1,1,false
+2026-079-michal-orsulak,Michal Orsulak,true,WHL,Michal Orsulak,30250,https://chl.ca/whl/stats/players/289/all/points,PA,36,0,1,1,true
+2026-080-blake-zielinski,Blake Zielinski,false,,,,,,,,,,false
+2026-081-tomas-chrenko,Tomas Chrenko,false,,,,,,,,,,false
+2026-082-rian-chudzinski,Rian Chudzinski,true,QMJHL,Rian Chudzinski,22262,https://chl.ca/lhjmq/en/stats/players/212/all/points,Mon,21,6,11,17,false
+2026-082-rian-chudzinski,Rian Chudzinski,true,QMJHL,Rian Chudzinski,22262,https://chl.ca/lhjmq/en/stats/players/211/all/points,Mon,54,21,17,38,true
+2026-083-adam-andersson,Adam Andersson,false,,,,,,,,,,false
+2026-084-malcom-gastrin,Malcom Gastrin,false,,,,,,,,,,false
+2026-085-juuso-ainasto,Juuso Ainasto,false,,,,,,,,,,false
+2026-086-pierce-mbuyi,Pierce Mbuyi,true,OHL,Pierce Mbuyi,9191,https://chl.ca/ohl/players/9191,OS,4,1,1,2,false
+2026-086-pierce-mbuyi,Pierce Mbuyi,true,OHL,Pierce Mbuyi,9191,https://chl.ca/ohl/players/9191,OS,63,29,23,52,true
+2026-086-pierce-mbuyi,Pierce Mbuyi,true,OHL,Pierce Mbuyi,9191,https://chl.ca/ohl/stats/players/85/all/points,OS,4,1,0,1,false
+2026-086-pierce-mbuyi,Pierce Mbuyi,true,OHL,Pierce Mbuyi,9191,https://chl.ca/ohl/stats/players/83/all/points,OS,68,32,43,75,true
+2026-087-oscar-holmertz,Oscar Holmertz,false,,,,,,,,,,false
+2026-088-nils-bartholdsson,Nils Bartholdsson,false,,,,,,,,,,false
+2026-089-yegor-rybkin,Yegor Rybkin,false,,,,,,,,,,false
+2026-090-tomas-kralovic,Tomas Kralovic,false,,,,,,,,,,false
+2026-091-louis-felix-bourque,Louis Felix Bourque,true,QMJHL,Louis-Félix Bourque,21308,https://chl.ca/lhjmq/en/players/21308/,Dru,1,0,0,0,true
+2026-091-louis-felix-bourque,Louis Felix Bourque,true,QMJHL,Louis-Félix Bourque,21308,https://chl.ca/lhjmq/en/stats/players/212/all/points,Dru,5,0,1,1,false
+2026-091-louis-felix-bourque,Louis Felix Bourque,true,QMJHL,Louis-Félix Bourque,21308,https://chl.ca/lhjmq/en/stats/players/211/all/points,Dru,54,24,25,49,true
+2026-092-benjamin-wilmott,Benjamin Wilmott,false,,,,,,,,,,false
+2026-093-cooper-cleaves,Cooper Cleaves,false,,,,,,,,,,false
+2026-094-alessandro-di-iorio,Alessandro Di Iorio,true,OHL,Alessandro Di Iorio,9124,https://chl.ca/ohl/players/9124,SAR,58,11,27,38,true
+2026-094-alessandro-di-iorio,Alessandro Di Iorio,true,OHL,Alessandro Di Iorio,9124,https://chl.ca/ohl/stats/players/83/all/points,SAR,45,12,19,31,true
+2026-095-sean-burick,Sean Burick,true,WHL,Sean Burick,30119,https://chl.ca/whl/stats/players/293/all/points,PEN,12,0,2,2,false
+2026-095-sean-burick,Sean Burick,true,WHL,Sean Burick,30119,https://chl.ca/whl/stats/players/289/all/points,PEN,50,0,4,4,true
+2026-096-adam-valentini,Adam Valentini,false,,,,,,,,,,false
+2026-097-yaroslav-bryzgalov,Yaroslav Bryzgalov,true,WHL,Yaroslav Bryzgalov,30288,https://chl.ca/whl/stats/players/293/all/points,MH,15,2,12,14,false
+2026-097-yaroslav-bryzgalov,Yaroslav Bryzgalov,true,WHL,Yaroslav Bryzgalov,30288,https://chl.ca/whl/stats/players/289/all/points,MH,64,13,42,55,true
+2026-098-jonas-kemps,Jonas Kemps,false,,,,,,,,,,false
+2026-099-viktor-fedorov,Viktor Fedorov,false,,,,,,,,,,false
+2026-100-egor-barabanov,Egor Barabanov,true,OHL,Egor Barabanov,9386,https://chl.ca/ohl/stats/players/85/all/points,SAG,4,1,3,4,false
+2026-100-egor-barabanov,Egor Barabanov,true,OHL,Egor Barabanov,9386,https://chl.ca/ohl/stats/players/83/all/points,SAG,68,28,63,91,true
+2026-101-tyus-sparks,Tyus Sparks,true,WHL,Tyus Sparks,29769,https://chl.ca/whl/players/29769,VAN,5,0,0,0,false
+2026-101-tyus-sparks,Tyus Sparks,true,WHL,Tyus Sparks,29769,https://chl.ca/whl/players/29769,VAN,53,11,6,17,true
+2026-101-tyus-sparks,Tyus Sparks,true,WHL,Tyus Sparks,29769,https://chl.ca/whl/stats/players/293/all/points,SPO,5,2,1,3,false
+2026-101-tyus-sparks,Tyus Sparks,true,WHL,Tyus Sparks,29769,https://chl.ca/whl/stats/players/289/all/points,SPO,69,28,37,65,true
+2026-102-spencer-bowes,Spencer Bowes,true,OHL,Spencer Bowes,9321,https://chl.ca/ohl/players/9321,OTT,5,0,0,0,true
+2026-102-spencer-bowes,Spencer Bowes,true,OHL,Spencer Bowes,9321,https://chl.ca/ohl/stats/players/85/all/points,OTT,9,4,4,8,false
+2026-102-spencer-bowes,Spencer Bowes,true,OHL,Spencer Bowes,9321,https://chl.ca/ohl/stats/players/83/all/points,OTT,67,23,19,42,true
+2026-103-thomas-vandenberg,Thomas Vandenberg,true,OHL,Thomas Vandenberg,9524,https://chl.ca/ohl/stats/players/85/all/points,OTT,9,4,3,7,false
+2026-103-thomas-vandenberg,Thomas Vandenberg,true,OHL,Thomas Vandenberg,9524,https://chl.ca/ohl/stats/players/83/all/points,OTT,59,25,25,50,true
+2026-104-matvei-kotkov,Matvei Kotkov,false,,,,,,,,,,false
+2026-105-michael-berchild,Michael Berchild,false,,,,,,,,,,false
+2026-106-jakub-floris,Jakub Floris,false,,,,,,,,,,false
+2026-107-landon-nycz,Landon Nycz,false,,,,,,,,,,false
+2026-108-adam-levac,Adam Levac,true,OHL,Adam Levac,9226,https://chl.ca/ohl/players/9226,PBO,57,6,4,10,true
+2026-108-adam-levac,Adam Levac,true,OHL,Adam Levac,9226,https://chl.ca/ohl/stats/players/85/all/points,PBO,6,2,2,4,false
+2026-108-adam-levac,Adam Levac,true,OHL,Adam Levac,9226,https://chl.ca/ohl/stats/players/83/all/points,PBO,60,16,28,44,true
+2026-109-lincoln-kuehne,Lincoln Kuehne,false,,,,,,,,,,false
+2026-110-elliot-lennon,Elliot Lennon,false,,,,,,,,,,false
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/stats/players/74/all/points,MISS,6,0,0,0,false
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/stats/players/73/all/points,MISS,66,2,13,15,true
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/stats/players/77/all/points,MISS,5,0,0,0,false
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/stats/players/76/all/points,MISS,65,3,22,25,true
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/players/8733,BRAM,6,0,1,1,false
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/players/8733,BRAM,62,8,22,30,true
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/stats/players/85/all/points,BAR,21,2,12,14,false
+2026-111-parker-von-richter,Parker Von Richter,true,OHL,Parker von Richter,8733,https://chl.ca/ohl/stats/players/83/all/points,BAR,66,12,37,49,true
+2026-112-kayden-lemire,Kayden Lemire,true,WHL,Kayden Lemire,29473,https://chl.ca/whl/players/29473,PG,7,0,0,0,false
+2026-112-kayden-lemire,Kayden Lemire,true,WHL,Kayden Lemire,29473,https://chl.ca/whl/players/29473,PG,66,4,2,6,true
+2026-112-kayden-lemire,Kayden Lemire,true,WHL,Kayden Lemire,29473,https://chl.ca/whl/stats/players/293/all/points,PG,12,1,3,4,false
+2026-112-kayden-lemire,Kayden Lemire,true,WHL,Kayden Lemire,29473,https://chl.ca/whl/stats/players/289/all/points,PG,68,9,20,29,true
+2026-113-jonah-sivertson,Jonah Sivertson,true,WHL,Jonah Sivertson,29417,https://chl.ca/whl/players/29417,PA,14,0,2,2,true
+2026-113-jonah-sivertson,Jonah Sivertson,true,WHL,Jonah Sivertson,29417,https://chl.ca/whl/stats/players/293/all/points,PA,20,3,7,10,false
+2026-113-jonah-sivertson,Jonah Sivertson,true,WHL,Jonah Sivertson,29417,https://chl.ca/whl/stats/players/289/all/points,PA,66,24,29,53,true
+2026-114-patriks-plumins,Patriks Plumins,false,,,,,,,,,,false
+2026-115-carl-axelsson,Carl Axelsson,false,,,,,,,,,,false
+2026-116-zach-wooten,Zach Wooten,false,,,,,,,,,,false
+2026-117-brayden-klimpke,Brayden Klimpke,true,WHL,Brayden Klimpke,29162,https://chl.ca/whl/stats/players/281/all/points,SAS,13,1,2,3,true
+2026-117-brayden-klimpke,Brayden Klimpke,true,WHL,Brayden Klimpke,29162,https://chl.ca/whl/players/29162,SAS,4,0,3,3,false
+2026-117-brayden-klimpke,Brayden Klimpke,true,WHL,Brayden Klimpke,29162,https://chl.ca/whl/players/29162,SAS,59,3,23,26,true
+2026-117-brayden-klimpke,Brayden Klimpke,true,WHL,Brayden Klimpke,29162,https://chl.ca/whl/stats/players/293/all/points,SAS,11,1,4,5,false
+2026-117-brayden-klimpke,Brayden Klimpke,true,WHL,Brayden Klimpke,29162,https://chl.ca/whl/stats/players/289/all/points,SAS,68,4,43,47,true
+2026-118-justin-graf,Justin Graf,false,,,,,,,,,,false
+2026-119-lavr-gashilov,Lavr Gashilov,false,,,,,,,,,,false
+2026-120-marek-sklenicka,Marek Sklenicka,true,WHL,Marek Sklenicka,30303,https://chl.ca/whl/stats/players/293/all/points,SEA,4,0,0,0,false
+2026-120-marek-sklenicka,Marek Sklenicka,true,WHL,Marek Sklenicka,30303,https://chl.ca/whl/stats/players/289/all/points,SEA,42,0,1,1,true
+2026-121-evan-jardine,Evan Jardine,false,,,,,,,,,,false
+2026-122-oscar-olsson,Oscar Olsson,false,,,,,,,,,,false
+2026-123-vladimir-proskurin,Vladimir Proskurin,false,,,,,,,,,,false
+2026-124-olivers-murnieks,Olivers Murnieks,true,QMJHL,Olivers Murnieks,23759,https://chl.ca/lhjmq/en/stats/players/211/all/points,SNB,31,7,13,20,true
+2026-125-ryder-fetterolf,Ryder Fetterolf,true,OHL,Ryder Fetterolf,9513,https://chl.ca/ohl/stats/players/85/all/points,OTT,9,0,0,0,false
+2026-125-ryder-fetterolf,Ryder Fetterolf,true,OHL,Ryder Fetterolf,9513,https://chl.ca/ohl/stats/players/83/all/points,OTT,41,0,1,1,true
+2026-126-tobias-tvrznik,Tobias Tvrznik,true,WHL,Tobias Tvrznik,30226,https://chl.ca/whl/stats/players/289/all/points,WEN,39,0,1,1,true
+2026-127-brady-knowling,Brady Knowling,false,,,,,,,,,,false
+2026-128-axel-elofsson,Axel Elofsson,false,,,,,,,,,,false
+2026-129-connor-davis,Connor Davis,false,,,,,,,,,,false
+2026-130-theodor-knights,Theodor Knights,false,,,,,,,,,,false
+2026-131-finn-kearns,Finn Kearns,false,,,,,,,,,,false
+2026-132-simon-katolicky,Simon Katolicky,false,,,,,,,,,,false
+2026-133-andrew-robinson,Andrew Robinson,true,OHL,Andrew Robinson,9358,https://chl.ca/ohl/players/9358,WSR,12,1,2,3,false
+2026-133-andrew-robinson,Andrew Robinson,true,OHL,Andrew Robinson,9358,https://chl.ca/ohl/players/9358,WSR,4,0,0,0,true
+2026-133-andrew-robinson,Andrew Robinson,true,OHL,Andrew Robinson,9358,https://chl.ca/ohl/stats/players/85/all/points,WSR,13,2,6,8,false
+2026-133-andrew-robinson,Andrew Robinson,true,OHL,Andrew Robinson,9358,https://chl.ca/ohl/stats/players/83/all/points,WSR,63,9,15,24,true
+2026-134-morgan-anderberg,Morgan Anderberg,false,,,,,,,,,,false
+2026-135-alexandre-taillefer,Alexandre Taillefer,true,QMJHL,Alexandre Taillefer,21392,https://chl.ca/lhjmq/en/players/21392/,Que,4,0,0,0,false
+2026-135-alexandre-taillefer,Alexandre Taillefer,true,QMJHL,Alexandre Taillefer,21392,https://chl.ca/lhjmq/en/players/21392/,Que,40,3,4,7,true
+2026-135-alexandre-taillefer,Alexandre Taillefer,true,QMJHL,Alexandre Taillefer,21392,https://chl.ca/lhjmq/en/stats/players/211/all/points,Que,28,2,15,17,true
+2026-136-kent-sauer,Kent Sauer,false,,,,,,,,,,false
+2026-137-filip-ruzicka,Filip Ruzicka,true,WHL,Filip Ruzicka,30313,https://chl.ca/whl/stats/players/293/all/points,BDN,4,0,0,0,false
+2026-137-filip-ruzicka,Filip Ruzicka,true,WHL,Filip Ruzicka,30313,https://chl.ca/whl/stats/players/289/all/points,BDN,42,0,0,0,true
+2026-138-philip-hemmyr,Philip Hemmyr,false,,,,,,,,,,false
+2026-139-nicholas-bogas,Nicholas Bogas,false,,,,,,,,,,false
+2026-140-cole-tuminaro,Cole Tuminaro,false,,,,,,,,,,false
+2026-141-vladimir-dravecky,Vladimir Dravecky,true,OHL,Vladimir Dravecky,9656,https://chl.ca/ohl/stats/players/85/all/points,BFD,11,0,3,3,false
+2026-141-vladimir-dravecky,Vladimir Dravecky,true,OHL,Vladimir Dravecky,9656,https://chl.ca/ohl/stats/players/83/all/points,BFD,58,9,19,28,true
+2026-142-parker-snell,Parker Snell,true,WHL,Parker Snell,29594,https://chl.ca/whl/players/29594,EDM,2,0,0,0,true
+2026-142-parker-snell,Parker Snell,true,WHL,Parker Snell,29594,https://chl.ca/whl/stats/players/293/all/points,EDM,4,0,0,0,false
+2026-142-parker-snell,Parker Snell,true,WHL,Parker Snell,29594,https://chl.ca/whl/stats/players/289/all/points,EDM,33,0,1,1,true
+2026-143-beckham-edwards,Beckham Edwards,true,OHL,Beckham Edwards,9123,https://chl.ca/ohl/players/9123,SAR,62,25,20,45,true
+2026-143-beckham-edwards,Beckham Edwards,true,OHL,Beckham Edwards,9123,https://chl.ca/ohl/stats/players/83/all/points,SAR,64,19,26,45,true
+2026-144-brian-mcfadden,Brian McFadden,false,,,,,,,,,,false
+2026-145-vertti-svensk,Vertti Svensk,false,,,,,,,,,,false
+2026-146-eric-frossard,Eric Frossard,true,OHL,Eric Frossard,9318,https://chl.ca/ohl/players/9318,GUE,30,0,2,2,true
+2026-146-eric-frossard,Eric Frossard,true,OHL,Eric Frossard,9318,https://chl.ca/ohl/stats/players/85/all/points,GUE,4,0,1,1,false
+2026-146-eric-frossard,Eric Frossard,true,OHL,Eric Frossard,9318,https://chl.ca/ohl/stats/players/83/all/points,GUE,51,5,9,14,true
+2026-147-florent-houle,Florent Houle,true,QMJHL,Florent Houle,21391,https://chl.ca/lhjmq/en/players/21391/,She,8,0,2,2,false
+2026-147-florent-houle,Florent Houle,true,QMJHL,Florent Houle,21391,https://chl.ca/lhjmq/en/players/21391/,She,61,11,23,34,true
+2026-147-florent-houle,Florent Houle,true,QMJHL,Florent Houle,21391,https://chl.ca/lhjmq/en/stats/players/212/all/points,She,7,5,1,6,false
+2026-147-florent-houle,Florent Houle,true,QMJHL,Florent Houle,21391,https://chl.ca/lhjmq/en/stats/players/211/all/points,She,52,19,22,41,true
+2026-148-luken-huff,Luken Huff,false,,,,,,,,,,false
+2026-149-daniil-rusakovich,Daniil Rusakovich,false,,,,,,,,,,false
+2026-150-carter-stevens,Carter Stevens,true,OHL,Carter Stevens,9160,https://chl.ca/ohl/players/9160,GUE,66,13,13,26,true
+2026-150-carter-stevens,Carter Stevens,true,OHL,Carter Stevens,9160,https://chl.ca/ohl/stats/players/85/all/points,GUE,4,1,0,1,false
+2026-150-carter-stevens,Carter Stevens,true,OHL,Carter Stevens,9160,https://chl.ca/ohl/stats/players/83/all/points,GUE,53,20,16,36,true
+2026-151-harris-pangretitsch,Harris Pangretitsch,true,OHL,Harris Pangretitsch,9573,https://chl.ca/ohl/stats/players/85/all/points,SOO,10,0,1,1,false
+2026-151-harris-pangretitsch,Harris Pangretitsch,true,OHL,Harris Pangretitsch,9573,https://chl.ca/ohl/stats/players/83/all/points,SOO,67,2,12,14,true
+2026-152-theodore-lechner,Theodore Lechner,false,,,,,,,,,,false
+2026-153-giorgos-pantelas,Giorgos Pantelas,true,WHL,Giorgos Pantelas,29452,https://chl.ca/whl/stats/players/281/all/points,BDN,1,0,0,0,true
+2026-153-giorgos-pantelas,Giorgos Pantelas,true,WHL,Giorgos Pantelas,29452,https://chl.ca/whl/players/29452,BDN,5,0,2,2,false
+2026-153-giorgos-pantelas,Giorgos Pantelas,true,WHL,Giorgos Pantelas,29452,https://chl.ca/whl/players/29452,BDN,61,4,6,10,true
+2026-153-giorgos-pantelas,Giorgos Pantelas,true,WHL,Giorgos Pantelas,29452,https://chl.ca/whl/stats/players/293/all/points,BDN,4,0,0,0,false
+2026-153-giorgos-pantelas,Giorgos Pantelas,true,WHL,Giorgos Pantelas,29452,https://chl.ca/whl/stats/players/289/all/points,BDN,68,6,31,37,true
+2026-154-cooper-soller,Cooper Soller,false,,,,,,,,,,false
+2026-155-ryan-brown,Ryan Brown,true,OHL,Ryan Brown,8920,https://chl.ca/ohl/stats/players/76/all/points,SAR,49,11,9,20,true
+2026-155-ryan-brown,Ryan Brown,true,OHL,Ryan Brown,8920,https://chl.ca/ohl/players/8920,SAR,68,16,25,41,true
+2026-155-ryan-brown,Ryan Brown,true,OHL,Ryan Brown,8920,https://chl.ca/ohl/stats/players/85/all/points,LDN,5,3,2,5,false
+2026-155-ryan-brown,Ryan Brown,true,OHL,Ryan Brown,8920,https://chl.ca/ohl/stats/players/83/all/points,LDN,67,22,41,63,true
+2026-156-doman-szongoth,Doman Szongoth,false,,,,,,,,,,false
+2026-157-jacob-vandeven,Jacob Vandeven,false,,,,,,,,,,false
+2026-158-cooper-williams,Cooper Williams,true,WHL,Cooper Williams,29428,https://chl.ca/whl/players/29428,SAS,4,0,2,2,false
+2026-158-cooper-williams,Cooper Williams,true,WHL,Cooper Williams,29428,https://chl.ca/whl/players/29428,SAS,68,21,36,57,true
+2026-158-cooper-williams,Cooper Williams,true,WHL,Cooper Williams,29428,https://chl.ca/whl/stats/players/293/all/points,SAS,11,2,4,6,false
+2026-158-cooper-williams,Cooper Williams,true,WHL,Cooper Williams,29428,https://chl.ca/whl/stats/players/289/all/points,SAS,66,23,34,57,true
+2026-159-will-mclaughlin,Will McLaughlin,true,WHL,Will McLaughlin,29946,https://chl.ca/whl/stats/players/293/all/points,POR,4,0,0,0,false
+2026-159-will-mclaughlin,Will McLaughlin,true,WHL,Will McLaughlin,29946,https://chl.ca/whl/stats/players/289/all/points,POR,68,9,21,30,true
+2026-160-matvei-nikonovich,Matvei Nikonovich,false,,,,,,,,,,false
+2026-161-yaroslav-fedoseyev,Yaroslav Fedoseyev,false,,,,,,,,,,false
+2026-162-andre-mondoux,Andre Mondoux,true,OHL,André Mondoux,9307,https://chl.ca/ohl/players/9307,KGN,8,0,1,1,true
+2026-162-andre-mondoux,Andre Mondoux,true,OHL,André Mondoux,9307,https://chl.ca/ohl/stats/players/85/all/points,KGN,4,0,0,0,false
+2026-162-andre-mondoux,Andre Mondoux,true,OHL,André Mondoux,9307,https://chl.ca/ohl/stats/players/83/all/points,KGN,66,6,12,18,true
+2026-163-darian-anderson,Darian Anderson,true,OHL,Darian Anderson,9662,https://chl.ca/ohl/stats/players/85/all/points,FLNT,8,6,7,13,false
+2026-163-darian-anderson,Darian Anderson,true,OHL,Darian Anderson,9662,https://chl.ca/ohl/stats/players/83/all/points,FLNT,60,20,25,45,true
+2026-164-bode-laylin,Bode Laylin,false,,,,,,,,,,false
+2026-165-zachary-jovanovski,Zachary Jovanovski,false,,,,,,,,,,false
+2026-166-ola-palme,Ola Palme,false,,,,,,,,,,false
+2026-167-landon-hafele,Landon Hafele,false,,,,,,,,,,false
+2026-168-vilho-vanhatalo,Vilho Vanhatalo,false,,,,,,,,,,false
+2026-169-brody-pepoy,Brody Pepoy,true,OHL,Brody Pepoy,9461,https://chl.ca/ohl/stats/players/85/all/points,SAG,3,0,0,0,false
+2026-169-brody-pepoy,Brody Pepoy,true,OHL,Brody Pepoy,9461,https://chl.ca/ohl/stats/players/83/all/points,SAG,67,16,13,29,true
+2026-170-roberto-henriquez,Roberto Henriquez,false,,,,,,,,,,false
+2026-171-lars-steiner,Lars Steiner,true,QMJHL,Lars Steiner,21613,https://chl.ca/lhjmq/en/players/21613/,Rou,13,4,4,8,false
+2026-171-lars-steiner,Lars Steiner,true,QMJHL,Lars Steiner,21613,https://chl.ca/lhjmq/en/players/21613/,Rou,57,23,37,60,true
+2026-171-lars-steiner,Lars Steiner,true,QMJHL,Lars Steiner,21613,https://chl.ca/lhjmq/en/stats/players/212/all/points,Rou,17,5,4,9,false
+2026-171-lars-steiner,Lars Steiner,true,QMJHL,Lars Steiner,21613,https://chl.ca/lhjmq/en/stats/players/211/all/points,Rou,44,30,25,55,true
+2026-172-luke-wilfley,Luke Wilfley,true,WHL,Luke Wilfley,29911,https://chl.ca/whl/players/29911,POR,6,0,2,2,true
+2026-172-luke-wilfley,Luke Wilfley,true,WHL,Luke Wilfley,29911,https://chl.ca/whl/stats/players/293/all/points,POR,4,0,0,0,false
+2026-172-luke-wilfley,Luke Wilfley,true,WHL,Luke Wilfley,29911,https://chl.ca/whl/stats/players/289/all/points,POR,66,9,6,15,true
+2026-173-artyom-matyuk,Artyom Matyuk,false,,,,,,,,,,false
+2026-174-jake-gustafson,Jake Gustafson,true,WHL,Jake Gustafson,30280,https://chl.ca/whl/stats/players/293/all/points,POR,4,0,0,0,false
+2026-174-jake-gustafson,Jake Gustafson,true,WHL,Jake Gustafson,30280,https://chl.ca/whl/stats/players/289/all/points,POR,68,13,12,25,true
+2026-175-luka-arkko,Luka Arkko,false,,,,,,,,,,false
+2026-176-lucian-bernat,Lucian Bernat,false,,,,,,,,,,false
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/stats/players/73/all/points,SOO,52,4,9,13,true
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/stats/players/77/all/points,FLNT,4,0,0,0,false
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/stats/players/76/all/points,FLNT,66,12,14,26,true
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/players/8813,FLNT,5,1,2,3,false
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/players/8813,FLNT,68,16,29,45,true
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/stats/players/85/all/points,FLNT,8,3,6,9,false
+2026-177-alex-kostov,Alex Kostov,true,OHL,Alex Kostov,8813,https://chl.ca/ohl/stats/players/83/all/points,FLNT,47,24,31,55,true
+2026-178-gleb-peshkov,Gleb Peshkov,false,,,,,,,,,,false
+2026-179-benjamin-cossette-ayotte,Benjamin Cossette Ayotte,true,QMJHL,Benjamin Cossette Ayotte,21280,https://chl.ca/lhjmq/en/players/21280/,VdO,5,0,3,3,false
+2026-179-benjamin-cossette-ayotte,Benjamin Cossette Ayotte,true,QMJHL,Benjamin Cossette Ayotte,21280,https://chl.ca/lhjmq/en/players/21280/,VdO,56,4,20,24,true
+2026-179-benjamin-cossette-ayotte,Benjamin Cossette Ayotte,true,QMJHL,Benjamin Cossette Ayotte,21280,https://chl.ca/lhjmq/en/stats/players/211/all/points,VdO,62,4,34,38,true
+2026-180-caden-harvey,Caden Harvey,true,OHL,Caden Harvey,9599,https://chl.ca/ohl/stats/players/85/all/points,WSR,13,3,3,6,false
+2026-180-caden-harvey,Caden Harvey,true,OHL,Caden Harvey,9599,https://chl.ca/ohl/stats/players/83/all/points,WSR,68,11,23,34,true
+2026-181-cole-zurawski,Cole Zurawski,true,OHL,Cole Zurawski,9228,https://chl.ca/ohl/players/9228,OS,4,0,0,0,false
+2026-181-cole-zurawski,Cole Zurawski,true,OHL,Cole Zurawski,9228,https://chl.ca/ohl/players/9228,FLNT/OS,61,16,15,31,true
+2026-181-cole-zurawski,Cole Zurawski,true,OHL,Cole Zurawski,9228,https://chl.ca/ohl/stats/players/85/all/points,OS,3,1,1,2,false
+2026-181-cole-zurawski,Cole Zurawski,true,OHL,Cole Zurawski,9228,https://chl.ca/ohl/stats/players/83/all/points,OS,63,24,22,46,true
+2026-182-anttoni-uronen,Anttoni Uronen,false,,,,,,,,,,false
+2026-183-alexander-grunin,Alexander Grunin,false,,,,,,,,,,false
+2026-184-samuel-eriksson,Samuel Eriksson,false,,,,,,,,,,false
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/stats/players/280/all/points,WPG,19,0,3,3,false
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/stats/players/279/all/points,WPG,63,2,19,21,true
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/stats/players/284/all/points,WEN,6,0,2,2,false
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/stats/players/281/all/points,WEN,68,8,26,34,true
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/players/29025,MH,18,0,11,11,false
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/players/29025,MH,57,11,32,43,true
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/stats/players/293/all/points,MH,13,8,9,17,false
+2026-185-jonas-woo,Jonas Woo,true,WHL,Jonas Woo,29025,https://chl.ca/whl/stats/players/289/all/points,MH,56,29,57,86,true
+2026-186-stepan-shurygin,Stepan Shurygin,true,OHL,Stepan Shurygin,9382,https://chl.ca/ohl/stats/players/85/all/points,SAG,4,0,0,0,false
+2026-186-stepan-shurygin,Stepan Shurygin,true,OHL,Stepan Shurygin,9382,https://chl.ca/ohl/stats/players/83/all/points,SAG,59,0,0,0,true
+2026-187-anton-emil-wilde-larsen,Anton Emil Wilde Larsen,false,,,,,,,,,,false
+2026-188-dylan-dumont,Dylan Dumont,true,QMJHL,Dylan Dumont,21374,https://chl.ca/lhjmq/en/stats/players/212/all/points,Dru,5,4,1,5,false
+2026-188-dylan-dumont,Dylan Dumont,true,QMJHL,Dylan Dumont,21374,https://chl.ca/lhjmq/en/stats/players/211/all/points,Dru,62,28,16,44,true
+2026-189-parker-trottier,Parker Trottier,false,,,,,,,,,,false
+2026-190-wesley-royston,Wesley Royston,true,OHL,Wesley Royston,8999,https://chl.ca/ohl/stats/players/77/all/points,ER,5,0,0,0,false
+2026-190-wesley-royston,Wesley Royston,true,OHL,Wesley Royston,8999,https://chl.ca/ohl/stats/players/76/all/points,ER,45,4,1,5,true
+2026-190-wesley-royston,Wesley Royston,true,OHL,Wesley Royston,8999,https://chl.ca/ohl/players/8999,ER,9,1,4,5,false
+2026-190-wesley-royston,Wesley Royston,true,OHL,Wesley Royston,8999,https://chl.ca/ohl/players/8999,ER,63,14,13,27,true
+2026-190-wesley-royston,Wesley Royston,true,OHL,Wesley Royston,8999,https://chl.ca/ohl/stats/players/85/all/points,OS,4,0,0,0,false
+2026-190-wesley-royston,Wesley Royston,true,OHL,Wesley Royston,8999,https://chl.ca/ohl/stats/players/83/all/points,OS,59,12,7,19,true
+2026-191-matthew-minchak,Matthew Minchak,true,OHL,Matthew Minchak,9527,https://chl.ca/ohl/stats/players/85/all/points,KGN,3,0,0,0,false
+2026-191-matthew-minchak,Matthew Minchak,true,OHL,Matthew Minchak,9527,https://chl.ca/ohl/stats/players/83/all/points,KGN,30,0,0,0,true
+2026-192-noah-kosick,Noah Kosick,true,WHL,Noah Kosick,29554,https://chl.ca/whl/players/29554,CGY,34,1,2,3,true
+2026-192-noah-kosick,Noah Kosick,true,WHL,Noah Kosick,29554,https://chl.ca/whl/stats/players/293/all/points,SEA,5,1,4,5,false
+2026-192-noah-kosick,Noah Kosick,true,WHL,Noah Kosick,29554,https://chl.ca/whl/stats/players/289/all/points,SEA,69,16,38,54,true
+2026-193-ivan-patrikhayev,Ivan Patrikhayev,false,,,,,,,,,,false
+2026-194-alexander-ivanov,Alexander Ivanov,false,,,,,,,,,,false
+2026-195-shawn-carrier,Shawn Carrier,true,QMJHL,Shawn Carrier,20169,https://chl.ca/lhjmq/en/stats/players/206/all/points,Mon,4,0,0,0,false
+2026-195-shawn-carrier,Shawn Carrier,true,QMJHL,Shawn Carrier,20169,https://chl.ca/lhjmq/en/stats/players/205/all/points,Mon,59,8,3,11,true
+2026-195-shawn-carrier,Shawn Carrier,true,QMJHL,Shawn Carrier,20169,https://chl.ca/lhjmq/en/players/20169/,Hal,11,1,4,5,false
+2026-195-shawn-carrier,Shawn Carrier,true,QMJHL,Shawn Carrier,20169,https://chl.ca/lhjmq/en/players/20169/,Hal,59,18,26,44,true
+2026-195-shawn-carrier,Shawn Carrier,true,QMJHL,Shawn Carrier,20169,https://chl.ca/lhjmq/en/stats/players/212/all/points,Hal,4,0,2,2,false
+2026-195-shawn-carrier,Shawn Carrier,true,QMJHL,Shawn Carrier,20169,https://chl.ca/lhjmq/en/stats/players/211/all/points,Hal,61,37,28,65,true
+2026-196-myles-brosnan,Myles Brosnan,false,,,,,,,,,,false
+2026-197-jasper-kuhta,Jasper Kuhta,true,OHL,Jasper Kuhta,9520,https://chl.ca/ohl/stats/players/85/all/points,OTT,9,2,5,7,false
+2026-197-jasper-kuhta,Jasper Kuhta,true,OHL,Jasper Kuhta,9520,https://chl.ca/ohl/stats/players/83/all/points,OTT,62,32,31,63,true
+2026-198-rylan-singh,Rylan Singh,true,OHL,Rylan Singh,8961,https://chl.ca/ohl/stats/players/77/all/points,GUE,2,1,1,2,false
+2026-198-rylan-singh,Rylan Singh,true,OHL,Rylan Singh,8961,https://chl.ca/ohl/stats/players/76/all/points,GUE,42,1,8,9,true
+2026-198-rylan-singh,Rylan Singh,true,OHL,Rylan Singh,8961,https://chl.ca/ohl/players/8961,GUE,65,3,28,31,true
+2026-198-rylan-singh,Rylan Singh,true,OHL,Rylan Singh,8961,https://chl.ca/ohl/stats/players/85/all/points,GUE,4,1,0,1,false
+2026-198-rylan-singh,Rylan Singh,true,OHL,Rylan Singh,8961,https://chl.ca/ohl/stats/players/83/all/points,GUE,52,4,19,23,true
+2026-199-alofa-tunoa-ta-amu,Alofa Tunoa Ta'amu,false,,,,,,,,,,false
+2026-200-william-sorbrand,William Sorbrand,false,,,,,,,,,,false
+2026-201-alexander-karmanov,Alexander Karmanov,true,OHL,Alexander Karmanov,9480,https://chl.ca/ohl/stats/players/83/all/points,NB,20,0,2,2,true
+2026-202-charlie-puglisi,Charlie Puglisi,false,,,,,,,,,,false
+2026-203-colin-fitzgerald,Colin Fitzgerald,true,OHL,Colin Fitzgerald,9213,https://chl.ca/ohl/players/9213,PBO,48,12,16,28,true
+2026-203-colin-fitzgerald,Colin Fitzgerald,true,OHL,Colin Fitzgerald,9213,https://chl.ca/ohl/stats/players/85/all/points,SOO,10,0,0,0,false
+2026-203-colin-fitzgerald,Colin Fitzgerald,true,OHL,Colin Fitzgerald,9213,https://chl.ca/ohl/stats/players/83/all/points,SOO,63,15,18,33,true
+2026-204-william-tomko,William Tomko,false,,,,,,,,,,false
+2026-205-robert-cowan,Robert Cowan,false,,,,,,,,,,false
+2026-206-filip-novak,Filip Novak,false,,,,,,,,,,false
+2026-207-noel-pakarinen,Noel Pakarinen,false,,,,,,,,,,false
+2026-208-logan-stuart,Logan Stuart,false,,,,,,,,,,false
+2026-209-tobias-krestan,Tobias Krestan,false,,,,,,,,,,false
+2026-210-james-rieber,James Rieber,false,,,,,,,,,,false
+2026-211-artem-prima,Artem Prima,false,,,,,,,,,,false
+2026-212-ryan-cameron,Ryan Cameron,false,,,,,,,,,,false
+2026-213-max-laatikainen,Max Laatikainen,false,,,,,,,,,,false
+2026-214-ondrej-ruml,Ondrej Ruml,true,OHL,Ondrej Ruml,9522,https://chl.ca/ohl/stats/players/85/all/points,OTT,9,0,1,1,false
+2026-214-ondrej-ruml,Ondrej Ruml,true,OHL,Ondrej Ruml,9522,https://chl.ca/ohl/stats/players/83/all/points,OTT,66,10,18,28,true
+2026-215-alexandre-raymond,Alexandre Raymond,true,QMJHL,Alexandre Raymond,20334,https://chl.ca/lhjmq/en/stats/players/211/all/points,Rou,18,0,0,0,true
+2026-216-cullen-mccrate,Cullen McCrate,false,,,,,,,,,,false
+2026-217-louis-antoine-denault,Louis-Antoine Denault,true,QMJHL,Louis-Antoine Denault,20480,https://chl.ca/lhjmq/en/stats/players/205/all/points,Que,29,0,0,0,true
+2026-217-louis-antoine-denault,Louis-Antoine Denault,true,QMJHL,Louis-Antoine Denault,20480,https://chl.ca/lhjmq/en/players/20480/,Que,4,,,,false
+2026-217-louis-antoine-denault,Louis-Antoine Denault,true,QMJHL,Louis-Antoine Denault,20480,https://chl.ca/lhjmq/en/players/20480/,Que,41,,,,true
+2026-217-louis-antoine-denault,Louis-Antoine Denault,true,QMJHL,Louis-Antoine Denault,20480,https://chl.ca/lhjmq/en/stats/players/212/all/points,NFL,12,0,1,1,false
+2026-217-louis-antoine-denault,Louis-Antoine Denault,true,QMJHL,Louis-Antoine Denault,20480,https://chl.ca/lhjmq/en/stats/players/211/all/points,NFL,42,0,2,2,true
+2026-218-max-vilen,Max Vilen,true,QMJHL,Max Vilen,23761,https://chl.ca/lhjmq/en/stats/players/212/all/points,Mon,21,3,9,12,false
+2026-218-max-vilen,Max Vilen,true,QMJHL,Max Vilen,23761,https://chl.ca/lhjmq/en/stats/players/211/all/points,Mon,54,3,24,27,true
+2026-219-mikhail-cherepanov,Mikhail Cherepanov,false,,,,,,,,,,false
+2026-220-john-parsons,John Parsons,false,,,,,,,,,,false
+2026-221-jean-samuel-daigneault,Jean-Samuel Daigneault,false,,,,,,,,,,false
+2026-222-quinn-mckenzie,Quinn McKenzie,true,OHL,Quinn McKenzie,9574,https://chl.ca/ohl/stats/players/85/all/points,SOO,10,5,2,7,false
+2026-222-quinn-mckenzie,Quinn McKenzie,true,OHL,Quinn McKenzie,9574,https://chl.ca/ohl/stats/players/83/all/points,SOO,65,21,30,51,true
+2026-223-lucas-ambrosio,Lucas Ambrosio,true,OHL,Lucas Ambrosio,9130,https://chl.ca/ohl/players/9130,ER,9,0,1,1,false
+2026-223-lucas-ambrosio,Lucas Ambrosio,true,OHL,Lucas Ambrosio,9130,https://chl.ca/ohl/players/9130,ER,52,4,9,13,true
+2026-223-lucas-ambrosio,Lucas Ambrosio,true,OHL,Lucas Ambrosio,9130,https://chl.ca/ohl/stats/players/83/all/points,ER,64,1,19,20,true
+2026-224-tyler-deakos,Tyler Deakos,false,,,,,,,,,,false

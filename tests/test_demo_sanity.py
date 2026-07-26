@@ -89,4 +89,41 @@ def test_write_demo_sanity_report_outputs_role_and_story_checks(tmp_path):
     story_rows = list(csv.DictReader((tmp_path / "sanity" / "story_player_checks.csv").open()))
     assert story_rows[0]["name"] == "Matthew Schaefer"
     assert "19 GP" in story_rows[0]["stat_evidence"]
-    assert "0.909 SV%" in story_rows[3]["stat_evidence"]
+    goalie_row = next(row for row in story_rows if row["name"] == "Alexei Medvedev")
+    assert "0.909 SV%" in goalie_row["stat_evidence"]
+
+
+def test_demo_sanity_report_uses_current_board_when_no_story_preset_exists(tmp_path):
+    demo_dir = tmp_path / "demo"
+    demo_dir.mkdir()
+    write_rows(
+        demo_dir / "board.csv",
+        [
+            {
+                "player_id": "p1", "board_rank": "1", "name": "Gavin McKenna",
+                "position": "LW", "role_group": "forward", "consensus_rank": "1",
+                "model_score": "0.9", "board_score": "1.0", "team_adjusted_score": "1.0",
+                "ep_tool_score": "", "team_fit_score": "", "short_reason": "Consensus anchor",
+            },
+            {
+                "player_id": "g1", "board_rank": "2", "name": "Tobias Trejbal",
+                "position": "G", "role_group": "goalie", "consensus_rank": "42",
+                "model_score": "0.7", "board_score": "0.8", "team_adjusted_score": "0.8",
+                "ep_tool_score": "", "team_fit_score": "", "short_reason": "Goalie evidence",
+            },
+        ],
+    )
+    (demo_dir / "manifest.json").write_text(json.dumps({"draft_year": 2026}), encoding="utf-8")
+    (demo_dir / "players.json").write_text(
+        json.dumps([
+            {"header": {"name": "Gavin McKenna"}, "stat_evidence": {}},
+            {"header": {"name": "Tobias Trejbal"}, "stat_evidence": {"role_group": "goalie"}},
+        ]),
+        encoding="utf-8",
+    )
+
+    report = write_demo_sanity_report(demo_dir, tmp_path / "sanity")
+
+    assert [row["name"] for row in report.story_rows] == ["Gavin McKenna", "Tobias Trejbal"]
+    summary = (tmp_path / "sanity" / "summary.md").read_text(encoding="utf-8")
+    assert "Matthew Schaefer should remain" not in summary

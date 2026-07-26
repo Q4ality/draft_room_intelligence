@@ -40,6 +40,7 @@ STORY_COLUMNS = [
 @dataclass(frozen=True)
 class DemoSanityReport:
     baseline_id: str
+    draft_year: int | None
     board_rows: list[dict[str, str]]
     player_details: list[dict[str, object]]
     top_overall: list[dict[str, str]]
@@ -76,9 +77,11 @@ def build_demo_sanity_report(demo_output_dir: str | Path) -> DemoSanityReport:
         key=lambda row: (-abs(rank_delta(row)), int_value(row, "board_rank"), row["name"]),
     )[:20]
     biggest_disagreements = [project_board_row(row) | {"rank_delta": str(rank_delta(row))} for row in disagreements]
-    story_rows = [build_story_row(name, board_rows, players_by_name) for name in story_player_names()]
+    story_names = story_player_names(manifest, top_overall, top_defense, top_goalies)
+    story_rows = [build_story_row(name, board_rows, players_by_name) for name in story_names]
     return DemoSanityReport(
         baseline_id=str(manifest.get("baseline_id", "missing")),
+        draft_year=int_value(manifest, "draft_year") or None,
         board_rows=board_rows,
         player_details=player_details,
         top_overall=top_overall,
@@ -121,11 +124,9 @@ def format_demo_sanity_report(report: DemoSanityReport) -> str:
         "",
         format_table(report.story_rows, ["name", "board_rank", "consensus_rank", "position", "stat_evidence"]),
         "",
-        "## Acceptance Notes",
+        "## Review Notes",
         "",
-        "- Matthew Schaefer should remain top-tier while still exposing his lower pure `model_score` from a 19-game captured sample.",
-        "- Michael Misa and Porter Martone should remain credible top-forward anchors.",
-        "- Alexei Medvedev and Pyotr Andreyanov should show goalie-specific evidence instead of skater point proxies.",
+        *review_notes(report.draft_year),
     ]
     return "\n".join(lines) + "\n"
 
@@ -168,14 +169,35 @@ def build_story_row(
     }
 
 
-def story_player_names() -> list[str]:
+def story_player_names(
+    manifest: dict[str, object],
+    top_overall: list[dict[str, str]],
+    top_defense: list[dict[str, str]],
+    top_goalies: list[dict[str, str]],
+) -> list[str]:
+    configured = manifest.get("demo_story_players", [])
+    names = [
+        str(row.get("name", ""))
+        for row in configured
+        if isinstance(row, dict) and row.get("name")
+    ]
+    if names:
+        return names
+    candidates = [*top_overall[:3], *top_defense[:1], *top_goalies[:1]]
+    return list(dict.fromkeys(row["name"] for row in candidates if row.get("name")))
+
+
+def review_notes(draft_year: int | None) -> list[str]:
+    if draft_year == 2025:
+        return [
+            "- Matthew Schaefer should remain top-tier while exposing his shortened captured sample.",
+            "- Michael Misa and Porter Martone should remain credible top-forward anchors.",
+            "- Alexei Medvedev and Pyotr Andreyanov should show goalie-specific evidence.",
+        ]
     return [
-        "Matthew Schaefer",
-        "Michael Misa",
-        "Porter Martone",
-        "Alexei Medvedev",
-        "Pyotr Andreyanov",
-        "Alexander Zharovsky",
+        "- Story players are selected from this class's current board, defense, and goalie leaders.",
+        "- Treat low-evidence flags and large board-vs-consensus gaps as review queues, not conclusions.",
+        "- Team-fit outputs appear only when the snapshot carries a roster-depth input for that draft context.",
     ]
 
 

@@ -1,0 +1,70 @@
+{
+  "advanced_stats_csv": "final/advanced_stat_lines.csv",
+  "data_dir": "final",
+  "draft_year": 2026,
+  "files": [
+    {
+      "bytes": 49817,
+      "path": "final/advanced_stat_lines.csv",
+      "sha256": "769c2ac7dac7f47bf75411ba4cf241937e0930cba5d9755ac48789dfb96f1fcf"
+    },
+    {
+      "bytes": 48547,
+      "path": "final/chl_stat_matches.csv",
+      "sha256": "9a3b82f4e8aaa7d38891b5ec0750ade19a40927f687003f9f73f8ba2572d6427"
+    },
+    {
+      "bytes": 32404,
+      "path": "final/draft_selections.csv",
+      "sha256": "6eaa3e9f6ad88afdc4b89583272528b77331ef39768394504f922fe826c9dc04"
+    },
+    {
+      "bytes": 26011,
+      "path": "final/europe_stat_matches.csv",
+      "sha256": "320e093aefcfa84055c9f1940459da170c00c3ea6266b6f5292faf422d8d8d21"
+    },
+    {
+      "bytes": 18024,
+      "path": "final/ncaa_stat_matches.csv",
+      "sha256": "8b3ab9947aa1430df0b2d7de237cf225512d2dd64c65fb99bae3495d34f4701b"
+    },
+    {
+      "bytes": 120,
+      "path": "final/nhl_outcomes.csv",
+      "sha256": "aef8aeb0661da0d8a99d83dfbe0dd30d1082be748eb96d1c64feeacd303ab5b3"
+    },
+    {
+      "bytes": 18973,
+      "path": "final/open_stats_matches.csv",
+      "sha256": "4d6f5d0b5ad260f0367fe3b7f79cc4382adefdf419d35e994bd1f75fcd8049cf"
+    },
+    {
+      "bytes": 28418,
+      "path": "final/players.csv",
+      "sha256": "1d09700dc46cc1544631df00cff73109bef49300a3912204a31cdc13f79af3e6"
+    },
+    {
+      "bytes": 28915,
+      "path": "final/rankings.csv",
+      "sha256": "033fe080cebd364737a618c7c0d1c87d4bc46f1c1e6d4e7dc3617073195e96d8"
+    },
+    {
+      "bytes": 73451,
+      "path": "final/season_stat_lines.csv",
+      "sha256": "05eed49864dd341930966815b0768150e3ee683aeea1d39bde4ad02633ea07da"
+    },
+    {
+      "bytes": 3694,
+      "path": "final/stat_line_reconciliation_audit.csv",
+      "sha256": "d2daa3d82391f77c53bef77b5867a216a2b72f2954052a6e0fda61dcd6bd4834"
+    },
+    {
+      "bytes": 28997,
+      "path": "final/ushl_stat_matches.csv",
+      "sha256": "9748dea442351c9bcab75a30a670ee49f7b2c5c3268bfe85b017d580da9a2946"
+    }
+  ],
+  "schema_version": 1,
+  "snapshot_id": "sha256:185e3d316fed8addd5058c1c01c7248dd424e6db5cd815a438b43702db926a41",
+  "team_depth_csv": null
+}

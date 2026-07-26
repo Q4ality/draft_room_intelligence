@@ -1,0 +1,279 @@
+player_id,name,matched,disposition,source_availability,competition_context,source_name,source_id,source_url,team,games,goals,assists,points,regular_season
+2026-001-gavin-mckenna,Gavin McKenna,false,not_eligible,available,,,,,,,,,,
+2026-002-ivar-stenberg,Ivar Stenberg,false,not_eligible,available,,,,,,,,,,
+2026-003-caleb-malhotra,Caleb Malhotra,false,not_eligible,available,,,,,,,,,,
+2026-004-daxon-rudolph,Daxon Rudolph,false,not_eligible,available,,,,,,,,,,
+2026-005-alberts-smits,Alberts Smits,false,not_eligible,available,,,,,,,,,,
+2026-006-carson-carels,Carson Carels,false,not_eligible,available,,,,,,,,,,
+2026-007-chase-reid,Chase Reid,false,not_eligible,available,,,,,,,,,,
+2026-008-viggo-bjorck,Viggo Bjorck,false,not_eligible,available,,,,,,,,,,
+2026-009-keaton-verhoeff,Keaton Verhoeff,false,not_eligible,available,,,,,,,,,,
+2026-010-wyatt-cullen,Wyatt Cullen,true,matched,available,usntdp,Wyatt Cullen,10612,https://ushl.com/ht/#/player/10612/85/Wyatt%20Cullen,NTDP,33,3,14,17,true
+2026-010-wyatt-cullen,Wyatt Cullen,true,matched,available,usntdp,Wyatt Cullen,10612,https://ushl.com/ht/#/player/10612/88/Wyatt%20Cullen,NTDP,15,6,10,16,true
+2026-011-tynan-lawrence,Tynan Lawrence,false,not_eligible,available,,,,,,,,,,
+2026-012-alexander-command,Alexander Command,false,not_eligible,available,,,,,,,,,,
+2026-013-malte-gustafsson,Malte Gustafsson,false,not_eligible,available,,,,,,,,,,
+2026-014-oscar-hemming,Oscar Hemming,false,not_eligible,available,,,,,,,,,,
+2026-015-nikita-klepov,Nikita Klepov,false,not_eligible,available,,,,,,,,,,
+2026-016-maddox-dagenais,Maddox Dagenais,false,not_eligible,available,,,,,,,,,,
+2026-017-ethan-belchetz,Ethan Belchetz,false,not_eligible,available,,,,,,,,,,
+2026-018-oliver-suvanto,Oliver Suvanto,false,not_eligible,available,,,,,,,,,,
+2026-019-elton-hermansson,Elton Hermansson,false,not_eligible,available,,,,,,,,,,
+2026-020-ilia-morozov,Ilia Morozov,false,not_eligible,available,,,,,,,,,,
+2026-021-ryan-lin,Ryan Lin,false,not_eligible,available,,,,,,,,,,
+2026-022-liam-ruck,Liam Ruck,false,not_eligible,available,,,,,,,,,,
+2026-023-jeffrey-jp-hurlbert,Jeffrey (JP) Hurlbert,false,not_eligible,available,,,,,,,,,,
+2026-024-adam-novotny,Adam Novotny,false,not_eligible,available,,,,,,,,,,
+2026-025-jonas-lagerberg-hoen,Jonas Lagerberg Hoen,false,not_eligible,available,,,,,,,,,,
+2026-026-gleb-pugachyov,Gleb Pugachyov,false,not_eligible,available,,,,,,,,,,
+2026-027-maksim-sokolovskii,Maksim Sokolovskii,false,not_eligible,available,,,,,,,,,,
+2026-028-marcus-nordmark,Marcus Nordmark,false,not_eligible,available,,,,,,,,,,
+2026-029-juho-piiparinen,Juho Piiparinen,false,not_eligible,available,,,,,,,,,,
+2026-030-jack-hextall,Jack Hextall,true,matched,available,ushl_club,Jack Hextall,10426,https://ushl.com/ht/#/player/10426/87/Jack%20Hextall,YNG,3,0,1,1,false
+2026-030-jack-hextall,Jack Hextall,true,matched,available,ushl_club,Jack Hextall,10426,https://ushl.com/ht/#/player/10426/85/Jack%20Hextall,YNG,53,8,26,34,true
+2026-030-jack-hextall,Jack Hextall,true,matched,available,ushl_club,Jack Hextall,10426,https://ushl.com/ht/#/player/10426/90/Jack%20Hextall,YNG,4,1,1,2,false
+2026-030-jack-hextall,Jack Hextall,true,matched,available,ushl_club,Jack Hextall,10426,https://ushl.com/ht/#/player/10426/88/Jack%20Hextall,YNG,59,20,38,58,true
+2026-031-thomas-bleyl,Thomas Bleyl,false,not_eligible,available,,,,,,,,,,
+2026-032-jaxon-cover,Jaxon Cover,false,not_eligible,available,,,,,,,,,,
+2026-033-brooks-rogowski,Brooks Rogowski,false,not_eligible,available,,,,,,,,,,
+2026-034-xavier-villeneuve,Xavier Villeneuve,false,not_eligible,available,,,,,,,,,,
+2026-035-ryan-roobroeck,Ryan Roobroeck,false,not_eligible,available,,,,,,,,,,
+2026-036-chase-harrington,Chase Harrington,false,not_eligible,available,,,,,,,,,,
+2026-037-matias-vanhanen,Matias Vanhanen,false,not_eligible,available,,,,,,,,,,
+2026-038-casey-mutryn,Casey Mutryn,true,matched,available,usntdp,Casey Mutryn,10607,https://ushl.com/ht/#/player/10607/85/Casey%20Mutryn,NTDP,33,11,6,17,true
+2026-038-casey-mutryn,Casey Mutryn,true,matched,available,usntdp,Casey Mutryn,10607,https://ushl.com/ht/#/player/10607/88/Casey%20Mutryn,NTDP,25,7,9,16,true
+2026-039-markus-ruck,Markus Ruck,false,not_eligible,available,,,,,,,,,,
+2026-040-simas-ignatavicius,Simas Ignatavicius,false,not_eligible,available,,,,,,,,,,
+2026-041-niklas-aaram-olsen,Niklas Aaram-Olsen,false,not_eligible,available,,,,,,,,,,
+2026-042-tobias-trejbal,Tobias Trejbal,true,matched,available,ushl_club,Tobias Trejbal,10918,https://ushl.com/ht/#/player/10918/90/Tobias%20Trejbal,YNG,4,,,,false
+2026-042-tobias-trejbal,Tobias Trejbal,true,matched,available,ushl_club,Tobias Trejbal,10918,https://ushl.com/ht/#/player/10918/88/Tobias%20Trejbal,YNG,42,,,,true
+2026-043-egor-shilov,Egor Shilov,false,not_eligible,available,,,,,,,,,,
+2026-044-nikita-shcherbakov,Nikita Shcherbakov,false,not_eligible,available,,,,,,,,,,
+2026-045-jayden-kurtz,Jayden Kurtz,false,not_eligible,available,,,,,,,,,,
+2026-046-liam-lefebvre,Liam Lefebvre,false,not_eligible,available,,,,,,,,,,
+2026-047-victor-plante,Victor Plante,true,matched,available,usntdp,Victor Plante,10609,https://ushl.com/ht/#/player/10609/85/Victor%20Plante,NTDP,29,4,8,12,true
+2026-047-victor-plante,Victor Plante,true,matched,available,usntdp,Victor Plante,10609,https://ushl.com/ht/#/player/10609/88/Victor%20Plante,NTDP,20,8,10,18,true
+2026-048-ryder-cali,Ryder Cali,false,not_eligible,available,,,,,,,,,,
+2026-049-adam-goljer,Adam Goljer,false,not_eligible,available,,,,,,,,,,
+2026-050-mathis-preston,Mathis Preston,false,not_eligible,available,,,,,,,,,,
+2026-051-william-hakansson,William Hakansson,false,not_eligible,available,,,,,,,,,,
+2026-052-oleg-kulebiakin,Oleg Kulebiakin,false,not_eligible,available,,,,,,,,,,
+2026-053-brek-liske,Brek Liske,false,not_eligible,available,,,,,,,,,,
+2026-054-tomas-galvas,Tomas Galvas,false,not_eligible,available,,,,,,,,,,
+2026-055-alan-shaikhlislamov,Alan Shaikhlislamov,false,not_eligible,available,,,,,,,,,,
+2026-056-yuri-ivanov,Yuri Ivanov,false,not_eligible,available,,,,,,,,,,
+2026-057-timofei-runtso,Timofei Runtso,false,not_eligible,available,,,,,,,,,,
+2026-058-rudolfs-berzkalns,Rudolfs Berzkalns,true,matched,available,ushl_club,Rūdolfs Bērzkalns,10588,https://ushl.com/ht/#/player/10588/85/R%C5%ABdolfs%20B%C4%93rzkalns,MUS,43,5,3,8,true
+2026-058-rudolfs-berzkalns,Rudolfs Berzkalns,true,matched,available,ushl_club,Rūdolfs Bērzkalns,10588,https://ushl.com/ht/#/player/10588/90/R%C5%ABdolfs%20B%C4%93rzkalns,MKG,16,4,6,10,false
+2026-058-rudolfs-berzkalns,Rudolfs Berzkalns,true,matched,available,ushl_club,Rūdolfs Bērzkalns,10588,https://ushl.com/ht/#/player/10588/88/R%C5%ABdolfs%20B%C4%93rzkalns,MKG,48,13,12,25,true
+2026-059-jakub-vanecek,Jakub Vanecek,false,not_eligible,available,,,,,,,,,,
+2026-060-alexander-bilecki,Alexander Bilecki,false,not_eligible,available,,,,,,,,,,
+2026-061-wiggo-sorensson,Wiggo Sorensson,false,not_eligible,available,,,,,,,,,,
+2026-062-martin-psohlavec,Martin Psohlavec,false,not_eligible,available,,,,,,,,,,
+2026-064-benjamin-macbeath,Benjamin MacBeath,false,not_eligible,available,,,,,,,,,,
+2026-065-joe-iginla,Joe Iginla,false,not_eligible,available,,,,,,,,,,
+2026-066-samu-alalauri,Samu Alalauri,false,not_eligible,available,,,,,,,,,,
+2026-067-danai-shaiikov,Danai Shaiikov,false,not_eligible,available,,,,,,,,,,
+2026-068-zachary-lansard,Zachary Lansard,false,not_eligible,available,,,,,,,,,,
+2026-069-ethan-mackenzie,Ethan MacKenzie,false,not_eligible,available,,,,,,,,,,
+2026-070-dmitri-borichev,Dmitri Borichev,false,not_eligible,available,,,,,,,,,,
+2026-071-samuel-hrenak,Samuel Hrenak,true,matched,available,ushl_club,Samuel Hrenak,11169,https://ushl.com/ht/#/player/11169/88/Samuel%20Hrenak,FGO,9,,,,true
+2026-072-adam-nemec,Adam Nemec,false,not_eligible,available,,,,,,,,,,
+2026-073-zach-olsen,Zach Olsen,false,not_eligible,available,,,,,,,,,,
+2026-074-beckett-hamilton,Beckett Hamilton,false,not_eligible,available,,,,,,,,,,
+2026-075-luke-schairer,Luke Schairer,true,matched,available,usntdp,Luke Schairer,10613,https://ushl.com/ht/#/player/10613/85/Luke%20Schairer,NTDP,27,0,4,4,true
+2026-075-luke-schairer,Luke Schairer,true,matched,available,usntdp,Luke Schairer,10613,https://ushl.com/ht/#/player/10613/88/Luke%20Schairer,NTDP,25,1,8,9,true
+2026-076-mans-gudmundsson,Mans Gudmundsson,false,not_eligible,available,,,,,,,,,,
+2026-077-charlie-morrison,Charlie Morrison,false,not_eligible,available,,,,,,,,,,
+2026-078-dmitri-ivchenko,Dmitri Ivchenko,false,not_eligible,available,,,,,,,,,,
+2026-079-michal-orsulak,Michal Orsulak,false,not_eligible,available,,,,,,,,,,
+2026-080-blake-zielinski,Blake Zielinski,true,matched,available,ushl_club,Blake Zielinski,10661,https://ushl.com/ht/#/player/10661/85/Blake%20Zielinski,DM,41,13,19,32,true
+2026-080-blake-zielinski,Blake Zielinski,true,matched,available,ushl_club,Blake Zielinski,10661,https://ushl.com/ht/#/player/10661/90/Blake%20Zielinski,DSM,3,2,0,2,false
+2026-080-blake-zielinski,Blake Zielinski,true,matched,available,ushl_club,Blake Zielinski,10661,https://ushl.com/ht/#/player/10661/88/Blake%20Zielinski,DSM,53,25,30,55,true
+2026-081-tomas-chrenko,Tomas Chrenko,false,not_eligible,available,,,,,,,,,,
+2026-082-rian-chudzinski,Rian Chudzinski,false,not_eligible,available,,,,,,,,,,
+2026-083-adam-andersson,Adam Andersson,false,not_eligible,available,,,,,,,,,,
+2026-084-malcom-gastrin,Malcom Gastrin,false,not_eligible,available,,,,,,,,,,
+2026-085-juuso-ainasto,Juuso Ainasto,false,not_eligible,available,,,,,,,,,,
+2026-086-pierce-mbuyi,Pierce Mbuyi,false,not_eligible,available,,,,,,,,,,
+2026-087-oscar-holmertz,Oscar Holmertz,false,not_eligible,available,,,,,,,,,,
+2026-088-nils-bartholdsson,Nils Bartholdsson,false,not_eligible,available,,,,,,,,,,
+2026-089-yegor-rybkin,Yegor Rybkin,false,not_eligible,available,,,,,,,,,,
+2026-090-tomas-kralovic,Tomas Kralovic,false,not_eligible,available,,,,,,,,,,
+2026-091-louis-felix-bourque,Louis Felix Bourque,false,not_eligible,available,,,,,,,,,,
+2026-092-benjamin-wilmott,Benjamin Wilmott,false,not_eligible,available,,,,,,,,,,
+2026-093-cooper-cleaves,Cooper Cleaves,false,not_eligible,available,,,,,,,,,,
+2026-094-alessandro-di-iorio,Alessandro Di Iorio,false,not_eligible,available,,,,,,,,,,
+2026-095-sean-burick,Sean Burick,false,not_eligible,available,,,,,,,,,,
+2026-096-adam-valentini,Adam Valentini,false,not_eligible,available,,,,,,,,,,
+2026-097-yaroslav-bryzgalov,Yaroslav Bryzgalov,false,not_eligible,available,,,,,,,,,,
+2026-098-jonas-kemps,Jonas Kemps,true,matched,available,usntdp,Jonas Kemps,10600,https://ushl.com/ht/#/player/10600/85/Jonas%20Kemps,NTDP,30,0,4,4,true
+2026-098-jonas-kemps,Jonas Kemps,true,matched,available,ushl_club,Jonas Kemps,10600,https://ushl.com/ht/#/player/10600/88/Jonas%20Kemps,CHI,57,2,7,9,true
+2026-099-viktor-fedorov,Viktor Fedorov,false,not_eligible,available,,,,,,,,,,
+2026-100-egor-barabanov,Egor Barabanov,false,not_eligible,available,,,,,,,,,,
+2026-101-tyus-sparks,Tyus Sparks,false,not_eligible,available,,,,,,,,,,
+2026-102-spencer-bowes,Spencer Bowes,false,not_eligible,available,,,,,,,,,,
+2026-103-thomas-vandenberg,Thomas Vandenberg,false,not_eligible,available,,,,,,,,,,
+2026-104-matvei-kotkov,Matvei Kotkov,false,not_eligible,available,,,,,,,,,,
+2026-105-michael-berchild,Michael Berchild,true,matched,available,usntdp,Michael Berchild,10608,https://ushl.com/ht/#/player/10608/85/Michael%20Berchild,NTDP,34,14,7,21,true
+2026-105-michael-berchild,Michael Berchild,true,matched,available,usntdp,Michael Berchild,10608,https://ushl.com/ht/#/player/10608/88/Michael%20Berchild,NTDP,21,8,11,19,true
+2026-106-jakub-floris,Jakub Floris,false,not_eligible,available,,,,,,,,,,
+2026-107-landon-nycz,Landon Nycz,false,not_eligible,available,,,,,,,,,,
+2026-108-adam-levac,Adam Levac,false,not_eligible,available,,,,,,,,,,
+2026-109-lincoln-kuehne,Lincoln Kuehne,false,not_eligible,available,,,,,,,,,,
+2026-110-elliot-lennon,Elliot Lennon,false,not_eligible,available,,,,,,,,,,
+2026-111-parker-von-richter,Parker Von Richter,false,not_eligible,available,,,,,,,,,,
+2026-112-kayden-lemire,Kayden Lemire,false,not_eligible,available,,,,,,,,,,
+2026-113-jonah-sivertson,Jonah Sivertson,false,not_eligible,available,,,,,,,,,,
+2026-114-patriks-plumins,Patriks Plumins,false,not_eligible,available,,,,,,,,,,
+2026-115-carl-axelsson,Carl Axelsson,true,matched,available,ushl_club,Carl Axelsson,10535,https://ushl.com/ht/#/player/10535/85/Carl%20Axelsson,SF,4,,,,true
+2026-115-carl-axelsson,Carl Axelsson,true,matched,available,ushl_club,Carl Axelsson,10535,https://ushl.com/ht/#/player/10535/90/Carl%20Axelsson,MKG,16,,,,false
+2026-115-carl-axelsson,Carl Axelsson,true,matched,available,ushl_club,Carl Axelsson,10535,https://ushl.com/ht/#/player/10535/88/Carl%20Axelsson,MKG,44,,,,true
+2026-116-zach-wooten,Zach Wooten,true,matched,available,ushl_club,Zach Wooten,10298,https://ushl.com/ht/#/player/10298/82/Zach%20Wooten,TC,5,0,0,0,true
+2026-116-zach-wooten,Zach Wooten,true,matched,available,ushl_club,Zach Wooten,10298,https://ushl.com/ht/#/player/10298/87/Zach%20Wooten,GB,2,0,0,0,false
+2026-116-zach-wooten,Zach Wooten,true,matched,available,ushl_club,Zach Wooten,10298,https://ushl.com/ht/#/player/10298/85/Zach%20Wooten,GB,49,11,7,18,true
+2026-116-zach-wooten,Zach Wooten,true,matched,available,ushl_club,Zach Wooten,10298,https://ushl.com/ht/#/player/10298/90/Zach%20Wooten,GB,2,2,0,2,false
+2026-116-zach-wooten,Zach Wooten,true,matched,available,ushl_club,Zach Wooten,10298,https://ushl.com/ht/#/player/10298/88/Zach%20Wooten,GB,61,35,27,62,true
+2026-117-brayden-klimpke,Brayden Klimpke,false,not_eligible,available,,,,,,,,,,
+2026-118-justin-graf,Justin Graf,true,matched,available,ushl_club,Justin Graf,10994,https://ushl.com/ht/#/player/10994/88/Justin%20Graf,CR,52,23,32,55,true
+2026-119-lavr-gashilov,Lavr Gashilov,false,not_eligible,available,,,,,,,,,,
+2026-120-marek-sklenicka,Marek Sklenicka,false,not_eligible,available,,,,,,,,,,
+2026-121-evan-jardine,Evan Jardine,true,matched,available,ushl_club,Evan Jardine,10304,https://ushl.com/ht/#/player/10304/84/Evan%20Jardine,YNG,5,0,0,0,false
+2026-121-evan-jardine,Evan Jardine,true,matched,available,ushl_club,Evan Jardine,10304,https://ushl.com/ht/#/player/10304/82/Evan%20Jardine,YNG,12,7,4,11,true
+2026-121-evan-jardine,Evan Jardine,true,matched,available,ushl_club,Evan Jardine,10304,https://ushl.com/ht/#/player/10304/87/Evan%20Jardine,YNG,3,0,1,1,false
+2026-121-evan-jardine,Evan Jardine,true,matched,available,ushl_club,Evan Jardine,10304,https://ushl.com/ht/#/player/10304/85/Evan%20Jardine,YNG,62,20,24,44,true
+2026-121-evan-jardine,Evan Jardine,true,matched,available,ushl_club,Evan Jardine,10304,https://ushl.com/ht/#/player/10304/90/Evan%20Jardine,YNG,4,1,2,3,false
+2026-121-evan-jardine,Evan Jardine,true,matched,available,ushl_club,Evan Jardine,10304,https://ushl.com/ht/#/player/10304/88/Evan%20Jardine,YNG,53,27,34,61,true
+2026-122-oscar-olsson,Oscar Olsson,false,not_eligible,available,,,,,,,,,,
+2026-123-vladimir-proskurin,Vladimir Proskurin,false,not_eligible,available,,,,,,,,,,
+2026-124-olivers-murnieks,Olivers Murnieks,false,not_eligible,available,,,,,,,,,,
+2026-125-ryder-fetterolf,Ryder Fetterolf,false,not_eligible,available,,,,,,,,,,
+2026-126-tobias-tvrznik,Tobias Tvrznik,false,not_eligible,available,,,,,,,,,,
+2026-127-brady-knowling,Brady Knowling,true,matched,available,usntdp,Brady Knowling,10597,https://ushl.com/ht/#/player/10597/85/Brady%20Knowling,NTDP,13,,,,true
+2026-127-brady-knowling,Brady Knowling,true,matched,available,usntdp,Brady Knowling,10597,https://ushl.com/ht/#/player/10597/88/Brady%20Knowling,NTDP,15,,,,true
+2026-128-axel-elofsson,Axel Elofsson,false,not_eligible,available,,,,,,,,,,
+2026-129-connor-davis,Connor Davis,true,matched,available,ushl_club,Connor Davis,10767,https://ushl.com/ht/#/player/10767/85/Connor%20Davis,CR,1,0,0,0,true
+2026-129-connor-davis,Connor Davis,true,matched,available,ushl_club,Connor Davis,10767,https://ushl.com/ht/#/player/10767/90/Connor%20Davis,CR,2,2,0,2,false
+2026-129-connor-davis,Connor Davis,true,matched,available,ushl_club,Connor Davis,10767,https://ushl.com/ht/#/player/10767/88/Connor%20Davis,CR,59,26,29,55,true
+2026-130-theodor-knights,Theodor Knights,false,not_eligible,available,,,,,,,,,,
+2026-131-finn-kearns,Finn Kearns,false,not_eligible,available,,,,,,,,,,
+2026-132-simon-katolicky,Simon Katolicky,false,not_eligible,available,,,,,,,,,,
+2026-133-andrew-robinson,Andrew Robinson,false,not_eligible,available,,,,,,,,,,
+2026-134-morgan-anderberg,Morgan Anderberg,false,not_eligible,available,,,,,,,,,,
+2026-135-alexandre-taillefer,Alexandre Taillefer,false,not_eligible,available,,,,,,,,,,
+2026-136-kent-sauer,Kent Sauer,false,not_eligible,available,,,,,,,,,,
+2026-137-filip-ruzicka,Filip Ruzicka,false,not_eligible,available,,,,,,,,,,
+2026-138-philip-hemmyr,Philip Hemmyr,false,not_eligible,available,,,,,,,,,,
+2026-139-nicholas-bogas,Nicholas Bogas,true,matched,available,ushl_club,Nick Bogas,10570,https://ushl.com/ht/#/player/10570/87/Nick%20Bogas,WAT,15,0,3,3,false
+2026-139-nicholas-bogas,Nicholas Bogas,true,matched,available,ushl_club,Nick Bogas,10570,https://ushl.com/ht/#/player/10570/85/Nick%20Bogas,WAT,60,1,10,11,true
+2026-139-nicholas-bogas,Nicholas Bogas,true,matched,available,usntdp,Nick Bogas,10570,https://ushl.com/ht/#/player/10570/88/Nick%20Bogas,NTDP,17,0,2,2,true
+2026-140-cole-tuminaro,Cole Tuminaro,true,matched,available,ushl_club,Cole Tuminaro,10076,https://ushl.com/ht/#/player/10076/84/Cole%20Tuminaro,SC,1,0,0,0,false
+2026-140-cole-tuminaro,Cole Tuminaro,true,matched,available,ushl_club,Cole Tuminaro,10076,https://ushl.com/ht/#/player/10076/82/Cole%20Tuminaro,SC,42,1,5,6,true
+2026-140-cole-tuminaro,Cole Tuminaro,true,matched,available,ushl_club,Cole Tuminaro,10076,https://ushl.com/ht/#/player/10076/85/Cole%20Tuminaro,SC,1,0,0,0,true
+2026-140-cole-tuminaro,Cole Tuminaro,true,matched,available,ushl_club,Cole Tuminaro,10076,https://ushl.com/ht/#/player/10076/88/Cole%20Tuminaro,CHI,54,5,11,16,true
+2026-141-vladimir-dravecky,Vladimir Dravecky,false,not_eligible,available,,,,,,,,,,
+2026-142-parker-snell,Parker Snell,false,not_eligible,available,,,,,,,,,,
+2026-143-beckham-edwards,Beckham Edwards,false,not_eligible,available,,,,,,,,,,
+2026-144-brian-mcfadden,Brian McFadden,false,not_eligible,available,,,,,,,,,,
+2026-145-vertti-svensk,Vertti Svensk,false,not_eligible,available,,,,,,,,,,
+2026-146-eric-frossard,Eric Frossard,false,not_eligible,available,,,,,,,,,,
+2026-147-florent-houle,Florent Houle,false,not_eligible,available,,,,,,,,,,
+2026-148-luken-huff,Luken Huff,false,unmatched_in_cached_source,available,,,,,,,,,,
+2026-149-daniil-rusakovich,Daniil Rusakovich,false,not_eligible,available,,,,,,,,,,
+2026-150-carter-stevens,Carter Stevens,false,not_eligible,available,,,,,,,,,,
+2026-151-harris-pangretitsch,Harris Pangretitsch,false,not_eligible,available,,,,,,,,,,
+2026-152-theodore-lechner,Theodore Lechner,false,not_eligible,available,,,,,,,,,,
+2026-153-giorgos-pantelas,Giorgos Pantelas,false,not_eligible,available,,,,,,,,,,
+2026-154-cooper-soller,Cooper Soller,true,matched,available,ushl_club,Cooper Soller,10788,https://ushl.com/ht/#/player/10788/85/Cooper%20Soller,SF,1,0,0,0,true
+2026-154-cooper-soller,Cooper Soller,true,matched,available,ushl_club,Cooper Soller,10788,https://ushl.com/ht/#/player/10788/90/Cooper%20Soller,SF,14,1,3,4,false
+2026-154-cooper-soller,Cooper Soller,true,matched,available,ushl_club,Cooper Soller,10788,https://ushl.com/ht/#/player/10788/88/Cooper%20Soller,SF,62,26,23,49,true
+2026-155-ryan-brown,Ryan Brown,false,not_eligible,available,,,,,,,,,,
+2026-156-doman-szongoth,Doman Szongoth,false,not_eligible,available,,,,,,,,,,
+2026-157-jacob-vandeven,Jacob Vandeven,false,not_eligible,available,,,,,,,,,,
+2026-158-cooper-williams,Cooper Williams,false,not_eligible,available,,,,,,,,,,
+2026-159-will-mclaughlin,Will McLaughlin,false,not_eligible,available,,,,,,,,,,
+2026-160-matvei-nikonovich,Matvei Nikonovich,false,not_eligible,available,,,,,,,,,,
+2026-161-yaroslav-fedoseyev,Yaroslav Fedoseyev,false,not_eligible,available,,,,,,,,,,
+2026-162-andre-mondoux,Andre Mondoux,false,not_eligible,available,,,,,,,,,,
+2026-163-darian-anderson,Darian Anderson,false,not_eligible,available,,,,,,,,,,
+2026-164-bode-laylin,Bode Laylin,true,matched,available,ushl_club,Bode Laylin,10378,https://ushl.com/ht/#/player/10378/84/Bode%20Laylin,TC,6,0,0,0,false
+2026-164-bode-laylin,Bode Laylin,true,matched,available,ushl_club,Bode Laylin,10378,https://ushl.com/ht/#/player/10378/82/Bode%20Laylin,TC,9,0,0,0,true
+2026-164-bode-laylin,Bode Laylin,true,matched,available,ushl_club,Bode Laylin,10378,https://ushl.com/ht/#/player/10378/87/Bode%20Laylin,TC,2,0,1,1,false
+2026-164-bode-laylin,Bode Laylin,true,matched,available,ushl_club,Bode Laylin,10378,https://ushl.com/ht/#/player/10378/85/Bode%20Laylin,TC,59,2,17,19,true
+2026-164-bode-laylin,Bode Laylin,true,matched,available,ushl_club,Bode Laylin,10378,https://ushl.com/ht/#/player/10378/90/Bode%20Laylin,TC,2,1,1,2,false
+2026-164-bode-laylin,Bode Laylin,true,matched,available,ushl_club,Bode Laylin,10378,https://ushl.com/ht/#/player/10378/88/Bode%20Laylin,TC,55,11,27,38,true
+2026-165-zachary-jovanovski,Zachary Jovanovski,false,not_eligible,available,,,,,,,,,,
+2026-166-ola-palme,Ola Palme,false,not_eligible,available,,,,,,,,,,
+2026-167-landon-hafele,Landon Hafele,true,matched,available,usntdp,Landon Hafele,10254,https://ushl.com/ht/#/player/10254/82/Landon%20Hafele,NTDP,30,1,4,5,true
+2026-167-landon-hafele,Landon Hafele,true,matched,available,usntdp,Landon Hafele,10254,https://ushl.com/ht/#/player/10254/85/Landon%20Hafele,NTDP,30,7,5,12,true
+2026-167-landon-hafele,Landon Hafele,true,matched,available,ushl_club,Landon Hafele,10254,https://ushl.com/ht/#/player/10254/90/Landon%20Hafele,GB,2,0,0,0,false
+2026-167-landon-hafele,Landon Hafele,true,matched,available,ushl_club,Landon Hafele,10254,https://ushl.com/ht/#/player/10254/88/Landon%20Hafele,GB,52,15,27,42,true
+2026-168-vilho-vanhatalo,Vilho Vanhatalo,false,not_eligible,available,,,,,,,,,,
+2026-169-brody-pepoy,Brody Pepoy,false,not_eligible,available,,,,,,,,,,
+2026-170-roberto-henriquez,Roberto Henriquez,false,unmatched_in_cached_source,available,,,,,,,,,,
+2026-171-lars-steiner,Lars Steiner,false,not_eligible,available,,,,,,,,,,
+2026-172-luke-wilfley,Luke Wilfley,false,not_eligible,available,,,,,,,,,,
+2026-173-artyom-matyuk,Artyom Matyuk,false,not_eligible,available,,,,,,,,,,
+2026-174-jake-gustafson,Jake Gustafson,false,not_eligible,available,,,,,,,,,,
+2026-175-luka-arkko,Luka Arkko,false,not_eligible,available,,,,,,,,,,
+2026-176-lucian-bernat,Lucian Bernat,false,not_eligible,available,,,,,,,,,,
+2026-177-alex-kostov,Alex Kostov,false,not_eligible,available,,,,,,,,,,
+2026-178-gleb-peshkov,Gleb Peshkov,false,not_eligible,available,,,,,,,,,,
+2026-179-benjamin-cossette-ayotte,Benjamin Cossette Ayotte,false,not_eligible,available,,,,,,,,,,
+2026-180-caden-harvey,Caden Harvey,false,not_eligible,available,,,,,,,,,,
+2026-181-cole-zurawski,Cole Zurawski,false,not_eligible,available,,,,,,,,,,
+2026-182-anttoni-uronen,Anttoni Uronen,false,not_eligible,available,,,,,,,,,,
+2026-183-alexander-grunin,Alexander Grunin,false,not_eligible,available,,,,,,,,,,
+2026-184-samuel-eriksson,Samuel Eriksson,false,not_eligible,available,,,,,,,,,,
+2026-185-jonas-woo,Jonas Woo,false,not_eligible,available,,,,,,,,,,
+2026-186-stepan-shurygin,Stepan Shurygin,false,not_eligible,available,,,,,,,,,,
+2026-187-anton-emil-wilde-larsen,Anton Emil Wilde Larsen,false,not_eligible,available,,,,,,,,,,
+2026-188-dylan-dumont,Dylan Dumont,false,not_eligible,available,,,,,,,,,,
+2026-189-parker-trottier,Parker Trottier,true,matched,available,usntdp,Parker Trottier,10617,https://ushl.com/ht/#/player/10617/85/Parker%20Trottier,NTDP,26,3,0,3,true
+2026-189-parker-trottier,Parker Trottier,true,matched,available,usntdp,Parker Trottier,10617,https://ushl.com/ht/#/player/10617/88/Parker%20Trottier,NTDP,24,8,6,14,true
+2026-190-wesley-royston,Wesley Royston,false,not_eligible,available,,,,,,,,,,
+2026-191-matthew-minchak,Matthew Minchak,false,not_eligible,available,,,,,,,,,,
+2026-192-noah-kosick,Noah Kosick,false,not_eligible,available,,,,,,,,,,
+2026-193-ivan-patrikhayev,Ivan Patrikhayev,false,not_eligible,available,,,,,,,,,,
+2026-194-alexander-ivanov,Alexander Ivanov,false,not_eligible,available,,,,,,,,,,
+2026-195-shawn-carrier,Shawn Carrier,false,not_eligible,available,,,,,,,,,,
+2026-196-myles-brosnan,Myles Brosnan,false,not_eligible,available,,,,,,,,,,
+2026-197-jasper-kuhta,Jasper Kuhta,false,not_eligible,available,,,,,,,,,,
+2026-198-rylan-singh,Rylan Singh,false,not_eligible,available,,,,,,,,,,
+2026-199-alofa-tunoa-ta-amu,Alofa Tunoa Ta'amu,false,not_eligible,available,,,,,,,,,,
+2026-200-william-sorbrand,William Sorbrand,false,not_eligible,available,,,,,,,,,,
+2026-201-alexander-karmanov,Alexander Karmanov,false,not_eligible,available,,,,,,,,,,
+2026-202-charlie-puglisi,Charlie Puglisi,false,not_eligible,available,,,,,,,,,,
+2026-203-colin-fitzgerald,Colin Fitzgerald,false,not_eligible,available,,,,,,,,,,
+2026-204-william-tomko,William Tomko,true,matched,available,ushl_club,William Tomko,10387,https://ushl.com/ht/#/player/10387/82/William%20Tomko,CHI,2,0,0,0,true
+2026-204-william-tomko,William Tomko,true,matched,available,ushl_club,William Tomko,10387,https://ushl.com/ht/#/player/10387/85/William%20Tomko,CHI,62,10,13,23,true
+2026-204-william-tomko,William Tomko,true,matched,available,ushl_club,William Tomko,10387,https://ushl.com/ht/#/player/10387/90/William%20Tomko,SC,6,2,4,6,false
+2026-204-william-tomko,William Tomko,true,matched,available,ushl_club,William Tomko,10387,https://ushl.com/ht/#/player/10387/88/William%20Tomko,SC,59,24,36,60,true
+2026-205-robert-cowan,Robert Cowan,false,not_eligible,available,,,,,,,,,,
+2026-206-filip-novak,Filip Novak,false,not_eligible,available,,,,,,,,,,
+2026-207-noel-pakarinen,Noel Pakarinen,false,not_eligible,available,,,,,,,,,,
+2026-208-logan-stuart,Logan Stuart,true,matched,available,usntdp,Logan Stuart,10611,https://ushl.com/ht/#/player/10611/85/Logan%20Stuart,NTDP,33,4,10,14,true
+2026-208-logan-stuart,Logan Stuart,true,matched,available,usntdp,Logan Stuart,10611,https://ushl.com/ht/#/player/10611/88/Logan%20Stuart,NTDP,23,3,12,15,true
+2026-209-tobias-krestan,Tobias Krestan,false,not_eligible,available,,,,,,,,,,
+2026-210-james-rieber,James Rieber,false,unmatched_in_cached_source,available,,,,,,,,,,
+2026-211-artem-prima,Artem Prima,false,not_eligible,available,,,,,,,,,,
+2026-212-ryan-cameron,Ryan Cameron,true,matched,available,usntdp,Ryan Cameron,10710,https://ushl.com/ht/#/player/10710/85/Ryan%20Cameron,NTDP,1,,,,true
+2026-212-ryan-cameron,Ryan Cameron,true,matched,available,ushl_club,Ryan Cameron,10710,https://ushl.com/ht/#/player/10710/90/Ryan%20Cameron,CR,2,,,,false
+2026-212-ryan-cameron,Ryan Cameron,true,matched,available,ushl_club,Ryan Cameron,10710,https://ushl.com/ht/#/player/10710/88/Ryan%20Cameron,CR,40,,,,true
+2026-213-max-laatikainen,Max Laatikainen,false,not_eligible,available,,,,,,,,,,
+2026-214-ondrej-ruml,Ondrej Ruml,false,not_eligible,available,,,,,,,,,,
+2026-215-alexandre-raymond,Alexandre Raymond,false,not_eligible,available,,,,,,,,,,
+2026-216-cullen-mccrate,Cullen McCrate,true,matched,available,ushl_club,Cullen McCrate,10331,https://ushl.com/ht/#/player/10331/82/Cullen%20McCrate,DBQ,3,0,0,0,true
+2026-216-cullen-mccrate,Cullen McCrate,true,matched,available,ushl_club,Cullen McCrate,10331,https://ushl.com/ht/#/player/10331/87/Cullen%20McCrate,FGO,2,0,0,0,false
+2026-216-cullen-mccrate,Cullen McCrate,true,matched,available,ushl_club,Cullen McCrate,10331,https://ushl.com/ht/#/player/10331/85/Cullen%20McCrate,FGO,47,2,3,5,true
+2026-216-cullen-mccrate,Cullen McCrate,true,matched,available,ushl_club,Cullen McCrate,10331,https://ushl.com/ht/#/player/10331/90/Cullen%20McCrate,FGO,9,1,3,4,false
+2026-216-cullen-mccrate,Cullen McCrate,true,matched,available,ushl_club,Cullen McCrate,10331,https://ushl.com/ht/#/player/10331/88/Cullen%20McCrate,FGO,61,10,20,30,true
+2026-217-louis-antoine-denault,Louis-Antoine Denault,false,not_eligible,available,,,,,,,,,,
+2026-218-max-vilen,Max Vilen,false,not_eligible,available,,,,,,,,,,
+2026-219-mikhail-cherepanov,Mikhail Cherepanov,false,not_eligible,available,,,,,,,,,,
+2026-220-john-parsons,John Parsons,false,not_eligible,available,,,,,,,,,,
+2026-221-jean-samuel-daigneault,Jean-Samuel Daigneault,true,matched,available,ushl_club,Jean-Samuel Daigneault,11010,https://ushl.com/ht/#/player/11010/90/Jean-Samuel%20Daigneault,MKG,12,0,0,0,false
+2026-221-jean-samuel-daigneault,Jean-Samuel Daigneault,true,matched,available,ushl_club,Jean-Samuel Daigneault,11010,https://ushl.com/ht/#/player/11010/88/Jean-Samuel%20Daigneault,MKG,47,0,5,5,true
+2026-222-quinn-mckenzie,Quinn McKenzie,false,not_eligible,available,,,,,,,,,,
+2026-223-lucas-ambrosio,Lucas Ambrosio,false,not_eligible,available,,,,,,,,,,
+2026-224-tyler-deakos,Tyler Deakos,true,matched,available,ushl_club,Tyler Deakos,11091,https://ushl.com/ht/#/player/11091/88/Tyler%20Deakos,WAT,19,7,10,17,true

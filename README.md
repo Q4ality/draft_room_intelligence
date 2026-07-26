@@ -11,6 +11,7 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `docs/historical_class_etl.md` - scalable 2014-2026 draft-class collection, ETL, and integrity workflow.
 - `docs/historical_league_enrichment.md` - cache-first league-stat enrichment and coverage reporting.
 - `docs/reproducibility.md` - supported offline, local-cache, and online-refresh operating modes.
+- `docs/longitudinal_value_model_roadmap.md` - path to validated prospect-value, cap-context, and retrospective calibration models.
 - `src/draft_room_intelligence/data/` - ETL, import, merge, and normalized table loading.
 - `src/draft_room_intelligence/evaluation/` - baseline scoring and reporting utilities.
 - `src/draft_room_intelligence/modeling/` - reusable feature table generation and role-specific models.
