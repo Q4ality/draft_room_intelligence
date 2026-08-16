@@ -164,6 +164,7 @@ from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
+from draft_room_intelligence.reports.longitudinal_outcomes import write_outcome_label_audit
 from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.russian_coverage import write_russian_coverage_report
@@ -630,6 +631,18 @@ def main() -> None:
         type=int,
         default=25,
         help="Number of top-ranked players to use for board lift metrics.",
+    )
+    outcome_labels_parser = subparsers.add_parser(
+        "audit-outcome-labels",
+        help="Validate time-bounded outcome labels before retrospective value modeling.",
+    )
+    outcome_labels_parser.add_argument("labels_csv", type=Path)
+    outcome_labels_parser.add_argument("output_dir", type=Path)
+    outcome_labels_parser.add_argument(
+        "--as-of-date",
+        type=date.fromisoformat,
+        required=True,
+        help="Latest permitted outcome observation date in YYYY-MM-DD format.",
     )
     team_depth_parser = subparsers.add_parser(
         "report-team-depth",
@@ -1551,6 +1564,8 @@ def main() -> None:
             precision_n=args.precision_n,
             top_n=args.top_n,
         )
+    elif args.command == "audit-outcome-labels":
+        run_audit_outcome_labels(args.labels_csv, args.output_dir, as_of_date=args.as_of_date)
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
     elif args.command == "audit-team-systems":
@@ -3371,6 +3386,16 @@ def run_report_historical_validation(
     if warning:
         print(warning)
     print(f"Summary CSV: {output_dir / 'summary.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_audit_outcome_labels(labels_csv: Path, output_dir: Path, *, as_of_date: date) -> None:
+    audit = write_outcome_label_audit(labels_csv, output_dir, as_of_date=as_of_date)
+    print(f"# Longitudinal outcome label audit: {labels_csv}")
+    print(f"Labels: {audit.total_labels}")
+    print(f"Mature labels: {audit.mature_labels}")
+    print(f"Immature labels: {audit.immature_labels}")
+    print(f"Status CSV: {output_dir / 'label_status.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 
