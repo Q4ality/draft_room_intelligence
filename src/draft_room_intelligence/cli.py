@@ -50,6 +50,10 @@ from draft_room_intelligence.data.ep_pdf_overlay import (
 )
 from draft_room_intelligence.data.etl_config import DraftYearETLConfig
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
+from draft_room_intelligence.data.nhl_outcomes import (
+    collect_nhl_outcome_range,
+    collect_nhl_outcome_year,
+)
 from draft_room_intelligence.data.hockeydb_base import (
     HockeyDbBaseETLConfig,
     generate_hockeydb_base_tables,
@@ -165,6 +169,9 @@ from draft_room_intelligence.reports.historical_validation import write_historic
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
 from draft_room_intelligence.reports.longitudinal_outcomes import write_outcome_label_audit
+from draft_room_intelligence.reports.outcome_label_coverage import (
+    write_outcome_label_coverage_report,
+)
 from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.russian_coverage import write_russian_coverage_report
@@ -643,6 +650,32 @@ def main() -> None:
         type=date.fromisoformat,
         required=True,
         help="Latest permitted outcome observation date in YYYY-MM-DD format.",
+    )
+    outcome_coverage_parser = subparsers.add_parser(
+        "report-outcome-label-coverage",
+        help="Report time-bounded outcome-export readiness by draft class and horizon.",
+    )
+    outcome_coverage_parser.add_argument("manifest_csv", type=Path)
+    outcome_coverage_parser.add_argument("output_dir", type=Path)
+    outcome_coverage_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Project root used to resolve manifest paths.",
+    )
+    outcome_coverage_parser.add_argument(
+        "--as-of-date",
+        type=date.fromisoformat,
+        required=True,
+        help="Date used to determine whether each outcome horizon has matured.",
+    )
+    outcome_coverage_parser.add_argument("--start-year", type=int, default=2014)
+    outcome_coverage_parser.add_argument("--end-year", type=int, default=2021)
+    outcome_coverage_parser.add_argument(
+        "--labels-root",
+        type=Path,
+        default=Path("data/processed/outcome_labels"),
+        help="Canonical time-bounded label root, relative to project root unless absolute.",
     )
     team_depth_parser = subparsers.add_parser(
         "report-team-depth",
@@ -1289,6 +1322,24 @@ def main() -> None:
         action="store_true",
         help="Replace existing cached payloads.",
     )
+    collect_outcomes_parser = subparsers.add_parser(
+        "collect-nhl-outcomes",
+        help="Cache official NHL outcome inputs and write a draft-detail match audit.",
+    )
+    collect_outcomes_parser.add_argument("cache_dir", type=Path, help="Raw outcome cache root.")
+    collect_outcomes_parser.add_argument("--draft-year", type=int, required=True)
+    collect_outcomes_parser.add_argument("--refresh", action="store_true")
+    collect_outcomes_parser.add_argument("--start-pick", type=int, default=1)
+    collect_outcomes_parser.add_argument("--end-pick", type=int)
+    collect_outcomes_range_parser = subparsers.add_parser(
+        "collect-nhl-outcome-range",
+        help="Collect the next bounded outcome-cache batch for each year in a range.",
+    )
+    collect_outcomes_range_parser.add_argument("cache_dir", type=Path)
+    collect_outcomes_range_parser.add_argument("--start-year", type=int, required=True)
+    collect_outcomes_range_parser.add_argument("--end-year", type=int, required=True)
+    collect_outcomes_range_parser.add_argument("--batch-size", type=int, default=10)
+    collect_outcomes_range_parser.add_argument("--refresh", action="store_true")
     collect_leagues_parser = subparsers.add_parser(
         "collect-league-sources",
         help="Cache enabled league-stat sources from a reviewed CSV manifest.",
@@ -1566,6 +1617,16 @@ def main() -> None:
         )
     elif args.command == "audit-outcome-labels":
         run_audit_outcome_labels(args.labels_csv, args.output_dir, as_of_date=args.as_of_date)
+    elif args.command == "report-outcome-label-coverage":
+        run_report_outcome_label_coverage(
+            args.manifest_csv,
+            args.output_dir,
+            project_root=args.project_root,
+            as_of_date=args.as_of_date,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            labels_root=args.labels_root,
+        )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
     elif args.command == "audit-team-systems":
@@ -1781,6 +1842,22 @@ def main() -> None:
             args.cache_dir,
             start_year=args.start_year,
             end_year=args.end_year,
+            refresh=args.refresh,
+        )
+    elif args.command == "collect-nhl-outcomes":
+        run_collect_nhl_outcomes(
+            args.cache_dir,
+            draft_year=args.draft_year,
+            refresh=args.refresh,
+            start_pick=args.start_pick,
+            end_pick=args.end_pick,
+        )
+    elif args.command == "collect-nhl-outcome-range":
+        run_collect_nhl_outcome_range(
+            args.cache_dir,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            batch_size=args.batch_size,
             refresh=args.refresh,
         )
     elif args.command == "collect-league-sources":
@@ -3025,6 +3102,50 @@ def run_collect_nhl_draft_range(
         )
 
 
+def run_collect_nhl_outcomes(
+    cache_dir: Path,
+    *,
+    draft_year: int,
+    refresh: bool = False,
+    start_pick: int = 1,
+    end_pick: int | None = None,
+) -> None:
+    result = collect_nhl_outcome_year(
+        cache_dir,
+        draft_year=draft_year,
+        refresh=refresh,
+        start_pick=start_pick,
+        end_pick=end_pick,
+    )
+    print(f"# NHL outcome cache: {draft_year}")
+    print(f"Matched: {result.matched_count}")
+    print(f"Unresolved: {result.unresolved_count}")
+    print(f"Match audit: {result.cache_dir / 'player_matches.csv'}")
+
+
+def run_collect_nhl_outcome_range(
+    cache_dir: Path,
+    *,
+    start_year: int,
+    end_year: int,
+    batch_size: int,
+    refresh: bool = False,
+) -> None:
+    report = collect_nhl_outcome_range(
+        cache_dir,
+        start_year=start_year,
+        end_year=end_year,
+        batch_size=batch_size,
+        refresh=refresh,
+    )
+    print(f"# NHL outcome cache range: {start_year}-{end_year}")
+    for result in report.results:
+        print(
+            f"{result.draft_year}: matched={result.matched_count}; "
+            f"unresolved={result.unresolved_count}; audit={result.cache_dir / 'player_matches.csv'}"
+        )
+
+
 def run_collect_league_sources(
     manifest_path: Path,
     *,
@@ -3396,6 +3517,33 @@ def run_audit_outcome_labels(labels_csv: Path, output_dir: Path, *, as_of_date: 
     print(f"Mature labels: {audit.mature_labels}")
     print(f"Immature labels: {audit.immature_labels}")
     print(f"Status CSV: {output_dir / 'label_status.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_outcome_label_coverage(
+    manifest_csv: Path,
+    output_dir: Path,
+    *,
+    project_root: Path,
+    as_of_date: date,
+    start_year: int,
+    end_year: int,
+    labels_root: Path = Path("data/processed/outcome_labels"),
+) -> None:
+    specs = load_draft_class_manifest(manifest_csv, project_root=project_root)
+    report = write_outcome_label_coverage_report(
+        specs,
+        output_dir,
+        as_of_date=as_of_date,
+        start_year=start_year,
+        end_year=end_year,
+        labels_root=project_root / labels_root if not labels_root.is_absolute() else labels_root,
+    )
+    ready = sum(row["status"] == "ready_for_label_audit" for row in report.rows)
+    print(f"# Longitudinal outcome label coverage: {manifest_csv}")
+    print(f"Class-horizon rows: {len(report.rows)}")
+    print(f"Ready for label audit: {ready}")
+    print(f"Coverage CSV: {output_dir / 'coverage.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 

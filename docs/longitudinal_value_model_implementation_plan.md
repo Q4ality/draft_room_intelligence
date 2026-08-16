@@ -64,7 +64,8 @@ reasonable scenarios, and never changes the standalone player estimate.
 ## Current implementation
 
 - [x] 0.1 Canonical outcome-label contract and audit command.
-- [ ] 0.2 Reviewed 2014-2021 cached outcome exports.
+- [x] 0.2 Outcome-export coverage and staging-readiness report.
+- [ ] 0.3 Reviewed 2014-2021 cached outcome exports.
 - [ ] 1.1 Longitudinal panel builder and coverage report.
 - [ ] 2.1 Time-split pick/consensus baseline report.
 - [ ] 3.1 Dated team-context contract and scenario inputs.
