@@ -276,3 +276,147 @@ def test_build_outcome_label_uses_goalie_time_on_ice_and_zero_points(tmp_path):
     assert row["nhl_points"] == "0"
     assert row["nhl_toi_minutes"] == "59.5"
     assert row["goalie_starts"] == "1"
+
+
+def test_write_time_bounded_outcome_labels_allows_reviewed_zero_outcome_pick(tmp_path):
+    cache_dir = tmp_path / "cache" / "2019"
+    (cache_dir / "players").mkdir(parents=True)
+    (cache_dir / "search").mkdir()
+    (cache_dir / "search" / "002.json").write_text("[]", encoding="utf-8")
+    write_match_audit(
+        cache_dir / "player_matches.csv",
+        [
+            {
+                "draft_year": "2019",
+                "overall_pick": "1",
+                "player_id": "synthetic-one",
+                "draft_source_id": "2019-1",
+                "name": "One",
+                "nhl_player_id": "99",
+                "status": "matched",
+            },
+            {
+                "draft_year": "2019",
+                "overall_pick": "2",
+                "player_id": "synthetic-two",
+                "draft_source_id": "2019-2",
+                "name": "Two",
+                "nhl_player_id": "",
+                "status": "unresolved",
+            },
+        ],
+    )
+    (cache_dir / "players" / "99.json").write_text(
+        json.dumps(
+            {
+                "seasonTotals": [
+                    {
+                        "leagueAbbrev": "NHL",
+                        "gameTypeId": 2,
+                        "season": 20192020,
+                        "gamesPlayed": 1,
+                        "points": 1,
+                        "avgToi": "10:00",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    snapshot_dir = tmp_path / "snapshot"
+    snapshot_dir.mkdir()
+    (snapshot_dir / "draft_selections.csv").write_text(
+        "draft_year,overall_pick,player_id\n2019,1,canonical-one\n2019,2,canonical-two\n",
+        encoding="utf-8",
+    )
+    zero_overrides = tmp_path / "zero.csv"
+    zero_overrides.write_text(
+        "draft_year,overall_pick,reason,source_url\n"
+        "2019,2,reviewed,https://search.d3.nhle.com/api/v1/search/player?culture=en-us&limit=10&q=Two\n",
+        encoding="utf-8",
+    )
+    paths = write_time_bounded_outcome_labels(
+        tmp_path / "cache",
+        tmp_path / "labels",
+        draft_year=2019,
+        snapshot_dir=snapshot_dir,
+        zero_outcomes_path=zero_overrides,
+    )
+    rows = (paths[0]).read_text(encoding="utf-8").splitlines()
+    assert any(row.startswith("canonical-two,2019,3,2022-06-30,0,0,0.0,0") for row in rows)
+
+
+def test_zero_outcome_override_rejects_a_matched_pick(tmp_path):
+    cache_dir = tmp_path / "cache" / "2019"
+    cache_dir.mkdir(parents=True)
+    write_match_audit(
+        cache_dir / "player_matches.csv",
+        [
+            {
+                "draft_year": "2019",
+                "overall_pick": "1",
+                "player_id": "synthetic",
+                "draft_source_id": "2019-1",
+                "name": "Test",
+                "nhl_player_id": "99",
+                "status": "matched",
+            }
+        ],
+    )
+    snapshot_dir = tmp_path / "snapshot"
+    snapshot_dir.mkdir()
+    (snapshot_dir / "draft_selections.csv").write_text(
+        "draft_year,overall_pick,player_id\n2019,1,canonical\n", encoding="utf-8"
+    )
+    zero_overrides = tmp_path / "zero.csv"
+    zero_overrides.write_text(
+        "draft_year,overall_pick,reason,source_url\n"
+        "2019,1,reviewed,https://search.d3.nhle.com/api/v1/search/player?q=Test\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="unresolved audit picks"):
+        write_time_bounded_outcome_labels(
+            tmp_path / "cache",
+            tmp_path / "labels",
+            draft_year=2019,
+            snapshot_dir=snapshot_dir,
+            zero_outcomes_path=zero_overrides,
+        )
+
+
+def test_zero_outcome_override_requires_cached_official_search_evidence(tmp_path):
+    cache_dir = tmp_path / "cache" / "2019"
+    cache_dir.mkdir(parents=True)
+    write_match_audit(
+        cache_dir / "player_matches.csv",
+        [
+            {
+                "draft_year": "2019",
+                "overall_pick": "1",
+                "player_id": "synthetic",
+                "draft_source_id": "2019-1",
+                "name": "Test",
+                "nhl_player_id": "",
+                "status": "unresolved",
+            }
+        ],
+    )
+    snapshot_dir = tmp_path / "snapshot"
+    snapshot_dir.mkdir()
+    (snapshot_dir / "draft_selections.csv").write_text(
+        "draft_year,overall_pick,player_id\n2019,1,canonical\n", encoding="utf-8"
+    )
+    zero_overrides = tmp_path / "zero.csv"
+    zero_overrides.write_text(
+        "draft_year,overall_pick,reason,source_url\n"
+        "2019,1,reviewed,https://search.d3.nhle.com/api/v1/search/player?culture=en-us&limit=10&q=Test\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="cached official search evidence"):
+        write_time_bounded_outcome_labels(
+            tmp_path / "cache",
+            tmp_path / "labels",
+            draft_year=2019,
+            snapshot_dir=snapshot_dir,
+            zero_outcomes_path=zero_overrides,
+        )

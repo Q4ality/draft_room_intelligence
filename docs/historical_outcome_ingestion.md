@@ -32,3 +32,8 @@ PYTHONPATH=src python -m draft_room_intelligence.cli build-nhl-outcome-labels \
   data/raw/nhl_outcomes data/processed/outcome_labels --draft-year 2019 \
   --snapshot-dir data/processed/pilot_2019
 ```
+
+The builder refuses partial canonical labels. For a reviewed player with no official NHL player
+landing record, add only that exact draft pick to `data/reference/nhl_outcome_zero_overrides.csv`
+with a cached official NHL player-search URL, then pass `--zero-outcomes` to the builder. This
+creates an explicit zero NHL-outcome label; an unresolved record is never silently converted to zero.

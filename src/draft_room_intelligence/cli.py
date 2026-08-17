@@ -1356,6 +1356,11 @@ def main() -> None:
         required=True,
         help="Normalized class snapshot used to map official picks to canonical player IDs.",
     )
+    build_outcome_labels_parser.add_argument(
+        "--zero-outcomes",
+        type=Path,
+        help="Reviewed manifest for exact picks with no official NHL player landing record.",
+    )
     collect_leagues_parser = subparsers.add_parser(
         "collect-league-sources",
         help="Cache enabled league-stat sources from a reviewed CSV manifest.",
@@ -1884,6 +1889,7 @@ def main() -> None:
             args.output_dir,
             draft_year=args.draft_year,
             snapshot_dir=args.snapshot_dir,
+            zero_outcomes_path=args.zero_outcomes,
         )
     elif args.command == "collect-league-sources":
         run_collect_league_sources(
@@ -3181,9 +3187,14 @@ def run_build_nhl_outcome_labels(
     *,
     draft_year: int,
     snapshot_dir: Path,
+    zero_outcomes_path: Path | None = None,
 ) -> None:
     paths = write_time_bounded_outcome_labels(
-        cache_dir, output_dir, draft_year=draft_year, snapshot_dir=snapshot_dir
+        cache_dir,
+        output_dir,
+        draft_year=draft_year,
+        snapshot_dir=snapshot_dir,
+        zero_outcomes_path=zero_outcomes_path,
     )
     print(f"# NHL outcome labels: {draft_year}")
     for path in paths:

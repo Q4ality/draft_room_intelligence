@@ -237,37 +237,53 @@ def write_time_bounded_outcome_labels(
     draft_year: int,
     horizons: tuple[int, ...] = SUPPORTED_HORIZONS,
     snapshot_dir: str | Path,
+    zero_outcomes_path: str | Path | None = None,
 ) -> list[Path]:
     """Aggregate cached NHL regular-season rows into canonical horizon labels."""
 
     cache_dir = Path(cache_root) / str(draft_year)
-    matched = validated_matched_audit_rows(cache_dir / "player_matches.csv", draft_year)
+    audit_path = cache_dir / "player_matches.csv"
+    matched = validated_matched_audit_rows(audit_path, draft_year)
+    unresolved_rows = validated_unresolved_audit_rows(audit_path, draft_year)
     normalized_ids = normalized_player_ids(snapshot_dir, draft_year)
     matched_picks = {int(row["overall_pick"]) for row in matched}
     normalized_picks = set(normalized_ids)
-    if matched_picks != normalized_picks:
-        missing = sorted(normalized_picks - matched_picks)
-        unexpected = sorted(matched_picks - normalized_picks)
+    zero_outcomes = load_zero_outcome_overrides(zero_outcomes_path, draft_year, normalized_picks)
+    if not set(zero_outcomes).issubset(unresolved_rows):
+        invalid_picks = sorted(set(zero_outcomes) - set(unresolved_rows))
+        raise ValueError(
+            f"zero-outcome overrides must reference unresolved audit picks: {invalid_picks}"
+        )
+    validate_zero_outcome_evidence(cache_dir, zero_outcomes, unresolved_rows)
+    expected_matched_picks = normalized_picks - set(zero_outcomes)
+    if matched_picks != expected_matched_picks:
+        missing = sorted(expected_matched_picks - matched_picks)
+        unexpected = sorted(matched_picks - expected_matched_picks)
         raise ValueError(
             f"cannot write partial canonical labels for {draft_year}: "
             f"missing picks={missing}; unexpected picks={unexpected}"
         )
     paths: list[Path] = []
     for horizon_years in horizons:
-        rows = []
+        rows_by_pick = {}
         for row in matched:
             overall_pick = int(row["overall_pick"])
-            if overall_pick not in normalized_ids:
-                raise ValueError(f"no normalized player ID for {draft_year} pick {overall_pick}")
-            rows.append(
-                build_outcome_label_from_cache(
-                    row,
-                    cache_dir,
-                    draft_year,
-                    horizon_years,
-                    player_id=normalized_ids[overall_pick],
-                )
+            rows_by_pick[overall_pick] = build_outcome_label_from_cache(
+                row,
+                cache_dir,
+                draft_year,
+                horizon_years,
+                player_id=normalized_ids[overall_pick],
             )
+        for overall_pick, override in zero_outcomes.items():
+            rows_by_pick[overall_pick] = build_zero_outcome_label(
+                player_id=normalized_ids[overall_pick],
+                draft_year=draft_year,
+                horizon_years=horizon_years,
+                source_url=override["source_url"],
+                source_id=f"draft:{draft_year}-{overall_pick}:no-nhl-landing",
+            )
+        rows = [rows_by_pick[pick] for pick in sorted(rows_by_pick)]
         path = Path(output_root) / str(draft_year) / f"{horizon_years}y.csv"
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("w", newline="", encoding="utf-8") as handle:
@@ -321,6 +337,30 @@ def build_outcome_label_from_cache(
         "source": "nhl_public_api",
         "source_id": nhl_player_id,
         "source_url": NHL_PLAYER_LANDING_URL.format(player_id=nhl_player_id),
+    }
+
+
+def build_zero_outcome_label(
+    *,
+    player_id: str,
+    draft_year: int,
+    horizon_years: int,
+    source_url: str,
+    source_id: str,
+) -> dict[str, str]:
+    return {
+        "player_id": player_id,
+        "draft_year": str(draft_year),
+        "horizon_years": str(horizon_years),
+        "outcome_through": f"{draft_year + horizon_years}-06-30",
+        "nhl_games": "0",
+        "nhl_points": "0",
+        "nhl_toi_minutes": "0.0",
+        "goalie_starts": "0",
+        "value_proxy": "",
+        "source": "nhl_public_api_no_landing",
+        "source_id": source_id,
+        "source_url": source_url,
     }
 
 
@@ -416,6 +456,40 @@ def load_identity_overrides(
     return overrides
 
 
+def load_zero_outcome_overrides(
+    path: str | Path | None, draft_year: int, known_picks: set[int]
+) -> dict[int, dict[str, str]]:
+    if path is None:
+        return {}
+    with Path(path).open(newline="", encoding="utf-8-sig") as handle:
+        reader = csv.DictReader(handle)
+        required_columns = {"draft_year", "overall_pick", "reason", "source_url"}
+        if not reader.fieldnames or not required_columns.issubset(reader.fieldnames):
+            raise ValueError("zero-outcome override file is missing required columns")
+        rows = list(reader)
+    overrides: dict[int, dict[str, str]] = {}
+    for row in rows:
+        try:
+            row_year = int(row.get("draft_year") or 0)
+            overall_pick = int(row.get("overall_pick") or 0)
+        except ValueError as exc:
+            raise ValueError("zero-outcome override has invalid numeric values") from exc
+        if row_year != draft_year:
+            continue
+        reason = (row.get("reason") or "").strip()
+        source_url = (row.get("source_url") or "").strip()
+        if overall_pick <= 0 or overall_pick not in known_picks:
+            raise ValueError(f"zero-outcome override has invalid pick: {overall_pick}")
+        if not reason or not source_url.startswith("https://"):
+            raise ValueError(f"zero-outcome override lacks provenance for pick {overall_pick}")
+        if overall_pick in overrides:
+            raise ValueError(
+                f"duplicate zero-outcome override for {draft_year} pick {overall_pick}"
+            )
+        overrides[overall_pick] = {"reason": reason, "source_url": source_url}
+    return overrides
+
+
 def normalized_player_ids(snapshot_dir: str | Path, draft_year: int) -> dict[int, str]:
     selections_path = Path(snapshot_dir) / "draft_selections.csv"
     with selections_path.open(newline="", encoding="utf-8-sig") as handle:
@@ -464,3 +538,48 @@ def validated_matched_audit_rows(path: Path, draft_year: int) -> list[dict[str, 
         seen_picks.add(overall_pick)
         matched.append(row)
     return matched
+
+
+def validated_unresolved_audit_rows(path: Path, draft_year: int) -> dict[int, dict[str, str]]:
+    unresolved_rows: dict[int, dict[str, str]] = {}
+    for row in read_match_audit(path):
+        if row.get("status") != "unresolved":
+            continue
+        if int(row.get("draft_year") or 0) != draft_year:
+            raise ValueError(f"invalid unresolved audit row in {path}")
+        try:
+            overall_pick = int(row.get("overall_pick") or 0)
+        except ValueError as exc:
+            raise ValueError(f"invalid unresolved audit row in {path}") from exc
+        if overall_pick <= 0 or not (row.get("player_id") or "").strip():
+            raise ValueError(f"invalid unresolved audit row in {path}")
+        if overall_pick in unresolved_rows:
+            raise ValueError(f"duplicate unresolved pick in {path}: {overall_pick}")
+        unresolved_rows[overall_pick] = row
+    return unresolved_rows
+
+
+def validate_zero_outcome_evidence(
+    cache_dir: Path,
+    zero_outcomes: dict[int, dict[str, str]],
+    unresolved_rows: dict[int, dict[str, str]],
+) -> None:
+    for overall_pick, override in zero_outcomes.items():
+        audit_row = unresolved_rows[overall_pick]
+        expected_url = NHL_PLAYER_SEARCH_URL.format(query=quote(audit_row["name"]))
+        search_path = cache_dir / "search" / f"{overall_pick:03d}.json"
+        if override["source_url"] != expected_url or not search_path.is_file():
+            raise ValueError(
+                "zero-outcome override lacks cached official search evidence for pick "
+                f"{overall_pick}"
+            )
+        try:
+            payload = json.loads(search_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                f"zero-outcome override has invalid cached search evidence for pick {overall_pick}"
+            ) from exc
+        if not isinstance(payload, list):
+            raise ValueError(
+                f"zero-outcome override has invalid cached search evidence for pick {overall_pick}"
+            )
