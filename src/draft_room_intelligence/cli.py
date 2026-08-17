@@ -50,10 +50,6 @@ from draft_room_intelligence.data.ep_pdf_overlay import (
 )
 from draft_room_intelligence.data.etl_config import DraftYearETLConfig
 from draft_room_intelligence.data.historical_csv import load_historical_prospects_csv
-from draft_room_intelligence.data.nhl_outcomes import (
-    collect_nhl_outcome_range,
-    collect_nhl_outcome_year,
-)
 from draft_room_intelligence.data.hockeydb_base import (
     HockeyDbBaseETLConfig,
     generate_hockeydb_base_tables,
@@ -94,6 +90,11 @@ from draft_room_intelligence.data.nhl_draft import (
     backfill_nhl_draft_player_fields,
     collect_nhl_draft_range,
     generate_nhl_draft_base_tables,
+)
+from draft_room_intelligence.data.nhl_outcomes import (
+    collect_nhl_outcome_range,
+    collect_nhl_outcome_year,
+    write_time_bounded_outcome_labels,
 )
 from draft_room_intelligence.data.normalized_merge import (
     generate_match_map_template,
@@ -1331,6 +1332,7 @@ def main() -> None:
     collect_outcomes_parser.add_argument("--refresh", action="store_true")
     collect_outcomes_parser.add_argument("--start-pick", type=int, default=1)
     collect_outcomes_parser.add_argument("--end-pick", type=int)
+    collect_outcomes_parser.add_argument("--identity-overrides", type=Path)
     collect_outcomes_range_parser = subparsers.add_parser(
         "collect-nhl-outcome-range",
         help="Collect the next bounded outcome-cache batch for each year in a range.",
@@ -1340,6 +1342,20 @@ def main() -> None:
     collect_outcomes_range_parser.add_argument("--end-year", type=int, required=True)
     collect_outcomes_range_parser.add_argument("--batch-size", type=int, default=10)
     collect_outcomes_range_parser.add_argument("--refresh", action="store_true")
+    collect_outcomes_range_parser.add_argument("--identity-overrides", type=Path)
+    build_outcome_labels_parser = subparsers.add_parser(
+        "build-nhl-outcome-labels",
+        help="Build canonical time-bounded labels from verified cached NHL player records.",
+    )
+    build_outcome_labels_parser.add_argument("cache_dir", type=Path)
+    build_outcome_labels_parser.add_argument("output_dir", type=Path)
+    build_outcome_labels_parser.add_argument("--draft-year", type=int, required=True)
+    build_outcome_labels_parser.add_argument(
+        "--snapshot-dir",
+        type=Path,
+        required=True,
+        help="Normalized class snapshot used to map official picks to canonical player IDs.",
+    )
     collect_leagues_parser = subparsers.add_parser(
         "collect-league-sources",
         help="Cache enabled league-stat sources from a reviewed CSV manifest.",
@@ -1851,6 +1867,7 @@ def main() -> None:
             refresh=args.refresh,
             start_pick=args.start_pick,
             end_pick=args.end_pick,
+            overrides_path=args.identity_overrides,
         )
     elif args.command == "collect-nhl-outcome-range":
         run_collect_nhl_outcome_range(
@@ -1859,6 +1876,14 @@ def main() -> None:
             end_year=args.end_year,
             batch_size=args.batch_size,
             refresh=args.refresh,
+            overrides_path=args.identity_overrides,
+        )
+    elif args.command == "build-nhl-outcome-labels":
+        run_build_nhl_outcome_labels(
+            args.cache_dir,
+            args.output_dir,
+            draft_year=args.draft_year,
+            snapshot_dir=args.snapshot_dir,
         )
     elif args.command == "collect-league-sources":
         run_collect_league_sources(
@@ -3109,6 +3134,7 @@ def run_collect_nhl_outcomes(
     refresh: bool = False,
     start_pick: int = 1,
     end_pick: int | None = None,
+    overrides_path: Path | None = None,
 ) -> None:
     result = collect_nhl_outcome_year(
         cache_dir,
@@ -3116,6 +3142,7 @@ def run_collect_nhl_outcomes(
         refresh=refresh,
         start_pick=start_pick,
         end_pick=end_pick,
+        overrides_path=overrides_path,
     )
     print(f"# NHL outcome cache: {draft_year}")
     print(f"Matched: {result.matched_count}")
@@ -3130,6 +3157,7 @@ def run_collect_nhl_outcome_range(
     end_year: int,
     batch_size: int,
     refresh: bool = False,
+    overrides_path: Path | None = None,
 ) -> None:
     report = collect_nhl_outcome_range(
         cache_dir,
@@ -3137,6 +3165,7 @@ def run_collect_nhl_outcome_range(
         end_year=end_year,
         batch_size=batch_size,
         refresh=refresh,
+        overrides_path=overrides_path,
     )
     print(f"# NHL outcome cache range: {start_year}-{end_year}")
     for result in report.results:
@@ -3144,6 +3173,21 @@ def run_collect_nhl_outcome_range(
             f"{result.draft_year}: matched={result.matched_count}; "
             f"unresolved={result.unresolved_count}; audit={result.cache_dir / 'player_matches.csv'}"
         )
+
+
+def run_build_nhl_outcome_labels(
+    cache_dir: Path,
+    output_dir: Path,
+    *,
+    draft_year: int,
+    snapshot_dir: Path,
+) -> None:
+    paths = write_time_bounded_outcome_labels(
+        cache_dir, output_dir, draft_year=draft_year, snapshot_dir=snapshot_dir
+    )
+    print(f"# NHL outcome labels: {draft_year}")
+    for path in paths:
+        print(f"Label CSV: {path}")
 
 
 def run_collect_league_sources(

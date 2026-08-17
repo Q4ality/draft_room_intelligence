@@ -26,3 +26,9 @@ is safe to stop and resume. Keep batches small enough to respect the API and exe
 After matching, a separate parser must aggregate NHL regular-season rows only through each declared
 June 30 horizon and write the canonical outcome-label schema. Current/career totals and unresolved
 matches must never enter a retrospective label file.
+
+```bash
+PYTHONPATH=src python -m draft_room_intelligence.cli build-nhl-outcome-labels \
+  data/raw/nhl_outcomes data/processed/outcome_labels --draft-year 2019 \
+  --snapshot-dir data/processed/pilot_2019
+```
