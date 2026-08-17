@@ -3,6 +3,7 @@ draft_year,overall_pick,nhl_player_id,reason,source_url
 2015,75,8478435,Official NHL search omitted the intended player,https://api-web.nhle.com/v1/player/8478435/landing
 2015,194,8478911,Official NHL search omitted the intended player,https://api-web.nhle.com/v1/player/8478911/landing
 2017,72,8480191,Official NHL search omitted the intended player,https://api-web.nhle.com/v1/player/8480191/landing
+2018,26,8480879,Official NHL search omitted the intended player,https://api-web.nhle.com/v1/player/8480879/landing
 2019,21,8481591,Official NHL search omitted exact full-name result,https://api-web.nhle.com/v1/player/8481591/landing
 2019,47,8481563,Official NHL search omitted exact full-name result,https://api-web.nhle.com/v1/player/8481563/landing
 2019,63,8481737,Official NHL search omitted exact full-name result,https://api-web.nhle.com/v1/player/8481737/landing
