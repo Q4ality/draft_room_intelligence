@@ -67,5 +67,9 @@ reasonable scenarios, and never changes the standalone player estimate.
 - [x] 0.2 Outcome-export coverage and staging-readiness report.
 - [ ] 0.3 Reviewed 2014-2021 cached outcome exports.
 - [ ] 1.1 Longitudinal panel builder and coverage report.
-- [ ] 2.1 Time-split pick/consensus baseline report.
+- [x] 2.1 Time-split pick-slot and role baseline report (5-year regular-NHL
+  and impact-player outcomes; train through 2018, hold out 2019-2021).
+- [ ] 2.2 Consensus and production-feature baseline after historic pre-draft
+  feature enrichment; report its held-out lift against the slot-and-role
+  comparator.
 - [ ] 3.1 Dated team-context contract and scenario inputs.

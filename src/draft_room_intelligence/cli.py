@@ -169,6 +169,9 @@ from draft_room_intelligence.reports.demo_site import write_demo_site
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
+from draft_room_intelligence.reports.longitudinal_baseline import (
+    write_longitudinal_baseline_report,
+)
 from draft_room_intelligence.reports.longitudinal_outcomes import write_outcome_label_audit
 from draft_room_intelligence.reports.outcome_label_coverage import (
     write_outcome_label_coverage_report,
@@ -678,6 +681,20 @@ def main() -> None:
         default=Path("data/processed/outcome_labels"),
         help="Canonical time-bounded label root, relative to project root unless absolute.",
     )
+    longitudinal_baseline_parser = subparsers.add_parser(
+        "report-longitudinal-baseline",
+        help="Fit and evaluate a temporal slot-and-role baseline on audited outcome labels.",
+    )
+    longitudinal_baseline_parser.add_argument("labels_root", type=Path)
+    longitudinal_baseline_parser.add_argument("class_root", type=Path)
+    longitudinal_baseline_parser.add_argument("output_dir", type=Path)
+    longitudinal_baseline_parser.add_argument(
+        "--as-of-date", type=date.fromisoformat, required=True
+    )
+    longitudinal_baseline_parser.add_argument("--train-end-year", type=int, default=2018)
+    longitudinal_baseline_parser.add_argument("--test-start-year", type=int, default=2019)
+    longitudinal_baseline_parser.add_argument("--test-end-year", type=int, default=2021)
+    longitudinal_baseline_parser.add_argument("--horizon-years", type=int, default=5)
     team_depth_parser = subparsers.add_parser(
         "report-team-depth",
         help="Build NHL/AHL organizational role-depth report from normalized roster CSV.",
@@ -1647,6 +1664,17 @@ def main() -> None:
             start_year=args.start_year,
             end_year=args.end_year,
             labels_root=args.labels_root,
+        )
+    elif args.command == "report-longitudinal-baseline":
+        run_report_longitudinal_baseline(
+            args.labels_root,
+            args.class_root,
+            args.output_dir,
+            as_of_date=args.as_of_date,
+            train_end_year=args.train_end_year,
+            test_start_year=args.test_start_year,
+            test_end_year=args.test_end_year,
+            horizon_years=args.horizon_years,
         )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
@@ -3599,6 +3627,34 @@ def run_report_outcome_label_coverage(
     print(f"Class-horizon rows: {len(report.rows)}")
     print(f"Ready for label audit: {ready}")
     print(f"Coverage CSV: {output_dir / 'coverage.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_longitudinal_baseline(
+    labels_root: Path,
+    class_root: Path,
+    output_dir: Path,
+    *,
+    as_of_date: date,
+    train_end_year: int,
+    test_start_year: int,
+    test_end_year: int | None,
+    horizon_years: int,
+) -> None:
+    report = write_longitudinal_baseline_report(
+        labels_root,
+        class_root,
+        output_dir,
+        as_of_date=as_of_date,
+        train_end_year=train_end_year,
+        test_start_year=test_start_year,
+        test_end_year=test_end_year,
+        horizon_years=horizon_years,
+    )
+    print("# Temporal slot-and-role baseline")
+    print(f"Training players: {report.train_count}")
+    print(f"Held-out players: {report.test_count}")
+    print(f"Summary CSV: {output_dir / 'summary.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 
