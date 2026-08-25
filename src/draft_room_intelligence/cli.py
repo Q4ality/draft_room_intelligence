@@ -91,6 +91,11 @@ from draft_room_intelligence.data.nhl_draft import (
     collect_nhl_draft_range,
     generate_nhl_draft_base_tables,
 )
+from draft_room_intelligence.data.nhl_outcomes import (
+    collect_nhl_outcome_range,
+    collect_nhl_outcome_year,
+    write_time_bounded_outcome_labels,
+)
 from draft_room_intelligence.data.normalized_merge import (
     generate_match_map_template,
     merge_normalized_source_tables,
@@ -161,9 +166,19 @@ from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
+from draft_room_intelligence.reports.historical_feature_coverage import (
+    write_historical_feature_coverage_report,
+)
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
+from draft_room_intelligence.reports.longitudinal_baseline import (
+    write_longitudinal_baseline_report,
+)
+from draft_room_intelligence.reports.longitudinal_outcomes import write_outcome_label_audit
+from draft_room_intelligence.reports.outcome_label_coverage import (
+    write_outcome_label_coverage_report,
+)
 from draft_room_intelligence.reports.player_card import render_player_card
 from draft_room_intelligence.reports.prospect_stat_audit import write_prospect_stat_audit
 from draft_room_intelligence.reports.russian_coverage import write_russian_coverage_report
@@ -631,6 +646,66 @@ def main() -> None:
         default=25,
         help="Number of top-ranked players to use for board lift metrics.",
     )
+    outcome_labels_parser = subparsers.add_parser(
+        "audit-outcome-labels",
+        help="Validate time-bounded outcome labels before retrospective value modeling.",
+    )
+    outcome_labels_parser.add_argument("labels_csv", type=Path)
+    outcome_labels_parser.add_argument("output_dir", type=Path)
+    outcome_labels_parser.add_argument(
+        "--as-of-date",
+        type=date.fromisoformat,
+        required=True,
+        help="Latest permitted outcome observation date in YYYY-MM-DD format.",
+    )
+    outcome_coverage_parser = subparsers.add_parser(
+        "report-outcome-label-coverage",
+        help="Report time-bounded outcome-export readiness by draft class and horizon.",
+    )
+    outcome_coverage_parser.add_argument("manifest_csv", type=Path)
+    outcome_coverage_parser.add_argument("output_dir", type=Path)
+    outcome_coverage_parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path("."),
+        help="Project root used to resolve manifest paths.",
+    )
+    outcome_coverage_parser.add_argument(
+        "--as-of-date",
+        type=date.fromisoformat,
+        required=True,
+        help="Date used to determine whether each outcome horizon has matured.",
+    )
+    outcome_coverage_parser.add_argument("--start-year", type=int, default=2014)
+    outcome_coverage_parser.add_argument("--end-year", type=int, default=2021)
+    outcome_coverage_parser.add_argument(
+        "--labels-root",
+        type=Path,
+        default=Path("data/processed/outcome_labels"),
+        help="Canonical time-bounded label root, relative to project root unless absolute.",
+    )
+    longitudinal_baseline_parser = subparsers.add_parser(
+        "report-longitudinal-baseline",
+        help="Fit and evaluate a temporal slot-and-role baseline on audited outcome labels.",
+    )
+    longitudinal_baseline_parser.add_argument("labels_root", type=Path)
+    longitudinal_baseline_parser.add_argument("class_root", type=Path)
+    longitudinal_baseline_parser.add_argument("output_dir", type=Path)
+    longitudinal_baseline_parser.add_argument(
+        "--as-of-date", type=date.fromisoformat, required=True
+    )
+    longitudinal_baseline_parser.add_argument("--train-end-year", type=int, default=2018)
+    longitudinal_baseline_parser.add_argument("--test-start-year", type=int, default=2019)
+    longitudinal_baseline_parser.add_argument("--test-end-year", type=int, default=2021)
+    longitudinal_baseline_parser.add_argument("--horizon-years", type=int, default=5)
+    feature_coverage_parser = subparsers.add_parser(
+        "report-historical-feature-coverage",
+        help="Audit historical pre-draft consensus and production feature coverage.",
+    )
+    feature_coverage_parser.add_argument("class_root", type=Path)
+    feature_coverage_parser.add_argument("output_dir", type=Path)
+    feature_coverage_parser.add_argument("--start-year", type=int, default=2014)
+    feature_coverage_parser.add_argument("--end-year", type=int, default=2021)
     team_depth_parser = subparsers.add_parser(
         "report-team-depth",
         help="Build NHL/AHL organizational role-depth report from normalized roster CSV.",
@@ -1276,6 +1351,44 @@ def main() -> None:
         action="store_true",
         help="Replace existing cached payloads.",
     )
+    collect_outcomes_parser = subparsers.add_parser(
+        "collect-nhl-outcomes",
+        help="Cache official NHL outcome inputs and write a draft-detail match audit.",
+    )
+    collect_outcomes_parser.add_argument("cache_dir", type=Path, help="Raw outcome cache root.")
+    collect_outcomes_parser.add_argument("--draft-year", type=int, required=True)
+    collect_outcomes_parser.add_argument("--refresh", action="store_true")
+    collect_outcomes_parser.add_argument("--start-pick", type=int, default=1)
+    collect_outcomes_parser.add_argument("--end-pick", type=int)
+    collect_outcomes_parser.add_argument("--identity-overrides", type=Path)
+    collect_outcomes_range_parser = subparsers.add_parser(
+        "collect-nhl-outcome-range",
+        help="Collect the next bounded outcome-cache batch for each year in a range.",
+    )
+    collect_outcomes_range_parser.add_argument("cache_dir", type=Path)
+    collect_outcomes_range_parser.add_argument("--start-year", type=int, required=True)
+    collect_outcomes_range_parser.add_argument("--end-year", type=int, required=True)
+    collect_outcomes_range_parser.add_argument("--batch-size", type=int, default=10)
+    collect_outcomes_range_parser.add_argument("--refresh", action="store_true")
+    collect_outcomes_range_parser.add_argument("--identity-overrides", type=Path)
+    build_outcome_labels_parser = subparsers.add_parser(
+        "build-nhl-outcome-labels",
+        help="Build canonical time-bounded labels from verified cached NHL player records.",
+    )
+    build_outcome_labels_parser.add_argument("cache_dir", type=Path)
+    build_outcome_labels_parser.add_argument("output_dir", type=Path)
+    build_outcome_labels_parser.add_argument("--draft-year", type=int, required=True)
+    build_outcome_labels_parser.add_argument(
+        "--snapshot-dir",
+        type=Path,
+        required=True,
+        help="Normalized class snapshot used to map official picks to canonical player IDs.",
+    )
+    build_outcome_labels_parser.add_argument(
+        "--zero-outcomes",
+        type=Path,
+        help="Reviewed manifest for exact picks with no official NHL player landing record.",
+    )
     collect_leagues_parser = subparsers.add_parser(
         "collect-league-sources",
         help="Cache enabled league-stat sources from a reviewed CSV manifest.",
@@ -1551,6 +1664,36 @@ def main() -> None:
             precision_n=args.precision_n,
             top_n=args.top_n,
         )
+    elif args.command == "audit-outcome-labels":
+        run_audit_outcome_labels(args.labels_csv, args.output_dir, as_of_date=args.as_of_date)
+    elif args.command == "report-outcome-label-coverage":
+        run_report_outcome_label_coverage(
+            args.manifest_csv,
+            args.output_dir,
+            project_root=args.project_root,
+            as_of_date=args.as_of_date,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            labels_root=args.labels_root,
+        )
+    elif args.command == "report-longitudinal-baseline":
+        run_report_longitudinal_baseline(
+            args.labels_root,
+            args.class_root,
+            args.output_dir,
+            as_of_date=args.as_of_date,
+            train_end_year=args.train_end_year,
+            test_start_year=args.test_start_year,
+            test_end_year=args.test_end_year,
+            horizon_years=args.horizon_years,
+        )
+    elif args.command == "report-historical-feature-coverage":
+        run_report_historical_feature_coverage(
+            args.class_root,
+            args.output_dir,
+            start_year=args.start_year,
+            end_year=args.end_year,
+        )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
     elif args.command == "audit-team-systems":
@@ -1767,6 +1910,32 @@ def main() -> None:
             start_year=args.start_year,
             end_year=args.end_year,
             refresh=args.refresh,
+        )
+    elif args.command == "collect-nhl-outcomes":
+        run_collect_nhl_outcomes(
+            args.cache_dir,
+            draft_year=args.draft_year,
+            refresh=args.refresh,
+            start_pick=args.start_pick,
+            end_pick=args.end_pick,
+            overrides_path=args.identity_overrides,
+        )
+    elif args.command == "collect-nhl-outcome-range":
+        run_collect_nhl_outcome_range(
+            args.cache_dir,
+            start_year=args.start_year,
+            end_year=args.end_year,
+            batch_size=args.batch_size,
+            refresh=args.refresh,
+            overrides_path=args.identity_overrides,
+        )
+    elif args.command == "build-nhl-outcome-labels":
+        run_build_nhl_outcome_labels(
+            args.cache_dir,
+            args.output_dir,
+            draft_year=args.draft_year,
+            snapshot_dir=args.snapshot_dir,
+            zero_outcomes_path=args.zero_outcomes,
         )
     elif args.command == "collect-league-sources":
         run_collect_league_sources(
@@ -3010,6 +3179,74 @@ def run_collect_nhl_draft_range(
         )
 
 
+def run_collect_nhl_outcomes(
+    cache_dir: Path,
+    *,
+    draft_year: int,
+    refresh: bool = False,
+    start_pick: int = 1,
+    end_pick: int | None = None,
+    overrides_path: Path | None = None,
+) -> None:
+    result = collect_nhl_outcome_year(
+        cache_dir,
+        draft_year=draft_year,
+        refresh=refresh,
+        start_pick=start_pick,
+        end_pick=end_pick,
+        overrides_path=overrides_path,
+    )
+    print(f"# NHL outcome cache: {draft_year}")
+    print(f"Matched: {result.matched_count}")
+    print(f"Unresolved: {result.unresolved_count}")
+    print(f"Match audit: {result.cache_dir / 'player_matches.csv'}")
+
+
+def run_collect_nhl_outcome_range(
+    cache_dir: Path,
+    *,
+    start_year: int,
+    end_year: int,
+    batch_size: int,
+    refresh: bool = False,
+    overrides_path: Path | None = None,
+) -> None:
+    report = collect_nhl_outcome_range(
+        cache_dir,
+        start_year=start_year,
+        end_year=end_year,
+        batch_size=batch_size,
+        refresh=refresh,
+        overrides_path=overrides_path,
+    )
+    print(f"# NHL outcome cache range: {start_year}-{end_year}")
+    for result in report.results:
+        print(
+            f"{result.draft_year}: matched={result.matched_count}; "
+            f"unresolved={result.unresolved_count}; audit={result.cache_dir / 'player_matches.csv'}"
+        )
+
+
+def run_build_nhl_outcome_labels(
+    cache_dir: Path,
+    output_dir: Path,
+    *,
+    draft_year: int,
+    snapshot_dir: Path,
+    zero_outcomes_path: Path | None = None,
+) -> None:
+    paths = write_time_bounded_outcome_labels(
+        cache_dir,
+        output_dir,
+        draft_year=draft_year,
+        snapshot_dir=snapshot_dir,
+        zero_outcomes_path=zero_outcomes_path,
+    )
+    print(f"# NHL outcome labels: {draft_year}")
+    for path in paths:
+        print(f"Label CSV: {path}")
+
+
 def run_collect_league_sources(
     manifest_path: Path,
     *,
@@ -3371,6 +3608,90 @@ def run_report_historical_validation(
     if warning:
         print(warning)
     print(f"Summary CSV: {output_dir / 'summary.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_audit_outcome_labels(labels_csv: Path, output_dir: Path, *, as_of_date: date) -> None:
+    audit = write_outcome_label_audit(labels_csv, output_dir, as_of_date=as_of_date)
+    print(f"# Longitudinal outcome label audit: {labels_csv}")
+    print(f"Labels: {audit.total_labels}")
+    print(f"Mature labels: {audit.mature_labels}")
+    print(f"Immature labels: {audit.immature_labels}")
+    print(f"Status CSV: {output_dir / 'label_status.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_outcome_label_coverage(
+    manifest_csv: Path,
+    output_dir: Path,
+    *,
+    project_root: Path,
+    as_of_date: date,
+    start_year: int,
+    end_year: int,
+    labels_root: Path = Path("data/processed/outcome_labels"),
+) -> None:
+    specs = load_draft_class_manifest(manifest_csv, project_root=project_root)
+    report = write_outcome_label_coverage_report(
+        specs,
+        output_dir,
+        as_of_date=as_of_date,
+        start_year=start_year,
+        end_year=end_year,
+        labels_root=project_root / labels_root if not labels_root.is_absolute() else labels_root,
+    )
+    ready = sum(row["status"] == "ready_for_label_audit" for row in report.rows)
+    print(f"# Longitudinal outcome label coverage: {manifest_csv}")
+    print(f"Class-horizon rows: {len(report.rows)}")
+    print(f"Ready for label audit: {ready}")
+    print(f"Coverage CSV: {output_dir / 'coverage.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_longitudinal_baseline(
+    labels_root: Path,
+    class_root: Path,
+    output_dir: Path,
+    *,
+    as_of_date: date,
+    train_end_year: int,
+    test_start_year: int,
+    test_end_year: int | None,
+    horizon_years: int,
+) -> None:
+    report = write_longitudinal_baseline_report(
+        labels_root,
+        class_root,
+        output_dir,
+        as_of_date=as_of_date,
+        train_end_year=train_end_year,
+        test_start_year=test_start_year,
+        test_end_year=test_end_year,
+        horizon_years=horizon_years,
+    )
+    print("# Temporal slot-and-role baseline")
+    print(f"Training players: {report.train_count}")
+    print(f"Held-out players: {report.test_count}")
+    print(f"Summary CSV: {output_dir / 'summary.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_historical_feature_coverage(
+    class_root: Path,
+    output_dir: Path,
+    *,
+    start_year: int,
+    end_year: int,
+) -> None:
+    report = write_historical_feature_coverage_report(
+        class_root,
+        output_dir,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    print("# Historical pre-draft feature coverage")
+    print(f"Draft classes: {len(report.rows)}")
+    print(f"Coverage CSV: {output_dir / 'coverage.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 
