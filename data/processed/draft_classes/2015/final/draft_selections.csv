@@ -1,0 +1,212 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2015-001-connor-mcdavid,2015,EDM,Edmonton Oilers,1,1,Erie,OHL,nhl_draft_api,2015-1,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-002-jack-eichel,2015,BUF,Buffalo Sabres,1,2,Boston University,NCAA,nhl_draft_api,2015-2,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-003-dylan-strome,2015,ARI,Arizona Coyotes,1,3,Erie,OHL,nhl_draft_api,2015-3,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-004-mitch-marner,2015,TOR,Toronto Maple Leafs,1,4,London,OHL,nhl_draft_api,2015-4,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-005-noah-hanifin,2015,CAR,Carolina Hurricanes,1,5,Boston College,NCAA,nhl_draft_api,2015-5,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-006-pavel-zacha,2015,NJD,New Jersey Devils,1,6,Sarnia,OHL,nhl_draft_api,2015-6,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-007-ivan-provorov,2015,PHI,Philadelphia Flyers,1,7,Brandon,WHL,nhl_draft_api,2015-7,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-008-zach-werenski,2015,CBJ,Columbus Blue Jackets,1,8,U. of Michigan,NCAA,nhl_draft_api,2015-8,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-009-timo-meier,2015,SJS,San Jose Sharks,1,9,Halifax,QMJHL,nhl_draft_api,2015-9,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-010-mikko-rantanen,2015,COL,Colorado Avalanche,1,10,TPS,FINLAND,nhl_draft_api,2015-10,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-011-lawson-crouse,2015,FLA,Florida Panthers,1,11,Kingston,OHL,nhl_draft_api,2015-11,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-012-denis-gurianov,2015,DAL,Dallas Stars,1,12,Togliatti 2,Russia Jr.,nhl_draft_api,2015-12,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-013-jakub-zboril,2015,BOS,Boston Bruins,1,13,Saint John,QMJHL,nhl_draft_api,2015-13,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-014-jake-debrusk,2015,BOS,Boston Bruins,1,14,Swift Current,WHL,nhl_draft_api,2015-14,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-015-zach-senyshyn,2015,BOS,Boston Bruins,1,15,Sault Ste. Marie,OHL,nhl_draft_api,2015-15,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-016-mathew-barzal,2015,NYI,New York Islanders,1,16,Seattle,WHL,nhl_draft_api,2015-16,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-017-kyle-connor,2015,WPG,Winnipeg Jets,1,17,Youngstown,USHL,nhl_draft_api,2015-17,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-018-thomas-chabot,2015,OTT,Ottawa Senators,1,18,Saint John,QMJHL,nhl_draft_api,2015-18,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-019-evgeny-svechnikov,2015,DET,Detroit Red Wings,1,19,Cape Breton,QMJHL,nhl_draft_api,2015-19,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-020-joel-eriksson-ek,2015,MIN,Minnesota Wild,1,20,Farjestad,SWEDEN,nhl_draft_api,2015-20,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-021-colin-white,2015,OTT,Ottawa Senators,1,21,USA U-18,USHL,nhl_draft_api,2015-21,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-022-ilya-samsonov,2015,WSH,Washington Capitals,1,22,Magnitogorsk 2,Russia Jr.,nhl_draft_api,2015-22,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-023-brock-boeser,2015,VAN,Vancouver Canucks,1,23,Waterloo,USHL,nhl_draft_api,2015-23,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-024-travis-konecny,2015,PHI,Philadelphia Flyers,1,24,Ottawa,OHL,nhl_draft_api,2015-24,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-025-jack-roslovic,2015,WPG,Winnipeg Jets,1,25,USA U-18,USHL,nhl_draft_api,2015-25,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-026-noah-juulsen,2015,MTL,Montréal Canadiens,1,26,Everett,WHL,nhl_draft_api,2015-26,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-027-jacob-larsson,2015,ANA,Anaheim Ducks,1,27,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2015-27,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-028-anthony-beauvillier,2015,NYI,New York Islanders,1,28,Shawinigan,QMJHL,nhl_draft_api,2015-28,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-029-gabriel-carlsson,2015,CBJ,Columbus Blue Jackets,1,29,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2015-29,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-030-nick-merkley,2015,ARI,Arizona Coyotes,1,30,Kelowna,WHL,nhl_draft_api,2015-30,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-031-jeremy-roy,2015,SJS,San Jose Sharks,2,31,Sherbrooke,QMJHL,nhl_draft_api,2015-31,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-032-christian-fischer,2015,ARI,Arizona Coyotes,2,32,USA U-18,USHL,nhl_draft_api,2015-32,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-033-mitchell-stephens,2015,TBL,Tampa Bay Lightning,2,33,Saginaw,OHL,nhl_draft_api,2015-33,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-034-travis-dermott,2015,TOR,Toronto Maple Leafs,2,34,Erie,OHL,nhl_draft_api,2015-34,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-035-sebastian-aho,2015,CAR,Carolina Hurricanes,2,35,Karpat,FINLAND,nhl_draft_api,2015-35,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-036-gabriel-gagne,2015,OTT,Ottawa Senators,2,36,Victoriaville,QMJHL,nhl_draft_api,2015-36,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-037-brandon-carlo,2015,BOS,Boston Bruins,2,37,Tri-City,WHL,nhl_draft_api,2015-37,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-038-paul-bittner,2015,CBJ,Columbus Blue Jackets,2,38,Portland,WHL,nhl_draft_api,2015-38,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-039-a-j-greer,2015,COL,Colorado Avalanche,2,39,Boston University,NCAA,nhl_draft_api,2015-39,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-040-nicolas-meloche,2015,COL,Colorado Avalanche,2,40,Baie Comeau,QMJHL,nhl_draft_api,2015-40,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-041-ryan-gropp,2015,NYR,New York Rangers,2,41,Seattle,WHL,nhl_draft_api,2015-41,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-042-mackenzie-blackwood,2015,NJD,New Jersey Devils,2,42,Barrie,OHL,nhl_draft_api,2015-42,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-043-erik-cernak,2015,LAK,Los Angeles Kings,2,43,Kosice,SLOVAKIA,nhl_draft_api,2015-43,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-044-matthew-spencer,2015,TBL,Tampa Bay Lightning,2,44,Peterborough,OHL,nhl_draft_api,2015-44,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-045-jakob-forsbacka-karlsson,2015,BOS,Boston Bruins,2,45,Omaha,USHL,nhl_draft_api,2015-45,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-046-daniel-sprong,2015,PIT,Pittsburgh Penguins,2,46,Charlottetown,QMJHL,nhl_draft_api,2015-46,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-047-jansen-harkins,2015,WPG,Winnipeg Jets,2,47,Prince George,WHL,nhl_draft_api,2015-47,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-048-filip-chlapik,2015,OTT,Ottawa Senators,2,48,Charlottetown,QMJHL,nhl_draft_api,2015-48,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-049-roope-hintz,2015,DAL,Dallas Stars,2,49,Ilves,FINLAND,nhl_draft_api,2015-49,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-050-jordan-greenway,2015,MIN,Minnesota Wild,2,50,USA U-18,USHL,nhl_draft_api,2015-50,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-051-brendan-guhle,2015,BUF,Buffalo Sabres,2,51,Prince Albert,WHL,nhl_draft_api,2015-51,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-052-jeremy-lauzon,2015,BOS,Boston Bruins,2,52,Rouyn-Noranda,QMJHL,nhl_draft_api,2015-52,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-053-rasmus-andersson,2015,CGY,Calgary Flames,2,53,Barrie,OHL,nhl_draft_api,2015-53,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-054-graham-knott,2015,CHI,Chicago Blackhawks,2,54,Niagara,OHL,nhl_draft_api,2015-54,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-055-yakov-trenin,2015,NSH,Nashville Predators,2,55,Gatineau,QMJHL,nhl_draft_api,2015-55,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-056-vince-dunn,2015,STL,St. Louis Blues,2,56,Niagara,OHL,nhl_draft_api,2015-56,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-057-jonas-siegenthaler,2015,WSH,Washington Capitals,2,57,Zurich,National League,nhl_draft_api,2015-57,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-058-kevin-stenlund,2015,CBJ,Columbus Blue Jackets,2,58,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2015-58,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-059-julius-nattinen,2015,ANA,Anaheim Ducks,2,59,JYP 2,FINLAND-2,nhl_draft_api,2015-59,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-060-oliver-kylington,2015,CGY,Calgary Flames,2,60,Farjestad,SWEDEN,nhl_draft_api,2015-60,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-061-jeremy-bracco,2015,TOR,Toronto Maple Leafs,2,61,USA U-18,USHL,nhl_draft_api,2015-61,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-062-robin-kovacs,2015,NYR,New York Rangers,3,62,AIK,HockeyAllsvenskan,nhl_draft_api,2015-62,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-063-kyle-capobianco,2015,ARI,Arizona Coyotes,3,63,Sudbury,OHL,nhl_draft_api,2015-63,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-064-dennis-yan,2015,TBL,Tampa Bay Lightning,3,64,Shawinigan,QMJHL,nhl_draft_api,2015-64,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-065-andrew-nielsen,2015,TOR,Toronto Maple Leafs,3,65,Lethbridge,WHL,nhl_draft_api,2015-65,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-066-guillaume-brisebois,2015,VAN,Vancouver Canucks,3,66,Acadie-Bathurst,QMJHL,nhl_draft_api,2015-66,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-067-blake-speers,2015,NJD,New Jersey Devils,3,67,Sault Ste. Marie,OHL,nhl_draft_api,2015-67,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-068-martins-dzierkals,2015,TOR,Toronto Maple Leafs,3,68,Riga 2,Russia Jr.,nhl_draft_api,2015-68,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-069-keegan-kolesar,2015,CBJ,Columbus Blue Jackets,3,69,Seattle,WHL,nhl_draft_api,2015-69,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-070-felix-sandstrom,2015,PHI,Philadelphia Flyers,3,70,Brynas Jr.,Sweden Jrs.,nhl_draft_api,2015-70,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-071-j-c-beaudin,2015,COL,Colorado Avalanche,3,71,Rouyn-Noranda,QMJHL,nhl_draft_api,2015-71,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-072-anthony-cirelli,2015,TBL,Tampa Bay Lightning,3,72,Oshawa,OHL,nhl_draft_api,2015-72,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-073-vili-saarijarvi,2015,DET,Detroit Red Wings,3,73,Green Bay,USHL,nhl_draft_api,2015-73,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-074-alexander-dergachyov,2015,LAK,Los Angeles Kings,3,74,SKA St. Petersburg 2,Russia Jr.,nhl_draft_api,2015-74,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-075-dan-vladar,2015,BOS,Boston Bruins,3,75,Kladno,CZREP-2,nhl_draft_api,2015-75,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-076-adin-hill,2015,ARI,Arizona Coyotes,3,76,Portland,WHL,nhl_draft_api,2015-76,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-077-samuel-montembeault,2015,FLA,Florida Panthers,3,77,Blainville-Boisbriand,QMJHL,nhl_draft_api,2015-77,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-078-erik-foley,2015,WPG,Winnipeg Jets,3,78,Cedar Rapids,USHL,nhl_draft_api,2015-78,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-079-sergey-zborovskiy,2015,NYR,New York Rangers,3,79,Regina,WHL,nhl_draft_api,2015-79,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-080-brent-gates-jr,2015,ANA,Anaheim Ducks,3,80,Green Bay,USHL,nhl_draft_api,2015-80,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-081-brendan-warren,2015,ARI,Arizona Coyotes,3,81,USA U-18,USHL,nhl_draft_api,2015-81,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-082-mitchell-vande-sompel,2015,NYI,New York Islanders,3,82,Oshawa,OHL,nhl_draft_api,2015-82,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-083-jens-looke,2015,ARI,Arizona Coyotes,3,83,Brynas,SWEDEN,nhl_draft_api,2015-83,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-084-deven-sideroff,2015,ANA,Anaheim Ducks,3,84,Kamloops,WHL,nhl_draft_api,2015-84,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-085-tommy-novak,2015,NSH,Nashville Predators,3,85,Waterloo,USHL,nhl_draft_api,2015-85,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-086-mike-robinson,2015,SJS,San Jose Sharks,3,86,Lawrence Academy,High School,nhl_draft_api,2015-86,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-087-lukas-vejdemo,2015,MTL,Montréal Canadiens,3,87,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2015-87,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-088-thomas-schemitsch,2015,FLA,Florida Panthers,3,88,Owen Sound,OHL,nhl_draft_api,2015-88,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-089-aleksi-saarela,2015,NYR,New York Rangers,3,89,Assat,FINLAND,nhl_draft_api,2015-89,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-090-matej-tomek,2015,PHI,Philadelphia Flyers,3,90,Topeka,NAHL,nhl_draft_api,2015-90,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-091-dennis-gilbert,2015,CHI,Chicago Blackhawks,3,91,Chicago,USHL,nhl_draft_api,2015-91,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-092-will-borgen,2015,BUF,Buffalo Sabres,4,92,Moorhead,High School,nhl_draft_api,2015-92,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-093-callum-booth,2015,CAR,Carolina Hurricanes,4,93,Quebec,QMJHL,nhl_draft_api,2015-93,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-094-adam-musil,2015,STL,St. Louis Blues,4,94,Red Deer,WHL,nhl_draft_api,2015-94,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-095-jesper-lindgren,2015,TOR,Toronto Maple Leafs,4,95,Modo Jr.,Sweden Jrs.,nhl_draft_api,2015-95,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-096-nicolas-roy,2015,CAR,Carolina Hurricanes,4,96,Chicoutimi,QMJHL,nhl_draft_api,2015-96,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-097-colton-white,2015,NJD,New Jersey Devils,4,97,Sault Ste. Marie,OHL,nhl_draft_api,2015-97,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-098-samuel-dove-mcfalls,2015,PHI,Philadelphia Flyers,4,98,Saint John,QMJHL,nhl_draft_api,2015-98,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-099-austin-wagner,2015,LAK,Los Angeles Kings,4,99,Regina,WHL,nhl_draft_api,2015-99,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-100-anthony-richard,2015,NSH,Nashville Predators,4,100,Val d'Or,QMJHL,nhl_draft_api,2015-100,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-101-andrei-mironov,2015,COL,Colorado Avalanche,4,101,Dynamo Moscow,RUSSIA,nhl_draft_api,2015-101,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-102-denis-malgin,2015,FLA,Florida Panthers,4,102,Zurich,National League,nhl_draft_api,2015-102,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-103-chris-martenet,2015,DAL,Dallas Stars,4,103,London,OHL,nhl_draft_api,2015-103,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-104-mikhail-vorobyev,2015,PHI,Philadelphia Flyers,4,104,Ufa 2,Russia Jr.,nhl_draft_api,2015-104,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-105-jesse-gabrielle,2015,BOS,Boston Bruins,4,105,Regina,WHL,nhl_draft_api,2015-105,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-106-adam-helewka,2015,SJS,San Jose Sharks,4,106,Spokane,WHL,nhl_draft_api,2015-106,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-107-christian-wolanin,2015,OTT,Ottawa Senators,4,107,Muskegon,USHL,nhl_draft_api,2015-107,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-108-michael-spacek,2015,WPG,Winnipeg Jets,4,108,Pardubice,Czech Republic,nhl_draft_api,2015-108,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-109-filip-ahl,2015,OTT,Ottawa Senators,4,109,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2015-109,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-110-joren-van-pottelberghe,2015,DET,Detroit Red Wings,4,110,Linkoping U18,SWEDEN-JR. U18,nhl_draft_api,2015-110,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-111-ales-stezka,2015,MIN,Minnesota Wild,4,111,Liberec Jr.,CZREP-JR.,nhl_draft_api,2015-111,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-112-parker-wotherspoon,2015,NYI,New York Islanders,4,112,Tri-City,WHL,nhl_draft_api,2015-112,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-113-brad-morrison,2015,NYR,New York Rangers,4,113,Prince George,WHL,nhl_draft_api,2015-113,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-114-dmitry-zhukenov,2015,VAN,Vancouver Canucks,4,114,Omsk 2,Russia Jr.,nhl_draft_api,2015-114,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-115-alexandre-carrier,2015,NSH,Nashville Predators,4,115,Gatineau,QMJHL,nhl_draft_api,2015-115,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-116-glenn-gawdin,2015,STL,St. Louis Blues,4,116,Swift Current,WHL,nhl_draft_api,2015-116,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-117-caleb-jones,2015,EDM,Edmonton Oilers,4,117,USA U-18,USHL,nhl_draft_api,2015-117,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-118-jonne-tammela,2015,TBL,Tampa Bay Lightning,4,118,Kalpa,FINLAND,nhl_draft_api,2015-118,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-119-daniel-bernhardt,2015,NYR,New York Rangers,4,119,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2015-119,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-120-mathieu-joseph,2015,TBL,Tampa Bay Lightning,4,120,Saint John,QMJHL,nhl_draft_api,2015-120,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-121-ryan-shea,2015,CHI,Chicago Blackhawks,4,121,Boston College H.S.,High School,nhl_draft_api,2015-121,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-122-devante-stephens,2015,BUF,Buffalo Sabres,5,122,Kelowna,WHL,nhl_draft_api,2015-122,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-123-conor-garland,2015,ARI,Arizona Coyotes,5,123,Moncton,QMJHL,nhl_draft_api,2015-123,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-124-ethan-bear,2015,EDM,Edmonton Oilers,5,124,Seattle,WHL,nhl_draft_api,2015-124,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-125-dmytro-timashov,2015,TOR,Toronto Maple Leafs,5,125,Quebec,QMJHL,nhl_draft_api,2015-125,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-126-luke-stevens,2015,CAR,Carolina Hurricanes,5,126,Noble & Greenough,High School,nhl_draft_api,2015-126,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-127-niko-mikkola,2015,STL,St. Louis Blues,5,127,Kalpa Jr.,Finland Jrs.,nhl_draft_api,2015-127,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-128-david-kase,2015,PHI,Philadelphia Flyers,5,128,Chomutov,CZREP-2,nhl_draft_api,2015-128,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-129-sam-ruopp,2015,CBJ,Columbus Blue Jackets,5,129,Prince George,WHL,nhl_draft_api,2015-129,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-130-karlis-cukste,2015,SJS,San Jose Sharks,5,130,Riga 2,Russia Jr.,nhl_draft_api,2015-130,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-131-matthew-bradley,2015,MTL,Montréal Canadiens,5,131,Medicine Hat,WHL,nhl_draft_api,2015-131,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-132-karch-bachman,2015,FLA,Florida Panthers,5,132,Culver Academy,HIGH-IN,nhl_draft_api,2015-132,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-133-joseph-cecconi,2015,DAL,Dallas Stars,5,133,Muskegon,USHL,nhl_draft_api,2015-133,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-134-matt-schmalz,2015,LAK,Los Angeles Kings,5,134,Sudbury,OHL,nhl_draft_api,2015-134,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-135-kirill-kaprizov,2015,MIN,Minnesota Wild,5,135,Novokuznetsk,RUSSIA,nhl_draft_api,2015-135,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-136-pavel-karnaukhov,2015,CGY,Calgary Flames,5,136,Calgary,WHL,nhl_draft_api,2015-136,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-137-dominik-simon,2015,PIT,Pittsburgh Penguins,5,137,Plzen,Czech Republic,nhl_draft_api,2015-137,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-138-spencer-smallman,2015,CAR,Carolina Hurricanes,5,138,Saint John,QMJHL,nhl_draft_api,2015-138,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-139-christian-jaros,2015,OTT,Ottawa Senators,5,139,Lulea Jr.,Sweden Jrs.,nhl_draft_api,2015-139,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-140-chase-pearson,2015,DET,Detroit Red Wings,5,140,Youngstown,USHL,nhl_draft_api,2015-140,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-141-veeti-vainio,2015,CBJ,Columbus Blue Jackets,5,141,Blues Jr.,Finland Jrs.,nhl_draft_api,2015-141,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-142-rudolfs-balcers,2015,SJS,San Jose Sharks,5,142,Stavanger,NORWAY,nhl_draft_api,2015-142,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-143-connor-hobbs,2015,WSH,Washington Capitals,5,143,Regina,WHL,nhl_draft_api,2015-143,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-144-carl-neill,2015,VAN,Vancouver Canucks,5,144,Sherbrooke,QMJHL,nhl_draft_api,2015-144,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-145-karel-vejmelka,2015,NSH,Nashville Predators,5,145,Pardubice Jr.,CZREP-JR.,nhl_draft_api,2015-145,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-146-luke-opilka,2015,STL,St. Louis Blues,5,146,USA U-18,USHL,nhl_draft_api,2015-146,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-147-ryan-pilon,2015,NYI,New York Islanders,5,147,Brandon,WHL,nhl_draft_api,2015-147,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-148-troy-terry,2015,ANA,Anaheim Ducks,5,148,USA U-18,USHL,nhl_draft_api,2015-148,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-149-adam-gaudette,2015,VAN,Vancouver Canucks,5,149,Cedar Rapids,USHL,nhl_draft_api,2015-149,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-150-ryan-zuhlsdorf,2015,TBL,Tampa Bay Lightning,5,150,Sioux City,USHL,nhl_draft_api,2015-150,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-151-radovan-bondra,2015,CHI,Chicago Blackhawks,5,151,Kosice,SLOVAKIA,nhl_draft_api,2015-151,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-152-giorgio-estephan,2015,BUF,Buffalo Sabres,6,152,Lethbridge,WHL,nhl_draft_api,2015-152,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-153-kristian-oldham,2015,TBL,Tampa Bay Lightning,6,153,Omaha,USHL,nhl_draft_api,2015-153,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-154-john-marino,2015,EDM,Edmonton Oilers,6,154,South Shore,USPHL PRE.,nhl_draft_api,2015-154,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-155-stephen-desrocher,2015,TOR,Toronto Maple Leafs,6,155,Oshawa,OHL,nhl_draft_api,2015-155,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-156-jake-massie,2015,CAR,Carolina Hurricanes,6,156,Kimball Union Academy,HIGH-NH,nhl_draft_api,2015-156,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-157-brett-seney,2015,NJD,New Jersey Devils,6,157,Merrimack,NCAA,nhl_draft_api,2015-157,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-158-cooper-marody,2015,PHI,Philadelphia Flyers,6,158,Sioux Falls,USHL,nhl_draft_api,2015-158,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-159-vladislav-gavrikov,2015,CBJ,Columbus Blue Jackets,6,159,Yaroslavl,RUSSIA,nhl_draft_api,2015-159,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-160-adam-parsells,2015,SJS,San Jose Sharks,6,160,Wausau West,HIGH-WI,nhl_draft_api,2015-160,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-161-sergei-boikov,2015,COL,Colorado Avalanche,6,161,Drummondville,QMJHL,nhl_draft_api,2015-161,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-162-christopher-wilkie,2015,FLA,Florida Panthers,6,162,Tri-City,USHL,nhl_draft_api,2015-162,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-163-markus-ruusu,2015,DAL,Dallas Stars,6,163,JYP Jr.,Finland Jrs.,nhl_draft_api,2015-163,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-164-roy-radke,2015,CHI,Chicago Blackhawks,6,164,Barrie,OHL,nhl_draft_api,2015-164,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-165-cameron-hughes,2015,BOS,Boston Bruins,6,165,U. of Wisconsin,NCAA,nhl_draft_api,2015-165,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-166-andrew-mangiapane,2015,CGY,Calgary Flames,6,166,Barrie,OHL,nhl_draft_api,2015-166,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-167-frederik-tiffels,2015,PIT,Pittsburgh Penguins,6,167,Western Michigan,NCAA,nhl_draft_api,2015-167,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-168-mason-appleton,2015,WPG,Winnipeg Jets,6,168,Tri-City,USHL,nhl_draft_api,2015-168,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-169-david-cotton,2015,CAR,Carolina Hurricanes,6,169,Cushing Academy,High School,nhl_draft_api,2015-169,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-170-patrick-holway,2015,DET,Detroit Red Wings,6,170,Boston Advantage U18 (FS) (T1AAA),USMAAAE,nhl_draft_api,2015-170,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-171-nicholas-boka,2015,MIN,Minnesota Wild,6,171,USA U-18,USHL,nhl_draft_api,2015-171,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-172-andong-song,2015,NYI,New York Islanders,6,172,Lawrenceville,Unknown,nhl_draft_api,2015-172,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-173-colby-williams,2015,WSH,Washington Capitals,6,173,Regina,WHL,nhl_draft_api,2015-173,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-174-lukas-jasek,2015,VAN,Vancouver Canucks,6,174,Trinec,Czech Republic,nhl_draft_api,2015-174,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-175-tyler-moy,2015,NSH,Nashville Predators,6,175,Harvard U.,NCAA,nhl_draft_api,2015-175,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-176-liam-dunda,2015,STL,St. Louis Blues,6,176,Owen Sound,OHL,nhl_draft_api,2015-176,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-177-simon-bourque,2015,MTL,Montréal Canadiens,6,177,Rimouski,QMJHL,nhl_draft_api,2015-177,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-178-steven-ruggiero,2015,ANA,Anaheim Ducks,6,178,USA U-18,USHL,nhl_draft_api,2015-178,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-179-garrett-metcalf,2015,ANA,Anaheim Ducks,6,179,Madison,USHL,nhl_draft_api,2015-179,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-180-bokondji-imama,2015,TBL,Tampa Bay Lightning,6,180,Saint John,QMJHL,nhl_draft_api,2015-180,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-181-joni-tuulola,2015,CHI,Chicago Blackhawks,6,181,HPK,FINLAND,nhl_draft_api,2015-181,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-182-ivan-chukarov,2015,BUF,Buffalo Sabres,7,182,Minnesota Wilderness,NAHL,nhl_draft_api,2015-182,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-183-erik-kallgren,2015,ARI,Arizona Coyotes,7,183,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2015-183,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-184-adam-huska,2015,NYR,New York Rangers,7,184,Green Bay,USHL,nhl_draft_api,2015-184,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-185-nikita-korostelev,2015,TOR,Toronto Maple Leafs,7,185,Sarnia,OHL,nhl_draft_api,2015-185,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-186-steven-lorentz,2015,CAR,Carolina Hurricanes,7,186,Peterborough,OHL,nhl_draft_api,2015-186,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-187-chaz-reddekopp,2015,LAK,Los Angeles Kings,7,187,Victoria,WHL,nhl_draft_api,2015-187,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-188-ivan-fedotov,2015,PHI,Philadelphia Flyers,7,188,Nizhnekamsk 2,Russia Jr.,nhl_draft_api,2015-188,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-189-markus-nutivaara,2015,CBJ,Columbus Blue Jackets,7,189,Karpat,FINLAND,nhl_draft_api,2015-189,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-190-marcus-vela,2015,SJS,San Jose Sharks,7,190,Langley,BCHL,nhl_draft_api,2015-190,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-191-gustav-olhaver,2015,COL,Colorado Avalanche,7,191,Rogle Jr.,Sweden Jrs.,nhl_draft_api,2015-191,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-192-patrick-shea,2015,FLA,Florida Panthers,7,192,Kimball Union Academy,HIGH-NH,nhl_draft_api,2015-192,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-193-jake-kupsky,2015,SJS,San Jose Sharks,7,193,Lone Star,NAHL,nhl_draft_api,2015-193,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-194-matt-roy,2015,LAK,Los Angeles Kings,7,194,Michigan Tech,NCAA,nhl_draft_api,2015-194,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-195-jack-becker,2015,BOS,Boston Bruins,7,195,Mahtomedi,High School,nhl_draft_api,2015-195,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-196-riley-bruce,2015,CGY,Calgary Flames,7,196,North Bay,OHL,nhl_draft_api,2015-196,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-197-nikita-pavlychev,2015,PIT,Pittsburgh Penguins,7,197,Des Moines,USHL,nhl_draft_api,2015-197,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-198-sami-niku,2015,WPG,Winnipeg Jets,7,198,JYP 2,FINLAND-2,nhl_draft_api,2015-198,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-199-joey-daccord,2015,OTT,Ottawa Senators,7,199,Cushing Academy,High School,nhl_draft_api,2015-199,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-200-adam-marsh,2015,DET,Detroit Red Wings,7,200,Saint John,QMJHL,nhl_draft_api,2015-200,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-201-gustav-bouramman,2015,MIN,Minnesota Wild,7,201,Sault Ste. Marie,OHL,nhl_draft_api,2015-201,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-202-petter-hansson,2015,NYI,New York Islanders,7,202,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2015-202,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-203-matteo-gennaro,2015,WPG,Winnipeg Jets,7,203,Prince Albert,WHL,nhl_draft_api,2015-203,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-204-jack-sadek,2015,MIN,Minnesota Wild,7,204,Lakeville North,High School,nhl_draft_api,2015-204,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-205-evan-smith,2015,NSH,Nashville Predators,7,205,Austin,NAHL,nhl_draft_api,2015-205,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-206-ryan-bednard,2015,FLA,Florida Panthers,7,206,Johnstown,NAHL,nhl_draft_api,2015-206,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-207-jeremiah-addison,2015,MTL,Montréal Canadiens,7,207,Ottawa,OHL,nhl_draft_api,2015-207,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-208-miroslav-svoboda,2015,EDM,Edmonton Oilers,7,208,Trinec Jr.,CZREP-JR.,nhl_draft_api,2015-208,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-209-ziyat-paigin,2015,EDM,Edmonton Oilers,7,209,Kazan,RUSSIA,nhl_draft_api,2015-209,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-210-tate-olson,2015,VAN,Vancouver Canucks,7,210,Prince George,WHL,nhl_draft_api,2015-210,https://api-web.nhle.com/v1/draft/picks/2015/all
+2015-211-john-dahlstrom,2015,CHI,Chicago Blackhawks,7,211,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2015-211,https://api-web.nhle.com/v1/draft/picks/2015/all

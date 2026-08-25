@@ -1,0 +1,217 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2020-001-alexis-lafreni-re,2020,NYR,New York Rangers,1,1,Rimouski,QMJHL,nhl_draft_api,2020-1,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-002-quinton-byfield,2020,LAK,Los Angeles Kings,1,2,Sudbury,OHL,nhl_draft_api,2020-2,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-003-tim-st-tzle,2020,OTT,Ottawa Senators,1,3,Mannheim,GERMANY,nhl_draft_api,2020-3,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-004-lucas-raymond,2020,DET,Detroit Red Wings,1,4,Frolunda,SWEDEN,nhl_draft_api,2020-4,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-005-jake-sanderson,2020,OTT,Ottawa Senators,1,5,USA U-18,USHL,nhl_draft_api,2020-5,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-006-jamie-drysdale,2020,ANA,Anaheim Ducks,1,6,Erie,OHL,nhl_draft_api,2020-6,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-007-alexander-holtz,2020,NJD,New Jersey Devils,1,7,Djurgarden,SWEDEN,nhl_draft_api,2020-7,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-008-jack-quinn,2020,BUF,Buffalo Sabres,1,8,Ottawa,OHL,nhl_draft_api,2020-8,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-009-marco-rossi,2020,MIN,Minnesota Wild,1,9,Ottawa,OHL,nhl_draft_api,2020-9,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-010-cole-perfetti,2020,WPG,Winnipeg Jets,1,10,Saginaw,OHL,nhl_draft_api,2020-10,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-011-yaroslav-askarov,2020,NSH,Nashville Predators,1,11,Neva St. Petersburg,RUSSIA-2,nhl_draft_api,2020-11,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-012-anton-lundell,2020,FLA,Florida Panthers,1,12,HIFK,FINLAND,nhl_draft_api,2020-12,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-013-seth-jarvis,2020,CAR,Carolina Hurricanes,1,13,Portland,WHL,nhl_draft_api,2020-13,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-014-dylan-holloway,2020,EDM,Edmonton Oilers,1,14,Wisconsin,NCAA,nhl_draft_api,2020-14,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-015-rodion-amirov,2020,TOR,Toronto Maple Leafs,1,15,Ufa,RUSSIA,nhl_draft_api,2020-15,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-016-kaiden-guhle,2020,MTL,Montréal Canadiens,1,16,Prince Albert,WHL,nhl_draft_api,2020-16,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-017-lukas-reichel,2020,CHI,Chicago Blackhawks,1,17,Eisbaren Berlin,GERMANY,nhl_draft_api,2020-17,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-018-dawson-mercer,2020,NJD,New Jersey Devils,1,18,Chicoutimi,QMJHL,nhl_draft_api,2020-18,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-019-braden-schneider,2020,NYR,New York Rangers,1,19,Brandon,WHL,nhl_draft_api,2020-19,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-020-shakir-mukhamadullin,2020,NJD,New Jersey Devils,1,20,Ufa,RUSSIA,nhl_draft_api,2020-20,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-021-egor-chinakhov,2020,CBJ,Columbus Blue Jackets,1,21,Omsk 2,Russia Jr.,nhl_draft_api,2020-21,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-022-hendrix-lapierre,2020,WSH,Washington Capitals,1,22,Chicoutimi,QMJHL,nhl_draft_api,2020-22,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-023-tyson-foerster,2020,PHI,Philadelphia Flyers,1,23,Barrie,OHL,nhl_draft_api,2020-23,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-024-connor-zary,2020,CGY,Calgary Flames,1,24,Kamloops,WHL,nhl_draft_api,2020-24,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-025-justin-barron,2020,COL,Colorado Avalanche,1,25,Halifax,QMJHL,nhl_draft_api,2020-25,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-026-jake-neighbours,2020,STL,St. Louis Blues,1,26,Edmonton,WHL,nhl_draft_api,2020-26,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-027-jacob-perreault,2020,ANA,Anaheim Ducks,1,27,Sarnia,OHL,nhl_draft_api,2020-27,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-028-ridly-greig,2020,OTT,Ottawa Senators,1,28,Brandon,WHL,nhl_draft_api,2020-28,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-029-brendan-brisson,2020,VGK,Vegas Golden Knights,1,29,Chicago,USHL,nhl_draft_api,2020-29,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-030-mavrik-bourque,2020,DAL,Dallas Stars,1,30,Shawinigan,QMJHL,nhl_draft_api,2020-30,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-031-ozzy-wiesblatt,2020,SJS,San Jose Sharks,1,31,Prince Albert,WHL,nhl_draft_api,2020-31,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-032-william-wallinder,2020,DET,Detroit Red Wings,2,32,Modo Jr.,Sweden Jrs.,nhl_draft_api,2020-32,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-033-roby-jarventie,2020,OTT,Ottawa Senators,2,33,Koovee,FINLAND-2,nhl_draft_api,2020-33,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-034-jj-peterka,2020,BUF,Buffalo Sabres,2,34,Munchen,GERMANY,nhl_draft_api,2020-34,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-035-helge-grans,2020,LAK,Los Angeles Kings,2,35,Malmo Jr.,Sweden Jrs.,nhl_draft_api,2020-35,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-036-sam-colangelo,2020,ANA,Anaheim Ducks,2,36,Chicago,USHL,nhl_draft_api,2020-36,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-037-marat-khusnutdinov,2020,MIN,Minnesota Wild,2,37,SKA St. Petersburg 2,Russia Jr.,nhl_draft_api,2020-37,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-038-thomas-bordeleau,2020,SJS,San Jose Sharks,2,38,USA U-18,USHL,nhl_draft_api,2020-38,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-039-ryan-o-rourke,2020,MIN,Minnesota Wild,2,39,Sault Ste. Marie,OHL,nhl_draft_api,2020-39,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-040-daniel-torgersson,2020,WPG,Winnipeg Jets,2,40,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2020-40,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-041-noel-gunler,2020,CAR,Carolina Hurricanes,2,41,Lulea,SWEDEN,nhl_draft_api,2020-41,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-042-luke-evangelista,2020,NSH,Nashville Predators,2,42,London,OHL,nhl_draft_api,2020-42,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-043-emil-heineman,2020,FLA,Florida Panthers,2,43,Leksand Jr.,Sweden Jrs.,nhl_draft_api,2020-43,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-044-tyler-kleven,2020,OTT,Ottawa Senators,2,44,USA U-18,USHL,nhl_draft_api,2020-44,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-045-brock-faber,2020,LAK,Los Angeles Kings,2,45,USA U-18,USHL,nhl_draft_api,2020-45,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-046-drew-commesso,2020,CHI,Chicago Blackhawks,2,46,USA U-18,USHL,nhl_draft_api,2020-46,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-047-luke-tuch,2020,MTL,Montréal Canadiens,2,47,USA U-18,USHL,nhl_draft_api,2020-47,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-048-jan-mysak,2020,MTL,Montréal Canadiens,2,48,Hamilton,OHL,nhl_draft_api,2020-48,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-050-yan-kuznetsov,2020,CGY,Calgary Flames,2,50,U. of Connecticut,NCAA,nhl_draft_api,2020-50,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-051-theodor-niederbach,2020,DET,Detroit Red Wings,2,51,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2020-51,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-052-joel-blomqvist,2020,PIT,Pittsburgh Penguins,2,52,Karpat Jr.,Finland Jrs.,nhl_draft_api,2020-52,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-053-vasily-ponomarev,2020,CAR,Carolina Hurricanes,2,53,Shawinigan,QMJHL,nhl_draft_api,2020-53,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-054-emil-andrae,2020,PHI,Philadelphia Flyers,2,54,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2020-54,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-055-cross-hanas,2020,DET,Detroit Red Wings,2,55,Portland,WHL,nhl_draft_api,2020-55,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-056-tristen-robins,2020,SJS,San Jose Sharks,2,56,Saskatoon,WHL,nhl_draft_api,2020-56,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-057-jack-finley,2020,TBL,Tampa Bay Lightning,2,57,Spokane,WHL,nhl_draft_api,2020-57,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-058-mason-lohrei,2020,BOS,Boston Bruins,2,58,Green Bay,USHL,nhl_draft_api,2020-58,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-059-roni-hirvonen,2020,TOR,Toronto Maple Leafs,2,59,Assat,FINLAND,nhl_draft_api,2020-59,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-060-will-cuylle,2020,NYR,New York Rangers,2,60,Windsor,OHL,nhl_draft_api,2020-60,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-061-egor-sokolov,2020,OTT,Ottawa Senators,2,61,Cape Breton,QMJHL,nhl_draft_api,2020-61,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-062-gage-goncalves,2020,TBL,Tampa Bay Lightning,2,62,Everett,WHL,nhl_draft_api,2020-62,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-063-donovan-sebrango,2020,DET,Detroit Red Wings,3,63,Kitchener,OHL,nhl_draft_api,2020-63,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-064-topi-niemela,2020,TOR,Toronto Maple Leafs,3,64,Karpat,FINLAND,nhl_draft_api,2020-64,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-065-daemon-hunt,2020,MIN,Minnesota Wild,3,65,Moose Jaw,WHL,nhl_draft_api,2020-65,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-066-kasper-simontaival,2020,LAK,Los Angeles Kings,3,66,Tappara Jr.,Finland Jrs.,nhl_draft_api,2020-66,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-067-ian-moore,2020,ANA,Anaheim Ducks,3,67,St. Mark's School,High School,nhl_draft_api,2020-67,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-068-lukas-cormier,2020,VGK,Vegas Golden Knights,3,68,Charlottetown,QMJHL,nhl_draft_api,2020-68,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-069-alexander-nikishin,2020,CAR,Carolina Hurricanes,3,69,Spartak,RUSSIA,nhl_draft_api,2020-69,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-070-eemil-viro,2020,DET,Detroit Red Wings,3,70,TPS,FINLAND,nhl_draft_api,2020-70,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-071-leevi-meril-inen,2020,OTT,Ottawa Senators,3,71,Karpat Jr.,Finland Jrs.,nhl_draft_api,2020-71,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-072-jeremie-poirier,2020,CGY,Calgary Flames,3,72,Saint John,QMJHL,nhl_draft_api,2020-72,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-073-luke-prokop,2020,NSH,Nashville Predators,3,73,Calgary,WHL,nhl_draft_api,2020-73,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-074-ty-smilanic,2020,FLA,Florida Panthers,3,74,USA U-18,USHL,nhl_draft_api,2020-74,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-075-jean-luc-foudy,2020,COL,Colorado Avalanche,3,75,Windsor,OHL,nhl_draft_api,2020-75,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-076-danil-gushchin,2020,SJS,San Jose Sharks,3,76,Muskegon,USHL,nhl_draft_api,2020-76,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-077-calle-clang,2020,PIT,Pittsburgh Penguins,3,77,Rogle Jr.,Sweden Jrs.,nhl_draft_api,2020-77,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-078-samuel-knazko,2020,CBJ,Columbus Blue Jackets,3,78,TPS Jr.,Finland Jrs.,nhl_draft_api,2020-78,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-079-landon-slaggert,2020,CHI,Chicago Blackhawks,3,79,USA U-18,USHL,nhl_draft_api,2020-79,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-080-jake-boltmann,2020,CGY,Calgary Flames,3,80,Edina H.S.,High School,nhl_draft_api,2020-80,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-081-wyatt-kaiser,2020,CHI,Chicago Blackhawks,3,81,Andover,High School,nhl_draft_api,2020-81,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-082-joni-jurmo,2020,VAN,Vancouver Canucks,3,82,Jokerit Jr.,Finland Jrs.,nhl_draft_api,2020-82,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-083-alex-laferriere,2020,LAK,Los Angeles Kings,3,83,Des Moines,USHL,nhl_draft_api,2020-83,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-084-nico-daws,2020,NJD,New Jersey Devils,3,84,Guelph,OHL,nhl_draft_api,2020-84,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-085-maxim-groshev,2020,TBL,Tampa Bay Lightning,3,85,Nizhnekamsk,RUSSIA,nhl_draft_api,2020-85,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-086-dylan-peterson,2020,STL,St. Louis Blues,3,86,USA U-18,USHL,nhl_draft_api,2020-86,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-087-justin-sourdif,2020,FLA,Florida Panthers,3,87,Vancouver,WHL,nhl_draft_api,2020-87,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-088-leo-loof,2020,STL,St. Louis Blues,3,88,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2020-88,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-089-trevor-kuntar,2020,BOS,Boston Bruins,3,89,Youngstown,USHL,nhl_draft_api,2020-89,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-090-alexander-ljungkrantz,2020,NYI,New York Islanders,3,90,Brynas Jr.,Sweden Jrs.,nhl_draft_api,2020-90,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-091-jackson-hallum,2020,VGK,Vegas Golden Knights,3,91,St. Thomas,High School,nhl_draft_api,2020-91,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-092-oliver-tarnstrom,2020,NYR,New York Rangers,3,92,AIK Jr.,Sweden Jrs.,nhl_draft_api,2020-92,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-093-jack-thompson,2020,TBL,Tampa Bay Lightning,3,93,Sudbury,OHL,nhl_draft_api,2020-93,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-094-zayde-wisdom,2020,PHI,Philadelphia Flyers,4,94,Kingston,OHL,nhl_draft_api,2020-94,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-095-mike-benning,2020,FLA,Florida Panthers,4,95,Sherwood Park,AJHL,nhl_draft_api,2020-95,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-096-daniil-chechelev,2020,CGY,Calgary Flames,4,96,Chekhov 2,Russia Jr.,nhl_draft_api,2020-96,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-097-sam-stange,2020,DET,Detroit Red Wings,4,97,Sioux Falls,USHL,nhl_draft_api,2020-97,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-098-brandon-coe,2020,SJS,San Jose Sharks,4,98,North Bay,OHL,nhl_draft_api,2020-98,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-099-jaromir-pytlik,2020,NJD,New Jersey Devils,4,99,Sault Ste. Marie,OHL,nhl_draft_api,2020-99,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-100-carter-savoie,2020,EDM,Edmonton Oilers,4,100,Sherwood Park,AJHL,nhl_draft_api,2020-100,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-101-adam-wilsby,2020,NSH,Nashville Predators,4,101,Sodertalje,HockeyAllsvenskan,nhl_draft_api,2020-101,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-102-jack-smith,2020,MTL,Montréal Canadiens,4,102,St. Cloud Cathedral,High School,nhl_draft_api,2020-102,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-103-dylan-garand,2020,NYR,New York Rangers,4,103,Kamloops,WHL,nhl_draft_api,2020-103,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-104-thimo-nickl,2020,ANA,Anaheim Ducks,4,104,Drummondville,QMJHL,nhl_draft_api,2020-104,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-105-zachary-uens,2020,FLA,Florida Panthers,4,105,Merrimack,NCAA,nhl_draft_api,2020-105,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-106-artur-akhtyamov,2020,TOR,Toronto Maple Leafs,4,106,Irbis Kazan,Russia Jr.,nhl_draft_api,2020-106,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-107-jan-bednar,2020,DET,Detroit Red Wings,4,107,Sokolov,CZREP-2,nhl_draft_api,2020-107,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-108-lukas-svejkovsky,2020,PIT,Pittsburgh Penguins,4,108,Medicine Hat,WHL,nhl_draft_api,2020-108,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-109-blake-biondi,2020,MTL,Montréal Canadiens,4,109,Hermantown,High School,nhl_draft_api,2020-109,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-110-michael-krutil,2020,CHI,Chicago Blackhawks,4,110,Sparta Jr.,CZREP-JR.,nhl_draft_api,2020-110,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-111-mitchell-miller,2020,ARI,Arizona Coyotes,4,111,Tri-City,USHL,nhl_draft_api,2020-111,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-112-juho-markkanen,2020,LAK,Los Angeles Kings,4,112,Saipa Jr.,Finland Jrs.,nhl_draft_api,2020-112,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-113-jackson-kunz,2020,VAN,Vancouver Canucks,4,113,Shattuck-St. Mary's,High School,nhl_draft_api,2020-113,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-114-mikael-pyyhtia,2020,CBJ,Columbus Blue Jackets,4,114,TPS Jr.,Finland Jrs.,nhl_draft_api,2020-114,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-115-zion-nybeck,2020,CAR,Carolina Hurricanes,4,115,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2020-115,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-116-eamon-powell,2020,TBL,Tampa Bay Lightning,4,116,USA U-18,USHL,nhl_draft_api,2020-116,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-117-bogdan-trineyev,2020,WSH,Washington Capitals,4,117,Dynamo Moscow 2,Russia Jr.,nhl_draft_api,2020-117,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-118-colby-ambrosio,2020,COL,Colorado Avalanche,4,118,Tri-City,USHL,nhl_draft_api,2020-118,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-119-tanner-dickinson,2020,STL,St. Louis Blues,4,119,Sault Ste. Marie,OHL,nhl_draft_api,2020-119,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-120-ethan-edwards,2020,NJD,New Jersey Devils,4,120,Spruce Grove,AJHL,nhl_draft_api,2020-120,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-121-alex-jefferies,2020,NYI,New York Islanders,4,121,The Gunnery,HIGH-CT,nhl_draft_api,2020-121,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-122-william-villeneuve,2020,TOR,Toronto Maple Leafs,4,122,Saint John,QMJHL,nhl_draft_api,2020-122,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-123-antonio-stranges,2020,DAL,Dallas Stars,4,123,London,OHL,nhl_draft_api,2020-123,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-124-sean-farrell,2020,MTL,Montréal Canadiens,4,124,Chicago,USHL,nhl_draft_api,2020-124,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-125-jesper-vikman,2020,VGK,Vegas Golden Knights,5,125,AIK Jr.,Sweden Jrs.,nhl_draft_api,2020-125,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-126-tyler-tullio,2020,EDM,Edmonton Oilers,5,126,Oshawa,OHL,nhl_draft_api,2020-126,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-127-evan-vierling,2020,NYR,New York Rangers,5,127,Barrie,OHL,nhl_draft_api,2020-127,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-128-martin-chromiak,2020,LAK,Los Angeles Kings,5,128,Kingston,OHL,nhl_draft_api,2020-128,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-129-artyom-galimov,2020,ANA,Anaheim Ducks,5,129,Kazan,RUSSIA,nhl_draft_api,2020-129,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-130-artem-shlaine,2020,NJD,New Jersey Devils,5,130,Shattuck-St. Mary's,High School,nhl_draft_api,2020-130,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-131-matteo-costantini,2020,BUF,Buffalo Sabres,5,131,Buffalo Jr. Sabres,OJHL,nhl_draft_api,2020-131,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-132-alex-cotton,2020,DET,Detroit Red Wings,5,132,Lethbridge,WHL,nhl_draft_api,2020-132,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-133-anton-johannesson,2020,WPG,Winnipeg Jets,5,133,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2020-133,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-134-brett-berard,2020,NYR,New York Rangers,5,134,USA U-18,USHL,nhl_draft_api,2020-134,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-135-elliot-desnoyers,2020,PHI,Philadelphia Flyers,5,135,Moncton,QMJHL,nhl_draft_api,2020-135,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-136-jakub-dobes,2020,MTL,Montréal Canadiens,5,136,Omaha,USHL,nhl_draft_api,2020-136,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-137-dmitry-ovchinnikov,2020,TOR,Toronto Maple Leafs,5,137,Novosibirsk 2,Russia Jr.,nhl_draft_api,2020-137,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-138-maksim-berezkin,2020,EDM,Edmonton Oilers,5,138,Yaroslavl 2,Russia Jr.,nhl_draft_api,2020-138,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-139-ryder-rolston,2020,COL,Colorado Avalanche,5,139,Waterloo,USHL,nhl_draft_api,2020-139,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-140-ben-meehan,2020,LAK,Los Angeles Kings,5,140,Cedar Rapids,USHL,nhl_draft_api,2020-140,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-141-isaak-phillips,2020,CHI,Chicago Blackhawks,5,141,Sudbury,OHL,nhl_draft_api,2020-141,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-142-carson-bantle,2020,ARI,Arizona Coyotes,5,142,Madison,USHL,nhl_draft_api,2020-142,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-143-ryan-francis,2020,CGY,Calgary Flames,5,143,Cape Breton,QMJHL,nhl_draft_api,2020-143,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-144-jacob-truscott,2020,VAN,Vancouver Canucks,5,144,USA U-18,USHL,nhl_draft_api,2020-144,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-145-ole-julian-bjorgvik-holm,2020,CBJ,Columbus Blue Jackets,5,145,Mississauga,OHL,nhl_draft_api,2020-145,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-146-pavel-novak,2020,MIN,Minnesota Wild,5,146,Kelowna,WHL,nhl_draft_api,2020-146,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-147-jaydon-dureau,2020,TBL,Tampa Bay Lightning,5,147,Portland,WHL,nhl_draft_api,2020-147,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-148-bear-hughes,2020,WSH,Washington Capitals,5,148,Spokane,WHL,nhl_draft_api,2020-148,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-149-raivis-ansons,2020,PIT,Pittsburgh Penguins,5,149,Baie Comeau,QMJHL,nhl_draft_api,2020-149,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-150-matthew-kessel,2020,STL,St. Louis Blues,5,150,U. Mass.,NCAA,nhl_draft_api,2020-150,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-151-mason-langenbrunner,2020,BOS,Boston Bruins,5,151,Eden Prarie,High School,nhl_draft_api,2020-151,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-152-william-dufour,2020,NYI,New York Islanders,5,152,Drummondville,QMJHL,nhl_draft_api,2020-152,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-153-kasper-puutio,2020,FLA,Florida Panthers,5,153,Everett,WHL,nhl_draft_api,2020-153,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-154-daniel-ljungman,2020,DAL,Dallas Stars,5,154,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2020-154,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-155-eric-engstrand,2020,OTT,Ottawa Senators,5,155,Malmo Jr.,Sweden Jrs.,nhl_draft_api,2020-155,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-156-kyle-aucoin,2020,DET,Detroit Red Wings,6,156,Tri-City,USHL,nhl_draft_api,2020-156,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-157-nick-capone,2020,TBL,Tampa Bay Lightning,6,157,Tri-City,USHL,nhl_draft_api,2020-157,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-158-philippe-daoust,2020,OTT,Ottawa Senators,6,158,Moncton,QMJHL,nhl_draft_api,2020-158,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-159-lucas-mercuri,2020,CAR,Carolina Hurricanes,6,159,Salisbury,HIGH-CT,nhl_draft_api,2020-159,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-160-albin-sundsvik,2020,ANA,Anaheim Ducks,6,160,Skelleftea,SWEDEN,nhl_draft_api,2020-160,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-161-benjamin-baumgartner,2020,NJD,New Jersey Devils,6,161,Davos,National League,nhl_draft_api,2020-161,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-162-yauheni-aksiantsiuk,2020,DAL,Dallas Stars,6,162,Flint,OHL,nhl_draft_api,2020-162,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-163-will-cranley,2020,STL,St. Louis Blues,6,163,Ottawa,OHL,nhl_draft_api,2020-163,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-164-tyrel-bauer,2020,WPG,Winnipeg Jets,6,164,Seattle,WHL,nhl_draft_api,2020-164,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-165-matt-rempe,2020,NYR,New York Rangers,6,165,Seattle,WHL,nhl_draft_api,2020-165,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-166-luke-reid,2020,NSH,Nashville Predators,6,166,Chicago,USHL,nhl_draft_api,2020-166,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-167-nils-aman,2020,COL,Colorado Avalanche,6,167,Leksand Jr.,Sweden Jrs.,nhl_draft_api,2020-167,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-168-veeti-miettinen,2020,TOR,Toronto Maple Leafs,6,168,K-Espoo Jr.,Finland Jrs.,nhl_draft_api,2020-168,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-169-filip-engaras,2020,EDM,Edmonton Oilers,6,169,New Hampshire,NCAA,nhl_draft_api,2020-169,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-170-chase-yoder,2020,PIT,Pittsburgh Penguins,6,170,USA U-18,USHL,nhl_draft_api,2020-170,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-171-alexander-gordin,2020,MTL,Montréal Canadiens,6,171,SKA St. Petersburg 2,Russia Jr.,nhl_draft_api,2020-171,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-172-chad-yetman,2020,CHI,Chicago Blackhawks,6,172,Erie,OHL,nhl_draft_api,2020-172,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-173-filip-barklund,2020,ARI,Arizona Coyotes,6,173,Orebro Jr.,Sweden Jrs.,nhl_draft_api,2020-173,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-174-rory-kerins,2020,CGY,Calgary Flames,6,174,Sault Ste. Marie,OHL,nhl_draft_api,2020-174,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-175-dmitry-zlodeyev,2020,VAN,Vancouver Canucks,6,175,Dynamo Moscow 2,Russia Jr.,nhl_draft_api,2020-175,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-176-samuel-johannesson,2020,CBJ,Columbus Blue Jackets,6,176,Rogle,SWEDEN,nhl_draft_api,2020-176,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-177-axel-rindell,2020,TOR,Toronto Maple Leafs,6,177,Jukurit,FINLAND,nhl_draft_api,2020-177,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-178-connor-mcclennon,2020,PHI,Philadelphia Flyers,6,178,Winnipeg,WHL,nhl_draft_api,2020-178,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-179-garin-bjorklund,2020,WSH,Washington Capitals,6,179,Medicine Hat,WHL,nhl_draft_api,2020-179,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-180-joe-miller,2020,TOR,Toronto Maple Leafs,6,180,Blake,High School,nhl_draft_api,2020-180,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-181-cole-reinhardt,2020,OTT,Ottawa Senators,6,181,Brandon,WHL,nhl_draft_api,2020-181,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-182-riley-duran,2020,BOS,Boston Bruins,6,182,Lawrence Academy,High School,nhl_draft_api,2020-182,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-183-matias-rajaniemi,2020,NYI,New York Islanders,6,183,Pelicans Jr.,Finland Jrs.,nhl_draft_api,2020-183,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-184-noah-ellis,2020,VGK,Vegas Golden Knights,6,184,Des Moines,USHL,nhl_draft_api,2020-184,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-185-r-mi-poirier,2020,DAL,Dallas Stars,6,185,Gatineau,QMJHL,nhl_draft_api,2020-185,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-186-amir-miftakhov,2020,TBL,Tampa Bay Lightning,6,186,Bars Kazan,RUSSIA-2,nhl_draft_api,2020-186,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-187-kienan-draper,2020,DET,Detroit Red Wings,7,187,St. Andrew's College,HIGH-ON,nhl_draft_api,2020-187,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-188-louis-crevier,2020,CHI,Chicago Blackhawks,7,188,Chicoutimi,QMJHL,nhl_draft_api,2020-188,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-189-john-fusco,2020,TOR,Toronto Maple Leafs,7,189,Dexter School,High School,nhl_draft_api,2020-189,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-190-aatu-jamsen,2020,LAK,Los Angeles Kings,7,190,Pelicans Jr.,Finland Jrs.,nhl_draft_api,2020-190,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-191-viktor-persson,2020,VAN,Vancouver Canucks,7,191,Brynas Jr.,Sweden Jrs.,nhl_draft_api,2020-191,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-192-elliot-ekefjard,2020,ARI,Arizona Coyotes,7,192,IF Björklöven J20,J20 Elit,nhl_draft_api,2020-192,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-193-albert-lyckasen,2020,BUF,Buffalo Sabres,7,193,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2020-193,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-194-noah-beck,2020,STL,St. Louis Blues,7,194,Fargo,USHL,nhl_draft_api,2020-194,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-195-wyatt-schingoethe,2020,TOR,Toronto Maple Leafs,7,195,Waterloo,USHL,nhl_draft_api,2020-195,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-196-alex-young,2020,SJS,San Jose Sharks,7,196,Canmore,AJHL,nhl_draft_api,2020-196,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-197-hugo-ollas,2020,NYR,New York Rangers,7,197,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2020-197,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-198-elliot-ekmark,2020,FLA,Florida Panthers,7,198,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2020-198,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-199-alexander-pashin,2020,CAR,Carolina Hurricanes,7,199,Ufa 2,Russia Jr.,nhl_draft_api,2020-199,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-200-jeremias-lindewall,2020,EDM,Edmonton Oilers,7,200,Modo Jr.,Sweden Jrs.,nhl_draft_api,2020-200,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-201-adam-raska,2020,SJS,San Jose Sharks,7,201,Rimouski,QMJHL,nhl_draft_api,2020-201,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-202-gunnarwolfe-fontaine,2020,NSH,Nashville Predators,7,202,Chicago,USHL,nhl_draft_api,2020-202,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-203-chase-bradley,2020,DET,Detroit Red Wings,7,203,Omaha,USHL,nhl_draft_api,2020-203,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-204-ben-mccartney,2020,ARI,Arizona Coyotes,7,204,Brandon,WHL,nhl_draft_api,2020-204,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-205-ilya-solovyov,2020,CGY,Calgary Flames,7,205,Saginaw,OHL,nhl_draft_api,2020-205,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-206-linus-oberg,2020,SJS,San Jose Sharks,7,206,Orebro,SWEDEN,nhl_draft_api,2020-206,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-207-ethan-bowen,2020,ANA,Anaheim Ducks,7,207,Chilliwack,BCHL,nhl_draft_api,2020-207,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-208-ronan-seeley,2020,CAR,Carolina Hurricanes,7,208,Everett,WHL,nhl_draft_api,2020-208,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-209-chase-mclane,2020,NSH,Nashville Predators,7,209,Tri-City,USHL,nhl_draft_api,2020-209,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-210-timofey-spitserov,2020,SJS,San Jose Sharks,7,210,Culver Academy,HIGH-IN,nhl_draft_api,2020-210,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-211-oskar-magnusson,2020,WSH,Washington Capitals,7,211,Malmo Jr.,Sweden Jrs.,nhl_draft_api,2020-211,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-212-devon-levi,2020,FLA,Florida Panthers,7,212,Carleton Place,CCHL,nhl_draft_api,2020-212,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-213-ryan-tverberg,2020,TOR,Toronto Maple Leafs,7,213,Toronto JC,OJHL,nhl_draft_api,2020-213,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-214-henrik-tikkanen,2020,NYI,New York Islanders,7,214,HIFK Jr.,Finland Jrs.,nhl_draft_api,2020-214,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-215-maxim-marushev,2020,VGK,Vegas Golden Knights,7,215,Bars Kazan,RUSSIA-2,nhl_draft_api,2020-215,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-216-jakub-konecny,2020,BUF,Buffalo Sabres,7,216,Sparta Jr.,CZREP-JR.,nhl_draft_api,2020-216,https://api-web.nhle.com/v1/draft/picks/2020/all
+2020-217-declan-mcdonnell,2020,TBL,Tampa Bay Lightning,7,217,Kitchener,OHL,nhl_draft_api,2020-217,https://api-web.nhle.com/v1/draft/picks/2020/all

@@ -1,0 +1,218 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2019-001-jack-hughes,2019,NJD,New Jersey Devils,1,1,USA U-18,USHL,nhl_draft_api,2019-1,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-002-kaapo-kakko,2019,NYR,New York Rangers,1,2,TPS,FINLAND,nhl_draft_api,2019-2,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-003-kirby-dach,2019,CHI,Chicago Blackhawks,1,3,Saskatoon,WHL,nhl_draft_api,2019-3,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-004-bowen-byram,2019,COL,Colorado Avalanche,1,4,Vancouver,WHL,nhl_draft_api,2019-4,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-005-alex-turcotte,2019,LAK,Los Angeles Kings,1,5,USA U-18,USHL,nhl_draft_api,2019-5,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-006-moritz-seider,2019,DET,Detroit Red Wings,1,6,Mannheim,GERMANY,nhl_draft_api,2019-6,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-007-dylan-cozens,2019,BUF,Buffalo Sabres,1,7,Lethbridge,WHL,nhl_draft_api,2019-7,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-008-philip-broberg,2019,EDM,Edmonton Oilers,1,8,AIK,HockeyAllsvenskan,nhl_draft_api,2019-8,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-009-trevor-zegras,2019,ANA,Anaheim Ducks,1,9,USA U-18,USHL,nhl_draft_api,2019-9,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-010-vasily-podkolzin,2019,VAN,Vancouver Canucks,1,10,Neva St. Petersburg,RUSSIA-2,nhl_draft_api,2019-10,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-011-victor-soderstrom,2019,ARI,Arizona Coyotes,1,11,Brynas,SWEDEN,nhl_draft_api,2019-11,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-012-matt-boldy,2019,MIN,Minnesota Wild,1,12,USA U-18,USHL,nhl_draft_api,2019-12,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-013-spencer-knight,2019,FLA,Florida Panthers,1,13,USA U-18,USHL,nhl_draft_api,2019-13,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-014-cam-york,2019,PHI,Philadelphia Flyers,1,14,USA U-18,USHL,nhl_draft_api,2019-14,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-015-cole-caufield,2019,MTL,Montréal Canadiens,1,15,USA U-18,USHL,nhl_draft_api,2019-15,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-016-alex-newhook,2019,COL,Colorado Avalanche,1,16,Victoria,BCHL,nhl_draft_api,2019-16,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-017-peyton-krebs,2019,VGK,Vegas Golden Knights,1,17,Kootenay,WHL,nhl_draft_api,2019-17,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-018-thomas-harley,2019,DAL,Dallas Stars,1,18,Mississauga,OHL,nhl_draft_api,2019-18,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-019-lassi-thomson,2019,OTT,Ottawa Senators,1,19,Kelowna,WHL,nhl_draft_api,2019-19,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-020-ville-heinola,2019,WPG,Winnipeg Jets,1,20,Lukko,FINLAND,nhl_draft_api,2019-20,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-021-sam-poulin,2019,PIT,Pittsburgh Penguins,1,21,Sherbrooke,QMJHL,nhl_draft_api,2019-21,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-022-tobias-bjornfot,2019,LAK,Los Angeles Kings,1,22,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2019-22,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-023-simon-holmstrom,2019,NYI,New York Islanders,1,23,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2019-23,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-024-philip-tomasino,2019,NSH,Nashville Predators,1,24,Niagara,OHL,nhl_draft_api,2019-24,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-025-connor-mcmichael,2019,WSH,Washington Capitals,1,25,London,OHL,nhl_draft_api,2019-25,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-026-jakob-pelletier,2019,CGY,Calgary Flames,1,26,Moncton,QMJHL,nhl_draft_api,2019-26,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-027-nolan-foote,2019,TBL,Tampa Bay Lightning,1,27,Kelowna,WHL,nhl_draft_api,2019-27,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-028-ryan-suzuki,2019,CAR,Carolina Hurricanes,1,28,Barrie,OHL,nhl_draft_api,2019-28,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-029-brayden-tracey,2019,ANA,Anaheim Ducks,1,29,Moose Jaw,WHL,nhl_draft_api,2019-29,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-030-john-beecher,2019,BOS,Boston Bruins,1,30,USA U-18,USHL,nhl_draft_api,2019-30,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-031-ryan-johnson,2019,BUF,Buffalo Sabres,1,31,Sioux Falls,USHL,nhl_draft_api,2019-31,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-032-shane-pinto,2019,OTT,Ottawa Senators,2,32,Tri-City,USHL,nhl_draft_api,2019-32,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-033-arthur-kaliyev,2019,LAK,Los Angeles Kings,2,33,Hamilton,OHL,nhl_draft_api,2019-33,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-034-bobby-brink,2019,PHI,Philadelphia Flyers,2,34,Sioux City,USHL,nhl_draft_api,2019-34,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-035-antti-tuomisto,2019,DET,Detroit Red Wings,2,35,Assat Jr.,Finland Jrs.,nhl_draft_api,2019-35,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-036-pyotr-kochetkov,2019,CAR,Carolina Hurricanes,2,36,Ryazan,RUSSIA-2,nhl_draft_api,2019-36,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-037-mads-sogaard,2019,OTT,Ottawa Senators,2,37,Medicine Hat,WHL,nhl_draft_api,2019-37,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-038-raphael-lavoie,2019,EDM,Edmonton Oilers,2,38,Halifax,QMJHL,nhl_draft_api,2019-38,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-039-jackson-lacombe,2019,ANA,Anaheim Ducks,2,39,Shattuck-St. Mary's,High School,nhl_draft_api,2019-39,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-040-nils-hoglander,2019,VAN,Vancouver Canucks,2,40,Rogle,SWEDEN,nhl_draft_api,2019-40,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-041-kaedan-korczak,2019,VGK,Vegas Golden Knights,2,41,Kelowna,WHL,nhl_draft_api,2019-41,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-042-vladislav-firstov,2019,MIN,Minnesota Wild,2,42,Waterloo,USHL,nhl_draft_api,2019-42,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-043-alex-vlasic,2019,CHI,Chicago Blackhawks,2,43,USA U-18,USHL,nhl_draft_api,2019-43,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-044-jamieson-rees,2019,CAR,Carolina Hurricanes,2,44,Sarnia,OHL,nhl_draft_api,2019-44,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-045-egor-afanasyev,2019,NSH,Nashville Predators,2,45,Muskegon,USHL,nhl_draft_api,2019-45,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-046-jayden-struble,2019,MTL,Montréal Canadiens,2,46,St. Sebastian's School,High School,nhl_draft_api,2019-46,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-047-drew-helleson,2019,COL,Colorado Avalanche,2,47,USA U-18,USHL,nhl_draft_api,2019-47,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-048-artemi-kniazev,2019,SJS,San Jose Sharks,2,48,Chicoutimi,QMJHL,nhl_draft_api,2019-48,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-049-matthew-robertson,2019,NYR,New York Rangers,2,49,Edmonton,WHL,nhl_draft_api,2019-49,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-050-samuel-fagemo,2019,LAK,Los Angeles Kings,2,50,Frolunda,SWEDEN,nhl_draft_api,2019-50,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-051-simon-lundmark,2019,WPG,Winnipeg Jets,2,51,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2019-51,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-052-vladislav-kolyachonok,2019,FLA,Florida Panthers,2,52,Flint,OHL,nhl_draft_api,2019-52,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-053-nick-robertson,2019,TOR,Toronto Maple Leafs,2,53,Peterborough,OHL,nhl_draft_api,2019-53,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-054-robert-mastrosimone,2019,DET,Detroit Red Wings,2,54,Chicago,USHL,nhl_draft_api,2019-54,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-055-dillon-hamaliuk,2019,SJS,San Jose Sharks,2,55,Seattle,WHL,nhl_draft_api,2019-55,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-056-brett-leason,2019,WSH,Washington Capitals,2,56,Prince Albert,WHL,nhl_draft_api,2019-56,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-057-samuel-bolduc,2019,NYI,New York Islanders,2,57,Blainville-Boisbriand,QMJHL,nhl_draft_api,2019-57,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-058-karl-henriksson,2019,NYR,New York Rangers,2,58,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2019-58,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-059-hunter-jones,2019,MIN,Minnesota Wild,2,59,Peterborough,OHL,nhl_draft_api,2019-59,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-060-albert-johansson,2019,DET,Detroit Red Wings,2,60,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2019-60,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-061-nikita-okhotiuk,2019,NJD,New Jersey Devils,2,61,Ottawa,OHL,nhl_draft_api,2019-61,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-062-nikita-alexandrov,2019,STL,St. Louis Blues,2,62,Charlottetown,QMJHL,nhl_draft_api,2019-62,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-063-matt-stienburg,2019,COL,Colorado Avalanche,3,63,St. Andrew's College,HIGH-ON,nhl_draft_api,2019-63,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-064-mattias-norlinder,2019,MTL,Montréal Canadiens,3,64,Modo Jr.,Sweden Jrs.,nhl_draft_api,2019-64,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-065-alex-campbell,2019,NSH,Nashville Predators,3,65,Victoria,BCHL,nhl_draft_api,2019-65,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-066-albin-grewe,2019,DET,Detroit Red Wings,3,66,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2019-66,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-067-erik-portillo,2019,BUF,Buffalo Sabres,3,67,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2019-67,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-068-zac-jones,2019,NYR,New York Rangers,3,68,Tri-City,USHL,nhl_draft_api,2019-68,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-069-john-ludvig,2019,FLA,Florida Panthers,3,69,Portland,WHL,nhl_draft_api,2019-69,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-070-daniil-misyul,2019,NJD,New Jersey Devils,3,70,Yaroslavl 2,Russia Jr.,nhl_draft_api,2019-70,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-071-hugo-alnefelt,2019,TBL,Tampa Bay Lightning,3,71,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2019-71,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-072-ronnie-attard,2019,PHI,Philadelphia Flyers,3,72,Tri-City,USHL,nhl_draft_api,2019-72,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-073-patrik-puistola,2019,CAR,Carolina Hurricanes,3,73,Tappara Jr.,Finland Jrs.,nhl_draft_api,2019-73,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-074-nathan-l-gar,2019,PIT,Pittsburgh Penguins,3,74,Baie Comeau,QMJHL,nhl_draft_api,2019-74,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-075-adam-beckman,2019,MIN,Minnesota Wild,3,75,Spokane,WHL,nhl_draft_api,2019-75,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-076-john-farinacci,2019,ARI,Arizona Coyotes,3,76,Dexter School,High School,nhl_draft_api,2019-76,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-077-gianni-fairbrother,2019,MTL,Montréal Canadiens,3,77,Everett,WHL,nhl_draft_api,2019-77,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-078-alex-beaucage,2019,COL,Colorado Avalanche,3,78,Rouyn-Noranda,QMJHL,nhl_draft_api,2019-78,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-079-pavel-dorofeyev,2019,VGK,Vegas Golden Knights,3,79,Magnitogorsk,RUSSIA,nhl_draft_api,2019-79,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-080-graeme-clarke,2019,NJD,New Jersey Devils,3,80,Ottawa,OHL,nhl_draft_api,2019-80,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-081-cole-schwindt,2019,FLA,Florida Panthers,3,81,Mississauga,OHL,nhl_draft_api,2019-81,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-082-michael-vukojevic,2019,NJD,New Jersey Devils,3,82,Kitchener,OHL,nhl_draft_api,2019-82,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-083-anttoni-honka,2019,CAR,Carolina Hurricanes,3,83,Jukurit,FINLAND,nhl_draft_api,2019-83,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-084-mikko-kokkonen,2019,TOR,Toronto Maple Leafs,3,84,Jukurit,FINLAND,nhl_draft_api,2019-84,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-085-ilya-konovalov,2019,EDM,Edmonton Oilers,3,85,Yaroslavl,RUSSIA,nhl_draft_api,2019-85,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-086-layton-ahac,2019,VGK,Vegas Golden Knights,3,86,Prince George,BCHL,nhl_draft_api,2019-86,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-087-lukas-parik,2019,LAK,Los Angeles Kings,3,87,Liberec Jr.,CZREP-JR.,nhl_draft_api,2019-87,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-088-ilya-nikolaev,2019,CGY,Calgary Flames,3,88,Yaroslavl 2,Russia Jr.,nhl_draft_api,2019-88,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-089-maxim-cajkovic,2019,TBL,Tampa Bay Lightning,3,89,Saint John,QMJHL,nhl_draft_api,2019-89,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-090-domenick-fensore,2019,CAR,Carolina Hurricanes,3,90,USA U-18,USHL,nhl_draft_api,2019-90,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-091-aliaksei-protas,2019,WSH,Washington Capitals,3,91,Prince Albert,WHL,nhl_draft_api,2019-91,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-092-quinn-olson,2019,BOS,Boston Bruins,3,92,Okotoks,AJHL,nhl_draft_api,2019-92,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-093-colten-ellis,2019,STL,St. Louis Blues,3,93,Rimouski,QMJHL,nhl_draft_api,2019-93,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-094-viktor-lodin,2019,OTT,Ottawa Senators,4,94,Orebro,SWEDEN,nhl_draft_api,2019-94,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-095-jordan-spence,2019,LAK,Los Angeles Kings,4,95,Moncton,QMJHL,nhl_draft_api,2019-95,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-096-tyce-thompson,2019,NJD,New Jersey Devils,4,96,Providence,NCAA,nhl_draft_api,2019-96,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-097-ethan-phillips,2019,DET,Detroit Red Wings,4,97,Sioux Falls,USHL,nhl_draft_api,2019-97,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-098-matias-maccelli,2019,ARI,Arizona Coyotes,4,98,Dubuque,USHL,nhl_draft_api,2019-98,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-099-cade-webber,2019,CAR,Carolina Hurricanes,4,99,Rivers Academy,High School,nhl_draft_api,2019-99,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-100-mat-j-bl-mel,2019,EDM,Edmonton Oilers,4,100,Waterloo,USHL,nhl_draft_api,2019-100,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-101-henry-thrun,2019,ANA,Anaheim Ducks,4,101,USA U-18,USHL,nhl_draft_api,2019-101,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-102-aaron-huglen,2019,BUF,Buffalo Sabres,4,102,Roseau,High School,nhl_draft_api,2019-102,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-103-mason-millman,2019,PHI,Philadelphia Flyers,4,103,Saginaw,OHL,nhl_draft_api,2019-103,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-104-eric-hjorth,2019,CBJ,Columbus Blue Jackets,4,104,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2019-104,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-105-michal-teply,2019,CHI,Chicago Blackhawks,4,105,Benatky N. J.,CZREP-2,nhl_draft_api,2019-105,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-106-carter-berger,2019,FLA,Florida Panthers,4,106,Victoria,BCHL,nhl_draft_api,2019-106,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-107-alexandr-darin,2019,ARI,Arizona Coyotes,4,107,Yaroslavl 2,Russia Jr.,nhl_draft_api,2019-107,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-108-yegor-spiridonov,2019,SJS,San Jose Sharks,4,108,Magnitogorsk 2,Russia Jr.,nhl_draft_api,2019-108,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-109-marc-del-gaizo,2019,NSH,Nashville Predators,4,109,U. Mass.,NCAA,nhl_draft_api,2019-109,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-110-ryder-donovan,2019,VGK,Vegas Golden Knights,4,110,Duluth East H.S.,High School,nhl_draft_api,2019-110,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-111-samuel-sjolund,2019,DAL,Dallas Stars,4,111,AIK Jr.,Sweden Jrs.,nhl_draft_api,2019-111,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-112-hunter-skinner,2019,NYR,New York Rangers,4,112,Lincoln,USHL,nhl_draft_api,2019-112,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-113-henri-nikkanen,2019,WPG,Winnipeg Jets,4,113,Jukurit Jr.,Finland Jrs.,nhl_draft_api,2019-113,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-114-dmitri-voronkov,2019,CBJ,Columbus Blue Jackets,4,114,Bars Kazan,RUSSIA-2,nhl_draft_api,2019-114,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-115-mikhail-abramov,2019,TOR,Toronto Maple Leafs,4,115,Victoriaville,QMJHL,nhl_draft_api,2019-115,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-116-lucas-feuk,2019,CGY,Calgary Flames,4,116,Sodertalje Jr.,Sweden Jrs.,nhl_draft_api,2019-116,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-117-semyon-chystyakov,2019,NSH,Nashville Predators,4,117,Ufa 2,Russia Jr.,nhl_draft_api,2019-117,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-118-case-mccarthy,2019,NJD,New Jersey Devils,4,118,USA U-18,USHL,nhl_draft_api,2019-118,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-119-kim-nousiainen,2019,LAK,Los Angeles Kings,4,119,Kalpa Jr.,Finland Jrs.,nhl_draft_api,2019-119,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-120-maxwell-crozier,2019,TBL,Tampa Bay Lightning,4,120,Sioux Falls,USHL,nhl_draft_api,2019-120,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-121-tuukka-tieksola,2019,CAR,Carolina Hurricanes,4,121,Karpat Jr.,Finland Jrs.,nhl_draft_api,2019-121,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-122-ethan-keppen,2019,VAN,Vancouver Canucks,4,122,Flint,OHL,nhl_draft_api,2019-122,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-123-antti-saarela,2019,CHI,Chicago Blackhawks,4,123,Lukko,FINLAND,nhl_draft_api,2019-123,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-124-nick-abruzzese,2019,TOR,Toronto Maple Leafs,4,124,Chicago,USHL,nhl_draft_api,2019-124,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-125-mark-kastelic,2019,OTT,Ottawa Senators,5,125,Calgary,WHL,nhl_draft_api,2019-125,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-126-jacob-leguerrier,2019,MTL,Montréal Canadiens,5,126,Sault Ste. Marie,OHL,nhl_draft_api,2019-126,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-127-cole-brady,2019,NJD,New Jersey Devils,5,127,Janesville,NAHL,nhl_draft_api,2019-127,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-128-cooper-moore,2019,DET,Detroit Red Wings,5,128,Brunswick Prep,HIGH-CT,nhl_draft_api,2019-128,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-129-arseni-gritsyuk,2019,NJD,New Jersey Devils,5,129,Omsk 2,Russia Jr.,nhl_draft_api,2019-129,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-130-leevi-aaltonen,2019,NYR,New York Rangers,5,130,Kalpa Jr.,Finland Jrs.,nhl_draft_api,2019-130,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-131-rhett-pitlick,2019,MTL,Montréal Canadiens,5,131,Chaska,High School,nhl_draft_api,2019-131,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-132-trevor-janicke,2019,ANA,Anaheim Ducks,5,132,Central Illinois,USHL,nhl_draft_api,2019-132,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-133-carson-focht,2019,VAN,Vancouver Canucks,5,133,Calgary,WHL,nhl_draft_api,2019-133,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-134-harrison-blaisdell,2019,WPG,Winnipeg Jets,5,134,Chilliwack,BCHL,nhl_draft_api,2019-134,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-135-isaiah-saville,2019,VGK,Vegas Golden Knights,5,135,Tri-City,USHL,nhl_draft_api,2019-135,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-136-henrik-rybinski,2019,FLA,Florida Panthers,5,136,Seattle,WHL,nhl_draft_api,2019-136,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-137-owen-lindmark,2019,FLA,Florida Panthers,5,137,USA U-18,USHL,nhl_draft_api,2019-137,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-138-frederik-dichow,2019,MTL,Montréal Canadiens,5,138,Vojens,DENMARK-2,nhl_draft_api,2019-138,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-139-marcus-kallionkieli,2019,VGK,Vegas Golden Knights,5,139,Sioux City,USHL,nhl_draft_api,2019-139,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-140-sasha-mutala,2019,COL,Colorado Avalanche,5,140,Tri-City,WHL,nhl_draft_api,2019-140,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-141-mason-primeau,2019,VGK,Vegas Golden Knights,5,141,North Bay,OHL,nhl_draft_api,2019-141,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-142-nicholas-porco,2019,DAL,Dallas Stars,5,142,Saginaw,OHL,nhl_draft_api,2019-142,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-143-filip-cederqvist,2019,BUF,Buffalo Sabres,5,143,Vaxjo,SWEDEN,nhl_draft_api,2019-143,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-144-logan-neaton,2019,WPG,Winnipeg Jets,5,144,Prince George,BCHL,nhl_draft_api,2019-144,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-145-judd-caulfield,2019,PIT,Pittsburgh Penguins,5,145,USA U-18,USHL,nhl_draft_api,2019-145,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-146-michael-koster,2019,TOR,Toronto Maple Leafs,5,146,Chaska,High School,nhl_draft_api,2019-146,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-147-reece-newkirk,2019,NYI,New York Islanders,5,147,Portland,WHL,nhl_draft_api,2019-147,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-148-ethan-haider,2019,NSH,Nashville Predators,5,148,MN Magicians,NAHL,nhl_draft_api,2019-148,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-149-matvey-guskov,2019,MIN,Minnesota Wild,5,149,London,OHL,nhl_draft_api,2019-149,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-150-joshua-nodler,2019,CGY,Calgary Flames,5,150,Fargo,USHL,nhl_draft_api,2019-150,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-151-aku-raty,2019,ARI,Arizona Coyotes,5,151,Karpat Jr.,Finland Jrs.,nhl_draft_api,2019-151,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-152-kirill-slepets,2019,CAR,Carolina Hurricanes,5,152,Yaroslavl 2,Russia Jr.,nhl_draft_api,2019-152,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-153-martin-has,2019,WSH,Washington Capitals,5,153,Tappara Jr.,Finland Jrs.,nhl_draft_api,2019-153,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-154-roman-bychkov,2019,BOS,Boston Bruins,5,154,Yaroslavl 2,Russia Jr.,nhl_draft_api,2019-154,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-155-keean-washkurak,2019,STL,St. Louis Blues,5,155,Mississauga,OHL,nhl_draft_api,2019-155,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-156-arturs-silovs,2019,VAN,Vancouver Canucks,6,156,Riga 2,Russia Jr.,nhl_draft_api,2019-156,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-157-braden-doyle,2019,LAK,Los Angeles Kings,6,157,Lawrence Academy,High School,nhl_draft_api,2019-157,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-158-patrick-moynihan,2019,NJD,New Jersey Devils,6,158,USA U-18,USHL,nhl_draft_api,2019-158,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-159-elmer-soderblom,2019,DET,Detroit Red Wings,6,159,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2019-159,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-160-lukas-rousek,2019,BUF,Buffalo Sabres,6,160,Sparta,CZREP,nhl_draft_api,2019-160,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-161-adam-edstrom,2019,NYR,New York Rangers,6,161,Mora Jr.,Sweden Jrs.,nhl_draft_api,2019-161,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-162-tomas-mazura,2019,EDM,Edmonton Oilers,6,162,Kimball Union Academy,HIGH-NH,nhl_draft_api,2019-162,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-163-william-francis,2019,ANA,Anaheim Ducks,6,163,Cedar Rapids,USHL,nhl_draft_api,2019-163,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-164-timur-ibragimov,2019,SJS,San Jose Sharks,6,164,SKA St. Petersburg 2,Russia Jr.,nhl_draft_api,2019-164,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-165-egor-serdyuk,2019,PHI,Philadelphia Flyers,6,165,Victoriaville,QMJHL,nhl_draft_api,2019-165,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-166-marshall-warren,2019,MIN,Minnesota Wild,6,166,USA U-18,USHL,nhl_draft_api,2019-166,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-167-dominic-basse,2019,CHI,Chicago Blackhawks,6,167,Selects U18 - South Kent School,HIGH-CT,nhl_draft_api,2019-167,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-168-greg-meireles,2019,FLA,Florida Panthers,6,168,Kitchener,OHL,nhl_draft_api,2019-168,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-169-roddy-ross,2019,PHI,Philadelphia Flyers,6,169,Seattle,WHL,nhl_draft_api,2019-169,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-170-arsen-khisamutdinov,2019,MTL,Montréal Canadiens,6,170,Nizhnekamsk 2,Russia Jr.,nhl_draft_api,2019-170,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-171-luka-burzan,2019,COL,Colorado Avalanche,6,171,Brandon,WHL,nhl_draft_api,2019-171,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-172-nikita-nesterenko,2019,MIN,Minnesota Wild,6,172,Lawrenceville,HIGH-NJ,nhl_draft_api,2019-172,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-173-benjamin-brinkman,2019,DAL,Dallas Stars,6,173,Minnesota,NCAA,nhl_draft_api,2019-173,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-174-danil-savunov,2019,ARI,Arizona Coyotes,6,174,Penza,RUSSIA-2,nhl_draft_api,2019-174,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-175-karel-plasek,2019,VAN,Vancouver Canucks,6,175,Brno,CZREP,nhl_draft_api,2019-175,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-176-anthony-romano,2019,ARI,Arizona Coyotes,6,176,Sioux Falls,USHL,nhl_draft_api,2019-176,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-177-gustav-berglund,2019,DET,Detroit Red Wings,6,177,Frolunda U18,SWE-JR. U18,nhl_draft_api,2019-177,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-178-felix-bibeau,2019,NYI,New York Islanders,6,178,Rouyn-Noranda,QMJHL,nhl_draft_api,2019-178,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-179-isak-walther,2019,NSH,Nashville Predators,6,179,Sodertalje U18,SWE-JR. U18,nhl_draft_api,2019-179,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-180-jack-malone,2019,VAN,Vancouver Canucks,6,180,Youngstown,USHL,nhl_draft_api,2019-180,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-181-kevin-wall,2019,CAR,Carolina Hurricanes,6,181,Chilliwack,BCHL,nhl_draft_api,2019-181,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-182-quinn-schmiemann,2019,TBL,Tampa Bay Lightning,6,182,Kamloops,WHL,nhl_draft_api,2019-182,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-183-blake-murray,2019,CAR,Carolina Hurricanes,6,183,Sudbury,OHL,nhl_draft_api,2019-183,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-184-santeri-hatakka,2019,SJS,San Jose Sharks,6,184,Jokerit Jr.,Finland Jrs.,nhl_draft_api,2019-184,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-185-matias-mantykivi,2019,BOS,Boston Bruins,6,185,Saipa Jr.,Finland Jrs.,nhl_draft_api,2019-185,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-186-mathew-hill,2019,ANA,Anaheim Ducks,6,186,Barrie,OHL,nhl_draft_api,2019-186,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-187-maxence-guenette,2019,OTT,Ottawa Senators,7,187,Val d'Or,QMJHL,nhl_draft_api,2019-187,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-188-andre-lee,2019,LAK,Los Angeles Kings,7,188,Sioux Falls,USHL,nhl_draft_api,2019-188,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-189-nikola-pasic,2019,NJD,New Jersey Devils,7,189,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2019-189,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-190-kirill-tyutyayev,2019,DET,Detroit Red Wings,7,190,Yekaterinburg 2,Russia Jr.,nhl_draft_api,2019-190,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-191-carter-gylander,2019,DET,Detroit Red Wings,7,191,Sherwood Park,AJHL,nhl_draft_api,2019-191,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-192-jake-schmaltz,2019,BOS,Boston Bruins,7,192,Chicago,USHL,nhl_draft_api,2019-192,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-193-maxim-denezhkin,2019,EDM,Edmonton Oilers,7,193,Yaroslavl 2,Russia Jr.,nhl_draft_api,2019-193,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-194-cole-moberg,2019,CHI,Chicago Blackhawks,7,194,Prince George,WHL,nhl_draft_api,2019-194,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-195-aidan-mcdonough,2019,VAN,Vancouver Canucks,7,195,Cedar Rapids,USHL,nhl_draft_api,2019-195,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-196-bryce-brodzinski,2019,PHI,Philadelphia Flyers,7,196,Blaine,High School,nhl_draft_api,2019-196,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-197-filip-lindberg,2019,MIN,Minnesota Wild,7,197,U. Mass.,NCAA,nhl_draft_api,2019-197,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-198-mikhail-shalagin,2019,TBL,Tampa Bay Lightning,7,198,Spartak 2,Russia Jr.,nhl_draft_api,2019-198,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-199-matthew-wedman,2019,FLA,Florida Panthers,7,199,Seattle,WHL,nhl_draft_api,2019-199,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-200-axel-bergkvist,2019,ARI,Arizona Coyotes,7,200,Leksand Jr.,Sweden Jrs.,nhl_draft_api,2019-200,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-201-rafael-harvey-pinard,2019,MTL,Montréal Canadiens,7,201,Rouyn-Noranda,QMJHL,nhl_draft_api,2019-201,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-202-trent-miner,2019,COL,Colorado Avalanche,7,202,Vancouver,WHL,nhl_draft_api,2019-202,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-203-valtteri-puustinen,2019,PIT,Pittsburgh Penguins,7,203,HPK,FINLAND,nhl_draft_api,2019-203,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-204-kalle-loponen,2019,TOR,Toronto Maple Leafs,7,204,Hermes,FINLAND-2,nhl_draft_api,2019-204,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-205-eric-ciccolini,2019,NYR,New York Rangers,7,205,Toronto JC,OJHL,nhl_draft_api,2019-205,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-206-kieran-ruscheinski,2019,MTL,Montréal Canadiens,7,206,Calgary North Stars,AMHL,nhl_draft_api,2019-206,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-207-valentin-nussbaumer,2019,ARI,Arizona Coyotes,7,207,Shawinigan,QMJHL,nhl_draft_api,2019-207,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-208-vadim-zherenko,2019,STL,St. Louis Blues,7,208,Dynamo Moscow 2,Russia Jr.,nhl_draft_api,2019-208,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-209-cole-coskey,2019,NYI,New York Islanders,7,209,Saginaw,OHL,nhl_draft_api,2019-209,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-210-juuso-parssinen,2019,NSH,Nashville Predators,7,210,TPS Jr.,Finland Jrs.,nhl_draft_api,2019-210,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-211-santeri-airola,2019,PIT,Pittsburgh Penguins,7,211,Saipa Jr.,Finland Jrs.,nhl_draft_api,2019-211,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-212-tyler-angle,2019,CBJ,Columbus Blue Jackets,7,212,Windsor,OHL,nhl_draft_api,2019-212,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-213-mckade-webster,2019,TBL,Tampa Bay Lightning,7,213,Green Bay,USHL,nhl_draft_api,2019-213,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-214-dustin-wolf,2019,CGY,Calgary Flames,7,214,Everett,WHL,nhl_draft_api,2019-214,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-215-arvid-costmar,2019,VAN,Vancouver Canucks,7,215,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2019-215,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-216-massimo-rizzo,2019,CAR,Carolina Hurricanes,7,216,Penticton,BCHL,nhl_draft_api,2019-216,https://api-web.nhle.com/v1/draft/picks/2019/all
+2019-217-jeremy-michel,2019,STL,St. Louis Blues,7,217,Val d'Or,QMJHL,nhl_draft_api,2019-217,https://api-web.nhle.com/v1/draft/picks/2019/all

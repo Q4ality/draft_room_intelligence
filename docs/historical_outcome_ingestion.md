@@ -37,3 +37,19 @@ The builder refuses partial canonical labels. For a reviewed player with no offi
 landing record, add only that exact draft pick to `data/reference/nhl_outcome_zero_overrides.csv`
 with a cached official NHL player-search URL, then pass `--zero-outcomes` to the builder. This
 creates an explicit zero NHL-outcome label; an unresolved record is never silently converted to zero.
+
+## Portable baseline inputs
+
+The audited canonical label CSVs for the 2014-2021 cohort, together with the matching normalized
+draft-class snapshots, are versioned in this repository. A fresh clone can therefore reproduce the
+longitudinal baseline without downloading NHL data:
+
+```bash
+PYTHONPATH=src python -m draft_room_intelligence.cli report-longitudinal-baseline \
+  data/processed/outcome_labels data/processed/draft_classes \
+  outputs/longitudinal_slot_role_baseline --as-of-date 2026-08-25
+```
+
+The larger `data/raw/nhl_outcomes/` cache remains local and is required only to refresh or extend
+the audited labels. Rebuilding labels must retain the same time-bounded cutoff and identity review
+rules; never replace the committed label files with current or career totals.

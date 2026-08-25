@@ -1,0 +1,224 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2021-001-owen-power,2021,BUF,Buffalo Sabres,1,1,Michigan,NCAA,nhl_draft_api,2021-1,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-002-matty-beniers,2021,SEA,Seattle Kraken,1,2,Michigan,NCAA,nhl_draft_api,2021-2,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-003-mason-mctavish,2021,ANA,Anaheim Ducks,1,3,Peterborough,OHL,nhl_draft_api,2021-3,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-004-luke-hughes,2021,NJD,New Jersey Devils,1,4,USA U-18,USHL,nhl_draft_api,2021-4,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-005-kent-johnson,2021,CBJ,Columbus Blue Jackets,1,5,Michigan,NCAA,nhl_draft_api,2021-5,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-006-simon-edvinsson,2021,DET,Detroit Red Wings,1,6,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2021-6,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-007-william-eklund,2021,SJS,San Jose Sharks,1,7,Djurgarden,SWEDEN,nhl_draft_api,2021-7,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-008-brandt-clarke,2021,LAK,Los Angeles Kings,1,8,Barrie,OHL,nhl_draft_api,2021-8,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-009-dylan-guenther,2021,ARI,Arizona Coyotes,1,9,Edmonton,WHL,nhl_draft_api,2021-9,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-010-tyler-boucher,2021,OTT,Ottawa Senators,1,10,USA U-18,USHL,nhl_draft_api,2021-10,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-012-cole-sillinger,2021,CBJ,Columbus Blue Jackets,1,12,Sioux Falls,USHL,nhl_draft_api,2021-12,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-013-matt-coronato,2021,CGY,Calgary Flames,1,13,Chicago,USHL,nhl_draft_api,2021-13,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-014-isak-rosen,2021,BUF,Buffalo Sabres,1,14,Leksand,SWEDEN,nhl_draft_api,2021-14,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-015-sebastian-cossa,2021,DET,Detroit Red Wings,1,15,Edmonton,WHL,nhl_draft_api,2021-15,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-016-brennan-othmann,2021,NYR,New York Rangers,1,16,Flint,OHL,nhl_draft_api,2021-16,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-017-zachary-bolduc,2021,STL,St. Louis Blues,1,17,Rimouski,QMJHL,nhl_draft_api,2021-17,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-018-chaz-lucius,2021,WPG,Winnipeg Jets,1,18,USA U-18,USHL,nhl_draft_api,2021-18,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-019-fedor-svechkov,2021,NSH,Nashville Predators,1,19,Togliatti,RUSSIA-2,nhl_draft_api,2021-19,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-020-jesper-wallstedt,2021,MIN,Minnesota Wild,1,20,Lulea,SWEDEN,nhl_draft_api,2021-20,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-021-fabian-lysell,2021,BOS,Boston Bruins,1,21,Lulea,SWEDEN,nhl_draft_api,2021-21,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-022-xavier-bourgault,2021,EDM,Edmonton Oilers,1,22,Shawinigan,QMJHL,nhl_draft_api,2021-22,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-023-wyatt-johnston,2021,DAL,Dallas Stars,1,23,Windsor,OHL,nhl_draft_api,2021-23,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-024-mackie-samoskevich,2021,FLA,Florida Panthers,1,24,Chicago,USHL,nhl_draft_api,2021-24,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-025-corson-ceulemans,2021,CBJ,Columbus Blue Jackets,1,25,Brooks,AJHL,nhl_draft_api,2021-25,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-026-carson-lambos,2021,MIN,Minnesota Wild,1,26,Winnipeg,WHL,nhl_draft_api,2021-26,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-027-zachary-l-heureux,2021,NSH,Nashville Predators,1,27,Halifax,QMJHL,nhl_draft_api,2021-27,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-028-oskar-olausson,2021,COL,Colorado Avalanche,1,28,HV 71,SWEDEN,nhl_draft_api,2021-28,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-029-chase-stillman,2021,NJD,New Jersey Devils,1,29,Sudbury,OHL,nhl_draft_api,2021-29,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-030-zach-dean,2021,VGK,Vegas Golden Knights,1,30,Gatineau,QMJHL,nhl_draft_api,2021-30,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-031-logan-mailloux,2021,MTL,Montréal Canadiens,1,31,London,GOJHL,nhl_draft_api,2021-31,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-032-nolan-allan,2021,CHI,Chicago Blackhawks,1,32,Prince Albert,WHL,nhl_draft_api,2021-32,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-033-prokhor-poltapov,2021,BUF,Buffalo Sabres,2,33,CSKA 2,Russia Jr.,nhl_draft_api,2021-33,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-034-olen-zellweger,2021,ANA,Anaheim Ducks,2,34,Everett,WHL,nhl_draft_api,2021-34,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-035-ryker-evans,2021,SEA,Seattle Kraken,2,35,Regina,WHL,nhl_draft_api,2021-35,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-036-shai-buium,2021,DET,Detroit Red Wings,2,36,Sioux City,USHL,nhl_draft_api,2021-36,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-037-josh-doan,2021,ARI,Arizona Coyotes,2,37,Chicago,USHL,nhl_draft_api,2021-37,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-038-daniil-chayka,2021,VGK,Vegas Golden Knights,2,38,CSKA,RUSSIA,nhl_draft_api,2021-38,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-039-zack-ostapchuk,2021,OTT,Ottawa Senators,2,39,Vancouver,WHL,nhl_draft_api,2021-39,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-040-scott-morrow,2021,CAR,Carolina Hurricanes,2,40,Shattuck-St. Mary's,High School,nhl_draft_api,2021-40,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-041-danila-klimovich,2021,VAN,Vancouver Canucks,2,41,Minsk Zubry,BELARUS-2,nhl_draft_api,2021-41,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-042-francesco-pinelli,2021,LAK,Los Angeles Kings,2,42,Kitchener,OHL,nhl_draft_api,2021-42,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-043-ilya-fedotov,2021,ARI,Arizona Coyotes,2,43,Nizhny Novgorod 2,Russia Jr.,nhl_draft_api,2021-43,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-044-aleksi-heimosalmi,2021,CAR,Carolina Hurricanes,2,44,Assat Jr.,Finland Jrs.,nhl_draft_api,2021-44,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-045-william-stromgren,2021,CGY,Calgary Flames,2,45,Modo,HockeyAllsvenskan,nhl_draft_api,2021-45,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-046-samu-tuomaala,2021,PHI,Philadelphia Flyers,2,46,Karpat Jr.,Finland Jrs.,nhl_draft_api,2021-46,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-047-logan-stankoven,2021,DAL,Dallas Stars,2,47,Kamloops,WHL,nhl_draft_api,2021-47,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-048-artem-grushnikov,2021,DAL,Dallas Stars,2,48,CSKA 2,Russia Jr.,nhl_draft_api,2021-48,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-049-ben-roger,2021,OTT,Ottawa Senators,2,49,London,OHL,nhl_draft_api,2021-49,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-050-nikita-chibrikov,2021,WPG,Winnipeg Jets,2,50,St. Petersburg,RUSSIA,nhl_draft_api,2021-50,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-051-ville-koivunen,2021,CAR,Carolina Hurricanes,2,51,Karpat Jr.,Finland Jrs.,nhl_draft_api,2021-51,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-052-aatu-r-ty,2021,NYI,New York Islanders,2,52,Karpat,FINLAND,nhl_draft_api,2021-52,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-053-aleksandr-kisakov,2021,BUF,Buffalo Sabres,2,53,Dynamo Moscow 2,Russia Jr.,nhl_draft_api,2021-53,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-054-jack-peart,2021,MIN,Minnesota Wild,2,54,Grand Rapids,High School,nhl_draft_api,2021-54,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-055-vincent-iorio,2021,WSH,Washington Capitals,2,55,Brandon,WHL,nhl_draft_api,2021-55,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-056-evan-nause,2021,FLA,Florida Panthers,2,56,Quebec,QMJHL,nhl_draft_api,2021-56,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-057-matthew-knies,2021,TOR,Toronto Maple Leafs,2,57,Tri-City,USHL,nhl_draft_api,2021-57,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-058-tristan-broz,2021,PIT,Pittsburgh Penguins,2,58,Fargo,USHL,nhl_draft_api,2021-58,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-059-samuel-helenius,2021,LAK,Los Angeles Kings,2,59,Jyp,FINLAND,nhl_draft_api,2021-59,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-060-j-j-moser,2021,ARI,Arizona Coyotes,2,60,Biel,National League,nhl_draft_api,2021-60,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-061-sean-behrens,2021,COL,Colorado Avalanche,2,61,USA U-18,USHL,nhl_draft_api,2021-61,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-062-colton-dach,2021,CHI,Chicago Blackhawks,2,62,Saskatoon,WHL,nhl_draft_api,2021-62,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-063-riley-kidney,2021,MTL,Montréal Canadiens,2,63,Acadie-Bathurst,QMJHL,nhl_draft_api,2021-63,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-064-oliver-kapanen,2021,MTL,Montréal Canadiens,2,64,Kalpa Jr.,Finland Jrs.,nhl_draft_api,2021-64,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-065-jayden-grubbe,2021,NYR,New York Rangers,3,65,Red Deer,WHL,nhl_draft_api,2021-65,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-066-sasha-pastujov,2021,ANA,Anaheim Ducks,3,66,USA U-18,USHL,nhl_draft_api,2021-66,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-067-ryan-winterton,2021,SEA,Seattle Kraken,3,67,Hamilton,OHL,nhl_draft_api,2021-67,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-068-samu-salminen,2021,NJD,New Jersey Devils,3,68,Jokerit Jr.,Finland Jrs.,nhl_draft_api,2021-68,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-069-stanislav-svozil,2021,CBJ,Columbus Blue Jackets,3,69,Brno,CZREP,nhl_draft_api,2021-69,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-070-carter-mazur,2021,DET,Detroit Red Wings,3,70,Tri-City,USHL,nhl_draft_api,2021-70,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-071-simon-robertsson,2021,STL,St. Louis Blues,3,71,Skelleftea,SWEDEN,nhl_draft_api,2021-71,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-072-anton-olsson,2021,NSH,Nashville Predators,3,72,Malmo,SWEDEN,nhl_draft_api,2021-72,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-073-ayrton-martino,2021,DAL,Dallas Stars,3,73,Omaha,USHL,nhl_draft_api,2021-73,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-074-oliver-johansson,2021,OTT,Ottawa Senators,3,74,Timra,HockeyAllsvenskan,nhl_draft_api,2021-74,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-075-ryder-korczak,2021,NYR,New York Rangers,3,75,Moose Jaw,WHL,nhl_draft_api,2021-75,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-076-tyson-hinds,2021,ANA,Anaheim Ducks,3,76,Rimouski,QMJHL,nhl_draft_api,2021-76,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-077-cole-huckins,2021,CGY,Calgary Flames,3,77,Acadie-Bathurst,QMJHL,nhl_draft_api,2021-77,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-078-aleksei-kolosov,2021,PHI,Philadelphia Flyers,3,78,Minsk,RUSSIA,nhl_draft_api,2021-78,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-079-justin-ertel,2021,DAL,Dallas Stars,3,79,Summerside,MHL,nhl_draft_api,2021-79,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-080-brent-johnson,2021,WSH,Washington Capitals,3,80,Sioux Falls,USHL,nhl_draft_api,2021-80,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-081-benjamin-gaudreau,2021,SJS,San Jose Sharks,3,81,Sarnia,OHL,nhl_draft_api,2021-81,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-082-dmitry-kuzmin,2021,WPG,Winnipeg Jets,3,82,Molodechno,BELARUS,nhl_draft_api,2021-82,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-083-patrik-hamrla,2021,CAR,Carolina Hurricanes,3,83,Karlovy Vary,CZREP,nhl_draft_api,2021-83,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-084-kirill-kirsanov,2021,LAK,Los Angeles Kings,3,84,St. Petersburg,RUSSIA,nhl_draft_api,2021-84,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-085-brett-harrison,2021,BOS,Boston Bruins,3,85,Oshawa,OHL,nhl_draft_api,2021-85,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-086-caedan-bankier,2021,MIN,Minnesota Wild,3,86,Kamloops,WHL,nhl_draft_api,2021-86,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-087-dmitri-kostenko,2021,MTL,Montréal Canadiens,3,87,Togliatti,RUSSIA-2,nhl_draft_api,2021-87,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-088-stiven-sardarian,2021,BUF,Buffalo Sabres,3,88,CSKA 2,Russia Jr.,nhl_draft_api,2021-88,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-089-cameron-whynot,2021,CGY,Calgary Flames,3,89,Halifax,QMJHL,nhl_draft_api,2021-89,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-090-luca-munzenberger,2021,EDM,Edmonton Oilers,3,90,Koln Jr.,GERMANY-JR.,nhl_draft_api,2021-90,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-091-taige-harding,2021,CHI,Chicago Blackhawks,3,91,Fort McMurray,AJHL,nhl_draft_api,2021-91,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-092-andrei-buyalsky,2021,COL,Colorado Avalanche,3,92,Dubuque,USHL,nhl_draft_api,2021-92,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-093-tristan-lennox,2021,NYI,New York Islanders,3,93,Saginaw,OHL,nhl_draft_api,2021-93,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-094-aidan-hreschuk,2021,CAR,Carolina Hurricanes,3,94,USA U-18,USHL,nhl_draft_api,2021-94,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-095-josh-bloom,2021,BUF,Buffalo Sabres,3,95,Saginaw,OHL,nhl_draft_api,2021-95,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-096-roman-schmidt,2021,TBL,Tampa Bay Lightning,3,96,USA U-18,USHL,nhl_draft_api,2021-96,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-097-olivier-nadeau,2021,BUF,Buffalo Sabres,4,97,Shawinigan,QMJHL,nhl_draft_api,2021-97,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-098-josh-lopina,2021,ANA,Anaheim Ducks,4,98,U. Mass.,NCAA,nhl_draft_api,2021-98,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-099-ville-ottavainen,2021,SEA,Seattle Kraken,4,99,Jyp,FINLAND,nhl_draft_api,2021-99,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-100-jakub-malek,2021,NJD,New Jersey Devils,4,100,Vsetin,CZREP-2,nhl_draft_api,2021-100,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-101-guillaume-richard,2021,CBJ,Columbus Blue Jackets,4,101,Tri-City,USHL,nhl_draft_api,2021-101,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-102-jakub-brabenec,2021,VGK,Vegas Golden Knights,4,102,Brno,CZREP,nhl_draft_api,2021-102,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-103-gannon-laroque,2021,SJS,San Jose Sharks,4,103,Victoria,WHL,nhl_draft_api,2021-103,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-104-brody-lamb,2021,NYR,New York Rangers,4,104,Dodge County,High School,nhl_draft_api,2021-104,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-105-ethan-del-mastro,2021,CHI,Chicago Blackhawks,4,105,Mississauga,OHL,nhl_draft_api,2021-105,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-106-kalle-vaisanen,2021,NYR,New York Rangers,4,106,TPS Jr.,Finland Jrs.,nhl_draft_api,2021-106,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-107-emil-lilleberg,2021,ARI,Arizona Coyotes,4,107,Sarpsborg,NORWAY,nhl_draft_api,2021-107,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-108-victor-stjernborg,2021,CHI,Chicago Blackhawks,4,108,Vaxjo,SWEDEN,nhl_draft_api,2021-108,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-109-jackson-blake,2021,CAR,Carolina Hurricanes,4,109,Eden Prarie,High School,nhl_draft_api,2021-109,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-110-brian-zanetti,2021,PHI,Philadelphia Flyers,4,110,Lugano Jr.,SWISS-JR.,nhl_draft_api,2021-110,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-111-conner-roulette,2021,DAL,Dallas Stars,4,111,Seattle,WHL,nhl_draft_api,2021-111,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-112-talyn-boyko,2021,NYR,New York Rangers,4,112,Tri-City,WHL,nhl_draft_api,2021-112,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-113-william-trudeau,2021,MTL,Montréal Canadiens,4,113,Charlottetown,QMJHL,nhl_draft_api,2021-113,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-114-redmond-savage,2021,DET,Detroit Red Wings,4,114,USA U-18,USHL,nhl_draft_api,2021-114,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-115-ryan-ufko,2021,NSH,Nashville Predators,4,115,Chicago,USHL,nhl_draft_api,2021-115,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-116-jake-chiasson,2021,EDM,Edmonton Oilers,4,116,Brandon,WHL,nhl_draft_api,2021-116,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-117-philip-svedeback,2021,BOS,Boston Bruins,4,117,Vaxjo Jr.,Sweden Jrs.,nhl_draft_api,2021-117,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-118-kyle-masters,2021,MIN,Minnesota Wild,4,118,Red Deer,WHL,nhl_draft_api,2021-118,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-119-joaquim-lemay,2021,WSH,Washington Capitals,4,119,Salmon Arm,BCHL,nhl_draft_api,2021-119,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-120-vladislav-lukashevich,2021,FLA,Florida Panthers,4,120,Yaroslavl 2,Russia Jr.,nhl_draft_api,2021-120,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-121-ethan-cardwell,2021,SJS,San Jose Sharks,4,121,Barrie,OHL,nhl_draft_api,2021-121,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-122-rasmus-korhonen,2021,ARI,Arizona Coyotes,4,122,Assat Jr.,Finland Jrs.,nhl_draft_api,2021-122,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-123-carson-latimer,2021,OTT,Ottawa Senators,4,123,Edmonton,WHL,nhl_draft_api,2021-123,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-124-jack-matier,2021,NSH,Nashville Predators,4,124,Ottawa,OHL,nhl_draft_api,2021-124,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-125-cameron-berg,2021,NYI,New York Islanders,4,125,Muskegon,USHL,nhl_draft_api,2021-125,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-126-dylan-duke,2021,TBL,Tampa Bay Lightning,4,126,USA U-18,USHL,nhl_draft_api,2021-126,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-127-josh-pillar,2021,MIN,Minnesota Wild,4,127,Kamloops,WHL,nhl_draft_api,2021-127,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-128-jakub-demek,2021,VGK,Vegas Golden Knights,4,128,Slovakia U18 (SVK-2),SLOVAKIA-2,nhl_draft_api,2021-128,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-129-topias-vilen,2021,NJD,New Jersey Devils,5,129,Pelicans,FINLAND,nhl_draft_api,2021-129,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-130-sean-tschigerl,2021,ANA,Anaheim Ducks,5,130,Calgary,WHL,nhl_draft_api,2021-130,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-131-jacob-melanson,2021,SEA,Seattle Kraken,5,131,Acadie-Bathurst,QMJHL,nhl_draft_api,2021-131,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-132-nikolai-makarov,2021,CBJ,Columbus Blue Jackets,5,132,CSKA 2,Russia Jr.,nhl_draft_api,2021-132,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-133-james-malatesta,2021,CBJ,Columbus Blue Jackets,5,133,Quebec,QMJHL,nhl_draft_api,2021-133,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-134-liam-dower-nilsson,2021,DET,Detroit Red Wings,5,134,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2021-134,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-135-artem-guryev,2021,SJS,San Jose Sharks,5,135,Lindsay,OJHL,nhl_draft_api,2021-135,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-136-robert-orr,2021,CAR,Carolina Hurricanes,5,136,Halifax,QMJHL,nhl_draft_api,2021-136,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-137-aku-koskenvuo,2021,VAN,Vancouver Canucks,5,137,HIFK Jr.,Finland Jrs.,nhl_draft_api,2021-137,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-138-jack-bar,2021,DAL,Dallas Stars,5,138,Chicago,USHL,nhl_draft_api,2021-138,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-139-manix-landry,2021,ARI,Arizona Coyotes,5,139,Gatineau,QMJHL,nhl_draft_api,2021-139,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-140-jonathan-myrenberg,2021,VAN,Vancouver Canucks,5,140,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2021-140,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-141-cole-jordan,2021,CGY,Calgary Flames,5,141,Moose Jaw,WHL,nhl_draft_api,2021-141,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-142-daniil-sobolev,2021,MTL,Montréal Canadiens,5,142,Spartak 2,Russia Jr.,nhl_draft_api,2021-142,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-143-jacob-holmes,2021,DAL,Dallas Stars,5,143,Sault Ste. Marie,OHL,nhl_draft_api,2021-143,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-144-jaroslav-chmelar,2021,NYR,New York Rangers,5,144,Jokerit U18,FIN-JR. U18,nhl_draft_api,2021-144,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-145-tyson-galloway,2021,STL,St. Louis Blues,5,145,Calgary,WHL,nhl_draft_api,2021-145,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-146-dmitri-rashevsky,2021,WPG,Winnipeg Jets,5,146,Krasnogorsk,RUSSIA-2,nhl_draft_api,2021-146,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-147-justin-robidas,2021,CAR,Carolina Hurricanes,5,147,Val d'Or,QMJHL,nhl_draft_api,2021-147,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-148-gage-alexander,2021,ANA,Anaheim Ducks,5,148,Winnipeg,WHL,nhl_draft_api,2021-148,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-149-oskar-jellvik,2021,BOS,Boston Bruins,5,149,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2021-149,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-150-joshua-roy,2021,MTL,Montréal Canadiens,5,150,Sherbrooke,QMJHL,nhl_draft_api,2021-150,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-151-haakon-hanelt,2021,WSH,Washington Capitals,5,151,Eisbaren Berlin,GERMANY,nhl_draft_api,2021-151,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-152-kirill-gerasimyuk,2021,FLA,Florida Panthers,5,152,SKA-Varyagi,Russia Jr.,nhl_draft_api,2021-152,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-153-ty-voit,2021,TOR,Toronto Maple Leafs,5,153,Sarnia,OHL,nhl_draft_api,2021-153,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-154-isaac-belliveau,2021,PIT,Pittsburgh Penguins,5,154,Gatineau,QMJHL,nhl_draft_api,2021-154,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-155-oscar-plandowski,2021,DET,Detroit Red Wings,5,155,Charlottetown,QMJHL,nhl_draft_api,2021-155,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-156-max-mccue,2021,SJS,San Jose Sharks,5,156,London,OHL,nhl_draft_api,2021-156,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-157-eetu-liukas,2021,NYI,New York Islanders,5,157,TPS,FINLAND,nhl_draft_api,2021-157,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-158-ty-murchison,2021,PHI,Philadelphia Flyers,5,158,USA U-18,USHL,nhl_draft_api,2021-158,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-159-viljami-marjala,2021,BUF,Buffalo Sabres,5,159,Quebec,QMJHL,nhl_draft_api,2021-159,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-160-cameron-macdonald,2021,TBL,Tampa Bay Lightning,5,160,Saint John,QMJHL,nhl_draft_api,2021-160,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-161-william-von-barnekow-lofberg,2021,BUF,Buffalo Sabres,6,161,Malmo Jr.,Sweden Jrs.,nhl_draft_api,2021-161,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-162-kyle-kukkonen,2021,ANA,Anaheim Ducks,6,162,Maple Grove,High School,nhl_draft_api,2021-162,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-163-semyon-vyazovoi,2021,SEA,Seattle Kraken,6,163,Ufa 2,Russia Jr.,nhl_draft_api,2021-163,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-164-viktor-hurtig,2021,NJD,New Jersey Devils,6,164,Vasteras Jr.,Sweden Jrs.,nhl_draft_api,2021-164,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-165-ben-boyd,2021,CBJ,Columbus Blue Jackets,6,165,Charlottetown,QMJHL,nhl_draft_api,2021-165,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-166-pasquale-zito,2021,DET,Detroit Red Wings,6,166,Windsor,OHL,nhl_draft_api,2021-166,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-167-liam-gilmartin,2021,SJS,San Jose Sharks,6,167,USA U-18,USHL,nhl_draft_api,2021-167,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-168-jack-beck,2021,CGY,Calgary Flames,6,168,Ottawa,OHL,nhl_draft_api,2021-168,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-169-hugo-gabrielson,2021,VAN,Vancouver Canucks,6,169,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2021-169,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-170-bryce-montgomery,2021,CAR,Carolina Hurricanes,6,170,London,OHL,nhl_draft_api,2021-170,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-171-cal-thomas,2021,ARI,Arizona Coyotes,6,171,Maple Grove,High School,nhl_draft_api,2021-171,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-172-ilya-safonov,2021,CHI,Chicago Blackhawks,6,172,Kazan,RUSSIA,nhl_draft_api,2021-172,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-173-lucas-ciona,2021,CGY,Calgary Flames,6,173,Seattle,WHL,nhl_draft_api,2021-173,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-174-ethan-samson,2021,PHI,Philadelphia Flyers,6,174,Prince George,WHL,nhl_draft_api,2021-174,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-175-francesco-arcuri,2021,DAL,Dallas Stars,6,175,Kingston,OHL,nhl_draft_api,2021-175,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-176-dru-krebs,2021,WSH,Washington Capitals,6,176,Medicine Hat,WHL,nhl_draft_api,2021-176,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-177-theo-jacobsson,2021,SJS,San Jose Sharks,6,177,Modo Jr.,Sweden Jrs.,nhl_draft_api,2021-177,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-178-connor-lockhart,2021,VAN,Vancouver Canucks,6,178,Erie,OHL,nhl_draft_api,2021-178,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-179-simon-knak,2021,NSH,Nashville Predators,6,179,Portland,WHL,nhl_draft_api,2021-179,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-180-matvey-petrov,2021,EDM,Edmonton Oilers,6,180,Krylja Sovetov 2,Russia Jr.,nhl_draft_api,2021-180,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-181-ryan-mast,2021,BOS,Boston Bruins,6,181,Sarnia,OHL,nhl_draft_api,2021-181,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-182-nate-benoit,2021,MIN,Minnesota Wild,6,182,Mount St. Charles,HIGH-RI,nhl_draft_api,2021-182,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-183-chase-clark,2021,WSH,Washington Capitals,6,183,Jersey Hitmen,USPHL - NCDC,nhl_draft_api,2021-183,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-184-jakub-kos,2021,FLA,Florida Panthers,6,184,Ilves Jr.,Finland Jrs.,nhl_draft_api,2021-184,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-185-vyacheslav-peksa,2021,TOR,Toronto Maple Leafs,6,185,Irbis Kazan,Russia Jr.,nhl_draft_api,2021-185,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-186-shane-lachance,2021,EDM,Edmonton Oilers,6,186,Junior Bruins,USPHL - NCDC,nhl_draft_api,2021-186,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-187-nikita-quapp,2021,CAR,Carolina Hurricanes,6,187,Krefeld,GERMANY,nhl_draft_api,2021-187,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-188-nikita-novikov,2021,BUF,Buffalo Sabres,6,188,Dynamo Moscow 2,Russia Jr.,nhl_draft_api,2021-188,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-189-aleksi-malinen,2021,NYI,New York Islanders,6,189,Jyp,FINLAND,nhl_draft_api,2021-189,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-190-artur-cholach,2021,VGK,Vegas Golden Knights,6,190,Sokol Kiev,UKRAINE,nhl_draft_api,2021-190,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-191-xavier-simoneau,2021,MTL,Montréal Canadiens,6,191,Drummondville,QMJHL,nhl_draft_api,2021-191,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-192-alex-gagne,2021,TBL,Tampa Bay Lightning,6,192,Muskegon,USHL,nhl_draft_api,2021-192,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-193-tyson-kozak,2021,BUF,Buffalo Sabres,7,193,Portland,WHL,nhl_draft_api,2021-193,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-194-ryan-mccleary,2021,PIT,Pittsburgh Penguins,7,194,Portland,WHL,nhl_draft_api,2021-194,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-195-justin-janicke,2021,SEA,Seattle Kraken,7,195,USA U-18,USHL,nhl_draft_api,2021-195,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-196-daniil-pylenkov,2021,TBL,Tampa Bay Lightning,7,196,Podolsk,RUSSIA,nhl_draft_api,2021-196,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-197-martin-rysavy,2021,CBJ,Columbus Blue Jackets,7,197,Prerov,CZREP-2,nhl_draft_api,2021-197,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-198-ivan-vorobyov,2021,STL,St. Louis Blues,7,198,Khanty-Mansiysk 2,Russia Jr.,nhl_draft_api,2021-198,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-199-evgenii-kashnikov,2021,SJS,San Jose Sharks,7,199,Gatineau,QMJHL,nhl_draft_api,2021-199,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-200-yegor-naumov,2021,CAR,Carolina Hurricanes,7,200,Krylja Sovetov 2,Russia Jr.,nhl_draft_api,2021-200,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-201-lucas-forsell,2021,VAN,Vancouver Canucks,7,201,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2021-201,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-202-chandler-romeo,2021,OTT,Ottawa Senators,7,202,Brantford,GOJHL,nhl_draft_api,2021-202,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-203-zakhar-bardakov,2021,NJD,New Jersey Devils,7,203,Podolsk,RUSSIA,nhl_draft_api,2021-203,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-204-connor-kelley,2021,CHI,Chicago Blackhawks,7,204,Minnesota-Duluth,NCAA,nhl_draft_api,2021-204,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-205-arsenii-sergeev,2021,CGY,Calgary Flames,7,205,Shreveport,NAHL,nhl_draft_api,2021-205,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-206-owen-mclaughlin,2021,PHI,Philadelphia Flyers,7,206,Mount St. Charles,HIGH-RI,nhl_draft_api,2021-206,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-207-albert-sjoberg,2021,DAL,Dallas Stars,7,207,Sodertalje Jr.,Sweden Jrs.,nhl_draft_api,2021-207,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-208-hank-kempf,2021,NYR,New York Rangers,7,208,Muskegon,USHL,nhl_draft_api,2021-208,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-209-nikita-guslistov,2021,CAR,Carolina Hurricanes,7,209,Cherepovets,RUSSIA,nhl_draft_api,2021-209,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-210-braden-hache,2021,FLA,Florida Panthers,7,210,Kingston,OHL,nhl_draft_api,2021-210,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-211-cooper-flinton,2021,TBL,Tampa Bay Lightning,7,211,St. Paul's School,HIGH-NH,nhl_draft_api,2021-211,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-212-maximus-wanner,2021,EDM,Edmonton Oilers,7,212,Moose Jaw,WHL,nhl_draft_api,2021-212,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-213-andre-gasseau,2021,BOS,Boston Bruins,7,213,USA U-18,USHL,nhl_draft_api,2021-213,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-214-joe-vrbetic,2021,MTL,Montréal Canadiens,7,214,North Bay,OHL,nhl_draft_api,2021-214,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-215-daniel-laatsch,2021,PIT,Pittsburgh Penguins,7,215,Sioux City,USHL,nhl_draft_api,2021-215,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-216-jalen-luypen,2021,CHI,Chicago Blackhawks,7,216,Edmonton,WHL,nhl_draft_api,2021-216,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-217-ty-gallagher,2021,BOS,Boston Bruins,7,217,USA U-18,USHL,nhl_draft_api,2021-217,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-218-kirill-tankov,2021,PIT,Pittsburgh Penguins,7,218,SKA-Varyagi,Russia Jr.,nhl_draft_api,2021-218,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-219-joel-nystrom,2021,CAR,Carolina Hurricanes,7,219,Farjestad,SWEDEN,nhl_draft_api,2021-219,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-220-taylor-makar,2021,COL,Colorado Avalanche,7,220,Brooks,AJHL,nhl_draft_api,2021-220,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-221-tomas-machu,2021,NYI,New York Islanders,7,221,Sumperk,CZREP-2,nhl_draft_api,2021-221,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-222-carl-lindbom,2021,VGK,Vegas Golden Knights,7,222,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2021-222,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-223-sam-lipkin,2021,ARI,Arizona Coyotes,7,223,Chicago,USHL,nhl_draft_api,2021-223,https://api-web.nhle.com/v1/draft/picks/2021/all
+2021-224-niko-huuhtanen,2021,TBL,Tampa Bay Lightning,7,224,Tappara Jr.,Finland Jrs.,nhl_draft_api,2021-224,https://api-web.nhle.com/v1/draft/picks/2021/all

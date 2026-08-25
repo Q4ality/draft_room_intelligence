@@ -1,0 +1,210 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2014-001-aaron-ekblad,2014,FLA,Florida Panthers,1,1,Barrie,OHL,nhl_draft_api,2014-1,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-002-sam-reinhart,2014,BUF,Buffalo Sabres,1,2,Kootenay,WHL,nhl_draft_api,2014-2,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-003-leon-draisaitl,2014,EDM,Edmonton Oilers,1,3,Prince Albert,WHL,nhl_draft_api,2014-3,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-004-sam-bennett,2014,CGY,Calgary Flames,1,4,Kingston,OHL,nhl_draft_api,2014-4,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-005-michael-dal-colle,2014,NYI,New York Islanders,1,5,Oshawa,OHL,nhl_draft_api,2014-5,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-006-jake-virtanen,2014,VAN,Vancouver Canucks,1,6,Calgary,WHL,nhl_draft_api,2014-6,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-007-haydn-fleury,2014,CAR,Carolina Hurricanes,1,7,Red Deer,WHL,nhl_draft_api,2014-7,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-008-william-nylander,2014,TOR,Toronto Maple Leafs,1,8,Modo,SWEDEN,nhl_draft_api,2014-8,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-009-nikolaj-ehlers,2014,WPG,Winnipeg Jets,1,9,Halifax,QMJHL,nhl_draft_api,2014-9,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-010-nick-ritchie,2014,ANA,Anaheim Ducks,1,10,Peterborough,OHL,nhl_draft_api,2014-10,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-011-kevin-fiala,2014,NSH,Nashville Predators,1,11,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2014-11,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-012-brendan-perlini,2014,ARI,Arizona Coyotes,1,12,Niagara,OHL,nhl_draft_api,2014-12,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-013-jakub-vrana,2014,WSH,Washington Capitals,1,13,Linkoping,SWEDEN,nhl_draft_api,2014-13,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-014-julius-honka,2014,DAL,Dallas Stars,1,14,Swift Current,WHL,nhl_draft_api,2014-14,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-015-dylan-larkin,2014,DET,Detroit Red Wings,1,15,USA U-18,USHL,nhl_draft_api,2014-15,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-016-sonny-milano,2014,CBJ,Columbus Blue Jackets,1,16,USA U-18,USHL,nhl_draft_api,2014-16,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-017-travis-sanheim,2014,PHI,Philadelphia Flyers,1,17,Calgary,WHL,nhl_draft_api,2014-17,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-018-alex-tuch,2014,MIN,Minnesota Wild,1,18,USA U-18,USHL,nhl_draft_api,2014-18,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-019-tony-deangelo,2014,TBL,Tampa Bay Lightning,1,19,Sarnia,OHL,nhl_draft_api,2014-19,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-020-nick-schmaltz,2014,CHI,Chicago Blackhawks,1,20,Green Bay,USHL,nhl_draft_api,2014-20,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-021-robby-fabbri,2014,STL,St. Louis Blues,1,21,Guelph,OHL,nhl_draft_api,2014-21,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-022-kasperi-kapanen,2014,PIT,Pittsburgh Penguins,1,22,Kalpa,FINLAND,nhl_draft_api,2014-22,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-024-jared-mccann,2014,VAN,Vancouver Canucks,1,24,Sault Ste. Marie,OHL,nhl_draft_api,2014-24,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-025-david-pastrnak,2014,BOS,Boston Bruins,1,25,Sodertalje,HockeyAllsvenskan,nhl_draft_api,2014-25,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-026-nikita-scherbak,2014,MTL,Montréal Canadiens,1,26,Saskatoon,WHL,nhl_draft_api,2014-26,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-027-nikolay-goldobin,2014,SJS,San Jose Sharks,1,27,Sarnia,OHL,nhl_draft_api,2014-27,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-028-joshua-ho-sang,2014,NYI,New York Islanders,1,28,Windsor,OHL,nhl_draft_api,2014-28,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-029-adrian-kempe,2014,LAK,Los Angeles Kings,1,29,Modo,SWEDEN,nhl_draft_api,2014-29,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-030-john-quenneville,2014,NJD,New Jersey Devils,1,30,Brandon,WHL,nhl_draft_api,2014-30,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-031-brendan-lemieux,2014,BUF,Buffalo Sabres,2,31,Barrie,OHL,nhl_draft_api,2014-31,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-032-jayce-hawryluk,2014,FLA,Florida Panthers,2,32,Brandon,WHL,nhl_draft_api,2014-32,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-033-ivan-barbashev,2014,STL,St. Louis Blues,2,33,Moncton,QMJHL,nhl_draft_api,2014-33,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-034-mason-mcdonald,2014,CGY,Calgary Flames,2,34,Charlottetown,QMJHL,nhl_draft_api,2014-34,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-035-dominik-masin,2014,TBL,Tampa Bay Lightning,2,35,Slavia Jr.,CZREP-JR.,nhl_draft_api,2014-35,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-036-thatcher-demko,2014,VAN,Vancouver Canucks,2,36,Boston College,NCAA,nhl_draft_api,2014-36,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-037-alex-nedeljkovic,2014,CAR,Carolina Hurricanes,2,37,Plymouth,OHL,nhl_draft_api,2014-37,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-038-marcus-pettersson,2014,ANA,Anaheim Ducks,2,38,Skelleftea Jr.,Sweden Jrs.,nhl_draft_api,2014-38,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-039-vitek-vanecek,2014,WSH,Washington Capitals,2,39,Liberec Jr.,CZREP-JR.,nhl_draft_api,2014-39,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-040-andreas-englund,2014,OTT,Ottawa Senators,2,40,Djurgarden,HockeyAllsvenskan,nhl_draft_api,2014-40,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-041-josh-jacobs,2014,NJD,New Jersey Devils,2,41,Indiana,USHL,nhl_draft_api,2014-41,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-042-vladislav-kamenev,2014,NSH,Nashville Predators,2,42,Magnitogorsk 2,Russia Jr.,nhl_draft_api,2014-42,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-043-ryan-macinnis,2014,ARI,Arizona Coyotes,2,43,Kitchener,OHL,nhl_draft_api,2014-43,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-044-eric-cornel,2014,BUF,Buffalo Sabres,2,44,Peterborough,OHL,nhl_draft_api,2014-44,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-045-brett-pollock,2014,DAL,Dallas Stars,2,45,Edmonton,WHL,nhl_draft_api,2014-45,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-046-julius-bergman,2014,SJS,San Jose Sharks,2,46,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-46,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-047-ryan-collins,2014,CBJ,Columbus Blue Jackets,2,47,USA U-18,USHL,nhl_draft_api,2014-47,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-048-nicolas-aube-kubel,2014,PHI,Philadelphia Flyers,2,48,Val d'Or,QMJHL,nhl_draft_api,2014-48,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-049-vaclav-karabacek,2014,BUF,Buffalo Sabres,2,49,Gatineau,QMJHL,nhl_draft_api,2014-49,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-050-roland-mckeown,2014,LAK,Los Angeles Kings,2,50,Kingston,OHL,nhl_draft_api,2014-50,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-051-jack-dougherty,2014,NSH,Nashville Predators,2,51,USA U-18,USHL,nhl_draft_api,2014-51,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-052-maxim-letunov,2014,STL,St. Louis Blues,2,52,Youngstown,USHL,nhl_draft_api,2014-52,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-053-noah-rod,2014,SJS,San Jose Sharks,2,53,Geneve Jr.,SWISS-JR.,nhl_draft_api,2014-53,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-054-hunter-smith,2014,CGY,Calgary Flames,2,54,Oshawa,OHL,nhl_draft_api,2014-54,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-055-brandon-montour,2014,ANA,Anaheim Ducks,2,55,Waterloo,USHL,nhl_draft_api,2014-55,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-056-ryan-donato,2014,BOS,Boston Bruins,2,56,Dexter School,High School,nhl_draft_api,2014-56,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-057-johnathan-macleod,2014,TBL,Tampa Bay Lightning,2,57,USA U-18,USHL,nhl_draft_api,2014-57,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-058-christian-dvorak,2014,ARI,Arizona Coyotes,2,58,London,OHL,nhl_draft_api,2014-58,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-059-brandon-halverson,2014,NYR,New York Rangers,2,59,Sault Ste. Marie,OHL,nhl_draft_api,2014-59,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-060-alex-lintuniemi,2014,LAK,Los Angeles Kings,2,60,Ottawa,OHL,nhl_draft_api,2014-60,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-061-jonas-johansson,2014,BUF,Buffalo Sabres,3,61,Brynas Jr.,Sweden Jrs.,nhl_draft_api,2014-61,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-062-justin-kirkland,2014,NSH,Nashville Predators,3,62,Kelowna,WHL,nhl_draft_api,2014-62,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-063-dominic-turgeon,2014,DET,Detroit Red Wings,3,63,Portland,WHL,nhl_draft_api,2014-63,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-064-brandon-hickey,2014,CGY,Calgary Flames,3,64,Spruce Grove,AJHL,nhl_draft_api,2014-64,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-065-juho-lammikko,2014,FLA,Florida Panthers,3,65,Assat Jr.,Finland Jrs.,nhl_draft_api,2014-65,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-066-nikita-tryamkin,2014,VAN,Vancouver Canucks,3,66,Yekaterinburg,RUSSIA,nhl_draft_api,2014-66,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-067-warren-foegele,2014,CAR,Carolina Hurricanes,3,67,St. Andrew's College,HIGH-ON,nhl_draft_api,2014-67,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-068-rinat-valiev,2014,TOR,Toronto Maple Leafs,3,68,Kootenay,WHL,nhl_draft_api,2014-68,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-069-jack-glover,2014,WPG,Winnipeg Jets,3,69,USA U-18,USHL,nhl_draft_api,2014-69,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-070-miles-gendron,2014,OTT,Ottawa Senators,3,70,Rivers Academy,High School,nhl_draft_api,2014-70,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-071-connor-chatham,2014,NJD,New Jersey Devils,3,71,Plymouth,OHL,nhl_draft_api,2014-71,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-072-alex-schoenborn,2014,SJS,San Jose Sharks,3,72,Portland,WHL,nhl_draft_api,2014-72,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-073-brett-lernout,2014,MTL,Montréal Canadiens,3,73,Swift Current,WHL,nhl_draft_api,2014-73,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-074-brycen-martin,2014,BUF,Buffalo Sabres,3,74,Swift Current,WHL,nhl_draft_api,2014-74,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-075-alexander-peters,2014,DAL,Dallas Stars,3,75,Plymouth,OHL,nhl_draft_api,2014-75,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-076-elvis-merzlikins,2014,CBJ,Columbus Blue Jackets,3,76,Lugano,National League,nhl_draft_api,2014-76,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-077-blake-siebenaler,2014,CBJ,Columbus Blue Jackets,3,77,Niagara,OHL,nhl_draft_api,2014-77,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-078-ilya-sorokin,2014,NYI,New York Islanders,3,78,Novokuznetsk,RUSSIA,nhl_draft_api,2014-78,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-079-brayden-point,2014,TBL,Tampa Bay Lightning,3,79,Moose Jaw,WHL,nhl_draft_api,2014-79,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-080-louie-belpedio,2014,MIN,Minnesota Wild,3,80,USA U-18,USHL,nhl_draft_api,2014-80,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-081-dylan-sadowy,2014,SJS,San Jose Sharks,3,81,Saginaw,OHL,nhl_draft_api,2014-81,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-082-jake-walman,2014,STL,St. Louis Blues,3,82,Toronto JC,OJHL,nhl_draft_api,2014-82,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-083-matheson-iacopelli,2014,CHI,Chicago Blackhawks,3,83,Muskegon,USHL,nhl_draft_api,2014-83,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-084-kyle-wood,2014,COL,Colorado Avalanche,3,84,North Bay,OHL,nhl_draft_api,2014-84,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-085-keegan-iverson,2014,NYR,New York Rangers,3,85,Portland,WHL,nhl_draft_api,2014-85,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-086-mark-friedman,2014,PHI,Philadelphia Flyers,3,86,Waterloo,USHL,nhl_draft_api,2014-86,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-087-anton-karlsson,2014,ARI,Arizona Coyotes,3,87,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-87,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-088-beau-starrett,2014,CHI,Chicago Blackhawks,3,88,South Shore,USPHL PRE.,nhl_draft_api,2014-88,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-089-nathan-walker,2014,WSH,Washington Capitals,3,89,Hershey,AHL,nhl_draft_api,2014-89,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-090-michael-amadio,2014,LAK,Los Angeles Kings,3,90,North Bay,OHL,nhl_draft_api,2014-90,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-091-william-lagesson,2014,EDM,Edmonton Oilers,4,91,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-91,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-092-joe-wegwerth,2014,FLA,Florida Panthers,4,92,USA U-18,USHL,nhl_draft_api,2014-92,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-093-nick-magyar,2014,COL,Colorado Avalanche,4,93,Kitchener,OHL,nhl_draft_api,2014-93,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-094-ville-husso,2014,STL,St. Louis Blues,4,94,HIFK,FINLAND,nhl_draft_api,2014-94,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-095-linus-soderstrom,2014,NYI,New York Islanders,4,95,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2014-95,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-096-josh-wesley,2014,CAR,Carolina Hurricanes,4,96,Plymouth,OHL,nhl_draft_api,2014-96,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-097-lucas-wallmark,2014,CAR,Carolina Hurricanes,4,97,Lulea,SWEDEN,nhl_draft_api,2014-97,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-098-fredrik-olofsson,2014,CHI,Chicago Blackhawks,4,98,Chicago,USHL,nhl_draft_api,2014-98,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-099-chase-de-leo,2014,WPG,Winnipeg Jets,4,99,Portland,WHL,nhl_draft_api,2014-99,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-100-shane-eiserman,2014,OTT,Ottawa Senators,4,100,Dubuque,USHL,nhl_draft_api,2014-100,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-101-nelson-nogier,2014,WPG,Winnipeg Jets,4,101,Saskatoon,WHL,nhl_draft_api,2014-101,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-102-alexis-vanier,2014,SJS,San Jose Sharks,4,102,Baie Comeau,QMJHL,nhl_draft_api,2014-102,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-103-john-piccinich,2014,TOR,Toronto Maple Leafs,4,103,Youngstown,USHL,nhl_draft_api,2014-103,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-104-ryan-mantha,2014,NYR,New York Rangers,4,104,Sioux City,USHL,nhl_draft_api,2014-104,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-105-michael-prapavessis,2014,DAL,Dallas Stars,4,105,Toronto Lakeshore,OJHL,nhl_draft_api,2014-105,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-106-christoffer-ehn,2014,DET,Detroit Red Wings,4,106,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-106,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-107-julien-pelletier,2014,CBJ,Columbus Blue Jackets,4,107,Cape Breton,QMJHL,nhl_draft_api,2014-107,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-108-devon-toews,2014,NYI,New York Islanders,4,108,Quinnipiac,NCAA,nhl_draft_api,2014-108,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-109-kaapo-kahkonen,2014,MIN,Minnesota Wild,4,109,Blues Jr.,Finland Jrs.,nhl_draft_api,2014-109,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-110-austin-poganski,2014,STL,St. Louis Blues,4,110,Tri-City,USHL,nhl_draft_api,2014-110,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-111-zachary-nagelvoort,2014,EDM,Edmonton Oilers,4,111,U. of Michigan,NCAA,nhl_draft_api,2014-111,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-112-viktor-arvidsson,2014,NSH,Nashville Predators,4,112,Skelleftea,SWEDEN,nhl_draft_api,2014-112,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-113-sam-lafferty,2014,PIT,Pittsburgh Penguins,4,113,Deerfield Academy,High School,nhl_draft_api,2014-113,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-114-alexis-pepin,2014,COL,Colorado Avalanche,4,114,Gatineau,QMJHL,nhl_draft_api,2014-114,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-115-brent-moran,2014,DAL,Dallas Stars,4,115,Niagara,OHL,nhl_draft_api,2014-115,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-116-danton-heinen,2014,BOS,Boston Bruins,4,116,Surrey,BCHL,nhl_draft_api,2014-116,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-117-michael-bunting,2014,ARI,Arizona Coyotes,4,117,Sault Ste. Marie,OHL,nhl_draft_api,2014-117,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-118-igor-shesterkin,2014,NYR,New York Rangers,4,118,Spartak 2,Russia Jr.,nhl_draft_api,2014-118,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-119-ben-thomas,2014,TBL,Tampa Bay Lightning,4,119,Calgary,WHL,nhl_draft_api,2014-119,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-120-steven-johnson,2014,LAK,Los Angeles Kings,4,120,Omaha,USHL,nhl_draft_api,2014-120,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-121-max-willman,2014,BUF,Buffalo Sabres,5,121,Williston-North Hampton,High School,nhl_draft_api,2014-121,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-122-richard-nejezchleb,2014,NYR,New York Rangers,5,122,Brandon,WHL,nhl_draft_api,2014-122,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-123-matthew-berkovitz,2014,ANA,Anaheim Ducks,5,123,Ashwaubenon,HIGH-WI,nhl_draft_api,2014-123,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-124-jaedon-descheneau,2014,STL,St. Louis Blues,5,124,Kootenay,WHL,nhl_draft_api,2014-124,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-125-nikolas-koberstein,2014,MTL,Montréal Canadiens,5,125,Olds,AJHL,nhl_draft_api,2014-125,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-126-gustav-forsling,2014,VAN,Vancouver Canucks,5,126,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2014-126,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-127-clark-bishop,2014,CAR,Carolina Hurricanes,5,127,Cape Breton,QMJHL,nhl_draft_api,2014-127,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-128-dakota-joshua,2014,TOR,Toronto Maple Leafs,5,128,Sioux Falls,USHL,nhl_draft_api,2014-128,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-129-cj-suess,2014,WPG,Winnipeg Jets,5,129,Sioux Falls,USHL,nhl_draft_api,2014-129,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-130-liam-coughlin,2014,EDM,Edmonton Oilers,5,130,Vernon,BCHL,nhl_draft_api,2014-130,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-131-ryan-rehill,2014,NJD,New Jersey Devils,5,131,Kamloops,WHL,nhl_draft_api,2014-131,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-132-joonas-lyytinen,2014,NSH,Nashville Predators,5,132,Kalpa,FINLAND,nhl_draft_api,2014-132,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-133-dysin-mayo,2014,ARI,Arizona Coyotes,5,133,Edmonton,WHL,nhl_draft_api,2014-133,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-134-shane-gersich,2014,WSH,Washington Capitals,5,134,USA U-18,USHL,nhl_draft_api,2014-134,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-135-miro-karjalainen,2014,DAL,Dallas Stars,5,135,Jokerit U18,FINLAND-JR. U18,nhl_draft_api,2014-135,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-136-chase-perry,2014,DET,Detroit Red Wings,5,136,Wenatchee,NAHL,nhl_draft_api,2014-136,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-137-tyler-bird,2014,CBJ,Columbus Blue Jackets,5,137,Kimball Union Academy,HIGH-NH,nhl_draft_api,2014-137,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-138-oskar-lindblom,2014,PHI,Philadelphia Flyers,5,138,Brynas Jr.,Sweden Jrs.,nhl_draft_api,2014-138,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-139-tanner-faith,2014,MIN,Minnesota Wild,5,139,Kootenay,WHL,nhl_draft_api,2014-139,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-140-daniel-walcott,2014,NYR,New York Rangers,5,140,Blainville-Boisbriand,QMJHL,nhl_draft_api,2014-140,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-141-luc-snuggerud,2014,CHI,Chicago Blackhawks,5,141,Eden Prarie,High School,nhl_draft_api,2014-141,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-142-tyler-nanne,2014,NYR,New York Rangers,5,142,Edina H.S.,High School,nhl_draft_api,2014-142,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-143-miguel-fidler,2014,FLA,Florida Panthers,5,143,Edina H.S.,High School,nhl_draft_api,2014-143,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-144-anton-lindholm,2014,COL,Colorado Avalanche,5,144,Skelleftea Jr.,Sweden Jrs.,nhl_draft_api,2014-144,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-145-anthony-angello,2014,PIT,Pittsburgh Penguins,5,145,Omaha,USHL,nhl_draft_api,2014-145,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-146-anders-bjork,2014,BOS,Boston Bruins,5,146,USA U-18,USHL,nhl_draft_api,2014-146,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-147-daniel-audette,2014,MTL,Montréal Canadiens,5,147,Sherbrooke,QMJHL,nhl_draft_api,2014-147,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-148-andreas-soderberg,2014,CHI,Chicago Blackhawks,5,148,Skelleftea Jr.,Sweden Jrs.,nhl_draft_api,2014-148,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-149-rourke-chartier,2014,SJS,San Jose Sharks,5,149,Kelowna,WHL,nhl_draft_api,2014-149,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-150-alec-dillon,2014,LAK,Los Angeles Kings,5,150,Victoria,BCHL,nhl_draft_api,2014-150,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-151-christopher-brown,2014,BUF,Buffalo Sabres,6,151,Cranbrook Kingswood,HIGH-MI,nhl_draft_api,2014-151,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-152-joey-dudek,2014,NJD,New Jersey Devils,6,152,Kimball Union Academy,HIGH-NH,nhl_draft_api,2014-152,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-153-tyler-vesel,2014,EDM,Edmonton Oilers,6,153,Omaha,USHL,nhl_draft_api,2014-153,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-154-aaron-haydon,2014,DAL,Dallas Stars,6,154,Niagara,OHL,nhl_draft_api,2014-154,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-155-kyle-schempp,2014,NYI,New York Islanders,6,155,Ferris State U.,NCAA,nhl_draft_api,2014-155,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-156-kyle-pettit,2014,VAN,Vancouver Canucks,6,156,Erie,OHL,nhl_draft_api,2014-156,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-157-jake-marchment,2014,LAK,Los Angeles Kings,6,157,Belleville,OHL,nhl_draft_api,2014-157,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-158-nolan-vesey,2014,TOR,Toronto Maple Leafs,6,158,South Shore,USPHL PRE.,nhl_draft_api,2014-158,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-159-steven-spinner,2014,WSH,Washington Capitals,6,159,Eden Prarie,High School,nhl_draft_api,2014-159,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-160-pontus-sjalin,2014,MIN,Minnesota Wild,6,160,Ostersunds,J20 Elit,nhl_draft_api,2014-160,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-161-brandon-baddock,2014,NJD,New Jersey Devils,6,161,Edmonton,WHL,nhl_draft_api,2014-161,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-162-aaron-irving,2014,NSH,Nashville Predators,6,162,Edmonton,WHL,nhl_draft_api,2014-162,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-163-david-westlund,2014,ARI,Arizona Coyotes,6,163,Brynas Jr.,Sweden Jrs.,nhl_draft_api,2014-163,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-164-pavel-kraskovsky,2014,WPG,Winnipeg Jets,6,164,Yaroslavl 2,Russia Jr.,nhl_draft_api,2014-164,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-165-john-nyberg,2014,DAL,Dallas Stars,6,165,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-165,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-166-julius-vahatalo,2014,DET,Detroit Red Wings,6,166,TPS Jr.,Finland Jrs.,nhl_draft_api,2014-166,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-167-chase-lang,2014,MIN,Minnesota Wild,6,167,Calgary,WHL,nhl_draft_api,2014-167,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-168-radel-fazleev,2014,PHI,Philadelphia Flyers,6,168,Calgary,WHL,nhl_draft_api,2014-168,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-169-reid-duke,2014,MIN,Minnesota Wild,6,169,Lethbridge,WHL,nhl_draft_api,2014-169,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-170-cristiano-digiacinto,2014,TBL,Tampa Bay Lightning,6,170,Windsor,OHL,nhl_draft_api,2014-170,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-171-kevin-labanc,2014,SJS,San Jose Sharks,6,171,Barrie,OHL,nhl_draft_api,2014-171,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-172-c-j-yakimowicz,2014,STL,St. Louis Blues,6,172,London,OHL,nhl_draft_api,2014-172,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-173-jaden-lindo,2014,PIT,Pittsburgh Penguins,6,173,Owen Sound,OHL,nhl_draft_api,2014-173,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-174-maximilian-pajpach,2014,COL,Colorado Avalanche,6,174,Slovakia U18,SLOVAKIA-2,nhl_draft_api,2014-174,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-175-adam-ollas-mattsson,2014,CGY,Calgary Flames,6,175,Djurgarden Jr.,Sweden Jrs.,nhl_draft_api,2014-175,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-176-sammy-blais,2014,STL,St. Louis Blues,6,176,Victoriaville,QMJHL,nhl_draft_api,2014-176,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-177-hayden-hawkey,2014,MTL,Montréal Canadiens,6,177,Omaha,USHL,nhl_draft_api,2014-177,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-178-dylan-sikura,2014,CHI,Chicago Blackhawks,6,178,Aurora,OJHL,nhl_draft_api,2014-178,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-179-ivan-nalimov,2014,CHI,Chicago Blackhawks,6,179,SKA St. Petersburg 2,Russia Jr.,nhl_draft_api,2014-179,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-180-matthew-mistele,2014,LAK,Los Angeles Kings,6,180,Plymouth,OHL,nhl_draft_api,2014-180,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-181-victor-olofsson,2014,BUF,Buffalo Sabres,7,181,Modo Jr.,Sweden Jrs.,nhl_draft_api,2014-181,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-182-hugo-fagerblom,2014,FLA,Florida Panthers,7,182,Frolunda U18,SWEDEN-JR. U18,nhl_draft_api,2014-182,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-183-keven-bouchard,2014,EDM,Edmonton Oilers,7,183,Val d'Or,QMJHL,nhl_draft_api,2014-183,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-184-austin-carroll,2014,CGY,Calgary Flames,7,184,Victoria,WHL,nhl_draft_api,2014-184,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-185-cameron-darcy,2014,TBL,Tampa Bay Lightning,7,185,Cape Breton,QMJHL,nhl_draft_api,2014-185,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-186-mackenze-stewart,2014,VAN,Vancouver Canucks,7,186,Prince Albert,WHL,nhl_draft_api,2014-186,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-187-kyle-jenkins,2014,CAR,Carolina Hurricanes,7,187,Sault Ste. Marie,OHL,nhl_draft_api,2014-187,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-188-pierre-engvall,2014,TOR,Toronto Maple Leafs,7,188,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-188,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-189-kelly-summers,2014,OTT,Ottawa Senators,7,189,Carleton Place,CCHL,nhl_draft_api,2014-189,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-190-francis-perron,2014,OTT,Ottawa Senators,7,190,Rouyn-Noranda,QMJHL,nhl_draft_api,2014-190,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-191-jared-fiegl,2014,ARI,Arizona Coyotes,7,191,USA U-18,USHL,nhl_draft_api,2014-191,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-192-matt-ustaski,2014,WPG,Winnipeg Jets,7,192,Langley,BCHL,nhl_draft_api,2014-192,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-193-edgars-kulda,2014,ARI,Arizona Coyotes,7,193,Edmonton,WHL,nhl_draft_api,2014-193,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-194-kevin-elgestal,2014,WSH,Washington Capitals,7,194,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2014-194,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-195-patrick-sanvido,2014,DAL,Dallas Stars,7,195,Windsor,OHL,nhl_draft_api,2014-195,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-196-axel-holmstrom,2014,DET,Detroit Red Wings,7,196,Skelleftea Jr.,Sweden Jrs.,nhl_draft_api,2014-196,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-197-olivier-leblanc,2014,CBJ,Columbus Blue Jackets,7,197,Saint John,QMJHL,nhl_draft_api,2014-197,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-198-jesper-pettersson,2014,PHI,Philadelphia Flyers,7,198,Linkoping,SWEDEN,nhl_draft_api,2014-198,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-199-pavel-jenys,2014,MIN,Minnesota Wild,7,199,Brno,Czech Republic,nhl_draft_api,2014-199,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-200-lukas-sutter,2014,NYI,New York Islanders,7,200,Red Deer,WHL,nhl_draft_api,2014-200,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-201-alexander-kadeykin,2014,DET,Detroit Red Wings,7,201,Mytischi,RUSSIA,nhl_draft_api,2014-201,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-202-dwyer-tschantz,2014,STL,St. Louis Blues,7,202,Indiana,USHL,nhl_draft_api,2014-202,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-203-jeff-taylor,2014,PIT,Pittsburgh Penguins,7,203,Union College,NCAA,nhl_draft_api,2014-203,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-204-julien-nantel,2014,COL,Colorado Avalanche,7,204,Rouyn-Noranda,QMJHL,nhl_draft_api,2014-204,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-205-ondrej-kase,2014,ANA,Anaheim Ducks,7,205,Chomutov,Czech Republic,nhl_draft_api,2014-205,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-206-emil-johansson,2014,BOS,Boston Bruins,7,206,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2014-206,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-207-jake-evans,2014,MTL,Montréal Canadiens,7,207,St. Michael's,OJHL,nhl_draft_api,2014-207,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-208-jack-ramsey,2014,CHI,Chicago Blackhawks,7,208,Penticton,BCHL,nhl_draft_api,2014-208,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-209-spencer-watson,2014,LAK,Los Angeles Kings,7,209,Kingston,OHL,nhl_draft_api,2014-209,https://api-web.nhle.com/v1/draft/picks/2014/all
+2014-210-jake-middleton,2014,LAK,Los Angeles Kings,7,210,Ottawa,OHL,nhl_draft_api,2014-210,https://api-web.nhle.com/v1/draft/picks/2014/all

@@ -28,6 +28,10 @@ The current wedge is NHL draft analysis: build normalized pre-draft datasets, en
 - `data/reference/codex_context_routes.csv` - bounded context route map for common Codex task types.
 - `data/reference/codex_task_routing.csv` - task-level routing rules for context route, GPT-5.6 model, agent, reasoning, and validation selection.
 - `data/processed/` - tracked sample/pilot normalized datasets.
+- `data/processed/draft_classes/2014` through `2021` and
+  `data/processed/outcome_labels/2014` through `2021` - versioned, audited
+  inputs for the longitudinal baseline. Other generated draft-class snapshots
+  remain local by default.
 - `data/raw/` - local raw inputs such as HockeyDB HTML and Elite Prospects exports. Ignored by git.
 - `outputs/` - local exports from feature tables, model runs, and ad hoc analysis. Ignored by git.
 - `skills/` - authored repo-local Codex skills for project context, validation, ingestion debugging, and demo-data preparation.
@@ -52,6 +56,14 @@ make team-depth-sample
 make nhl-roster-sample
 make test
 make check
+```
+
+Run the portable longitudinal baseline from a fresh clone:
+
+```bash
+python -m draft_room_intelligence.cli report-longitudinal-baseline \
+  data/processed/outcome_labels data/processed/draft_classes \
+  outputs/longitudinal_slot_role_baseline --as-of-date 2026-08-25
 ```
 
 ## Reproducible 2025 Demo

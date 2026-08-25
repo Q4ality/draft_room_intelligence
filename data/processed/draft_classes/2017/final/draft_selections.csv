@@ -1,0 +1,218 @@
+player_id,draft_year,team_id,team_name,round_number,overall_pick,drafted_from_team,drafted_from_league,source,source_id,source_url
+2017-001-nico-hischier,2017,NJD,New Jersey Devils,1,1,Halifax,QMJHL,nhl_draft_api,2017-1,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-002-nolan-patrick,2017,PHI,Philadelphia Flyers,1,2,Brandon,WHL,nhl_draft_api,2017-2,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-003-miro-heiskanen,2017,DAL,Dallas Stars,1,3,HIFK,FINLAND,nhl_draft_api,2017-3,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-004-cale-makar,2017,COL,Colorado Avalanche,1,4,Brooks,AJHL,nhl_draft_api,2017-4,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-005-elias-pettersson,2017,VAN,Vancouver Canucks,1,5,Timra,HockeyAllsvenskan,nhl_draft_api,2017-5,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-006-cody-glass,2017,VGK,Vegas Golden Knights,1,6,Portland,WHL,nhl_draft_api,2017-6,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-007-lias-andersson,2017,NYR,New York Rangers,1,7,HV 71,SWEDEN,nhl_draft_api,2017-7,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-008-casey-mittelstadt,2017,BUF,Buffalo Sabres,1,8,Eden Prarie,High School,nhl_draft_api,2017-8,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-009-michael-rasmussen,2017,DET,Detroit Red Wings,1,9,Tri-City,WHL,nhl_draft_api,2017-9,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-010-owen-tippett,2017,FLA,Florida Panthers,1,10,Mississauga,OHL,nhl_draft_api,2017-10,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-011-gabriel-vilardi,2017,LAK,Los Angeles Kings,1,11,Windsor,OHL,nhl_draft_api,2017-11,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-012-martin-necas,2017,CAR,Carolina Hurricanes,1,12,Brno,Czech Republic,nhl_draft_api,2017-12,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-013-nick-suzuki,2017,VGK,Vegas Golden Knights,1,13,Owen Sound,OHL,nhl_draft_api,2017-13,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-014-cal-foote,2017,TBL,Tampa Bay Lightning,1,14,Kelowna,WHL,nhl_draft_api,2017-14,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-015-erik-brannstrom,2017,VGK,Vegas Golden Knights,1,15,HV 71,SWEDEN,nhl_draft_api,2017-15,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-016-juuso-v-lim-ki,2017,CGY,Calgary Flames,1,16,Tri-City,WHL,nhl_draft_api,2017-16,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-017-timothy-liljegren,2017,TOR,Toronto Maple Leafs,1,17,Rogle,SWEDEN,nhl_draft_api,2017-17,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-018-urho-vaakanainen,2017,BOS,Boston Bruins,1,18,Jyp,FINLAND,nhl_draft_api,2017-18,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-019-josh-norris,2017,SJS,San Jose Sharks,1,19,USA U-18,USHL,nhl_draft_api,2017-19,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-020-robert-thomas,2017,STL,St. Louis Blues,1,20,London,OHL,nhl_draft_api,2017-20,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-021-filip-chytil,2017,NYR,New York Rangers,1,21,Zlin,Czech Republic,nhl_draft_api,2017-21,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-022-kailer-yamamoto,2017,EDM,Edmonton Oilers,1,22,Spokane,WHL,nhl_draft_api,2017-22,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-023-pierre-olivier-joseph,2017,ARI,Arizona Coyotes,1,23,Charlottetown,QMJHL,nhl_draft_api,2017-23,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-024-kristian-vesalainen,2017,WPG,Winnipeg Jets,1,24,Frolunda,SWEDEN,nhl_draft_api,2017-24,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-025-ryan-poehling,2017,MTL,Montréal Canadiens,1,25,St. Cloud State,NCAA,nhl_draft_api,2017-25,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-026-jake-oettinger,2017,DAL,Dallas Stars,1,26,Boston University,NCAA,nhl_draft_api,2017-26,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-027-morgan-frost,2017,PHI,Philadelphia Flyers,1,27,Sault Ste. Marie,OHL,nhl_draft_api,2017-27,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-028-shane-bowers,2017,OTT,Ottawa Senators,1,28,Waterloo,USHL,nhl_draft_api,2017-28,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-029-henri-jokiharju,2017,CHI,Chicago Blackhawks,1,29,Portland,WHL,nhl_draft_api,2017-29,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-030-eeli-tolvanen,2017,NSH,Nashville Predators,1,30,Sioux City,USHL,nhl_draft_api,2017-30,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-031-klim-kostin,2017,STL,St. Louis Blues,1,31,Dynamo Moscow,RUSSIA,nhl_draft_api,2017-31,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-032-conor-timmins,2017,COL,Colorado Avalanche,2,32,Sault Ste. Marie,OHL,nhl_draft_api,2017-32,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-033-kole-lind,2017,VAN,Vancouver Canucks,2,33,Kelowna,WHL,nhl_draft_api,2017-33,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-034-nicolas-hague,2017,VGK,Vegas Golden Knights,2,34,Mississauga,OHL,nhl_draft_api,2017-34,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-035-isaac-ratcliffe,2017,PHI,Philadelphia Flyers,2,35,Guelph,OHL,nhl_draft_api,2017-35,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-036-jesper-boqvist,2017,NJD,New Jersey Devils,2,36,Brynas,SWEDEN,nhl_draft_api,2017-36,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-037-marcus-davidsson,2017,BUF,Buffalo Sabres,2,37,Djurgarden,SWEDEN,nhl_draft_api,2017-37,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-038-gustav-lindstrom,2017,DET,Detroit Red Wings,2,38,Almtuna,HockeyAllsvenskan,nhl_draft_api,2017-38,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-039-jason-robertson,2017,DAL,Dallas Stars,2,39,Kingston,OHL,nhl_draft_api,2017-39,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-040-aleksi-heponiemi,2017,FLA,Florida Panthers,2,40,Swift Current,WHL,nhl_draft_api,2017-40,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-041-jaret-anderson-dolan,2017,LAK,Los Angeles Kings,2,41,Spokane,WHL,nhl_draft_api,2017-41,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-042-eetu-luostarinen,2017,CAR,Carolina Hurricanes,2,42,Kalpa,FINLAND,nhl_draft_api,2017-42,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-043-dylan-samberg,2017,WPG,Winnipeg Jets,2,43,Hermantown,High School,nhl_draft_api,2017-43,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-044-filip-westerlund,2017,ARI,Arizona Coyotes,2,44,Frolunda,SWEDEN,nhl_draft_api,2017-44,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-045-alexandre-texier,2017,CBJ,Columbus Blue Jackets,2,45,Grenoble,FRANCE,nhl_draft_api,2017-45,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-046-robin-salo,2017,NYI,New York Islanders,2,46,Sport,FINLAND,nhl_draft_api,2017-46,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-047-alex-formenton,2017,OTT,Ottawa Senators,2,47,London,OHL,nhl_draft_api,2017-47,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-048-alexander-volkov,2017,TBL,Tampa Bay Lightning,2,48,SKA St. Petersburg 2,Russia Jr.,nhl_draft_api,2017-48,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-049-mario-ferraro,2017,SJS,San Jose Sharks,2,49,Des Moines,USHL,nhl_draft_api,2017-49,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-050-maxime-comtois,2017,ANA,Anaheim Ducks,2,50,Victoriaville,QMJHL,nhl_draft_api,2017-50,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-051-zachary-lauzon,2017,PIT,Pittsburgh Penguins,2,51,Rouyn-Noranda,QMJHL,nhl_draft_api,2017-51,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-052-luke-martin,2017,CAR,Carolina Hurricanes,2,52,Michigan,NCAA,nhl_draft_api,2017-52,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-053-jack-studnicka,2017,BOS,Boston Bruins,2,53,Oshawa,OHL,nhl_draft_api,2017-53,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-054-ukko-pekka-luukkonen,2017,BUF,Buffalo Sabres,2,54,HPK Jr.,Finland Jrs.,nhl_draft_api,2017-54,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-055-jonah-gadjovich,2017,VAN,Vancouver Canucks,2,55,Owen Sound,OHL,nhl_draft_api,2017-55,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-056-josh-brook,2017,MTL,Montréal Canadiens,2,56,Moose Jaw,WHL,nhl_draft_api,2017-56,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-057-ian-mitchell,2017,CHI,Chicago Blackhawks,2,57,Spruce Grove,AJHL,nhl_draft_api,2017-57,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-058-joni-ikonen,2017,MTL,Montréal Canadiens,2,58,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2017-58,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-059-eemeli-rasanen,2017,TOR,Toronto Maple Leafs,2,59,Kingston,OHL,nhl_draft_api,2017-59,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-060-antoine-morand,2017,ANA,Anaheim Ducks,2,60,Acadie-Bathurst,QMJHL,nhl_draft_api,2017-60,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-061-grant-mismash,2017,NSH,Nashville Predators,2,61,USA U-18,USHL,nhl_draft_api,2017-61,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-062-jake-leschyshyn,2017,VGK,Vegas Golden Knights,2,62,Regina,WHL,nhl_draft_api,2017-62,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-063-fabian-zetterlund,2017,NJD,New Jersey Devils,3,63,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2017-63,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-064-michael-dipietro,2017,VAN,Vancouver Canucks,3,64,Windsor,OHL,nhl_draft_api,2017-64,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-065-jonas-rondbjerg,2017,VGK,Vegas Golden Knights,3,65,Vaxjo Jr.,Sweden Jrs.,nhl_draft_api,2017-65,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-066-max-gildon,2017,FLA,Florida Panthers,3,66,USA U-18,USHL,nhl_draft_api,2017-66,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-067-morgan-geekie,2017,CAR,Carolina Hurricanes,3,67,Tri-City,WHL,nhl_draft_api,2017-67,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-068-scott-walford,2017,MTL,Montréal Canadiens,3,68,Victoria,WHL,nhl_draft_api,2017-68,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-069-mackenzie-entwistle,2017,ARI,Arizona Coyotes,3,69,Hamilton,OHL,nhl_draft_api,2017-69,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-070-andrei-altybarmakian,2017,CHI,Chicago Blackhawks,3,70,Lvy St. Petersburg 2,Russia Jr.,nhl_draft_api,2017-70,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-071-kasper-kotkansalo,2017,DET,Detroit Red Wings,3,71,Sioux Falls,USHL,nhl_draft_api,2017-71,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-072-matt-villalta,2017,LAK,Los Angeles Kings,3,72,Sault Ste. Marie,OHL,nhl_draft_api,2017-72,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-073-stelio-mattheos,2017,CAR,Carolina Hurricanes,3,73,Brandon,WHL,nhl_draft_api,2017-73,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-074-johnathan-kovacevic,2017,WPG,Winnipeg Jets,3,74,Merrimack,NCAA,nhl_draft_api,2017-74,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-075-nate-schnarr,2017,ARI,Arizona Coyotes,3,75,Guelph,OHL,nhl_draft_api,2017-75,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-076-alexey-lipanov,2017,TBL,Tampa Bay Lightning,3,76,Balashikha,RUSSIA-2,nhl_draft_api,2017-76,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-077-benjamin-mirageas,2017,NYI,New York Islanders,3,77,Chicago,USHL,nhl_draft_api,2017-77,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-078-stuart-skinner,2017,EDM,Edmonton Oilers,3,78,Lethbridge,WHL,nhl_draft_api,2017-78,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-079-lane-zablocki,2017,DET,Detroit Red Wings,3,79,Red Deer,WHL,nhl_draft_api,2017-79,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-080-kirill-ustimenko,2017,PHI,Philadelphia Flyers,3,80,Dynamo St. Petersburg 2,Russia Jr.,nhl_draft_api,2017-80,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-081-reilly-walsh,2017,NJD,New Jersey Devils,3,81,Proctor Academy,HIGH-NH,nhl_draft_api,2017-81,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-082-cameron-crotty,2017,ARI,Arizona Coyotes,3,82,Brockville,CCHL,nhl_draft_api,2017-82,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-083-zach-gallant,2017,DET,Detroit Red Wings,3,83,Peterborough,OHL,nhl_draft_api,2017-83,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-084-dmitri-samorukov,2017,EDM,Edmonton Oilers,3,84,Guelph,OHL,nhl_draft_api,2017-84,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-085-ivan-lodnia,2017,MIN,Minnesota Wild,3,85,Erie,OHL,nhl_draft_api,2017-85,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-086-daniil-tarasov,2017,CBJ,Columbus Blue Jackets,3,86,Ufa 2,Russia Jr.,nhl_draft_api,2017-86,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-087-cale-fleury,2017,MTL,Montréal Canadiens,3,87,Kootenay,WHL,nhl_draft_api,2017-87,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-088-keith-petruzzelli,2017,DET,Detroit Red Wings,3,88,Muskegon,USHL,nhl_draft_api,2017-88,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-089-oskari-laaksonen,2017,BUF,Buffalo Sabres,3,89,Ilves Jr.,Finland Jrs.,nhl_draft_api,2017-89,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-090-evan-barratt,2017,CHI,Chicago Blackhawks,3,90,USA U-18,USHL,nhl_draft_api,2017-90,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-091-jack-badini,2017,ANA,Anaheim Ducks,3,91,Chicago,USHL,nhl_draft_api,2017-91,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-092-david-farrance,2017,NSH,Nashville Predators,3,92,USA U-18,USHL,nhl_draft_api,2017-92,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-093-clayton-phillips,2017,PIT,Pittsburgh Penguins,3,93,Fargo,USHL,nhl_draft_api,2017-93,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-094-nick-henry,2017,COL,Colorado Avalanche,4,94,Regina,WHL,nhl_draft_api,2017-94,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-095-jack-rathbone,2017,VAN,Vancouver Canucks,4,95,Dexter School,High School,nhl_draft_api,2017-95,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-096-maksim-zhukov,2017,VGK,Vegas Golden Knights,4,96,Green Bay,USHL,nhl_draft_api,2017-96,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-097-mason-shaw,2017,MIN,Minnesota Wild,4,97,Medicine Hat,WHL,nhl_draft_api,2017-97,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-098-nikita-popugaev,2017,NJD,New Jersey Devils,4,98,Prince George,WHL,nhl_draft_api,2017-98,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-099-jacob-bryson,2017,BUF,Buffalo Sabres,4,99,Providence,NCAA,nhl_draft_api,2017-99,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-100-malte-setkov,2017,DET,Detroit Red Wings,4,100,Malmo Jr.,Sweden Jrs.,nhl_draft_api,2017-100,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-101-liam-hawel,2017,DAL,Dallas Stars,4,101,Guelph,OHL,nhl_draft_api,2017-101,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-102-scott-reedy,2017,SJS,San Jose Sharks,4,102,USA U-18,USHL,nhl_draft_api,2017-102,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-103-mikey-anderson,2017,LAK,Los Angeles Kings,4,103,Waterloo,USHL,nhl_draft_api,2017-103,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-104-eetu-makiniemi,2017,CAR,Carolina Hurricanes,4,104,Jokerit Jr.,Finland Jrs.,nhl_draft_api,2017-104,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-105-santeri-virtanen,2017,WPG,Winnipeg Jets,4,105,TPS Jr.,Finland Jrs.,nhl_draft_api,2017-105,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-106-matthew-strome,2017,PHI,Philadelphia Flyers,4,106,Hamilton,OHL,nhl_draft_api,2017-106,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-107-maksim-sushko,2017,PHI,Philadelphia Flyers,4,107,Owen Sound,OHL,nhl_draft_api,2017-107,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-108-noel-hoefenmayer,2017,ARI,Arizona Coyotes,4,108,Ottawa,OHL,nhl_draft_api,2017-108,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-109-adam-ruzicka,2017,CGY,Calgary Flames,4,109,Sarnia,OHL,nhl_draft_api,2017-109,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-110-ian-scott,2017,TOR,Toronto Maple Leafs,4,110,Prince Albert,WHL,nhl_draft_api,2017-110,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-111-jeremy-swayman,2017,BOS,Boston Bruins,4,111,Sioux Falls,USHL,nhl_draft_api,2017-111,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-112-tim-soderlund,2017,CHI,Chicago Blackhawks,4,112,Skelleftea,SWEDEN,nhl_draft_api,2017-112,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-113-alexey-toropchenko,2017,STL,St. Louis Blues,4,113,Mvd Balashikha 2,Russia Jr.,nhl_draft_api,2017-113,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-114-petr-kvaca,2017,COL,Colorado Avalanche,4,114,C. Budejovice,CZREP-2,nhl_draft_api,2017-114,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-115-ostap-safin,2017,EDM,Edmonton Oilers,4,115,Sparta Jr.,CZREP-JR.,nhl_draft_api,2017-115,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-116-bryce-misley,2017,MIN,Minnesota Wild,4,116,Oakville,OJHL,nhl_draft_api,2017-116,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-117-emil-bemstrom,2017,CBJ,Columbus Blue Jackets,4,117,Leksand Jr.,Sweden Jrs.,nhl_draft_api,2017-117,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-118-markus-phillips,2017,LAK,Los Angeles Kings,4,118,Owen Sound,OHL,nhl_draft_api,2017-118,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-119-roope-laavainen,2017,CHI,Chicago Blackhawks,4,119,Jokerit Jr.,Finland Jrs.,nhl_draft_api,2017-119,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-120-tobias-geisser,2017,WSH,Washington Capitals,4,120,Zug Academy,Swiss League,nhl_draft_api,2017-120,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-121-drake-batherson,2017,OTT,Ottawa Senators,4,121,Cape Breton,QMJHL,nhl_draft_api,2017-121,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-122-kyle-olson,2017,ANA,Anaheim Ducks,4,122,Tri-City,WHL,nhl_draft_api,2017-122,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-123-brandon-crawley,2017,NYR,New York Rangers,4,123,London,OHL,nhl_draft_api,2017-123,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-124-vladislav-kara,2017,TOR,Toronto Maple Leafs,4,124,Bars Kazan,RUSSIA-2,nhl_draft_api,2017-124,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-125-igor-shvyrev,2017,COL,Colorado Avalanche,5,125,Magnitogorsk 2,Russia Jr.,nhl_draft_api,2017-125,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-126-michael-karow,2017,ARI,Arizona Coyotes,5,126,Youngstown,USHL,nhl_draft_api,2017-126,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-127-lucas-elvenes,2017,VGK,Vegas Golden Knights,5,127,Rogle Jr.,Sweden Jrs.,nhl_draft_api,2017-127,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-128-tyler-steenbergen,2017,ARI,Arizona Coyotes,5,128,Swift Current,WHL,nhl_draft_api,2017-128,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-129-gilles-senn,2017,NJD,New Jersey Devils,5,129,Davos,National League,nhl_draft_api,2017-129,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-130-david-noel,2017,STL,St. Louis Blues,5,130,Val d'Or,QMJHL,nhl_draft_api,2017-130,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-131-cole-fraser,2017,DET,Detroit Red Wings,5,131,Peterborough,OHL,nhl_draft_api,2017-131,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-132-jacob-peterson,2017,DAL,Dallas Stars,5,132,Frolunda Jr.,Sweden Jrs.,nhl_draft_api,2017-132,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-133-tyler-inamoto,2017,FLA,Florida Panthers,5,133,USA U-18,USHL,nhl_draft_api,2017-133,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-134-cole-hults,2017,LAK,Los Angeles Kings,5,134,Madison,USHL,nhl_draft_api,2017-134,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-135-kristoffer-gunnarsson,2017,VAN,Vancouver Canucks,5,135,Frolunda,SWEDEN,nhl_draft_api,2017-135,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-136-leon-gawanke,2017,WPG,Winnipeg Jets,5,136,Cape Breton,QMJHL,nhl_draft_api,2017-136,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-137-noah-cates,2017,PHI,Philadelphia Flyers,5,137,Stillwater,High School,nhl_draft_api,2017-137,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-138-drake-rymsha,2017,LAK,Los Angeles Kings,5,138,Sarnia,OHL,nhl_draft_api,2017-138,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-139-sebastian-aho,2017,NYI,New York Islanders,5,139,Skelleftea,SWEDEN,nhl_draft_api,2017-139,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-140-zach-fischer,2017,CGY,Calgary Flames,5,140,Medicine Hat,WHL,nhl_draft_api,2017-140,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-141-fedor-gordeev,2017,TOR,Toronto Maple Leafs,5,141,Flint,OHL,nhl_draft_api,2017-141,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-142-jack-dugan,2017,VGK,Vegas Golden Knights,5,142,Northwood School,HIGH-NY,nhl_draft_api,2017-142,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-143-mari-n-studenic,2017,NJD,New Jersey Devils,5,143,Hamilton,OHL,nhl_draft_api,2017-143,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-144-parker-foo,2017,CHI,Chicago Blackhawks,5,144,Brooks,AJHL,nhl_draft_api,2017-144,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-145-calle-sjalin,2017,NYR,New York Rangers,5,145,Ostersund,SWEDEN-3,nhl_draft_api,2017-145,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-146-kirill-maksimov,2017,EDM,Edmonton Oilers,5,146,Niagara,OHL,nhl_draft_api,2017-146,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-147-jacob-golden,2017,MIN,Minnesota Wild,5,147,London,OHL,nhl_draft_api,2017-147,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-148-kale-howarth,2017,CBJ,Columbus Blue Jackets,5,148,Trail,BCHL,nhl_draft_api,2017-148,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-149-jarret-tyszka,2017,MTL,Montréal Canadiens,5,149,Seattle,WHL,nhl_draft_api,2017-149,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-150-jakub-galvas,2017,CHI,Chicago Blackhawks,5,150,Olomouc,Czech Republic,nhl_draft_api,2017-150,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-151-sebastian-walfridsson,2017,WSH,Washington Capitals,5,151,Modo Jr.,Sweden Jrs.,nhl_draft_api,2017-151,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-152-jan-drozg,2017,PIT,Pittsburgh Penguins,5,152,Leksand U18,SWEDEN-JR. U18,nhl_draft_api,2017-152,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-153-olle-eriksson-ek,2017,ANA,Anaheim Ducks,5,153,Farjestad Jr.,Sweden Jrs.,nhl_draft_api,2017-153,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-154-tomas-vomacka,2017,NSH,Nashville Predators,5,154,Corpus Christi,NAHL,nhl_draft_api,2017-154,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-155-linus-olund,2017,PIT,Pittsburgh Penguins,5,155,Brynas,SWEDEN,nhl_draft_api,2017-155,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-156-denis-smirnov,2017,COL,Colorado Avalanche,6,156,Penn State U.,NCAA,nhl_draft_api,2017-156,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-157-dominik-lakatos,2017,NYR,New York Rangers,6,157,Liberec,Czech Republic,nhl_draft_api,2017-157,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-158-nick-campoli,2017,VGK,Vegas Golden Knights,6,158,North York,OJHL,nhl_draft_api,2017-158,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-159-jacob-mcgrew,2017,SJS,San Jose Sharks,6,159,Spokane,WHL,nhl_draft_api,2017-159,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-160-aarne-talvitie,2017,NJD,New Jersey Devils,6,160,Blues Jr.,Finland Jrs.,nhl_draft_api,2017-160,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-161-jiri-patera,2017,VGK,Vegas Golden Knights,6,161,C. Budejovice Jr.,CZREP-JR.,nhl_draft_api,2017-161,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-162-john-adams,2017,DET,Detroit Red Wings,6,162,Fargo,USHL,nhl_draft_api,2017-162,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-163-brett-davis,2017,DAL,Dallas Stars,6,163,Kootenay,WHL,nhl_draft_api,2017-163,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-164-reilly-webb,2017,DET,Detroit Red Wings,6,164,Hamilton,OHL,nhl_draft_api,2017-164,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-165-arnaud-durandeau,2017,NYI,New York Islanders,6,165,Halifax,QMJHL,nhl_draft_api,2017-165,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-166-brendan-de-jong,2017,CAR,Carolina Hurricanes,6,166,Portland,WHL,nhl_draft_api,2017-166,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-167-arvid-holm,2017,WPG,Winnipeg Jets,6,167,Karlskrona Jr.,Sweden Jrs.,nhl_draft_api,2017-167,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-168-olle-lycksell,2017,PHI,Philadelphia Flyers,6,168,Linkoping Jr.,Sweden Jrs.,nhl_draft_api,2017-168,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-169-nick-perbix,2017,TBL,Tampa Bay Lightning,6,169,Elk River,High School,nhl_draft_api,2017-169,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-170-jonathan-davidsson,2017,CBJ,Columbus Blue Jackets,6,170,Djurgarden,SWEDEN,nhl_draft_api,2017-170,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-171-d-artagnan-joly,2017,CGY,Calgary Flames,6,171,Baie Comeau,QMJHL,nhl_draft_api,2017-171,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-172-ryan-mcgregor,2017,TOR,Toronto Maple Leafs,6,172,Sarnia,OHL,nhl_draft_api,2017-172,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-173-cedric-pare,2017,BOS,Boston Bruins,6,173,Saint John,QMJHL,nhl_draft_api,2017-173,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-174-morgan-barron,2017,NYR,New York Rangers,6,174,St. Andrew's College,HIGH-ON,nhl_draft_api,2017-174,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-175-trenton-bourque,2017,STL,St. Louis Blues,6,175,Owen Sound,OHL,nhl_draft_api,2017-175,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-176-pavel-koltygin,2017,NSH,Nashville Predators,6,176,Drummondville,QMJHL,nhl_draft_api,2017-176,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-177-skyler-brind-amour,2017,EDM,Edmonton Oilers,6,177,Selects Academy U18,USMAAAE,nhl_draft_api,2017-177,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-178-andrei-svetlakov,2017,MIN,Minnesota Wild,6,178,CSKA,RUSSIA,nhl_draft_api,2017-178,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-179-carson-meyer,2017,CBJ,Columbus Blue Jackets,6,179,Miami,NCAA,nhl_draft_api,2017-179,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-180-cole-guttman,2017,TBL,Tampa Bay Lightning,6,180,Dubuque,USHL,nhl_draft_api,2017-180,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-181-petrus-palmu,2017,VAN,Vancouver Canucks,6,181,Owen Sound,OHL,nhl_draft_api,2017-181,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-182-benton-maass,2017,WSH,Washington Capitals,6,182,Elk River,High School,nhl_draft_api,2017-182,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-183-jordan-hollett,2017,OTT,Ottawa Senators,6,183,Regina,WHL,nhl_draft_api,2017-183,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-184-sebastian-repo,2017,FLA,Florida Panthers,6,184,Tappara,FINLAND,nhl_draft_api,2017-184,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-185-sasha-chmelevski,2017,SJS,San Jose Sharks,6,185,Ottawa,OHL,nhl_draft_api,2017-185,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-186-antti-palojarvi,2017,PIT,Pittsburgh Penguins,6,186,Lukko Jr.,Finland Jrs.,nhl_draft_api,2017-186,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-187-nick-leivermann,2017,COL,Colorado Avalanche,7,187,Eden Prarie,High School,nhl_draft_api,2017-187,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-188-matt-brassard,2017,VAN,Vancouver Canucks,7,188,Oshawa,OHL,nhl_draft_api,2017-188,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-189-ben-jones,2017,VGK,Vegas Golden Knights,7,189,Niagara,OHL,nhl_draft_api,2017-189,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-190-erik-walli-walterholm,2017,ARI,Arizona Coyotes,7,190,Djurgarden U18,SWEDEN-JR. U18,nhl_draft_api,2017-190,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-191-jocktan-chainey,2017,NJD,New Jersey Devils,7,191,Halifax,QMJHL,nhl_draft_api,2017-191,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-192-linus-weissbach,2017,BUF,Buffalo Sabres,7,192,Tri-City,USHL,nhl_draft_api,2017-192,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-193-brady-gilmour,2017,DET,Detroit Red Wings,7,193,Saginaw,OHL,nhl_draft_api,2017-193,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-194-dylan-ferguson,2017,DAL,Dallas Stars,7,194,Kamloops,WHL,nhl_draft_api,2017-194,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-195-victor-berglund,2017,BOS,Boston Bruins,7,195,Modo Jr.,Sweden Jrs.,nhl_draft_api,2017-195,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-196-wyatt-kalynuk,2017,PHI,Philadelphia Flyers,7,196,Bloomington,USHL,nhl_draft_api,2017-196,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-197-ville-rasanen,2017,CAR,Carolina Hurricanes,7,197,Jokipojat,FINLAND-2,nhl_draft_api,2017-197,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-198-skyler-mckenzie,2017,WPG,Winnipeg Jets,7,198,Portland,WHL,nhl_draft_api,2017-198,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-199-cayden-primeau,2017,MTL,Montréal Canadiens,7,199,Lincoln,USHL,nhl_draft_api,2017-199,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-200-sammy-walker,2017,TBL,Tampa Bay Lightning,7,200,Edina H.S.,High School,nhl_draft_api,2017-200,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-201-logan-cockerill,2017,NYI,New York Islanders,7,201,USA U-18,USHL,nhl_draft_api,2017-201,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-202-filip-sveningsson,2017,CGY,Calgary Flames,7,202,HV 71 Jr.,Sweden Jrs.,nhl_draft_api,2017-202,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-203-ryan-o-connell,2017,TOR,Toronto Maple Leafs,7,203,St. Andrew's College,HIGH-ON,nhl_draft_api,2017-203,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-204-daniel-bukac,2017,BOS,Boston Bruins,7,204,Brandon,WHL,nhl_draft_api,2017-204,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-205-yegor-zaitsev,2017,NJD,New Jersey Devils,7,205,Balashikha,RUSSIA-2,nhl_draft_api,2017-205,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-206-anton-andersson,2017,STL,St. Louis Blues,7,206,Lulea Jr.,Sweden Jrs.,nhl_draft_api,2017-206,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-207-patrik-virta,2017,NYR,New York Rangers,7,207,TPS,FINLAND,nhl_draft_api,2017-207,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-208-philip-kemp,2017,EDM,Edmonton Oilers,7,208,USA U-18,USHL,nhl_draft_api,2017-208,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-209-nick-swaney,2017,MIN,Minnesota Wild,7,209,Waterloo,USHL,nhl_draft_api,2017-209,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-210-robbie-stucker,2017,CBJ,Columbus Blue Jackets,7,210,St. Thomas,High School,nhl_draft_api,2017-210,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-211-croix-evingson,2017,WPG,Winnipeg Jets,7,211,Shreveport,NAHL,nhl_draft_api,2017-211,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-212-ivan-chekhovich,2017,SJS,San Jose Sharks,7,212,Baie Comeau,QMJHL,nhl_draft_api,2017-212,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-213-kristian-roykas-marthinsen,2017,WSH,Washington Capitals,7,213,Almtuna Jr.,SWEDEN-JR. 2,nhl_draft_api,2017-213,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-214-matthew-hellickson,2017,NJD,New Jersey Devils,7,214,Sioux City,USHL,nhl_draft_api,2017-214,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-215-joshua-ess,2017,CHI,Chicago Blackhawks,7,215,Lakeville South,High School,nhl_draft_api,2017-215,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-216-jacob-paquette,2017,NSH,Nashville Predators,7,216,Kingston,OHL,nhl_draft_api,2017-216,https://api-web.nhle.com/v1/draft/picks/2017/all
+2017-217-william-reilly,2017,PIT,Pittsburgh Penguins,7,217,RPI,NCAA,nhl_draft_api,2017-217,https://api-web.nhle.com/v1/draft/picks/2017/all
