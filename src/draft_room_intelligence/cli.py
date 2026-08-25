@@ -166,6 +166,9 @@ from draft_room_intelligence.reports.demo_gaps import write_demo_gap_report
 from draft_room_intelligence.reports.demo_modeling import write_demo_modeling_report
 from draft_room_intelligence.reports.demo_sanity import write_demo_sanity_report
 from draft_room_intelligence.reports.demo_site import write_demo_site
+from draft_room_intelligence.reports.historical_feature_coverage import (
+    write_historical_feature_coverage_report,
+)
 from draft_room_intelligence.reports.historical_validation import write_historical_validation_report
 from draft_room_intelligence.reports.ingestion_plan import write_ingestion_plan_report
 from draft_room_intelligence.reports.league_ingestion_audit import write_league_ingestion_audit
@@ -695,6 +698,14 @@ def main() -> None:
     longitudinal_baseline_parser.add_argument("--test-start-year", type=int, default=2019)
     longitudinal_baseline_parser.add_argument("--test-end-year", type=int, default=2021)
     longitudinal_baseline_parser.add_argument("--horizon-years", type=int, default=5)
+    feature_coverage_parser = subparsers.add_parser(
+        "report-historical-feature-coverage",
+        help="Audit historical pre-draft consensus and production feature coverage.",
+    )
+    feature_coverage_parser.add_argument("class_root", type=Path)
+    feature_coverage_parser.add_argument("output_dir", type=Path)
+    feature_coverage_parser.add_argument("--start-year", type=int, default=2014)
+    feature_coverage_parser.add_argument("--end-year", type=int, default=2021)
     team_depth_parser = subparsers.add_parser(
         "report-team-depth",
         help="Build NHL/AHL organizational role-depth report from normalized roster CSV.",
@@ -1675,6 +1686,13 @@ def main() -> None:
             test_start_year=args.test_start_year,
             test_end_year=args.test_end_year,
             horizon_years=args.horizon_years,
+        )
+    elif args.command == "report-historical-feature-coverage":
+        run_report_historical_feature_coverage(
+            args.class_root,
+            args.output_dir,
+            start_year=args.start_year,
+            end_year=args.end_year,
         )
     elif args.command == "report-team-depth":
         run_report_team_depth(args.roster_csv, args.output_dir)
@@ -3655,6 +3673,25 @@ def run_report_longitudinal_baseline(
     print(f"Training players: {report.train_count}")
     print(f"Held-out players: {report.test_count}")
     print(f"Summary CSV: {output_dir / 'summary.csv'}")
+    print(f"Summary Markdown: {output_dir / 'summary.md'}")
+
+
+def run_report_historical_feature_coverage(
+    class_root: Path,
+    output_dir: Path,
+    *,
+    start_year: int,
+    end_year: int,
+) -> None:
+    report = write_historical_feature_coverage_report(
+        class_root,
+        output_dir,
+        start_year=start_year,
+        end_year=end_year,
+    )
+    print("# Historical pre-draft feature coverage")
+    print(f"Draft classes: {len(report.rows)}")
+    print(f"Coverage CSV: {output_dir / 'coverage.csv'}")
     print(f"Summary Markdown: {output_dir / 'summary.md'}")
 
 

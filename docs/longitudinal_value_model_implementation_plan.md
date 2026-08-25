@@ -66,6 +66,10 @@ reasonable scenarios, and never changes the standalone player estimate.
 - [x] 0.1 Canonical outcome-label contract and audit command.
 - [x] 0.2 Outcome-export coverage and staging-readiness report.
 - [ ] 0.3 Reviewed 2014-2021 cached outcome exports.
+- [x] 1.0 Historical pre-draft feature-coverage audit. The 2014-2021 snapshots
+  currently contain only `draft_slot_proxy` rankings and no normalized pre-draft
+  production or advanced-stat rows; these must not be treated as consensus or
+  production features.
 - [ ] 1.1 Longitudinal panel builder and coverage report.
 - [x] 2.1 Time-split pick-slot and role baseline report (5-year regular-NHL
   and impact-player outcomes; train through 2018, hold out 2019-2021).
