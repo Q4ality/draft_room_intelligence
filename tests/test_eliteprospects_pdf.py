@@ -1,11 +1,14 @@
-from draft_room_intelligence.data.eliteprospects_pdf import normalize_eliteprospects_pdf_pages
-from draft_room_intelligence.data.eliteprospects_pdf import parse_player_index_rows
-from draft_room_intelligence.data.eliteprospects_pdf import parse_tool_grade_json
-from draft_room_intelligence.data.eliteprospects_pdf import parse_profile_page
-from draft_room_intelligence.data.eliteprospects_pdf import enrich_missing_tool_grades_with_vision
-from draft_room_intelligence.data.eliteprospects_pdf import apply_index_rows
-from draft_room_intelligence.data.eliteprospects_pdf import tool_grade_prompt
+import os
 
+from draft_room_intelligence.data.eliteprospects_pdf import (
+    apply_index_rows,
+    enrich_missing_tool_grades_with_vision,
+    normalize_eliteprospects_pdf_pages,
+    parse_player_index_rows,
+    parse_profile_page,
+    parse_tool_grade_json,
+    tool_grade_prompt,
+)
 
 DRAFT25_PROFILE = """NHL DRAFT GUIDE 2025
 How can a player who only suited up for 26 games be ranked first overall?
@@ -287,14 +290,30 @@ def test_vision_enrichment_fills_missing_tool_grades_with_mock_client(tmp_path):
                 "physical": "4",
             }
 
-    fake_pdftoppm = tmp_path / "pdftoppm"
-    fake_pdftoppm.write_text(
-        "#!/bin/sh\n"
-        "for arg do prefix=\"$arg\"; done\n"
-        "printf 'png' > \"$prefix.png\"\n",
-        encoding="utf-8",
-    )
-    fake_pdftoppm.chmod(0o755)
+    if os.name == "nt":
+        fake_pdftoppm = tmp_path / "pdftoppm.cmd"
+        fake_pdftoppm.write_text(
+            "@echo off\r\n"
+            "set prefix=\r\n"
+            ":args\r\n"
+            "if \"%~1\"==\"\" goto done\r\n"
+            "set prefix=%~1\r\n"
+            "shift\r\n"
+            "goto args\r\n"
+            ":done\r\n"
+            "> \"%prefix%.png\" echo png\r\n",
+            encoding="utf-8",
+        )
+    else:
+        fake_pdftoppm = tmp_path / "pdftoppm"
+        fake_pdftoppm.write_text(
+            "#!/bin/sh\n"
+            "for arg do prefix=\"$arg\"; done\n"
+            "printf 'png' > \"$prefix.png\"\n",
+            encoding="utf-8",
+        )
+        fake_pdftoppm.chmod(0o755)
+
     export = normalize_eliteprospects_pdf_pages(
         [(36, DRAFT26_PROFILE)],
         draft_year=2026,

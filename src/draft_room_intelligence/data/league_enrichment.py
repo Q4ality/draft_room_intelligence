@@ -772,7 +772,7 @@ def write_league_source_manifest(
                     "season": source.season,
                     "stage": "regular" if source.regular_season else "playoffs",
                     "source_url": source.source_url,
-                    "cache_path": cache_path,
+                    "cache_path": cache_path.as_posix(),
                     "source_label": source.source_label,
                 }
             )

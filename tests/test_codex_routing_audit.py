@@ -1,11 +1,22 @@
 import os
 
+import pytest
+
 from draft_room_intelligence.reports.codex_routing_audit import write_codex_routing_audit
 
 
 def write_text(path, text):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def create_skill_link(target, link_path):
+    try:
+        os.symlink(target, link_path)
+    except OSError as exc:
+        if getattr(exc, "winerror", None) == 1314:
+            pytest.skip("Windows account does not permit creating symlinks")
+        raise
 
 
 def create_routing_project(root):
@@ -47,11 +58,20 @@ Do the work.
 """
 ''',
         )
-    for skill in ["prepare-draft-demo-data", "project-context", "validate-change", "debug-ingestion"]:
-        write_text(root / "skills" / skill / "SKILL.md", f"---\nname: {skill}\ndescription: Test\n---\n")
+    skills = [
+        "prepare-draft-demo-data",
+        "project-context",
+        "validate-change",
+        "debug-ingestion",
+    ]
+    for skill in skills:
+        write_text(
+            root / "skills" / skill / "SKILL.md",
+            f"---\nname: {skill}\ndescription: Test\n---\n",
+        )
         link_dir = root / ".agents" / "skills"
         link_dir.mkdir(parents=True, exist_ok=True)
-        os.symlink(f"../../skills/{skill}", link_dir / skill)
+        create_skill_link(f"../../skills/{skill}", link_dir / skill)
 
 
 def test_write_codex_routing_audit_passes_valid_setup(tmp_path):
@@ -68,7 +88,10 @@ def test_write_codex_routing_audit_passes_valid_setup(tmp_path):
 def test_write_codex_routing_audit_fails_broken_skill_link(tmp_path):
     create_routing_project(tmp_path)
     (tmp_path / ".agents" / "skills" / "project-context").unlink()
-    os.symlink("../../wrong/project-context", tmp_path / ".agents" / "skills" / "project-context")
+    create_skill_link(
+        "../../wrong/project-context",
+        tmp_path / ".agents" / "skills" / "project-context",
+    )
 
     report = write_codex_routing_audit(tmp_path, tmp_path / "report")
 

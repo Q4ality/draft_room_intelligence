@@ -65,6 +65,16 @@ Run the portable longitudinal baseline, including the pinned input-count guard, 
 make longitudinal-baseline
 ```
 
+## Windows Local Check
+
+After the project virtual environment has been created, run the complete offline-safe validation, longitudinal baseline review, and ingestion-lineage audit with:
+
+```powershell
+.\scripts\check-local.ps1
+```
+
+It writes a concise decision review to `outputs/local_review/summary.md` and an auditable source-family lineage table to `outputs/ingestion_lineage/source_family_audit.csv`. It does not fetch or overwrite provider data; refreshes remain explicit, credentialed operations.
+
 ## Reproducible 2025 Demo
 
 The reviewed 2025 business demo can be rebuilt from a fresh clone without raw provider caches,
