@@ -116,7 +116,7 @@ Every new adapter should include:
 
 ## Success Metrics
 
-- Low-evidence players in the 2025 demo stay at or below the current 27 and decrease with each source-family pass.
+- Low-evidence players in the 2025 demo stay within the generated demo-acceptance tolerance and decrease from the canonical baseline count with each source-family pass.
 - Every new source adapter can be rerun from cached files without network access.
 - Every high-impact player detail has traceable stat rows and role-appropriate production display.
 - The top board remains explainable through `model_score`, `board_score`, and `team_adjusted_score`.

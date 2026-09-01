@@ -1,6 +1,7 @@
-.PHONY: install-dev demo demo-year demo-2025-readiness demo-2025-local-readiness demo-2025-reproducible historical-draft-cache historical-draft-etl historical-league-discover historical-ushl-catalog historical-ushl-discover historical-ncaa-discover historical-europe-discover historical-league-cache historical-league-etl historical-league-audit historical-league-pipeline team-fit-2025 validate-pilot-2019 team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
+.PHONY: install-dev demo demo-year demo-2025-readiness demo-2025-local-readiness demo-2025-reproducible historical-draft-cache historical-draft-etl historical-league-discover historical-ushl-catalog historical-ushl-discover historical-ncaa-discover historical-europe-discover historical-league-cache historical-league-etl historical-league-audit historical-league-pipeline team-fit-2025 validate-pilot-2019 longitudinal-baseline team-depth-sample nhl-roster-sample ep-pdf-sample evaluate-consensus evaluate-projection evaluate-adjusted-production evaluate-hybrid evaluate-pilot-consensus evaluate-pilot-projection evaluate-pilot-adjusted-production evaluate-pilot-hybrid test lint check clean
 
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
+LONGITUDINAL_AS_OF_DATE ?= 2026-08-25
 
 install-dev:
 	$(PYTHON) -m pip install -r requirements.lock
@@ -69,6 +70,10 @@ team-fit-2025:
 validate-pilot-2019:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-historical-validation data/processed/pilot_2019 outputs/validation_2019 --precision-n 25 --top-n 25
 
+longitudinal-baseline:
+	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-longitudinal-baseline data/processed/outcome_labels data/processed/draft_classes outputs/longitudinal_slot_role_baseline --as-of-date $(LONGITUDINAL_AS_OF_DATE)
+	$(PYTHON) -c "import csv; from pathlib import Path; row = next(csv.DictReader(Path('outputs/longitudinal_slot_role_baseline/summary.csv').open(encoding='utf-8'))); assert row['train_players'] == '1064', row; assert row['test_players'] == '656', row"
+
 team-depth-sample:
 	PYTHONPATH=src $(PYTHON) -m draft_room_intelligence.cli report-team-depth tests/fixtures/team_rosters_sample.csv outputs/team_depth_sample
 
@@ -109,7 +114,7 @@ test:
 lint:
 	$(PYTHON) -m ruff check src tests
 
-check: test demo-2025-reproducible
+check: test demo-2025-reproducible longitudinal-baseline
 
 clean:
 	rm -rf .pytest_cache .ruff_cache build dist *.egg-info

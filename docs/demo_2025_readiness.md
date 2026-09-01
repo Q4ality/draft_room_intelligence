@@ -58,7 +58,7 @@ Latest manifest snapshot:
 - evidence depth: 16 low, 30 medium, 178 high
 - disagreement buckets: 76 aligned, 127 consensus higher, 21 model higher
 - current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
-- demo acceptance: 11 of 11 checks passing, including full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral `Production` history labeling.
+- demo acceptance: rebuild the generated report and require every check to pass against the canonical baseline; it covers full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral Production history labeling.
 - team-fit payloads now include same-position NHL-ready U25, AHL U25, and non-NHL U25 pipeline counts in team options and team-view role gaps.
 
 Recent enrichment improvement:

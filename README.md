@@ -52,18 +52,17 @@ make evaluate-projection
 make evaluate-pilot-consensus
 make evaluate-pilot-adjusted-production
 make evaluate-pilot-hybrid
+make longitudinal-baseline
 make team-depth-sample
 make nhl-roster-sample
 make test
 make check
 ```
 
-Run the portable longitudinal baseline from a fresh clone:
+Run the portable longitudinal baseline, including the pinned input-count guard, from a fresh clone with make longitudinal-baseline:
 
 ```bash
-python -m draft_room_intelligence.cli report-longitudinal-baseline \
-  data/processed/outcome_labels data/processed/draft_classes \
-  outputs/longitudinal_slot_role_baseline --as-of-date 2026-08-25
+make longitudinal-baseline
 ```
 
 ## Reproducible 2025 Demo

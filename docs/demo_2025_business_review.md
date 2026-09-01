@@ -116,7 +116,7 @@ The board is now more consensus-anchored at the top while still surfacing eviden
 
 ## Remaining External-Demo Risks
 
-1. **Data completeness:** 27 players are still low evidence.
+1. **Data completeness:** the canonical baseline currently reports 16 low-evidence players; rebuild the readiness artifacts before presenting this count externally.
 2. **Source automation:** several enrichment packs are curated CSVs rather than fully automated source adapters.
 3. **Recent-class validation:** 2025 cannot validate future NHL outcomes yet.
 4. **European coverage:** Sweden, Finland, Russia, Czech, and goalie source coverage still need systematic adapters.
