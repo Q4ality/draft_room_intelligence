@@ -1,6 +1,8 @@
 import csv
 import json
 
+import pytest
+
 from draft_room_intelligence.reports.demo_acceptance import write_demo_acceptance_report
 from draft_room_intelligence.reports.demo_baseline import artifact_metrics
 
@@ -26,7 +28,8 @@ def board_row(player_id, name, rank, consensus, role="forward", evidence="high")
 
 def write_brief_artifacts(demo):
     (demo / "meeting_brief.html").write_text(
-        "<h1>2025 Guided Draft Meeting Brief</h1>", encoding="utf-8"
+        "<h1>2025 Guided Draft Meeting Brief</h1>Review aid, not a final scouting grade.",
+        encoding="utf-8",
     )
     (demo / "meeting_brief.pdf").write_bytes(b"%PDF-1.4\n" + (b"0" * 1_100))
 
@@ -35,7 +38,9 @@ def write_baseline_artifacts(demo, rows, details):
     metrics = {
         "draft_year": 2025,
         "player_count": len(rows),
-        "season_stat_line_count": 0,
+        "season_stat_line_count": sum(
+            len(detail.get("pre_draft_history", [])) for detail in details
+        ),
         **artifact_metrics(rows, details),
     }
     baseline = {
@@ -51,6 +56,13 @@ def write_baseline_artifacts(demo, rows, details):
             {
                 "baseline_id": baseline["baseline_id"],
                 "baseline_metrics": metrics,
+                "presentation": {
+                    "release_label": "Reviewed 2025 NHL Draft demo",
+                    "snapshot_id": "sha256:" + "a" * 64,
+                    "data_posture": "Reviewed, versioned draft-class snapshot.",
+                    "model_posture": "Decision support, not a final scouting grade.",
+                    "team_context_posture": "Dated proxy, not a draft-night roster or cap view.",
+                },
             }
         ),
         encoding="utf-8",
@@ -96,7 +108,8 @@ def test_write_demo_acceptance_report_passes_current_demo_shape(tmp_path):
     (demo / "index.html").write_text(
         "<th>Production</th><section>Prospect Stats Evidence</section>"
         "<button>Start Guided Demo</button><button id='guided-previous'></button>"
-        "<button id='guided-next'></button>",
+        "<button id='guided-next'></button><details id='data-methodology'></details>"
+        "<div id='release-badge'></div><div id='score-definitions'></div>",
         encoding="utf-8",
     )
     write_brief_artifacts(demo)
@@ -125,7 +138,8 @@ def test_write_demo_acceptance_report_fails_when_schaefer_drops(tmp_path):
     (demo / "index.html").write_text(
         "<th>Production</th><section>Prospect Stats Evidence</section>"
         "<button>Start Guided Demo</button><button id='guided-previous'></button>"
-        "<button id='guided-next'></button>",
+        "<button id='guided-next'></button><details id='data-methodology'></details>"
+        "<div id='release-badge'></div><div id='score-definitions'></div>",
         encoding="utf-8",
     )
     write_brief_artifacts(demo)
@@ -173,7 +187,8 @@ def test_demo_acceptance_uses_generic_checks_for_non_2025_draft(tmp_path):
     (demo / "index.html").write_text(
         "<th>Production</th><section>Prospect Stats Evidence</section>"
         "<button>Start Guided Demo</button><button id='guided-previous'></button>"
-        "<button id='guided-next'></button>",
+        "<button id='guided-next'></button><details id='data-methodology'></details>"
+        "<div id='release-badge'></div><div id='score-definitions'></div>",
         encoding="utf-8",
     )
     write_brief_artifacts(demo)
@@ -182,3 +197,97 @@ def test_demo_acceptance_uses_generic_checks_for_non_2025_draft(tmp_path):
 
     assert report.passed
     assert not any(check.check_id == "matthew_schaefer_rank" for check in report.checks)
+
+
+def write_minimal_acceptance_package(tmp_path):
+    demo = tmp_path / "demo"
+    demo.mkdir()
+    rows = [board_row("p1", "Historical Prospect", 1, 1)]
+    details = [{
+        "player_id": "p1",
+        "stat_evidence": {},
+        "pre_draft_history": [{"source": "chl", "source_label": "CHL official statistics"}],
+    }]
+    write_rows(demo / "board.csv", rows)
+    (demo / "players.json").write_text(json.dumps(details), encoding="utf-8")
+    write_baseline_artifacts(demo, rows, details)
+    (demo / "index.html").write_text("", encoding="utf-8")
+    return demo
+
+
+@pytest.mark.parametrize("presentation", [None, [], "invalid", 123])
+def test_demo_acceptance_reports_malformed_presentation_without_crashing(tmp_path, presentation):
+    demo = write_minimal_acceptance_package(tmp_path)
+    manifest_path = demo / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["presentation"] = presentation
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
+
+    failed = {check.check_id for check in report.checks if check.status == "fail"}
+    assert "client_release_metadata" in failed
+    assert "reviewed_snapshot_identity" in failed
+
+
+@pytest.mark.parametrize("value", [None, "", "  ", 123])
+def test_demo_acceptance_rejects_empty_or_nontext_release_fields(tmp_path, value):
+    demo = write_minimal_acceptance_package(tmp_path)
+    manifest_path = demo / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["presentation"]["release_label"] = value
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
+
+    assert any(
+        check.check_id == "client_release_metadata" and check.status == "fail"
+        for check in report.checks
+    )
+
+
+@pytest.mark.parametrize("snapshot_id", ["sha256:fake", "sha256:", "a" * 64])
+def test_demo_acceptance_rejects_malformed_snapshot_identity(tmp_path, snapshot_id):
+    demo = write_minimal_acceptance_package(tmp_path)
+    manifest_path = demo / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["presentation"]["snapshot_id"] = snapshot_id
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
+
+    assert any(
+        check.check_id == "reviewed_snapshot_identity" and check.status == "fail"
+        for check in report.checks
+    )
+
+
+@pytest.mark.parametrize("source_label", [None, "", "  ", 123])
+def test_demo_acceptance_rejects_missing_history_source_label(tmp_path, source_label):
+    demo = write_minimal_acceptance_package(tmp_path)
+    players_path = demo / "players.json"
+    details = json.loads(players_path.read_text(encoding="utf-8"))
+    details[0]["pre_draft_history"][0]["source_label"] = source_label
+    players_path.write_text(json.dumps(details), encoding="utf-8")
+
+    report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
+
+    assert any(
+        check.check_id == "history_source_labels" and check.status == "fail"
+        for check in report.checks
+    )
+
+
+def test_demo_acceptance_rejects_removed_history_rows(tmp_path):
+    demo = write_minimal_acceptance_package(tmp_path)
+    players_path = demo / "players.json"
+    details = json.loads(players_path.read_text(encoding="utf-8"))
+    details[0]["pre_draft_history"] = []
+    players_path.write_text(json.dumps(details), encoding="utf-8")
+
+    report = write_demo_acceptance_report(demo, tmp_path / "acceptance")
+
+    assert any(
+        check.check_id == "history_row_count" and check.status == "fail"
+        for check in report.checks
+    )

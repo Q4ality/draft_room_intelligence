@@ -13,25 +13,20 @@ It should be positioned as:
 
 ## Verified Package
 
-Current EP-PDF demo rebuilt with:
+Current reviewed demo rebuilt with:
 
 ```bash
-PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
-  data/processed/draft_classes/2025/final \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  --team-depth-csv outputs/org_team_depth_2024_25_with_ahl/depth.csv \
-  --gap-top-n 35 \
-  --movement-top-n 40
+PYTHONPATH=src python -m draft_room_intelligence.cli build-demo-year 2025
 ```
 
 Output:
 
-- Site: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
+- Site: `outputs/demo_2025_reproducible/index.html`
 - Board rows: 224
 - Dataset status: `strong`
-- Data-gap report: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/data_gaps/summary.md`
-- Modeling sanity report: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/modeling_sanity/summary.md`
-- Demo sanity report: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity/summary.md`
+- Data-gap report: `outputs/demo_2025_reproducible/reports/data_gaps/summary.md`
+- Modeling sanity report: `outputs/demo_2025_reproducible/reports/modeling_sanity/summary.md`
+- Demo sanity report: `outputs/demo_2025_reproducible/reports/demo_sanity/summary.md`
 
 Browser smoke check:
 

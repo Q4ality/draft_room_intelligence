@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -75,6 +76,13 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
         metrics.get("draft_year") if isinstance(metrics, dict) else None
     )
     is_2025_showcase = str(draft_year) == "2025"
+    raw_presentation = manifest.get("presentation", {})
+    presentation = raw_presentation if isinstance(raw_presentation, dict) else {}
+    history_rows = [
+        row
+        for detail in details
+        for row in detail.get("pre_draft_history", [])
+    ]
     misa_sjs = team_fit_option(details_by_name.get("Michael Misa", {}), "SJS")
     schaefer_nyi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "NYI")
     schaefer_chi = team_fit_option(details_by_name.get("Matthew Schaefer", {}), "CHI")
@@ -111,9 +119,42 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
             "Demo site should retain the presenter-mode story controls.",
         ),
         content_check(
+            "client_release_metadata",
+            all(
+                isinstance(presentation.get(key), str) and bool(presentation[key].strip())
+                for key in (
+                    "release_label", "data_posture", "model_posture", "team_context_posture"
+                )
+            ),
+            "Demo manifest should describe its client-facing release and limitations.",
+        ),
+        content_check(
+            "client_disclosure_ui",
+            all(
+                marker in html
+                for marker in ("data-methodology", "release-badge", "score-definitions")
+            ),
+            "Demo site should expose release metadata and score definitions.",
+        ),
+        content_check(
+            "history_source_labels",
+            all(
+                isinstance(row.get("source_label"), str) and bool(row["source_label"].strip())
+                for row in history_rows
+            ),
+            "Every displayed history source should have a client-readable label.",
+        ),
+        value_check(
+            "history_row_count",
+            len(history_rows),
+            metrics.get("season_stat_line_count") if isinstance(metrics, dict) else None,
+            "Displayed history rows must match the canonical baseline's statistical-row count.",
+        ),
+        content_check(
             "meeting_brief_html",
             brief_html.is_file()
-            and "Guided Draft Meeting Brief" in brief_html.read_text(encoding="utf-8"),
+            and "Guided Draft Meeting Brief" in brief_html.read_text(encoding="utf-8")
+            and "not a final scouting grade" in brief_html.read_text(encoding="utf-8"),
             "Readiness build should generate the printable guided-story brief.",
         ),
         content_check(
@@ -125,6 +166,14 @@ def build_demo_acceptance_report(demo_output_dir: str | Path) -> DemoAcceptanceR
     if is_2025_showcase:
         checks.extend(
             [
+                content_check(
+                    "reviewed_snapshot_identity",
+                    bool(re.fullmatch(
+                        r"sha256:[0-9a-f]{64}", str(presentation.get("snapshot_id", ""))
+                    )),
+                    "2025 builds must include a well-formed reviewed snapshot identifier. "
+                    "Input checksums are verified by the snapshot loader at build time.",
+                ),
                 threshold_check(
                     "board_rows",
                     len(board),

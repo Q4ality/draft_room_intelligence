@@ -2843,6 +2843,7 @@ def run_build_demo_readiness(
     team_depth_csv: Path | None = None,
     team_id: str = "",
     advanced_stats_csv: Path | None = None,
+    snapshot_id: str = "",
 ) -> None:
     prospects = load_historical_prospects(data_path)
     bundle = build_demo_export_bundle(
@@ -2851,6 +2852,15 @@ def run_build_demo_readiness(
         team_id=team_id,
         advanced_stats=load_advanced_stat_summaries(advanced_stats_csv or data_path),
     )
+    if snapshot_id:
+        presentation = bundle.manifest.get("presentation", {})
+        presentation["snapshot_id"] = snapshot_id
+        presentation["release_label"] = f"Reviewed {bundle.manifest['draft_year']} NHL Draft demo"
+        presentation["data_posture"] = (
+            "Built from checksum-verified snapshot inputs. "
+            "Evidence depth describes data quantity, not predictive confidence."
+        )
+        bundle.manifest["presentation"] = presentation
     baseline_path = attach_demo_baseline(
         data_path,
         output_dir,
@@ -2931,6 +2941,7 @@ def run_build_demo_snapshot(
         movement_top_n=movement_top_n,
         team_depth_csv=snapshot.team_depth_csv,
         advanced_stats_csv=snapshot.advanced_stats_csv,
+        snapshot_id=snapshot.snapshot_id,
     )
 
 
@@ -2953,6 +2964,7 @@ def run_build_demo_year(
         movement_top_n=movement_top_n,
         team_depth_csv=snapshot.team_depth_csv,
         advanced_stats_csv=snapshot.advanced_stats_csv,
+        snapshot_id=snapshot.snapshot_id,
     )
 
 
@@ -2977,6 +2989,9 @@ def attach_demo_baseline(
     )
     bundle.manifest["baseline_id"] = baseline["baseline_id"]
     bundle.manifest["baseline_metrics"] = baseline["metrics"]
+    presentation = bundle.manifest.get("presentation", {})
+    presentation["baseline_id"] = baseline["baseline_id"]
+    bundle.manifest["presentation"] = presentation
     return write_demo_baseline(output_dir, baseline)
 
 

@@ -1,6 +1,9 @@
 from pypdf import PdfReader
 
-from draft_room_intelligence.reports.demo_brief import write_demo_meeting_brief
+from draft_room_intelligence.reports.demo_brief import (
+    render_brief_html,
+    write_demo_meeting_brief,
+)
 from draft_room_intelligence.reports.demo_export import DemoExportBundle
 
 
@@ -49,7 +52,9 @@ def test_write_demo_meeting_brief_creates_single_page_six_story_artifacts(tmp_pa
                     "team_name": "New York Islanders",
                     "score": 0.6,
                 },
-                "pre_draft_history": [{"source": "league-source"}],
+                "pre_draft_history": [
+                    {"source": "league-source", "source_label": "League source"}
+                ],
             }
         )
         stories.append(
@@ -67,6 +72,15 @@ def test_write_demo_meeting_brief_creates_single_page_six_story_artifacts(tmp_pa
             "draft_year": 2025,
             "dataset_status": "strong",
             "demo_story_players": stories,
+            "presentation": {
+                "release_label": "Reviewed 2025 NHL Draft demo",
+                "snapshot_id": "sha256:test-snapshot",
+                "baseline_id": "sha256:baseline-for-test",
+                "model_posture": (
+                    "Decision support for review and discussion, "
+                    "not a final scouting grade or outcome prediction."
+                ),
+            },
         },
     )
 
@@ -77,5 +91,25 @@ def test_write_demo_meeting_brief_creates_single_page_six_story_artifacts(tmp_pa
     rendered_html = outputs.html_path.read_text(encoding="utf-8")
     assert "Player 1" in rendered_html
     assert "0.925 SV%, 2.10 GAA, 30-15, 4 SO" in rendered_html
+    assert "Snapshot: sha256:test-snapshot" in rendered_html
+    assert "Baseline: sha256:baseline-for-test" in rendered_html
+    assert "League source" in rendered_html
     assert outputs.pdf_path.stat().st_size > 1_000
     assert len(PdfReader(outputs.pdf_path).pages) == 1
+    pdf_text = PdfReader(outputs.pdf_path).pages[0].extract_text()
+    assert "Snapshot: sha256:test-snapshot" in pdf_text
+    assert "Baseline: sha256:baseline-for-test" in pdf_text
+
+
+def test_brief_does_not_present_baseline_as_reviewed_snapshot():
+    bundle = DemoExportBundle(
+        board_rows=[], compare_rows=[], player_details=[],
+        manifest={"presentation": {"baseline_id": "sha256:baseline-only"}},
+    )
+
+    rendered = render_brief_html(bundle, [])
+
+    assert "Historical draft-class demo" in rendered
+    assert "Snapshot: not provided" in rendered
+    assert "Baseline: sha256:baseline-only" in rendered
+    assert "Snapshot: sha256:baseline-only" not in rendered

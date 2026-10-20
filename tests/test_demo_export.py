@@ -13,6 +13,7 @@ from draft_room_intelligence.reports.demo_export import (
     evidence_weighted_board_score,
     pipeline_need_ceiling,
     scouting_qualitative_flags,
+    source_display_label,
     team_depth_snapshot_labels,
     team_fit_components,
 )
@@ -69,6 +70,22 @@ def test_build_demo_export_bundle_returns_board_and_player_payloads():
     assert first["risk_note"]
     assert bundle.manifest["player_count"] == 2
     assert "dataset_status" in bundle.manifest
+    assert bundle.manifest["presentation"]["release_label"] == "Historical 2019 NHL Draft demo"
+    assert bundle.manifest["presentation"]["snapshot_id"] == ""
+    assert "has not been verified" in bundle.manifest["presentation"]["data_posture"]
+    assert "not a final scouting grade" in bundle.manifest["presentation"]["model_posture"]
+
+
+def test_source_display_label_keeps_provenance_readable():
+    assert source_display_label("eliteprospects_pdf") == "Elite Prospects Draft Guide"
+    assert source_display_label("wikipedia-career") == "Wikipedia career statistics"
+    assert source_display_label("custom_source") == "custom source"
+    assert source_display_label("draft_slot_proxy") == (
+        "Actual NHL draft position (historical outcome)"
+    )
+    assert source_display_label("chl; ushl") == (
+        "CHL official statistics + USHL official statistics"
+    )
 
 
 def test_evidence_weighted_board_score_keeps_low_evidence_near_consensus():
@@ -339,8 +356,15 @@ def test_run_export_demo_package_writes_demo_artifacts(capsys, tmp_path):
     assert len(players) == 2
     assert "why_high" in players[0]
     assert "stat_evidence" in players[0]
+    assert all(
+        row["source_label"]
+        for player in players
+        for row in player.get("pre_draft_history", [])
+        if row.get("source")
+    )
     assert manifest["player_count"] == 2
     assert "demo_story_players" in manifest
+    assert "presentation" in manifest
 
 
 def test_run_build_demo_site_writes_html(capsys, tmp_path):
@@ -366,3 +390,10 @@ def test_run_build_demo_site_writes_html(capsys, tmp_path):
     assert "Drafted Team" in html
     assert "NHL-ready U25" in html
     assert "AHL/prospect U25" in html
+    assert "data-methodology" in html
+    assert "release-badge" in html
+    assert "score-definitions" in html
+    assert "Historical 2019 NHL Draft demo" in html
+    assert "Snapshot: $" in html
+    assert "not an independent consensus" in html
+    assert "presentation.snapshot_id || presentation.baseline_id" not in html

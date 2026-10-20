@@ -243,6 +243,41 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     .tag.warn {{ background: var(--warn-soft); color: var(--warn); }}
     .tag.risk {{ background: var(--danger-soft); color: var(--danger); }}
     .tag.shortlist {{ background: #e0f2fe; color: #0c4a6e; }}
+    .release-summary {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      margin: -8px 0 14px;
+    }}
+    .disclosure {{
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }}
+    .disclosure summary {{
+      cursor: pointer;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }}
+    .disclosure p {{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin-top: 8px;
+    }}
+    .score-definitions {{
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+    }}
+    .score-definition {{
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }}
+    .score-definition strong {{ color: var(--text); }}
     .readiness-grid {{
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -510,6 +545,15 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
           <div class="stat-value" id="stat-featured-count"></div>
         </div>
       </div>
+      <div id="release-summary" class="release-summary"></div>
+      <div class="section">
+        <details id="data-methodology" class="disclosure">
+          <summary>Data &amp; methodology</summary>
+          <p id="methodology-posture"></p>
+          <div id="score-definitions" class="score-definitions"></div>
+          <div id="methodology-legend" class="taglist" style="margin-top:10px;"></div>
+        </details>
+      </div>
       <div class="section">
         <h3>Filters</h3>
         <div class="field">
@@ -580,9 +624,12 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         <div>
           <div class="eyebrow">Board</div>
           <div class="title">2025 Demo Workspace</div>
-          <div class="subtitle">Use this board to focus the meeting on players where normalized evidence, role context, and public consensus tell different stories.</div>
+          <div class="subtitle">
+            Compare player evidence and role context with historical reference ranks.
+          </div>
         </div>
         <div class="toolbar-right">
+          <div id="release-badge" class="badge"></div>
           <div id="status-badge" class="badge"></div>
           <button id="export-shortlist">Export Shortlist CSV</button>
           <button id="export-summary">Export Summary HTML</button>
@@ -597,7 +644,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
               <th style="width: 220px;">Player</th>
               <th style="width: 70px;">Pos</th>
               <th style="width: 120px;">League</th>
-              <th style="width: 88px;">Consensus</th>
+              <th style="width: 88px;">Reference</th>
               <th style="width: 88px;">Board</th>
               <th style="width: 96px;">Team</th>
               <th style="width: 110px;">Adjusted</th>
@@ -836,12 +883,13 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
     }}
 
     function sourceLabel(row) {{
-      const source = row.source || "unknown";
-      const id = row.source_id ? ` · ${{row.source_id}}` : "";
+      const source = row.source_label || row.source || "Unknown source";
+      const id = row.source_id ? ` · ${{escapeHtml(row.source_id)}}` : "";
       if (row.source_url) {{
-        return `<a class="source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{source}}</a>${{id}}`;
+        return `<a class="source-link" href="${{row.source_url}}"
+          target="_blank" rel="noopener noreferrer">${{escapeHtml(source)}}</a>${{id}}`;
       }}
-      return `${{source}}${{id}}`;
+      return `${{escapeHtml(source)}}${{id}}`;
     }}
 
     function escapeHtml(value) {{
@@ -940,7 +988,8 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       content.style.display = "block";
       document.getElementById("detail-name").textContent = detail.header.name;
       document.getElementById("detail-meta").textContent =
-        `${{detail.header.position}} · ${{board.primary_league}} · Consensus ${{detail.header.consensus_rank}} · Board ${{detail.header.board_rank}}`;
+        `${{detail.header.position}} · ${{board.primary_league}} · ` +
+        `Reference ${{detail.header.consensus_rank}} · Board ${{detail.header.board_rank}}`;
       const shortlistButton = document.getElementById("detail-shortlist");
       shortlistButton.textContent = shortlist.has(selectedPlayerId) ? "Remove from shortlist" : "Add to shortlist";
       const compareButton = document.getElementById("detail-compare");
@@ -984,16 +1033,22 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         </tr>
       `).join("");
       const sourceTags = detail.sources.map((source) => {{
+        const label = source.source_label || source.source;
         if (source.source_url) {{
-          return `<a class="tag source-link" href="${{source.source_url}}" target="_blank" rel="noopener noreferrer">${{source.source}}</a>`;
+          return `<a class="tag source-link" href="${{source.source_url}}"
+            target="_blank" rel="noopener noreferrer">${{escapeHtml(label)}}</a>`;
         }}
-        return `<span class="tag">${{source.source}}</span>`;
+        return `<span class="tag">${{escapeHtml(label)}}</span>`;
       }});
       const rowSources = detail.pre_draft_history
         .filter((row) => row.source)
-        .map((row) => row.source_url
-          ? `<a class="tag source-link" href="${{row.source_url}}" target="_blank" rel="noopener noreferrer">${{row.source}}</a>`
-          : `<span class="tag">${{row.source}}</span>`);
+        .map((row) => {{
+          const label = row.source_label || row.source;
+          return row.source_url
+            ? `<a class="tag source-link" href="${{row.source_url}}"
+                target="_blank" rel="noopener noreferrer">${{escapeHtml(label)}}</a>`
+            : `<span class="tag">${{escapeHtml(label)}}</span>`;
+        }});
       document.getElementById("detail-sources").innerHTML = [...sourceTags, ...rowSources].join("");
     }}
 
@@ -1039,6 +1094,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
         `${{stats.stat_lines || 0}} stat rows`,
         `${{stats.league_count || 0}} leagues`,
         ...(stats.leagues || []).slice(0, 6),
+        ...(stats.source_labels || []).slice(0, 4),
         ...(stats.qualitative_flags || []),
       ];
       document.getElementById("detail-stat-evidence-tags").innerHTML =
@@ -1169,7 +1225,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       const fields = [
         ["Player", "name"],
         ["Position", "position"],
-        ["Consensus Rank", "consensus_rank"],
+        ["Reference Rank", "consensus_rank"],
         ["Board Rank", "board_rank"],
         ["Board Score", "board_score"],
         ["Team Score", "team_adjusted_score"],
@@ -1242,7 +1298,8 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
                 <h2>${{escapeHtml(row.name)}}</h2>
                 <p>${{escapeHtml(row.position)}} · ${{escapeHtml(row.primary_league)}} · ${{escapeHtml(row.primary_league_family)}}</p>
               </div>
-              <div class="rank">Board ${{escapeHtml(row.board_rank)}}<span>Consensus ${{escapeHtml(row.consensus_rank)}}</span></div>
+              <div class="rank">Board ${{escapeHtml(row.board_rank)}}
+                <span>Reference ${{escapeHtml(row.consensus_rank)}}</span></div>
             </div>
             ${{story ? `<p class="story"><strong>${{escapeHtml(story.story_role)}}:</strong> ${{escapeHtml(story.story_hook)}}</p>` : ""}}
             <div class="metrics">
@@ -1309,7 +1366,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       <div><span>Players</span><strong>${{rows.length}}</strong></div>
       <div><span>High Evidence</span><strong>${{highEvidenceCount}}</strong></div>
       <div><span>Model Higher</span><strong>${{modelHigherCount}}</strong></div>
-      <div><span>Consensus Higher</span><strong>${{consensusHigherCount}}</strong></div>
+      <div><span>Reference Higher</span><strong>${{consensusHigherCount}}</strong></div>
     </section>
     ${{playerCards}}
   </main>
@@ -1326,6 +1383,35 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
       const status = document.getElementById("status-badge");
       status.textContent = `Dataset: ${{payload.manifest.dataset_status}} · Shortlist: ${{shortlist.size}}`;
       status.className = `badge ${{payload.manifest.dataset_status === "strong" ? "badge-strong" : payload.manifest.dataset_status === "thin" ? "badge-thin" : ""}}`;
+      const presentation = payload.manifest.presentation || {{}};
+      const releaseLabel = presentation.release_label || "Historical draft-class demo";
+      const snapshot = presentation.snapshot_id || "not provided";
+      const baseline = presentation.baseline_id || "not provided";
+      const releaseBadge = document.getElementById("release-badge");
+      releaseBadge.textContent = releaseLabel;
+      releaseBadge.title = snapshot;
+      document.getElementById("release-summary").textContent =
+        `${{releaseLabel}} · Snapshot: ${{snapshot}} · Baseline: ${{baseline}}`;
+      document.getElementById("methodology-posture").textContent = [
+        presentation.data_posture || "Evidence depth describes data quantity.",
+        presentation.model_posture,
+        presentation.team_context_posture,
+      ].filter(Boolean).join(" ");
+      const scoreDefinitions = [
+        ["Reference rank", "May include actual draft positions; not an independent consensus."],
+        ["Model score", "Statistical/context signal that can depend on the reference rank."],
+        ["Board score", "Review ordering that retains reference-rank and scouting inputs."],
+        ["Team-adjusted score", "Optional organization context applied to the board score."],
+      ];
+      document.getElementById("score-definitions").innerHTML = scoreDefinitions.map(
+        ([label, copy]) =>
+          `<div class="score-definition"><strong>${{label}}:</strong> ${{copy}}</div>`
+      ).join("");
+      document.getElementById("methodology-legend").innerHTML = [
+        "High depth: at least 3 history rows or 2 leagues",
+        "Medium depth: 2 history rows",
+        "Low depth: fewer than 2 history rows",
+      ].map((label) => `<span class="tag">${{label}}</span>`).join("");
       const sources = document.getElementById("source-coverage");
       sources.innerHTML = Object.entries(payload.manifest.source_counts).map(([key, value]) => `<span class="tag">${{key}} · ${{value}}</span>`).join("");
       const featured = document.getElementById("featured-players");
@@ -1340,8 +1426,12 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
             <div>
               ${{story ? `<div class="story-role">${{story.story_role}}</div>` : ""}}
               <div style="font-size:13px; font-weight:600;">${{row.name}}</div>
-              <div style="font-size:12px; color:var(--muted);">Board ${{row.board_rank}} · Consensus ${{row.consensus_rank}} · ${{evidenceLabel(row.evidence_depth)}}</div>
-              ${{story ? `<div class="story-hook">${{story.story_hook}}</div>` : `<div class="story-hook">Consensus delta ${{row.consensus_delta}}</div>`}}
+              <div style="font-size:12px; color:var(--muted);">
+                Board ${{row.board_rank}} · Reference ${{row.consensus_rank}} ·
+                ${{evidenceLabel(row.evidence_depth)}}</div>
+              ${{story
+                ? `<div class="story-hook">${{story.story_hook}}</div>`
+                : `<div class="story-hook">Reference delta ${{row.consensus_delta}}</div>`}}
             </div>
             <button class="small featured-open" data-player-id="${{row.player_id}}">Open</button>
           </div>

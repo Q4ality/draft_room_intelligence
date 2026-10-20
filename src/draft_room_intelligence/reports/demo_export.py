@@ -169,6 +169,22 @@ DEMO_STORY_PLAYERS = [
     },
 ]
 
+SOURCE_DISPLAY_NAMES = {
+    "ahl_api": "AHL official statistics",
+    "chl": "CHL official statistics",
+    "collegehockeyinc": "College Hockey Inc. statistics",
+    "draft_slot_proxy": "Actual NHL draft position (historical outcome)",
+    "eliteprospects_pdf": "Elite Prospects Draft Guide",
+    "liiga": "Liiga official statistics",
+    "nhl_draft_api": "NHL Draft API",
+    "open-stats": "Reviewed open-stat package",
+    "swehockey": "SweHockey official statistics",
+    "ushl": "USHL official statistics",
+    "wikipedia": "Wikipedia draft record",
+    "wikipedia-career": "Wikipedia career statistics",
+    "wikipedia+wikipedia_bio": "Wikipedia player profile",
+}
+
 
 TEAM_STATUS_BY_ID = {
     "ANA": "rebuild_middle",
@@ -1162,6 +1178,7 @@ def build_player_detail(
                 "points": line.total_points,
                 "regular_season": line.regular_season,
                 "source": line.source or "unknown",
+                "source_label": source_display_label(line.source or "unknown"),
                 "source_id": line.source_id,
                 "source_url": line.source_url,
                 "goalie_minutes": line.goalie_minutes,
@@ -1180,6 +1197,7 @@ def build_player_detail(
         "sources": [
             {
                 "source": source.source,
+                "source_label": source_display_label(source.source),
                 "source_id": source.source_id,
                 "source_url": source.url,
             }
@@ -1231,6 +1249,7 @@ def build_stat_evidence(
         "stat_lines": len(lines),
         "source_count": len(sources),
         "sources": sources,
+        "source_labels": [source_display_label(source) for source in sources],
         "league_count": len(leagues),
         "leagues": leagues,
         "games": games,
@@ -1286,6 +1305,18 @@ def weighted_average(values: list[tuple[float | None, int]]) -> float:
         numerator += value * max(weight, 1)
         denominator += max(weight, 1)
     return numerator / denominator if denominator else 0.0
+
+
+def source_display_label(source: str) -> str:
+    """Return a human-readable source label without changing source provenance."""
+    normalized = source.strip().lower()
+    if normalized in SOURCE_DISPLAY_NAMES:
+        return SOURCE_DISPLAY_NAMES[normalized]
+    if ";" in normalized:
+        return " + ".join(
+            source_display_label(part) for part in normalized.split(";") if part.strip()
+        )
+    return source.strip().replace("_", " ") or "Unknown source"
 
 
 def classify_disagreement(consensus_delta: int) -> str:
@@ -1515,6 +1546,7 @@ def build_manifest(
             "team_context": {},
             "team_contexts": [],
             "team_views": [],
+            "presentation": build_presentation_metadata(None, "empty"),
         }
 
     evidence_depth_counts: dict[str, int] = {}
@@ -1540,10 +1572,11 @@ def build_manifest(
     featured_ids = [row["player_id"] for row in featured]
     if story_players:
         featured_ids = [story["player_id"] for story in story_players]
+    dataset_status = classify_dataset_status(board_rows)
     return {
         "draft_year": prospects[0].draft_year,
         "player_count": len(prospects),
-        "dataset_status": classify_dataset_status(board_rows),
+        "dataset_status": dataset_status,
         "evidence_depth_counts": evidence_depth_counts,
         "disagreement_counts": disagreement_counts,
         "source_counts": source_counts,
@@ -1552,6 +1585,29 @@ def build_manifest(
         "team_context": build_manifest_team_contexts(team_contexts or {}, team_id),
         "team_contexts": build_manifest_team_list(team_contexts or {}),
         "team_views": build_manifest_team_views(team_contexts or {}, player_details or []),
+        "presentation": build_presentation_metadata(prospects[0].draft_year, dataset_status),
+    }
+
+
+def build_presentation_metadata(draft_year: int | None, dataset_status: str) -> dict[str, str]:
+    draft_label = f"{draft_year} NHL Draft" if draft_year else "Draft-class demo"
+    return {
+        "release_label": f"Historical {draft_label} demo",
+        "snapshot_id": "",
+        "baseline_id": "",
+        "data_posture": (
+            "Historical draft-class inputs; a reviewed snapshot has not been verified. "
+            "Evidence depth describes data quantity, not predictive confidence."
+        ),
+        "model_posture": (
+            "Decision support for review and discussion, "
+            "not a final scouting grade or outcome prediction."
+        ),
+        "team_context_posture": (
+            "Organization context is a dated proxy, "
+            "not a draft-night roster or contract/cap view."
+        ),
+        "dataset_status": dataset_status,
     }
 
 

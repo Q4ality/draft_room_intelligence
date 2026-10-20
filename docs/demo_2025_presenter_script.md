@@ -4,9 +4,9 @@
 
 Use the current strong demo build:
 
-- Site: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
-- One-page meeting brief: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/meeting_brief.pdf`
-- Printable HTML brief: `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/meeting_brief.html`
+- Site: `outputs/demo_2025_reproducible/index.html`
+- One-page meeting brief: `outputs/demo_2025_reproducible/meeting_brief.pdf`
+- Printable HTML brief: `outputs/demo_2025_reproducible/meeting_brief.html`
 - Dataset: `data/processed/draft_classes/2025/final`
 
 Current manifest snapshot:

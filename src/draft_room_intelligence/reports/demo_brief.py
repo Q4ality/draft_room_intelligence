@@ -56,6 +56,18 @@ def select_story_rows(bundle: DemoExportBundle, *, player_limit: int) -> list[di
 def render_brief_html(bundle: DemoExportBundle, stories: list[dict[str, object]]) -> str:
     draft_year = html.escape(str(bundle.manifest.get("draft_year", "Demo")))
     status = html.escape(str(bundle.manifest.get("dataset_status", "unknown")))
+    presentation = bundle.manifest.get("presentation", {})
+    release_label = html.escape(str(presentation.get("release_label", "Historical draft-class demo")))
+    snapshot_id = html.escape(str(presentation.get("snapshot_id") or "not provided"))
+    baseline_id = html.escape(str(presentation.get("baseline_id") or "not provided"))
+    model_posture = html.escape(
+        str(
+            presentation.get(
+                "model_posture",
+                "Decision support for review and discussion, not a final scouting grade or outcome prediction.",
+            )
+        )
+    )
     cards = "".join(render_html_card(item) for item in stories)
     return f"""<!doctype html>
 <html lang="en">
@@ -93,7 +105,7 @@ def render_brief_html(bundle: DemoExportBundle, stories: list[dict[str, object]]
     <div class="status">Dataset: {status} &middot; {len(bundle.board_rows)} players</div>
   </header>
   <main class="grid">{cards}</main>
-  <footer>Board score blends model, consensus, and scouting evidence. Team-adjusted score adds organization context. Source and coverage caveats remain visible in the full demo.</footer>
+  <footer><div>Release: {release_label} &middot; Snapshot: {snapshot_id}</div><div>Baseline: {baseline_id}</div><div>{model_posture} Team context is a dated proxy, not a draft-night roster or contract/cap view. Reference ranks may include actual draft positions.</div></footer>
 </body>
 </html>
 """
@@ -108,13 +120,13 @@ def render_html_card(item: dict[str, object]) -> str:
     team_fit = detail.get("team_fit", {})
     source_names = sorted(
         {
-            str(history.get("source", ""))
+            str(history.get("source_label") or history.get("source", ""))
             for history in detail.get("pre_draft_history", [])
             if history.get("source")
         }
     )
     return f"""<article>
-      <div class="head"><div><h2>{escape(row.get('name'))}</h2><div class="meta">{escape(row.get('position'))} &middot; {escape(row.get('primary_league'))} &middot; {escape(row.get('primary_league_family'))}</div></div><div class="rank">Board {escape(row.get('board_rank'))}<span>Consensus {escape(row.get('consensus_rank'))}</span></div></div>
+      <div class="head"><div><h2>{escape(row.get('name'))}</h2><div class="meta">{escape(row.get('position'))} &middot; {escape(row.get('primary_league'))} &middot; {escape(row.get('primary_league_family'))}</div></div><div class="rank">Board {escape(row.get('board_rank'))}<span>Reference {escape(row.get('consensus_rank'))}</span></div></div>
       <div class="story"><strong>{escape(story.get('story_role'))}:</strong> {escape(story.get('story_hook'))}</div>
       <div class="metrics"><div>Evidence<strong>{escape(row.get('evidence_depth'))}</strong></div><div>Board<strong>{decimal(row.get('board_score'))}</strong></div><div>Team<strong>{decimal(row.get('team_adjusted_score'))}</strong></div><div>GP<strong>{escape(evidence.get('games'))}</strong></div></div>
       <div class="line"><span class="label">Stat signal</span> {escape(stat_signal(evidence))}</div>
@@ -133,6 +145,10 @@ def write_brief_pdf(path: Path, bundle: DemoExportBundle, stories: list[dict[str
     pdf = canvas.Canvas(str(path), pagesize=(page_width, page_height))
     margin = 26
     pdf.setTitle(f"{bundle.manifest.get('draft_year', 'Demo')} Draft Meeting Brief")
+    presentation = bundle.manifest.get("presentation", {})
+    release_label = str(presentation.get("release_label", "Historical draft-class demo"))
+    snapshot_id = str(presentation.get("snapshot_id") or "not provided")
+    baseline_id = str(presentation.get("baseline_id") or "not provided")
     pdf.setFillColorRGB(0.06, 0.09, 0.16)
     pdf.setFont("Helvetica-Bold", 17)
     pdf.drawString(margin, page_height - 30, f"{bundle.manifest.get('draft_year', 'Demo')} Guided Draft Meeting Brief")
@@ -145,7 +161,7 @@ def write_brief_pdf(path: Path, bundle: DemoExportBundle, stories: list[dict[str
 
     gap = 8
     card_width = (page_width - (margin * 2) - gap) / 2
-    card_height = 164
+    card_height = 160
     top = page_height - 60
     for index, item in enumerate(stories[:6]):
         column = index % 2
@@ -156,7 +172,13 @@ def write_brief_pdf(path: Path, bundle: DemoExportBundle, stories: list[dict[str
 
     pdf.setFillColorRGB(0.28, 0.35, 0.43)
     pdf.setFont("Helvetica", 6.5)
-    pdf.drawString(margin, 12, "Board score blends model, consensus, and scouting evidence. Team-adjusted score adds organization context.")
+    pdf.drawString(margin, 28, f"Release: {release_label} · Snapshot: {snapshot_id}")
+    pdf.drawString(margin, 20, f"Baseline: {baseline_id}")
+    pdf.drawString(
+        margin,
+        12,
+        "Review aid, not a final scouting grade or outcome prediction. Team context is a dated proxy. Reference ranks may include actual draft positions.",
+    )
     pdf.showPage()
     pdf.save()
 
@@ -176,7 +198,7 @@ def draw_pdf_card(pdf, item, x, y, width, height, string_width) -> None:
     pdf.setFont("Helvetica-Bold", 11)
     pdf.drawString(x + 8, cursor, str(row.get("name", "")))
     pdf.setFont("Helvetica-Bold", 8)
-    rank = f"Board {row.get('board_rank', '')} / Consensus {row.get('consensus_rank', '')}"
+    rank = f"Board {row.get('board_rank', '')} / Reference {row.get('consensus_rank', '')}"
     pdf.drawRightString(x + width - 8, cursor, rank)
     cursor -= 12
     pdf.setFont("Helvetica", 7)

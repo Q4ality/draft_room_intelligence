@@ -2,9 +2,9 @@
 
 ## Current Demo Package
 
-Open the current demo shell from:
+Build and open the reviewed reproducible demo from:
 
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/index.html`
+- `outputs/demo_2025_reproducible/index.html`
 
 Current normalized dataset:
 
@@ -12,33 +12,35 @@ Current normalized dataset:
 
 Current export files:
 
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/board.csv`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/compare.csv`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/players.json`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/manifest.json`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/data_gaps/summary.md`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/modeling_sanity/summary.md`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity/summary.md`
-- `outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance/summary.md`
+- `outputs/demo_2025_reproducible/board.csv`
+- `outputs/demo_2025_reproducible/compare.csv`
+- `outputs/demo_2025_reproducible/players.json`
+- `outputs/demo_2025_reproducible/manifest.json`
+- `outputs/demo_2025_reproducible/reports/data_gaps/summary.md`
+- `outputs/demo_2025_reproducible/reports/modeling_sanity/summary.md`
+- `outputs/demo_2025_reproducible/reports/demo_sanity/summary.md`
+- `outputs/demo_2025_reproducible/reports/demo_acceptance/summary.md`
 
 Rebuild the full local package with:
 
 ```bash
-PYTHONPATH=src python3 -m draft_room_intelligence.cli build-demo-readiness \
-  data/processed/draft_classes/2025/final \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  --team-depth-csv outputs/org_team_depth_pre_2025_26_proxy_with_ahl/depth.csv \
-  --gap-top-n 35 \
-  --movement-top-n 40
+PYTHONPATH=src python -m draft_room_intelligence.cli build-demo-year 2025
 ```
 
 Equivalent Make target:
 
 ```bash
-make demo-2025-local-readiness
+make demo-2025-reproducible
 ```
 
 ## What We Have
+
+Release metadata distinguishes checksum-verified snapshot builds from ad-hoc historical exports.
+Snapshot and baseline identities are displayed separately. UI reference ranks retain the legacy
+`consensus_rank` field for compatibility, but can include actual draft positions; they are not an
+independent consensus or a valid forecast benchmark. Source labels explicitly identify these
+historical outcomes. Evidence depth describes history-row and league counts, not predictive
+confidence or independent corroboration.
 
 - Full 2025 drafted-player board: 224 players.
 - Board, detail, compare, shortlist, shortlist CSV export, and one-page shortlist summary HTML export UX.
@@ -141,8 +143,8 @@ The current prioritized data-gap report is tracked in [demo_2025_gap_report.md](
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/data_gaps \
+  outputs/demo_2025_reproducible \
+  outputs/demo_2025_reproducible/reports/data_gaps \
   --top-n 35
 ```
 
@@ -150,8 +152,8 @@ The current board-vs-consensus sanity report is tracked in [demo_2025_modeling_s
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-modeling \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/modeling_sanity \
+  outputs/demo_2025_reproducible \
+  outputs/demo_2025_reproducible/reports/modeling_sanity \
   --top-n 40
 ```
 
@@ -159,14 +161,14 @@ The focused demo sanity report is rebuilt by `build-demo-readiness`, or independ
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-sanity \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_sanity
+  outputs/demo_2025_reproducible \
+  outputs/demo_2025_reproducible/reports/demo_sanity
 ```
 
 The business-demo acceptance gate is rebuilt by `build-demo-readiness`, or independently with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-acceptance \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf \
-  outputs/demo_2025_openstats_russian_nordic_cleanup_ep_pdf/reports/demo_acceptance
+  outputs/demo_2025_reproducible \
+  outputs/demo_2025_reproducible/reports/demo_acceptance
 ```
