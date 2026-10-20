@@ -7,7 +7,7 @@ Use the current strong demo build:
 - Site: `outputs/demo_2025_reproducible/index.html`
 - One-page meeting brief: `outputs/demo_2025_reproducible/meeting_brief.pdf`
 - Printable HTML brief: `outputs/demo_2025_reproducible/meeting_brief.html`
-- Dataset: `data/processed/draft_classes/2025/final`
+- Dataset: `data/demo_snapshots/2025/final`
 
 Current manifest snapshot:
 
@@ -15,9 +15,11 @@ Current manifest snapshot:
 - Dataset status: `strong`
 - Evidence depth: 178 high, 30 medium, 16 low
 - Canonical baseline: 224 players and 846 pre-draft season-stat rows
-- Disagreement buckets: 76 aligned, 21 model higher, 127 consensus higher
+- Disagreement buckets: 76 aligned, 21 model higher, 127 reference higher
 - Source coverage: Wikipedia draft rows, draft-slot proxy, CHL, USHL, Wikipedia career rows, and curated open-stats packs
-- Score posture: `model_score` remains production-sensitive, `board_score` blends model plus consensus and EP evidence, and `team_adjusted_score` adds organization fit.
+- Score posture: model and board scores retain historical reference-rank and scouting inputs;
+  `team_adjusted_score` adds the dated organization-context proxy. The reference can include
+  actual draft positions and is not an independent consensus or forecast benchmark.
 
 ## Business Narrative
 
@@ -25,7 +27,9 @@ Position the product as draft-room preparation software, not as a black-box draf
 
 Demo line:
 
-> This board turns fragmented public pre-draft histories into an explainable discussion workflow. We can see where the model agrees with consensus, where it disagrees, and whether the evidence behind each player is strong enough for a serious draft-room conversation.
+> This historical board connects player evidence, reference ranks, and organization context.
+> It demonstrates a review workflow. Reference ranks can contain actual draft positions, so
+> agreement or disagreement with them is not evidence of predictive accuracy.
 
 ## Seven-Minute Flow
 
@@ -46,17 +50,21 @@ The readiness build regenerates both meeting-brief formats from the same bundle 
 
 | Player | Why show him | Presenter note |
 | --- | --- | --- |
-| Michael Misa | Trust anchor at top of board | Board rank 2, consensus rank 2, high-evidence OHL scorer with multiple source rows. |
-| Matthew Schaefer | Elite-defense calibration story | Board rank 3, consensus rank 1. Use him to explain why `model_score` can be lower for a 19-game sample while `board_score` stays top-tier. |
-| Cole Reschny | CHL forward production story | Consensus rank 18, board rank 16. Shows league-adjusted production and playoff signal without overselling model independence. |
-| Alexei Medvedev | Goalie evidence story | Consensus rank 47, board rank 49. Shows goalie-specific metrics and multi-row pre-draft history. |
-| Charlie Cerrato | Model-higher NCAA/USHL path | Six history rows across USHL, USNTDP, and NCAA. Good example of why multi-row pre-draft histories matter. |
-| Anton Frondell | Consensus-higher adult-league case | Consensus rank 3, board rank 15. Use as a cautious case: strong adult exposure, but the board does not simply copy consensus. |
-| Max Psenicka | Consensus-higher defense case | Consensus rank 31, board rank 33. Shows how playoff/adult exposure can be visible while the board still flags disagreement. |
-| Alexander Zharovsky | Russian multi-league credibility case | Carries MHL production plus KHL playoff exposure. This directly addresses the earlier demo credibility gap. |
-| Eric Nilson | Nordic multi-row coverage case | High evidence, Swedish junior and playoff rows. Shows the new Nordic enrichment pass. |
-| Roman Luttsev | Late-round model-favorite case | Consensus rank 206, board rank 159. Useful for the shortlist workflow and "late-round target" tag. |
-| Vojtech Cihar | Adult Czech exposure case | High evidence with full adult-league exposure and playoff row. Good example of cross-league context. |
+| Michael Misa | Familiar OHL example | Board 2, reference 2; aligned. Inspect the history rows and their sources. |
+| Matthew Schaefer | Defense calibration | Board 3, reference 1; aligned. Explain the retained reference/scouting inputs. |
+| Cole Reschny | CHL production | Board 15, reference 18; aligned. Compare regular-season and playoff evidence. |
+| Alexei Medvedev | Goalie evidence | Board 50, reference 47; aligned. Inspect goalie-specific metrics. |
+| Charlie Cerrato | NCAA/USHL path | Board 53, reference 49; aligned. Inspect the separate competition rows. |
+| Anton Frondell | Adult-league context | Board 10, reference 3; aligned under the 8-slot bucket threshold. |
+| Max Psenicka | Defense evidence | Board 33, reference 31; aligned. Inspect adult/playoff context. |
+| Alexander Zharovsky | Russian multi-league evidence | Board 36, reference 34; aligned. Inspect MHL and KHL playoff rows. |
+| Eric Nilson | Nordic coverage | Board 59, reference 45; reference higher. Use for a bucket-filter example. |
+| Roman Luttsev | Late-round historical difference | Board 187, reference 206; model higher. Demonstrate shortlisting, not predictive lift. |
+| Vojtech Cihar | Adult Czech exposure | Board 82, reference 59; reference higher. Compare competition context. |
+
+These values come from the reproducible package. Rebuild before presenting; verify them in
+`manifest.json` rather than treating this table as a separate source of truth. The six primary
+stories are all aligned; use the backup cases for a material board-reference difference.
 
 ## Talk Track By Screen
 
@@ -64,7 +72,8 @@ The readiness build regenerates both meeting-brief formats from the same bundle 
 
 Say:
 
-> The board is not just a rank list. It is a triage surface. The rank is useful, but the key business value is the combination of model-vs-consensus disagreement and evidence depth.
+> Use the board to select evidence for review. Its reference ranks include historical outcomes,
+> while evidence depth describes the quantity of available rows and leagues.
 
 Point out:
 
@@ -110,7 +119,7 @@ Say:
 Suggested tags:
 
 - `model favorite`
-- `consensus favorite`
+- `reference higher`
 - `late-round target`
 - `review`
 
@@ -121,7 +130,7 @@ Use these proactively:
 - The 2025 class is a recent-class showcase, not an outcome-validated predictive result.
 - Evidence labels are part of the product: low evidence means "needs more source coverage", not "bad player".
 - The strongest current coverage is CHL, USHL/NCAA samples, curated Russian/Nordic open stats, and selected Wikipedia career rows.
-- Remaining data work should prioritize the 27 low-evidence players by demo importance and source availability.
+- Remaining data work should prioritize the 16 low-depth players by demo importance and source availability.
 
 ## Demo Success Criteria
 

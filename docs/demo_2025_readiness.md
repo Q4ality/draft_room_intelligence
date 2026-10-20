@@ -8,7 +8,7 @@ Build and open the reviewed reproducible demo from:
 
 Current normalized dataset:
 
-- `data/processed/draft_classes/2025/final`
+- `data/demo_snapshots/2025/final`
 
 Current export files:
 
@@ -45,7 +45,7 @@ confidence or independent corroboration.
 - Full 2025 drafted-player board: 224 players.
 - Board, detail, compare, shortlist, shortlist CSV export, and one-page shortlist summary HTML export UX.
 - Prospect Stats Evidence in player detail, including goalie-specific SV%/GAA/SO display.
-- Public consensus slot proxy and model-vs-consensus disagreement buckets.
+- Historical reference ranks (including actual draft-position proxies) and board-reference buckets.
 - League-adjusted production, role group, age, size, handedness, adult/playoff exposure, sample-size-weighted adult/playoff evidence, and evidence-depth fields in the demo export.
 - Team-fit analytics now separate raw U25 depth into NHL-ready U25 and AHL/prospect U25 pipeline signals, so franchise-fit explanations are less likely to overstate need when a system already has young players in the same role.
 - NHL membership now comes from official 2024-25 club-stat participants rather than the current roster endpoint. Cross-organization NHL/AHL collisions are assigned using each player's latest official game date; unresolved collisions are retained and labeled low-confidence instead of silently favoring one league.
@@ -58,8 +58,8 @@ Latest manifest snapshot:
 
 - `dataset_status`: `strong`
 - evidence depth: 16 low, 30 medium, 178 high
-- disagreement buckets: 76 aligned, 127 consensus higher, 21 model higher
-- current board sanity: top-50 overlap with consensus is 50 of 50, with Matthew Schaefer top-tier after role-aware calibration.
+- disagreement buckets: 76 aligned, 127 reference higher, 21 model higher
+- current board sanity: top-50 overlap with the reference is 50 of 50; this is not predictive lift.
 - demo acceptance: rebuild the generated report and require every check to pass against the canonical baseline; it covers full board/detail coverage, Prospect Stats Evidence, goalie evidence visibility, and neutral Production history labeling.
 - team-fit payloads now include same-position NHL-ready U25, AHL U25, and non-NHL U25 pipeline counts in team options and team-view role gaps.
 
@@ -68,7 +68,7 @@ Recent enrichment improvement:
 - Russian, Nordic, cleanup open-stat packs, EP-PDF evidence, CHL history, and cache-first NCAA/USHL history now provide 846 reconciled stat lines.
 - `baseline.json` fingerprints the canonical normalized inputs and records the authoritative player, stat-line, evidence, and board-sanity metrics used by every readiness report.
 - The upstream range-ETL run report is not the demo baseline; use `baseline.json` when validating business-facing demo counts.
-- High-evidence players moved to 138 in the current EP-PDF package.
+- The canonical reproducible package contains 178 high-depth players.
 - Examples: Alexei Medvedev, Max Psenicka, Shane Vansaghi, Charlie Cerrato, Matthew Gard, Nathan Behm, Vojtech Cihar, Hayden Paupanekis, Tommy Lafreniere, Eric Nilson, Milton Gastrin, Roman Luttsev, and Alexander Zharovsky now carry richer histories.
 - CHL true-playoff enrichment now adds regular and playoff rows separately instead of using playoff-team regular-season pages.
 - CHL goalie exposure is now loaded from official CHL goalie tables.
@@ -83,7 +83,7 @@ This is ready for a workflow demo if we position it honestly:
 
 - The product can ingest a recent draft class.
 - It can normalize cross-league evidence into a draft board.
-- It can surface players where model evidence disagrees with consensus.
+- It can surface differences between the board and its historical reference ranks.
 - It can open a player detail view that explains the ranking and shows data confidence.
 - It can support a shortlist/export loop for draft-room review.
 
@@ -109,7 +109,7 @@ The main missing pieces are data coverage, not the demo shell.
 
 3. Per-row source provenance in the UI
    - The normalized files retain source-specific match outputs.
-   - The player-detail history still needs cleaner row-level source labels instead of broad mixed-source display.
+   - Player-detail histories now display readable labels and preserve raw sources and URLs.
 
 4. Hand-checked showcase set
    - A first presenter set is now documented in [demo_2025_presenter_script.md](demo_2025_presenter_script.md).
@@ -148,7 +148,7 @@ PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-gaps \
   --top-n 35
 ```
 
-The current board-vs-consensus sanity report is tracked in [demo_2025_modeling_sanity.md](demo_2025_modeling_sanity.md). It is rebuilt by `build-demo-readiness`, or independently with:
+The historical board-reference sanity report retains legacy `consensus_*` field names for compatibility. It is rebuilt by `build-demo-readiness`, or independently with:
 
 ```bash
 PYTHONPATH=src python3 -m draft_room_intelligence.cli report-demo-modeling \

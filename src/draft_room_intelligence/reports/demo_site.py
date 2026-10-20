@@ -822,7 +822,7 @@ def render_demo_site(bundle: DemoExportBundle) -> str:
 
     function tagClass(label) {{
       if (label === "Model Higher") return "tag model";
-      if (label === "Consensus Higher" || label === "Low Evidence") return "tag warn";
+      if (label === "Reference Higher" || label === "Low Evidence") return "tag warn";
       if (label === "Adult Sample" || label === "Playoff Sample" || label === "EP Elite Tools" || label === "Strong Team Fit") return "tag model";
       if (label === "Adult Exposure") return "tag warn";
       return "tag";

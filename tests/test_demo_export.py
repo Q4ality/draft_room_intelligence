@@ -74,12 +74,17 @@ def test_build_demo_export_bundle_returns_board_and_player_payloads():
     assert bundle.manifest["presentation"]["snapshot_id"] == ""
     assert "has not been verified" in bundle.manifest["presentation"]["data_posture"]
     assert "not a final scouting grade" in bundle.manifest["presentation"]["model_posture"]
+    for row in bundle.board_rows:
+        assert "consensus" not in row["short_reason"].lower()
+        assert "consensus" not in row["risk_note"].lower()
+        assert "Consensus Higher" not in row["badges"]
 
 
 def test_source_display_label_keeps_provenance_readable():
     assert source_display_label("eliteprospects_pdf") == "Elite Prospects Draft Guide"
     assert source_display_label("wikipedia-career") == "Wikipedia career statistics"
     assert source_display_label("custom_source") == "custom source"
+    assert source_display_label("open-stats") == "Open-stat CSV import"
     assert source_display_label("draft_slot_proxy") == (
         "Actual NHL draft position (historical outcome)"
     )

@@ -120,12 +120,12 @@ DEMO_STORY_PLAYERS = [
     {
         "name": "Matthew Schaefer",
         "story_role": "Elite defense calibration",
-        "story_hook": "Consensus and scouting evidence protect a top defense profile with a short sample.",
+        "story_hook": "Reference rank and scouting inputs support a short-sample defense profile.",
     },
     {
         "name": "Cole Reschny",
-        "story_role": "Model-favored CHL forward",
-        "story_hook": "Useful model-higher case with playoff context.",
+        "story_role": "CHL forward production",
+        "story_hook": "Compare regular-season and playoff evidence within a CHL profile.",
     },
     {
         "name": "Alexei Medvedev",
@@ -139,13 +139,13 @@ DEMO_STORY_PLAYERS = [
     },
     {
         "name": "Anton Frondell",
-        "story_role": "Adult-league caution",
-        "story_hook": "Consensus-higher case with adult exposure.",
+        "story_role": "Adult-league context",
+        "story_hook": "Compare adult exposure with the historical reference rank.",
     },
     {
         "name": "Max Psenicka",
-        "story_role": "Consensus-higher defense",
-        "story_hook": "High-evidence defense profile where the board is cautious.",
+        "story_role": "Defense evidence",
+        "story_hook": "Inspect the sources and competition context for a defense profile.",
     },
     {
         "name": "Alexander Zharovsky",
@@ -160,7 +160,7 @@ DEMO_STORY_PLAYERS = [
     {
         "name": "Roman Luttsev",
         "story_role": "Late-round model favorite",
-        "story_hook": "Shortlist story where model evidence beats consensus.",
+        "story_hook": "Historical board-reference difference for a shortlist discussion.",
     },
     {
         "name": "Vojtech Cihar",
@@ -177,7 +177,7 @@ SOURCE_DISPLAY_NAMES = {
     "eliteprospects_pdf": "Elite Prospects Draft Guide",
     "liiga": "Liiga official statistics",
     "nhl_draft_api": "NHL Draft API",
-    "open-stats": "Reviewed open-stat package",
+    "open-stats": "Open-stat CSV import",
     "swehockey": "SweHockey official statistics",
     "ushl": "USHL official statistics",
     "wikipedia": "Wikipedia draft record",
@@ -1347,7 +1347,7 @@ def build_badges(
     if disagreement_bucket == "model_higher":
         badges.append("Model Higher")
     elif disagreement_bucket == "consensus_higher":
-        badges.append("Consensus Higher")
+        badges.append("Reference Higher")
     if tool_score >= 0.75:
         badges.append("EP Elite Tools")
     elif tool_score > 0:
@@ -1399,9 +1399,9 @@ def build_short_reason(
     if int(feature["pre_draft_league_count"]) > 1:
         reasons.append("Multiple league contexts")
     if disagreement_bucket == "model_higher":
-        reasons.append("Review candidate above consensus")
+        reasons.append("Review candidate above the reference rank")
     if disagreement_bucket == "consensus_higher":
-        reasons.append("Consensus is more aggressive")
+        reasons.append("Reference rank is higher")
     return ", ".join(reasons[:2]) or "Comparable profile; use detail view for context."
 
 
@@ -1423,7 +1423,7 @@ def build_risk_note(feature: dict[str, str], consensus_delta: int) -> str:
     ):
         risks.append("Goalie metrics not yet captured")
     if abs(consensus_delta) >= 10:
-        risks.append("Board-consensus gap needs review")
+        risks.append("Board-reference gap needs review")
     return ", ".join(risks[:2]) or "No major coverage flags in current sample."
 
 
@@ -1467,7 +1467,7 @@ def build_why_high(
         )
     if not points:
         points.append(
-            "Profile remains in range across consensus, role, and league-context signals."
+            "Profile remains in range across reference, role, and league-context signals."
         )
     return points[:3]
 
@@ -1512,7 +1512,7 @@ def build_risk_flags(
         flags.append("Goalie-specific performance fields are not yet populated for this player.")
     if abs(int(board_row["consensus_delta"])) >= 10:
         flags.append(
-            "Board rank and public consensus differ enough to warrant a scouting-room review."
+            "Board and reference ranks differ enough to warrant a scouting-room review."
         )
     if not flags:
         flags.append("No major coverage or translation flags in the current dataset.")

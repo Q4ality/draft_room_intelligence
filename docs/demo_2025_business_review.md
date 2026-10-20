@@ -28,7 +28,7 @@ Output:
 - Modeling sanity report: `outputs/demo_2025_reproducible/reports/modeling_sanity/summary.md`
 - Demo sanity report: `outputs/demo_2025_reproducible/reports/demo_sanity/summary.md`
 
-Browser smoke check:
+Previously recorded browser smoke check (repeat on the current build before presenting):
 
 - page title loads as `Draft Room Intelligence Demo`
 - 224 board rows render
@@ -42,39 +42,44 @@ Browser smoke check:
 ## Ranking Explanation
 
 - `model_score` remains production/stat-sensitive. It can be lower for shortened samples, goalies, or defense profiles whose value is not fully captured by point production.
-- `board_score` blends model output with consensus rank, Elite Prospects guide evidence, and role-aware calibration. This is the primary demo board order.
+- `board_score` blends model output with reference rank, Elite Prospects guide evidence, and role-aware calibration. The legacy `consensus_rank` field can include actual draft positions; it is not an independent consensus or predictive benchmark.
 - `team_adjusted_score` adds roster-fit context for the drafted or selected NHL organization.
 - Team-fit context now separates NHL-ready U25 players from AHL/prospect U25 pipeline depth before scoring and explaining organizational fit.
-- The current demo intentionally protects elite-consensus defense and goalie profiles from being buried behind scoring forwards. Matthew Schaefer is the clearest example: his pure model score is lower because the captured sample is only 19 games, but his board rank remains top-tier because consensus, EP evidence, role rank, and NYI team fit all support that.
+- Reference and scouting inputs influence the ordering of defense and goalie profiles as well as forwards. Matthew Schaefer remains board rank 3; this is a historical calibration example, not evidence of an independent forecast.
 
 ## Strong Demo Stories
 
 | Story | Player | Why it works |
 | --- | --- | --- |
-| Trust anchor | Michael Misa | Board rank 2, consensus 2, high evidence and familiar OHL production. |
-| Elite defense calibration | Matthew Schaefer | Board rank 3 despite a lower pure model score; demonstrates consensus, EP evidence, and role-aware protection. |
-| Model-favored CHL forward | Cole Reschny | Board rank 16 vs consensus 18, with high production and playoff context. |
-| Goalie-specific signal | Alexei Medvedev | Board rank 49 vs consensus 47, goalie metrics, multi-league history, and source-visible evidence. |
-| Multi-row US path | Charlie Cerrato | Six rows across USHL/USNTDP/NCAA, high evidence, model-higher discussion case. |
-| Adult-league caution | Anton Frondell | Consensus rank 3 vs board rank 15, high evidence, adult exposure, clear review flag. |
-| Consensus-higher defense | Max Psenicka | High evidence, adult/playoff exposure, but board remains more cautious than consensus. |
-| Russian credibility fix | Alexander Zharovsky | MHL production plus KHL playoff exposure; directly addresses prior data credibility issue. |
-| Nordic coverage | Eric Nilson | High evidence with Swedish junior, adult, and playoff context. |
-| Late-round model favorite | Roman Luttsev | Board rank 159 vs consensus 206, high evidence, useful shortlist story. |
-| Adult Czech exposure | Vojtech Cihar | Full adult-league exposure and playoff row; good cross-league translation example. |
+| Familiar OHL example | Michael Misa | Board 2, reference 2; aligned, high depth. |
+| Defense calibration | Matthew Schaefer | Board 3, reference 1; aligned. Explain reference/scouting dependence. |
+| CHL forward production | Cole Reschny | Board 15, reference 18; aligned. Inspect playoff context. |
+| Goalie-specific evidence | Alexei Medvedev | Board 50, reference 47; aligned. Inspect goalie metrics and sources. |
+| Multi-row US path | Charlie Cerrato | Board 53, reference 49; aligned. Inspect separate competition rows. |
+| Adult-league context | Anton Frondell | Board 10, reference 3; aligned under the 8-slot threshold. |
+| Defense evidence | Max Psenicka | Board 33, reference 31; aligned. Inspect adult/playoff evidence. |
+| Russian multi-league evidence | Alexander Zharovsky | Board 36, reference 34; aligned. Inspect MHL/KHL sources. |
+| Nordic coverage | Eric Nilson | Board 59, reference 45; reference higher. |
+| Late-round historical difference | Roman Luttsev | Board 187, reference 206; model higher. Useful for shortlisting. |
+| Adult Czech exposure | Vojtech Cihar | Board 82, reference 59; reference higher. |
+
+Rebuild and verify these values in the manifest before presenting. All six primary stories are
+aligned; use the backup cases to demonstrate a material reference difference.
 
 ## Use With Care
 
 - Michael Misa still has a `No adult-league sample` review flag. That is normal for a CHL player, but say it as a translation note, not a player concern.
 - Roman Luttsev is a useful late-round target story, but his current sample has no playoff row captured.
-- Pyotr Andreyanov is a good goalie comparison option: 94 GP, .936 SV%, 2.19 GAA, 7 SO. He should still be framed as a goalie-evidence story, not as a finished outcome forecast.
+- Pyotr Andreyanov is a goalie comparison option. Inspect the current role-specific evidence in the generated package before quoting any aggregate statistic; this is not an outcome forecast.
 - Low-evidence movement cases should not be used as confident recommendations.
 
 ## Business Narrative
 
 Recommended opening:
 
-> This is a board-meeting prep tool. It does not claim to replace scouts or predict the 2025 NHL outcome today. It turns fragmented public pre-draft information into a structured board, highlights where consensus and model evidence disagree, and makes every recommendation inspectable through source rows and coverage flags.
+> This historical board supports review meetings through source-linked player evidence and
+> comparisons. Reference ranks can include actual draft outcomes, so this demonstrates a
+> workflow rather than independent predictive performance.
 
 Recommended close:
 
@@ -86,8 +91,8 @@ Recommended close:
 2. Show full-class coverage: 224 players.
 3. Open Michael Misa as a trust anchor.
 4. Filter or sort to model-higher cases.
-5. Open Cole Reschny or Charlie Cerrato.
-6. Open Anton Frondell or Max Psenicka as a consensus-higher/caution case.
+5. Open Roman Luttsev for a model-higher historical difference; Cole Reschny and Charlie Cerrato are aligned evidence examples.
+6. Open Eric Nilson or Vojtech Cihar for a reference-higher example.
 7. Open Matthew Schaefer to explain the three-score ranking model.
 8. Open Alexei Medvedev or Pyotr Andreyanov for goalie metrics.
 9. Open Alexander Zharovsky or Eric Nilson for non-CHL credibility.
@@ -99,15 +104,17 @@ Recommended close:
 
 - Evidence depth: 178 high, 30 medium, 16 low
 - Canonical baseline: 224 players and 846 pre-draft season-stat rows; verify the current fingerprint and board metrics in the generated `baseline.json`.
-- Disagreement buckets: 76 aligned, 21 model higher, 127 consensus higher
-- Average board-vs-consensus movement: 14.3 slots
+- Disagreement buckets: 76 aligned, 21 model higher, 127 reference higher
+- Average board-reference movement: 14.3 slots
 - Players moved 10+ slots: 136
 - 10+ slot moves with high/medium evidence: 122
-- Top 50 overlap with consensus: 50 of 50
+- Top 50 overlap with the historical reference: 50 of 50
 
 Interpretation:
 
-The board is now more consensus-anchored at the top while still surfacing evidence and team-fit differences in player detail. That is the safer posture for a recent-class business demo: the system explains disagreements without pretending to have outcome validation for 2025.
+The board retains reference inputs, including historical outcomes. Agreement with that reference
+must not be interpreted as predictive validation. Evidence and team-context views demonstrate
+the review workflow and retain their stated limitations.
 
 ## Remaining External-Demo Risks
 
@@ -122,5 +129,5 @@ The board is now more consensus-anchored at the top while still surfacing eviden
 1. Systematize ranking calibration with tests instead of demo-only weights.
 2. Run one targeted data pass against full 2026 coverage and the highest-priority European/NCAA gaps.
 3. Advance the official 2024-25 season-participation view to a point-in-time draft-night rights snapshot and stage audited contract/cap coverage.
-4. Add a compact "demo mode" preset that preloads the recommended story players.
-5. Add a one-page export/PDF summary for the shortlist.
+4. Keep the guided-story preset and its presenter notes synchronized with the generated manifest.
+5. Keep the existing one-page HTML/PDF brief and its provenance checks in the release validation.
